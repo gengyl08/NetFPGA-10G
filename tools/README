@@ -1,0 +1,5 @@
+The tools/ folder is intended to house tools for the NetFPGA-10G platform. These tools should NOT be specific to a particular application. Application specific tools go in that application's sw/ directory. 
+
+An example of a tool that would go here would be one for programming the 10G board over PCIe.
+
+I've made here a standard bin/ src/ scripts/ ... layout, predicting that the number of tools will be small and easily managed. We can just as easily use separate directories for each tool or group of tools if that is more fitting.
