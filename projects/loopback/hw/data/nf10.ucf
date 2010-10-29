@@ -1,0 +1,49 @@
+#
+# pin constraints
+#
+
+NET RESET             LOC = AL24  |  IOSTANDARD=LVCMOS33  | PULLUP | TIG;
+NET RS232_Uart_1_sin  LOC = BB23  |  IOSTANDARD=LVCMOS33;
+NET RS232_Uart_1_sout LOC = BB21  |  IOSTANDARD=LVCMOS33;
+NET CLK               LOC = AN25  |  IOSTANDARD=LVCMOS33;
+
+NET MDC               LOC = AK23   | IOSTANDARD = LVCMOS33;
+NET MDIO              LOC = AL20   | IOSTANDARD = LVCMOS33;
+NET PHY_RST_N         LOC = AR20   | IOSTANDARD = LVCMOS33  | PULLUP;       # external pullup
+
+#
+# additional constraints
+#
+
+NET CLK TNM_NET = sys_clk_pin;
+TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100 MHz;
+
+# GTX PLACEMENT #########################################################
+# XAUI 0
+INST nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y6;
+INST nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y7;
+# XAUI 1
+INST nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y8;
+INST nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y9;
+# XAUI 2
+INST nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y10;
+INST nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y11;
+# XAUI 3
+INST nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/NO_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X0Y11;
+INST nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/NO_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X0Y10;
+
+# refclk for XAUI A & B & C
+NET "refclk_ABC_p"  LOC = "C4" ;
+NET "refclk_ABC_n"  LOC = "C3" ;
+
+# refclk for XAUI D
+NET "refclk_D_p"  LOC = "D27" ;
+NET "refclk_D_n"  LOC = "C27" ;
+
+
+# TIMING ###################################################################
+NET "*/txoutclk" TNM_NET="clk156_top";
+TIMESPEC "TS_clk156_top" = PERIOD "clk156_top" 156.25 MHz HIGH 50 %;
+
+NET */xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+TIMESPEC TS_clk156_rec = PERIOD clk156_rec 156.25MHz;

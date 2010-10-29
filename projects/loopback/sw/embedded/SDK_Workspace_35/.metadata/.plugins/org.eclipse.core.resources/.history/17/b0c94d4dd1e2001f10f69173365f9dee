@@ -1,0 +1,56 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../microblaze_0/libsrc/standalone_v3_00_a/src/profile/_profile_clean.c \
+../microblaze_0/libsrc/standalone_v3_00_a/src/profile/_profile_init.c \
+../microblaze_0/libsrc/standalone_v3_00_a/src/profile/_profile_timer_hw.c \
+../microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_cg.c \
+../microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_hist.c 
+
+S_UPPER_SRCS += \
+../microblaze_0/libsrc/standalone_v3_00_a/src/profile/dummy.S \
+../microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_mcount_mb.S \
+../microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_mcount_ppc.S 
+
+OBJS += \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/_profile_clean.o \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/_profile_init.o \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/_profile_timer_hw.o \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/dummy.o \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_cg.o \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_hist.o \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_mcount_mb.o \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_mcount_ppc.o 
+
+C_DEPS += \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/_profile_clean.d \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/_profile_init.d \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/_profile_timer_hw.d \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_cg.d \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_hist.d 
+
+S_UPPER_DEPS += \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/dummy.d \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_mcount_mb.d \
+./microblaze_0/libsrc/standalone_v3_00_a/src/profile/profile_mcount_ppc.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+microblaze_0/libsrc/standalone_v3_00_a/src/profile/%.o: ../microblaze_0/libsrc/standalone_v3_00_a/src/profile/%.c
+	@echo 'Building file: $<'
+	@echo 'Invoking: MicroBlaze gcc compiler'
+	mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../nf10_bsp/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v8.00.a -mxl-soft-mul -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+microblaze_0/libsrc/standalone_v3_00_a/src/profile/%.o: ../microblaze_0/libsrc/standalone_v3_00_a/src/profile/%.S
+	@echo 'Building file: $<'
+	@echo 'Invoking: MicroBlaze gcc compiler'
+	mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../nf10_bsp/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v8.00.a -mxl-soft-mul -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+
