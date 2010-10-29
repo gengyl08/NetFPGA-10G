@@ -2,6 +2,7 @@
 XmpVersion: 12.3
 VerMgmt: 12.3
 IntStyle: default
+ModuleSearchPath: ../../../lib/hw/
 MHS File: nf10.mhs
 MSS File: system.mss
 Architecture: virtex5
@@ -13,13 +14,13 @@ UserCmd1Type: 0
 UserCmd2: 
 UserCmd2Type: 0
 GenSimTB: 1
-SdkExportBmmBit: 1
-SdkExportDir: SDK/SDK_Export
+SdkExportBmmBit: 0
+SdkExportDir: ../sw/embedded/SDK_Export
 InsertNoPads: 0
 WarnForEAArch: 1
 HdlLang: Verilog
 SimModel: BEHAVIORAL
-UserMakeFile: nf10.make_v5txt
+UserMakeFile: Makefile
 UcfFile: data/nf10.ucf
 EnableParTimingError: 1
 ShowLicenseDialog: 1

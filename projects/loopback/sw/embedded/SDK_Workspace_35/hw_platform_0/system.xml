@@ -1,7 +1,7 @@
 
-<EDKSYSTEM EDKVERSION="12.3" EDWVERSION="1.2" TIMESTAMP="Fri Oct 29 04:29:21 2010">
+<EDKSYSTEM EDKVERSION="12.3" EDWVERSION="1.2" TIMESTAMP="Fri Oct 29 09:01:02 2010">
 
-  <SYSTEMINFO ARCH="virtex5" DEVICE="xc5vtx240t" PACKAGE="ff1759" PART="xc5vtx240tff1759-2" SOURCE="/hpn/home/hyzeng/sandbox/xps/nf10.xmp" SPEEDGRADE="-2"/>
+  <SYSTEMINFO ARCH="virtex5" DEVICE="xc5vtx240t" PACKAGE="ff1759" PART="xc5vtx240tff1759-2" SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/nf10.xmp" SPEEDGRADE="-2"/>
 
   <EXTERNALPORTS>
     <PORT DIR="I" MHS_INDEX="0" NAME="RESET" RSTPOLARITY="0" SIGIS="RST" SIGNAME="RESET"/>
@@ -86,9 +86,9 @@
       <DESCRIPTION TYPE="SHORT">AXI Interconnect</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">AXI4 Memory-Mapped Interconnect</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/axi_interconnect_v1_00_a/doc/axi_interconnect.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/axi_interconnect_v1_00_a/doc/axi_interconnect.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER CHANGEDBY="SYSTEM" MPD_INDEX="0" NAME="C_FAMILY" TYPE="STRING" VALUE="virtex5">
           <DESCRIPTION>Family</DESCRIPTION>
@@ -472,9 +472,9 @@
       <DESCRIPTION TYPE="SHORT">MicroBlaze</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">The MicroBlaze 32 bit soft processor</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/microblaze_v8_00_a/doc/microblaze.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/microblaze_v8_00_a/doc/microblaze.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER MPD_INDEX="0" NAME="C_SCO" TYPE="integer" VALUE="0"/>
         <PARAMETER CHANGEDBY="SYSTEM" MPD_INDEX="1" NAME="C_FREQ" TYPE="integer" VALUE="50000000"/>
@@ -2559,9 +2559,9 @@
       <DESCRIPTION TYPE="SHORT">Local Memory Bus (LMB) 1.0</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">'The LMB is a fast, local bus for connecting MicroBlaze I and D ports to peripherals and BRAM'</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/lmb_v10_v1_00_a/doc/lmb_v10.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/lmb_v10_v1_00_a/doc/lmb_v10.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER CHANGEDBY="SYSTEM" MPD_INDEX="0" NAME="C_LMB_NUM_SLAVES" TYPE="integer" VALUE="1">
           <DESCRIPTION>Number of Bus Slaves </DESCRIPTION>
@@ -2606,9 +2606,9 @@
       <DESCRIPTION TYPE="SHORT">Local Memory Bus (LMB) 1.0</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">'The LMB is a fast, local bus for connecting MicroBlaze I and D ports to peripherals and BRAM'</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/lmb_v10_v1_00_a/doc/lmb_v10.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/lmb_v10_v1_00_a/doc/lmb_v10.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER CHANGEDBY="SYSTEM" MPD_INDEX="0" NAME="C_LMB_NUM_SLAVES" TYPE="integer" VALUE="1">
           <DESCRIPTION>Number of Bus Slaves </DESCRIPTION>
@@ -2653,9 +2653,9 @@
       <DESCRIPTION TYPE="SHORT">LMB BRAM Controller</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">Local Memory Bus (LMB) Block RAM (BRAM) Interface Controller connects to an lmb bus</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/lmb_bram_if_cntlr_v2_10_b/doc/lmb_bram_if_cntlr.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/lmb_bram_if_cntlr_v2_10_b/doc/lmb_bram_if_cntlr.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER ADDRESS="BASE" ADDR_TYPE="MEMORY" CHANGEDBY="USER" ENDIAN="BIG" IS_INSTANTIATED="TRUE" LSB="31" MHS_INDEX="2" MPD_INDEX="0" MSB="0" NAME="C_BASEADDR" TYPE="std_logic_vector" VALUE="0x00000000">
           <DESCRIPTION>LMB BRAM Base Address</DESCRIPTION>
@@ -2731,9 +2731,9 @@
       <DESCRIPTION TYPE="SHORT">LMB BRAM Controller</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">Local Memory Bus (LMB) Block RAM (BRAM) Interface Controller connects to an lmb bus</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/lmb_bram_if_cntlr_v2_10_b/doc/lmb_bram_if_cntlr.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/lmb_bram_if_cntlr_v2_10_b/doc/lmb_bram_if_cntlr.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER ADDRESS="BASE" ADDR_TYPE="MEMORY" CHANGEDBY="USER" ENDIAN="BIG" IS_INSTANTIATED="TRUE" LSB="31" MHS_INDEX="2" MPD_INDEX="0" MSB="0" NAME="C_BASEADDR" TYPE="std_logic_vector" VALUE="0x00000000">
           <DESCRIPTION>LMB BRAM Base Address</DESCRIPTION>
@@ -2809,9 +2809,9 @@
       <DESCRIPTION TYPE="SHORT">Block RAM (BRAM) Block</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">The BRAM Block is a configurable memory module that attaches to a variety of BRAM Interface Controllers.</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/bram_block_v1_00_a/doc/bram_block.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/bram_block_v1_00_a/doc/bram_block.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER CHANGEDBY="SYSTEM" MPD_INDEX="0" NAME="C_MEMSIZE" TYPE="integer" VALUE="0x4000">
           <DESCRIPTION>Size of BRAM(s) in Bytes</DESCRIPTION>
@@ -2874,9 +2874,9 @@
       <DESCRIPTION TYPE="SHORT">Processor System Reset Module</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">Reset management module</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/proc_sys_reset_v3_00_a/doc/proc_sys_reset.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/proc_sys_reset_v3_00_a/doc/proc_sys_reset.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER CHANGEDBY="SYSTEM" MPD_INDEX="0" NAME="C_SUBFAMILY" TYPE="string" VALUE="tx">
           <DESCRIPTION>Device Subfamily</DESCRIPTION>
@@ -2963,9 +2963,9 @@
       <DESCRIPTION TYPE="SHORT">AXI UART (Lite)</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">Generic UART (Universal Asynchronous Receiver/Transmitter) for AXI.</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/axi_uartlite_v1_00_a/doc/axi_uartlite_ds741.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/axi_uartlite_v1_00_a/doc/axi_uartlite_ds741.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER CHANGEDBY="SYSTEM" MPD_INDEX="0" NAME="C_FAMILY" TYPE="STRING" VALUE="virtex5">
           <DESCRIPTION>Device Family</DESCRIPTION>
@@ -3080,9 +3080,9 @@
       <DESCRIPTION TYPE="SHORT">Clock Generator</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">Clock generator for processor system.</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/clock_generator_v4_00_a/doc/clock_generator.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/clock_generator_v4_00_a/doc/clock_generator.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER CHANGEDBY="SYSTEM" MPD_INDEX="0" NAME="C_FAMILY" TYPE="STRING" VALUE="virtex5">
           <DESCRIPTION>Family</DESCRIPTION>
@@ -3399,7 +3399,7 @@
     <MODULE HWVERSION="1.00.a" INSTANCE="nf10_10g_interface_0" IPTYPE="PERIPHERAL" MHS_INDEX="10" MODCLASS="PERIPHERAL" MODTYPE="nf10_10g_interface">
       <DESCRIPTION TYPE="SHORT">NetFPGA 10G Ethernet Interface</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">NetFPGA 10G Ethernet Interface</DESCRIPTION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER MPD_INDEX="0" NAME="C_M_AXIS_DATA_WIDTH" TYPE="INTEGER" VALUE="64">
           <DESCRIPTION>Master Stream Data Width</DESCRIPTION>
@@ -3469,7 +3469,7 @@
     <MODULE HWVERSION="1.00.a" INSTANCE="nf10_10g_interface_1" IPTYPE="PERIPHERAL" MHS_INDEX="11" MODCLASS="PERIPHERAL" MODTYPE="nf10_10g_interface">
       <DESCRIPTION TYPE="SHORT">NetFPGA 10G Ethernet Interface</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">NetFPGA 10G Ethernet Interface</DESCRIPTION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER MPD_INDEX="0" NAME="C_M_AXIS_DATA_WIDTH" TYPE="INTEGER" VALUE="64">
           <DESCRIPTION>Master Stream Data Width</DESCRIPTION>
@@ -3539,7 +3539,7 @@
     <MODULE HWVERSION="1.00.a" INSTANCE="nf10_10g_interface_2" IPTYPE="PERIPHERAL" MHS_INDEX="12" MODCLASS="PERIPHERAL" MODTYPE="nf10_10g_interface">
       <DESCRIPTION TYPE="SHORT">NetFPGA 10G Ethernet Interface</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">NetFPGA 10G Ethernet Interface</DESCRIPTION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER MPD_INDEX="0" NAME="C_M_AXIS_DATA_WIDTH" TYPE="INTEGER" VALUE="64">
           <DESCRIPTION>Master Stream Data Width</DESCRIPTION>
@@ -3609,7 +3609,7 @@
     <MODULE HWVERSION="1.00.a" INSTANCE="nf10_10g_interface_3" IPTYPE="PERIPHERAL" MHS_INDEX="13" MODCLASS="PERIPHERAL" MODTYPE="nf10_10g_interface">
       <DESCRIPTION TYPE="SHORT">NetFPGA 10G Ethernet Interface</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">NetFPGA 10G Ethernet Interface</DESCRIPTION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER MPD_INDEX="0" NAME="C_M_AXIS_DATA_WIDTH" TYPE="INTEGER" VALUE="64">
           <DESCRIPTION>Master Stream Data Width</DESCRIPTION>
@@ -3677,7 +3677,7 @@
       </BUSINTERFACES>
     </MODULE>
     <MODULE HWVERSION="1.00.a" INSTANCE="DIFF_INPUT_BUF_0" IPTYPE="PERIPHERAL" MHS_INDEX="14" MODCLASS="IP" MODTYPE="DIFF_INPUT_BUF">
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS/>
       <PORTS>
         <PORT DIR="I" ENDIAN="BIG" IS_INSTANTIATED="TRUE" LEFT="0" LSB="0" MHS_INDEX="0" MPD_INDEX="1" MSB="0" NAME="DIFF_INPUT_P" RIGHT="0" SIGNAME="DIFF_INPUT_BUF_0_DIFF_INPUT_P"/>
@@ -3687,7 +3687,7 @@
       <BUSINTERFACES/>
     </MODULE>
     <MODULE HWVERSION="1.00.a" INSTANCE="DIFF_INPUT_BUF_1" IPTYPE="PERIPHERAL" MHS_INDEX="15" MODCLASS="IP" MODTYPE="DIFF_INPUT_BUF">
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS/>
       <PORTS>
         <PORT DIR="O" ENDIAN="BIG" IS_INSTANTIATED="TRUE" LEFT="0" LSB="0" MHS_INDEX="0" MPD_INDEX="0" MSB="0" NAME="SINGLE_ENDED_INPUT" RIGHT="0" SIGNAME="refclk_D"/>
@@ -3700,9 +3700,9 @@
       <DESCRIPTION TYPE="SHORT">AXI 10/100 Ethernet MAC Lite</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">'IEEE Std. 802.3 MII interface MAC with AXI interface, lightweight implementation'</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/nf10_mdio_v1_00_a/doc/ds787_axi_ethernetlite.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/nf10_mdio_v1_00_a/doc/ds787_axi_ethernetlite.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER MPD_INDEX="0" NAME="C_S_AXI_PROTOCOL" VALUE="AXI4">
           <DESCRIPTION>AXI protocol selection </DESCRIPTION>
@@ -3871,9 +3871,9 @@
       <DESCRIPTION TYPE="SHORT">AXI Watchdog Timer</DESCRIPTION>
       <DESCRIPTION TYPE="LONG">Watchdog Timer with AXI interface</DESCRIPTION>
       <DOCUMENTATION>
-        <DOCUMENT SOURCE="/hpn/home/hyzeng/sandbox/xps/pcores/axi_timebase_wdt_v1_00_a/doc/axi_timebase_wdt.pdf" TYPE="IP"/>
+        <DOCUMENT SOURCE="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/hw/../../../lib/hw/nf10/pcores/axi_timebase_wdt_v1_00_a/doc/axi_timebase_wdt.pdf" TYPE="IP"/>
       </DOCUMENTATION>
-      <LICENSEINFO ICON_NAME="ps_core_local"/>
+      <LICENSEINFO ICON_NAME="ps_core_preferred"/>
       <PARAMETERS>
         <PARAMETER MPD_INDEX="0" NAME="C_S_AXI_PROTOCOL" TYPE="STRING" VALUE="AXI4LITE">
           <DESCRIPTION>AXI4LITE protocol</DESCRIPTION>

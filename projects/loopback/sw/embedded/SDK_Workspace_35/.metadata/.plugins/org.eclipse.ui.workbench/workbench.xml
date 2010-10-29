@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="15" version="2.0">
+<workbench progressCount="19" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="0" y="25">
 <fastViewData fastViewLocation="1024"/>
@@ -16,12 +16,12 @@
 <coolItem id="org.eclipse.cdt.ui.buildConfigActionSet" itemType="typeToolBarContribution" x="80" y="28"/>
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="118" y="28"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="74" y="28"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="94" y="28"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="66" y="28"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="182" y="28"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.cdt.ui.editor.CEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.cdt.make.editor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
@@ -34,16 +34,21 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
+<part id="2"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="helloworld.c" partName="helloworld.c" path="/hpn/home/hyzeng/sandbox/xps/SDK/SDK_Workspace_35/hello_world_0/src/helloworld.c" title="helloworld.c" tooltip="hello_world_0/src/helloworld.c" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="helloworld.c" partName="helloworld.c" path="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/sw/embedded/SDK_Workspace_35/hello_world_0/src/helloworld.c" title="helloworld.c" tooltip="hello_world_0/src/helloworld.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/hello_world_0/src/helloworld.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="2" selectionOffset="10219" selectionTopPixel="7925"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
-<editor id="com.xilinx.sdk.sw.MSSEditor" name="system.mss" partName="system.mss" path="/hpn/home/hyzeng/sandbox/xps/SDK/SDK_Workspace_35/nf10_bsp/system.mss" title="system.mss" tooltip="nf10_bsp/system.mss" workbook="DefaultEditorWorkbook">
+<editor id="com.xilinx.sdk.sw.MSSEditor" name="system.mss" partName="system.mss" path="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/sw/embedded/SDK_Workspace_35/nf10_bsp/system.mss" title="system.mss" tooltip="nf10_bsp/system.mss" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/nf10_bsp/system.mss"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.ui.DefaultTextEditor" name="libgen.options" partName="libgen.options" path="/hpn/home/hyzeng/nf10-github/netfpga-10g/projects/loopback/sw/embedded/SDK_Workspace_35/nf10_bsp/libgen.options" title="libgen.options" tooltip="nf10_bsp/libgen.options" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/nf10_bsp/libgen.options"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="133" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -52,13 +57,15 @@
 </view>
 <view id="org.eclipse.ui.views.PropertySheet" partName="Properties"/>
 <view id="org.eclipse.cdt.make.ui.views.MakeView" partName="Make Targets"/>
-<view id="org.eclipse.tm.terminal.view.TerminalView" partName="Terminal"/>
+<view id="org.eclipse.tm.terminal.view.TerminalView" partName="Terminal 1">
+<viewState Title="Terminal 1" _keys_="Title,connectionManageractive,connectionManagerconnection0HasCommandInputField,connectionManagerconnection0PartName,connectionManagersize" connectionManageractive="connection0" connectionManagerconnection0HasCommandInputField="false" connectionManagerconnection0PartName="Terminal 1" connectionManagersize="1"/>
+</view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings"/>
+<category IMemento.internal.id="Errors"/>
 </expanded>
-<columnWidths org.eclipse.ui.ide.locationField="0" org.eclipse.ui.ide.markerType="0" org.eclipse.ui.ide.pathField="0" org.eclipse.ui.ide.resourceField="0" org.eclipse.ui.ide.severityAndDescriptionField="0"/>
+<columnWidths org.eclipse.ui.ide.locationField="63" org.eclipse.ui.ide.markerType="752" org.eclipse.ui.ide.pathField="123" org.eclipse.ui.ide.resourceField="93" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
@@ -69,12 +76,23 @@
 <view id="org.eclipse.ui.console.ConsoleView" partName="Console">
 <viewState/>
 </view>
-<view id="org.eclipse.ui.views.TaskList" partName="Tasks"/>
+<view id="org.eclipse.ui.views.TaskList" partName="Tasks">
+<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.completionField" categoryGroup="none" markerContentGenerator="org.eclipse.ui.ide.tasksGenerator" partName="Tasks">
+<columnWidths org.eclipse.ui.ide.completionField="40" org.eclipse.ui.ide.descriptionField="303" org.eclipse.ui.ide.locationField="63" org.eclipse.ui.ide.markerType="690" org.eclipse.ui.ide.pathField="123" org.eclipse.ui.ide.priorityField="19" org.eclipse.ui.ide.resourceField="93"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.completionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.priorityField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.descriptionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
+</viewState>
+</view>
 <view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.cdt.ui.editor.CEditor" activePerspective="org.eclipse.cdt.ui.CPerspective">
+<perspectives activePart="org.eclipse.ui.DefaultTextEditor" activePerspective="org.eclipse.cdt.ui.CPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.cdt.internal.ui.CPerspectiveFactory" id="org.eclipse.cdt.ui.CPerspective" label="C/C++"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -153,12 +171,12 @@
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.24950495" ratioLeft="252" ratioRight="758" relationship="2" relative="topLeft"/>
 <info folder="true" part="bottom" ratio="0.67926687" ratioLeft="593" ratioRight="280" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.ui.views.PropertySheet" label="Properties"/>
-<page content="org.eclipse.tm.terminal.view.TerminalView" label="Terminal"/>
+<page content="org.eclipse.tm.terminal.view.TerminalView" label="Terminal 1"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
@@ -187,7 +205,6 @@
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/nf10_demo/src/helloworld.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/hello_world_0/src/helloworld.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.xilinx.sdk.sw.MSSEditor" path="/nf10_demo/system.mss"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.xilinx.sdk.sw.MSSEditor" path="/nf10_bsp/system.mss"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/hello_world_0/Debug/hello_world_0.elf.size"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="" path="/nf10_bsp/system.mss"/>
@@ -203,15 +220,10 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/nf10_bsp/microblaze_0/libsrc/uartlite_v2_00_a/src/xuartlite.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/nf10_bsp/microblaze_0/libsrc/wdttb_v2_00_a/src/xwdttb.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/hello_world_0/src/helloworld.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/nf10_bsp/libgen.options"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.xilinx.sdk.sw.MSSEditor" path="/nf10_bsp/system.mss"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/nf10_bsp/libgen.options"/>
 </editors>
-<item historyLabel="system.mss" index="2"/>
-<item historyLabel="helloworld.c" index="1">
-<position info="not_deleted" x="0" y="15070"/>
-</item>
-<item historyLabel="system.mss" index="3"/>
-<item historyLabel="helloworld.c" index="1">
-<position info="not_deleted" x="0" y="15070"/>
-</item>
 <item historyLabel="helloworld.c" index="0">
 <position info="not_deleted" x="1020" y="0"/>
 </item>
@@ -230,93 +242,93 @@
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="14519" y="0"/>
 </item>
-<item historyLabel="hello_world_0.elf.size" index="4">
+<item historyLabel="hello_world_0.elf.size" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="system.mss" index="5">
+<item historyLabel="system.mss" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="1343" y="0"/>
 </item>
-<item historyLabel="system.xml" index="6">
+<item historyLabel="system.xml" index="5">
 <position/>
 </item>
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="1343" y="0"/>
 </item>
-<item historyLabel="system.mss" index="5">
+<item historyLabel="system.mss" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="system.xml" index="6"/>
+<item historyLabel="system.xml" index="5"/>
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="1343" y="0"/>
 </item>
-<item historyLabel="system.xml" index="7">
+<item historyLabel="system.xml" index="6">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="system.mss" index="5">
+<item historyLabel="system.mss" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="system.xml" index="8"/>
-<item historyLabel="lscript.ld" index="9">
+<item historyLabel="system.xml" index="7"/>
+<item historyLabel="lscript.ld" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="system.xml" index="8"/>
-<item historyLabel="hello_world_0.elf.size" index="10">
+<item historyLabel="system.xml" index="7"/>
+<item historyLabel="hello_world_0.elf.size" index="9">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="system.xml" index="7">
+<item historyLabel="system.xml" index="6">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="system.mss" index="5">
+<item historyLabel="system.mss" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="10572" y="0"/>
 </item>
-<item historyLabel="system.mss" index="3"/>
+<item historyLabel="system.mss" index="2"/>
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="10572" y="0"/>
 </item>
-<item historyLabel="system.mss" index="3"/>
+<item historyLabel="system.mss" index="2"/>
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="12772" y="5"/>
 </item>
-<item historyLabel="xwdttb.h" index="11">
+<item historyLabel="xwdttb.h" index="10">
 <position info="not_deleted" x="5792" y="0"/>
 </item>
-<item historyLabel="xparameters.h" index="12">
+<item historyLabel="xparameters.h" index="11">
 <position info="not_deleted" x="1517" y="0"/>
 </item>
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="12772" y="5"/>
 </item>
-<item historyLabel="xparameters.h" index="12">
+<item historyLabel="xparameters.h" index="11">
 <position info="not_deleted" x="1517" y="0"/>
 </item>
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="12772" y="5"/>
 </item>
-<item historyLabel="xparameters.h" index="12">
+<item historyLabel="xparameters.h" index="11">
 <position info="not_deleted" x="1517" y="0"/>
 </item>
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="12940" y="0"/>
 </item>
-<item historyLabel="hello_world_0.elf.size" index="13">
+<item historyLabel="hello_world_0.elf.size" index="12">
 <position info="not_deleted" x="0" y="0"/>
 </item>
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="12940" y="0"/>
 </item>
-<item historyLabel="xemaclite.c" index="14">
+<item historyLabel="xemaclite.c" index="13">
 <position info="not_deleted" x="28189" y="6"/>
 </item>
-<item historyLabel="xuartlite.c" index="15">
+<item historyLabel="xuartlite.c" index="14">
 <position info="not_deleted" x="1284" y="0"/>
 </item>
-<item historyLabel="xwdttb.c" index="16">
+<item historyLabel="xwdttb.c" index="15">
 <position info="not_deleted" x="760" y="0"/>
 </item>
 <item historyLabel="helloworld.c" index="1">
@@ -328,17 +340,27 @@
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="10566" y="0"/>
 </item>
-<item historyLabel="xemaclite.c" index="14">
+<item historyLabel="xemaclite.c" index="13">
 <position info="not_deleted" x="28189" y="6"/>
 </item>
 <item historyLabel="helloworld.c" index="1">
 <position info="not_deleted" x="10566" y="0"/>
 </item>
-<item historyLabel="xemaclite.c" index="14">
+<item historyLabel="xemaclite.c" index="13">
 <position info="not_deleted" x="25187" y="6"/>
 </item>
-<item active="true" historyLabel="helloworld.c" index="17">
+<item historyLabel="helloworld.c" index="16">
 <position info="not_deleted" x="10502" y="0"/>
+</item>
+<item historyLabel="helloworld.c" index="16">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="libgen.options" index="17">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="system.mss" index="18"/>
+<item active="true" historyLabel="libgen.options" index="19">
+<position info="not_deleted" x="0" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -357,6 +379,12 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="libgen.options" tooltip="nf10_bsp/libgen.options">
+<persistable path="/nf10_bsp/libgen.options"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.xilinx.sdk.sw.MSSEditor" name="system.mss" tooltip="nf10_bsp/system.mss">
+<persistable path="/nf10_bsp/system.mss"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="xemaclite.c" tooltip="nf10_bsp/microblaze_0/libsrc/nf10_mdio_v1_00_a/src/xemaclite.c">
 <persistable path="/nf10_bsp/microblaze_0/libsrc/nf10_mdio_v1_00_a/src/xemaclite.c"/>
 </file>
@@ -374,9 +402,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="xwdttb.h" tooltip="nf10_bsp/microblaze_0/include/xwdttb.h">
 <persistable path="/nf10_bsp/microblaze_0/include/xwdttb.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.xilinx.sdk.sw.MSSEditor" name="system.mss" tooltip="nf10_bsp/system.mss">
-<persistable path="/nf10_bsp/system.mss"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.xilinx.sdk.tools.editor.lscript" name="lscript.ld" tooltip="hello_world_0/src/lscript.ld">
 <persistable path="/hello_world_0/src/lscript.ld"/>
@@ -398,9 +423,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="platform.h" tooltip="nf10_demo/src/platform.h">
 <persistable path="/nf10_demo/src/platform.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="helloworld.c" tooltip="nf10_demo/src/helloworld.c">
-<persistable path="/nf10_demo/src/helloworld.c"/>
 </file>
 </mruList>
 </workbench>

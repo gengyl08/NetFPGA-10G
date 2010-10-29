@@ -1,0 +1,5 @@
+#
+#Fri Oct 29 09:06:49 PDT 2010
+PROCESSOR=microblaze_0
+REPOSITORIES=-lp ../../../../../../lib/sw/
+HWSPEC=../hw_platform_0/system.xml

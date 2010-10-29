@@ -1,0 +1,727 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+  <title>Change log for lmb_bram_if_cntlr, 2.10.b</title>
+  <link href="../../../../../../doc/usenglish/css/xilhtml.css" rel="stylesheet" type="text/css">
+  <style>
+		P.Level1Heading {
+			color: #000000;
+			font-weight: bold;
+			font-size: 1.05em;
+			margin-bottom: 0em;
+			margin-top: 0em;
+		}
+		P.Level2Heading  {
+			font-weight: bold;
+			margin-top: 2em;
+			margin-bottom: 0em;
+		}
+		P.Level3Heading {
+			font-weight: bold;
+			margin-top: 2em;
+		}
+		.GreyBackground {
+			background-color:#CCCCCC;
+		}
+		.PreformatFont  {
+			font-family: Fixed, Mono, Courier New, Courier;
+			font-size: .95em;
+		}
+	</style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Location msdt:dt="string">Sweden</mso:Location>
+<mso:Description0 msdt:dt="string"></mso:Description0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+<h3 class="PageHeader">Xilinx Processor IP Library</h3>
+<h1>Change log for lmb_bram_if_cntlr<br>
+</h1>
+<hr class="whs1">
+<table style="vertical-align: top; text-align: left;" border="0"
+ cellpadding="1" cellspacing="0">
+  <tbody>
+<!-- BEGIN CHANGELOG FOR New core version --><!--spacer--><tr>
+  <tr>
+    <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v2.10.b introduced in 12.2</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">12.2 - Changes in VHDL/Verilog/Netlist sources (.vhd, .v, .ngc, .edn)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">New Features:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Resolved issues:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Known Issues / Limitations:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">12.2 - Changes in tool interface files (.mpd)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">12.2 - Changes in Tcl script files associated with core (.tcl)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+          Support for AXI shared bus added<br>
+        </li>
+        <li>
+          Improved error message when MicroBlaze cache address range overlaps LMB address range [CR<560175>].<br>
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">12.2 - Changes in documentation associated with core</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v2.10.b introduced in 12.1</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">12.1 - Changes in VHDL/Verilog/Netlist sources (.vhd, .v, .ngc, .edn)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">New Features:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Resolved issues:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Known Issues / Limitations:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">12.1 - Changes in tool interface files (.mpd)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            PORT LMB_Rst default connection changed to LMB_Rst.
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">12.1 - Changes in Tcl script files associated with core (.tcl)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            Generate a warning instead of an error if the BRAM_PORT bus is connected to external ports [CR<542810>].
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">12.1 - Changes in documentation associated with core</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v2.10.b introduced in 11.4</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.4 - Changes in VHDL/Verilog/Netlist sources (.vhd, .v, .ngc, .edn)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">New Features:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Resolved issues:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Known Issues / Limitations:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.4 - Changes in tool interface files (.mpd)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.4 - Changes in Tcl script files associated with core (.tcl)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            Corrected algorithm for C_MASK parameter calculation, which could in some cases generate an incorrect mask with LMB BRAMs of different sizes [CR<534317>].
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.4 - Changes in documentation associated with core</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v2.10.b introduced in 11.3</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.3 - Changes in VHDL/Verilog/Netlist sources (.vhd, .v, .ngc, .edn)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">New Features:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Resolved issues:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Known Issues / Limitations:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.3 - Changes in tool interface files (.mpd)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.3 - Changes in Tcl script files associated with core (.tcl)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            Added DRC to check that BRAM_PORT interface is connected [CR<521127>].
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.3 - Changes in documentation associated with core</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v2.10.b introduced in 11.1</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.1 - Changes in VHDL/Verilog/Netlist sources (.vhd, .v, .ngc, .edn)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">New Features:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Resolved issues:</span><font size="-1"><br></font></pre>
+      <ul>
+        <li>
+          Change to synchronous reset of register [CR<481240>]<br>
+        </li>
+        <li>
+          Removed usage of obsoleted library proc_common v1.00.c<br>
+        </li>
+      </ul>
+      <pre><span style="font-family: Arial;">Known Issues / Limitations:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.1 - Changes in tool interface files (.mpd)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            Allow user to override automatic C_MASK parameter calculation.
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.1 - Changes in Tcl script files associated with core (.tcl)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            Corrected algorithm for C_MASK parameter calculation, which could in some cases generate an incorrect mask [CR<479872>] [CR<495389>].
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">11.1 - Changes in documentation associated with core</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            Initial release of v2.10.b
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v2.10.a introduced in 10.1.2</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">10.1.2 - Changes in VHDL/Verilog/Netlist sources (.vhd, .v, .ngc, .edn)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">New Features:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Resolved issues:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Known Issues / Limitations:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">10.1.2 - Changes in tool interface files (.mpd)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+          Added preferred support for aspartan3a.<br>
+        </li>
+        <li>
+          Added preferred support for aspartan3.<br>
+        </li>
+        <li>
+          Added preferred support for aspartan3e.<br>
+        </li>
+        <li>
+          Added preferred support for virtex5fx.<br>
+        </li>
+        <li>
+          Added preferred support for aspartan3adsp.<br>
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">10.1.2 - Changes in Tcl script files associated with core (.tcl)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">10.1.2 - Changes in documentation associated with core</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v2.10.a introduced in 10.1</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">10.1 - Changes in VHDL/Verilog/Netlist sources (.vhd, .v, .ngc, .edn)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">New Features:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Resolved issues:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Known Issues / Limitations:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">10.1 - Changes in tool interface files (.mpd)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+          Improved algorithm to set C_MASK parameter value [CR<443040>].<br>
+        </li>
+        <li>
+          Added preferred support for virtex2p.<br>
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">10.1 - Changes in Tcl script files associated with core (.tcl)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+          Improved algorithm for C_MASK parameter calculation [CR<443040>].<br>
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">10.1 - Changes in documentation associated with core</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v2.10.a introduced in 9.2.2</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">9.2.2 - Changes in VHDL/Verilog/Netlist sources (.vhd, .v, .ngc, .edn)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">New Features:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Resolved issues:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Known Issues / Limitations:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">9.2.2 - Changes in tool interface files (.mpd)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">9.2.2 - Changes in Tcl script files associated with core (.tcl)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+          Corrected C_MASK parameter generation for multiprocessor systems [CR<452832>]<br>
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">9.2.2 - Changes in documentation associated with core</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v2.10.a introduced in 9.2</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">9.2 - Changes in VHDL/Verilog/Netlist sources (.vhd, .v, .ngc, .edn)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">New Features:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Resolved issues:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <pre><span style="font-family: Arial;">Known Issues / Limitations:</span><font size="-1"><br></font></pre>
+      <ul><li>  None</li></ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">9.2 - Changes in tool interface files (.mpd)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+          Added preferred support for spartan3a.<br>
+        </li>
+        <li>
+          Added preferred support for spartan3adsp.<br>
+        </li>
+        <li>
+          Removed support for qvirtex2.<br>
+        </li>
+        <li>
+          Removed support for virtex2.<br>
+        </li>
+        <li>
+          Added preferred support for virtex5.<br>
+        </li>
+        <li>
+          Removed support for virtex2p. <br>
+        </li>
+        <li>
+          Added early access support for virtex5fx.<br>
+        </li>
+        <li>
+          Removed support for qrvirtex2.<br>
+        </li>
+        <li>
+          Removed support for qvirtex.<br>
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">9.2 - Changes in Tcl script files associated with core (.tcl)</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p class="Level2Heading">9.2 - Changes in documentation associated with core</p>
+    <hr class=whs1> </td>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>
+            None
+        </li>
+      </ul>
+    </td>
+  </tr>
+<!-- END CHANGELOG FOR New core version. BEGIN change logs for new version here -->
+  </tbody>
+</table>
+<p class="Copyright"> Copyright &copy; 1995-2010 Xilinx, Inc. All rights reserved. </p>
+</body>
+</html>

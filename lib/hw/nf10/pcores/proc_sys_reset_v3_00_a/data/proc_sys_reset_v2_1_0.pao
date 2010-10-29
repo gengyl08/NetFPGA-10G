@@ -1,0 +1,14 @@
+################################################################################
+##
+## Copyright (c) 1995-2010 Xilinx, Inc.  All rights reserved.
+##
+## proc_sys_reset.pao
+##
+## Peripheral Analyze Order
+##
+################################################################################
+
+lib proc_sys_reset_v3_00_a upcnt_n vhdl
+lib proc_sys_reset_v3_00_a lpf vhdl
+lib proc_sys_reset_v3_00_a sequence vhdl
+lib proc_sys_reset_v3_00_a proc_sys_reset vhdl

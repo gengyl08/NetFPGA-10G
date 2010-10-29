@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- add comment here -->
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+	<!ENTITY C_LMB_NUM_SLAVES '
+	<widget id="C_LMB_NUM_SLAVES">
+		<key>C_LMB_NUM_SLAVES</key>
+		<label>Number of Bus Slaves </label>
+		<tip></tip>
+	</widget>
+	'>
+	<!ENTITY C_LMB_AWIDTH '
+	<widget id="C_LMB_AWIDTH">
+		<key>C_LMB_AWIDTH</key>
+		<label>LMB Address Bus Width </label>
+		<tip></tip>
+	</widget>
+	'>
+	<!ENTITY C_LMB_DWIDTH '
+	<widget id="C_LMB_DWIDTH">
+		<key>C_LMB_DWIDTH</key>
+		<label>LMB Data Bus Width </label>
+		<tip></tip>
+	</widget>
+	'>
+	<!ENTITY C_EXT_RESET_HIGH '
+	<widget id="C_EXT_RESET_HIGH">
+		<key>C_EXT_RESET_HIGH</key>
+		<label>Active High External Reset</label>
+		<tip><![CDATA[0=Active low reset, 1=Active high reset]]></tip>
+	</widget>
+	'>
+]>
+
+<doc>
+	<!--
+	<view id="User">
+		<display>User</display>
+		<group id="All">
+			<display>All</display>
+		</group>
+	</view>
+	-->
+	<view id="System">
+		<display>System</display>
+		<group id="LMB">
+			<display>LMB</display>
+			<item>&C_LMB_AWIDTH;</item>
+			<item>&C_LMB_DWIDTH;</item>
+			<item>&C_EXT_RESET_HIGH;</item>
+		</group>
+		<group id="Hidden">
+			<display>Hidden</display>
+			<item>&C_LMB_NUM_SLAVES;</item>
+		</group>
+	</view>
+</doc>

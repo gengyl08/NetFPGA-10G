@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+DISCLAIMER OF LIABILITY
+
+  This file contains proprietary and confidential information of
+  Xilinx, Inc. ("Xilinx"), that is distributed under a license
+  from Xilinx, and may be used, copied and/or disclosed only
+  pursuant to the terms of a valid license agreement with Xilinx.
+
+  XILINX IS PROVIDING THIS DESIGN, CODE, OR INFORMATION
+  ("MATERIALS") "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
+  EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING WITHOUT
+  LIMITATION, ANY WARRANTY WITH RESPECT TO NONINFRINGEMENT,
+  MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE. Xilinx
+  does not warrant that functions included in the Materials will
+  meet the requirements of Licensee, or that the operation of the
+  Materials will be uninterrupted or error-free, or that defects
+  in the Materials will be corrected. Furthermore, Xilinx does
+  not warrant or make any representations regarding use, or the
+  results of the use, of the Materials in terms of correctness,
+  accuracy, reliability or otherwise.
+
+  Xilinx products are not designed or intended to be fail-safe,
+  or for use in any application requiring fail-safe performance,
+  such as life-support or safety devices or systems, Class III
+  medical devices, nuclear facilities, applications related to
+  the deployment of airbags, or any other applications that could
+  lead to death, personal injury or severe property or
+  environmental damage (individually and collectively, "critical
+  applications"). Customer assumes the sole risk and liability
+  of any use of Xilinx products in critical applications,
+  subject only to applicable laws and regulations governing
+  limitations on product liability.
+
+  Copyright 2010 Xilinx, Inc.
+  All rights reserved.
+
+  This disclaimer and copyright notice must be retained as part
+  of this file at all times.
+-->
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+        <!ENTITY C_EXT_RST_WIDTH '
+        <widget id="C_EXT_RST_WIDTH">
+                <key>C_EXT_RST_WIDTH</key>
+                <label>Number of Clocks Before Input Change is Recognized On The External Reset Input </label>
+                <tip></tip>
+        </widget>
+        '>
+        <!ENTITY C_AUX_RST_WIDTH '
+        <widget id="C_AUX_RST_WIDTH">
+                <key>C_AUX_RST_WIDTH</key>
+                <label>Number of Clocks Before Input Change is Recognized On The Auxiliary Reset Input </label>
+                <tip></tip>
+        </widget>
+        '>
+        <!ENTITY C_EXT_RESET_HIGH '
+        <widget id="C_EXT_RESET_HIGH">
+                <key>C_EXT_RESET_HIGH</key>
+                <label>External Reset Active High </label>
+                <tip></tip>
+        </widget>
+        '>
+        <!ENTITY C_AUX_RESET_HIGH '
+        <widget id="C_AUX_RESET_HIGH">
+                <key>C_AUX_RESET_HIGH</key>
+                <label>Auxiliary Reset Active High </label>
+                <tip></tip>
+        </widget>
+        '>
+        <!ENTITY C_NUM_BUS_RST '
+        <widget id="C_NUM_BUS_RST">
+                <key>C_NUM_BUS_RST</key>
+                <label>Number of Bus Structure Reset Registered Outputs </label>
+                <tip></tip>
+        </widget>
+        '>
+        <!ENTITY C_NUM_PERP_RST '
+        <widget id="C_NUM_PERP_RST">
+                <key>C_NUM_PERP_RST</key>
+                <label>Number of Peripheral Reset Registered Outputs </label>
+                <tip></tip>
+        </widget>
+        '>
+        <!ENTITY C_NUM_INTERCONNECT_ARESETN '
+        <widget id="C_NUM_INTERCONNECT_ARESETN">
+                <key>C_NUM_INTERCONNECT_ARESETN</key>
+                <label>Number of Active Low Interconnect Reset Registered Outputs </label>
+                <tip></tip>
+        </widget>
+        '>
+        <!ENTITY C_NUM_PERP_ARESETN '
+        <widget id="C_NUM_PERP_ARESETN">
+                <key>C_NUM_PERP_ARESETN</key>
+                <label>Number of Active Low Peripheral Reset Registered Outputs </label>
+                <tip></tip>
+        </widget>
+        '>
+        <!ENTITY C_SUBFAMILY '
+        <widget id="C_SUBFAMILY">
+                <key>C_SUBFAMILY</key>
+                <label>Device Subfamily</label>
+                <tip></tip>
+        </widget>
+        '>
+]>
+
+<doc>
+        <view id="User">
+                <display>User</display>
+                <group id="All">
+                        <display>All</display>
+                        <item>&C_EXT_RST_WIDTH;</item>
+                        <item>&C_AUX_RST_WIDTH;</item>
+                        <item>&C_EXT_RESET_HIGH;</item>
+                        <item>&C_AUX_RESET_HIGH;</item>
+                        <item>&C_NUM_BUS_RST;</item>
+                        <item>&C_NUM_PERP_RST;</item>
+                        <item>&C_NUM_INTERCONNECT_ARESETN;</item>
+                        <item>&C_NUM_PERP_ARESETN;</item>
+                </group>
+                <group id="Hidden">
+                        <display>Hidden</display>
+                        <item>&C_FAMILY;</item>
+                        <item>&C_SUBFAMILY;</item>
+                </group>
+        </view>
+</doc>

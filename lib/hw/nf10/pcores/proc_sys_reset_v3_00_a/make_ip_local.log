@@ -1,0 +1,12 @@
+
+This core was made local using the MakeIPLocal tool. 
+
+Env variables when core was made local are as follows: 
+
+XILINX = /cad_64/xilinx/ise12.3/ISE_DS/ISE/:/cad_64/xilinx/ise12.3/ISE_DS/EDK 
+XILINX_EDK = /cad_64/xilinx/ise12.3/ISE_DS/EDK 
+
+Repository from which the core was copied = /cad_64/xilinx/ise12.3/ISE_DS/EDK/hw/XilinxProcessorIPLib/ 
+
+The following helper cores were copied as a part of making this core local: 
+

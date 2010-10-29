@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+########################################################################
+##
+## Copyright (c) 2005 Xilinx, Inc.  All rights reserved.
+##
+########################################################################
+-->
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+	<!-- -->
+	<!ENTITY C_MEMSIZE '
+	<widget id="C_MEMSIZE">
+		<key>C_MEMSIZE</key>
+		<label>Size of BRAM(s) in Bytes</label>
+		<tip><![CDATA[This parameter is controlled by the address space specified on the BRAM controller that this BRAM block is attached to.  This parameter sets the size of the BRAM(s).]]></tip>
+	</widget>
+	'>
+	<!ENTITY C_PORT_DWIDTH '
+	<widget id="C_PORT_DWIDTH">
+		<key>C_PORT_DWIDTH</key>
+		<label>Data Width of Port A and B</label>
+		<tip><![CDATA[This parameter is set to the data width of the BRAM controller.  This is 32 for LMB and OPB, and 64 for PLB.]]></tip>
+	</widget>
+	'>
+	<!ENTITY C_PORT_AWIDTH '
+	<widget id="C_PORT_AWIDTH">
+		<key>C_PORT_AWIDTH</key>
+		<label>Address Width of Port A and B</label>
+		<tip><![CDATA[This parameter is set to the address width of the BRAM controller.]]></tip>
+	</widget>
+	'>
+	<!ENTITY C_NUM_WE '
+	<widget id="C_NUM_WE">
+		<key>C_NUM_WE</key>
+		<label>Number of Byte Write Enables</label>
+		<tip><![CDATA[This parameter is set to the number of byte write enables necessary for the BRAM controller.]]></tip>
+	</widget>
+	'>
+]>
+
+<doc>
+	<view id="User">
+		<display>User</display>
+		<group id="All">
+			<display>All</display>
+			<item>&C_MEMSIZE;</item>
+			<item>&C_PORT_DWIDTH;</item>
+			<item>&C_PORT_AWIDTH;</item>
+			<item>&C_NUM_WE;</item>
+		</group>
+		<group id="Hidden">
+			<display>Hidden</display>
+			<item>&C_FAMILY;</item>
+		</group>
+	</view>
+</doc>
