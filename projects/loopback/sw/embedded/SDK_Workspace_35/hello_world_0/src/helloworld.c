@@ -480,7 +480,7 @@ int main (void) {
 
    char s;
    while(1){
-       print("\f===NetFPGA-10G Test===\r\n");
+       print("===NetFPGA-10G Test===\r\n");
        print("Press i to initialize, s to start\r\n");
 
        s = inbyte();
