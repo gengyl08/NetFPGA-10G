@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<section name="Workbench">
-	<item value="/hpn/home/hyzeng/sandbox/xps/SDK/SDK_Export/hw/nf10_bd.bmm" key="hw_platform_0-bmmFile"/>
-	<item value="/hpn/home/hyzeng/sandbox/xps/SDK/SDK_Export/hw/nf10.bit" key="hw_platform_0-bitFile"/>
-	<item value="/hpn/home/hyzeng/sandbox/xps/SDK/SDK_Workspace_35/hello_world_0/Debug/hello_world_0.elf" key="hw_platform_0-microblaze_0-initElf"/>
-</section>
