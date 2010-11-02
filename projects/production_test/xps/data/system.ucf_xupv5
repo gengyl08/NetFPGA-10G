@@ -1,0 +1,27 @@
+#  XUPV5-LX110T Evaluation Platform
+Net fpga_0_RS232_Uart_1_RX_pin LOC = AG15  |  IOSTANDARD=LVCMOS33;
+Net fpga_0_RS232_Uart_1_TX_pin LOC = AG20  |  IOSTANDARD=LVCMOS33;
+#Net fpga_0_Ethernet_MAC_PHY_tx_clk_pin LOC=K17  |  IOSTANDARD = LVCMOS25;
+#Net fpga_0_Ethernet_MAC_PHY_rx_clk_pin LOC=H17  |  IOSTANDARD = LVCMOS25;
+#Net fpga_0_Ethernet_MAC_PHY_crs_pin LOC=E34  |  IOSTANDARD = LVCMOS25;
+#Net fpga_0_Ethernet_MAC_PHY_dv_pin LOC=E32  |  IOSTANDARD = LVCMOS25;
+#Net fpga_0_Ethernet_MAC_PHY_rx_data_pin<0> LOC=A33  |  IOSTANDARD = LVCMOS25;
+#Net fpga_0_Ethernet_MAC_PHY_rx_data_pin<1> LOC=B33  |  IOSTANDARD = LVCMOS25;
+#Net fpga_0_Ethernet_MAC_PHY_rx_data_pin<2> LOC=C33  |  IOSTANDARD = LVCMOS25;
+#Net fpga_0_Ethernet_MAC_PHY_rx_data_pin<3> LOC=C32  |  IOSTANDARD = LVCMOS25;
+#Net fpga_0_Ethernet_MAC_PHY_col_pin LOC=B32  |  IOSTANDARD = LVCMOS25;
+#Net fpga_0_Ethernet_MAC_PHY_rx_er_pin LOC=E33  |  IOSTANDARD = LVCMOS25;
+Net fpga_0_Ethernet_MAC_PHY_rst_n_pin LOC=J14  |  IOSTANDARD = LVCMOS25  |  TIG;
+#Net fpga_0_Ethernet_MAC_PHY_tx_en_pin LOC=AJ10  |  IOSTANDARD = LVDCI_33;
+#Net fpga_0_Ethernet_MAC_PHY_tx_data_pin<3> LOC=AH10  |  IOSTANDARD = LVDCI_33;
+#Net fpga_0_Ethernet_MAC_PHY_tx_data_pin<2> LOC=AH9  |  IOSTANDARD = LVDCI_33;
+#Net fpga_0_Ethernet_MAC_PHY_tx_data_pin<1> LOC=AE11  |  IOSTANDARD = LVDCI_33;
+#Net fpga_0_Ethernet_MAC_PHY_tx_data_pin<0> LOC=AF11  |  IOSTANDARD = LVDCI_33;
+Net fpga_0_Ethernet_MAC_PHY_MDC_pin LOC=H19  |  IOSTANDARD = LVCMOS25;
+Net fpga_0_Ethernet_MAC_PHY_MDIO_pin LOC=H13  |  IOSTANDARD = LVCMOS25;
+#Net fpga_0_Ethernet_MAC_MDINT_pin LOC=H20  |  IOSTANDARD = LVCMOS25  |  TIG;
+Net fpga_0_clk_1_sys_clk_pin TNM_NET = sys_clk_pin;
+TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100000 kHz;
+Net fpga_0_clk_1_sys_clk_pin TNM_NET = sys_clk_pin  |  LOC = AH15  |  IOSTANDARD=LVCMOS33;
+Net fpga_0_rst_1_sys_rst_pin TIG;
+Net fpga_0_rst_1_sys_rst_pin LOC = E9  |  IOSTANDARD=LVCMOS33  |  PULLUP;

@@ -1,0 +1,152 @@
+# Microblaze
+verilog work "../../../xps/hdl/system.v"
+
+# XAUI
+verilog work "../../src/xaui/rocketio_wrapper_tile.v"
+verilog work "../../src/xaui/cc_2b_1skp.v"
+verilog work "../../src/xaui/xaui.v"
+verilog work "../../src/xaui/tx_sync.v"
+verilog work "../../src/xaui/rocketio_wrapper.v"
+verilog work "../../src/xaui/chanbond_monitor.v"
+verilog work "../../src/xaui/xaui_block.v"
+verilog work "../../src/xaui/xgmii_generator.v"
+verilog work "../../src/xaui/xgmii_checker.v"
+verilog work "../../src/xaui/xaui_example_design.v"
+verilog work "../../src/xaui/xaui_with_checker.v"
+verilog work "../../src/xaui/xaui_if.v"
+
+# Aurora (Samtec Connector)
+verilog work "../../src/aurora/aurora_if.v"
+#Aurora Lane Modules
+verilog work "../../src/aurora/src/aurora_err_detect_4byte.v"
+verilog work "../../src/aurora/src/aurora_lane_init_sm_4byte.v"
+verilog work "../../src/aurora/src/aurora_sym_dec_4byte.v"
+verilog work "../../src/aurora/src/aurora_sym_gen_4byte.v"
+verilog work "../../src/aurora/src/aurora_aurora_lane_4byte.v"
+verilog work "../../src/aurora/src/aurora_chbond_count_dec_4byte.v"
+#Global Logic Modules
+verilog work "../../src/aurora/src/aurora_channel_err_detect.v"
+verilog work "../../src/aurora/src/aurora_channel_init_sm.v"
+verilog work "../../src/aurora/src/aurora_idle_and_ver_gen.v"
+verilog work "../../src/aurora/src/aurora_global_logic.v"
+#TX_Stream Module
+verilog work "../../src/aurora/src/aurora_tx_stream.v"
+#RX_Stream Module
+verilog work "../../src/aurora/src/aurora_rx_stream.v"
+#Clock Module
+verilog work "../../src/aurora/example_design/clock_module/aurora_clock_module.v"
+#GTX Wrapper
+verilog work "../../src/aurora/example_design/gt/aurora_transceiver_wrapper.v"
+verilog work "../../src/aurora/example_design/gt/aurora_transceiver_tile.v"
+#Top Level Files
+verilog work "../../src/aurora/example_design/aurora.v"
+#end AURORA_MODULE list
+verilog work "../../src/aurora/example_design/traffic_gen_check/aurora_frame_gen.v"
+verilog work "../../src/aurora/example_design/traffic_gen_check/aurora_frame_check.v"
+verilog work "../../src/aurora/example_design/cc_manager/aurora_standard_cc_module.v"
+verilog work "../../src/aurora/example_design/aurora_reset_logic.v" 
+verilog work "../../src/aurora/example_design/aurora_example_design.v" 
+
+# CPLD test
+vhdl work "../../src/cpld/CPLD.vhd"
+vhdl work "../../src/cpld/CPLD_test.vhd"
+
+# Clock test
+vhdl work "../../src/clk/CLK_test.vhd"
+
+# SRAM
+verilog work ../../src/sram/sram_controller/qdrii_chipscope.v
+verilog work ../../src/sram/sram_controller/qdrii_idelay_ctrl.v
+verilog work ../../src/sram/sram_controller/qdrii_infrastructure.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_addr_io.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_bw_io.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_clk_io.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_cq_io.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_d_io.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_dly_cal_sm.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_en.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_init_sm.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_q_io.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_read.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_v5_q_io.v
+verilog work ../../src/sram/sram_controller/qdrii_phy_write.v
+verilog work ../../src/sram/sram_controller/qdrii_top_ctrl_sm.v
+verilog work ../../src/sram/sram_controller/qdrii_top_phy.v
+verilog work ../../src/sram/sram_controller/qdrii_top_rd_addr_interface.v
+verilog work ../../src/sram/sram_controller/qdrii_top_rd_interface.v
+verilog work ../../src/sram/sram_controller/qdrii_top_user_interface.v
+verilog work ../../src/sram/sram_controller/qdrii_top.v
+verilog work ../../src/sram/sram_controller/qdrii_top_wr_addr_interface.v
+verilog work ../../src/sram/sram_controller/qdrii_top_wrdata_bw_fifo.v
+verilog work ../../src/sram/sram_controller/qdrii_top_wrdata_fifo.v
+verilog work ../../src/sram/sram_controller/qdrii_top_wr_data_interface.v
+verilog work ../../src/sram/sram_controller/qdrii_top_wr_interface.v
+verilog work ../../src/sram/sram_controller/sram_controller_top.v
+verilog work ../../src/sram/sram_testbench/qdrii_tb_top.v
+verilog work ../../src/sram/sram_testbench/qdrii_test_addr_gen.v
+verilog work ../../src/sram/sram_testbench/qdrii_test_cmp_data.v
+verilog work ../../src/sram/sram_testbench/qdrii_test_data_gen.v
+verilog work ../../src/sram/sram_testbench/qdrii_test_q_sm.v
+verilog work ../../src/sram/sram_testbench/qdrii_test_wr_rd_sm.v
+
+# DRAM
+verilog work "../../src/dram/RLDRAM_v5_qk_iob.v"
+verilog work "../../src/dram/RLDRAM_v5_dq_iob.v"
+verilog work "../../src/dram/RLDRAM_v5_dm_iob.v"
+verilog work "../../src/dram/RLDRAM_qvld_iob.v"
+verilog work "../../src/dram/RLDRAM_dly_cal_sm.v"
+verilog work "../../src/dram/RLDRAM_tap_logic.v"
+verilog work "../../src/dram/RLDRAM_infrastructure_iobs.v"
+verilog work "../../src/dram/RLDRAM_data_write.v"
+verilog work "../../src/dram/RLDRAM_data_path_iobs.v"
+verilog work "../../src/dram/RLDRAM_ctl.v"
+verilog work "../../src/dram/RLDRAM_controller_iobs.v"
+verilog work "../../src/dram/RLDRAM_conf.v"
+verilog work "../../src/dram/RLDRAM_user_interface.v"
+verilog work "../../src/dram/RLDRAM_phy_calib.v"
+verilog work "../../src/dram/RLDRAM_iobs.v"
+verilog work "../../src/dram/RLDRAM_data_path.v"
+verilog work "../../src/dram/RLDRAM_controller.v"
+verilog work "../../src/dram/RLDRAM_top.v"
+vhdl work "../../src/dram/RLDRAM_stress_test_bench.vhd"
+verilog work "../../src/dram/RLDRAM_rst.v"
+verilog work "../../src/dram/RLDRAM_clk_module.v"
+verilog work "../../src/dram/RLDRAM_main.v"
+verilog work "../../src/dram/RLDRAM_infrastructure_top.v"
+verilog work "../../src/dram/RLDRAM_mem_interface_top.v"
+verilog work "../../src/dram/RLDRAM_if.v"
+
+# PCIe
+verilog work "../../src/ocpi/libsrc/hdl/ocpi/arSRLFIFO.v"
+verilog work "../../src/ocpi/libsrc/hdl/bsv/SyncResetA.v"
+verilog work "../../src/ocpi/libsrc/hdl/bsv/SyncHandshake.v"
+verilog work "../../src/ocpi/rtl/mkPktMerge.v"
+verilog work "../../src/ocpi/rtl/mkPktFork.v"
+verilog work "../../src/ocpi/libsrc/hdl/bsv/SyncRegister.v"
+verilog work "../../src/ocpi/libsrc/hdl/bsv/SyncFIFO.v"
+verilog work "../../src/ocpi/libsrc/hdl/bsv/SizedFIFO.v"
+verilog work "../../src/ocpi/libsrc/hdl/bsv/ResetToBool.v"
+verilog work "../../src/ocpi/libsrc/hdl/bsv/MakeResetA.v"
+verilog work "../../src/ocpi/libsrc/hdl/bsv/FIFO2.v"
+verilog work "../../src/ocpi/libsrc/hdl/bsv/FIFO1.v"
+verilog work "../../src/ocpi/libsrc/hdl/bsv/BRAM2.v"
+verilog work "../../src/ocpi/rtl/mkTLPSM.v"
+verilog work "../../src/ocpi/rtl/mkSMAdapter4B.v"
+verilog work "../../src/ocpi/rtl/mkOCDP.v"
+verilog work "../../src/ocpi/rtl/mkOCCP.v"
+verilog work "../../src/ocpi/rtl/mkDelayWorker4B.v"
+verilog work "../../src/ocpi/rtl/mkOCInf.v"
+verilog work "../../src/ocpi/rtl/mkOCApp.v"
+verilog work "../../src/ocpi/rtl/mkWCIExample4B.v"
+verilog work "../../src/ocpi/coregen/pcie-4243-v5-gtx-x8-125/pci_exp_8_lane_64b_ep.v"
+verilog work "../../src/ocpi/rtl/mkCTop.v"
+verilog work "../../src/ocpi/libsrc/hdl/ocpi/xilinx_v5_pcie_wrapper.v"
+verilog work "../../src/ocpi/libsrc/hdl/bsv/BypassWire.v"
+verilog work "../../src/ocpi/rtl/mkFTop.v"
+verilog work "../../src/ocpi/rtl/fpgaTop_v5.v"
+
+# Infrastructure
+verilog work "../../src/infrastructure/nf10_clock_gen.v"
+
+# Top module
+verilog work "../../src/top.v"

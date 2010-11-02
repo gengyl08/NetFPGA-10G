@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:mso="urn:schemas-microsoft-com:office:office"
+ xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+  <title>Change log for xps_ethernetlite, v3.01.a</title>
+  <link href="../../../../../../doc/usenglish/css/xilhtml.css"
+ rel="stylesheet" type="text/css">
+  <style>
+		P.Level1Heading {
+			color: #000000;
+			font-weight: bold;
+			font-size: 1.05em;
+			margin-bottom: 0em;
+			margin-top: 0em;
+		}
+		P.Level2Heading  {
+			font-weight: bold;
+			margin-top: 2em;
+			margin-bottom: 0em;
+		}
+		P.Level3Heading {
+			font-weight: bold;
+			margin-top: 2em;
+		}
+		.GreyBackground {
+			background-color:#CCCCCC;
+		}
+		.PreformatFont  {
+			font-family: Fixed, Mono, Courier New, Courier;
+			font-size: .95em;
+		}
+	</style><!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:Location msdt:dt="string">New Mexico</mso:Location>
+<mso:Description0 msdt:dt="string"></mso:Description0>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+<h3 class="PageHeader">Xilinx Processor IP Library</h3>
+<h1>Change log for xps_ethernetlite<br>
+</h1>
+<hr class="whs1">
+<table style="vertical-align: top; text-align: left;" border="0"
+ cellpadding="1" cellspacing="0">
+  <tbody>
+<!-- BEGIN CHANGELOG FOR New core version --><!--spacer--><tr>
+      <td>
+      <p><br>
+      </p>
+      </td>
+    </tr>
+    <tr>
+      <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v3.01.a, introduced in 11.3 </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p class="Level2Heading">11.3 - Changes in VHDL/Verilog/Netlist
+sources (.vhd, .v, .ngc, .edn) </p>
+      <hr class="whs1"> </td>
+    </tr>
+    <tr>
+      <td> <br>
+      <pre> <span style="font-family: Arial;">New Features:</span><font
+ size="-1"><br></font></pre>
+      <ul>
+        <li><font size="-1"><span style="font-family: Arial;">None</span></font></li>
+      </ul>
+      <pre><span style="font-family: Arial;">Resolved Issues:</span><font
+ size="+1"><span style="font-family: Arial;"><br></span></font></pre>
+      <ul>
+        <li><font size="-1"><span style="font-family: Arial;">Fixed
+[&lt;527536&gt;<cr:12345>], TX pong buffer can be used in interrupt
+mode using the EMAC driver. Enabled pong buffer for driver use.</cr:12345></span></font></li>
+        <ul>
+          <li><font size="-1"><span style="font-family: Arial;"><cr:12345>Versions
+that have this issue : v3.00.a</cr:12345></span></font></li>
+        </ul>
+      </ul>
+      <font size="-1"><span style="font-family: Arial;">Known Issues
+/Limitations:</span></font><br style="font-family: Arial;">
+      <ul>
+        <li><font size="-1"><span style="font-family: Arial;">None</span></font></li>
+      </ul>
+      </td>
+    </tr>
+<!-- End section --><!-- End section --> <tr>
+      <td>
+      <p class="Level2Heading">11.3 - Changes in Tcl script files
+associated with core (.tcl) </p>
+      <hr class="whs1"> </td>
+    </tr>
+    <tr>
+      <td><br>
+      <ul>
+        <li><font size="-1"><span style="font-family: Arial;">Replaced
+PAD to FFS constraint on PHY_rx_clk with OFFSET IN constraint.<br>
+          </span></font></li>
+      </ul>
+      </td>
+    </tr>
+<!-- End section --> <tr>
+      <td>
+      <hr class="whs1"> </td>
+    </tr>
+<!-- BEGIN CHANGELOG FOR New core version --><!--spacer--><tr>
+      <td> <br>
+      </td>
+    </tr>
+    <tr>
+      <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v3.00.a, introduced in 11.2 </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p class="Level2Heading">11.2 - Changes in VHDL/Verilog/Netlist
+sources (.vhd, .v, .ngc, .edn) </p>
+      <hr class="whs1"> </td>
+    </tr>
+    <tr>
+      <td> <br>
+      <pre><span style="font-family: Arial;">New Features:</span><font
+ size="-1"><br></font></pre>
+      <ul>
+        <li><font size="-1"><span style="font-family: Arial;">MDIO
+interface for PHY register access</span></font></li>
+        <li><font size="-1"><span style="font-family: Arial;">Internal
+loopback support</span></font></li>
+        <li><font size="-1"><span style="font-family: Arial;">PLB Burst
+support. Updated library plbv46_slave_single_v1_01_a to
+plbv46_slave_burst_v1_01_a.<br>
+          </span></font></li>
+      </ul>
+      <pre><span style="font-family: Arial;">Resolved Issues:</span><font
+ size="+1"><span style="font-family: Arial;"><br></span></font></pre>
+      <ul>
+        <li><font size="-1"><span style="font-family: Arial;">Resolved
+issue with zero data padding when the frame size is less than minimum</span></font></li>
+        <ul>
+          <li><font size="-1"><span style="font-family: Arial;">Versions
+that have this issue: v2.01.a,v2.00.a</span></font></li>
+        </ul>
+        <li><font size="-1"><span style="font-family: Arial;">Updated
+the core to drop the incoming packet with frame size less than the
+minimum packet length(Runt Frame)</span></font></li>
+        <ul>
+          <li><font size="-1"><span style="font-family: Arial;">Versions
+that have this issue: v2.01.a,v2.00.a</span></font></li>
+        </ul>
+        <li><font size="-1"><span style="font-family: Arial;">Fixed
+issue with IFG(Inter Frame Gap) not meeting for half duplex mode
+operation</span></font></li>
+        <ul>
+          <li><font size="-1"><span style="font-family: Arial;">Versions
+that have this issue: v2.01.a,v2.00.a</span></font></li>
+        </ul>
+        <li><font size="-1"><span style="font-family: Arial;">Fixed
+issue with retry of packets in case of collision. Core is updated to
+retry the packet 16 times if collision is detected for all transmited
+packets.</span></font></li>
+        <ul>
+          <li><font size="-1"><span style="font-family: Arial;">Versions
+that have this issue: v2.01.a,v2.00.a</span></font></li>
+        </ul>
+      </ul>
+      <font size="-1"><span style="font-family: Arial;">Known Issues
+/Limitations:</span></font><br style="font-family: Arial;">
+      <ul>
+        <li><font size="-1"><span style="font-family: Arial;">None</span></font></li>
+      </ul>
+      </td>
+    </tr>
+<!-- End section --><!-- End section --> <tr>
+      <td>
+      <p class="Level2Heading">11.2 - Changes in tool interface
+files(.mpd) </p>
+      <hr class="whs1"> </td>
+    </tr>
+    <tr>
+      <td><br>
+      <ul>
+        <li style="font-family: Arial;"><font size="-1">Added new
+parameter C_INCLUDE_MDIO</font></li>
+        <li style="font-family: Arial;"><font size="-1">Added new
+parameter C_INCLUDE_INTERNAL_LOOPBACK</font></li>
+        <li style="font-family: Arial;"><font size="-1">Added new port
+PHY_MDC</font></li>
+        <li style="font-family: Arial;"><font size="-1">Added new port
+PHY_MDIO</font></li>
+        <li style="font-family: Arial;"><font size="-1">Added attribute
+BUFFER_TYPE=IBUF on PHY_tx_clk and PHY_rx_clk <br>
+          </font></li>
+      </ul>
+      </td>
+    </tr>
+<!-- End section --> <tr>
+      <td>
+      <p class="Level2Heading">11.2 - Changes in&nbsp;documentation
+associated with core </p>
+      <hr class="whs1"> </td>
+    </tr>
+    <tr>
+      <td><br>
+      <ul>
+        <li><font size="-1"><span style="font-family: Arial;">Updated
+the DS for resolved issues and for new parameter addition</span></font></li>
+        <li><font size="-1"><span style="font-family: Arial;">Added
+MDIO interface register description</span></font></li>
+      </ul>
+      </td>
+    </tr>
+<!-- End section --> <tr>
+      <td>
+      <hr class="whs1"> </td>
+    </tr>
+<!-- BEGIN CHANGELOG FOR New core version --><!--spacer--><tr>
+      <td> <br>
+      </td>
+    </tr>
+    <tr>
+      <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v2.01.a, introduced in 11.1 </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p class="Level2Heading">11.1 - Changes in VHDL/Verilog/Netlist
+sources (.vhd, .v, .ngc, .edn) </p>
+      <hr class="whs1"> </td>
+    </tr>
+    <tr>
+      <td>
+      <pre><span style="font-style: italic;"></span><font size="-1"><span
+ style="font-family: Arial;"><br></span></font><span
+ style="font-family: Arial;">New Features:</span><font size="-1"><br></font></pre>
+      <ul>
+        <li><span style="font-size: 10pt; font-family: Arial;">Updated
+the helper
+libraries proc_common_v2_00_a to proc_common_v3_00_a and
+plbv46_slave_single_v1_00_a to plbv46_slave_single_v1_01_a</span></li>
+      </ul>
+      <pre><span style="font-family: Arial;">Resolved Issues:</span><font
+ size="+1"><span style="font-family: Arial;"><br></span></font></pre>
+      <ul>
+        <li><span style="font-size: 10pt; font-family: Arial;">Fixed
+CR: 479209 - Updated the core to fix post par simulation issue.&nbsp; <br>
+          </span></li>
+        <ul>
+          <li><font size="-1"><span style="font-family: Arial;">Versions
+that have this issue: v2.00.b<br>
+            </span></font></li>
+        </ul>
+      </ul>
+      <font size="-1"><span style="font-family: Arial;">Known Issues /
+Limitations:</span></font><br style="font-family: Arial;">
+      <ul>
+        <li style="font-family: Arial;"><font size="-1">None <br>
+          </font></li>
+      </ul>
+      </td>
+    </tr>
+<!-- End section --><!-- End section --><!-- End section --> <tr>
+      <td>
+      <p class="Level2Heading"> 11.1 - Changes in tool interface file
+(.tcl)<br>
+      </p>
+      <hr class="whs1"> </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+      <ul>
+        <li><font size="-1"><span style="font-family: Arial;">Updated
+Maxskew constraint value on PHY clocks.<br>
+          </span></font></li>
+      </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p class="Level2Heading"> 11.1 - Changes in&nbsp;documentation
+associated with core </p>
+      <hr class="whs1"> </td>
+    </tr>
+    <tr>
+      <td>
+      <ul>
+        <li><font size="-1"><span style="font-family: Arial;">Removed
+Virtex2p support.<br>
+          </span></font></li>
+      </ul>
+      </td>
+    </tr>
+<!-- End section --> <tr>
+      <td>
+      <hr class="whs1"> </td>
+    </tr>
+<!-- END CHANGELOG FOR New core version. BEGIN change logs for new version here --><!--spacer-->
+    <tr>
+      <td class="GreyBackground">
+      <p class="Level1Heading">Changes in v2.00.b, introduced in 10.1.3
+      </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p class="Level2Heading">10.1.3 - Changes in VHDL/Verilog/Netlist
+sources (.vhd, .v, .ngc, .edn) </p>
+      <hr class="whs1"> </td>
+    </tr>
+    <tr>
+      <td>
+      <pre><span style="font-style: italic;"></span><span
+ style="font-family: Arial;">New Features:</span>      </pre>
+      <ul>
+        <li><span style="font-size: 10pt; font-family: Arial;">None <br>
+          </span></li>
+      </ul>
+      <pre><span style="font-family: Arial;">New Features </span></pre>
+      <span style="font-family: Arial;"></span><font size="+1"><span
+ style="font-family: Arial;"></span></font>
+      <ul>
+        <li><span style="font-size: 10pt; font-family: Arial;">Fixed
+CR: 475195 :- Ethernet packets coming to the core with valid MAC
+destination address are getting droped if the last ethernet packet
+contains invalid MAC destination address. &nbsp;</span><span
+ style="font-family: Arial;"></span><span
+ style="font-size: 10pt; font-family: Arial;"></span></li>
+        <ul>
+          <li><font size="-1"><span style="font-family: Arial;">Versions
+that have this issue: v1.00.a, v2.00.a<br>
+            </span></font></li>
+        </ul>
+      </ul>
+      <font size="-1"><span style="font-family: Arial;">Known Issues /
+Limitations:</span></font><br style="font-family: Arial;">
+      <ul>
+        <li style="font-family: Arial;"><font size="-1">None</font><br>
+        </li>
+      </ul>
+      </td>
+    </tr>
+<!-- END CHANGELOG FOR New core version. BEGIN change logs for new version here -->
+  </tbody>
+</table>
+<p class="Copyright"> Copyright &copy; 1995-2009 Xilinx, Inc. Allrights
+reserved. </p>
+</body>
+</html>

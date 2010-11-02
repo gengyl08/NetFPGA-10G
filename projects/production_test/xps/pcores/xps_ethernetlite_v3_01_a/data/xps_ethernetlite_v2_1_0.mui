@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+########################################################################
+##
+## Copyright (c) 2009 Xilinx, Inc.  All rights reserved.
+##
+########################################################################
+-->
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+	<!ENTITY C_INCLUDE_MDIO '
+	<widget id="C_INCLUDE_MDIO">
+		<key>C_INCLUDE_MDIO</key>
+		<label>Include MII Management Module</label>
+		<tip></tip>
+	</widget>
+	'>
+	<!ENTITY C_INCLUDE_INTERNAL_LOOPBACK '
+	<widget id="C_INCLUDE_INTERNAL_LOOPBACK">
+		<key>C_INCLUDE_INTERNAL_LOOPBACK</key>
+		<label>Include Internal Loopback</label>
+		<tip></tip>
+	</widget>
+	'>
+	<!ENTITY C_DUPLEX '
+	<widget id="C_DUPLEX">
+		<key>C_DUPLEX</key>
+		<label>Duplex Mode </label>
+		<tip></tip>
+	</widget>
+	'>
+	<!ENTITY C_RX_PING_PONG '
+	<widget id="C_RX_PING_PONG">
+		<key>C_RX_PING_PONG</key>
+		<label>Include Second Receiver Buffer </label>
+		<tip></tip>
+	</widget>
+	'>
+	<!ENTITY C_TX_PING_PONG '
+	<widget id="C_TX_PING_PONG">
+		<key>C_TX_PING_PONG</key>
+		<label>Include Second Transmitter Buffer </label>
+		<tip></tip>
+	</widget>
+	'>
+]>
+
+<doc>
+	<view id="User">
+		<display>User</display>
+		<group id="All">
+			<display>All</display>
+			<item>&C_INCLUDE_INTERNAL_LOOPBACK;</item>
+			<item>&C_INCLUDE_MDIO;</item>
+			<item>&C_DUPLEX;</item>
+			<item>&C_RX_PING_PONG;</item>
+			<item>&C_TX_PING_PONG;</item>
+		</group>
+	</view>
+	<view id="System">
+		<display>System</display>
+		<group id="Addresses">
+			<display>Addresses</display>
+			<item>&C_BASEADDR;</item>
+			<item>&C_HIGHADDR;</item>
+		</group>
+		<group id="PLB">
+			<display>PLB</display>
+			<item>&C_SPLB_DWIDTH;</item>
+			<item>&C_SPLB_AWIDTH;</item>
+			<item>&C_SPLB_P2P;</item>
+			<item>&C_SPLB_MID_WIDTH;</item>
+			<item>&C_SPLB_NATIVE_DWIDTH;</item>
+			<item>&C_SPLB_NUM_MASTERS;</item>
+			<item>&C_SPLB_SUPPORT_BURSTS;</item>
+			<item>&C_SPLB_CLK_PERIOD_PS;</item>
+			<item>&C_SPLB_SMALLEST_MASTER;</item>
+		</group>
+		<group id="Hidden">
+			<display>Hidden</display>
+			<item>&C_FAMILY;</item>
+		</group>
+	</view>
+
+        <view id="Wizard">
+                <display>Wizard</display>
+                <group id="All">
+                        <display>All</display>
+                        <item>&G_USE_INTERRUPT;</item>
+                </group>
+        </view>
+
+</doc>
