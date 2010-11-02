@@ -1,0 +1,4 @@
+send s\c
+sleep 2
+! killall minicom
+exit 

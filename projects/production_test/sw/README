@@ -1,0 +1,13 @@
+Production Test Software
+
+Used for testing the workingness of a NetFPGA-10G 
+board by driving and monitoring the production 
+test hardware design.
+
+To use:
+
+make
+
+cd ./scripts/
+
+sudo ./production_test.py
