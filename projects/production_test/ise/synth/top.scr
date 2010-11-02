@@ -1,7 +1,0 @@
-run
--opt_mode speed
--ifmt mixed
--p xc5vtx240tff1759-2
--ifn top.prj
--ofn top.ngc
--top top
