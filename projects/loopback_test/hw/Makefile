@@ -182,7 +182,7 @@ __xps/$(SYSTEM)_routed: $(FPGA_IMP_DEPENDENCY)
 	@echo "Running Xilinx Implementation tools.."
 	@echo "*********************************************"
 	@cp -f $(UCF_FILE) implementation/$(SYSTEM).ucf
-	@cp -f nf10/xflow.opt implementation/xflow.opt
+	@cp -f etc/fast_runtime.opt implementation/xflow.opt
 	xflow -wd implementation -p $(DEVICE) -implement xflow.opt $(SYSTEM).ngc
 	touch __xps/$(SYSTEM)_routed
 
