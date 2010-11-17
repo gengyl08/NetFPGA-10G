@@ -45,7 +45,7 @@
 ##
 ###############################################################################
 
-lib axi_ethernetlite_v1_00_a_proc_common_v3_00_a all
+lib proc_common_v3_00_a all
 lib nf10_mdio_v1_00_a mdio_if.vhd vhdl
 lib nf10_mdio_v1_00_a axi_interface.vhd vhdl
 lib nf10_mdio_v1_00_a xemac.vhd vhdl

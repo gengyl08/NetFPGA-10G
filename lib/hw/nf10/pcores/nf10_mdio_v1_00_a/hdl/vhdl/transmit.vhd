@@ -128,9 +128,9 @@ use axi_ethernetlite_v1_00_a.mac_pkg.all;
 -- proc common package of the proc common library is used for different 
 -- function declarations
 -------------------------------------------------------------------------------
-library axi_ethernetlite_v1_00_a_proc_common_v3_00_a;
-use axi_ethernetlite_v1_00_a_proc_common_v3_00_a.all;
---use axi_ethernetlite_v1_00_a_proc_common_v3_00_a.proc_common_pkg.all;
+library proc_common_v3_00_a;
+use proc_common_v3_00_a.all;
+--use proc_common_v3_00_a.proc_common_pkg.all;
 
 
 -- synopsys translate_off
@@ -391,7 +391,7 @@ begin
    ----------------------------------------------------------------------------
    -- Multiplexing PHY transmit data
    ----------------------------------------------------------------------------
-   ONR_HOT_MUX:entity axi_ethernetlite_v1_00_a_proc_common_v3_00_a.mux_onehot_f
+   ONR_HOT_MUX:entity proc_common_v3_00_a.mux_onehot_f
    
       generic map 
          ( 
@@ -445,7 +445,7 @@ begin
    ----------------------------------------------------------------------------
    -- transmit packet fifo read nibble counter
    ----------------------------------------------------------------------------
-   INST_TXNIBBLECOUNT: entity axi_ethernetlite_v1_00_a_proc_common_v3_00_a.ld_arith_reg
+   INST_TXNIBBLECOUNT: entity proc_common_v3_00_a.ld_arith_reg
       generic  map
         (
          C_ADD_SUB_NOT => false,
@@ -579,7 +579,7 @@ begin
    ----------------------------------------------------------------------------
    -- transmit bus fifo write nibble counter
    ----------------------------------------------------------------------------
-   INST_TXBUSFIFOWRITENIBBLECOUNT: entity axi_ethernetlite_v1_00_a_proc_common_v3_00_a.ld_arith_reg
+   INST_TXBUSFIFOWRITENIBBLECOUNT: entity proc_common_v3_00_a.ld_arith_reg
       generic  map
         (
          C_ADD_SUB_NOT => true,
@@ -610,7 +610,7 @@ begin
    ----------------------------------------------------------------------------
    phy_tx_en_n <= not(phy_tx_en_i);
    
-   INST_CRCCOUNTER: entity axi_ethernetlite_v1_00_a_proc_common_v3_00_a.ld_arith_reg
+   INST_CRCCOUNTER: entity proc_common_v3_00_a.ld_arith_reg
       generic  map
         (
          C_ADD_SUB_NOT => false,

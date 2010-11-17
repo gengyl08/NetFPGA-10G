@@ -133,11 +133,11 @@
 
 library IEEE;
 use IEEE.std_logic_1164.all;
-library axi_timebase_wdt_v1_00_a_proc_common_v3_00_a;
-use axi_timebase_wdt_v1_00_a_proc_common_v3_00_a.ipif_pkg.SLV64_ARRAY_TYPE;
-use axi_timebase_wdt_v1_00_a_proc_common_v3_00_a.ipif_pkg.INTEGER_ARRAY_TYPE;
-use axi_timebase_wdt_v1_00_a_proc_common_v3_00_a.ipif_pkg.calc_num_ce;
-library axi_timebase_wdt_v1_00_a_axi_lite_ipif_v1_00_a;
+library proc_common_v3_00_a;
+use proc_common_v3_00_a.ipif_pkg.SLV64_ARRAY_TYPE;
+use proc_common_v3_00_a.ipif_pkg.INTEGER_ARRAY_TYPE;
+use proc_common_v3_00_a.ipif_pkg.calc_num_ce;
+library axi_lite_ipif_v1_00_a;
 library axi_timebase_wdt_v1_00_a;
 -------------------------------------------------------------------------------
 -- Entity section
@@ -299,7 +299,7 @@ TIMEBASE_WDT_CORE_I: entity axi_timebase_wdt_v1_00_a.timebase_wdt_core
     ---------------------------------------------------------------------
     -- INSTANTIATE AXI Lite IPIF
     ---------------------------------------------------------------------
-    AXI4_LITE_I : entity axi_timebase_wdt_v1_00_a_axi_lite_ipif_v1_00_a.axi_lite_ipif
+    AXI4_LITE_I : entity axi_lite_ipif_v1_00_a.axi_lite_ipif
       generic map
            (
         C_S_AXI_DATA_WIDTH    => C_S_AXI_DATA_WIDTH,

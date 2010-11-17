@@ -86,11 +86,11 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-library axi_uartlite_v1_00_a_proc_common_v3_00_a;
--- dynshreg_i_f refered from axi_uartlite_v1_00_a_proc_common_v3_00_a
-use axi_uartlite_v1_00_a_proc_common_v3_00_a.dynshreg_i_f;
--- srl_fifo_f refered from axi_uartlite_v1_00_a_proc_common_v3_00_a
-use axi_uartlite_v1_00_a_proc_common_v3_00_a.srl_fifo_f;
+library proc_common_v3_00_a;
+-- dynshreg_i_f refered from proc_common_v3_00_a
+use proc_common_v3_00_a.dynshreg_i_f;
+-- srl_fifo_f refered from proc_common_v3_00_a
+use proc_common_v3_00_a.srl_fifo_f;
 
 -------------------------------------------------------------------------------
 -- Port Declaration
@@ -356,7 +356,7 @@ begin  -- architecture RTL
     -- Starting with the first start_Edge_Detected_Bit and for every new 
     -- sample_points until stop_Bit_Position is reached
     -------------------------------------------------------------------------
-    DELAY_16_I : entity axi_uartlite_v1_00_a_proc_common_v3_00_a.dynshreg_i_f
+    DELAY_16_I : entity proc_common_v3_00_a.dynshreg_i_f
       generic map 
        (
         C_DEPTH  => 16,
@@ -488,7 +488,7 @@ begin  -- architecture RTL
     ---------------------------------------------------------------------------
     -- SRL_FIFO_I : Receive FIFO Interface
     ---------------------------------------------------------------------------
-    SRL_FIFO_I : entity axi_uartlite_v1_00_a_proc_common_v3_00_a.srl_fifo_f
+    SRL_FIFO_I : entity proc_common_v3_00_a.srl_fifo_f
       generic map
        (
         C_DWIDTH   => C_DATA_BITS,

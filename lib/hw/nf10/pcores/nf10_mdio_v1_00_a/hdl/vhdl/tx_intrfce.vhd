@@ -125,9 +125,9 @@ use axi_ethernetlite_v1_00_a.all;
 -- proc common package of the proc common library is used for different 
 -- function declarations
 -------------------------------------------------------------------------------
-library axi_ethernetlite_v1_00_a_proc_common_v3_00_a;
-use axi_ethernetlite_v1_00_a_proc_common_v3_00_a.all;
-use axi_ethernetlite_v1_00_a_proc_common_v3_00_a.family.all;
+library proc_common_v3_00_a;
+use proc_common_v3_00_a.all;
+use proc_common_v3_00_a.family.all;
 
 -- synopsys translate_off
 Library xilinxcorelib;
@@ -213,7 +213,7 @@ end component;
 begin
 
 
-   I_TX_FIFO: entity axi_ethernetlite_v1_00_a_proc_common_v3_00_a.async_fifo_fg
+   I_TX_FIFO: entity proc_common_v3_00_a.async_fifo_fg
      generic map(
        C_ALLOW_2N_DEPTH   => 0,  -- New paramter to leverage FIFO Gen 2**N depth
        C_FAMILY           => C_FAMILY,  -- new for FIFO Gen

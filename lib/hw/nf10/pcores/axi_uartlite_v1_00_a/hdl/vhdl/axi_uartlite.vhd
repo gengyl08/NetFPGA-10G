@@ -86,17 +86,17 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-library axi_uartlite_v1_00_a_proc_common_v3_00_a;
+library proc_common_v3_00_a;
 -- SLV64_ARRAY_TYPE refered from ipif_pkg
-use axi_uartlite_v1_00_a_proc_common_v3_00_a.ipif_pkg.SLV64_ARRAY_TYPE;
+use proc_common_v3_00_a.ipif_pkg.SLV64_ARRAY_TYPE;
 -- INTEGER_ARRAY_TYPE refered from ipif_pkg
-use axi_uartlite_v1_00_a_proc_common_v3_00_a.ipif_pkg.INTEGER_ARRAY_TYPE;
+use proc_common_v3_00_a.ipif_pkg.INTEGER_ARRAY_TYPE;
 -- calc_num_ce comoponent refered from ipif_pkg
-use axi_uartlite_v1_00_a_proc_common_v3_00_a.ipif_pkg.calc_num_ce;
+use proc_common_v3_00_a.ipif_pkg.calc_num_ce;
 
-library axi_uartlite_v1_00_a_axi_lite_ipif_v1_00_a;
--- axi_lite_ipif refered from axi_uartlite_v1_00_a_axi_lite_ipif_v1_00_a
-use axi_uartlite_v1_00_a_axi_lite_ipif_v1_00_a.axi_lite_ipif;
+library axi_lite_ipif_v1_00_a;
+-- axi_lite_ipif refered from axi_lite_ipif_v1_00_a
+use axi_lite_ipif_v1_00_a.axi_lite_ipif;
 
 library axi_uartlite_v1_00_a;
 -- uartlite_core refered from axi_uartlite_v1_00_a
@@ -325,7 +325,7 @@ begin  -- architecture IMP
     --------------------------------------------------------------------------
     -- Instantiate AXI lite IPIF
     --------------------------------------------------------------------------
-    AXI_LITE_IPIF_I : entity axi_uartlite_v1_00_a_axi_lite_ipif_v1_00_a.axi_lite_ipif
+    AXI_LITE_IPIF_I : entity axi_lite_ipif_v1_00_a.axi_lite_ipif
       generic map
        (
         C_FAMILY                  => C_FAMILY,

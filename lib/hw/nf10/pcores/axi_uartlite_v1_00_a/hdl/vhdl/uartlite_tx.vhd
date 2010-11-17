@@ -89,11 +89,11 @@ use IEEE.numeric_std.UNSIGNED;
 use IEEE.numeric_std.to_unsigned;
 use IEEE.numeric_std."-";
 
-library axi_uartlite_v1_00_a_proc_common_v3_00_a;
--- dynshreg_i_f refered from axi_uartlite_v1_00_a_proc_common_v3_00_a
-use axi_uartlite_v1_00_a_proc_common_v3_00_a.dynshreg_i_f;
--- srl_fifo_f refered from axi_uartlite_v1_00_a_proc_common_v3_00_a
-use axi_uartlite_v1_00_a_proc_common_v3_00_a.srl_fifo_f;
+library proc_common_v3_00_a;
+-- dynshreg_i_f refered from proc_common_v3_00_a
+use proc_common_v3_00_a.dynshreg_i_f;
+-- srl_fifo_f refered from proc_common_v3_00_a
+use proc_common_v3_00_a.srl_fifo_f;
 
 -------------------------------------------------------------------------------
 -- Port Declaration
@@ -202,7 +202,7 @@ begin  -- architecture IMP
     --                        gets shifted for 16 times(as Addr = 15) when 
     --                        EN_16x_Baud is high.
     ---------------------------------------------------------------------------
-    MID_START_BIT_SRL16_I : entity axi_uartlite_v1_00_a_proc_common_v3_00_a.dynshreg_i_f
+    MID_START_BIT_SRL16_I : entity proc_common_v3_00_a.dynshreg_i_f
       generic map
        (
         C_DEPTH      => 16,
@@ -465,7 +465,7 @@ begin  -- architecture IMP
     --------------------------------------------------------------------------
     -- SRL_FIFO_I : Transmit FIFO Interface
     --------------------------------------------------------------------------
-    SRL_FIFO_I : entity axi_uartlite_v1_00_a_proc_common_v3_00_a.srl_fifo_f
+    SRL_FIFO_I : entity proc_common_v3_00_a.srl_fifo_f
       generic map 
        (
         C_DWIDTH   => C_DATA_BITS,

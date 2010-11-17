@@ -134,9 +134,9 @@ use axi_slave_burst_v1_00_a.all;
 -- proc common package of the proc common library is used for different 
 -- function declarations
 -------------------------------------------------------------------------------
-library axi_ethernetlite_v1_00_a_proc_common_v3_00_a;
-use axi_ethernetlite_v1_00_a_proc_common_v3_00_a.proc_common_pkg.all;
-use axi_ethernetlite_v1_00_a_proc_common_v3_00_a.ipif_pkg.all;
+library proc_common_v3_00_a;
+use proc_common_v3_00_a.proc_common_pkg.all;
+use proc_common_v3_00_a.ipif_pkg.all;
 
 -------------------------------------------------------------------------------
 -- Definition of Generics:
