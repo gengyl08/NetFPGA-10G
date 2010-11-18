@@ -69,7 +69,7 @@ module rx_queue
    	);
    	    
      assign tlast = ~fifo_empty & (tstrb != 8'hFF);
-     assign tvalid = ~fifo_empty;
+     assign tvalid = ~fifo_empty & (tstrb != 8'h0); //Avoid writing a null word into the next module.
          
      always @* begin
          state_next = state;
