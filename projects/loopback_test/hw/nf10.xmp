@@ -2,7 +2,7 @@
 XmpVersion: 12.3
 VerMgmt: 12.3
 IntStyle: default
-ModuleSearchPath: /hpn/home/hyzeng/netfpga-10g/lib/hw/nf10/pcores/diff_input_buf_v1_00_a/../../../
+ModuleSearchPath: ../../../lib/hw
 MHS File: nf10.mhs
 MSS File: system.mss
 Architecture: virtex5
