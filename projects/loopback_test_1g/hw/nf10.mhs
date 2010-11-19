@@ -1,0 +1,274 @@
+
+# ##############################################################################
+# Created by Base System Builder Wizard for Xilinx EDK 12.3 Build EDK_MS3.70d
+# Wed Oct 13 08:18:57 2010
+# Target Board:  xilinx.com ml605 Rev 1.0
+# Family:    virtex6
+# Device:    xc6vlx240t
+# Package:   ff1156
+# Speed Grade:  -1
+# ##############################################################################
+ PARAMETER VERSION = 2.1.0
+
+
+ PORT RESET = RESET, DIR = I, SIGIS = RST, RST_POLARITY = 0
+ PORT RS232_Uart_1_sout = RS232_Uart_1_sout, DIR = O
+ PORT RS232_Uart_1_sin = RS232_Uart_1_sin, DIR = I
+ PORT CLK = CLK, DIR = I, SIGIS = CLK
+ PORT MDC = nf10_mdio_0_PHY_MDC, DIR = O
+ PORT MDIO = nf10_mdio_0_PHY_MDIO, DIR = IO
+ PORT PHY_RST_N = nf10_mdio_0_PHY_rst_n, DIR = O, RST_POLARITY = 1
+ PORT nf10_1g_interface_0_RXN_1_pin = nf10_1g_interface_0_RXN_1, DIR = I
+ PORT nf10_1g_interface_0_TXN_1_pin = nf10_1g_interface_0_TXN_1, DIR = O
+ PORT nf10_1g_interface_0_TXP_0_pin = nf10_1g_interface_0_TXP_0, DIR = O
+ PORT nf10_1g_interface_0_TXN_0_pin = nf10_1g_interface_0_TXN_0, DIR = O
+ PORT nf10_1g_interface_0_TXP_1_pin = nf10_1g_interface_0_TXP_1, DIR = O
+ PORT nf10_1g_interface_0_RXP_0_pin = nf10_1g_interface_0_RXP_0, DIR = I
+ PORT nf10_1g_interface_0_RXN_0_pin = nf10_1g_interface_0_RXN_0, DIR = I
+ PORT nf10_1g_interface_0_RXP_1_pin = nf10_1g_interface_0_RXP_1, DIR = I
+ PORT nf10_1g_interface_1_RXN_1_pin = nf10_1g_interface_1_RXN_1, DIR = I
+ PORT nf10_1g_interface_1_RXP_1_pin = nf10_1g_interface_1_RXP_1, DIR = I
+ PORT nf10_1g_interface_1_TXP_0_pin = nf10_1g_interface_1_TXP_0, DIR = O
+ PORT nf10_1g_interface_1_TXN_0_pin = nf10_1g_interface_1_TXN_0, DIR = O
+ PORT nf10_1g_interface_1_TXP_1_pin = nf10_1g_interface_1_TXP_1, DIR = O
+ PORT nf10_1g_interface_1_RXP_0_pin = nf10_1g_interface_1_RXP_0, DIR = I
+ PORT nf10_1g_interface_1_RXN_0_pin = nf10_1g_interface_1_RXN_0, DIR = I
+ PORT nf10_1g_interface_1_TXN_1_pin = nf10_1g_interface_1_TXN_1, DIR = O
+ PORT refclk_ABC_p = diff_input_buf_0_DIFF_INPUT_P, DIR = I
+ PORT refclk_D_p = diff_input_buf_1_DIFF_INPUT_P, DIR = I
+ PORT refclk_D_n = diff_input_buf_1_DIFF_INPUT_N, DIR = I
+ PORT refclk_ABC_n = diff_input_buf_0_DIFF_INPUT_N, DIR = I
+ PORT nf10_1g_interface_1_TXP_0_dummy_pin = nf10_1g_interface_1_TXP_0_dummy, DIR = O
+ PORT nf10_1g_interface_1_TXP_1_dummy_pin = nf10_1g_interface_1_TXP_1_dummy, DIR = O
+ PORT nf10_1g_interface_1_TXN_0_dummy_pin = nf10_1g_interface_1_TXN_0_dummy, DIR = O
+ PORT nf10_1g_interface_1_RXP_0_dummy_pin = nf10_1g_interface_1_RXP_0_dummy, DIR = I
+ PORT nf10_1g_interface_1_RXN_0_dummy_pin = nf10_1g_interface_1_RXN_0_dummy, DIR = I
+ PORT nf10_1g_interface_1_RXP_1_dummy_pin = nf10_1g_interface_1_RXP_1_dummy, DIR = I
+ PORT nf10_1g_interface_1_RXN_1_dummy_pin = nf10_1g_interface_1_RXN_1_dummy, DIR = I
+ PORT nf10_1g_interface_1_TXN_1_dummy_pin = nf10_1g_interface_1_TXN_1_dummy, DIR = O
+ PORT nf10_1g_interface_0_TXN_0_dummy_pin = nf10_1g_interface_0_TXN_0_dummy, DIR = O
+ PORT nf10_1g_interface_0_TXP_1_dummy_pin = nf10_1g_interface_0_TXP_1_dummy, DIR = O
+ PORT nf10_1g_interface_0_TXN_1_dummy_pin = nf10_1g_interface_0_TXN_1_dummy, DIR = O
+ PORT nf10_1g_interface_0_RXP_0_dummy_pin = nf10_1g_interface_0_RXP_0_dummy, DIR = I
+ PORT nf10_1g_interface_0_RXN_0_dummy_pin = nf10_1g_interface_0_RXN_0_dummy, DIR = I
+ PORT nf10_1g_interface_0_RXP_1_dummy_pin = nf10_1g_interface_0_RXP_1_dummy, DIR = I
+ PORT nf10_1g_interface_0_RXN_1_dummy_pin = nf10_1g_interface_0_RXN_1_dummy, DIR = I
+ PORT nf10_1g_interface_0_TXP_0_dummy_pin = nf10_1g_interface_0_TXP_0_dummy, DIR = O
+
+
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = axi_interconnect_memory_mapped_lite_0
+ PARAMETER HW_VER = 1.00.a
+ PORT interconnect_aclk = clk_25_0000MHzMMCM0
+ PORT INTERCONNECT_ARESETN = connectnetwork_0_reset_reset_0_Reset_2_adhoc
+END
+
+BEGIN microblaze
+ PARAMETER INSTANCE = microblaze_0
+ PARAMETER HW_VER = 8.00.a
+ PARAMETER C_INTERCONNECT = 2
+ PARAMETER C_USE_BARREL = 1
+ PARAMETER C_USE_FPU = 0
+ PARAMETER C_DEBUG_ENABLED = 0
+ PARAMETER C_ICACHE_BASEADDR = 0X00000000
+ PARAMETER C_ICACHE_HIGHADDR = 0X3FFFFFFF
+ PARAMETER C_USE_ICACHE = 0
+ PARAMETER C_ICACHE_ALWAYS_USED = 0
+ PARAMETER C_DCACHE_BASEADDR = 0X00000000
+ PARAMETER C_DCACHE_HIGHADDR = 0X3FFFFFFF
+ PARAMETER C_USE_DCACHE = 0
+ PARAMETER C_DCACHE_ALWAYS_USED = 0
+ PARAMETER C_INTERCONNECT_M_AXI_DC_AW_REGISTER = 0
+ PARAMETER C_INTERCONNECT_M_AXI_DC_W_REGISTER = 0
+ PARAMETER C_USE_HW_MUL = 0
+ BUS_INTERFACE M_AXI_DP = axi_interconnect_memory_mapped_lite_0
+ BUS_INTERFACE DLMB = microblaze_0_dlmb
+ BUS_INTERFACE ILMB = microblaze_0_ilmb
+ PORT MB_RESET = microblaze_0_Reset_reset_0_Reset_0_adhoc
+ PORT CLK = clk_50_0000MHzMMCM0
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = microblaze_0_ilmb
+ PARAMETER HW_VER = 1.00.a
+ PORT SYS_RST = sys_bus_reset
+ PORT LMB_CLK = clk_50_0000MHzMMCM0
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = microblaze_0_dlmb
+ PARAMETER HW_VER = 1.00.a
+ PORT SYS_RST = sys_bus_reset
+ PORT LMB_CLK = clk_50_0000MHzMMCM0
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_i_bram_ctrl
+ PARAMETER HW_VER = 2.10.b
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x00003fff
+ BUS_INTERFACE SLMB = microblaze_0_ilmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_i_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_d_bram_ctrl
+ PARAMETER HW_VER = 2.10.b
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x00003fff
+ BUS_INTERFACE SLMB = microblaze_0_dlmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_d_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = microblaze_0_bram_block
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTA = microblaze_0_i_bram_ctrl_2_microblaze_0_bram_block
+ BUS_INTERFACE PORTB = microblaze_0_d_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN proc_sys_reset
+ PARAMETER INSTANCE = reset_0
+ PARAMETER HW_VER = 3.00.a
+ PARAMETER C_EXT_RESET_HIGH = 0
+ PORT Ext_Reset_In = RESET
+ PORT MB_Reset = microblaze_0_Reset_reset_0_Reset_0_adhoc
+ PORT Slowest_sync_clk = clk_25_0000MHzMMCM0
+ PORT Interconnect_aresetn = connectnetwork_0_reset_reset_0_Reset_2_adhoc
+ PORT BUS_STRUCT_RESET = sys_bus_reset
+ PORT Dcm_locked = dcm_locked
+ PORT Peripheral_aresetn = Peripheral_aresetn
+END
+
+BEGIN axi_uartlite
+ PARAMETER INSTANCE = RS232_Uart_1
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_BAUDRATE = 9600
+ PARAMETER C_DATA_BITS = 8
+ PARAMETER C_USE_PARITY = 0
+ PARAMETER C_ODD_PARITY = 1
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
+ PARAMETER C_BASEADDR = 0x40600000
+ PARAMETER C_HIGHADDR = 0x4060ffff
+ BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
+ PORT TX = RS232_Uart_1_sout
+ PORT RX = RS232_Uart_1_sin
+ PORT S_AXI_ACLK = clk_25_0000MHzMMCM0
+END
+
+BEGIN clock_generator
+ PARAMETER INSTANCE = clock_generator_0
+ PARAMETER HW_VER = 4.00.a
+ PARAMETER C_CLKIN_FREQ = 100000000
+ PARAMETER C_CLKOUT0_FREQ = 50000000
+ PARAMETER C_CLKOUT0_GROUP = NONE
+ PARAMETER C_CLKOUT1_FREQ = 25000000
+ PARAMETER C_CLKOUT1_GROUP = NONE
+ PARAMETER C_EXT_RESET_HIGH = 0
+ PARAMETER C_CLKOUT2_FREQ = 200000000
+ PORT CLKIN = CLK
+ PORT CLKOUT0 = clk_50_0000MHzMMCM0
+ PORT RST = RESET
+ PORT LOCKED = dcm_locked
+ PORT CLKOUT1 = clk_25_0000MHzMMCM0
+ PORT CLKOUT2 = core_clk
+END
+
+BEGIN nf10_mdio
+ PARAMETER INSTANCE = nf10_mdio_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_DUPLEX = 0
+ PARAMETER C_INCLUDE_PHY_CONSTRAINTS = 0
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
+ PARAMETER C_BASEADDR = 0x7a000000
+ PARAMETER C_HIGHADDR = 0x7a00ffff
+ BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
+ PORT S_AXI_ACLK = clk_25_0000MHzMMCM0
+ PORT PHY_MDC = nf10_mdio_0_PHY_MDC
+ PORT PHY_MDIO = nf10_mdio_0_PHY_MDIO
+ PORT PHY_rst_n = nf10_mdio_0_PHY_rst_n
+END
+
+BEGIN axi_timebase_wdt
+ PARAMETER INSTANCE = axi_timebase_wdt_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
+ PARAMETER C_BASEADDR = 0x41a00000
+ PARAMETER C_HIGHADDR = 0x41a0ffff
+ BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
+ PORT S_AXI_ACLK = clk_25_0000MHzMMCM0
+END
+
+BEGIN nf10_1g_interface
+ PARAMETER INSTANCE = nf10_1g_interface_0
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE M_AXIS_0 = nf10_1g_interface_0_M_AXIS_0
+ BUS_INTERFACE S_AXIS_0 = nf10_1g_interface_0_M_AXIS_0
+ BUS_INTERFACE M_AXIS_1 = nf10_1g_interface_0_M_AXIS_1
+ BUS_INTERFACE S_AXIS_1 = nf10_1g_interface_0_M_AXIS_1
+ PORT RXN_1 = nf10_1g_interface_0_RXN_1
+ PORT TXN_1 = nf10_1g_interface_0_TXN_1
+ PORT TXP_0 = nf10_1g_interface_0_TXP_0
+ PORT TXN_0 = nf10_1g_interface_0_TXN_0
+ PORT TXP_1 = nf10_1g_interface_0_TXP_1
+ PORT RXP_0 = nf10_1g_interface_0_RXP_0
+ PORT RXN_0 = nf10_1g_interface_0_RXN_0
+ PORT RXP_1 = nf10_1g_interface_0_RXP_1
+ PORT axi_resetn = Peripheral_aresetn
+ PORT gtxclk_0 = refclk_ABC
+ PORT gtxclk_1 = refclk_ABC
+ PORT TXN_0_dummy = nf10_1g_interface_0_TXN_0_dummy
+ PORT TXP_1_dummy = nf10_1g_interface_0_TXP_1_dummy
+ PORT TXN_1_dummy = nf10_1g_interface_0_TXN_1_dummy
+ PORT RXP_0_dummy = nf10_1g_interface_0_RXP_0_dummy
+ PORT RXN_0_dummy = nf10_1g_interface_0_RXN_0_dummy
+ PORT RXP_1_dummy = nf10_1g_interface_0_RXP_1_dummy
+ PORT RXN_1_dummy = nf10_1g_interface_0_RXN_1_dummy
+ PORT TXP_0_dummy = nf10_1g_interface_0_TXP_0_dummy
+END
+
+BEGIN nf10_1g_interface
+ PARAMETER INSTANCE = nf10_1g_interface_1
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE M_AXIS_0 = nf10_1g_interface_1_M_AXIS_0
+ BUS_INTERFACE S_AXIS_0 = nf10_1g_interface_1_M_AXIS_0
+ BUS_INTERFACE M_AXIS_1 = nf10_1g_interface_1_M_AXIS_1
+ BUS_INTERFACE S_AXIS_1 = nf10_1g_interface_1_M_AXIS_1
+ PORT RXN_1 = nf10_1g_interface_1_RXN_1
+ PORT RXP_1 = nf10_1g_interface_1_RXP_1
+ PORT TXP_0 = nf10_1g_interface_1_TXP_0
+ PORT TXN_0 = nf10_1g_interface_1_TXN_0
+ PORT TXP_1 = nf10_1g_interface_1_TXP_1
+ PORT RXP_0 = nf10_1g_interface_1_RXP_0
+ PORT RXN_0 = nf10_1g_interface_1_RXN_0
+ PORT TXN_1 = nf10_1g_interface_1_TXN_1
+ PORT axi_resetn = Peripheral_aresetn
+ PORT axi_aclk = core_clk
+ PORT gtxclk_0 = refclk_ABC
+ PORT gtxclk_1 = refclk_D
+ PORT TXP_0_dummy = nf10_1g_interface_1_TXP_0_dummy
+ PORT TXP_1_dummy = nf10_1g_interface_1_TXP_1_dummy
+ PORT TXN_0_dummy = nf10_1g_interface_1_TXN_0_dummy
+ PORT RXP_0_dummy = nf10_1g_interface_1_RXP_0_dummy
+ PORT RXN_0_dummy = nf10_1g_interface_1_RXN_0_dummy
+ PORT RXP_1_dummy = nf10_1g_interface_1_RXP_1_dummy
+ PORT RXN_1_dummy = nf10_1g_interface_1_RXN_1_dummy
+ PORT TXN_1_dummy = nf10_1g_interface_1_TXN_1_dummy
+END
+
+BEGIN diff_input_buf
+ PARAMETER INSTANCE = diff_input_buf_0
+ PARAMETER HW_VER = 1.00.a
+ PORT DIFF_INPUT_P = diff_input_buf_0_DIFF_INPUT_P
+ PORT DIFF_INPUT_N = diff_input_buf_0_DIFF_INPUT_N
+ PORT SINGLE_ENDED_INPUT = refclk_ABC
+END
+
+BEGIN diff_input_buf
+ PARAMETER INSTANCE = diff_input_buf_1
+ PARAMETER HW_VER = 1.00.a
+ PORT DIFF_INPUT_P = diff_input_buf_1_DIFF_INPUT_P
+ PORT DIFF_INPUT_N = diff_input_buf_1_DIFF_INPUT_N
+ PORT SINGLE_ENDED_INPUT = refclk_D
+END
+

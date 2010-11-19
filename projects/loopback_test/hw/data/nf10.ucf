@@ -37,8 +37,8 @@ NET "refclk_ABC_p"  LOC = "C4" ;
 NET "refclk_ABC_n"  LOC = "C3" ;
 
 # refclk for XAUI D
-NET "refclk_D_p"  LOC = "D27" ;
-NET "refclk_D_n"  LOC = "C27" ;
+NET "refclk_D_p"  LOC = "D33" ;
+NET "refclk_D_n"  LOC = "C33" ;
 
 
 # TIMING ###################################################################
