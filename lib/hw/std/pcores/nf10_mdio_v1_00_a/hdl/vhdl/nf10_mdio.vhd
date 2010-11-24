@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
--- axi_ethernetlite - entity/architecture pair
+-- nf10_mdio - entity/architecture pair
 -------------------------------------------------------------------------------
 --  ***************************************************************************
 --  ** DISCLAIMER OF LIABILITY                                               **
@@ -41,11 +41,8 @@
 --  **  of this file at all times.                                           **
 --  ***************************************************************************
 -------------------------------------------------------------------------------
--- Filename     : axi_ethernetlite.vhd
--- Version      : v1.00.a
--- Description  : This is the top level wrapper file for the Ethernet
---                Lite function It provides a 10 or 100 Mbs full or half 
---                duplex Ethernet bus with an interface to an AXI Interface.               
+-- Filename     : nf10_mdio.vhd
+-- Version      : v1.00.a             
 -- VHDL-Standard: VHDL'93
 -------------------------------------------------------------------------------
 -- Structure:   
@@ -56,65 +53,9 @@
 --      \-- xemac.vhd
 --           \
 --           \-- mdio_if.vhd
---           \-- emac_dpram.vhd                     
---           \    \                     
---           \    \-- RAMB16_S4_S36
---           \                          
---           \    
---           \-- emac.vhd                     
---                \                     
---                \-- MacAddrRAM                   
---                \-- receive.vhd
---                \      rx_statemachine.vhd
---                \      rx_intrfce.vhd
---                \         async_fifo_fg.vhd
---                \      crcgenrx.vhd
---                \                     
---                \-- transmit.vhd
---                       crcgentx.vhd
---                          crcnibshiftreg
---                       tx_intrfce.vhd
---                          async_fifo_fg.vhd
---                       tx_statemachine.vhd
---                       deferral.vhd
---                          cntr5bit.vhd
---                          defer_state.vhd
---                       bocntr.vhd
---                          lfsr16.vhd
---                       msh_cnt.vhd
---                       ld_arith_reg.vhd
 --
 -------------------------------------------------------------------------------
--- Author:    PVK
--- History:    
--- PVK        06/07/2010     First Version
--- ^^^^^^
--- First version.  
--- ~~~~~~
--- PVK        07/29/2010     First Version
--- ^^^^^^
--- Removed ARLOCK and AWLOCK, AWPROT, ARPROT signals from the list.
--- ~~~~~~
--------------------------------------------------------------------------------
--- Naming Conventions:
---      active low signals:                     "*_n"
---      clock signals:                          "clk", "clk_div#", "clk_#x" 
---      reset signals:                          "rst", "rst_n" 
---      generics:                                "C_*" 
---      user defined types:                     "*_TYPE" 
---      state machine next state:               "*_ns" 
---      state machine current state:            "*_cs" 
---      combinatorial signals:                  "*_com" 
---      pipelined or register delay signals:    "*_d#" 
---      counter signals:                        "*cnt*"
---      clock enable signals:                   "*_ce" 
---      internal version of output port         "*_i"
---      device pins:                            "*_pin" 
---      ports:                                  - Names begin with Uppercase 
---      processes:                              "*_PROCESS" 
---      component instantiations:               "<ENTITY_>I_<#|FUNC>
-------------------------------------------------------------------------------- 
--------------------------------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 
@@ -141,116 +82,6 @@ use proc_common_v3_00_a.all;
 library unisim;
 use unisim.Vcomponents.all;
 
--------------------------------------------------------------------------------
--- Definition of Generics:
--------------------------------------------------------------------------------
--- 
--- C_FAMILY                    -- Target device family 
--- C_BASEADDR                  -- Base Address of this device
--- C_HIGHADDR                  -- High Address of this device 
---                                (using word addressing for each byte)
--- C_S_AXI_ACLK_PERIOD_PS      -- The period of the AXI clock in ps
--- C_S_AXI_ADDR_WIDTH          -- AXI address bus width - allowed value - 32 only
--- C_S_AXI_DATA_WIDTH          -- AXI data bus width - allowed value - 32 or 64 only
--- C_S_AXI_ID_WIDTH            -- AXI Identification TAG width - 1 to 16
--- C_S_AXI_PROTOCOL            -- AXI protocol type
---              
--- C_DUPLEX                    -- 1 = Full duplex, 0 = Half duplex
--- C_TX_PING_PONG              -- 1 = Ping-pong memory used for transmit buffer
---                                0 = Pong memory not used for transmit buffer 
--- C_RX_PING_PONG              -- 1 = Ping-pong memory used for receive buffer
---                                0 = Pong memory not used for receive buffer 
--- C_INCLUDE_MDIO              -- 1 = Include MDIO Innterface, 
---                                0 = No MDIO Interface
--- C_INCLUDE_INTERNAL_LOOPBACK -- 1 = Include Internal Loopback logic, 
---                                0 = Internal Loopback logic disabled
--- C_INCLUDE_GLOBAL_BUFFERS    -- 1 = Include global buffers for PHY clocks
---                                0 = Use normal input buffers for PHY clocks
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
--- Definition of Ports:
---
--- S_AXI_ACLK            -- AXI Clock
--- S_AXI_ARESETN          -- AXI Reset - active low
--- -- Interrupts           
--- IP2INTC_Irpt       -- Interrupt to processor
---==================================
--- AXI Write Address Channel Signals
---==================================
--- S_AXI_AWID            -- AXI Write Address ID
--- S_AXI_AWADDR          -- AXI Write address - 32 bit
--- S_AXI_AWLEN           -- AXI Write Data Length
--- S_AXI_AWSIZE          -- AXI Burst Size - allowed values
---                       -- 000 - byte burst
---                       -- 001 - half word
---                       -- 010 - word
---                       -- 011 - double word
---                       -- NA for all remaining values
--- S_AXI_AWBURST         -- AXI Burst Type
---                       -- 00  - Fixed
---                       -- 01  - Incr
---                       -- 10  - Wrap
---                       -- 11  - Reserved
--- S_AXI_AWCACHE         -- AXI Cache Type
--- S_AXI_AWVALID         -- Write address valid
--- S_AXI_AWREADY         -- Write address ready
---===============================
--- AXI Write Data Channel Signals
---===============================
--- S_AXI_WDATA           -- AXI Write data width
--- S_AXI_WSTRB           -- AXI Write strobes
--- S_AXI_WLAST           -- AXI Last write indicator signal
--- S_AXI_WVALID          -- AXI Write valid
--- S_AXI_WREADY          -- AXI Write ready
---================================
--- AXI Write Data Response Signals
---================================
--- S_AXI_BID             -- AXI Write Response channel number
--- S_AXI_BRESP           -- AXI Write response
---                       -- 00  - Okay
---                       -- 01  - ExOkay
---                       -- 10  - Slave Error
---                       -- 11  - Decode Error
--- S_AXI_BVALID          -- AXI Write response valid
--- S_AXI_BREADY          -- AXI Response ready
---=================================
--- AXI Read Address Channel Signals
---=================================
--- S_AXI_ARID            -- AXI Read ID
--- S_AXI_ARADDR          -- AXI Read address
--- S_AXI_ARLEN           -- AXI Read Data length
--- S_AXI_ARSIZE          -- AXI Read Size
--- S_AXI_ARBURST         -- AXI Read Burst length
--- S_AXI_ARCACHE         -- AXI Read Cache
--- S_AXI_ARPROT          -- AXI Read Protection
--- S_AXI_RVALID          -- AXI Read valid
--- S_AXI_RREADY          -- AXI Read ready
---==============================
--- AXI Read Data Channel Signals
---==============================
--- S_AXI_RID             -- AXI Read Channel ID
--- S_AXI_RDATA           -- AXI Read data
--- S_AXI_RRESP           -- AXI Read response
--- S_AXI_RLAST           -- AXI Read Data Last signal
--- S_AXI_RVALID          -- AXI Read address valid
--- S_AXI_RREADY          -- AXI Read address ready
-
---                 
--- -- Ethernet
--- PHY_tx_clk       -- Ethernet tranmit clock
--- PHY_rx_clk       -- Ethernet receive clock
--- PHY_crs          -- Ethernet carrier sense
--- PHY_dv           -- Ethernet receive data valid
--- PHY_rx_data      -- Ethernet receive data
--- PHY_col          -- Ethernet collision indicator
--- PHY_rx_er        -- Ethernet receive error
--- PHY_rst_n        -- Ethernet PHY Reset
--- PHY_tx_en        -- Ethernet transmit enable
--- PHY_tx_data      -- Ethernet transmit data
--- PHY_MDIO_I       -- Ethernet PHY MDIO data input 
--- PHY_MDIO_O       -- Ethernet PHY MDIO data output 
--- PHY_MDIO_T       -- Ethernet PHY MDIO data 3-state control
--- PHY_MDC          -- Ethernet PHY management clock
 -------------------------------------------------------------------------------
 -- ENTITY
 -------------------------------------------------------------------------------
@@ -371,22 +202,6 @@ constant NODE_MAC : bit_vector := x"00005e00FACE";
 -------------------------------------------------------------------------------
 --   Signal declaration Section 
 -------------------------------------------------------------------------------
-signal phy_rx_clk_i    : std_logic;
-signal phy_tx_clk_i    : std_logic;
-signal phy_rx_data_i   : std_logic_vector(3 downto 0); 
-signal phy_tx_data_i   : std_logic_vector(3 downto 0);
-signal phy_dv_i        : std_logic;
-signal phy_rx_er_i     : std_logic;
-signal phy_tx_en_i     : std_logic;
-signal Loopback        : std_logic;
-signal phy_rx_data_in  : std_logic_vector (3 downto 0);
-signal phy_dv_in       : std_logic;
-signal phy_rx_data_reg : std_logic_vector(3 downto 0);
-signal phy_rx_er_reg   : std_logic;
-signal phy_dv_reg      : std_logic;
-
-signal phy_tx_clk_core    : std_logic;
-signal phy_rx_clk_core    : std_logic;
 
 -- IPIC Signals
 signal temp_Bus2IP_Addr: std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -448,9 +263,9 @@ begin -- this is the begin between declarations and architecture body
    bus_rst     <= not S_AXI_ARESETN ;
       
    ----------------------------------------------------------------------------
-   -- XEMAC Module
+   -- MDIO Module
    ----------------------------------------------------------------------------   
-   XEMAC_I : entity nf10_mdio_v1_00_a.xemac
+   MDIO : entity nf10_mdio_v1_00_a.mdio_ipif
      generic map 
         (
         C_FAMILY                 => C_FAMILY,

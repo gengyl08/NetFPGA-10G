@@ -35,8 +35,8 @@ NET "refclk_ABC_p"  LOC = "F4" ;
 NET "refclk_ABC_n"  LOC = "F3" ;
 
 # refclk for Port D
-NET "refclk_D_p"  LOC = "D27" ;
-NET "refclk_D_n"  LOC = "C27" ;
+NET "refclk_D_p"  LOC = "D33" ;
+NET "refclk_D_n"  LOC = "C33" ;
 
 ################################################################################
 # GMAC0 INTERFACE - SFP

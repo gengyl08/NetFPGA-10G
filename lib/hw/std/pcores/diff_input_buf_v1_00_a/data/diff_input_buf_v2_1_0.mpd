@@ -15,6 +15,8 @@ OPTION IPTYPE = PERIPHERAL
 OPTION IMP_NETLIST = TRUE
 OPTION HDL = VHDL
 OPTION IP_GROUP = 'Clock, Reset and Interrupt:MICROBLAZE:PPC'
+OPTION DESC = Differential Clock Input Buffer
+OPTION LONG_DESC = 'Differential Clock Input Buffer'
 
 
 ## Bus Interfaces

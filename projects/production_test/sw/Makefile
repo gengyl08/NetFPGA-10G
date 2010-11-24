@@ -13,7 +13,7 @@ tar:
 	tar czvf ../prod_test_sw_`date +%Y%m%d_%H%M`.tar.-gz ../prod_test_sw
 
 clean:
-	rm -rf ${BUILD_DIR}/*
+	rm -rf ${BUILD_DIR}
 	rm -rf ${MINICOM_OUTPUT_DIR}/*
 	find . -name *~ | xargs rm -f
 

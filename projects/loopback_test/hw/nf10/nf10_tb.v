@@ -54,12 +54,12 @@ module nf10_tb
       CLK   = 1'b0;
   
       $display("[%t] : System Reset Asserted...", $realtime);
-      RESET = 1'b1;
+      RESET = 1'b0;
       for (i = 0; i < 50; i = i + 1) begin
                  @(posedge CLK);
       end
       $display("[%t] : System Reset De-asserted...", $realtime);
-      RESET = 1'b0;
+      RESET = 1'b1;
   end
   
   always #5  CLK = ~CLK;      // 100MHz
