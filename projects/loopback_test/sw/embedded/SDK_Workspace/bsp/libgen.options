@@ -1,0 +1,5 @@
+#
+#Wed Nov 24 10:07:01 GMT 2010
+PROCESSOR=microblaze_0
+REPOSITORIES=-lp /home/mblott/netfpga-10g/lib/sw
+HWSPEC=../hw/system.xml
