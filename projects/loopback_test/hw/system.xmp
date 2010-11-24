@@ -5,7 +5,6 @@ IntStyle: default
 ModuleSearchPath: ../../../lib/hw
 ModuleSearchPath: ../../../lib/sw
 MHS File: system.mhs
-MSS File: system.mss
 Architecture: virtex5
 Device: xc5vtx240t
 Package: ff1759
