@@ -13,7 +13,7 @@
 # The software specification of the system is in file :
 # /hpn/home/hyzeng/sandbox/xps/system.mss
 
-include nf10_incl.make
+include system_incl.make
 
 #################################################################
 # PHONY TARGETS
