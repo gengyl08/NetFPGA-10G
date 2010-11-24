@@ -3,7 +3,7 @@ XmpVersion: 12.3
 VerMgmt: 12.3
 IntStyle: default
 ModuleSearchPath: ../../../lib/hw/
-MHS File: nf10.mhs
+MHS File: system.mhs
 MSS File: system.mss
 Architecture: virtex5
 Device: xc5vtx240t
@@ -15,7 +15,7 @@ UserCmd2:
 UserCmd2Type: 0
 GenSimTB: 1
 SdkExportBmmBit: 1
-SdkExportDir: ../sw/embedded/SDK_Export
+SdkExportDir: ../sw/embedded/SDK_Workspace
 InsertNoPads: 0
 WarnForEAArch: 1
 HdlLang: Verilog

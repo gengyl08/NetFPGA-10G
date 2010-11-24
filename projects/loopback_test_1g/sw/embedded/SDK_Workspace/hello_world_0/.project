@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>hello_world_0</name>
+	<name>hello_nf10</name>
 	<comment>nf10_bsp - microblaze_0</comment>
 	<projects>
-		<project>nf10_bsp</project>
+		<project>bsp</project>
+		<project>hw</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

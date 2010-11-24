@@ -3,8 +3,8 @@ XmpVersion: 12.3
 VerMgmt: 12.3
 IntStyle: default
 ModuleSearchPath: ../../../lib/hw
-ModuleSearchPath: ../../../lib/sw
 MHS File: system.mhs
+MSS File: system.mss
 Architecture: virtex5
 Device: xc5vtx240t
 Package: ff1759
@@ -14,7 +14,7 @@ UserCmd1Type: 0
 UserCmd2: 
 UserCmd2Type: 0
 GenSimTB: 1
-SdkExportBmmBit: 0
+SdkExportBmmBit: 1
 SdkExportDir: ../sw/embedded/SDK_Workspace
 InsertNoPads: 0
 WarnForEAArch: 1

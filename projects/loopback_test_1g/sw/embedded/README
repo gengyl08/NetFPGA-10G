@@ -3,7 +3,7 @@ NetFPGA-10G loopback test (1G Mode)
 James Hongyi Zeng (hyzeng_at_stanford.edu)
 
 This project is part of the Howth release. To rebuilt the SDK project from 
-source, follow the simple 3 steps.
+source, follow the simple 4 steps.
 
 1. Export the platform specific files from XPS (HW) project by clicking Project -> Export to SDK
    Note: Do not select Export and Launch SDK
