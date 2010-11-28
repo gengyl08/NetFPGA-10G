@@ -1,61 +1,32 @@
-/*
- *
- * Xilinx, Inc.
- * XILINX IS PROVIDING THIS DESIGN, CODE, OR INFORMATION "AS IS" AS A
- * COURTESY TO YOU.  BY PROVIDING THIS DESIGN, CODE, OR INFORMATION AS
- * ONE POSSIBLE   IMPLEMENTATION OF THIS FEATURE, APPLICATION OR
- * STANDARD, XILINX IS MAKING NO REPRESENTATION THAT THIS IMPLEMENTATION
- * IS FREE FROM ANY CLAIMS OF INFRINGEMENT, AND YOU ARE RESPONSIBLE
- * FOR OBTAINING ANY RIGHTS YOU MAY REQUIRE FOR YOUR IMPLEMENTATION
- * XILINX EXPRESSLY DISCLAIMS ANY WARRANTY WHATSOEVER WITH RESPECT TO
- * THE ADEQUACY OF THE IMPLEMENTATION, INCLUDING BUT NOT LIMITED TO
- * ANY WARRANTIES OR REPRESENTATIONS THAT THIS IMPLEMENTATION IS FREE
- * FROM CLAIMS OF INFRINGEMENT, IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS FOR A PARTICULAR PURPOSE.
- */
+////////////////////////////////////////////////////////////////////////
+//
+//  NetFPGA-10G http://www.netfpga.org
+//
+//  Module:
+//          helloworld.c
+//
+//  Description:
+//          Example C file to initialize AEL2005 to 1G mode through 
+//          MDIO and dump PHY chip status
+//
+//          Currently SGMII is supported. The PHY type (1000BASE-T
+//          or 1000BASE-X) depends on the SFP module plugged in.
+//                 
+//  Revision history:
+//          2010/11/28 hyzeng: Initial check-in
+//
+////////////////////////////////////////////////////////////////////////
 
-/*
- * Xilinx EDK 11.3 EDK_LS3.57
- *
- * This file is a sample test application
- *
- * This application is intended to test and/or illustrate some
- * functionality of your system.  The contents of this file may
- * vary depending on the IP in your system and may use existing
- * IP driver functions.  These drivers will be generated in your
- * XPS project when you run the "Generate Libraries" menu item
- * in XPS.
- *
- * Your XPS project directory is at:
- *    /home/phartke/slink/group/xupv5-lx110t/bsb_mdio_ethernetlist/
- */
-
-
-// Removes the printfs for simulation
-// #define SIM 1
 #include <stdio.h>
 #include "platform.h"
-// Located in: microblaze_0/include/xparameters.h
-//#include "xparameters.h"
-//#include "xutil.h"
-
 #include "xwdttb.h"
-
 #include "xemaclite.h"
 #include "xemaclite_l.h"
 
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
 #define EMAC_DEVICE_ID		XPAR_EMACLITE_0_DEVICE_ID
 #define TIMER_DEVICE_ID     XPAR_WDTTB_0_DEVICE_ID
 XEmacLite EmacLiteInstance;	/* Instance of the EmacLite */
 
-//====================================================
-// Added by James Hongyi Zeng
-//====================================================
 enum {
 	AEL_I2C_CTRL        = 0xc30a,
 	AEL_I2C_DATA        = 0xc30b,
@@ -89,7 +60,6 @@ int ael2005_write(XEmacLite *InstancePtr, u32 PhyAddress, u32 PhyDev, u16 addres
 //int ael2005_i2c_write(XEmacLite *InstancePtr, u32 PhyAddress, u16 dev_addr, u16 word_addr, u16 data);
 //int ael2005_i2c_read (XEmacLite *InstancePtr, u32 PhyAddress, u16 dev_addr, u16 word_addr, u16 *data);
 int ael2005_sleep(int ms);
-
 int ael2005_initialize(XEmacLite *InstancePtr);
 int test_initialize(XEmacLite *InstancePtr);
 int test_status(XEmacLite *InstancePtr);
