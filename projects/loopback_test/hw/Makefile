@@ -9,7 +9,7 @@
 
 # Name of the Microprocessor system
 # The hardware specification of the system is in file :
-# /hpn/home/hyzeng/sandbox/xps/nf10.mhs
+# /hpn/home/hyzeng/sandbox/xps/system.mhs
 # The software specification of the system is in file :
 # /hpn/home/hyzeng/sandbox/xps/system.mss
 
