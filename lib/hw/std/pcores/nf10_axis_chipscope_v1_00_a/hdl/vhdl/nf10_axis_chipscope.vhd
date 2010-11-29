@@ -64,7 +64,7 @@ M_AXIS_TLAST <= S_AXIS_TLAST;
 S_AXIS_TREADY <= M_AXIS_TREADY;
 
 ila_trig1(C_M_AXIS_DATA_WIDTH-1 downto 0)  <= S_AXIS_TDATA(C_M_AXIS_DATA_WIDTH-1 downto 0);
-ila_(2+(C_M_AXIS_DATA_WIDTH/8) downto 3) <= S_AXIS_TSTRB(C_M_AXIS_DATA_WIDTH/8-1 downto 0);
+ila_trig0(2+(C_M_AXIS_DATA_WIDTH/8) downto 3) <= S_AXIS_TSTRB(C_M_AXIS_DATA_WIDTH/8-1 downto 0);
 ila_trig0(0)            <= S_AXIS_TVALID;
 ila_trig0(1)            <= S_AXIS_TLAST;
 ila_trig0(2)            <= M_AXIS_TREADY;
