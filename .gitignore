@@ -1,0 +1,3 @@
+projects/production_test/sw/bin/*
+projects/production_test/sw/output/minicom/*
+projects/production_test/sw/output/reports/*
