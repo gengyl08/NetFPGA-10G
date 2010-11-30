@@ -1,4 +1,3 @@
-
 # ##############################################################################
 # Created by Base System Builder Wizard for Xilinx EDK 12.3 Build EDK_MS3.70d
 # Wed Oct 13 08:18:57 2010
@@ -215,7 +214,7 @@ BEGIN nf10_10g_interface
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_XAUI_REVERSE = 1
  BUS_INTERFACE M_AXIS = nf10_10g_interface_0_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_axis_gen_check_0_M_AXIS
  PORT axi_aclk = core_clk
  PORT refclk = refclk_A
  PORT dclk = clk_50_0000MHzMMCM0
@@ -378,3 +377,20 @@ BEGIN axi_timebase_wdt
  PORT S_AXI_ACLK = clk_25_0000MHzMMCM0
 END
 
+BEGIN nf10_axis_chipscope
+ PARAMETER INSTANCE = nf10_axis_chipscope_0
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_axis_chipscope_0_M_AXIS
+ PORT aresetn = Peripheral_aresetn
+ PORT aclk = core_clk
+END
+
+BEGIN nf10_axis_gen_check
+ PARAMETER INSTANCE = nf10_axis_gen_check_0
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE S_AXIS = nf10_axis_chipscope_0_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_axis_gen_check_0_M_AXIS
+ PORT aresetn = Peripheral_aresetn
+ PORT aclk = core_clk
+END
