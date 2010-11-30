@@ -79,10 +79,14 @@
  PORT nf10_10g_interface_3_xaui_rx_l3_p_pin = nf10_10g_interface_3_xaui_rx_l3_p, DIR = I
  PORT nf10_10g_interface_3_xaui_rx_l3_n_pin = nf10_10g_interface_3_xaui_rx_l3_n, DIR = I
  PORT nf10_10g_interface_3_xaui_tx_l1_n_pin = nf10_10g_interface_3_xaui_tx_l1_n, DIR = O
- PORT refclk_ABC_p = DIFF_INPUT_BUF_0_DIFF_INPUT_P, DIR = I
- PORT refclk_D_p = DIFF_INPUT_BUF_1_DIFF_INPUT_P, DIR = I
- PORT refclk_D_n = DIFF_INPUT_BUF_1_DIFF_INPUT_N, DIR = I
- PORT refclk_ABC_n = DIFF_INPUT_BUF_0_DIFF_INPUT_N, DIR = I
+ PORT refclk_A_p = DIFF_INPUT_BUF_0_DIFF_INPUT_P, DIR = I
+ PORT refclk_A_n = DIFF_INPUT_BUF_0_DIFF_INPUT_N, DIR = I
+ PORT refclk_B_p = DIFF_INPUT_BUF_1_DIFF_INPUT_P, DIR = I
+ PORT refclk_B_n = DIFF_INPUT_BUF_1_DIFF_INPUT_N, DIR = I
+ PORT refclk_C_p = DIFF_INPUT_BUF_2_DIFF_INPUT_P, DIR = I
+ PORT refclk_C_n = DIFF_INPUT_BUF_2_DIFF_INPUT_N, DIR = I
+ PORT refclk_D_p = DIFF_INPUT_BUF_3_DIFF_INPUT_P, DIR = I
+ PORT refclk_D_n = DIFF_INPUT_BUF_3_DIFF_INPUT_N, DIR = I
  PORT MDC = nf10_mdio_0_PHY_MDC, DIR = O
  PORT MDIO = nf10_mdio_0_PHY_MDIO, DIR = IO
  PORT PHY_RST_N = nf10_mdio_0_PHY_rst_n, DIR = O, RST_POLARITY = 1
@@ -213,7 +217,7 @@ BEGIN nf10_10g_interface
  BUS_INTERFACE M_AXIS = nf10_10g_interface_0_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
  PORT axi_aclk = core_clk
- PORT refclk = refclk_ABC
+ PORT refclk = refclk_A
  PORT dclk = clk_50_0000MHzMMCM0
  PORT xaui_tx_l0_p = nf10_10g_interface_0_xaui_tx_l0_p
  PORT xaui_tx_l0_n = nf10_10g_interface_0_xaui_tx_l0_n
@@ -257,7 +261,7 @@ BEGIN nf10_10g_interface
  PORT xaui_rx_l3_p = nf10_10g_interface_1_xaui_rx_l3_p
  PORT xaui_rx_l3_n = nf10_10g_interface_1_xaui_rx_l3_n
  PORT xaui_tx_l2_p = nf10_10g_interface_1_xaui_tx_l2_p
- PORT refclk = refclk_ABC
+ PORT refclk = refclk_B
  PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
 END
@@ -285,7 +289,7 @@ BEGIN nf10_10g_interface
  PORT xaui_rx_l3_p = nf10_10g_interface_2_xaui_rx_l3_p
  PORT xaui_rx_l3_n = nf10_10g_interface_2_xaui_rx_l3_n
  PORT xaui_tx_l1_n = nf10_10g_interface_2_xaui_tx_l1_n
- PORT refclk = refclk_ABC
+ PORT refclk = refclk_C
  PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
 END
@@ -322,15 +326,31 @@ BEGIN diff_input_buf
  PARAMETER HW_VER = 1.00.a
  PORT DIFF_INPUT_P = DIFF_INPUT_BUF_0_DIFF_INPUT_P
  PORT DIFF_INPUT_N = DIFF_INPUT_BUF_0_DIFF_INPUT_N
- PORT SINGLE_ENDED_INPUT = refclk_ABC
+ PORT SINGLE_ENDED_INPUT = refclk_A
 END
 
 BEGIN diff_input_buf
  PARAMETER INSTANCE = diff_input_buf_1
  PARAMETER HW_VER = 1.00.a
- PORT SINGLE_ENDED_INPUT = refclk_D
- PORT DIFF_INPUT_N = DIFF_INPUT_BUF_1_DIFF_INPUT_N
  PORT DIFF_INPUT_P = DIFF_INPUT_BUF_1_DIFF_INPUT_P
+ PORT DIFF_INPUT_N = DIFF_INPUT_BUF_1_DIFF_INPUT_N
+ PORT SINGLE_ENDED_INPUT = refclk_B
+END
+
+BEGIN diff_input_buf
+ PARAMETER INSTANCE = diff_input_buf_2
+ PARAMETER HW_VER = 1.00.a
+ PORT DIFF_INPUT_P = DIFF_INPUT_BUF_2_DIFF_INPUT_P
+ PORT DIFF_INPUT_N = DIFF_INPUT_BUF_2_DIFF_INPUT_N
+ PORT SINGLE_ENDED_INPUT = refclk_C
+END
+
+BEGIN diff_input_buf
+ PARAMETER INSTANCE = diff_input_buf_3
+ PARAMETER HW_VER = 1.00.a
+ PORT SINGLE_ENDED_INPUT = refclk_D
+ PORT DIFF_INPUT_N = DIFF_INPUT_BUF_3_DIFF_INPUT_N
+ PORT DIFF_INPUT_P = DIFF_INPUT_BUF_3_DIFF_INPUT_P
 END
 
 BEGIN nf10_mdio

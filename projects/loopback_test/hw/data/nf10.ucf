@@ -32,9 +32,17 @@ INST nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/til
 INST nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/NO_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X0Y11;
 INST nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/NO_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X0Y10;
 
-# refclk for XAUI A & B & C
-NET "refclk_ABC_p"  LOC = "C4" ;
-NET "refclk_ABC_n"  LOC = "C3" ;
+# refclk for Port A
+NET "refclk_A_p"  LOC = "M4" ;
+NET "refclk_A_n"  LOC = "M3" ;
+
+# refclk for Port B
+NET "refclk_B_p"  LOC = "C4" ;
+NET "refclk_B_n"  LOC = "C3" ;
+
+# refclk for Port C
+NET "refclk_C_p"  LOC = "D16" ;
+NET "refclk_C_n"  LOC = "C16" ;
 
 # refclk for XAUI D
 NET "refclk_D_p"  LOC = "D27" ;
