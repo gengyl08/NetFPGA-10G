@@ -211,8 +211,8 @@ BEGIN nf10_10g_interface
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_XAUI_REVERSE = 1
  BUS_INTERFACE M_AXIS = nf10_10g_interface_0_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
- PORT axi_aclk = core_clk
+ BUS_INTERFACE S_AXIS = nf10_axis_gen_check_0_M_AXIS
+ PORT aclk = core_clk
  PORT refclk = refclk_ABC
  PORT dclk = clk_50_0000MHzMMCM0
  PORT xaui_tx_l0_p = nf10_10g_interface_0_xaui_tx_l0_p
@@ -231,7 +231,7 @@ BEGIN nf10_10g_interface
  PORT xaui_rx_l3_p = nf10_10g_interface_0_xaui_rx_l3_p
  PORT xaui_rx_l3_n = nf10_10g_interface_0_xaui_rx_l3_n
  PORT xaui_rx_l0_p = nf10_10g_interface_0_xaui_rx_l0_p
- PORT axi_resetn = Peripheral_aresetn
+ PORT aresetn = Peripheral_aresetn
 END
 
 BEGIN nf10_10g_interface
@@ -258,8 +258,8 @@ BEGIN nf10_10g_interface
  PORT xaui_rx_l3_n = nf10_10g_interface_1_xaui_rx_l3_n
  PORT xaui_tx_l2_p = nf10_10g_interface_1_xaui_tx_l2_p
  PORT refclk = refclk_ABC
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
+ PORT aclk = core_clk
+ PORT aresetn = Peripheral_aresetn
 END
 
 BEGIN nf10_10g_interface
@@ -286,15 +286,13 @@ BEGIN nf10_10g_interface
  PORT xaui_rx_l3_n = nf10_10g_interface_2_xaui_rx_l3_n
  PORT xaui_tx_l1_n = nf10_10g_interface_2_xaui_tx_l1_n
  PORT refclk = refclk_ABC
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
+ PORT aclk = core_clk
+ PORT aresetn = Peripheral_aresetn
 END
 
 BEGIN nf10_10g_interface
  PARAMETER INSTANCE = nf10_10g_interface_3
  PARAMETER HW_VER = 1.00.a
- BUS_INTERFACE M_AXIS = nf10_10g_interface_3_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_10g_interface_3_M_AXIS
  PORT xaui_tx_l3_p = nf10_10g_interface_3_xaui_tx_l3_p
  PORT xaui_tx_l3_n = nf10_10g_interface_3_xaui_tx_l3_n
  PORT xaui_tx_l0_p = nf10_10g_interface_3_xaui_tx_l0_p
@@ -313,8 +311,8 @@ BEGIN nf10_10g_interface
  PORT xaui_tx_l1_n = nf10_10g_interface_3_xaui_tx_l1_n
  PORT dclk = clk_50_0000MHzMMCM0
  PORT refclk = refclk_D
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
+ PORT aclk = core_clk
+ PORT aresetn = Peripheral_aresetn
 END
 
 BEGIN diff_input_buf
@@ -356,5 +354,23 @@ BEGIN axi_timebase_wdt
  PARAMETER C_HIGHADDR = 0x41a0ffff
  BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
  PORT S_AXI_ACLK = clk_25_0000MHzMMCM0
+END
+
+BEGIN nf10_axis_chipscope
+ PARAMETER INSTANCE = nf10_axis_chipscope_0
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_axis_chipscope_0_M_AXIS
+ PORT aresetn = Peripheral_aresetn
+ PORT aclk = core_clk
+END
+
+BEGIN nf10_axis_gen_check
+ PARAMETER INSTANCE = nf10_axis_gen_check_0
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE S_AXIS = nf10_axis_chipscope_0_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_axis_gen_check_0_M_AXIS
+ PORT aresetn = Peripheral_aresetn
+ PORT aclk = core_clk
 END
 
