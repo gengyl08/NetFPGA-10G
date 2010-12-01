@@ -24,15 +24,22 @@ INST nf10_1g_interface_0/nf10_1g_interface_0/gmac/v5_emac_block_inst/GTX_DUAL_10
 INST nf10_1g_interface_1/nf10_1g_interface_1/gmac/v5_emac_block_inst/GTX_DUAL_1000X_inst_0/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X1Y10";
 INST nf10_1g_interface_1/nf10_1g_interface_1/gmac/v5_emac_block_inst/GTX_DUAL_1000X_inst_1/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X0Y11";
 
-INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_0/gtx_dual_i LOC = "GTX_DUAL_X1Y7";
-INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X1Y9";
-INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_0/gtx_dual_i LOC = "GTX_DUAL_X1Y11";
-INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X0Y10";
+#INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_0/gtx_dual_i LOC = "GTX_DUAL_X1Y7";
+#INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X1Y9";
+#INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_0/gtx_dual_i LOC = "GTX_DUAL_X1Y11";
+#INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X0Y10";
 
+# refclk for Port A
+NET "refclk_A_p"  LOC = "V4" ;
+NET "refclk_A_n"  LOC = "V3" ;
 
-# refclk for Port A & B & C
-NET "refclk_ABC_p"  LOC = "F4" ;
-NET "refclk_ABC_n"  LOC = "F3" ;
+# refclk for Port B
+NET "refclk_B_p"  LOC = "F4" ;
+NET "refclk_B_n"  LOC = "F3" ;
+
+# refclk for Port C
+NET "refclk_C_p"  LOC = "D10" ;
+NET "refclk_C_n"  LOC = "C10" ;
 
 # refclk for Port D
 NET "refclk_D_p"  LOC = "D33" ;
@@ -48,10 +55,8 @@ NET "refclk_D_n"  LOC = "C33" ;
 # EMAC0 Clocking
 # 125MHz clock input from BUFG
 NET nf10_1g_interface_0/nf10_1g_interface_0/gmac/clk125_o TNM_NET          = "clk_gtx_sfp_0";
-TIMEGRP  "v5_emac_v1_6_gtx_clk_sfp_0"            = "clk_gtx_sfp_0";
-TIMESPEC "TS_v5_emac_v1_6_gtx_clk_sfp_0"         = PERIOD "v5_emac_v1_6_gtx_clk_sfp_0" 7700 ps HIGH 50 %;
+TIMESPEC "TS_v5_emac_v1_6_gtx_clk_sfp_0"         = PERIOD "clk_gtx_sfp_0" 7700 ps HIGH 50 %;
 
-NET nf10_1g_interface_0/nf10_1g_interface_0/gmac/clk125_o TNM_NET          = "clk_gtx_sfp_1";
-TIMEGRP  "v5_emac_v1_6_gtx_clk_sfp_1"            = "clk_gtx_sfp_1";
-TIMESPEC "TS_v5_emac_v1_6_gtx_clk_sfp_1"         = PERIOD "v5_emac_v1_6_gtx_clk_sfp_1" 7700 ps HIGH 50 %;
+NET nf10_1g_interface_1/nf10_1g_interface_1/gmac/clk125_o TNM_NET          = "clk_gtx_sfp_1";
+TIMESPEC "TS_v5_emac_v1_6_gtx_clk_sfp_1"         = PERIOD "clk_gtx_sfp_1" 7700 ps HIGH 50 %;
 

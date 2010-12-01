@@ -34,26 +34,14 @@
  PORT nf10_1g_interface_1_RXP_0_pin = nf10_1g_interface_1_RXP_0, DIR = I
  PORT nf10_1g_interface_1_RXN_0_pin = nf10_1g_interface_1_RXN_0, DIR = I
  PORT nf10_1g_interface_1_TXN_1_pin = nf10_1g_interface_1_TXN_1, DIR = O
- PORT refclk_ABC_p = diff_input_buf_0_DIFF_INPUT_P, DIR = I
- PORT refclk_D_p = diff_input_buf_1_DIFF_INPUT_P, DIR = I
- PORT refclk_D_n = diff_input_buf_1_DIFF_INPUT_N, DIR = I
- PORT refclk_ABC_n = diff_input_buf_0_DIFF_INPUT_N, DIR = I
- PORT nf10_1g_interface_1_TXP_0_dummy_pin = nf10_1g_interface_1_TXP_0_dummy, DIR = O
- PORT nf10_1g_interface_1_TXP_1_dummy_pin = nf10_1g_interface_1_TXP_1_dummy, DIR = O
- PORT nf10_1g_interface_1_TXN_0_dummy_pin = nf10_1g_interface_1_TXN_0_dummy, DIR = O
- PORT nf10_1g_interface_1_RXP_0_dummy_pin = nf10_1g_interface_1_RXP_0_dummy, DIR = I
- PORT nf10_1g_interface_1_RXN_0_dummy_pin = nf10_1g_interface_1_RXN_0_dummy, DIR = I
- PORT nf10_1g_interface_1_RXP_1_dummy_pin = nf10_1g_interface_1_RXP_1_dummy, DIR = I
- PORT nf10_1g_interface_1_RXN_1_dummy_pin = nf10_1g_interface_1_RXN_1_dummy, DIR = I
- PORT nf10_1g_interface_1_TXN_1_dummy_pin = nf10_1g_interface_1_TXN_1_dummy, DIR = O
- PORT nf10_1g_interface_0_TXN_0_dummy_pin = nf10_1g_interface_0_TXN_0_dummy, DIR = O
- PORT nf10_1g_interface_0_TXP_1_dummy_pin = nf10_1g_interface_0_TXP_1_dummy, DIR = O
- PORT nf10_1g_interface_0_TXN_1_dummy_pin = nf10_1g_interface_0_TXN_1_dummy, DIR = O
- PORT nf10_1g_interface_0_RXP_0_dummy_pin = nf10_1g_interface_0_RXP_0_dummy, DIR = I
- PORT nf10_1g_interface_0_RXN_0_dummy_pin = nf10_1g_interface_0_RXN_0_dummy, DIR = I
- PORT nf10_1g_interface_0_RXP_1_dummy_pin = nf10_1g_interface_0_RXP_1_dummy, DIR = I
- PORT nf10_1g_interface_0_RXN_1_dummy_pin = nf10_1g_interface_0_RXN_1_dummy, DIR = I
- PORT nf10_1g_interface_0_TXP_0_dummy_pin = nf10_1g_interface_0_TXP_0_dummy, DIR = O
+ PORT refclk_A_p = diff_input_buf_0_DIFF_INPUT_P, DIR = I
+ PORT refclk_A_n = diff_input_buf_0_DIFF_INPUT_N, DIR = I
+ PORT refclk_B_p = diff_input_buf_1_DIFF_INPUT_P, DIR = I
+ PORT refclk_B_n = diff_input_buf_1_DIFF_INPUT_N, DIR = I
+ PORT refclk_C_p = diff_input_buf_2_DIFF_INPUT_P, DIR = I
+ PORT refclk_C_n = diff_input_buf_2_DIFF_INPUT_N, DIR = I
+ PORT refclk_D_p = diff_input_buf_3_DIFF_INPUT_P, DIR = I
+ PORT refclk_D_n = diff_input_buf_3_DIFF_INPUT_N, DIR = I
 
 
 BEGIN axi_interconnect
@@ -215,16 +203,8 @@ BEGIN nf10_1g_interface
  PORT RXN_0 = nf10_1g_interface_0_RXN_0
  PORT RXP_1 = nf10_1g_interface_0_RXP_1
  PORT axi_resetn = Peripheral_aresetn
- PORT gtxclk_0 = refclk_ABC
- PORT gtxclk_1 = refclk_ABC
- PORT TXN_0_dummy = nf10_1g_interface_0_TXN_0_dummy
- PORT TXP_1_dummy = nf10_1g_interface_0_TXP_1_dummy
- PORT TXN_1_dummy = nf10_1g_interface_0_TXN_1_dummy
- PORT RXP_0_dummy = nf10_1g_interface_0_RXP_0_dummy
- PORT RXN_0_dummy = nf10_1g_interface_0_RXN_0_dummy
- PORT RXP_1_dummy = nf10_1g_interface_0_RXP_1_dummy
- PORT RXN_1_dummy = nf10_1g_interface_0_RXN_1_dummy
- PORT TXP_0_dummy = nf10_1g_interface_0_TXP_0_dummy
+ PORT gtxclk_0 = refclk_A
+ PORT gtxclk_1 = refclk_B
 END
 
 BEGIN nf10_1g_interface
@@ -244,16 +224,8 @@ BEGIN nf10_1g_interface
  PORT TXN_1 = nf10_1g_interface_1_TXN_1
  PORT axi_resetn = Peripheral_aresetn
  PORT axi_aclk = core_clk
- PORT gtxclk_0 = refclk_ABC
+ PORT gtxclk_0 = refclk_C
  PORT gtxclk_1 = refclk_D
- PORT TXP_0_dummy = nf10_1g_interface_1_TXP_0_dummy
- PORT TXP_1_dummy = nf10_1g_interface_1_TXP_1_dummy
- PORT TXN_0_dummy = nf10_1g_interface_1_TXN_0_dummy
- PORT RXP_0_dummy = nf10_1g_interface_1_RXP_0_dummy
- PORT RXN_0_dummy = nf10_1g_interface_1_RXN_0_dummy
- PORT RXP_1_dummy = nf10_1g_interface_1_RXP_1_dummy
- PORT RXN_1_dummy = nf10_1g_interface_1_RXN_1_dummy
- PORT TXN_1_dummy = nf10_1g_interface_1_TXN_1_dummy
 END
 
 BEGIN diff_input_buf
@@ -261,7 +233,7 @@ BEGIN diff_input_buf
  PARAMETER HW_VER = 1.00.a
  PORT DIFF_INPUT_P = diff_input_buf_0_DIFF_INPUT_P
  PORT DIFF_INPUT_N = diff_input_buf_0_DIFF_INPUT_N
- PORT SINGLE_ENDED_INPUT = refclk_ABC
+ PORT SINGLE_ENDED_INPUT = refclk_A
 END
 
 BEGIN diff_input_buf
@@ -269,6 +241,22 @@ BEGIN diff_input_buf
  PARAMETER HW_VER = 1.00.a
  PORT DIFF_INPUT_P = diff_input_buf_1_DIFF_INPUT_P
  PORT DIFF_INPUT_N = diff_input_buf_1_DIFF_INPUT_N
+ PORT SINGLE_ENDED_INPUT = refclk_B
+END
+
+BEGIN diff_input_buf
+ PARAMETER INSTANCE = diff_input_buf_2
+ PARAMETER HW_VER = 1.00.a
+ PORT DIFF_INPUT_P = diff_input_buf_2_DIFF_INPUT_P
+ PORT DIFF_INPUT_N = diff_input_buf_2_DIFF_INPUT_N
+ PORT SINGLE_ENDED_INPUT = refclk_C
+END
+
+BEGIN diff_input_buf
+ PARAMETER INSTANCE = diff_input_buf_3
+ PARAMETER HW_VER = 1.00.a
+ PORT DIFF_INPUT_P = diff_input_buf_3_DIFF_INPUT_P
+ PORT DIFF_INPUT_N = diff_input_buf_3_DIFF_INPUT_N
  PORT SINGLE_ENDED_INPUT = refclk_D
 END
 

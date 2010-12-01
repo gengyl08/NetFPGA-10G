@@ -41,17 +41,22 @@ enum {
 
     // software reset and magic registers
 const u16 reset[] = {
-        0x0000, 0x8000,
+        0x0000, 0xa040,
+        0xc001, 0x0428,
+        0xc017, 0xfeb0,
+        0xc013, 0xf341,
+        0xc210, 0x8000,
+        0xc210, 0x8100,
+        0xc210, 0x8000,
+        0xc210, 0x0000
         };
 
 const u16 regs0[] = {
-		0xc01f, 0x0040,
-        0xc220, 0x711c
+        0xc220, 0x711C
         };
 
 const u16 regs1[] = {
-		0xc01f, 0x0040,
-        0xc220, 0x744c
+        0xc220, 0x744C
         };
 
 int ael2005_read (XEmacLite *InstancePtr, u32 PhyAddress, u32 PhyDev, u16 address, u16 *data);
@@ -81,13 +86,6 @@ int main (void) {
    while(1){
        print("===NetFPGA-10G Test===\r\n");
        print("Press i to initialize, s to start\r\n");
-       for( dev = 0; dev < 4; dev++){
-            ael2005_read(EmacLiteInstPtr, dev, 1, 0xc220, &value);
-            xil_printf("C220 Port %d: %x\r\n", dev, value);
-            ael2005_read(EmacLiteInstPtr, dev, 1, 0xc01f, &value);
-            xil_printf("C01F Port %d: %x\r\n", dev, value);
-       }
-
        s = inbyte();
        if(s == 'i')
            test_initialize(EmacLiteInstPtr);
@@ -116,7 +114,7 @@ int ael2005_write (XEmacLite *EmacLiteInstPtr, u32 PhyAddr, u32 PhyDev, u16 addr
     XEmacLite_PhyWrite(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_ADDRESS, XEL_MDIO_CLAUSE_45, address);
     XEmacLite_PhyWrite(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_WRITE, XEL_MDIO_CLAUSE_45, data);
     xil_printf("Port: %d, Addr: %x, Data: %x\r\n", PhyAddr, address, data);
-    ael2005_sleep(2);
+    ael2005_sleep(20);
     return XST_SUCCESS;
 }
 
@@ -169,7 +167,7 @@ int ael2005_initialize(XEmacLite *InstancePtr){
         print("Step 1: Reset\r\n");
         size = sizeof(reset) / sizeof(u16);
         for(i = 0; i < size; i+=2){
-            for( dev = 0; dev < 4; dev++){
+            for( dev = 3; dev >= 0; dev--){
                  ael2005_write(InstancePtr, dev, 1, reset[i], reset[i+1]);
             }
         }
@@ -178,7 +176,7 @@ int ael2005_initialize(XEmacLite *InstancePtr){
         print("Step 2: Write magic registers\r\n");
         size = sizeof(regs0) / sizeof(u16);
         for(i = 0; i < size; i+=2){
-            for( dev = 0; dev < 3; dev++){
+        	for( dev = 2; dev >= 0; dev--){
                 ael2005_write(InstancePtr, dev, 1, regs0[i], regs0[i+1]);
             }
         }

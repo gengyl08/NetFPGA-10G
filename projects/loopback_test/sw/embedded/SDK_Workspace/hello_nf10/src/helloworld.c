@@ -10,6 +10,8 @@
 //          MDIO and dump PHY chip status.
 //
 //          Currently only 10GBASE-SR and Direct Attach are supported.
+//          This firmware will detect port mode according to SFF-8472.
+//          The default mode is Direct Attach.
 //                 
 //  Revision history:
 //          2010/11/28 hyzeng: Initial check-in
@@ -38,6 +40,13 @@ enum {
 	SFF_DEV_ADDR	= 0xa2,
 };
 
+enum {
+	MODE_TWINAX,
+	MODE_SR,
+	MODE_LR, // Not supported
+	MODE_LRM // Not supported
+};
+
 // software reset and magic registers
 const u16 regs0[] = {
         0x0000, 0xa040,
@@ -47,8 +56,7 @@ const u16 regs0[] = {
         0xc210, 0x8000,
         0xc210, 0x8100,
         0xc210, 0x8000,
-        0xc210, 0x0000,
-        0xc04a, 0x5a00
+        0xc210, 0x0000
         };
 
 // unpause the microprocessor
@@ -57,8 +65,9 @@ const u16 regs1[] = {
         0xca12, 0x0000
         };
 
-// main EDC program
+// main Twinax EDC program
 const u16 twinax_edc[] = {
+        0xc04a, 0x5a00,
 		0xcc00, 0x4009,
 		0xcc01, 0x27ff,
 		0xcc02, 0x300f,
@@ -426,15 +435,293 @@ const u16 twinax_edc[] = {
 		0xcd6c, 0x1002,
 		0xcd6d, 0
                 };
+                
+// main SR EDC program
+const u16 sr_edc[] = {
+        0xc003, 0x181,
+        0xc010, 0x448a,
+        0xc04a, 0x5200,
+        0xcc00, 0x2ff4,
+		0xcc01, 0x3cd4,
+		0xcc02, 0x2015,
+		0xcc03, 0x3105,
+		0xcc04, 0x6524,
+		0xcc05, 0x27ff,
+		0xcc06, 0x300f,
+		0xcc07, 0x2c8b,
+		0xcc08, 0x300b,
+		0xcc09, 0x4009,
+		0xcc0a, 0x400e,
+		0xcc0b, 0x2f72,
+		0xcc0c, 0x3002,
+		0xcc0d, 0x1002,
+		0xcc0e, 0x2172,
+		0xcc0f, 0x3012,
+		0xcc10, 0x1002,
+		0xcc11, 0x25d2,
+		0xcc12, 0x3012,
+		0xcc13, 0x1002,
+		0xcc14, 0xd01e,
+		0xcc15, 0x27d2,
+		0xcc16, 0x3012,
+		0xcc17, 0x1002,
+		0xcc18, 0x2004,
+		0xcc19, 0x3c84,
+		0xcc1a, 0x6436,
+		0xcc1b, 0x2007,
+		0xcc1c, 0x3f87,
+		0xcc1d, 0x8676,
+		0xcc1e, 0x40b7,
+		0xcc1f, 0xa746,
+		0xcc20, 0x4047,
+		0xcc21, 0x5673,
+		0xcc22, 0x2982,
+		0xcc23, 0x3002,
+		0xcc24, 0x13d2,
+		0xcc25, 0x8bbd,
+		0xcc26, 0x2862,
+		0xcc27, 0x3012,
+		0xcc28, 0x1002,
+		0xcc29, 0x2092,
+		0xcc2a, 0x3012,
+		0xcc2b, 0x1002,
+		0xcc2c, 0x5cc3,
+		0xcc2d, 0x314,
+		0xcc2e, 0x2942,
+		0xcc2f, 0x3002,
+		0xcc30, 0x1002,
+		0xcc31, 0xd019,
+		0xcc32, 0x2032,
+		0xcc33, 0x3012,
+		0xcc34, 0x1002,
+		0xcc35, 0x2a04,
+		0xcc36, 0x3c74,
+		0xcc37, 0x6435,
+		0xcc38, 0x2fa4,
+		0xcc39, 0x3cd4,
+		0xcc3a, 0x6624,
+		0xcc3b, 0x5563,
+		0xcc3c, 0x2d42,
+		0xcc3d, 0x3002,
+		0xcc3e, 0x13d2,
+		0xcc3f, 0x464d,
+		0xcc40, 0x2862,
+		0xcc41, 0x3012,
+		0xcc42, 0x1002,
+		0xcc43, 0x2032,
+		0xcc44, 0x3012,
+		0xcc45, 0x1002,
+		0xcc46, 0x2fb4,
+		0xcc47, 0x3cd4,
+		0xcc48, 0x6624,
+		0xcc49, 0x5563,
+		0xcc4a, 0x2d42,
+		0xcc4b, 0x3002,
+		0xcc4c, 0x13d2,
+		0xcc4d, 0x2ed2,
+		0xcc4e, 0x3002,
+		0xcc4f, 0x1002,
+		0xcc50, 0x2fd2,
+		0xcc51, 0x3002,
+		0xcc52, 0x1002,
+		0xcc53, 0x004,
+		0xcc54, 0x2942,
+		0xcc55, 0x3002,
+		0xcc56, 0x1002,
+		0xcc57, 0x2092,
+		0xcc58, 0x3012,
+		0xcc59, 0x1002,
+		0xcc5a, 0x5cc3,
+		0xcc5b, 0x317,
+		0xcc5c, 0x2f72,
+		0xcc5d, 0x3002,
+		0xcc5e, 0x1002,
+		0xcc5f, 0x2942,
+		0xcc60, 0x3002,
+		0xcc61, 0x1002,
+		0xcc62, 0x22cd,
+		0xcc63, 0x301d,
+		0xcc64, 0x2862,
+		0xcc65, 0x3012,
+		0xcc66, 0x1002,
+		0xcc67, 0x2ed2,
+		0xcc68, 0x3002,
+		0xcc69, 0x1002,
+		0xcc6a, 0x2d72,
+		0xcc6b, 0x3002,
+		0xcc6c, 0x1002,
+		0xcc6d, 0x628f,
+		0xcc6e, 0x2112,
+		0xcc6f, 0x3012,
+		0xcc70, 0x1002,
+		0xcc71, 0x5aa3,
+		0xcc72, 0x2dc2,
+		0xcc73, 0x3002,
+		0xcc74, 0x1312,
+		0xcc75, 0x6f72,
+		0xcc76, 0x1002,
+		0xcc77, 0x2807,
+		0xcc78, 0x31a7,
+		0xcc79, 0x20c4,
+		0xcc7a, 0x3c24,
+		0xcc7b, 0x6724,
+		0xcc7c, 0x1002,
+		0xcc7d, 0x2807,
+		0xcc7e, 0x3187,
+		0xcc7f, 0x20c4,
+		0xcc80, 0x3c24,
+		0xcc81, 0x6724,
+		0xcc82, 0x1002,
+		0xcc83, 0x2514,
+		0xcc84, 0x3c64,
+		0xcc85, 0x6436,
+		0xcc86, 0xdff4,
+		0xcc87, 0x6436,
+		0xcc88, 0x1002,
+		0xcc89, 0x40a4,
+		0xcc8a, 0x643c,
+		0xcc8b, 0x4016,
+		0xcc8c, 0x8c6c,
+		0xcc8d, 0x2b24,
+		0xcc8e, 0x3c24,
+		0xcc8f, 0x6435,
+		0xcc90, 0x1002,
+		0xcc91, 0x2b24,
+		0xcc92, 0x3c24,
+		0xcc93, 0x643a,
+		0xcc94, 0x4025,
+		0xcc95, 0x8a5a,
+		0xcc96, 0x1002,
+		0xcc97, 0x2731,
+		0xcc98, 0x3011,
+		0xcc99, 0x1001,
+		0xcc9a, 0xc7a0,
+		0xcc9b, 0x100,
+		0xcc9c, 0xc502,
+		0xcc9d, 0x53ac,
+		0xcc9e, 0xc503,
+		0xcc9f, 0xd5d5,
+		0xcca0, 0xc600,
+		0xcca1, 0x2a6d,
+		0xcca2, 0xc601,
+		0xcca3, 0x2a4c,
+		0xcca4, 0xc602,
+		0xcca5, 0x111,
+		0xcca6, 0xc60c,
+		0xcca7, 0x5900,
+		0xcca8, 0xc710,
+		0xcca9, 0x700,
+		0xccaa, 0xc718,
+		0xccab, 0x700,
+		0xccac, 0xc720,
+		0xccad, 0x4700,
+		0xccae, 0xc801,
+		0xccaf, 0x7f50,
+		0xccb0, 0xc802,
+		0xccb1, 0x7760,
+		0xccb2, 0xc803,
+		0xccb3, 0x7fce,
+		0xccb4, 0xc804,
+		0xccb5, 0x5700,
+		0xccb6, 0xc805,
+		0xccb7, 0x5f11,
+		0xccb8, 0xc806,
+		0xccb9, 0x4751,
+		0xccba, 0xc807,
+		0xccbb, 0x57e1,
+		0xccbc, 0xc808,
+		0xccbd, 0x2700,
+		0xccbe, 0xc809,
+		0xccbf, 0x000,
+		0xccc0, 0xc821,
+		0xccc1, 0x002,
+		0xccc2, 0xc822,
+		0xccc3, 0x014,
+		0xccc4, 0xc832,
+		0xccc5, 0x1186,
+		0xccc6, 0xc847,
+		0xccc7, 0x1e02,
+		0xccc8, 0xc013,
+		0xccc9, 0xf341,
+		0xccca, 0xc01a,
+		0xcccb, 0x446,
+		0xcccc, 0xc024,
+		0xcccd, 0x1000,
+		0xccce, 0xc025,
+		0xcccf, 0xa00,
+		0xccd0, 0xc026,
+		0xccd1, 0xc0c,
+		0xccd2, 0xc027,
+		0xccd3, 0xc0c,
+		0xccd4, 0xc029,
+		0xccd5, 0x0a0,
+		0xccd6, 0xc030,
+		0xccd7, 0xa00,
+		0xccd8, 0xc03c,
+		0xccd9, 0x01c,
+		0xccda, 0xc005,
+		0xccdb, 0x7a06,
+		0xccdc, 0x000,
+		0xccdd, 0x2731,
+		0xccde, 0x3011,
+		0xccdf, 0x1001,
+		0xcce0, 0xc620,
+		0xcce1, 0x000,
+		0xcce2, 0xc621,
+		0xcce3, 0x03f,
+		0xcce4, 0xc622,
+		0xcce5, 0x000,
+		0xcce6, 0xc623,
+		0xcce7, 0x000,
+		0xcce8, 0xc624,
+		0xcce9, 0x000,
+		0xccea, 0xc625,
+		0xcceb, 0x000,
+		0xccec, 0xc627,
+		0xcced, 0x000,
+		0xccee, 0xc628,
+		0xccef, 0x000,
+		0xccf0, 0xc62c,
+		0xccf1, 0x000,
+		0xccf2, 0x000,
+		0xccf3, 0x2806,
+		0xccf4, 0x3cb6,
+		0xccf5, 0xc161,
+		0xccf6, 0x6134,
+		0xccf7, 0x6135,
+		0xccf8, 0x5443,
+		0xccf9, 0x303,
+		0xccfa, 0x6524,
+		0xccfb, 0x00b,
+		0xccfc, 0x1002,
+		0xccfd, 0x2104,
+		0xccfe, 0x3c24,
+		0xccff, 0x2105,
+		0xcd00, 0x3805,
+		0xcd01, 0x6524,
+		0xcd02, 0xdff4,
+		0xcd03, 0x4005,
+		0xcd04, 0x6524,
+		0xcd05, 0x1002,
+		0xcd06, 0x5dd3,
+		0xcd07, 0x306,
+		0xcd08, 0x2ff7,
+		0xcd09, 0x38f7,
+		0xcd0a, 0x60b7,
+		0xcd0b, 0xdffd,
+		0xcd0c, 0x00a,
+		0xcd0d, 0x1002,
+		0xcd0e, 0
+                };
 
 int ael2005_read (XEmacLite *InstancePtr, u32 PhyAddress, u32 PhyDev, u16 address, u16 *data);
 int ael2005_write(XEmacLite *InstancePtr, u32 PhyAddress, u32 PhyDev, u16 address, u16 data);
 // The following functions are commented out to minimize executable size
-//int ael2005_i2c_write(XEmacLite *InstancePtr, u32 PhyAddress, u16 dev_addr, u16 word_addr, u16 data);
-//int ael2005_i2c_read (XEmacLite *InstancePtr, u32 PhyAddress, u16 dev_addr, u16 word_addr, u16 *data);
+int ael2005_i2c_write(XEmacLite *InstancePtr, u32 PhyAddress, u16 dev_addr, u16 word_addr, u16 data);
+int ael2005_i2c_read (XEmacLite *InstancePtr, u32 PhyAddress, u16 dev_addr, u16 word_addr, u16 *data);
 int ael2005_sleep(int ms);
-int ael2005_initialize(XEmacLite *InstancePtr);
-int test_initialize(XEmacLite *InstancePtr);
+int ael2005_initialize(XEmacLite *InstancePtr, u32 PhyAddress, int mode);
+int test_initialize(XEmacLite *InstancePtr, u32 PhyAddress, int mode);
 int test_status(XEmacLite *InstancePtr);
 
 int main (void) {
@@ -448,13 +735,32 @@ int main (void) {
    // Run it at least once
 
    char s;
+   int port, dev;
+   u16 value;
+   int port_mode_new[4] = {-1,-1,-1,-1};
+   int port_mode[4] = {-1,-1,-1,-1};
+   
    while(1){
        print("===NetFPGA-10G Test===\r\n");
-       print("Press i to initialize, s to start\r\n");
+       print("Press i to initialize, s for status\r\n");
 
        s = inbyte();
-       if(s == 'i')
-           test_initialize(EmacLiteInstPtr);
+       if(s == 'i'){
+           for(port = 0; port < 4; port ++){
+               if(port == 0) dev = 2;
+    		   if(port == 1) dev = 1;
+    		   if(port == 2) dev = 0;
+    		   if(port == 3) dev = 3;
+    		   ael2005_i2c_read (EmacLiteInstPtr, dev, MODULE_DEV_ADDR, 3, &value);
+    		   if(value >> 4 == 1) port_mode_new[port] = MODE_SR;
+    		   else port_mode_new[port] = MODE_TWINAX;
+    		   if(port_mode_new[port] != port_mode[port]){
+    		       xil_printf("Port %d Detected new mode %x\r\n", port, MODE_SR);
+                   test_initialize(EmacLiteInstPtr, dev, port_mode_new[port]);
+                   port_mode[port] = port_mode_new[port];                   
+               }
+           }
+       }
        else if (s == 's')
            test_status(EmacLiteInstPtr);
        else
@@ -468,11 +774,11 @@ int main (void) {
 int ael2005_read (XEmacLite *EmacLiteInstPtr, u32 PhyAddr, u32 PhyDev, u16 address, u16 *data){
     XEmacLite_PhyWrite(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_ADDRESS, XEL_MDIO_CLAUSE_45, address);
     XEmacLite_PhyRead(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_READ, XEL_MDIO_CLAUSE_45, data);
-    ael2005_sleep(20);
+    ael2005_sleep(2);
 
-	 XEmacLite_PhyWrite(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_ADDRESS, XEL_MDIO_CLAUSE_45, address);
+	XEmacLite_PhyWrite(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_ADDRESS, XEL_MDIO_CLAUSE_45, address);
     XEmacLite_PhyRead(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_READ, XEL_MDIO_CLAUSE_45, data);
-    ael2005_sleep(20);
+    ael2005_sleep(2);
     return XST_SUCCESS;
 }
 
@@ -484,7 +790,7 @@ int ael2005_write (XEmacLite *EmacLiteInstPtr, u32 PhyAddr, u32 PhyDev, u16 addr
 }
 
 // The following functions are commented out to minimize executable size
-/*int ael2005_i2c_write (XEmacLite *InstancePtr, u32 PhyAddress, u16 dev_addr, u16 word_addr, u16 data){
+int ael2005_i2c_write (XEmacLite *InstancePtr, u32 PhyAddress, u16 dev_addr, u16 word_addr, u16 data){
     u16 stat;
     int i;
     ael2005_write (InstancePtr, PhyAddress, 1, AEL_I2C_DATA, data);
@@ -512,8 +818,7 @@ int ael2005_i2c_read (XEmacLite *InstancePtr, u32 PhyAddress, u16 dev_addr, u16 
 	    }
 	}
 	return XST_DEVICE_BUSY;
-}*/
-
+}
 
 int ael2005_sleep (int ms){
 
@@ -525,47 +830,40 @@ int ael2005_sleep (int ms){
     return XST_SUCCESS;
 }
 
-int ael2005_initialize(XEmacLite *InstancePtr){
+int ael2005_initialize(XEmacLite *InstancePtr, u32 dev, int mode){
 
-        int size, i, dev = 0;
+        int size, i;
         print("AEL2005 Initialization Start..\r\n");
         // Step 1
         print("Step 1..\r\n");
         size = sizeof(regs0) / sizeof(u16);
-        for(i = 0; i < size; i+=2){
-            for( dev = 0; dev < 4; dev++){
-                ael2005_write(InstancePtr, dev, 1, regs0[i], regs0[i+1]);
-            }
-        }
+        for(i = 0; i < size; i+=2) ael2005_write(InstancePtr, dev, 1, regs0[i], regs0[i+1]);
         ael2005_sleep(50);
 
         // Step 2
         print("Step 2..\r\n");
-        size = sizeof(twinax_edc) / sizeof(u16);
-        for(i = 0; i < size; i+=2){
-            for( dev = 0; dev < 4; dev++){
-                ael2005_write(InstancePtr, dev, 1, twinax_edc[i], twinax_edc[i+1]);
-            }
+        if(mode == MODE_SR){
+            size = sizeof(sr_edc) / sizeof(u16);
+            for(i = 0; i < size; i+=2) ael2005_write(InstancePtr, dev, 1, sr_edc[i], sr_edc[i+1]);
+        }
+        else {
+            size = sizeof(twinax_edc) / sizeof(u16);
+            for(i = 0; i < size; i+=2) ael2005_write(InstancePtr, dev, 1, twinax_edc[i], twinax_edc[i+1]);
         }
 
         // Step 3
         print("Step 3..\r\n");
         size = sizeof(regs1) / sizeof(u16);
-        for(i = 0; i < size; i+=2){
-            for( dev = 0; dev < 4; dev++){
-                ael2005_write(InstancePtr, dev, 1, regs1[i], regs1[i+1]);
-            }
-        }
+        for(i = 0; i < size; i+=2) ael2005_write(InstancePtr, dev, 1, regs1[i], regs1[i+1]);
         ael2005_sleep(50);
 
         return XST_SUCCESS;
 }
 
-int test_initialize(XEmacLite *InstancePtr){
-
-        ael2005_sleep(1000);
-        ael2005_initialize(InstancePtr);
-        ael2005_sleep(2000);
+int test_initialize(XEmacLite *InstancePtr, u32 PhyAddress, int mode){
+        ael2005_sleep(100);
+        ael2005_initialize(InstancePtr, PhyAddress, mode);
+        ael2005_sleep(200);
         return XST_SUCCESS;
 }
 

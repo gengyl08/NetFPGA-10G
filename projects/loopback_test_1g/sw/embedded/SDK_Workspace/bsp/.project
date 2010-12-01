@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>nf10_bsp</name>
+	<name>bsp</name>
 	<comment></comment>
 	<projects>
-		<project>hw_platform_0</project>
+		<project>hw</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
