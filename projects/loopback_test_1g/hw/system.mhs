@@ -203,6 +203,7 @@ BEGIN nf10_1g_interface
  PORT RXN_0 = nf10_1g_interface_0_RXN_0
  PORT RXP_1 = nf10_1g_interface_0_RXP_1
  PORT axi_resetn = Peripheral_aresetn
+ PORT axi_aclk = core_clk
  PORT gtxclk_0 = refclk_A
  PORT gtxclk_1 = refclk_B
 END

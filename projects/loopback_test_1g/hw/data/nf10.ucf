@@ -55,8 +55,8 @@ NET "refclk_D_n"  LOC = "C33" ;
 # EMAC0 Clocking
 # 125MHz clock input from BUFG
 NET nf10_1g_interface_0/nf10_1g_interface_0/gmac/clk125_o TNM_NET          = "clk_gtx_sfp_0";
-TIMESPEC "TS_v5_emac_v1_6_gtx_clk_sfp_0"         = PERIOD "clk_gtx_sfp_0" 7700 ps HIGH 50 %;
+TIMESPEC "TS_v5_emac_v1_6_gtx_clk_sfp_0"         = PERIOD "clk_gtx_sfp_0" 125MHz HIGH 50 %;
 
 NET nf10_1g_interface_1/nf10_1g_interface_1/gmac/clk125_o TNM_NET          = "clk_gtx_sfp_1";
-TIMESPEC "TS_v5_emac_v1_6_gtx_clk_sfp_1"         = PERIOD "clk_gtx_sfp_1" 7700 ps HIGH 50 %;
+TIMESPEC "TS_v5_emac_v1_6_gtx_clk_sfp_1"         = PERIOD "clk_gtx_sfp_1" 125MHz HIGH 50 %;
 
