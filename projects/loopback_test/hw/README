@@ -1,8 +1,16 @@
-NetFPGA-10G loopback test (10G Mode)
-====================================
-James Hongyi Zeng (hyzeng_at_stanford.edu)
+#################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  Project:
+#          loopback_test
+#                 
+#  Revision history:
+#          2010/12/1 hyzeng: Initial check-in
+#
+#################################################################
 
-This project is part of the Howth release. To rebuilt the project from 
+"How to build the hardware?" You may ask. To rebuilt the project from 
 source, follow the simple 2 steps.
 
 1. Open system.xmp using Xilinx Platform Studio

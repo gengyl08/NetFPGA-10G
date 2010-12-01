@@ -1,0 +1,52 @@
+################################################################################
+# Part 0 Directories and files
+################################################################################
+
+RESULT_DIR = result
+SDK_WORKSPACE = SDK_Workspace
+USER_APP_DIR = $(SDK_WORKSPACE)/hello_world_0
+BSP_DIR = $(SDK_WORKSPACE)/bsp
+HW_DIR = $(SDK_WORKSPACE)/hw
+
+DOWNLOAD_BIT = $(RESULT_DIR)/download.bit
+SYSTEM_BD = $(HW_DIR)/system_bd.bmm
+SYSTEM_BIT = $(HW_DIR)/system.bit
+ELF = $(RESULT_DIR)/hello_world_0.elf
+
+################################################################################
+# Part 1 User Application
+################################################################################
+USER_OBJS :=
+LIBS :=
+O_SRCS := 
+C_SRCS := 
+S_UPPER_SRCS := 
+S_SRCS := 
+OBJ_SRCS := 
+OBJS := 
+C_DEPS := 
+EXECUTABLES := 
+ELFSIZE := 
+ELFCHECK := 
+S_UPPER_DEPS := 
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+$(USER_APP_DIR)/src/helloworld.c \
+$(USER_APP_DIR)/src/platform.c 
+
+OBJS += \
+$(RESULT_DIR)/helloworld.o \
+$(RESULT_DIR)/platform.o 
+
+C_DEPS += \
+$(RESULT_DIR)/helloworld.d \
+$(RESULT_DIR)/platform.d 
+
+################################################################################
+# Part 2 Board Support Package (BSP)
+################################################################################
+PROCESSOR=microblaze_0
+REPOSITORIES=-lp ../../../../lib/sw
+HWSPEC=$(HW_DIR)/system.xml
+LIBRARIES = $(RESULT_DIR)/${PROCESSOR}/lib/libxil.a
+MSS = $(BSP_DIR)/system.mss
