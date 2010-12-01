@@ -45,7 +45,7 @@
 <option id="xilinx.gnu.mb.compiler.inferred.usebarrel.963253406" name="Use Barrel Shifter (-mxl-barrel-shift)" superClass="xilinx.gnu.mb.compiler.inferred.usebarrel" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.mb.compiler.inferred.usepcmp.705238460" name="Use Pattern Compare (-mxl-pattern-compare)" superClass="xilinx.gnu.mb.compiler.inferred.usepcmp" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.compiler.inferred.swplatform.includes.1577084179" name="Software Platform Include Path" superClass="xilinx.gnu.compiler.inferred.swplatform.includes" valueType="includePath">
-<listOptionValue builtIn="false" value="../../nf10_bsp/microblaze_0/include"/>
+<listOptionValue builtIn="false" value="../../bsp/microblaze_0/include"/>
 </option>
 </tool>
 <tool id="xilinx.gnu.mb.toolchain.archiver.801848192" name="MicroBlaze archiver" superClass="xilinx.gnu.mb.toolchain.archiver"/>
@@ -70,7 +70,7 @@
 <option id="xilinx.gnu.mb.linker.inferred.usebarrel.248384168" name="Use Barrel Shifter (-mxl-barrel-shift)" superClass="xilinx.gnu.mb.linker.inferred.usebarrel" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.mb.linker.inferred.usepcmp.1570000720" name="Use Pattern Compare (-mxl-pattern-compare)" superClass="xilinx.gnu.mb.linker.inferred.usepcmp" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.linker.inferred.swplatform.lpath.1951507170" name="Software Platform Library Path" superClass="xilinx.gnu.linker.inferred.swplatform.lpath" valueType="libPaths">
-<listOptionValue builtIn="false" value="../../nf10_bsp/microblaze_0/lib"/>
+<listOptionValue builtIn="false" value="../../bsp/microblaze_0/lib"/>
 </option>
 <option id="xilinx.gnu.c.linker.option.lscript.55771521" name="Linker Script" superClass="xilinx.gnu.c.linker.option.lscript" value="../src/lscript.ld" valueType="string"/>
 </tool>
@@ -681,7 +681,7 @@
 <option id="xilinx.gnu.mb.compiler.inferred.usebarrel.106610777" superClass="xilinx.gnu.mb.compiler.inferred.usebarrel" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.mb.compiler.inferred.usepcmp.1139702422" superClass="xilinx.gnu.mb.compiler.inferred.usepcmp" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.compiler.inferred.swplatform.includes.1466741940" superClass="xilinx.gnu.compiler.inferred.swplatform.includes" valueType="includePath">
-<listOptionValue builtIn="false" value="../../nf10_bsp/microblaze_0/include"/>
+<listOptionValue builtIn="false" value="../../bsp/microblaze_0/include"/>
 </option>
 <inputType id="xilinx.gnu.compiler.input.632663483" name="C source files" superClass="xilinx.gnu.compiler.input"/>
 </tool>
@@ -693,7 +693,7 @@
 <option id="xilinx.gnu.mb.compiler.inferred.usebarrel.1204555778" superClass="xilinx.gnu.mb.compiler.inferred.usebarrel" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.mb.compiler.inferred.usepcmp.2124901998" superClass="xilinx.gnu.mb.compiler.inferred.usepcmp" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.compiler.inferred.swplatform.includes.880935414" superClass="xilinx.gnu.compiler.inferred.swplatform.includes" valueType="includePath">
-<listOptionValue builtIn="false" value="../../nf10_bsp/microblaze_0/include"/>
+<listOptionValue builtIn="false" value="../../bsp/microblaze_0/include"/>
 </option>
 </tool>
 <tool id="xilinx.gnu.mb.toolchain.archiver.1868884839" name="MicroBlaze archiver" superClass="xilinx.gnu.mb.toolchain.archiver"/>
@@ -703,7 +703,7 @@
 <option id="xilinx.gnu.mb.linker.inferred.usebarrel.107820102" superClass="xilinx.gnu.mb.linker.inferred.usebarrel" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.mb.linker.inferred.usepcmp.816757115" superClass="xilinx.gnu.mb.linker.inferred.usepcmp" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.linker.inferred.swplatform.lpath.1799788979" superClass="xilinx.gnu.linker.inferred.swplatform.lpath" valueType="libPaths">
-<listOptionValue builtIn="false" value="../../nf10_bsp/microblaze_0/lib"/>
+<listOptionValue builtIn="false" value="../../bsp/microblaze_0/lib"/>
 </option>
 <option id="xilinx.gnu.c.linker.option.lscript.795115205" superClass="xilinx.gnu.c.linker.option.lscript" value="../src/lscript.ld" valueType="string"/>
 <inputType id="xilinx.gnu.linker.input.1351355422" superClass="xilinx.gnu.linker.input">
@@ -717,7 +717,7 @@
 <option id="xilinx.gnu.mb.linker.inferred.usebarrel.517890389" superClass="xilinx.gnu.mb.linker.inferred.usebarrel" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.mb.linker.inferred.usepcmp.119223293" superClass="xilinx.gnu.mb.linker.inferred.usepcmp" value="true" valueType="boolean"/>
 <option id="xilinx.gnu.linker.inferred.swplatform.lpath.92998822" superClass="xilinx.gnu.linker.inferred.swplatform.lpath" valueType="libPaths">
-<listOptionValue builtIn="false" value="../../nf10_bsp/microblaze_0/lib"/>
+<listOptionValue builtIn="false" value="../../bsp/microblaze_0/lib"/>
 </option>
 <option id="xilinx.gnu.c.linker.option.lscript.1964539101" superClass="xilinx.gnu.c.linker.option.lscript" value="../src/lscript.ld" valueType="string"/>
 </tool>

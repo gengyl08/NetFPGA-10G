@@ -751,11 +751,35 @@ int main (void) {
     		   if(port == 1) dev = 1;
     		   if(port == 2) dev = 0;
     		   if(port == 3) dev = 3;
-    		   ael2005_i2c_read (EmacLiteInstPtr, dev, MODULE_DEV_ADDR, 3, &value);
-    		   if(value >> 4 == 1) port_mode_new[port] = MODE_SR;
+
+    		   xil_printf("Port %d: ", port);
+    		   ael2005_read (EmacLiteInstPtr, dev, 1, 0xa, &value);
+    		   if(value == 0) {
+    		       	print("No Signal.\r\n");
+    		       	continue;
+    		   }
+    		   for(s = 20; s < 36; s++){
+    		       	ael2005_i2c_read (EmacLiteInstPtr, dev, MODULE_DEV_ADDR, s, &value);
+    		       	xil_printf("%c", value);
+    		   }
+    		   for(s = 40; s < 56; s++){
+    		       	ael2005_i2c_read (EmacLiteInstPtr, dev, MODULE_DEV_ADDR, s, &value);
+    		       	xil_printf("%c", value);
+    		   }
+    		   print("Rev:");
+    		   for(s = 56; s < 59; s++){
+    		       	ael2005_i2c_read (EmacLiteInstPtr, dev, MODULE_DEV_ADDR, s, &value);
+    		       	xil_printf("%c", value);
+    		   }
+    		   print("\r\n");
+
+    		   // Check if we have a 10GBASE-SR cable
+    		   ael2005_i2c_read (EmacLiteInstPtr, dev, MODULE_DEV_ADDR, 0x3, &value);
+    		   if((value >> 4) == 1) port_mode_new[port] = MODE_SR;
     		   else port_mode_new[port] = MODE_TWINAX;
+
     		   if(port_mode_new[port] != port_mode[port]){
-    		       xil_printf("Port %d Detected new mode %x\r\n", port, MODE_SR);
+    		       xil_printf("Port %d Detected new mode %x\r\n", port, port_mode_new[port]);
                    test_initialize(EmacLiteInstPtr, dev, port_mode_new[port]);
                    port_mode[port] = port_mode_new[port];                   
                }
@@ -775,10 +799,6 @@ int ael2005_read (XEmacLite *EmacLiteInstPtr, u32 PhyAddr, u32 PhyDev, u16 addre
     XEmacLite_PhyWrite(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_ADDRESS, XEL_MDIO_CLAUSE_45, address);
     XEmacLite_PhyRead(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_READ, XEL_MDIO_CLAUSE_45, data);
     ael2005_sleep(2);
-
-	XEmacLite_PhyWrite(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_ADDRESS, XEL_MDIO_CLAUSE_45, address);
-    XEmacLite_PhyRead(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_READ, XEL_MDIO_CLAUSE_45, data);
-    ael2005_sleep(2);
     return XST_SUCCESS;
 }
 
@@ -795,8 +815,8 @@ int ael2005_i2c_write (XEmacLite *InstancePtr, u32 PhyAddress, u16 dev_addr, u16
     int i;
     ael2005_write (InstancePtr, PhyAddress, 1, AEL_I2C_DATA, data);
     ael2005_write (InstancePtr, PhyAddress, 1, AEL_I2C_CTRL, (dev_addr << 8) | word_addr);
-    for (i < 0; i < 200; i++){
-        ael2005_sleep (10);
+    for (i = 0; i < 20; i++){
+        ael2005_sleep (2);
         ael2005_read  (InstancePtr, PhyAddress, 1, AEL_I2C_STAT, &stat);
         if ((stat & 3) == 1)
 			return XST_SUCCESS;
@@ -808,8 +828,8 @@ int ael2005_i2c_read (XEmacLite *InstancePtr, u32 PhyAddress, u16 dev_addr, u16 
     u16 stat;
     int i;
     ael2005_write (InstancePtr, PhyAddress, 1, AEL_I2C_CTRL, (dev_addr << 8) | (1 << 8) | word_addr);
-    for (i < 0; i < 200; i++){
-        ael2005_sleep (10);
+    for (i = 0; i < 20; i++){
+        ael2005_sleep (2);
         ael2005_read  (InstancePtr, PhyAddress, 1, AEL_I2C_STAT, &stat);
         if ((stat & 3) == 1){
             ael2005_read  (InstancePtr, PhyAddress, 1, AEL_I2C_DATA, &stat);
@@ -892,7 +912,7 @@ int test_status(XEmacLite *InstancePtr){
 					 ael2005_read(InstancePtr, dev, 1, 0x1, &pma_status);
 					 ael2005_read(InstancePtr, dev, 3, 0x1, &pcs_status);
 					 ael2005_read(InstancePtr, dev, 4, 0x1, &phy_xs_status);
-					 xil_printf("DEBUG: %x, %x, %x\r\n", pma_status, pcs_status, phy_xs_status);
+					 //xil_printf("DEBUG: %x, %x, %x\r\n", pma_status, pcs_status, phy_xs_status);
 					 if(((pma_status>>2) & 0x1) &
 					    ((pcs_status>>2) & 0x1) &
 						 ((phy_xs_status>>2) & 0x1)){
