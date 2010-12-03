@@ -47,7 +47,7 @@
 BEGIN axi_interconnect
  PARAMETER INSTANCE = axi_interconnect_memory_mapped_lite_0
  PARAMETER HW_VER = 1.00.a
- PORT interconnect_aclk = clk_25_0000MHzMMCM0
+ PORT interconnect_aclk = control_clk
  PORT INTERCONNECT_ARESETN = connectnetwork_0_reset_reset_0_Reset_2_adhoc
 END
 
@@ -73,21 +73,21 @@ BEGIN microblaze
  BUS_INTERFACE DLMB = microblaze_0_dlmb
  BUS_INTERFACE ILMB = microblaze_0_ilmb
  PORT MB_RESET = microblaze_0_Reset_reset_0_Reset_0_adhoc
- PORT CLK = clk_50_0000MHzMMCM0
+ PORT CLK = mb_clk
 END
 
 BEGIN lmb_v10
  PARAMETER INSTANCE = microblaze_0_ilmb
  PARAMETER HW_VER = 1.00.a
  PORT SYS_RST = sys_bus_reset
- PORT LMB_CLK = clk_50_0000MHzMMCM0
+ PORT LMB_CLK = mb_clk
 END
 
 BEGIN lmb_v10
  PARAMETER INSTANCE = microblaze_0_dlmb
  PARAMETER HW_VER = 1.00.a
  PORT SYS_RST = sys_bus_reset
- PORT LMB_CLK = clk_50_0000MHzMMCM0
+ PORT LMB_CLK = mb_clk
 END
 
 BEGIN lmb_bram_if_cntlr
@@ -121,7 +121,7 @@ BEGIN proc_sys_reset
  PARAMETER C_EXT_RESET_HIGH = 0
  PORT Ext_Reset_In = RESET
  PORT MB_Reset = microblaze_0_Reset_reset_0_Reset_0_adhoc
- PORT Slowest_sync_clk = clk_25_0000MHzMMCM0
+ PORT Slowest_sync_clk = control_clk
  PORT Interconnect_aresetn = connectnetwork_0_reset_reset_0_Reset_2_adhoc
  PORT BUS_STRUCT_RESET = sys_bus_reset
  PORT Dcm_locked = dcm_locked
@@ -141,24 +141,24 @@ BEGIN axi_uartlite
  BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
  PORT TX = RS232_Uart_1_sout
  PORT RX = RS232_Uart_1_sin
- PORT S_AXI_ACLK = clk_25_0000MHzMMCM0
+ PORT S_AXI_ACLK = control_clk
 END
 
 BEGIN clock_generator
  PARAMETER INSTANCE = clock_generator_0
  PARAMETER HW_VER = 4.00.a
  PARAMETER C_CLKIN_FREQ = 100000000
- PARAMETER C_CLKOUT0_FREQ = 50000000
+ PARAMETER C_CLKOUT0_FREQ = 100000000
  PARAMETER C_CLKOUT0_GROUP = NONE
- PARAMETER C_CLKOUT1_FREQ = 25000000
+ PARAMETER C_CLKOUT1_FREQ = 50000000
  PARAMETER C_CLKOUT1_GROUP = NONE
  PARAMETER C_EXT_RESET_HIGH = 0
  PARAMETER C_CLKOUT2_FREQ = 200000000
  PORT CLKIN = CLK
- PORT CLKOUT0 = clk_50_0000MHzMMCM0
+ PORT CLKOUT0 = mb_clk
  PORT RST = RESET
  PORT LOCKED = dcm_locked
- PORT CLKOUT1 = clk_25_0000MHzMMCM0
+ PORT CLKOUT1 = control_clk
  PORT CLKOUT2 = core_clk
 END
 
@@ -171,7 +171,7 @@ BEGIN nf10_mdio
  PARAMETER C_BASEADDR = 0x7a000000
  PARAMETER C_HIGHADDR = 0x7a00ffff
  BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
- PORT S_AXI_ACLK = clk_25_0000MHzMMCM0
+ PORT S_AXI_ACLK = control_clk
  PORT PHY_MDC = nf10_mdio_0_PHY_MDC
  PORT PHY_MDIO = nf10_mdio_0_PHY_MDIO
  PORT PHY_rst_n = nf10_mdio_0_PHY_rst_n
@@ -184,7 +184,7 @@ BEGIN axi_timebase_wdt
  PARAMETER C_BASEADDR = 0x41a00000
  PARAMETER C_HIGHADDR = 0x41a0ffff
  BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
- PORT S_AXI_ACLK = clk_25_0000MHzMMCM0
+ PORT S_AXI_ACLK = control_clk
 END
 
 BEGIN nf10_1g_interface

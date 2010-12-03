@@ -50,10 +50,16 @@ NET "refclk_D_n"  LOC = "C27" ;
 
 
 # TIMING ###################################################################
-NET "*/txoutclk" TNM_NET="clk156_top";
+NET "nf10_10g_interface_0/nf10_10g_interface_0/clk156" TNM_NET="clk156_top";
+NET "nf10_10g_interface_1/nf10_10g_interface_1/clk156" TNM_NET="clk156_top";
+NET "nf10_10g_interface_2/nf10_10g_interface_2/clk156" TNM_NET="clk156_top";
+NET "nf10_10g_interface_3/nf10_10g_interface_3/clk156" TNM_NET="clk156_top";
 TIMESPEC "TS_clk156_top" = PERIOD "clk156_top" 156.25 MHz HIGH 50 %;
 
-NET */xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+NET nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+NET nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+NET nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+NET nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
 TIMESPEC TS_clk156_rec = PERIOD clk156_rec 156.25MHz;
 
 ################################################################################
