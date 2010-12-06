@@ -25,6 +25,7 @@ all: $(DOWNLOAD_BIT)
 
 clean:
 	rm -rf $(RESULT_DIR)
+	rm -rf $(HW_DIR)/*
 
 $(RESULT_DIR):
 	mkdir -p $(RESULT_DIR)

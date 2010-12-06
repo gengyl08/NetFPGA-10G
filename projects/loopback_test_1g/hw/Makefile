@@ -108,6 +108,13 @@ structural_model: $(STRUCTURAL_SIM_SCRIPT)
 
 clean: hwclean swclean simclean
 	rm -f _impact.cmd
+	rm -rf __xps
+	rm -rf blockdiagram
+	rm -rf etc
+	rm -f *.opt
+	rm -f *.log
+	rm -f *.make
+	rm -f system.mss
 
 hwclean: netlistclean bitsclean
 	rm -rf implementation synthesis xst hdl
