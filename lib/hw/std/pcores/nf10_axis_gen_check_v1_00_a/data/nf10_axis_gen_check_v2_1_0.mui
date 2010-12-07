@@ -22,6 +22,21 @@
                 <label>Slave Stream Data Width</label>
         </widget>
         '>
+
+        <!ENTITY IFG_SIZE '
+        <widget id="IFG_SIZE">
+                <key>IFG_SIZE</key>
+                <label>Size of the interframe gap in 64bit words</label>
+        </widget>
+        '>
+
+        <!ENTITY PKT_SIZE '
+        <widget id="PKT_SIZE">
+                <key>PKT_SIZE</key>
+                <label>Size of the generated packet</label>
+        </widget>
+        '>
+
 ]>
 
 <doc>
@@ -31,7 +46,8 @@
                         <display>AXI</display>
                         <item>&C_M_AXIS_DATA_WIDTH;</item>
                         <item>&C_S_AXIS_DATA_WIDTH;</item>
- 
+                        <item>&IFG_SIZE;</item>
+                        <item>&PKT_SIZE;</item>
                 </group>
 	</view>
 </doc>
