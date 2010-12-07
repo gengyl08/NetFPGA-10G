@@ -43,7 +43,7 @@
 ##
 ###################################################################
 
-BEGIN nf10_netwave_core
+BEGIN nf10_axis_netwave_core
 
 ## Peripheral Options
 OPTION IPTYPE = PERIPHERAL
