@@ -186,20 +186,18 @@ $(WRAPPER_NGC_FILES): $(MHSFILE) __xps/platgen.opt \
 	@echo "****************************************************"
 	platgen $(PLATGEN_OPTIONS) $(MHSFILE)
 
+#James: AXI interconnect workaround. Please note that the SCR is associated with the instance name.
 $(POSTSYN_NETLIST): $(WRAPPER_NGC_FILES)
 	@echo "Running synthesis..."
-	#James: AXI interconnect workaround Please note that
-	# scr is associated with instance name.
 	cp nf10/axi_interconnect.scr ./synthesis/axi_interconnect_memory_mapped_lite_0_wrapper_xst.scr
 	bash -c "cd synthesis; ./synthesis.sh"
 
+#James: Use multi-core map and par. Parameters in nf10/xflow.opt
 __xps/$(SYSTEM)_routed: $(FPGA_IMP_DEPENDENCY)
 	@echo "*********************************************"
 	@echo "Running Xilinx Implementation tools.."
 	@echo "*********************************************"
 	@cp -f $(UCF_FILE) implementation/$(SYSTEM).ucf
-	#James: Use multi-core map and par
-	#@cp -f etc/fast_runtime.opt implementation/xflow.opt
 	@cp -f nf10/xflow.opt implementation/xflow.opt
 	xflow -wd implementation -p $(DEVICE) -implement xflow.opt $(SYSTEM).ngc
 	touch __xps/$(SYSTEM)_routed
