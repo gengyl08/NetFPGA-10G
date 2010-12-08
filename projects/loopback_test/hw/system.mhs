@@ -392,5 +392,7 @@ BEGIN nf10_axis_gen_check
  PARAMETER HW_VER = 1.00.a
  BUS_INTERFACE M_AXIS = nf10_axis_gen_check_1_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_10g_interface_3_M_AXIS
+ PORT aresetn = Peripheral_aresetn
+ PORT aclk = core_clk
 END
 

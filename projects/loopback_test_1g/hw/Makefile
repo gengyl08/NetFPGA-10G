@@ -30,6 +30,7 @@ include system_incl.make
 .PHONY: bitsclean
 .PHONY: simclean
 .PHONY: exporttosdk
+.PHONY: reallyclean
 
 #################################################################
 # EXTERNAL TARGETS
@@ -95,10 +96,10 @@ init_bram: $(DOWNLOAD_BIT)
 
 sim: $(DEFAULT_SIM_SCRIPT)
 	cd simulation/behavioral; \
-	cp ../../nf10/nf10_tb.v .; \
-	sh nf10_fuse.sh;
+	cp ../../nf10/system_tb.v .; \
+	sh system_fuse.sh;
 	cd simulation/behavioral; \
-	$(SIM_CMD) -gui -tclbatch nf10_setup.tcl &
+	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
 
 simmodel: $(DEFAULT_SIM_SCRIPT)
 
