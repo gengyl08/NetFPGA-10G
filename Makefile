@@ -16,10 +16,10 @@
 #
 ################################################################################
 
-NF10_HW_LIB_DIR = lib/hw/std/pcores/
-NF10_SW_LIB_DIR = lib/sw/std/drivers/
-XILINX_HW_LIB_DIR = $(XILINX_EDK)/hw/XilinxProcessorIPLib/pcores/
-XILINX_SW_LIB_DIR = $(XILINX_EDK)/sw/XilinxProcessorIPLib/drivers/
+NF10_HW_LIB_DIR = lib/hw/std/pcores
+NF10_SW_LIB_DIR = lib/sw/std/drivers
+XILINX_HW_LIB_DIR = $(XILINX_EDK)/hw/XilinxProcessorIPLib/pcores
+XILINX_SW_LIB_DIR = $(XILINX_EDK)/sw/XilinxProcessorIPLib/drivers
 HW_LIB_DIR_INSTANCES := $(shell cd $(NF10_HW_LIB_DIR) && find . -maxdepth 1 -type d)
 HW_LIB_DIR_INSTANCES := $(basename $(patsubst ./%,%,$(HW_LIB_DIR_INSTANCES)))
 
@@ -30,10 +30,11 @@ install: pcores \
 		$(NF10_HW_LIB_DIR)/nf10_mdio_v1_00_a/hdl/vhdl/axi_interface.vhd \
 		$(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/data/emaclite_header.h
 
-pcores:   
+pcores:
 	@for lib in $(HW_LIB_DIR_INSTANCES) ; do \
 		false | cp -ri $(XILINX_HW_LIB_DIR)/$$lib $(NF10_HW_LIB_DIR) > /dev/null 2>&1; \
 	done;
+	@patch $(NF10_HW_LIB_DIR)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.vhd $(NF10_HW_LIB_DIR)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.diff;
 	@echo "Xilinx EDK pcores installed.";
 	
 $(NF10_HW_LIB_DIR)/nf10_10g_interface_v1_00_a/hdl/verilog/xilinx/xaui.v: $(NF10_HW_LIB_DIR)/nf10_10g_interface_v1_00_a/xco/xaui.xco
@@ -68,5 +69,8 @@ $(NF10_HW_LIB_DIR)/nf10_mdio_v1_00_a/hdl/vhdl/axi_interface.vhd: $(XILINX_HW_LIB
 
 $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/data/emaclite_header.h: $(XILINX_SW_LIB_DIR)/emaclite_v3_01_a/data/emaclite_header.h
 	@false | cp -ri $(XILINX_SW_LIB_DIR)/emaclite_v3_01_a/* $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/ > /dev/null 2>&1;
-	@rm -f $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/emaclite_v2_1_0.*;
+	@rm -f $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/data/emaclite_v2_1_0.*;
+	@patch $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/src/xemaclite.h $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/src/xemaclite.h.diff;
+	@patch $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/src/xemaclite_l.h $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/src/xemaclite_l.h.diff;
+	@patch $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/src/xemaclite.c $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/src/xemaclite.c.diff;
 	@echo "Xilinx MDIO interface - Software installed.";

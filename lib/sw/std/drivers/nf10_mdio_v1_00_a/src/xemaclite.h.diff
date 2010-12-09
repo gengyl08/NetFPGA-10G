@@ -1,0 +1,12 @@
+364c364
+< int XEmacLite_PhyRead(XEmacLite *InstancePtr, u32 PhyAddress, u32 RegNum,
+---
+> /*int XEmacLite_PhyRead(XEmacLite *InstancePtr, u32 PhyAddress, u32 RegNum,
+367c367,371
+< 			u16 PhyData);
+---
+> 			u16 PhyData);*/
+> int XEmacLite_PhyRead(XEmacLite *InstancePtr, u32 PhyAddress, u32 RegNum,
+> 			u32 opcode, u32 clause, u16 *PhyDataPtr);
+> int XEmacLite_PhyWrite(XEmacLite *InstancePtr, u32 PhyAddress, u32 RegNum,
+> 			u32 opcode, u32 clause, u16 PhyData);

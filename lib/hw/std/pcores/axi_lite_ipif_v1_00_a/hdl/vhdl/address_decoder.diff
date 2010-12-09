@@ -1,0 +1,8 @@
+373a374
+> 
+375c376,378
+<          if (Address_In_Erly(0 to DECODE_BITS(bar_index)-1) > BASE_ADDR_x(0 to DECODE_BITS(bar_index)-1))
+---
+>          if (bar_index = 0) then -- Added by James to avoid XST crash in Virtex-5 mode
+>             cs_for_gaps_i(bar_index) <= '0';
+>          elsif (Address_In_Erly(0 to DECODE_BITS(bar_index)-1) > BASE_ADDR_x(0 to DECODE_BITS(bar_index)-1))
