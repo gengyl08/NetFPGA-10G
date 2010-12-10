@@ -1,1 +1,47 @@
-# Shep was here
+#################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  Project:
+#          Release README
+#                 
+#  Revision history:
+#          2010/12/10 hyzeng: Initial check-in
+#
+#################################################################
+
+Welcome to NetFPGA-10G Repository.
+
+Before you start, please read the "Getting Started Guide" on the 
+NetFPGA-10G wiki. The following is a quick start for 1.0.0 release.
+
+0. Requirement
+- Xilinx ISE Design Suite: Embedded Edition 12.3
+  EDK, including Xilinx Platform Studio (XPS) and Software 
+  Development Kit (SDK) are necessary.
+- Linux or Unix based system
+
+1. Installation
+- Make sure you have Xilinx ISE installed and $XILINX, $XILINX_EDK
+  environment variables are set correctly
+- Go to the root NetFPGA-10G directory
+- Run "make install"
+
+The above command will do the following actions.
+- Copy necessary files from your Xilinx ISE installation
+- Generate IP cores (10G Ethernet MAC and XAUI) and put them in the
+  hardware library
+- Some Xilinx files are patched to be enabled running on NetFPGA-10G
+  board.
+  
+2. Run the production test
+The production test check whether the board you have is fully working.
+Please follow the instructions in
+    projects/production_test/doc/NetFPGA10G_production_test.pdf
+
+3. Build and play with the reference projects
+Besides the production test, we provide a couple of reference projects
+to allow you quickly start your development. Please read the README
+file in each project directory for more information.
+
+Enjoy NetFPGA-10G!
