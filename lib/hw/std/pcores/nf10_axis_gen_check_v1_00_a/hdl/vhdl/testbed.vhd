@@ -1,3 +1,22 @@
+------------------------------------------------------------------------
+--
+--  NETFPGA-10G www.netfpga.org
+--
+--  Module:
+--          testbed.vhd
+--
+--  Description:
+--          simple testbed for axis generator/checker
+--                 
+--  Revision history:
+--          Dec 2010 M.Blott initial version
+--
+--  Known issues:
+--          none
+--
+--  Library: 
+--          none beyond the standard
+------------------------------------------------------------------------
 
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL ;
