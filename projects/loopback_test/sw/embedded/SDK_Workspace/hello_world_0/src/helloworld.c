@@ -53,8 +53,11 @@ int main (void) {
    char s;
    int port, dev;
    u16 value;
+   
+#if AEL2005_SR
    char port_mode_new[4] = {-1,-1,-1,-1};
    char port_mode[4] = {-1,-1,-1,-1};
+#endif
    
    while(1){
        print("==NetFPGA-10G==\r\n");
@@ -84,7 +87,7 @@ int main (void) {
     		   }
     		   print("\r\n");
 
-			   #if AEL2005_SR
+#if AEL2005_SR
     		   // Check if we have a 10GBASE-SR cable
     		   ael2005_i2c_read (EmacLiteInstPtr, dev, MODULE_DEV_ADDR, 0x3, &value);
     		   if((value >> 4) == 1) port_mode_new[port] = MODE_SR;
@@ -95,9 +98,9 @@ int main (void) {
                    test_initialize(EmacLiteInstPtr, dev, port_mode_new[port]);
                    port_mode[port] = port_mode_new[port];                   
                }
-               #else
+#else
                test_initialize(EmacLiteInstPtr, dev, MODE_TWINAX);
-               #endif
+#endif
            }
        }
        else if (s == 's')

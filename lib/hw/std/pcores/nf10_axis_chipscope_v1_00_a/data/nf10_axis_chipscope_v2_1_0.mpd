@@ -52,8 +52,8 @@ OPTION HDL = MIXED
 OPTION USAGE_LEVEL = BASE_USER
 OPTION STYLE = HDL
 OPTION IP_GROUP = Communication High-Speed:MICROBLAZE
-OPTION DESC = NetFPGA 10G AXI Stream chipscope probe
-OPTION LONG_DESC = NetFPGA 10G AXI Stream chipscope probe
+OPTION DESC = NetFPGA-10G AXI4-Stream ChipScope Probe
+OPTION LONG_DESC = NetFPGA-10G AXI4-Stream ChipScope Probe
 OPTION ELABORATE_PROC = core_generate
 
 ## Bus Interfaces

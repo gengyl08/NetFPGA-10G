@@ -46,6 +46,7 @@ $(NF10_HW_LIB_DIR)/nf10_10g_interface_v1_00_a/hdl/verilog/xilinx/xaui.v: $(NF10_
 		&& cp xaui.ngc ../$(NF10_HW_LIB_DIR)/nf10_10g_interface_v1_00_a/netlist/ \
 		&& cp xaui/example_design/tx_sync.v ../$(NF10_HW_LIB_DIR)/nf10_10g_interface_v1_00_a/hdl/verilog/xilinx/ \
 		&& cp xaui/example_design/cc_2b_1skp.v ../$(NF10_HW_LIB_DIR)/nf10_10g_interface_v1_00_a/hdl/verilog/xilinx/ \
+		&& patch ../$(NF10_HW_LIB_DIR)/nf10_10g_interface_v1_00_a/hdl/verilog/xilinx/cc_2b_1skp.v ../$(NF10_HW_LIB_DIR)/nf10_10g_interface_v1_00_a/hdl/verilog/xilinx/cc_2b_1skp.diff \
 		&& cp xaui/example_design/chanbond_monitor.v ../$(NF10_HW_LIB_DIR)/nf10_10g_interface_v1_00_a/hdl/verilog/xilinx/;
 	@echo "Xilinx XAUI core installed.";
 	@rm -rf coregen;

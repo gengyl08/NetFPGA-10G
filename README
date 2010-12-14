@@ -13,7 +13,11 @@
 Welcome to NetFPGA-10G Repository.
 
 Before you start, please read the "Getting Started Guide" on the 
-NetFPGA-10G wiki. The following is a quick start for 1.0.0 release.
+NetFPGA-10G wiki. 
+
+http://netfpga10g.pbworks.com/Getting-Started-Guide
+
+The following is a quick start for 1.0.0 release.
 
 0. Requirement
 - Xilinx ISE Design Suite: Embedded Edition 12.3

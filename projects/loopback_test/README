@@ -3,6 +3,9 @@
 #  NetFPGA-10G http://www.netfpga.org
 #
 #  Project:
+#          NetFPGA-10G 10G Ethernet Interface Loopback Test
+#
+#  Name:
 #          loopback_test
 #                 
 #  Revision history:
@@ -14,7 +17,11 @@ A typical NetFPGA-10G project is organized as hardware part (hw)
 and software part (sw, including embedded software and host
 software).
 
-"I just want the bitfile!" You may say. To build the project,
-simply use "make".
+To build the project, simply use "make". The result bitfile is 
+under bitfiles/
 
-The result bitfile is under bitfiles/
+For more information about this project, please visit
+
+http://netfpga10g.pbworks.com/Projects
+
+and select the correspondent project.

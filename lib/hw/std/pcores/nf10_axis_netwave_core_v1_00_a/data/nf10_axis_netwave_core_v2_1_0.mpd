@@ -51,8 +51,8 @@ OPTION HDL = MIXED
 OPTION USAGE_LEVEL = BASE_USER
 OPTION STYLE = HDL
 OPTION IP_GROUP = Communication High-Speed:MICROBLAZE
-OPTION DESC = NetFPGA 10G axi stream netwave IP block
-OPTION LONG_DESC = NetFPGA 10G axi stream netwave IP block- generated through HLS
+OPTION DESC = NetFPGA-10G AXI4-Stream netwave IP Block
+OPTION LONG_DESC = NetFPGA-10G AXI4-Stream netwave IP Block- generated through HLS
 
 ## Bus Interfaces
 BUS_INTERFACE BUS = M_AXIS, BUS_STD = AXIS, BUS_TYPE = INITIATOR
