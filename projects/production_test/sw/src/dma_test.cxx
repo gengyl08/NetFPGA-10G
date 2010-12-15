@@ -1,3 +1,16 @@
+////////////////////////////////////////////////////////////////////////
+//
+//  Description:
+//          This program is a modified work from code originally written
+//          by Jim Kulp and Shepard Siegel at Atomic Rules. The program
+//          now tests and profiles the OpenCPI based DMA engine in the 
+//          production test design for NetFPGA-10G.
+//
+//  Revision history:
+//          2010/11/04 Jonathan Ellithorpe: Initial check-in
+//
+////////////////////////////////////////////////////////////////////////
+
 #include <unistd.h>
 #include <fcntl.h>
 #include <assert.h>
