@@ -31,8 +31,8 @@
         '>
 
         <!ENTITY PKT_SIZE '
-        <widget id="PKT_SIZE">
-                <key>PKT_SIZE</key>
+        <widget id="GEN_PKT_SIZE">
+                <key>GEN_PKT_SIZE</key>
                 <label>Size of the generated packet</label>
         </widget>
         '>
@@ -47,7 +47,7 @@
                         <item>&C_M_AXIS_DATA_WIDTH;</item>
                         <item>&C_S_AXIS_DATA_WIDTH;</item>
                         <item>&IFG_SIZE;</item>
-                        <item>&PKT_SIZE;</item>
+                        <item>&GEN_PKT_SIZE;</item>
                 </group>
 	</view>
 </doc>
