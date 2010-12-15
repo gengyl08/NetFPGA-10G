@@ -1,5 +1,16 @@
 #!/usr/bin/python
 
+#///////////////////////////////////////////////////////////////////////
+#
+#  Description:
+#          This python script orchestrates the software end of the 
+#          production test by invoking various other programs.
+#
+#  Revision history:
+#          2010/11/04 Jonathan Ellithorpe: Initial check-in
+#
+#///////////////////////////////////////////////////////////////////////
+
 import os
 import re
 import sys
