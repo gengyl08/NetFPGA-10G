@@ -211,11 +211,8 @@ int test_initialize(XEmacLite *InstancePtr, u32 PhyAddress, int mode){
 }
 
 int test_status(XEmacLite *InstancePtr){
-
 		  int i, dev;
-
-        u16 pma_status, pcs_status, phy_xs_status;
-
+          u16 pma_status, pcs_status, phy_xs_status;
 		  for( i = 0; i < 4; i++){
 		          switch(i){  // PHY0-3 -> C, B, A, D
                     case 0:
@@ -246,5 +243,7 @@ int test_status(XEmacLite *InstancePtr){
 				    }
 
         }
+		i = Xil_In32(0x7762000F);
+		xil_printf("Gen/Check 0:%d\r\n", i);
         return XST_SUCCESS;
 }

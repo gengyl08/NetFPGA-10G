@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<!--
-########################################################################
-##
-## Copyright (c) 2005 Xilinx, Inc.  All rights reserved.
-##
-########################################################################
--->
-
 <!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
         <!ENTITY C_M_AXIS_DATA_WIDTH '
         <widget id="C_M_AXIS_DATA_WIDTH">
@@ -24,19 +16,19 @@
         <!ENTITY C_IFG_SIZE '
         <widget id="C_IFG_SIZE">
                 <key>C_IFG_SIZE</key>
-                <label>Size of the interframe gap in 64bit words</label>
+                <label>Size of the interframe gap in words</label>
         </widget>
         '>
         <!ENTITY C_GEN_PKT_SIZE '
         <widget id="C_GEN_PKT_SIZE">
                 <key>C_GEN_PKT_SIZE</key>
-                <label>Size of the generated packet</label>
+                <label>Size of the generated packet in words</label>
         </widget>
         '>
         <!ENTITY C_CHECK_PKT_SIZE '
         <widget id="C_CHECK_PKT_SIZE">
                 <key>C_CHECK_PKT_SIZE</key>
-                <label>Size of the checked packet</label>
+                <label>Size of the checked packet in words</label>
         </widget>
         '>
 ]>

@@ -214,8 +214,8 @@ BEGIN nf10_10g_interface
  PARAMETER INSTANCE = nf10_10g_interface_0
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_XAUI_REVERSE = 1
+ BUS_INTERFACE S_AXIS = nf10_axis_gen_check_0_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_10g_interface_0_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
  PORT axi_aclk = core_clk
  PORT refclk = refclk_A
  PORT dclk = mb_clk
@@ -243,7 +243,7 @@ BEGIN nf10_10g_interface
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_XAUI_REVERSE = 1
  BUS_INTERFACE M_AXIS = nf10_10g_interface_1_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_10g_interface_1_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_10g_interface_2_M_AXIS
  PORT dclk = mb_clk
  PORT xaui_tx_l3_n = nf10_10g_interface_1_xaui_tx_l3_n
  PORT xaui_tx_l1_n = nf10_10g_interface_1_xaui_tx_l1_n
@@ -271,7 +271,7 @@ BEGIN nf10_10g_interface
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_XAUI_REVERSE = 1
  BUS_INTERFACE M_AXIS = nf10_10g_interface_2_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_10g_interface_2_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_10g_interface_1_M_AXIS
  PORT dclk = mb_clk
  PORT xaui_tx_l3_p = nf10_10g_interface_2_xaui_tx_l3_p
  PORT xaui_tx_l3_n = nf10_10g_interface_2_xaui_tx_l3_n
@@ -297,8 +297,8 @@ END
 BEGIN nf10_10g_interface
  PARAMETER INSTANCE = nf10_10g_interface_3
  PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE S_AXIS = nf10_axis_gen_check_1_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_10g_interface_3_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_axis_gen_check_0_M_AXIS
  PORT xaui_tx_l3_p = nf10_10g_interface_3_xaui_tx_l3_p
  PORT xaui_tx_l3_n = nf10_10g_interface_3_xaui_tx_l3_n
  PORT xaui_tx_l0_p = nf10_10g_interface_3_xaui_tx_l0_p
@@ -381,12 +381,29 @@ BEGIN nf10_axis_gen_check
  PARAMETER INSTANCE = nf10_axis_gen_check_0
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
+ PARAMETER C_BASEADDR = 0x77620000
+ PARAMETER C_HIGHADDR = 0x7762ffff
+ PARAMETER C_GEN_PKT_SIZE = 16
+ PARAMETER C_CHECK_PKT_SIZE = 16
+ BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
+ BUS_INTERFACE M_AXIS = nf10_axis_gen_check_0_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
+ PORT S_AXI_ACLK = control_clk
+ PORT aclk = core_clk
+END
+
+BEGIN nf10_axis_gen_check
+ PARAMETER INSTANCE = nf10_axis_gen_check_1
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
  PARAMETER C_BASEADDR = 0x77600000
  PARAMETER C_HIGHADDR = 0x7760ffff
- BUS_INTERFACE S_AXIS = nf10_10g_interface_3_M_AXIS
- BUS_INTERFACE M_AXIS = nf10_axis_gen_check_0_M_AXIS
+ PARAMETER C_GEN_PKT_SIZE = 16
+ PARAMETER C_CHECK_PKT_SIZE = 16
  BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
- PORT aclk = core_clk
+ BUS_INTERFACE M_AXIS = nf10_axis_gen_check_1_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_10g_interface_3_M_AXIS
  PORT S_AXI_ACLK = control_clk
+ PORT aclk = core_clk
 END
 
