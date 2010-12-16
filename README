@@ -1,51 +1,28 @@
 #################################################################
+#     _  __     __  _______  ________           ______  _____
+#    / |/ /___ / /_/ __/ _ \/ ___/ _ |   ____  <  / _ \/ ___/
+#   /    // -_) __/ _// ___/ (_ / __ |  /___/  / / // / (_ / 
+#  /_/|_/ \__/\__/_/ /_/   \___/_/ |_|        /_/\___/\___/  
 #
-#  NetFPGA-10G http://www.netfpga.org
+#  http://www.netfpga.org
 #
-#  Project:
-#          Release README
-#                 
 #  Revision history:
 #          2010/12/10 hyzeng: Initial check-in
-#
+#	   2010/12/15 Jonathan Ellithorpe: 
+#	   	      	       - Added awesome title ASCII art.
+#			       - Removed duplication of wiki 
+#			       	 contents.
 #################################################################
 
-Welcome to NetFPGA-10G Repository.
+Welcome to the NetFPGA-10G code base. For documentation on its 
+content and use, as well as general information on the 
+NetFPGA-10G platform, please visit the documentation wiki here:
 
-Before you start, please read the "Getting Started Guide" on the 
-NetFPGA-10G wiki. 
+http://netfpga10g.pbworks.com/NetFPGA-10G+Platform+Documentation
+
+The wiki additionally contains a useful "Getting Started Guide" 
+for new users, which can be found here:
 
 http://netfpga10g.pbworks.com/Getting-Started-Guide
 
-The following is a quick start for 1.0.0 release.
-
-0. Requirement
-- Xilinx ISE Design Suite: Embedded Edition 12.3
-  EDK, including Xilinx Platform Studio (XPS) and Software 
-  Development Kit (SDK) are necessary.
-- Linux or Unix based system
-
-1. Installation
-- Make sure you have Xilinx ISE installed and $XILINX, $XILINX_EDK
-  environment variables are set correctly
-- Go to the root NetFPGA-10G directory
-- Run "make install"
-
-The above command will do the following actions.
-- Copy necessary files from your Xilinx ISE installation
-- Generate IP cores (10G Ethernet MAC and XAUI) and put them in the
-  hardware library
-- Some Xilinx files are patched to be enabled running on NetFPGA-10G
-  board.
-  
-2. Run the production test
-The production test check whether the board you have is fully working.
-Please follow the instructions in
-    projects/production_test/doc/NetFPGA10G_production_test.pdf
-
-3. Build and play with the reference projects
-Besides the production test, we provide a couple of reference projects
-to allow you quickly start your development. Please read the README
-file in each project directory for more information.
-
-Enjoy NetFPGA-10G!
+Have fun!
