@@ -52,7 +52,7 @@ int main (void) {
 
    char s;
    int port, dev;
-   u16 value;
+   unsigned int value;
    
 #if AEL2005_SR
    char port_mode_new[4] = {-1,-1,-1,-1};
@@ -103,9 +103,22 @@ int main (void) {
 #endif
            }
        }
-       else if (s == 's')
+       else if (s == 's'){
            test_status(EmacLiteInstPtr);
-       else
+           value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR,0x0);
+		   xil_printf("AXI4-Stream Gen/Check 0\r\nTX\t0x%x\t", value);
+		   value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR,0x1);
+		   xil_printf("RX\t0x%x\t", value);
+		   value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR,0x2);
+		   xil_printf("ERR\t0x%x\r\n", value);
+		   value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR,0x0);
+		   xil_printf("AXI4-Stream Gen/Check 1\r\nTX\t0x%x\t", value);
+		   value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR,0x1);
+		   xil_printf("RX\t0x%x\t", value);
+		   value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR,0x2);
+		   xil_printf("ERR\t0x%x\r\n", value);
+	   }
+	   else
            continue;
    }
 
@@ -243,7 +256,5 @@ int test_status(XEmacLite *InstancePtr){
 				    }
 
         }
-		i = Xil_In32(0x7762000F);
-		xil_printf("Gen/Check 0:%d\r\n", i);
         return XST_SUCCESS;
 }

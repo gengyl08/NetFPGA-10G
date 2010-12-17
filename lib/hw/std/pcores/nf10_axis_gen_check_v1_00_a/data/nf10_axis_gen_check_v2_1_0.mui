@@ -31,6 +31,13 @@
                 <label>Size of the checked packet in words</label>
         </widget>
         '>
+        <!ENTITY C_S_AXI_PROTOCOL '
+		<widget id="C_S_AXI_PROTOCOL">
+		<key>C_S_AXI_PROTOCOL</key>
+		<label>AXI4LITE protocol</label>
+		<tip></tip>
+        </widget>
+	'>	
 ]>
 
 <doc>
@@ -40,6 +47,7 @@
                         <display>AXI</display>
                         <item>&C_M_AXIS_DATA_WIDTH;</item>
                         <item>&C_S_AXIS_DATA_WIDTH;</item>
+                        <item>&C_S_AXI_PROTOCOL;</item>
                 </group>
                 <group id="pkt_gen_check">
                         <display>Packet Generator/Checker</display>

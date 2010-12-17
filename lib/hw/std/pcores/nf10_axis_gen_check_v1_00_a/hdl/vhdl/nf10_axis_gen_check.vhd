@@ -106,13 +106,7 @@ port (
 );
 end component;
    
-   -- in this example transmitted and received packets are identical
-   constant gen_ROM : std_logic_vector(1023 downto 0) :=
-	x"CAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCD"; 
-                                 
-   constant check_ROM : std_logic_vector(1023 downto 0) :=
-    x"CAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCDCAFEDEADBEEFABCD"; 
-                               
+                              
    -- ROM should be inferred as BRAM during XST  
    constant CHECK_IDLE           : std_logic_vector(1 downto 0) := "00";
    constant CHECK_FINISH         : std_logic_vector(1 downto 0) := "01";
@@ -127,12 +121,13 @@ end component;
    signal ok                 : std_logic;	
    signal gen_rom_addr       : std_logic_vector(15 downto 0);
    signal check_rom_addr     : std_logic_vector(15 downto 0);
-   signal pkt_data_buf       : std_logic_vector(C_S_AXIS_DATA_WIDTH-1 downto 0);
-   signal pkt_valid_buf      : std_logic;
-   signal pkt_last_buf       : std_logic;	
-   signal pkt_strb_buf       : std_logic_vector(C_S_AXIS_DATA_WIDTH/8-1 downto 0);
+   signal pkt_tx_buf         : std_logic_vector(C_M_AXIS_DATA_WIDTH-1 downto 0);
+   signal pkt_rx_buf         : std_logic_vector(C_S_AXIS_DATA_WIDTH-1 downto 0);
+   signal seed               : std_logic_vector(255 downto 0);
 	
 begin
+
+   seed <= x"CAFEBEEFCAFEBEEFCAFEBEEFCAFEBEEFCAFEBEEFCAFEBEEFCAFEBEEFCAFEBEEF";
 
    regs : axi4_lite_regs
      generic map 
@@ -174,49 +169,38 @@ begin
    if (ARESETN='0') then
       gen_state <= (others => '0');
       tx_count <= (others => '0');
-      gen_rom_addr <= (others => '0');
+      pkt_tx_buf <= seed(C_S_AXIS_DATA_WIDTH -1 downto 0);
    elsif (ACLK = '1' and ACLK'event) then
-      M_AXIS_TDATA <= gen_ROM((conv_integer(gen_rom_addr)+1)*C_S_AXIS_DATA_WIDTH -1 downto (conv_integer(gen_rom_addr)*C_S_AXIS_DATA_WIDTH));
-      gen_rom_addr <= gen_rom_addr;
-      if gen_state = x"0000" then
-         M_AXIS_TSTRB <= (others => '1');
-         M_AXIS_TVALID <= '1';
-         M_AXIS_TLAST <= '0';
-         if (M_AXIS_TREADY='1') then
-            gen_state <= gen_state + 1;
-            gen_rom_addr <= gen_rom_addr + 1;
-         end if;
-      elsif gen_state < C_GEN_PKT_SIZE then 
+      if gen_state < C_GEN_PKT_SIZE then 
 		 M_AXIS_TSTRB <= (others => '1');
          M_AXIS_TVALID <= '1';
          M_AXIS_TLAST <= '0';
          if (M_AXIS_TREADY='1') then
             gen_state <= gen_state + 1;
             if (gen_state = C_GEN_PKT_SIZE - 1) then
-                gen_rom_addr <= (others => '0');
+                M_AXIS_TSTRB <= (others => '0');
+         		M_AXIS_TVALID <= '0';
+         		M_AXIS_TLAST <= '1';
+         		tx_count <= tx_count + 1;	
             else
-                gen_rom_addr <= gen_rom_addr + 1;
+                pkt_tx_buf <= pkt_tx_buf(0) & pkt_tx_buf(C_M_AXIS_DATA_WIDTH -1 downto 1);
+                M_AXIS_TDATA <= pkt_tx_buf(0) & pkt_tx_buf(C_M_AXIS_DATA_WIDTH -1 downto 1);
             end if;
-         end if;	
-      elsif gen_state = C_GEN_PKT_SIZE then
-         M_AXIS_TSTRB <= (others => '0');
-         M_AXIS_TVALID <= '0';
-         M_AXIS_TLAST <= '1';
-         if (M_AXIS_TREADY='1') then
-            tx_count <= tx_count + 1;	
-            gen_state <= gen_state + 1;
          end if;	
       elsif gen_state < C_GEN_PKT_SIZE+C_IFG_SIZE-1 then
          M_AXIS_TSTRB <= (others => '0');
          M_AXIS_TVALID <= '0';
-         M_AXIS_TLAST <= '0';
-         gen_state <= gen_state + 1;		      		
+         if (M_AXIS_TREADY='1') then
+             M_AXIS_TLAST <= '0';
+             gen_state <= gen_state + 1;
+         end if;	      		
       else
-         M_AXIS_TSTRB <= (others => '0');
-         M_AXIS_TVALID <= '0';			
+         M_AXIS_TSTRB <= (others => '1');
+         M_AXIS_TVALID <= '1';			
          M_AXIS_TLAST <= '0';
+         M_AXIS_TDATA <= seed(C_M_AXIS_DATA_WIDTH -1 downto 0);
+         pkt_tx_buf <= seed(C_M_AXIS_DATA_WIDTH -1 downto 0);
          gen_state <= (others => '0');	
-         gen_rom_addr <= (others => '0');
       end if;	
    end if;
 end process;
@@ -230,37 +214,29 @@ begin
         err_count <= (others => '0');
         ok <= '1';
 		check_rom_addr <= x"0000"; 
-		pkt_data_buf <= (others => '0');
-        pkt_valid_buf <= '0';
-		pkt_last_buf <= '0';
-		pkt_strb_buf <= (others => '0');
    elsif (ACLK = '1' and ACLK'event) then
-	  pkt_data_buf <= S_AXIS_TDATA;
-      pkt_valid_buf <= S_AXIS_TVALID;
-      pkt_last_buf <= S_AXIS_TLAST;
-      pkt_strb_buf <= S_AXIS_TSTRB;
       if check_state = CHECK_IDLE then
          -- waiting for a pkt
          if S_AXIS_TVALID = '1' then
             ok <= '1';
+            pkt_rx_buf <= S_AXIS_TDATA(0) & S_AXIS_TDATA(C_S_AXIS_DATA_WIDTH -1 downto 1);
             check_rom_addr <= x"0000"; 
             check_state <= CHECK_COMPARE;
          end if;
       elsif check_state = CHECK_COMPARE then
-		 -- strb checking needs to be added
-		 -- checking the packet against ROM
-         for i in 0 to C_M_AXIS_DATA_WIDTH/8-1 loop   
-           if (pkt_data_buf(8*i+7 downto i*8) = check_ROM(conv_integer(check_rom_addr)*C_M_AXIS_DATA_WIDTH + 8*i+7 downto conv_integer(check_rom_addr)*C_M_AXIS_DATA_WIDTH + i*8) and pkt_strb_buf(i) = '1') then
-               ok <= ok;
-            elsif (pkt_valid_buf = '1' and pkt_strb_buf(i) = '1') then
-               ok <= '0';
-            end if; 
-         end loop;
+		 -- checking the packet
          -- check packet size and last
-         if (pkt_valid_buf = '1') then		    
-		     check_rom_addr <= check_rom_addr + 1;
-		     if (check_rom_addr = C_CHECK_PKT_SIZE -1) then
-		          if (pkt_last_buf='1') then
+         if (S_AXIS_TVALID = '1') then	
+             pkt_rx_buf <= pkt_rx_buf(0) & pkt_rx_buf(C_S_AXIS_DATA_WIDTH -1 downto 1);
+             check_rom_addr <= check_rom_addr + 1;
+             
+             if( S_AXIS_TDATA = pkt_rx_buf ) then
+                 ok <= ok;
+             else
+                 ok <= '0';
+             end if;		     
+		     if (check_rom_addr = C_CHECK_PKT_SIZE -2) then
+		          if (S_AXIS_TLAST='1') then
 		              check_state <= CHECK_FINISH; -- finish up
 		          else
 		              check_state <= CHECK_WAIT_LAST; -- Wait for last
@@ -278,10 +254,10 @@ begin
 		 ok <='1';
       elsif check_state = CHECK_WAIT_LAST then
          -- Wait for last
-         if (pkt_valid_buf = '1') then  -- No more words!
+         if (S_AXIS_TVALID = '1') then  -- No more words!
 			ok <= '0';
 	     end if;
-	     if (pkt_last_buf='1') then
+	     if (S_AXIS_TLAST='1') then
 		    check_state <= CHECK_FINISH; 
 		 end if;
       end if;

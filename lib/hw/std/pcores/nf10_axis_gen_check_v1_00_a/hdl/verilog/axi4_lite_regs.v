@@ -58,6 +58,7 @@ module axi4_lite_regs
 
     localparam READ_IDLE = 0;
     localparam READ_RESPONSE = 1;
+    localparam READ_WAIT = 2;
     
     assign BRESP = AXI_RESP_SLVERR; // Ignore WRITE command
     assign AWREADY = 1'b1;
@@ -72,21 +73,32 @@ module axi4_lite_regs
     reg [1:0] write_state, write_state_next;
     reg [1:0] read_state, read_state_next;
     reg [ADDR_WIDTH-1:0] addr, addr_next;
+    reg [2:0] counter, counter_next;
+    localparam WAIT_COUNT = 4;
 
     always @(*) begin
         read_state_next = read_state;   
         ARREADY = 1'b1;
         addr_next = addr;
+        counter_next = counter;
         RDATA = 0; 
         RRESP = AXI_RESP_OK;
         RVALID = 1'b0;
         
         case(read_state)
             READ_IDLE: begin
+                counter_next = 0;
                 if(ARVALID) begin
                     addr_next = ARADDR;
-                    read_state_next = READ_RESPONSE;
+                    read_state_next = READ_WAIT;
                 end
+            end
+            
+            READ_WAIT: begin
+                counter_next = counter + 1;
+                ARREADY = 1'b0;
+                if(counter == WAIT_COUNT)
+                    read_state_next = READ_RESPONSE;
             end
             
             READ_RESPONSE: begin
@@ -152,6 +164,8 @@ module axi4_lite_regs
         rx_count_r <= rx_count;
         tx_count_r <= tx_count;
         err_count_r <= err_count;
+        
+        counter <= counter_next;
     end
 
 endmodule
