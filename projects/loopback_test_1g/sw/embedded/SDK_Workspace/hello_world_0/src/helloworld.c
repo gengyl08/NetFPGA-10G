@@ -14,6 +14,7 @@
 //                 
 //  Revision history:
 //          2010/11/28 hyzeng: Initial check-in
+//          2010/12/17 hyzeng: Added AXI4-Stream packet generator/checker
 //
 ////////////////////////////////////////////////////////////////////////
 
@@ -77,20 +78,50 @@ int main (void) {
 
    ConfigPtr = XEmacLite_LookupConfig(EMAC_DEVICE_ID);
    XEmacLite_CfgInitialize(EmacLiteInstPtr, ConfigPtr, ConfigPtr->BaseAddress);
-   // Run it at least once
+   
+   // Hold AXI4-Stream Packet Generator/Checker
+   Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x3, 0x1);
+   Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x3, 0x1);
 
    char s;
    int dev;
-   u16 value;
+   int value;
+   goto INIT;
 
    while(1){
-       print("===NetFPGA-10G Test===\r\n");
-       print("Press i to initialize, s to start\r\n");
+       print("==NetFPGA-10G==\r\n");
+       print("i : Initialize AEL2005\r\n");
+       print("s : Dump status\r\n");
+       print("t : Run AXI4-Stream Gen/Check\r\n");
+       print("r : Stop AXI4-Stream Gen/Check\r\n");
        s = inbyte();
        if(s == 'i')
-           test_initialize(EmacLiteInstPtr);
-       else if (s == 's')
-           test_status(EmacLiteInstPtr);
+INIT:      test_initialize(EmacLiteInstPtr);
+       else if (s == 'r'){
+           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x3, 0x1);
+           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x3, 0x1);
+           print("AXI4-Stream Gen/Check Stopped\r\n");
+       }
+       else if (s == 't'){
+           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x3, 0x0);
+           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x3, 0x0);
+           print("AXI4-Stream Gen/Check Started\r\n");
+       }
+       else if (s == 's'){
+           //test_status(EmacLiteInstPtr); //No PHY status in 1G mode
+           value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x0);
+		   xil_printf("AXI4-Stream Gen/Check 0\r\nTX\t0x%x\t", value);
+		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x1);
+		   xil_printf("RX\t0x%x\t", value);
+		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x2);
+		   xil_printf("ERR\t0x%x\r\n", value);
+		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x0);
+		   xil_printf("AXI4-Stream Gen/Check 1\r\nTX\t0x%x\t", value);
+		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x1);
+		   xil_printf("RX\t0x%x\t", value);
+		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x2);
+		   xil_printf("ERR\t0x%x\r\n", value);
+       }
        else
            continue;
    }
@@ -104,7 +135,7 @@ int ael2005_read (XEmacLite *EmacLiteInstPtr, u32 PhyAddr, u32 PhyDev, u16 addre
     XEmacLite_PhyRead(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_READ, XEL_MDIO_CLAUSE_45, data);
     ael2005_sleep(20);
 
-	 XEmacLite_PhyWrite(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_ADDRESS, XEL_MDIO_CLAUSE_45, address);
+	XEmacLite_PhyWrite(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_ADDRESS, XEL_MDIO_CLAUSE_45, address);
     XEmacLite_PhyRead(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_READ, XEL_MDIO_CLAUSE_45, data);
     ael2005_sleep(20);
     return XST_SUCCESS;
@@ -113,7 +144,6 @@ int ael2005_read (XEmacLite *EmacLiteInstPtr, u32 PhyAddr, u32 PhyDev, u16 addre
 int ael2005_write (XEmacLite *EmacLiteInstPtr, u32 PhyAddr, u32 PhyDev, u16 address, u16 data){
     XEmacLite_PhyWrite(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_ADDRESS, XEL_MDIO_CLAUSE_45, address);
     XEmacLite_PhyWrite(EmacLiteInstPtr, PhyAddr, PhyDev, XEL_MDIO_OP_45_WRITE, XEL_MDIO_CLAUSE_45, data);
-    xil_printf("Port: %d, Addr: %x, Data: %x\r\n", PhyAddr, address, data);
     ael2005_sleep(20);
     return XST_SUCCESS;
 }
@@ -199,7 +229,7 @@ int test_initialize(XEmacLite *InstancePtr){
         return XST_SUCCESS;
 }
 
-int test_status(XEmacLite *InstancePtr){
+/*int test_status(XEmacLite *InstancePtr){
 
 		  int i, dev;
 
@@ -224,7 +254,7 @@ int test_status(XEmacLite *InstancePtr){
 					 ael2005_read(InstancePtr, dev, 1, 0x1, &pma_status);
 					 ael2005_read(InstancePtr, dev, 3, 0x1, &pcs_status);
 					 ael2005_read(InstancePtr, dev, 4, 0x1, &phy_xs_status);
-					 xil_printf("DEBUG: %x, %x, %x\r\n", pma_status, pcs_status, phy_xs_status);
+					 //xil_printf("DEBUG: %x, %x, %x\r\n", pma_status, pcs_status, phy_xs_status);
 					 if(((pma_status>>2) & 0x1) &
 					    ((pcs_status>>2) & 0x1) &
 						 ((phy_xs_status>>2) & 0x1)){
@@ -236,4 +266,4 @@ int test_status(XEmacLite *InstancePtr){
 
         }
         return XST_SUCCESS;
-}
+}*/

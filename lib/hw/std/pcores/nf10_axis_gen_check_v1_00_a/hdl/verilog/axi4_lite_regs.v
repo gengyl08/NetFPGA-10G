@@ -25,14 +25,14 @@ module axi4_lite_regs
    
    input  [ADDR_WIDTH-1: 0] AWADDR,
    input  AWVALID,
-   output AWREADY,
+   output reg AWREADY,
    
    input  [DATA_WIDTH-1: 0]   WDATA,
    input  [DATA_WIDTH/8-1: 0] WSTRB,
    input  WVALID,
    output reg WREADY,
    
-   output [1:0] BRESP,
+   output reg [1:0] BRESP,
    output reg BVALID,
    input  BREADY,
    
@@ -47,7 +47,9 @@ module axi4_lite_regs
    
    input  [31:0] tx_count,
    input  [31:0] rx_count,
-   input  [31:0] err_count
+   input  [31:0] err_count,
+   output reg       count_reset,
+   input         AXIS_ACLK
 );
 
     localparam AXI_RESP_OK = 2'b00;
@@ -55,31 +57,39 @@ module axi4_lite_regs
     
     localparam WRITE_IDLE = 0;
     localparam WRITE_RESPONSE = 1;
+    localparam WRITE_DATA = 2;
 
     localparam READ_IDLE = 0;
     localparam READ_RESPONSE = 1;
     localparam READ_WAIT = 2;
     
-    assign BRESP = AXI_RESP_SLVERR; // Ignore WRITE command
-    assign AWREADY = 1'b1;
+    localparam REG_TX_COUNT = 2'h0;
+    localparam REG_RX_COUNT = 2'h1;
+    localparam REG_ERR_COUNT = 2'h2;
+    localparam REG_COUNT_RESET = 2'h3;
 
     reg [31:0] tx_count_r_2, tx_count_r;
     reg [31:0] rx_count_r_2, rx_count_r;
     reg [31:0] err_count_r_2, err_count_r;
+    reg        count_reset_control_next, count_reset_control;
+    reg        count_reset_r;
     // synthesis attribute ASYNC_REG of tx_count_r is "TRUE";
     // synthesis attribute ASYNC_REG of rx_count_r is "TRUE";
     // synthesis attribute ASYNC_REG of err_count_r is "TRUE";
+    // synthesis attribute ASYNC_REG of count_reset_r is "TRUE";
     
     reg [1:0] write_state, write_state_next;
     reg [1:0] read_state, read_state_next;
-    reg [ADDR_WIDTH-1:0] addr, addr_next;
+    reg [ADDR_WIDTH-1:0] read_addr, read_addr_next;
+    reg [ADDR_WIDTH-1:0] write_addr, write_addr_next;
     reg [2:0] counter, counter_next;
-    localparam WAIT_COUNT = 4;
+    reg [1:0] BRESP_next;
+    localparam WAIT_COUNT = 2;
 
     always @(*) begin
         read_state_next = read_state;   
         ARREADY = 1'b1;
-        addr_next = addr;
+        read_addr_next = read_addr;
         counter_next = counter;
         RDATA = 0; 
         RRESP = AXI_RESP_OK;
@@ -89,7 +99,7 @@ module axi4_lite_regs
             READ_IDLE: begin
                 counter_next = 0;
                 if(ARVALID) begin
-                    addr_next = ARADDR;
+                    read_addr_next = ARADDR;
                     read_state_next = READ_WAIT;
                 end
             end
@@ -105,13 +115,13 @@ module axi4_lite_regs
                 RVALID = 1'b1;
                 ARREADY = 1'b0;
                 
-                if(addr[1:0] == 2'b00) begin
+                if(read_addr[1:0] == REG_TX_COUNT) begin
                     RDATA = tx_count_r_2;
                 end
-                else if(addr[1:0] == 2'b01) begin
+                else if(read_addr[1:0] == REG_RX_COUNT) begin
                     RDATA = rx_count_r_2;
                 end
-                else if(addr[1:0] == 2'b10) begin
+                else if(read_addr[1:0] == REG_ERR_COUNT) begin
                     RDATA = err_count_r_2;
                 end
                 else begin
@@ -126,18 +136,37 @@ module axi4_lite_regs
     
     always @(*) begin
         write_state_next = write_state;
-        WREADY = 1'b1;
+        write_addr_next = write_addr;
+        count_reset_control_next = count_reset_control;
+        AWREADY = 1'b1;
+        WREADY = 1'b0;
         BVALID = 1'b0;  
+        BRESP_next = BRESP;
               
         case(write_state)
             WRITE_IDLE: begin
+                write_addr_next = AWADDR;
+                if(AWVALID) begin
+                    write_state_next = WRITE_DATA;
+                end
+            end
+            WRITE_DATA: begin
+                AWREADY = 1'b0;
+                WREADY = 1'b1;
                 if(WVALID) begin
+                    if (write_addr[1:0] == REG_COUNT_RESET) begin
+                        count_reset_control_next = WDATA;
+                        BRESP_next = AXI_RESP_OK;
+                    end
+                    else begin
+                        BRESP_next = AXI_RESP_SLVERR;
+                    end
                     write_state_next = WRITE_RESPONSE;
                 end
             end
             WRITE_RESPONSE: begin
+                AWREADY = 1'b0;
                 BVALID = 1'b1;
-                WREADY = 1'b0;
                 if(BREADY) begin                    
                     write_state_next = WRITE_IDLE;
                 end
@@ -149,23 +178,34 @@ module axi4_lite_regs
         if(~ARESETN) begin
             write_state <= WRITE_IDLE;
             read_state <= READ_IDLE;
-            addr <= 0;
+            read_addr <= 0;
+            write_addr <= 0;
+            BRESP <= AXI_RESP_OK;
+            count_reset_control <= 0;
         end
         else begin
             write_state <= write_state_next;
             read_state <= read_state_next;
-            addr <= addr_next;
+            read_addr <= read_addr_next;
+            write_addr <= write_addr_next;
+            BRESP <= BRESP_next;
+            count_reset_control <= count_reset_control_next;
         end
         
         rx_count_r_2 <= rx_count_r;
         tx_count_r_2 <= tx_count_r;
         err_count_r_2 <= err_count_r;
+        count_reset_r <= count_reset_control;
         
         rx_count_r <= rx_count;
         tx_count_r <= tx_count;
         err_count_r <= err_count;
         
         counter <= counter_next;
+    end
+    
+    always @(AXIS_ACLK) begin
+        count_reset <= count_reset_r;
     end
 
 endmodule

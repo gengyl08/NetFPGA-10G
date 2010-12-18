@@ -82,6 +82,8 @@ port (
    tx_count     : in std_logic_vector(31 downto 0);
    rx_count     : in std_logic_vector(31 downto 0);
    err_count    : in std_logic_vector(31 downto 0);
+   count_reset  : out std_logic;
+   AXIS_ACLK    : in std_logic;
 
    -- axi lite control/status interface
    ACLK         : in  std_logic;
@@ -112,15 +114,20 @@ end component;
    constant CHECK_FINISH         : std_logic_vector(1 downto 0) := "01";
    constant CHECK_COMPARE        : std_logic_vector(1 downto 0) := "11";
    constant CHECK_WAIT_LAST      : std_logic_vector(1 downto 0) := "10";
+
+   constant GEN_PKT              : std_logic_vector(1 downto 0) := "00";
+   constant GEN_IFG              : std_logic_vector(1 downto 0) := "01";
+   constant GEN_FINISH           : std_logic_vector(1 downto 0) := "11";
 	
-   signal gen_state          : std_logic_vector(15 downto 0);
+   signal gen_word_num       : std_logic_vector(15 downto 0);
+   signal gen_state          : std_logic_vector(1  downto 0);
    signal check_state        : std_logic_vector(1  downto 0);
+   signal check_word_num     : std_logic_vector(15 downto 0);
    signal tx_count           : std_logic_vector(31 downto 0);
    signal rx_count           : std_logic_vector(31 downto 0);
    signal err_count          : std_logic_vector(31 downto 0);
+   signal count_reset        : std_logic;
    signal ok                 : std_logic;	
-   signal gen_rom_addr       : std_logic_vector(15 downto 0);
-   signal check_rom_addr     : std_logic_vector(15 downto 0);
    signal pkt_tx_buf         : std_logic_vector(C_M_AXIS_DATA_WIDTH-1 downto 0);
    signal pkt_rx_buf         : std_logic_vector(C_S_AXIS_DATA_WIDTH-1 downto 0);
    signal seed               : std_logic_vector(255 downto 0);
@@ -141,6 +148,8 @@ begin
         tx_count  => tx_count,
         rx_count  => rx_count,
         err_count => err_count,
+        count_reset => count_reset,
+        AXIS_ACLK => ACLK,
            
         ACLK => S_AXI_ACLK,
         ARESETN => S_AXI_ARESETN,
@@ -167,41 +176,54 @@ begin
 gen_p: process(ACLK, ARESETN)
 begin
    if (ARESETN='0') then
-      gen_state <= (others => '0');
+      gen_word_num <= (others => '0');
       tx_count <= (others => '0');
       pkt_tx_buf <= seed(C_S_AXIS_DATA_WIDTH -1 downto 0);
+      gen_state <= GEN_PKT;
    elsif (ACLK = '1' and ACLK'event) then
-      if gen_state < C_GEN_PKT_SIZE then 
+      if gen_state = GEN_PKT then 
 		 M_AXIS_TSTRB <= (others => '1');
          M_AXIS_TVALID <= '1';
          M_AXIS_TLAST <= '0';
          if (M_AXIS_TREADY='1') then
-            gen_state <= gen_state + 1;
-            if (gen_state = C_GEN_PKT_SIZE - 1) then
+            gen_word_num <= gen_word_num + 1;
+            if (gen_word_num = C_GEN_PKT_SIZE - 1) then
                 M_AXIS_TSTRB <= (others => '0');
          		M_AXIS_TVALID <= '0';
          		M_AXIS_TLAST <= '1';
          		tx_count <= tx_count + 1;	
+         		gen_state <= GEN_IFG;
             else
                 pkt_tx_buf <= pkt_tx_buf(0) & pkt_tx_buf(C_M_AXIS_DATA_WIDTH -1 downto 1);
                 M_AXIS_TDATA <= pkt_tx_buf(0) & pkt_tx_buf(C_M_AXIS_DATA_WIDTH -1 downto 1);
             end if;
          end if;	
-      elsif gen_state < C_GEN_PKT_SIZE+C_IFG_SIZE-1 then
+      elsif gen_state = GEN_IFG then
          M_AXIS_TSTRB <= (others => '0');
          M_AXIS_TVALID <= '0';
          if (M_AXIS_TREADY='1') then
              M_AXIS_TLAST <= '0';
-             gen_state <= gen_state + 1;
+             gen_word_num <= gen_word_num + 1;
+             if gen_word_num = C_GEN_PKT_SIZE+C_IFG_SIZE-1 then
+                 gen_state <= GEN_FINISH;
+             end if;
          end if;	      		
-      else
+      elsif gen_state = GEN_FINISH then
          M_AXIS_TSTRB <= (others => '1');
          M_AXIS_TVALID <= '1';			
          M_AXIS_TLAST <= '0';
          M_AXIS_TDATA <= seed(C_M_AXIS_DATA_WIDTH -1 downto 0);
          pkt_tx_buf <= seed(C_M_AXIS_DATA_WIDTH -1 downto 0);
-         gen_state <= (others => '0');	
-      end if;	
+         gen_word_num <= (others => '0');	
+         gen_state <= GEN_PKT;
+      end if;
+      
+      if(count_reset = '1') then
+          tx_count <= (others => '0');	
+          gen_word_num <= (others => '0');	
+          M_AXIS_TLAST <= '1';
+          gen_state <= GEN_IFG;
+      end if;
    end if;
 end process;
 
@@ -213,14 +235,14 @@ begin
         rx_count <= (others => '0');
         err_count <= (others => '0');
         ok <= '1';
-		check_rom_addr <= x"0000"; 
+		check_word_num <= (others => '0');
    elsif (ACLK = '1' and ACLK'event) then
       if check_state = CHECK_IDLE then
          -- waiting for a pkt
          if S_AXIS_TVALID = '1' then
             ok <= '1';
             pkt_rx_buf <= S_AXIS_TDATA(0) & S_AXIS_TDATA(C_S_AXIS_DATA_WIDTH -1 downto 1);
-            check_rom_addr <= x"0000"; 
+            check_word_num <= (others => '0');
             check_state <= CHECK_COMPARE;
          end if;
       elsif check_state = CHECK_COMPARE then
@@ -228,14 +250,14 @@ begin
          -- check packet size and last
          if (S_AXIS_TVALID = '1') then	
              pkt_rx_buf <= pkt_rx_buf(0) & pkt_rx_buf(C_S_AXIS_DATA_WIDTH -1 downto 1);
-             check_rom_addr <= check_rom_addr + 1;
+             check_word_num <= check_word_num + 1;
              
              if( S_AXIS_TDATA = pkt_rx_buf ) then
                  ok <= ok;
              else
                  ok <= '0';
              end if;		     
-		     if (check_rom_addr = C_CHECK_PKT_SIZE -2) then
+		     if (check_word_num = C_CHECK_PKT_SIZE -2) then
 		          if (S_AXIS_TLAST='1') then
 		              check_state <= CHECK_FINISH; -- finish up
 		          else
@@ -260,6 +282,14 @@ begin
 	     if (S_AXIS_TLAST='1') then
 		    check_state <= CHECK_FINISH; 
 		 end if;
+      end if;
+      
+      if(count_reset = '1') then
+          rx_count <= (others => '0');	
+          err_count <= (others => '0');	
+          check_state <= CHECK_IDLE; 
+          ok <= '1';
+		  check_word_num <= (others => '0');
       end if;
    end if;
 end process;

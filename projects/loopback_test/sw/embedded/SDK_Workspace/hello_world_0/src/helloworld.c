@@ -15,6 +15,7 @@
 //
 //  Revision history:
 //          2010/11/28 hyzeng: Initial check-in
+//          2010/12/17 hyzeng: Added AXI4-Stream packet generator/checker
 //
 ////////////////////////////////////////////////////////////////////////
 
@@ -48,7 +49,10 @@ int main (void) {
 
    ConfigPtr = XEmacLite_LookupConfig(EMAC_DEVICE_ID);
    XEmacLite_CfgInitialize(EmacLiteInstPtr, ConfigPtr, ConfigPtr->BaseAddress);
-   // Run it at least once
+   
+   // Hold AXI4-Stream Packet Generator/Checker
+   Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x3, 0x1);
+   Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x3, 0x1);
 
    char s;
    int port, dev;
@@ -58,14 +62,19 @@ int main (void) {
    char port_mode_new[4] = {-1,-1,-1,-1};
    char port_mode[4] = {-1,-1,-1,-1};
 #endif
-   
+
+   goto INIT;
+  
    while(1){
        print("==NetFPGA-10G==\r\n");
-       print("Press i to initialize, s for status\r\n");
-
+       print("i : Initialize AEL2005\r\n");
+       print("s : Dump status\r\n");
+       print("t : Run AXI4-Stream Gen/Check\r\n");
+       print("r : Stop AXI4-Stream Gen/Check\r\n");
+       
        s = inbyte();
        if(s == 'i'){
-           for(port = 0; port < 4; port ++){
+INIT:      for(port = 0; port < 4; port ++){
                if(port == 0) dev = 2;
     		   if(port == 1) dev = 1;
     		   if(port == 2) dev = 0;
@@ -103,19 +112,29 @@ int main (void) {
 #endif
            }
        }
+       else if (s == 'r'){
+           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x3, 0x1);
+           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x3, 0x1);
+           print("AXI4-Stream Gen/Check Stopped\r\n");
+       }
+       else if (s == 't'){
+           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x3, 0x0);
+           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x3, 0x0);
+           print("AXI4-Stream Gen/Check Started\r\n");
+       }
        else if (s == 's'){
            test_status(EmacLiteInstPtr);
-           value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR,0x0);
+           value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x0);
 		   xil_printf("AXI4-Stream Gen/Check 0\r\nTX\t0x%x\t", value);
-		   value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR,0x1);
+		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x1);
 		   xil_printf("RX\t0x%x\t", value);
-		   value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR,0x2);
+		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x2);
 		   xil_printf("ERR\t0x%x\r\n", value);
-		   value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR,0x0);
+		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x0);
 		   xil_printf("AXI4-Stream Gen/Check 1\r\nTX\t0x%x\t", value);
-		   value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR,0x1);
+		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x1);
 		   xil_printf("RX\t0x%x\t", value);
-		   value = XWdtTb_ReadReg(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR,0x2);
+		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x2);
 		   xil_printf("ERR\t0x%x\r\n", value);
 	   }
 	   else
@@ -184,6 +203,7 @@ int ael2005_sleep (int ms){
 int ael2005_initialize(XEmacLite *InstancePtr, u32 dev, int mode){
 
         int size, i;
+        
         print("AEL2005 Initialization Start..\r\n");
         // Step 1
         print("Step 1..\r\n");
@@ -212,7 +232,6 @@ int ael2005_initialize(XEmacLite *InstancePtr, u32 dev, int mode){
         size = sizeof(regs1) / sizeof(u16);
         for(i = 0; i < size; i+=2) ael2005_write(InstancePtr, dev, 1, regs1[i], regs1[i+1]);
         ael2005_sleep(50);
-
         return XST_SUCCESS;
 }
 
