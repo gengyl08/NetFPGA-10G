@@ -1,3 +1,17 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10.ucf
+#//
+#//  Description:
+#//          UCF for loopback_test_1g
+#//                 
+#//  Revision history:
+#//          2010/12/20 hyzeng: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
 #
 # pin constraints
 #
@@ -19,10 +33,10 @@ NET CLK TNM_NET = sys_clk_pin;
 TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100 MHz;
 
 # GTX PLACEMENT #########################################################
-INST nf10_1g_interface_0/nf10_1g_interface_0/gmac/v5_emac_block_inst/GTX_DUAL_1000X_inst_0/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X1Y6";
-INST nf10_1g_interface_0/nf10_1g_interface_0/gmac/v5_emac_block_inst/GTX_DUAL_1000X_inst_1/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X1Y8";
-INST nf10_1g_interface_1/nf10_1g_interface_1/gmac/v5_emac_block_inst/GTX_DUAL_1000X_inst_0/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X1Y10";
-INST nf10_1g_interface_1/nf10_1g_interface_1/gmac/v5_emac_block_inst/GTX_DUAL_1000X_inst_1/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X0Y11";
+INST nf10_1g_interface_0/nf10_1g_interface_0/gmac/mac_block/GTX_DUAL_1000X_inst_0/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X1Y6";
+INST nf10_1g_interface_0/nf10_1g_interface_0/gmac/mac_block/GTX_DUAL_1000X_inst_1/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X1Y8";
+INST nf10_1g_interface_1/nf10_1g_interface_1/gmac/mac_block/GTX_DUAL_1000X_inst_0/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X1Y10";
+INST nf10_1g_interface_1/nf10_1g_interface_1/gmac/mac_block/GTX_DUAL_1000X_inst_1/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X0Y11";
 
 #INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_0/gtx_dual_i LOC = "GTX_DUAL_X1Y7";
 #INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X1Y9";

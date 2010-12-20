@@ -1,3 +1,17 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10.ucf
+#//
+#//  Description:
+#//          UCF for loopback_test
+#//                 
+#//  Revision history:
+#//          2010/12/20 hyzeng: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
 #
 # pin constraints
 #

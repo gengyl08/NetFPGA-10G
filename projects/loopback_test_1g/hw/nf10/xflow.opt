@@ -1,12 +1,18 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          xflow.opt
+#//
+#//  Description:
+#//          Xflow option file that utilizes multi-core CPU
+#//                 
+#//  Revision history:
+#//          2010/12/20 hyzeng: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
 FLOWTYPE = FPGA;
-###############################################################
-## Filename: fast_runtime.opt
-##
-## Option File For Xilinx FPGA Implementation Flow for Fast
-## Runtime.
-## 
-## Version: 4.1.1
-###############################################################
 #
 # Options for Translator
 #

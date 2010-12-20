@@ -2,6 +2,10 @@
 
 #///////////////////////////////////////////////////////////////////////
 #
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:   production_test.py
+#
 #  Description:
 #          This python script orchestrates the software end of the 
 #          production test by invoking various other programs.

@@ -1,3 +1,17 @@
+////////////////////////////////////////////////////////////////////////
+//
+//  NetFPGA-10G http://www.netfpga.org
+//
+//  File:   OCCP.h
+//
+//  Description:
+//          Header file for OCCP
+//
+//  Revision history:
+//          2010/11/04 Jonathan Ellithorpe: Initial check-in
+//
+////////////////////////////////////////////////////////////////////////
+
 #ifndef OCCP_H
 #define OCCP_H
 #include <stdint.h>

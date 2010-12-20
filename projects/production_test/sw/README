@@ -1,3 +1,17 @@
+#################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:   README
+#
+#  Description:
+#          Production test README
+#                 
+#  Revision history:
+#          2010/11/04 Jonathan Ellithorpe: Initial check-in
+#
+#################################################################
+
 Production Test Software
 
 Used for testing the workingness of a NetFPGA-10G 

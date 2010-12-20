@@ -1,5 +1,9 @@
 ////////////////////////////////////////////////////////////////////////
 //
+//  NetFPGA-10G http://www.netfpga.org
+//
+//  File:   dma_test.cxx
+//
 //  Description:
 //          This program is a modified work from code originally written
 //          by Jim Kulp and Shepard Siegel at Atomic Rules. The program

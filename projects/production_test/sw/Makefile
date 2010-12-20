@@ -1,3 +1,17 @@
+#///////////////////////////////////////////////////////////////////////
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:   Makefile
+#
+#  Description:
+#          Makefile for production test software
+#
+#  Revision history:
+#          2010/11/04 Jonathan Ellithorpe: Initial check-in
+#
+#///////////////////////////////////////////////////////////////////////
+
 SRC_DIR			= src
 BUILD_DIR		= bin
 SCRIPTS_DIR		= scripts

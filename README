@@ -1,15 +1,10 @@
 #################################################################
-#     _  __     __  _______  ________           ______  _____
-#    / |/ /___ / /_/ __/ _ \/ ___/ _ |   ____  <  / _ \/ ___/
-#   /    // -_) __/ _// ___/ (_ / __ |  /___/  / / // / (_ / 
-#  /_/|_/ \__/\__/_/ /_/   \___/_/ |_|        /_/\___/\___/  
 #
-#  http://www.netfpga.org
+#  NetFPGA-10G http://www.netfpga.org
 #
 #  Revision history:
 #          2010/12/10 hyzeng: Initial check-in
 #          2010/12/15 Jonathan Ellithorpe: 
-#                  - Added awesome title ASCII art.
 #                  - Removed duplication of wiki contents.
 #################################################################
 
