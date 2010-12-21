@@ -20,7 +20,7 @@
 SYSTEM = system
 HW = hw
 SW = sw/embedded/
-DUMMY_TCL = /tmp/dummy.tcl
+DUMMY_TCL = dummy.tcl
 
 
 all: $HW/$(SYSTEM)_incl.make
@@ -35,4 +35,5 @@ clean:
 
 $HW/$(SYSTEM)_incl.make:
 	echo exit > $(DUMMY_TCL)
-	cd $(HW) && xps -nw -scr $(DUMMY_TCL) $(SYSTEM).xmp 
+	cd $(HW) && xps -nw -scr ../$(DUMMY_TCL) $(SYSTEM).xmp
+	rm $(DUMMY_TCL) 
