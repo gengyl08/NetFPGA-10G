@@ -16,7 +16,7 @@ Method 1: GUI flow
 1. Export the platform specific files from XPS (HW) project by clicking Project -> Export to SDK
    Use "Export only"
 2. Open Xilinx SDK, select the workspace at SDK_Workspace
-3. In the Xilinx SDK GUI, click Project -> Repository and point the repository to netfpga-10g/lib/sw/
+3. In the Xilinx SDK GUI, click Project -> Global Repository and point the repository to netfpga-10g/lib/sw/
 4. Import all projects under SDK_Workspace into your workspace by clicking File -> Import -> General -> Existing projects
    do this for hw, bsp, and hello_world_0
    
