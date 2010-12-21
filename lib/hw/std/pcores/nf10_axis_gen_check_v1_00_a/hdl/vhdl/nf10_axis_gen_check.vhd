@@ -205,7 +205,12 @@ begin
              M_AXIS_TLAST <= '0';
              gen_word_num <= gen_word_num + 1;
              if gen_word_num = C_GEN_PKT_SIZE+C_IFG_SIZE-1 then
-                 gen_state <= GEN_FINISH;
+                 if(count_reset = '1') then
+          			gen_state <= GEN_IFG; -- Hold state at GEN_IFG gently...
+          			tx_count <= (others => '0');
+          		 else
+          		    gen_state <= GEN_FINISH;
+      			 end if;
              end if;
          end if;	      		
       elsif gen_state = GEN_FINISH then
@@ -216,13 +221,6 @@ begin
          pkt_tx_buf <= seed(C_M_AXIS_DATA_WIDTH -1 downto 0);
          gen_word_num <= (others => '0');	
          gen_state <= GEN_PKT;
-      end if;
-      
-      if(count_reset = '1') then
-          tx_count <= (others => '0');	
-          gen_word_num <= (others => '0');	
-          M_AXIS_TLAST <= '1';
-          gen_state <= GEN_IFG;
       end if;
    end if;
 end process;
@@ -284,12 +282,9 @@ begin
 		 end if;
       end if;
       
-      if(count_reset = '1') then
+      if(count_reset = '1') then -- Don't touch check state machine..
           rx_count <= (others => '0');	
           err_count <= (others => '0');	
-          check_state <= CHECK_IDLE; 
-          ok <= '1';
-		  check_word_num <= (others => '0');
       end if;
    end if;
 end process;

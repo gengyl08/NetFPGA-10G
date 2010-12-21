@@ -1,3 +1,17 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          axi_interconnect.scr
+#//
+#//  Description:
+#//          scr file to walkaround axi_interconnect - Virtex-5 issue
+#//                 
+#//  Revision history:
+#//          2010/12/20 hyzeng: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
 run
 -opt_mode speed
 -netlist_hierarchy as_optimized
