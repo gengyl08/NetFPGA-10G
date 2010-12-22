@@ -11,6 +11,7 @@
 --  Revision history:
 --          2010/12/1  M.Blott  Initial version
 --          2010/12/15 hyzeng   Fixed last signal, AXI4-Lite
+--          2010/12/21 M.Blott  fixed reset issue
 --
 ------------------------------------------------------------------------
 
@@ -141,58 +142,60 @@ begin
         (
         ADDR_WIDTH       => C_S_AXI_ADDR_WIDTH,  
         DATA_WIDTH       => C_S_AXI_DATA_WIDTH                     
-        )
-     
+        )     
      port map 
         (
-        tx_count  => tx_count,
-        rx_count  => rx_count,
-        err_count => err_count,
+        tx_count    => tx_count,
+        rx_count    => rx_count,
+        err_count   => err_count,
         count_reset => count_reset,
-        AXIS_ACLK => ACLK,
+        AXIS_ACLK   => ACLK,
            
-        ACLK => S_AXI_ACLK,
-        ARESETN => S_AXI_ARESETN,
-        AWADDR => S_AXI_AWADDR,
-        AWVALID => S_AXI_AWVALID,
-        AWREADY => S_AXI_AWREADY,
-        WDATA => S_AXI_WDATA,
-        WSTRB => S_AXI_WSTRB,
-        WVALID => S_AXI_WVALID,
-        WREADY => S_AXI_WREADY,
-        BRESP => S_AXI_BRESP,
-        BVALID => S_AXI_BVALID,
-        BREADY => S_AXI_BREADY,
-        ARADDR => S_AXI_ARADDR,
-        ARVALID => S_AXI_ARVALID,
-        ARREADY => S_AXI_ARREADY,
-        RDATA => S_AXI_RDATA,
-        RRESP => S_AXI_RRESP,
-        RVALID => S_AXI_RVALID,
-        RREADY => S_AXI_RREADY
+        ACLK        => S_AXI_ACLK,
+        ARESETN     => S_AXI_ARESETN,
+        AWADDR      => S_AXI_AWADDR,
+        AWVALID     => S_AXI_AWVALID,
+        AWREADY     => S_AXI_AWREADY,
+        WDATA       => S_AXI_WDATA,
+        WSTRB       => S_AXI_WSTRB,
+        WVALID      => S_AXI_WVALID,
+        WREADY      => S_AXI_WREADY,
+        BRESP       => S_AXI_BRESP,
+        BVALID      => S_AXI_BVALID,
+        BREADY      => S_AXI_BREADY,
+        ARADDR      => S_AXI_ARADDR,
+        ARVALID     => S_AXI_ARVALID,
+        ARREADY     => S_AXI_ARREADY,
+        RDATA       => S_AXI_RDATA,
+        RRESP       => S_AXI_RRESP,
+        RVALID      => S_AXI_RVALID,
+        RREADY      => S_AXI_RREADY
         );
 
 
 gen_p: process(ACLK, ARESETN)
 begin
    if (ARESETN='0') then
+      M_AXIS_TSTRB <= (others => '0');
+      M_AXIS_TVALID <= '0';
+      M_AXIS_TLAST <= '0';
       gen_word_num <= (others => '0');
       tx_count <= (others => '0');
       pkt_tx_buf <= seed(C_S_AXIS_DATA_WIDTH -1 downto 0);
-      gen_state <= GEN_PKT;
+      gen_state <= GEN_IFG; -- initiate to between frames
    elsif (ACLK = '1' and ACLK'event) then
       if gen_state = GEN_PKT then 
-		 M_AXIS_TSTRB <= (others => '1');
+         M_AXIS_TSTRB <= (others => '1');
          M_AXIS_TVALID <= '1';
          M_AXIS_TLAST <= '0';
          if (M_AXIS_TREADY='1') then
             gen_word_num <= gen_word_num + 1;
             if (gen_word_num = C_GEN_PKT_SIZE - 1) then
                 M_AXIS_TSTRB <= (others => '0');
-         		M_AXIS_TVALID <= '0';
-         		M_AXIS_TLAST <= '1';
-         		tx_count <= tx_count + 1;	
-         		gen_state <= GEN_IFG;
+                M_AXIS_TVALID <= '0';
+                M_AXIS_TLAST <= '1';
+                tx_count <= tx_count + 1;	
+                gen_state <= GEN_IFG;
             else
                 pkt_tx_buf <= pkt_tx_buf(0) & pkt_tx_buf(C_M_AXIS_DATA_WIDTH -1 downto 1);
                 M_AXIS_TDATA <= pkt_tx_buf(0) & pkt_tx_buf(C_M_AXIS_DATA_WIDTH -1 downto 1);
@@ -205,10 +208,10 @@ begin
              M_AXIS_TLAST <= '0';
              gen_word_num <= gen_word_num + 1;
              if gen_word_num = C_GEN_PKT_SIZE+C_IFG_SIZE-1 then
-                 if(count_reset = '1') then
-          			gen_state <= GEN_IFG; -- Hold state at GEN_IFG gently...
-          			tx_count <= (others => '0');
-          		 else
+                if(count_reset = '1') then
+                   gen_state <= GEN_IFG; -- Hold state at GEN_IFG gently...
+                   tx_count <= (others => '0');
+                else
           		    gen_state <= GEN_FINISH;
       			 end if;
              end if;
@@ -229,11 +232,11 @@ S_AXIS_TREADY <= '1';
 check_p: process(ACLK, ARESETN)
 begin
    if (ARESETN='0') then
-        check_state <= (others => '0');
-        rx_count <= (others => '0');
-        err_count <= (others => '0');
-        ok <= '1';
-		check_word_num <= (others => '0');
+      check_state <= (others => '0');
+      rx_count <= (others => '0');
+      err_count <= (others => '0');
+      ok <= '1';
+      check_word_num <= (others => '0');
    elsif (ACLK = '1' and ACLK'event) then
       if check_state = CHECK_IDLE then
          -- waiting for a pkt
@@ -244,44 +247,43 @@ begin
             check_state <= CHECK_COMPARE;
          end if;
       elsif check_state = CHECK_COMPARE then
-		 -- checking the packet
+		   -- checking the packet
          -- check packet size and last
          if (S_AXIS_TVALID = '1') then	
              pkt_rx_buf <= pkt_rx_buf(0) & pkt_rx_buf(C_S_AXIS_DATA_WIDTH -1 downto 1);
-             check_word_num <= check_word_num + 1;
-             
+             check_word_num <= check_word_num + 1;     
              if( S_AXIS_TDATA = pkt_rx_buf ) then
                  ok <= ok;
              else
                  ok <= '0';
              end if;		     
-		     if (check_word_num = C_CHECK_PKT_SIZE -2) then
+		       if (check_word_num = C_CHECK_PKT_SIZE -2) then
 		          if (S_AXIS_TLAST='1') then
 		              check_state <= CHECK_FINISH; -- finish up
 		          else
 		              check_state <= CHECK_WAIT_LAST; -- Wait for last
 		          end if;
              end if;
-		 end if;	
+		   end if;	
       elsif check_state = CHECK_FINISH then
          -- finish up
          if (ok='1') then
-			rx_count <= rx_count + 1;
-		 else
-			err_count <= err_count + 1;
-		 end if;
-		 check_state <= CHECK_IDLE; 
-		 ok <='1';
+            rx_count <= rx_count + 1;
+         else
+            err_count <= err_count + 1;
+         end if;
+         check_state <= CHECK_IDLE; 
+         ok <='1';
       elsif check_state = CHECK_WAIT_LAST then
          -- Wait for last
          if (S_AXIS_TVALID = '1') then  -- No more words!
-			ok <= '0';
-	     end if;
-	     if (S_AXIS_TLAST='1') then
-		    check_state <= CHECK_FINISH; 
-		 end if;
+			   ok <= '0';
+	      end if;
+         if (S_AXIS_TLAST='1') then
+            check_state <= CHECK_FINISH; 
+         end if;
       end if;
-      
+      -- reset of counters through AXI lite
       if(count_reset = '1') then -- Don't touch check state machine..
           rx_count <= (others => '0');	
           err_count <= (others => '0');	
