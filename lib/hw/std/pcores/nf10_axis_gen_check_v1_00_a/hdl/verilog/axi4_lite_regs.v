@@ -10,7 +10,7 @@
 //                 
 //  Revision history:
 //          2010/12/15 hyzeng   Initial check-in
-//          2010/12/21 M.Blott  added another sync. reg for CDC
+//          2010/12/21 M.Blott  Fixed CDC
 //
 ////////////////////////////////////////////////////////////////////////
 
@@ -73,12 +73,11 @@ module axi4_lite_regs
     reg [31:0] rx_count_r_2, rx_count_r;
     reg [31:0] err_count_r_2, err_count_r;
     reg        count_reset_control_next, count_reset_control;
-    reg        count_reset_r1, count_reset_r2;
+    reg        count_reset_r_2, count_reset_r;
     // synthesis attribute ASYNC_REG of tx_count_r is "TRUE";
     // synthesis attribute ASYNC_REG of rx_count_r is "TRUE";
     // synthesis attribute ASYNC_REG of err_count_r is "TRUE";
-    // synthesis attribute ASYNC_REG of count_reset_r1 is "TRUE";
-    // synthesis attribute ASYNC_REG of count_reset_r2 is "TRUE";
+    // synthesis attribute ASYNC_REG of count_reset_r is "TRUE";
     
     reg [1:0] write_state, write_state_next;
     reg [1:0] read_state, read_state_next;
@@ -197,7 +196,7 @@ module axi4_lite_regs
         rx_count_r_2 <= rx_count_r;
         tx_count_r_2 <= tx_count_r;
         err_count_r_2 <= err_count_r;
-        count_reset_r1 <= count_reset_control;
+        count_reset_r <= count_reset_control;
         
         rx_count_r <= rx_count;
         tx_count_r <= tx_count;
@@ -207,8 +206,8 @@ module axi4_lite_regs
     end
     
     always @(AXIS_ACLK) begin
-        count_reset_r2 <= count_reset_r1;        
-        count_reset <= count_reset_r2;
+        count_reset <= count_reset_r_2;
+        count_reset_r_2 <= count_reset_r;
     end
 
 endmodule
