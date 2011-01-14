@@ -114,8 +114,8 @@ clean: hwclean swclean simclean
 	rm -rf etc
 	rm -f *.opt
 	rm -f *.log
-	rm -f *.make
-	rm -f system.mss
+	rm -f $(SYSTEM).make
+	rm -f $(SYSTEM).mss
 
 hwclean: netlistclean bitsclean
 	rm -rf implementation synthesis xst hdl
@@ -201,6 +201,12 @@ __xps/$(SYSTEM)_routed: $(FPGA_IMP_DEPENDENCY)
 	@cp -f nf10/xflow.opt implementation/xflow.opt
 	xflow -wd implementation -p $(DEVICE) -implement xflow.opt $(SYSTEM).ngc
 	touch __xps/$(SYSTEM)_routed
+
+#James: Generate __xps directory if not already generated
+__xps/platgen.opt: $(SYSTEM).xmp
+	echo exit > dummy.tcl
+	xps -nw -scr dummy.tcl $(SYSTEM).xmp
+	rm dummy.tcl
 
 $(SYSTEM_BIT): __xps/$(SYSTEM)_routed $(BITGEN_UT_FILE)
 	xilperl $(NON_CYG_XILINX_EDK_DIR)/data/fpga_impl/observe_par.pl $(OBSERVE_PAR_OPTIONS) implementation/$(SYSTEM).par
