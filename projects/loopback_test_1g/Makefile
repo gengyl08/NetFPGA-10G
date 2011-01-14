@@ -13,7 +13,6 @@
 #             
 #  Revision history:
 #          2010/12/1 hyzeng: Initial check-in
-#          2011/1/14 hyzeng: Move xps call to hw Makefile
 #
 ################################################################################
 
@@ -21,9 +20,10 @@
 SYSTEM = system
 HW = hw
 SW = sw/embedded/
+DUMMY_TCL = dummy.tcl
 
 
-all:
+all: $HW/$(SYSTEM)_incl.make
 	cd $(HW) && $(MAKE) exporttosdk
 	cd $(SW) && $(MAKE)
 	mkdir -p bitfiles
@@ -32,3 +32,8 @@ all:
 clean:
 	cd $(HW) && $(MAKE) clean
 	cd $(SW) && $(MAKE) clean
+
+$HW/$(SYSTEM)_incl.make:
+	echo exit > $(DUMMY_TCL)
+	cd $(HW) && xps -nw -scr ../$(DUMMY_TCL) $(SYSTEM).xmp
+	rm $(DUMMY_TCL) 
