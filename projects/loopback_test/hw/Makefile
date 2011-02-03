@@ -75,6 +75,9 @@ all:
 	@echo "      specified for each processor in MSS file"
 
 
+system_incl.make: Makefile
+	echo exit|xps -nw system.xmp
+
 bits: $(SYSTEM_BIT)
 
 ace: $(SYSTEM_ACE)
