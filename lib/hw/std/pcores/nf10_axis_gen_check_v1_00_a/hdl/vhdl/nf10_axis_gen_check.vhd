@@ -173,13 +173,13 @@ begin
         RREADY => S_AXI_RREADY
         );
 
+M_AXIS_TLAST <= '1' when (gen_word_num = C_GEN_PKT_SIZE - 1) else '0';
 
 gen_p: process(ACLK, ARESETN)
 begin
    if (ARESETN='0') then
       M_AXIS_TSTRB <= (others => '0');
       M_AXIS_TVALID <= '0';
-      M_AXIS_TLAST <= '0';
       gen_word_num <= (others => '0');
       tx_count <= (others => '0');
       gen_state <= GEN_IFG; -- initiate to between frames
@@ -187,13 +187,11 @@ begin
       if gen_state = GEN_PKT then 
 		 M_AXIS_TSTRB <= (others => '1');
          M_AXIS_TVALID <= '1';
-         M_AXIS_TLAST <= '0';
          if (M_AXIS_TREADY='1') then
             gen_word_num <= gen_word_num + 1;
             if (gen_word_num = C_GEN_PKT_SIZE - 1) then
                 M_AXIS_TSTRB <= (others => '0');
          		M_AXIS_TVALID <= '0';
-         		M_AXIS_TLAST <= '1';
          		tx_count <= tx_count + 1;	
          		gen_state <= GEN_IFG;
             else
@@ -205,7 +203,6 @@ begin
          M_AXIS_TSTRB <= (others => '0');
          M_AXIS_TVALID <= '0';
          if (M_AXIS_TREADY='1') then
-             M_AXIS_TLAST <= '0';
              gen_word_num <= gen_word_num + 1;
              if gen_word_num = C_GEN_PKT_SIZE+C_IFG_SIZE-1 then
                  if(count_reset = '1') then
@@ -219,7 +216,6 @@ begin
       elsif gen_state = GEN_FINISH then
          M_AXIS_TSTRB <= (others => '1');
          M_AXIS_TVALID <= '1';			
-         M_AXIS_TLAST <= '0';
          M_AXIS_TDATA <= seed(C_M_AXIS_DATA_WIDTH -1 downto 0);
          pkt_tx_buf <= seed(C_M_AXIS_DATA_WIDTH -1 downto 0);
          gen_word_num <= (others => '0');	
@@ -262,6 +258,7 @@ begin
 		          if (S_AXIS_TLAST='1') then
 		              check_state <= CHECK_FINISH; -- finish up
 		          else
+		              ok <= '0';
 		              check_state <= CHECK_WAIT_LAST; -- Wait for last
 		          end if;
              end if;
@@ -277,10 +274,7 @@ begin
 		 ok <='1';
       elsif check_state = CHECK_WAIT_LAST then
          -- Wait for last
-         if (S_AXIS_TVALID = '1') then  -- No more words!
-			ok <= '0';
-	     end if;
-	     if (S_AXIS_TLAST='1') then
+	     if (S_AXIS_TLAST='1' and S_AXIS_TVALID = '1') then
 		    check_state <= CHECK_FINISH; 
 		 end if;
       end if;
