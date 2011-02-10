@@ -82,10 +82,10 @@ INIT:      for(port = 0; port < 4; port ++){
 
     		   xil_printf("Port %d: ", port);
     		   ael2005_read (EmacLiteInstPtr, dev, 1, 0xa, &value);
-    		   if(value == 0) {
+    		   /*if(value == 0) {
     		       	print("No Signal.\r\n");
     		       	continue;
-    		   }
+    		   }*/
     		   for(s = 20; s < 36; s++){
     		       	ael2005_i2c_read (EmacLiteInstPtr, dev, MODULE_DEV_ADDR, s, &value);
     		       	xil_printf("%c", value);
