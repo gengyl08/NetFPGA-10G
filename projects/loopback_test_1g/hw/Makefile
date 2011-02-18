@@ -22,6 +22,10 @@
 
 include system_incl.make
 
+ifeq "$(shell uname -o)" "Cygwin"
+SIM_CMD := $(subst ./, cmd /c , $(SIM_CMD))
+endif
+
 #################################################################
 # PHONY TARGETS
 #################################################################
