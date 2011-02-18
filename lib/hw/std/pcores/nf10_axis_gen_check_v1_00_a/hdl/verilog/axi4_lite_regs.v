@@ -77,7 +77,7 @@ module axi4_lite_regs
     // synthesis attribute ASYNC_REG of tx_count_r is "TRUE";
     // synthesis attribute ASYNC_REG of rx_count_r is "TRUE";
     // synthesis attribute ASYNC_REG of err_count_r is "TRUE";
-    // synthesis attribute ASYNC_REG of count_reset_r is "TRUE";
+    // synthesis attribute ASYNC_REG of count_reset_r_2 is "TRUE";
     
     reg [1:0] write_state, write_state_next;
     reg [1:0] read_state, read_state_next;
