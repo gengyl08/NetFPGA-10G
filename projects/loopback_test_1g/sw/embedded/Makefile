@@ -60,5 +60,5 @@ $(DOWNLOAD_BIT): ${PROCESSOR}/lib/libxil.a $(ELF) $(SYSTEM_BD) $(SYSTEM_BIT)
 		-o b $(DOWNLOAD_BIT)
 
 $(SYSTEM_BIT) $(HWSPEC):
-	cd ../../hw && $(MAKE) exporttosdk
+	$(MAKE) -C ../../hw exporttosdk
 

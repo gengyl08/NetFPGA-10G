@@ -23,11 +23,11 @@ HW = hw
 SW = sw/embedded/
 
 all:
-	cd $(HW) && $(MAKE) exporttosdk
-	cd $(SW) && $(MAKE)
+	$(MAKE) -C $(HW) exporttosdk
+	$(MAKE) -C $(SW)
 	mkdir -p bitfiles
 	cp $(SW)/result/download.bit bitfiles/
 
 clean:
-	cd $(HW) && $(MAKE) clean
-	cd $(SW) && $(MAKE) clean
+	$(MAKE) -C $(HW) clean
+	$(MAKE) -C $(SW) clean
