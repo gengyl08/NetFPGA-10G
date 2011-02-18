@@ -13,6 +13,7 @@
 #             
 #  Revision history:
 #          2010/12/1 hyzeng: Initial check-in
+#          2011/2/18 hyzeng: Remove system_include.make generation
 #
 ################################################################################
 
@@ -20,10 +21,8 @@
 SYSTEM = system
 HW = hw
 SW = sw/embedded/
-DUMMY_TCL = dummy.tcl
 
-
-all: $HW/$(SYSTEM)_incl.make
+all:
 	cd $(HW) && $(MAKE) exporttosdk
 	cd $(SW) && $(MAKE)
 	mkdir -p bitfiles
@@ -32,8 +31,3 @@ all: $HW/$(SYSTEM)_incl.make
 clean:
 	cd $(HW) && $(MAKE) clean
 	cd $(SW) && $(MAKE) clean
-
-$HW/$(SYSTEM)_incl.make:
-	echo exit > $(DUMMY_TCL)
-	cd $(HW) && xps -nw -scr ../$(DUMMY_TCL) $(SYSTEM).xmp
-	rm $(DUMMY_TCL) 
