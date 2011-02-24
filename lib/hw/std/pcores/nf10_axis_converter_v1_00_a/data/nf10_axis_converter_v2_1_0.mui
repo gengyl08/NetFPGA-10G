@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+        <!ENTITY C_M_AXIS_DATA_WIDTH '
+        <widget id="C_M_AXIS_DATA_WIDTH">
+                        <key>C_M_AXIS_DATA_WIDTH</key>
+                <label>Master Stream Data Width</label>
+        </widget>
+        '>
+        <!ENTITY C_S_AXIS_DATA_WIDTH '
+        <widget id="C_S_AXIS_DATA_WIDTH">
+                        <key>C_S_AXIS_DATA_WIDTH</key>
+                <label>Slave Stream Data Width</label>
+        </widget>
+        '>
+        <!ENTITY C_M_AXIS_LEN_DATA_WIDTH '
+        <widget id="C_M_AXIS_LEN_DATA_WIDTH">
+                        <key>C_M_AXIS_LEN_DATA_WIDTH</key>
+                <label>Length sub-channel data width</label>
+        </widget>
+        '>
+        <!ENTITY C_M_AXIS_DPT_DATA_WIDTH '
+        <widget id="C_M_AXIS_DPT_DATA_WIDTH">
+                        <key>C_M_AXIS_DPT_DATA_WIDTH</key>
+                <label>Destination port sub-channel data width</label>
+        </widget>
+        '>
+        <!ENTITY C_DST_PORT '
+        <widget id="C_DST_PORT">
+                        <key>C_DST_PORT</key>
+                <label>Default Destination port</label>
+        </widget>
+        '>
+        <!ENTITY C_M_AXIS_SPT_DATA_WIDTH '
+        <widget id="C_M_AXIS_SPT_DATA_WIDTH">
+                        <key>C_M_AXIS_SPT_DATA_WIDTH</key>
+                <label>Source port sub-channel data width</label>
+        </widget>
+        '>
+        <!ENTITY C_SRC_PORT '
+        <widget id="C_SRC_PORT">
+                        <key>C_SRC_PORT</key>
+                <label>Default source port</label>
+        </widget>
+        '>
+        <!ENTITY C_INCLUDE_ERR ' 
+        <widget id="C_INCLUDE_ERR">
+	            <key>C_INCLUDE_ERR</key>
+	            <label>Include ERR subchannel</label>
+	            <tip>1 to enable the ERR subchannel, 0 by default</tip>
+        </widget>
+        '>
+        <!ENTITY C_INCLUDE_DPT ' 
+        <widget id="C_INCLUDE_DPT">
+	            <key>C_INCLUDE_DPT</key>
+	            <label>Include DPT subchannel</label>
+	            <tip>1 to enable the DPT subchannel, 0 by default</tip>
+        </widget>
+        '>
+        <!ENTITY C_INCLUDE_SPT ' 
+        <widget id="C_INCLUDE_SPT">
+	            <key>C_INCLUDE_SPT</key>
+	            <label>Include SPT subchannel</label>
+	            <tip>1 to enable the SPT subchannel, 0 by default</tip>
+        </widget>
+        '>
+        <!ENTITY C_INCLUDE_LEN ' 
+        <widget id="C_INCLUDE_LEN">
+	            <key>C_INCLUDE_LEN</key>
+	            <label>Include LEN subchannel</label>
+	            <tip>1 to enable the LEN subchannel, 0 by default</tip>
+        </widget>
+        '>
+]>
+
+<doc>
+        <view id="System">
+                <display>System</display>
+                <group id="axi">
+                        <display>AXI</display>
+                        <item>&C_M_AXIS_DATA_WIDTH;</item>
+                        <item>&C_S_AXIS_DATA_WIDTH;</item>
+                        <item>&C_M_AXIS_LEN_DATA_WIDTH;</item>
+                        <item>&C_M_AXIS_DPT_DATA_WIDTH;</item>
+                        <item>&C_M_AXIS_SPT_DATA_WIDTH;</item>
+                        <item>&C_INCLUDE_ERR;</item>
+                        <item>&C_INCLUDE_LEN;</item>
+                        <item>&C_INCLUDE_DPT;</item>
+                        <item>&C_INCLUDE_SPT;</item>
+                </group>
+	</view>
+</doc>

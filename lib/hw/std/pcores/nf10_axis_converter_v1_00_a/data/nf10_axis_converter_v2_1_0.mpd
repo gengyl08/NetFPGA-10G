@@ -1,0 +1,79 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_axis_converter_v2_1_0.mpd
+#//
+#//  Description:
+#//          Microprocessor Peripheral Description File
+#//                 
+#//  Revision history:
+#//          2011/2/6 hyzeng: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
+
+BEGIN nf10_axis_converter
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION HDL = MIXED
+OPTION USAGE_LEVEL = BASE_USER
+OPTION STYLE = HDL
+OPTION RUN_NGCBUILD = TRUE
+OPTION IMP_NETLIST = TRUE
+OPTION IP_GROUP = Communication High-Speed:MICROBLAZE
+OPTION DESC = NetFPGA-10G AXI4-Stream Width Converter
+OPTION LONG_DESC = NetFPGA-10G AXI4-Stream Width Converter
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXIS, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
+BUS_INTERFACE BUS = M_AXIS_LEN, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (C_INCLUDE_LEN == 1)
+BUS_INTERFACE BUS = M_AXIS_SPT, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (C_INCLUDE_SPT == 1)
+BUS_INTERFACE BUS = M_AXIS_DPT, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (C_INCLUDE_DPT == 1)
+BUS_INTERFACE BUS = S_AXIS_ERR, BUS_STD = AXIS, BUS_TYPE = TARGET, ISVALID = (C_INCLUDE_ERR == 1)
+BUS_INTERFACE BUS = M_AXIS_ERR, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (C_INCLUDE_ERR == 1)
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_M_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (8,32,64,256), BUS = M_AXIS
+PARAMETER C_S_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (8,32,64,256), BUS = S_AXIS
+PARAMETER C_M_AXIS_LEN_DATA_WIDTH = 16, DT = INTEGER, RANGE = (16), BUS = M_AXIS_LEN
+PARAMETER C_M_AXIS_SPT_DATA_WIDTH = 8, DT = INTEGER, RANGE = (8), BUS = M_AXIS_SPT
+PARAMETER C_M_AXIS_DPT_DATA_WIDTH = 8, DT = INTEGER, RANGE = (8), BUS = M_AXIS_DPT
+PARAMETER C_SRC_PORT = 0, DT = INTEGER, BUS = M_AXIS_SPT
+PARAMETER C_DST_PORT = 0, DT = INTEGER, BUS = M_AXIS_DPT
+PARAMETER C_INCLUDE_ERR = 0, DT = INTEGER, RANGE = (0,1)
+PARAMETER C_INCLUDE_SPT = 0, DT = INTEGER, RANGE = (0,1)
+PARAMETER C_INCLUDE_DPT = 0, DT = INTEGER, RANGE = (0,1)
+PARAMETER C_INCLUDE_LEN = 0, DT = INTEGER, RANGE = (0,1)
+
+## Ports
+PORT aclk = "", DIR = I, SIGIS = CLK, BUS = M_AXIS_LEN:M_AXIS:S_AXIS
+PORT aresetn = ARESETN, DIR = I, SIGIS = RST, BUS = M_AXIS_LEN:M_AXIS:S_AXIS
+
+PORT m_axis_tdata = TDATA, DIR = O, VEC = [C_M_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT m_axis_tstrb = TSTRB, DIR = O, VEC = [(C_M_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT m_axis_tvalid = TVALID, DIR = O, BUS = M_AXIS
+PORT m_axis_tready = TREADY, DIR = I, BUS = M_AXIS
+PORT m_axis_tlast = TLAST, DIR = O, BUS = M_AXIS
+
+PORT s_axis_tdata = TDATA, DIR = I, VEC = [C_S_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tstrb = TSTRB, DIR = I, VEC = [(C_S_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tvalid = TVALID, DIR = I, BUS = S_AXIS
+PORT s_axis_tready = TREADY, DIR = O, BUS = S_AXIS
+PORT s_axis_tlast = TLAST, DIR = I, BUS = S_AXIS
+
+PORT s_axis_err_tvalid = TVALID, DIR = I, BUS = S_AXIS_ERR
+PORT m_axis_err_tvalid = TVALID, DIR = O, BUS = M_AXIS_ERR
+
+PORT m_axis_spt_tvalid = TVALID, DIR = O, BUS = M_AXIS_SPT
+PORT m_axis_spt_tdata = TDATA, DIR = O, BUS = M_AXIS_SPT, VEC = [C_M_AXIS_SPT_DATA_WIDTH-1:0], ENDIAN = LITTLE
+
+PORT m_axis_dpt_tvalid = TVALID, DIR = O, BUS = M_AXIS_DPT
+PORT m_axis_dpt_tdata = TDATA, DIR = O, BUS = M_AXIS_DPT, VEC = [C_M_AXIS_DPT_DATA_WIDTH-1:0], ENDIAN = LITTLE
+
+PORT m_axis_len_tdata = TDATA, DIR = O, VEC = [C_M_AXIS_LEN_DATA_WIDTH-1:0], BUS = M_AXIS_LEN, ENDIAN = LITTLE
+PORT m_axis_len_tvalid = TVALID, DIR = O, BUS = M_AXIS_LEN
+
+END
