@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+        <!ENTITY C_M_AXIS_DATA_WIDTH '
+        <widget id="C_M_AXIS_DATA_WIDTH">
+                        <key>C_M_AXIS_DATA_WIDTH</key>
+                <label>Master Stream Data Width</label>
+        </widget>
+        '>
+        <!ENTITY C_S_AXIS_DATA_WIDTH '
+        <widget id="C_S_AXIS_DATA_WIDTH">
+                        <key>C_S_AXIS_DATA_WIDTH</key>
+                <label>Slave Stream Data Width</label>
+        </widget>
+        '>
+        <!ENTITY C_IFG_SIZE '
+        <widget id="C_IFG_SIZE">
+                <key>C_IFG_SIZE</key>
+                <label>Size of the interframe gap in words</label>
+        </widget>
+        '>
+        <!ENTITY C_GEN_PKT_SIZE '
+        <widget id="C_GEN_PKT_SIZE">
+                <key>C_GEN_PKT_SIZE</key>
+                <label>Size of the generated packet in words</label>
+        </widget>
+        '>
+        <!ENTITY C_CHECK_PKT_SIZE '
+        <widget id="C_CHECK_PKT_SIZE">
+                <key>C_CHECK_PKT_SIZE</key>
+                <label>Size of the checked packet in words</label>
+        </widget>
+        '>
+        <!ENTITY C_S_AXI_PROTOCOL '
+		<widget id="C_S_AXI_PROTOCOL">
+		<key>C_S_AXI_PROTOCOL</key>
+		<label>AXI4LITE protocol</label>
+		<tip></tip>
+        </widget>
+	'>	
+]>
+
+<doc>
+        <view id="System">
+                <display>System</display>
+                <group id="axi">
+                        <display>AXI</display>
+                        <item>&C_M_AXIS_DATA_WIDTH;</item>
+                        <item>&C_S_AXIS_DATA_WIDTH;</item>
+                        <item>&C_S_AXI_PROTOCOL;</item>
+                </group>
+                <group id="pkt_gen_check">
+                        <display>Packet Generator/Checker</display>
+                        <item>&C_IFG_SIZE;</item>
+                        <item>&C_GEN_PKT_SIZE;</item>
+                        <item>&C_CHECK_PKT_SIZE;</item>
+                </group>
+	</view>
+</doc>
