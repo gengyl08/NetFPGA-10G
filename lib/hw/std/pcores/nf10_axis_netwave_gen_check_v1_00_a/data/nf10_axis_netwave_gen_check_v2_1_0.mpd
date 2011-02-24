@@ -1,0 +1,80 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_axis_netwave_gen_check_v2_1_0.mpd
+#//
+#//  Description:
+#//          Microprocessor Peripheral Description File
+#//                 
+#//  Revision history:
+#//          2011/2/23 mblott: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
+
+BEGIN nf10_axis_netwave_gen_check
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION HDL = MIXED
+OPTION USAGE_LEVEL = BASE_USER
+OPTION STYLE = HDL
+OPTION RUN_NGCBUILD = TRUE
+OPTION IMP_NETLIST = TRUE
+OPTION IP_GROUP = Communication High-Speed:MICROBLAZE
+OPTION DESC = NetFPGA-10G AXI4-Stream Netwave Generator and Checker
+OPTION LONG_DESC = NetFPGA-10G AXI4-Stream Netwave specific packet generator and Checker
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXIS, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
+BUS_INTERFACE BUS = S_AXI, BUS_STD = AXI, BUS_TYPE = SLAVE
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_S_AXI_PROTOCOL = AXI4LITE, BUS = S_AXI, DT = STRING, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER C_M_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (8,32,64,256), BUS = M_AXIS
+PARAMETER C_S_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (8,32,64,256), BUS = S_AXIS
+PARAMETER C_IFG_SIZE = 5, DT = INTEGER
+PARAMETER C_GEN_PKT_SIZE = 16, DT = INTEGER
+PARAMETER C_CHECK_PKT_SIZE = 16, DT = INTEGER
+PARAMETER C_BASEADDR = 0xffffffff, DT = std_logic_vector(31 downto 0), ADDRESS = BASE, PAIR = C_HIGHADDR, BUS = S_AXI, MIN_SIZE = 0x01000, ASSIGNMENT = REQUIRE
+PARAMETER C_HIGHADDR = 0x00000000, DT = std_logic_vector(31 downto 0), ADDRESS = HIGH, PAIR = C_BASEADDR, BUS = S_AXI, ASSIGNMENT = REQUIRE
+
+## Ports
+PORT aclk = "", DIR = I, SIGIS = CLK, BUS = M_AXIS:S_AXIS
+PORT aresetn = ARESETN, DIR = I, SIGIS = RST
+
+PORT m_axis_tdata = TDATA, DIR = O, VEC = [C_M_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT m_axis_tstrb = TSTRB, DIR = O, VEC = [(C_M_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT m_axis_tvalid = TVALID, DIR = O, BUS = M_AXIS
+PORT m_axis_tready = TREADY, DIR = I, BUS = M_AXIS
+PORT m_axis_tlast = TLAST, DIR = O, BUS = M_AXIS
+
+PORT s_axis_tdata = TDATA, DIR = I, VEC = [C_S_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tstrb = TSTRB, DIR = I, VEC = [(C_S_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tvalid = TVALID, DIR = I, BUS = S_AXIS
+PORT s_axis_tready = TREADY, DIR = O, BUS = S_AXIS
+PORT s_axis_tlast = TLAST, DIR = I, BUS = S_AXIS
+
+PORT S_AXI_ACLK = ACLK, DIR = I, SIGIS = CLK, BUS = S_AXI, ASSIGNMENT = REQUIRE
+PORT S_AXI_ARESETN = ARESETN, DIR = I, SIGIS = RST, BUS = S_AXI:M_AXIS:S_AXIS
+PORT S_AXI_AWADDR = AWADDR, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_AWVALID = AWVALID, DIR = I, BUS = S_AXI
+PORT S_AXI_AWREADY = AWREADY, DIR = O, BUS = S_AXI
+PORT S_AXI_WDATA = WDATA, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_WSTRB = WSTRB, DIR = I, VEC = [3:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_WVALID = WVALID, DIR = I, BUS = S_AXI
+PORT S_AXI_WREADY = WREADY, DIR = O, BUS = S_AXI
+PORT S_AXI_BRESP = BRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT S_AXI_BVALID = BVALID, DIR = O, BUS = S_AXI
+PORT S_AXI_BREADY = BREADY, DIR = I, BUS = S_AXI
+PORT S_AXI_ARADDR = ARADDR, DIR = I, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_ARVALID = ARVALID, DIR = I, BUS = S_AXI
+PORT S_AXI_ARREADY = ARREADY, DIR = O, BUS = S_AXI
+PORT S_AXI_RDATA = RDATA, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT S_AXI_RRESP = RRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT S_AXI_RVALID = RVALID, DIR = O, BUS = S_AXI
+PORT S_AXI_RREADY = RREADY, DIR = I, BUS = S_AXI
+
+END
