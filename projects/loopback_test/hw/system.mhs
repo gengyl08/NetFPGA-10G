@@ -1,13 +1,3 @@
-
-# ##############################################################################
-# Created by Base System Builder Wizard for Xilinx EDK 12.3 Build EDK_MS3.70d
-# Wed Oct 13 08:18:57 2010
-# Target Board:  xilinx.com ml605 Rev 1.0
-# Family:    virtex6
-# Device:    xc6vlx240t
-# Package:   ff1156
-# Speed Grade:  -1
-# ##############################################################################
  PARAMETER VERSION = 2.1.0
 
 
@@ -94,9 +84,9 @@
 
 BEGIN axi_interconnect
  PARAMETER INSTANCE = axi_interconnect_memory_mapped_lite_0
- PARAMETER HW_VER = 1.01.a
- PORT interconnect_aclk = control_clk
+ PARAMETER HW_VER = 1.02.a
  PORT INTERCONNECT_ARESETN = connectnetwork_0_reset_reset_0_Reset_2_adhoc
+ PORT interconnect_aclk = control_clk
 END
 
 BEGIN microblaze
