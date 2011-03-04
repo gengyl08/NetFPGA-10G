@@ -93,7 +93,14 @@ structural_model: $(STRUCTURAL_SIM_SCRIPT)
 
 clean: hwclean simclean
 	rm -f _impact.cmd
-
+	rm -rf __xps
+	rm -rf blockdiagram
+	rm -rf etc
+	rm -f *.opt
+	rm -f *.log
+	rm -f *.make
+	rm -f system.mss
+	
 hwclean: netlistclean bitsclean
 	rm -rf implementation synthesis xst hdl
 	rm -rf xst.srp $(SYSTEM).srp
@@ -232,3 +239,7 @@ $(TIMING_SIM_SCRIPT): implementation/$(SYSTEM).ncd __xps/simgen.opt \
 
 dummy:
 	@echo ""
+
+# James: workaround chicken'n'egg problem thanks to David Miller	
+system_incl.make: Makefile
+	@echo exit|xps -nw system.xmp
