@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+        <!ENTITY C_S_AXIS_DATA_WIDTH '
+        <widget id="C_S_AXIS_DATA_WIDTH">
+                        <key>C_S_AXIS_DATA_WIDTH</key>
+                <label>Slave Stream Data Width</label>
+        </widget>
+        '>
+        <!ENTITY output_file '
+        <widget id="output_file">
+                <key>output_file</key>
+                <label>Name of the output file to which received data should be
+                written.</label>
+        </widget>
+        '>
+]>
+
+<doc>
+        <view id="System">
+                <display>System</display>
+                <group id="axi">
+                        <display>AXI</display>
+                        <item>&C_S_AXIS_DATA_WIDTH;</item>
+                </group>
+                <group id="sim_record">
+                        <display>Name of the output file to which received data should be
+                        written.</display>
+                        <item>&output_file;</item>
+                </group>
+	</view>
+</doc>

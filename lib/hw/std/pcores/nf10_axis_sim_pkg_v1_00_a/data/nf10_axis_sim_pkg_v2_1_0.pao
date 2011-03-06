@@ -1,0 +1,15 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_axis_sim_pkg_v2_1_0.pao
+#//
+#//  Description:
+#//          Peripheral Analyze Order File for AXI stream simulation I/O
+#//          support package.  Not for direct instantiation.
+#//                 
+#////////////////////////////////////////////////////////////////////////
+
+# Implementation for this pcore
+lib nf10_axis_sim_pkg_v1_00_a nf10_axis_sim_pkg vhdl

@@ -1,0 +1,44 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_axi_sim_record_v2_1_0.mpd
+#//
+#//  Description:
+#//          Microprocessor Peripheral Description File for AXI Stream
+#//          recorder.  Records traffic received from an AXI Stream
+#//          master to an AXI grammar formatted text file.
+#//                 
+#////////////////////////////////////////////////////////////////////////
+
+BEGIN nf10_axis_sim_record
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION HDL = VHDL
+OPTION USAGE_LEVEL = BASE_USER
+OPTION STYLE = HDL
+OPTION RUN_NGCBUILD = TRUE
+OPTION IMP_NETLIST = TRUE
+OPTION IP_GROUP = Communication High-Speed:MICROBLAZE
+OPTION DESC = NetFPGA-10G AXI4-Stream recorder (to disc)
+OPTION LONG_DESC = Records traffic received from an AXI Stream master to an AXI grammar formatted text file.
+
+## Bus Interfaces
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_S_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (8,32,64,256), BUS = S_AXIS
+PARAMETER output_file = ../../stream_data_out.axi, DT = STRING
+
+## Ports
+PORT aclk = "", DIR = I, SIGIS = CLK, BUS = S_AXIS, ASSIGNMENT=REQUIRE
+
+PORT s_axis_tdata = TDATA, DIR = I, VEC = [C_S_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tstrb = TSTRB, DIR = I, VEC = [(C_S_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tvalid = TVALID, DIR = I, BUS = S_AXIS
+PORT s_axis_tready = TREADY, DIR = O, BUS = S_AXIS
+PORT s_axis_tlast = TLAST, DIR = I, BUS = S_AXIS
+
+END

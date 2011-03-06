@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+        <!ENTITY C_M_AXIS_DATA_WIDTH '
+        <widget id="C_M_AXIS_DATA_WIDTH">
+                        <key>C_M_AXIS_DATA_WIDTH</key>
+                <label>Master Stream Data Width</label>
+        </widget>
+        '>
+        <!ENTITY input_file '
+		<widget id="input_file">
+		<key>input_file</key>
+		<label>Name of the input file from which AXI stream data
+		should be read.</label>
+		<tip></tip>
+        </widget>
+	'>	
+]>
+
+<doc>
+        <view id="System">
+                <display>System</display>
+                <group id="axi">
+                        <display>AXI</display>
+                        <item>&C_M_AXIS_DATA_WIDTH;</item>
+                </group>
+                <group id="sim_stim">
+                        <display>Name of the input file from which AXI stream
+                        data should be read.</display>
+                        <item>&input_file;</item>
+                </group>
+	</view>
+</doc>
