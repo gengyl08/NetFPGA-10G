@@ -22,7 +22,8 @@ package nf10_axis_sim_pkg is
     -- lookahead_char()
     --
     --	Non-destructively parse line for first non-whitespace character.
-    procedure lookahead_char( l: inout line; c: out character );
+    --  Caller should check 'ok' to ensure 'c' has valid data.
+    procedure lookahead_char( l: inout line; c: out character; ok: out boolean );
 
     -----------------------------------------------------------------------
     -- read_char()
@@ -51,15 +52,18 @@ package body nf10_axis_sim_pkg is
     -- lookahead_char()
     --
     --	Non-destructively parse line for first non-whitespace character.
-    procedure lookahead_char( l: inout line; c: out character ) is
+    --  Caller should check 'ok' to ensure 'c' has valid data.
+    procedure lookahead_char( l: inout line; c: out character; ok: out boolean ) is
 	variable i: natural;
     begin
 	for i in 1 to l.all'length loop
 	    if l(i) /= ' ' and l(i) /= ht then
 		c := l(i);
-		exit;
+		ok := true;
+		return;
 	    end if;
 	end loop;
+	ok := false;
     end procedure;
 
     -----------------------------------------------------------------------

@@ -67,10 +67,10 @@ begin
 	    end loop;
 	end procedure;
 	-----------------------------------------------------------------------
-	variable eof: boolean;
 	variable l: line;
 	variable i: integer;
 	variable c: character;
+	variable ok: boolean;
     begin
 	quiescent;  			-- sane initial outputs
 
@@ -87,7 +87,8 @@ begin
 	while not endfile( f ) loop
 	    -- Main dispatch: Get and parse input
 	    readline( f, l );
-	    lookahead_char( l, c );
+	    lookahead_char( l, c, ok );
+	    next when not ok;
 
 	    -- operator *(N): wait for N cycles
 	    if c = '*' then   		-- wait n cycles
