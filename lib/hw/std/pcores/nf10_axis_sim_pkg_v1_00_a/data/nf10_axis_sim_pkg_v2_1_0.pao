@@ -12,4 +12,4 @@
 #////////////////////////////////////////////////////////////////////////
 
 # Implementation for this pcore
-lib nf10_axis_sim_pkg_v1_00_a nf10_axis_sim_pkg vhdl
+simlib nf10_axis_sim_pkg_v1_00_a nf10_axis_sim_pkg vhdl

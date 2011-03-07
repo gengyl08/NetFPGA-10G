@@ -12,7 +12,7 @@
 #////////////////////////////////////////////////////////////////////////
 
 # Common I/O handling package
-lib nf10_axis_sim_pkg_v1_00_a all
+simlib nf10_axis_sim_pkg_v1_00_a all
 
 # Implementation for this pcore
-lib nf10_axis_sim_stim_v1_00_a nf10_axis_sim_stim vhdl
+simlib nf10_axis_sim_stim_v1_00_a nf10_axis_sim_stim vhdl
