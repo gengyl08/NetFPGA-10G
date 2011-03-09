@@ -2,10 +2,6 @@
 
 #///////////////////////////////////////////////////////////////////////
 #
-#  NetFPGA-10G http://www.netfpga.org
-#
-#  File:   production_test.py
-#
 #  Description:
 #          This python script orchestrates the software end of the 
 #          production test by invoking various other programs.
@@ -77,7 +73,7 @@ TIMEOUT		= 5
 print "Running PCIe DMA test... (will take " + str(RUNTIME) + " seconds)..."
 
 # Get the bar0 address of the PCIe core on the FPGA.
-lspci_pattern = re.compile('RAM memory: Xilinx Corporation Unknown device.*?Memory at (\w{8})', re.DOTALL)
+lspci_pattern = re.compile('RAM memory: Xilinx Corporation.*?Memory at (\w{8})', re.DOTALL)
 lspci_output = commands.getoutput("lspci -vx")
 lspci_match = lspci_pattern.search(lspci_output)
 if lspci_match :
