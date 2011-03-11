@@ -3,7 +3,7 @@
 #//  NetFPGA-10G http://www.netfpga.org
 #//
 #//  Module:
-#//          nf10_axi_sim_record_v2_1_0.mpd
+#//          nf10_axis_sim_record_v2_1_0.mpd
 #//
 #//  Description:
 #//          Microprocessor Peripheral Description File for AXI Stream
