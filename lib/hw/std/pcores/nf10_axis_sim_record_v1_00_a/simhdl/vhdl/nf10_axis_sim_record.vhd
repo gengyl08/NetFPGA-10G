@@ -68,6 +68,9 @@ begin
 		else
 		    write( l, string'(",") );
 		end if;
+
+		-- Write out timestamp
+		write( l, ht & ht & string'("# ") & integer'image(now / 1 ns) & string'(" ns") );
 		writeline( f, l );
 	    else  			-- S_AXIS_TVALID = '0'
 		-- record bubble
