@@ -17,8 +17,9 @@
 #
 ################################################################################
 
-NF10_HW_LIB_DIR = lib/hw/std/pcores
-NF10_SW_LIB_DIR = lib/sw/std/drivers
+NF10_HW_LIB_DIR   = lib/hw/std/pcores
+NF10_SW_LIB_DIR   = lib/sw/std/drivers
+NF10_SCRIPTS_DIR  = tools/scripts
 XILINX_HW_LIB_DIR = $(XILINX_EDK)/hw/XilinxProcessorIPLib/pcores
 XILINX_SW_LIB_DIR = $(XILINX_EDK)/sw/XilinxProcessorIPLib/drivers
 HW_LIB_DIR_INSTANCES := $(shell cd $(NF10_HW_LIB_DIR) && find . -maxdepth 1 -type d)
@@ -41,3 +42,4 @@ subdirs:
 	$(MAKE) -C $(NF10_HW_LIB_DIR)/nf10_1g_interface_v1_00_a/
 	$(MAKE) -C $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/
 	$(MAKE) -C $(NF10_HW_LIB_DIR)/nf10_mdio_v1_00_a/
+	$(MAKE) -C $(NF10_SCRIPTS_DIR)/axitools
