@@ -1,17 +1,3 @@
-#///////////////////////////////////////////////////////////////////////
-#
-#  NetFPGA-10G http://www.netfpga.org
-#
-#  File:   Makefile
-#
-#  Description:
-#          Makefile for production test software
-#
-#  Revision history:
-#          2010/11/04 Jonathan Ellithorpe: Initial check-in
-#
-#///////////////////////////////////////////////////////////////////////
-
 SRC_DIR			= src
 BUILD_DIR		= bin
 SCRIPTS_DIR		= scripts
@@ -19,8 +5,8 @@ MINICOM_OUTPUT_DIR	= output/minicom
 REPORTS_OUTPUT_DIR	= output/reports
 
 all:
-	g++ -static -Wall -I./include -g ${SRC_DIR}/dma_test.cxx -lpthread -o ${BUILD_DIR}/dma_test
-	g++ -static -Wall -I./include -g ${SRC_DIR}/reg_report.cxx -lpthread -o ${BUILD_DIR}/reg_report
+	g++ -Wall -I./include -g ${SRC_DIR}/dma_test.cxx -lpthread -o ${BUILD_DIR}/dma_test
+	g++ -Wall -I./include -g ${SRC_DIR}/reg_report.cxx -lpthread -o ${BUILD_DIR}/reg_report
 
 tar:
 	make totally_clean
