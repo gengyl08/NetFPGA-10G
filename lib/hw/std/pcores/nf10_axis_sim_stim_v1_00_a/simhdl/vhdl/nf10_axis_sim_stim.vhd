@@ -70,7 +70,7 @@ begin
 	variable l: line;
 	variable i: integer;
 	variable c: character;
-	variable ok: boolean;
+	variable ok, dontcare: boolean;
     begin
 	quiescent;  			-- sane initial outputs
 
@@ -129,9 +129,15 @@ begin
 		end loop;
 
 		-- parse out each component of the stimulus
-		parse_slv( l, M_AXIS_TDATA );
+		parse_slv( l, M_AXIS_TDATA, dontcare );
+		assert not dontcare
+		    report "bad input: nf10_axis_sim_stim doesn't accept 'don't-cares'"
+		    severity failure;
 		read_char( l, c );	-- discard ','
-		parse_slv( l, M_AXIS_TSTRB );
+		parse_slv( l, M_AXIS_TSTRB, dontcare );
+		assert not dontcare
+		    report "bad input: nf10_axis_sim_stim doesn't accept 'don't-cares'"
+		    severity failure;
 		read_char( l, c );	-- read terminal flag for TLAST...
 		if c = '.' then  	-- '.' == end of packet
 		    M_AXIS_TLAST <= '1';
