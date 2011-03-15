@@ -1,0 +1,11 @@
+##############################################################################
+## Filename:          /home/adwait/nf10/netfpga-10g-dev/projects/loopback_test/hw/pcores/input_arbiter_wrapper_v1_00_a/data/input_arbiter_wrapper_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Fri Dec 31 16:06:33 2010 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib input_arbiter_wrapper_v1_00_a controller verilog
+lib input_arbiter_wrapper_v1_00_a input_arbiter verilog
+lib input_arbiter_wrapper_v1_00_a packet_stats verilog
+lib input_arbiter_wrapper_v1_00_a datapath_mux verilog
+lib input_arbiter_wrapper_v1_00_a arbiter_wrapper verilog
