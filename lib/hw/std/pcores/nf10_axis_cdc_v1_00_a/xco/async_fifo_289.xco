@@ -1,7 +1,7 @@
 ##############################################################
 #
-# Xilinx Core Generator version 12.4
-# Date: Mon Mar 28 11:47:29 2011
+# Xilinx Core Generator version 13.1
+# Date: Fri Apr  1 14:27:08 2011
 #
 ##############################################################
 #
@@ -12,19 +12,21 @@
 #
 ##############################################################
 #
+NEWPROJECT .
+SETPROJECT .
 # BEGIN Project Options
 SET addpads = false
 SET asysymbol = true
 SET busformat = BusFormatAngleBracketNotRipped
 SET createndf = false
 SET designentry = VHDL
-SET device = xc6vcx75t
-SET devicefamily = virtex6
+SET device = xc5vtx240t
+SET devicefamily = virtex5
 SET flowvendor = Other
 SET formalverification = false
 SET foundationsym = false
 SET implementationfiletype = Ngc
-SET package = ff484
+SET package = ff1759
 SET removerpms = false
 SET simulationfiles = Behavioral
 SET speedgrade = -2
@@ -32,7 +34,7 @@ SET verilogsim = false
 SET vhdlsim = true
 # END Project Options
 # BEGIN Select
-SELECT Fifo_Generator family Xilinx,_Inc. 7.2
+SELECT Fifo_Generator xilinx.com:ip:fifo_generator:8.1
 # END Select
 # BEGIN Parameters
 CSET add_ngc_constraint_axi=false
@@ -51,7 +53,7 @@ CSET component_name=async_fifo_289
 CSET data_count=false
 CSET data_count_width=6
 CSET disable_timing_violations=true
-CSET disable_timing_violations_axi=false
+CSET disable_timing_violations_axi=true
 CSET dout_reset_value=0
 CSET empty_threshold_assert_value=4
 CSET empty_threshold_assert_value_axis=1022
@@ -79,20 +81,21 @@ CSET enable_ecc_rdch=false
 CSET enable_ecc_wach=false
 CSET enable_ecc_wdch=false
 CSET enable_ecc_wrch=false
-CSET enable_prog_flags_axis=false
-CSET enable_prog_flags_rach=false
-CSET enable_prog_flags_rdch=false
-CSET enable_prog_flags_wach=false
-CSET enable_prog_flags_wdch=false
-CSET enable_prog_flags_wrch=false
+CSET enable_handshake_flag_options_axis=false
+CSET enable_handshake_flag_options_rach=false
+CSET enable_handshake_flag_options_rdch=false
+CSET enable_handshake_flag_options_wach=false
+CSET enable_handshake_flag_options_wdch=false
+CSET enable_handshake_flag_options_wrch=false
 CSET enable_read_channel=false
+CSET enable_read_pointer_increment_by2=false
 CSET enable_reset_synchronization=true
 CSET enable_ruser=false
 CSET enable_tdata=false
 CSET enable_tdest=false
 CSET enable_tid=false
 CSET enable_tkeep=false
-CSET enable_tlast=true
+CSET enable_tlast=false
 CSET enable_tready=true
 CSET enable_tstrobe=false
 CSET enable_tuser=false
@@ -104,13 +107,13 @@ CSET fifo_application_type_rdch=Data_FIFO
 CSET fifo_application_type_wach=Data_FIFO
 CSET fifo_application_type_wdch=Data_FIFO
 CSET fifo_application_type_wrch=Data_FIFO
-CSET fifo_implementation=Independent_Clocks_Distributed_RAM
-CSET fifo_implementation_axis=Common_Clock_Distributed_RAM
-CSET fifo_implementation_rach=Common_Clock_Distributed_RAM
+CSET fifo_implementation=Independent_Clocks_Block_RAM
+CSET fifo_implementation_axis=Common_Clock_Block_RAM
+CSET fifo_implementation_rach=Common_Clock_Block_RAM
 CSET fifo_implementation_rdch=Common_Clock_Block_RAM
-CSET fifo_implementation_wach=Common_Clock_Distributed_RAM
+CSET fifo_implementation_wach=Common_Clock_Block_RAM
 CSET fifo_implementation_wdch=Common_Clock_Block_RAM
-CSET fifo_implementation_wrch=Common_Clock_Distributed_RAM
+CSET fifo_implementation_wrch=Common_Clock_Block_RAM
 CSET full_flags_reset_value=1
 CSET full_threshold_assert_value=63
 CSET full_threshold_assert_value_axis=1023
@@ -121,7 +124,6 @@ CSET full_threshold_assert_value_wdch=1023
 CSET full_threshold_assert_value_wrch=1023
 CSET full_threshold_negate_value=62
 CSET id_width=4
-CSET image_type=Application_Diagram
 CSET inject_dbit_error=false
 CSET inject_dbit_error_axis=false
 CSET inject_dbit_error_rach=false
@@ -171,6 +173,12 @@ CSET rdch_type=FIFO
 CSET read_clock_frequency=1
 CSET read_data_count=false
 CSET read_data_count_width=6
+CSET register_slice_mode_axis=Fully_Registered
+CSET register_slice_mode_rach=Fully_Registered
+CSET register_slice_mode_rdch=Fully_Registered
+CSET register_slice_mode_wach=Fully_Registered
+CSET register_slice_mode_wdch=Fully_Registered
+CSET register_slice_mode_wrch=Fully_Registered
 CSET reset_pin=true
 CSET reset_type=Asynchronous_Reset
 CSET ruser_width=1
@@ -200,5 +208,8 @@ CSET write_data_count=false
 CSET write_data_count_width=6
 CSET wuser_width=1
 # END Parameters
+# BEGIN Extra information
+MISC pkg_timestamp=2011-02-03T22:23:32.000Z
+# END Extra information
 GENERATE
-# CRC: 42abfb6f
+# CRC: bed5f7f0
