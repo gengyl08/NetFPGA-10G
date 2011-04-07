@@ -1,0 +1,17 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_simple_slave_v2_1_0.pao
+#//
+#//  Description:
+#//          Peripheral Analyze Order File
+#//                 
+#//  Revision history:
+#//          2011/01/15 mblott: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
+
+lib nf10_simple_slave_v1_00_a FIFO2.v verilog
+lib nf10_simple_slave_v1_00_a nf10_simple_slave.v verilog
