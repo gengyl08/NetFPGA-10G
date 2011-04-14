@@ -11,6 +11,7 @@
 //                 
 //  Revision history:
 //          2011/2/6 hyzeng: Initial check-in
+//			2011/4/13 hyzeng: Updated with new NetFPGA-10G AXI spec
 //
 ////////////////////////////////////////////////////////////////////////
 module nf10_axis_converter
@@ -18,18 +19,14 @@ module nf10_axis_converter
     // Master AXI Stream Data Width
     parameter C_M_AXIS_DATA_WIDTH=64,
     parameter C_S_AXIS_DATA_WIDTH=256,
+    
+    parameter C_TUSER_DATA_WIDTH=128,
 
-    parameter C_INCLUDE_LEN=1,
-    parameter C_M_AXIS_LEN_DATA_WIDTH=16,
+    parameter C_LEN_DATA_WIDTH=16,
+    parameter C_SPT_DATA_WIDTH=8,
+    parameter C_DPT_DATA_WIDTH=8,
     
-    parameter C_INCLUDE_ERR=1,
-    
-    parameter C_INCLUDE_SPT=1,
-    parameter C_M_AXIS_SPT_DATA_WIDTH=8,
     parameter C_SRC_PORT=0,
-    
-    parameter C_INCLUDE_DPT=1,
-    parameter C_M_AXIS_DPT_DATA_WIDTH=8,
     parameter C_DST_PORT=0
 )
 (
@@ -41,25 +38,15 @@ module nf10_axis_converter
     // Master Stream Ports
     output reg [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
     output reg [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
+    output [C_TUSER_DATA_WIDTH-1:0] m_axis_tuser,
     output reg m_axis_tvalid,
     input  m_axis_tready,
     output reg m_axis_tlast,
     
-    output [C_M_AXIS_LEN_DATA_WIDTH - 1:0] m_axis_len_tdata,
-    output reg m_axis_len_tvalid,
-
-    output [C_M_AXIS_SPT_DATA_WIDTH - 1:0] m_axis_spt_tdata,
-    output m_axis_spt_tvalid,
-
-    output [C_M_AXIS_DPT_DATA_WIDTH - 1:0] m_axis_dpt_tdata,
-    output m_axis_dpt_tvalid,
-    
-    output m_axis_err_tvalid,
-    input  s_axis_err_tvalid,
-    
     // Slave Stream Ports
     input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_tdata,
     input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb,
+    input [C_TUSER_DATA_WIDTH-1:0] s_axis_tuser,
     input  s_axis_tvalid,
     output s_axis_tready,
     input  s_axis_tlast
@@ -80,6 +67,8 @@ module nf10_axis_converter
    localparam IN_FIFO_DEPTH_BIT = log2(MAX_PKT_SIZE/(C_S_AXIS_DATA_WIDTH / 8));   
    localparam M_S_RATIO_COUNT = C_M_AXIS_DATA_WIDTH / C_S_AXIS_DATA_WIDTH;
    localparam S_M_RATIO_COUNT = C_S_AXIS_DATA_WIDTH / C_M_AXIS_DATA_WIDTH;
+   
+   localparam C_INCLUDE_LEN = 1; // include LEN
 
    wire in_fifo_nearly_full;
    reg  in_fifo_rd_en;
@@ -92,8 +81,8 @@ module nf10_axis_converter
    reg  length_fifo_rd_en;
    wire length_fifo_empty;
    wire length_fifo_nearly_full;
-   reg  [C_M_AXIS_LEN_DATA_WIDTH - 1:0] length_in;
-   reg  [C_M_AXIS_LEN_DATA_WIDTH - 1:0] length_prev, length_prev_next;
+   reg  [C_LEN_DATA_WIDTH - 1:0] length_in;
+   reg  [C_LEN_DATA_WIDTH - 1:0] length_prev, length_prev_next;
    reg  [LENGTH_COUNTER_WIDTH:0] local_sum;
    
    reg  [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_prev, m_axis_tdata_prev_next;
@@ -101,6 +90,12 @@ module nf10_axis_converter
    
    reg  [7:0] counter, counter_next;
    reg  first_time, first_time_next;
+   
+   wire [C_LEN_DATA_WIDTH - 1:0] tuser_len;
+   wire [C_SPT_DATA_WIDTH - 1:0] tuser_spt = C_SRC_PORT;
+   wire [C_DPT_DATA_WIDTH - 1:0] tuser_dpt = C_DST_PORT;
+   
+   assign m_axis_tuser = {96'b0, tuser_dpt, tuser_spt, tuser_len}; // According to NetFPGA-10G metadata format.
    
    integer i, j, k;
     
@@ -124,13 +119,13 @@ module nf10_axis_converter
     generate
     if(C_INCLUDE_LEN) begin: ENABLE_LEN    
     fallthrough_small_fifo #
-    (.WIDTH(C_M_AXIS_LEN_DATA_WIDTH), 
+    (.WIDTH(C_LEN_DATA_WIDTH), 
      .MAX_DEPTH_BITS(5))
       length_fifo
         (.din           (length_in),  // Data in
          .wr_en         (length_fifo_wr_en),             // Write enable
          .rd_en         (length_fifo_rd_en),    // Read the next word
-         .dout          (m_axis_len_tdata),
+         .dout          (tuser_len),
          .full          (),
          .nearly_full   (length_fifo_nearly_full),
          .prog_full     (),
@@ -171,13 +166,8 @@ module nf10_axis_converter
     endgenerate
     
     // Generate metadata at the first beat of data
-    assign m_axis_spt_tvalid = m_axis_len_tvalid;
-    assign m_axis_spt_tdata  = C_SRC_PORT;
-    assign m_axis_dpt_tvalid = m_axis_len_tvalid;
-    assign m_axis_dpt_tdata  = C_DST_PORT;
-    
-    // FIXME: ERR logic and packet dropping to be implemented
-    assign m_axis_err_tvalid = 0;
+    assign tuser_spt  = C_SRC_PORT;
+    assign tuser_dpt  = C_DST_PORT;
     
     generate
     if(C_M_AXIS_DATA_WIDTH >= C_S_AXIS_DATA_WIDTH) begin: MASTER_WIDER    
@@ -192,7 +182,6 @@ module nf10_axis_converter
         counter_next = counter;  
         first_time_next = first_time;    
         m_axis_tvalid = 1'b0;
-        m_axis_len_tvalid = 1'b0;  
         
         if(~in_fifo_empty) begin
             for(j=0;j<C_S_AXIS_DATA_WIDTH;j=j+1) m_axis_tdata[C_S_AXIS_DATA_WIDTH*counter+j] = s_axis_tdata_fifo[j];
@@ -201,7 +190,6 @@ module nf10_axis_converter
             if(counter == M_S_RATIO_COUNT - 1) begin
 				if(first_time) begin
 					if(~length_fifo_empty) begin
-                        m_axis_len_tvalid = 1'b1;
                         m_axis_tvalid = 1'b1;
                         if(m_axis_tready) begin
                             in_fifo_rd_en = 1'b1;
@@ -276,12 +264,10 @@ module nf10_axis_converter
         counter_next = counter;  
         first_time_next = first_time;    
         m_axis_tvalid = 1'b0;
-        m_axis_len_tvalid = 1'b0;
         
         if(~in_fifo_empty) begin
         	if(first_time) begin
 				if(~length_fifo_empty) begin
-                    m_axis_len_tvalid = 1'b1;
                     m_axis_tvalid = 1'b1;
                     if(m_axis_tready) begin
                         length_fifo_rd_en = 1'b1;
