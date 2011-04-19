@@ -43,4 +43,4 @@ subdirs:
 	$(MAKE) -C $(NF10_HW_LIB_DIR)/nf10_axis_cdc_v1_00_a/
 	$(MAKE) -C $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/
 	$(MAKE) -C $(NF10_HW_LIB_DIR)/nf10_mdio_v1_00_a/
-	$(MAKE) -C $(NF10_SCRIPTS_DIR)/axitools
+	#$(MAKE) -C $(NF10_SCRIPTS_DIR)/axitools
