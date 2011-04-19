@@ -60,8 +60,8 @@ t_valid_len_out,t_valid_spt_out,t_valid_dpt_out,t_valid_err_out
 
 );
 
-// Set bit width here...32 | 64 | 256
-parameter WIDTH = 32;
+//This parameter will take the value of the top-level mpd file width selection
+parameter WIDTH = 0;
 
 input t_valid0_in,t_valid1_in,t_valid2_in,t_valid3_in,t_valid4_in,ACLK,t_ready_in;
 input t_last0_in,t_last1_in,t_last2_in,t_last3_in,t_last4_in;

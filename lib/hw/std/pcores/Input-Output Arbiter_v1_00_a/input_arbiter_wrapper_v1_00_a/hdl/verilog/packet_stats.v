@@ -18,7 +18,7 @@
 //
 // Revision: 
 // Revision 0.01 - File Created
-// Additional Comments: THIS CODE IS NOT COMPLETE!!!
+// Additional Comments: THIS CODE IS NOT COMPLETE!!! Axi-lite code interface will go here!
 //
 //////////////////////////////////////////////////////////////////////////////////
 module packet_stats(ACLK,statout0,statout1,statout2,statout3,statout4,statout5,

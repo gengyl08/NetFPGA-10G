@@ -40,7 +40,7 @@ t_sb_dpt_out,t_sb_spt_out,t_sb_len_out,t_strb_out,t_data_out,
 t_valid_len_out,t_valid_spt_out,t_valid_dpt_out,t_valid_err_out,
 t_valid_out,ACLK,rst);
 
-parameter WIDTH = 32;
+parameter WIDTH = 0;
 
 input ACLK,t_spt;
 input rst;

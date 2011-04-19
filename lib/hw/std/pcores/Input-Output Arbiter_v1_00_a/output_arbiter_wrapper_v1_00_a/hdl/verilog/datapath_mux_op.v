@@ -46,8 +46,8 @@ rst,
 t_sb_len4_valid_out,t_sb_spt4_valid_out,t_sb_dpt4_valid_out,t_sb_err4_valid_out
 );
 
-
-parameter WIDTH =64;
+// This parameter will get overwritten at instantiation
+parameter WIDTH =0;
 parameter k = ((WIDTH-1)+(WIDTH/8));
 
 output reg t_last0_out,t_last1_out, t_last2_out,t_last3_out,t_last4_out;

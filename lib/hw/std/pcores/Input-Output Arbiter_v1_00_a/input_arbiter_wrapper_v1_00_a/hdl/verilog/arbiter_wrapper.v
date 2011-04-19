@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module input_arbiter_wrapper #(parameter WIDTH = 256)
+module input_arbiter_wrapper #(parameter WIDTH = 0)
 	
 	(
 	input [WIDTH -1:0] s_axis_mac0_tdata,
@@ -44,6 +44,12 @@ module input_arbiter_wrapper #(parameter WIDTH = 256)
 	input   s_axis_mac3_tlast,
 	input   s_axis_mac3_tvalid,
 	output   s_axis_mac3_tready,
+
+	input [WIDTH -1:0] s_axis_mac4_tdata,
+	input [(WIDTH/8)-1:0]  s_axis_mac4_tstrb,
+	input   s_axis_mac4_tlast,
+	input   s_axis_mac4_tvalid,
+	output   s_axis_mac4_tready,
 	
 	output [WIDTH -1:0] m_axis_udp_tdata,
 	output [(WIDTH/8)-1:0]  m_axis_udp_tstrb,
@@ -68,14 +74,14 @@ input_arbiter #(WIDTH) iarbiter(
 
 
 //data channel signals 
-.t_valid0_in(s_axis_mac0_tvalid),.t_valid1_in(s_axis_mac1_tvalid),.t_valid2_in(s_axis_mac2_tvalid),.t_valid3_in(s_axis_mac3_tvalid),.t_valid4_in(0),
-.t_last0_in(s_axis_mac0_tlast),.t_last1_in(s_axis_mac1_tlast),.t_last2_in(s_axis_mac2_tlast),.t_last3_in(s_axis_mac3_tlast),.t_last4_in(0),
-.t_strb0_in(s_axis_mac0_tstrb),.t_strb1_in(s_axis_mac1_tstrb),.t_strb2_in(s_axis_mac2_tstrb),.t_strb3_in(s_axis_mac3_tstrb),.t_strb4_in(0),
-.t_data0_in(s_axis_mac0_tdata),.t_data1_in(s_axis_mac1_tdata),.t_data2_in(s_axis_mac2_tdata),.t_data3_in(s_axis_mac3_tdata),.t_data4_in(0),
+.t_valid0_in(s_axis_mac0_tvalid),.t_valid1_in(s_axis_mac1_tvalid),.t_valid2_in(s_axis_mac2_tvalid),.t_valid3_in(s_axis_mac3_tvalid),.t_valid4_in(s_axis_mac4_tvalid),
+.t_last0_in(s_axis_mac0_tlast),.t_last1_in(s_axis_mac1_tlast),.t_last2_in(s_axis_mac2_tlast),.t_last3_in(s_axis_mac3_tlast),.t_last4_in(s_axis_mac4_tlast),
+.t_strb0_in(s_axis_mac0_tstrb),.t_strb1_in(s_axis_mac1_tstrb),.t_strb2_in(s_axis_mac2_tstrb),.t_strb3_in(s_axis_mac3_tstrb),.t_strb4_in(s_axis_mac3_tstrb),
+.t_data0_in(s_axis_mac0_tdata),.t_data1_in(s_axis_mac1_tdata),.t_data2_in(s_axis_mac2_tdata),.t_data3_in(s_axis_mac3_tdata),.t_data4_in(s_axis_mac3_tdata),
 //arbiter to user logic signals
 .t_ready_in(m_axis_udp_tready),
 //ariber to preprocessor signals
-.t_ready0_out(s_axis_mac0_tready),.t_ready1_out(s_axis_mac1_tready),.t_ready2_out(s_axis_mac2_tready),.t_ready3_out(s_axis_mac3_tready),
+.t_ready0_out(s_axis_mac0_tready),.t_ready1_out(s_axis_mac1_tready),.t_ready2_out(s_axis_mac2_tready),.t_ready3_out(s_axis_mac3_tready),.t_ready4_out(s_axis_mac4_tready),
 //common signals
 .ACLK(clk),
 //output signals to user logic

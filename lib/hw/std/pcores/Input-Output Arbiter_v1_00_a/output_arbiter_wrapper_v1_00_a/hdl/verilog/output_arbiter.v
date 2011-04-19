@@ -43,8 +43,8 @@ t_sb_len3_valid_out,t_sb_spt3_valid_out,t_sb_dpt3_valid_out,t_sb_err3_valid_out,
 t_sb_len4_valid_out,t_sb_spt4_valid_out,t_sb_dpt4_valid_out,t_sb_err4_valid_out
 );
 
-// Set bit width here...32 | 64 | 256
-parameter WIDTH = 32;
+// This WIDTH parameter will be overwritten at instantiation
+parameter WIDTH = 0;
 
 //input t_valid0_in,t_valid1_in,t_valid2_in,t_valid3_in,t_valid4_in,ACLK;
 input [WIDTH-1:0]data_in;
