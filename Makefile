@@ -20,11 +20,11 @@
 
 NF10_HW_LIB_DIR   = lib/hw/std/pcores
 NF10_SW_LIB_DIR   = lib/sw/std/drivers
-XILINX_HW_LIB_DIR_LOCAL   = lib/hw/xilinx/pcores
+NF10_HW_LIB_DIR_XILINX   = lib/hw/xilinx/pcores
 NF10_SCRIPTS_DIR  = tools/scripts
 XILINX_HW_LIB_DIR = $(XILINX_EDK)/hw/XilinxProcessorIPLib/pcores
 XILINX_SW_LIB_DIR = $(XILINX_EDK)/sw/XilinxProcessorIPLib/drivers
-HW_LIB_DIR_INSTANCES := $(shell cd $(NF10_HW_LIB_DIR) && find . -maxdepth 1 -type d)
+HW_LIB_DIR_INSTANCES := $(shell cd $(NF10_HW_LIB_DIR_XILINX) && find . -maxdepth 1 -type d)
 HW_LIB_DIR_INSTANCES := $(basename $(patsubst ./%,%,$(HW_LIB_DIR_INSTANCES)))
 
 
@@ -32,9 +32,9 @@ cores: pcores subdirs
 
 pcores:
 	@for lib in $(HW_LIB_DIR_INSTANCES) ; do \
-		false | cp -ri $(XILINX_HW_LIB_DIR)/$$lib $(XILINX_HW_LIB_DIR_LOCAL) > /dev/null 2>&1; \
+		false | cp -ri $(XILINX_HW_LIB_DIR)/$$lib $(NF10_HW_LIB_DIR_XILINX) > /dev/null 2>&1; \
 	done;
-	@patch $(XILINX_HW_LIB_DIR_LOCAL)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.vhd $(XILINX_HW_LIB_DIR_LOCAL)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.diff;
+	@patch $(NF10_HW_LIB_DIR_XILINX)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.vhd $(NF10_HW_LIB_DIR_XILINX)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.diff;
 	@echo "/////////////////////////////////////////";
 	@echo "//Xilinx EDK pcores installed.";
 	@echo "/////////////////////////////////////////";
