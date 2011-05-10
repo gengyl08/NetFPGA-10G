@@ -206,7 +206,7 @@ BEGIN nf10_10g_interface
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_XAUI_REVERSE = 1
  BUS_INTERFACE M_AXIS = nf10_10g_interface_0_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_axis_converter_4_M_AXIS
  PORT axi_aclk = core_clk
  PORT refclk = refclk_A
  PORT dclk = mb_clk
@@ -233,8 +233,8 @@ BEGIN nf10_10g_interface
  PARAMETER INSTANCE = nf10_10g_interface_1
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_XAUI_REVERSE = 1
+ BUS_INTERFACE S_AXIS = nf10_axis_converter_5_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_10g_interface_1_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_10g_interface_1_M_AXIS
  PORT dclk = mb_clk
  PORT xaui_tx_l3_n = nf10_10g_interface_1_xaui_tx_l3_n
  PORT xaui_tx_l1_n = nf10_10g_interface_1_xaui_tx_l1_n
@@ -262,7 +262,7 @@ BEGIN nf10_10g_interface
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_XAUI_REVERSE = 1
  BUS_INTERFACE M_AXIS = nf10_10g_interface_2_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_10g_interface_2_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_axis_converter_6_M_AXIS
  PORT dclk = mb_clk
  PORT xaui_tx_l3_p = nf10_10g_interface_2_xaui_tx_l3_p
  PORT xaui_tx_l3_n = nf10_10g_interface_2_xaui_tx_l3_n
@@ -288,8 +288,8 @@ END
 BEGIN nf10_10g_interface
  PARAMETER INSTANCE = nf10_10g_interface_3
  PARAMETER HW_VER = 1.00.a
- BUS_INTERFACE S_AXIS = nf10_axis_converter_0_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_10g_interface_3_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_axis_converter_7_M_AXIS
  PORT xaui_tx_l3_p = nf10_10g_interface_3_xaui_tx_l3_p
  PORT xaui_tx_l3_n = nf10_10g_interface_3_xaui_tx_l3_n
  PORT xaui_tx_l0_p = nf10_10g_interface_3_xaui_tx_l0_p
@@ -371,7 +371,86 @@ END
 BEGIN nf10_axis_converter
  PARAMETER INSTANCE = nf10_axis_converter_0
  PARAMETER HW_VER = 1.00.a
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
+ BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_axis_converter_0_M_AXIS
+END
+
+BEGIN nf10_axis_converter
+ PARAMETER INSTANCE = nf10_axis_converter_1
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
+ BUS_INTERFACE M_AXIS = nf10_axis_converter_1_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_10g_interface_1_M_AXIS
+END
+
+BEGIN nf10_axis_converter
+ PARAMETER INSTANCE = nf10_axis_converter_2
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
+ BUS_INTERFACE S_AXIS = nf10_10g_interface_2_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_axis_converter_2_M_AXIS
+END
+
+BEGIN nf10_axis_converter
+ PARAMETER INSTANCE = nf10_axis_converter_3
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE S_AXIS = nf10_10g_interface_3_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_axis_converter_3_M_AXIS
+END
+
+BEGIN nf10_axis_converter
+ PARAMETER INSTANCE = nf10_axis_converter_4
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
+ BUS_INTERFACE M_AXIS = nf10_axis_converter_4_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_0
+END
+
+BEGIN nf10_axis_converter
+ PARAMETER INSTANCE = nf10_axis_converter_5
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
+ BUS_INTERFACE M_AXIS = nf10_axis_converter_5_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_1
+END
+
+BEGIN nf10_axis_converter
+ PARAMETER INSTANCE = nf10_axis_converter_6
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
+ BUS_INTERFACE M_AXIS = nf10_axis_converter_6_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_2
+END
+
+BEGIN nf10_axis_converter
+ PARAMETER INSTANCE = nf10_axis_converter_7
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
+ BUS_INTERFACE M_AXIS = nf10_axis_converter_7_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_3
+END
+
+BEGIN nf10_input_arbiter
+ PARAMETER INSTANCE = nf10_input_arbiter_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_AXIS_DATA_WIDTH = 256
+ BUS_INTERFACE M_AXIS = nf10_input_arbiter_0_M_AXIS
+ BUS_INTERFACE S_AXIS_0 = nf10_axis_converter_0_M_AXIS
+ BUS_INTERFACE S_AXIS_1 = nf10_axis_converter_1_M_AXIS
+ BUS_INTERFACE S_AXIS_2 = nf10_axis_converter_2_M_AXIS
+ BUS_INTERFACE S_AXIS_3 = nf10_axis_converter_3_M_AXIS
+END
+
+BEGIN nf10_bram_output_queues
+ PARAMETER INSTANCE = nf10_bram_output_queues_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_AXIS_DATA_WIDTH = 256
+ BUS_INTERFACE S_AXIS = nf10_input_arbiter_0_M_AXIS
+ BUS_INTERFACE M_AXIS_0 = nf10_bram_output_queues_0_M_AXIS_0
+ BUS_INTERFACE M_AXIS_1 = nf10_bram_output_queues_0_M_AXIS_1
+ BUS_INTERFACE M_AXIS_2 = nf10_bram_output_queues_0_M_AXIS_2
+ BUS_INTERFACE M_AXIS_3 = nf10_bram_output_queues_0_M_AXIS_3
 END
 
