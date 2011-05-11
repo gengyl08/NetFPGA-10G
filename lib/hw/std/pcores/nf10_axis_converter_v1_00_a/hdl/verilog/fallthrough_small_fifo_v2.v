@@ -9,10 +9,12 @@
 //   7/20/07 -- Set nearly full to 2^MAX_DEPTH_BITS - 1 by default so that it
 //              goes high a clock cycle early.
 //   2/11/09 -- jnaous: Rewrote to make much more efficient.
+//	 5/11/11 -- hyzeng: Rewrote based on http://www.billauer.co.il/reg_fifo.html
+//                      to improve timing by adding output register
 ///////////////////////////////////////////////////////////////////////////////
 `timescale 1ns/1ps
 
-  module fallthrough_small_fifo
+module fallthrough_small_fifo
     #(parameter WIDTH = 72,
       parameter MAX_DEPTH_BITS = 3,
       parameter PROG_FULL_THRESHOLD = 2**MAX_DEPTH_BITS - 1)
@@ -23,18 +25,24 @@
 
      input          rd_en,   // Read the next word
 
-     output [WIDTH-1:0]  dout,    // Data out
+     output reg [WIDTH-1:0]  dout,    // Data out
      output         full,
      output         nearly_full,
      output         prog_full,
-     output reg     empty,
+     output         empty,
 
      input          reset,
      input          clk
      );
 
-   reg  fifo_rd_en, empty_nxt;
+   reg                   fifo_valid, middle_valid, dout_valid;
+   reg [(WIDTH-1):0]     middle_dout;
 
+   wire [(WIDTH-1):0]    fifo_dout;
+   wire                  fifo_empty, fifo_rd_en;
+   wire                  will_update_middle, will_update_dout;
+
+   // orig_fifo is just a normal (non-FWFT) synchronous or asynchronous FIFO
    small_fifo
      #(.WIDTH (WIDTH),
        .MAX_DEPTH_BITS (MAX_DEPTH_BITS),
@@ -43,7 +51,7 @@
         (.din           (din),
          .wr_en         (wr_en),
          .rd_en         (fifo_rd_en),
-         .dout          (dout),
+         .dout          (fifo_dout),
          .full          (full),
          .nearly_full   (nearly_full),
          .prog_full     (prog_full),
@@ -52,122 +60,42 @@
          .clk           (clk)
          );
 
-   always @(*) begin
-      empty_nxt  = empty;
-      fifo_rd_en = 0;
-      case (empty)
-         1'b1: begin
-            if(!fifo_empty) begin
-               fifo_rd_en = 1;
-               empty_nxt  = 0;
-            end
-         end
-
-         1'b0: begin
-            if(rd_en) begin
-               if(fifo_empty) begin
-                  empty_nxt = 1;
-               end
-               else begin
-                  fifo_rd_en = 1;
-               end
-            end
-         end
-      endcase // case(empty)
-   end // always @ (*)
+   assign will_update_middle = fifo_valid && (middle_valid == will_update_dout);
+   assign will_update_dout = (middle_valid || fifo_valid) && (rd_en || !dout_valid);
+   assign fifo_rd_en = (!fifo_empty) && !(middle_valid && dout_valid && fifo_valid);
+   assign empty = !dout_valid;
 
    always @(posedge clk) begin
-      if(reset) begin
-         empty <= 1'b1;
-      end
-      else begin
-         empty <= empty_nxt;
-      end
-   end
-
-   // synthesis translate_off
-   always @(posedge clk)
-   begin
-      if (wr_en && full) begin
-         $display("%t ERROR: Attempt to write to full FIFO: %m", $time);
-      end
-      if (rd_en && empty) begin
-         $display("%t ERROR: Attempt to read an empty FIFO: %m", $time);
-      end
-   end // always @ (posedge clk)
-   // synthesis translate_on
-
-endmodule // fallthrough_small_fifo_v2
-
-// synthesis translate_off
-module fallthrough_small_fifo_tester();
-
-   reg [31:0] din = 0;
-   reg        wr_en = 0;
-   reg        rd_en = 0;
-   wire [31:0] dout;
-   wire        full;
-   wire        nearly_full;
-   wire        prog_full;
-   wire        empty;
-   reg         clk = 0;
-   reg         reset = 0;
-
-   integer     count = 0;
-
-   always #8 clk = ~clk;
-
-   fallthrough_small_fifo
-     #(.WIDTH (32),
-       .MAX_DEPTH_BITS (3),
-       .PROG_FULL_THRESHOLD (4))
-       fifo
-        (.din           (din),
-         .wr_en         (wr_en),
-         .rd_en         (rd_en),
-         .dout          (dout),
-         .full          (full),
-         .nearly_full   (nearly_full),
-         .prog_full     (prog_full),
-         .empty         (empty),
-         .reset         (reset),
-         .clk           (clk)
-         );
-
-   always @(posedge clk) begin
-      count <= count + 1;
-      reset <= 0;
-      wr_en <= 0;
-      rd_en <= 0;
-      if(count < 2) begin
-         reset <= 1'b1;
-      end
-      else if(count < 2 + 9) begin
-         wr_en <= 1;
-         din <= din + 1'b1;
-      end
-      else if(count < 2 + 8 + 4) begin
-         rd_en <= 1;
-      end
-      else if(count < 2 + 8 + 4 + 2) begin
-         din <= din + 1'b1;
-         wr_en <= 1'b1;
-      end
-      else if(count < 2 + 8 + 4 + 2 + 8) begin
-         din <= din + 1'b1;
-         wr_en <= 1'b1;
-         rd_en <= 1'b1;
-      end
-      else if(count < 2 + 8 + 4 + 2 + 8 + 4) begin
-         rd_en <= 1'b1;
-      end
-      else if(count < 2 + 8 + 4 + 2 + 8 + 4 + 8) begin
-         din <= din + 1'b1;
-         wr_en <= 1'b1;
-         rd_en <= 1'b1;
-      end
-   end // always @ (posedge clk)
-endmodule // fallthrough_small_fifo_tester
-// synthesis translate_on
-
-/* vim:set shiftwidth=3 softtabstop=3 expandtab: */
+      if (reset)
+         begin
+            fifo_valid <= 0;
+            middle_valid <= 0;
+            dout_valid <= 0;
+            dout <= 0;
+            middle_dout <= 0;
+         end
+      else
+         begin
+            if (will_update_middle)
+               middle_dout <= fifo_dout;
+            
+            if (will_update_dout)
+               dout <= middle_valid ? middle_dout : fifo_dout;
+            
+            if (fifo_rd_en)
+               fifo_valid <= 1;
+            else if (will_update_middle || will_update_dout)
+               fifo_valid <= 0;
+            
+            if (will_update_middle)
+               middle_valid <= 1;
+            else if (will_update_dout)
+               middle_valid <= 0;
+            
+            if (will_update_dout)
+               dout_valid <= 1;
+            else if (rd_en)
+               dout_valid <= 0;
+         end 
+     end
+endmodule

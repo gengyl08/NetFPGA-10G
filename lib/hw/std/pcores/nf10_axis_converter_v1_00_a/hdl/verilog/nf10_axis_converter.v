@@ -350,6 +350,7 @@ module nf10_axis_converter
 			    m_axis_tvalid = 1'b1;
 			    counter_next = counter + 1'b1;
 			    if(m_axis_tready) begin
+			    	in_fifo_rd_en = 1'b1;
 			        if(s_axis_tlast_fifo) begin // Last SLAVE word
 			            if(|s_axis_tstrb_fifo[C_M_AXIS_DATA_WIDTH/8 * (counter+1) +: C_M_AXIS_DATA_WIDTH/8]) begin
 			            // Next MASTER strobe is empty == This master word is the last
@@ -357,7 +358,6 @@ module nf10_axis_converter
 			                m_axis_tlast = 1'b1;
 			                counter_next = 0;
 			                first_time_next = 1'b1;
-			                in_fifo_rd_en = 1'b1;
 			            end
 			        end
 				end

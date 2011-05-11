@@ -92,7 +92,8 @@ module nf10_bram_output_queues
 
    // ------------- Regs/ wires -----------
    
-   wire [NUM_QUEUES-1:0]               nearly_full;
+   reg [NUM_QUEUES-1:0]                nearly_full;
+   wire [NUM_QUEUES-1:0]               nearly_full_fifo;
    wire [NUM_QUEUES-1:0]               empty;
    wire [C_USER_WIDTH-1:0]             fifo_out_tuser[NUM_QUEUES-1:0];
    wire [C_AXIS_DATA_WIDTH-1:0]        fifo_out_tdata[NUM_QUEUES-1:0];
@@ -120,7 +121,7 @@ module nf10_bram_output_queues
         (// Outputs
          .dout                           ({fifo_out_tlast[i], fifo_out_tuser[i], fifo_out_tstrb[i], fifo_out_tdata[i]}),
          .full                           (),
-         .nearly_full                    (nearly_full[i]),
+         .nearly_full                    (nearly_full_fifo[i]),
 	 	 .prog_full                      (),
          .empty                          (empty[i]),
          // Inputs
@@ -145,10 +146,10 @@ module nf10_bram_output_queues
 
         /* cycle between input queues until one is not empty */
         IDLE: begin
+           cur_queue_next = oq;
            if(s_axis_tvalid) begin
-              if(~|(nearly_full & oq)) begin // All interesting oqs are NOT full.
+              if(~|(nearly_full & oq)) begin // All interesting oqs are NOT _nearly_ full (able to fit in the maximum pacekt).
                   state_next = WR_PKT;
-                  cur_queue_next = oq;
               end
               else begin
               	  state_next = DROP;
@@ -158,12 +159,11 @@ module nf10_bram_output_queues
 
         /* wait until eop */
         WR_PKT: begin
-           if(s_axis_tvalid & ~|(nearly_full & cur_queue)) begin
+           s_axis_tready = 1;
+           if(s_axis_tvalid) begin
 				wr_en = cur_queue;
-				s_axis_tready = 1;
 				if(s_axis_tlast) begin
 					state_next = IDLE;
-					cur_queue_next = 0;
 				end           	
            end
         end // case: WR_PKT
@@ -187,6 +187,8 @@ module nf10_bram_output_queues
          state <= state_next;
          cur_queue <= cur_queue_next; 
       end
+      
+      nearly_full <= nearly_full_fifo;
    end
    
    
