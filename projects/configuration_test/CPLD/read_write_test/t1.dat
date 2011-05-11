@@ -1,0 +1,1966 @@
+assert111.........
+name = ddddddd..
+assert333.........
+NDEBUG is not defined
+__STDC__ is not defined
+__MSVC__ is defined
+XPLA_BORLANDC is defined
+
+---------------------
+|  D E F A U L T S  |
+---------------------
+max_pt=28, min_pt=3
+max_fi=32, min_fi=4
+
+-----------------
+|  H E A D E R  |
+-----------------
+#$ MODULE CPLD
+#$ PINS 3 "FPGA_data<0>":160 "FLASH_A_DQ<0>":101 "FPGA_clock":86 
+#$ PINS 3 "FLASH_A_G":35 "FPGA_data<10>":170 "FLASH_A_DQ<10>":125 
+#$ PINS 3 "FPGA_data<11>":171 "FLASH_A_DQ<11>":126 "FPGA_data<12>":146 
+#$ PINS 3 "FLASH_A_DQ<12>":127 "FPGA_data<13>":147 "FLASH_A_DQ<13>":128 
+#$ PINS 3 "FPGA_data<14>":148 "FLASH_A_DQ<14>":131 "FPGA_data<15>":149 
+#$ PINS 3 "FLASH_A_DQ<15>":77 "FPGA_data<1>":161 "FLASH_A_DQ<1>":102 
+#$ PINS 3 "FPGA_data<2>":162 "FLASH_A_DQ<2>":103 "FPGA_data<3>":163 
+#$ PINS 3 "FLASH_A_DQ<3>":106 "FPGA_data<4>":164 "FLASH_A_DQ<4>":118 
+#$ PINS 3 "FPGA_data<5>":165 "FLASH_A_DQ<5>":119 "FPGA_data<6>":166 
+#$ PINS 3 "FLASH_A_DQ<6>":120 "FPGA_data<7>":167 "FLASH_A_DQ<7>":121 
+#$ PINS 3 "FPGA_data<8>":168 "FLASH_A_DQ<8>":122 "FPGA_data<9>":169 
+#$ PINS 3 "FLASH_A_DQ<9>":123 "CPLD_100MHZ":55 "FPGA_G":143 
+#$ PINS 3 "FLASH_A_A<0>":39 "FPGA_A<0>":150 "FLASH_A_A<1>":40 
+#$ PINS 3 "FPGA_A<1>":151 "FLASH_A_A<10>":54 "FPGA_A<10>":175 
+#$ PINS 3 "FLASH_A_A<11>":56 "FPGA_A<11>":178 "FLASH_A_A<12>":57 
+#$ PINS 3 "FPGA_A<12>":179 "FLASH_A_A<13>":58 "FPGA_A<13>":180 
+#$ PINS 3 "FLASH_A_A<14>":60 "FPGA_A<14>":182 "FLASH_A_A<15>":61 
+#$ PINS 3 "FPGA_A<15>":183 "FLASH_A_A<16>":62 "FPGA_A<16>":184 
+#$ PINS 3 "FLASH_A_A<17>":63 "FPGA_A<17>":134 "FLASH_A_A<18>":27 
+#$ PINS 3 "FPGA_A<18>":135 "FLASH_A_A<19>":28 "FPGA_A<19>":136 
+#$ PINS 3 "FLASH_A_A<2>":41 "FPGA_A<2>":152 "FLASH_A_A<20>":29 
+#$ PINS 3 "FPGA_A<20>":137 "FLASH_A_A<21>":30 "FPGA_A<21>":138 
+#$ PINS 3 "FLASH_A_A<22>":31 "FPGA_A<22>":139 "FLASH_A_A<3>":43 
+#$ PINS 3 "FPGA_A<3>":153 "FLASH_A_A<4>":45 "FPGA_A<4>":154 
+#$ PINS 3 "FLASH_A_A<5>":47 "FPGA_A<5>":155 "FLASH_A_A<6>":48 
+#$ PINS 3 "FPGA_A<6>":158 "FLASH_A_A<7>":49 "FPGA_A<7>":159 
+#$ PINS 3 "FLASH_A_A<8>":50 "FPGA_A<8>":173 "FLASH_A_A<9>":51 
+#$ PINS 4 "FPGA_A<9>":174 "FLASH_A_E":34 "FPGA_E":144 "FLASH_A_L":66 
+#$ PINS 4 "FPGA_L":145 "FLASH_A_RP":37 "FPGA_RP":85 "FLASH_A_W":65 
+#$ PINS 5 "FPGA_W":142 "LEDs<3>":78 "reboot":140 "FLASH_A_K":36 "LEDs<1>":82 
+#$ PINS 4 "LEDs<0>":83 "FLASH_A_A<23>":32 "Program_B":90 "LEDs<2>":80 
+#$ PINS 2 "FLASH_A_WP":64 "FLASH_A_RW":67 
+#$ NODES 1 "clk_cnt_i<0>" 
+
+---------------------------------------
+|  P I N    T a b l e    [count=101]  |
+---------------------------------------
+ FPGA_data<12> FPGA_clock FPGA_A<1> FPGA_E FLASH_A_A<2> FLASH_A_G FLASH_A_A<5> 
+ FPGA_A<10> FPGA_data<1> FLASH_A_DQ<8> FLASH_A_RW FLASH_A_A<8> FLASH_A_A<22> FPGA_A<13> 
+ FPGA_data<4> FLASH_A_DQ<5> LEDs<2> FLASH_A_A<17> FLASH_A_DQ<2> FPGA_A<16> FPGA_data<7> 
+ FLASH_A_K FPGA_A<9> FPGA_A<21> FPGA_A<19> FLASH_A_A<14> FLASH_A_DQ<14> FPGA_W 
+ FLASH_A_L FPGA_A<6> FLASH_A_A<11> FLASH_A_DQ<11> FPGA_A<3> CPLD_100MHZ FPGA_data<14> 
+ FPGA_A<0> FLASH_A_A<0> FPGA_data<11> clk_cnt_i<0> FLASH_A_A<3> FLASH_A_RP FLASH_A_A<6> 
+ FLASH_A_DQ<7> FPGA_A<11> FPGA_data<2> FLASH_A_A<9> FLASH_A_A<21> FLASH_A_A<19> 
+ FLASH_A_DQ<4> FPGA_A<14> FPGA_data<5> LEDs<1> FPGA_A<17> FLASH_A_DQ<1> FLASH_A_A<16> 
+ FPGA_data<8> FPGA_A<8> FPGA_A<22> FLASH_A_A<13> FLASH_A_DQ<13> FPGA_A<5> FLASH_A_A<10> 
+ FLASH_A_DQ<10> FPGA_A<2> FPGA_data<13> FLASH_A_WP FPGA_data<10> FLASH_A_A<1> FLASH_A_W 
+ FPGA_L FLASH_A_A<4> FPGA_data<0> FLASH_A_DQ<9> FLASH_A_A<23> FLASH_A_A<7> FPGA_data<3> 
+ FLASH_A_DQ<6> FPGA_A<12> LEDs<3> FLASH_A_A<20> FLASH_A_A<18> FPGA_data<6> 
+ FLASH_A_DQ<3> FPGA_A<15> LEDs<0> FPGA_RP FPGA_A<20> FPGA_A<18> FLASH_A_A<15> 
+ FLASH_A_DQ<15> FPGA_data<9> FLASH_A_DQ<0> FPGA_A<7> FLASH_A_A<12> FLASH_A_DQ<12> 
+ Program_B reboot FLASH_A_E FPGA_A<4> FPGA_data<15> FPGA_G
+
+-------------------------------------------
+|  P I N    E q n l i s t    [count=100]  |
+-------------------------------------------
+FPGA_data<0> (fi=3): (FPGA_data<0>.D/N_PZ_0, net=CPLD) (FPGA_data<0>.CLK/N_PZ_1, net=CPLD) (FPGA_data<0>.OE/N_PZ_2, net=CPLD) 
+FLASH_A_DQ<0> (fi=3): (FLASH_A_DQ<0>.D/N_PZ_48, net=CPLD) (FLASH_A_DQ<0>.CLK/N_PZ_49, net=CPLD) (FLASH_A_DQ<0>.OE/N_PZ_50, net=CPLD) 
+FPGA_clock (fi=2): (FPGA_clock.CLK/N_PZ_98, net=CPLD) (FPGA_clock.T/N_PZ_231, net=CPLD) 
+FLASH_A_G (fi=2): (FLASH_A_G.D/N_PZ_99, net=CPLD) (FLASH_A_G.CLK/N_PZ_100, net=CPLD) 
+FPGA_data<10> (fi=3): (FPGA_data<10>.D/N_PZ_3, net=CPLD) (FPGA_data<10>.CLK/N_PZ_4, net=CPLD) (FPGA_data<10>.OE/N_PZ_5, net=CPLD) 
+FLASH_A_DQ<10> (fi=3): (FLASH_A_DQ<10>.D/N_PZ_51, net=CPLD) (FLASH_A_DQ<10>.CLK/N_PZ_52, net=CPLD) (FLASH_A_DQ<10>.OE/N_PZ_53, net=CPLD) 
+FPGA_data<11> (fi=3): (FPGA_data<11>.D/N_PZ_6, net=CPLD) (FPGA_data<11>.CLK/N_PZ_7, net=CPLD) (FPGA_data<11>.OE/N_PZ_8, net=CPLD) 
+FLASH_A_DQ<11> (fi=3): (FLASH_A_DQ<11>.D/N_PZ_54, net=CPLD) (FLASH_A_DQ<11>.CLK/N_PZ_55, net=CPLD) (FLASH_A_DQ<11>.OE/N_PZ_56, net=CPLD) 
+FPGA_data<12> (fi=3): (FPGA_data<12>.D/N_PZ_9, net=CPLD) (FPGA_data<12>.CLK/N_PZ_10, net=CPLD) (FPGA_data<12>.OE/N_PZ_11, net=CPLD) 
+FLASH_A_DQ<12> (fi=3): (FLASH_A_DQ<12>.D/N_PZ_57, net=CPLD) (FLASH_A_DQ<12>.CLK/N_PZ_58, net=CPLD) (FLASH_A_DQ<12>.OE/N_PZ_59, net=CPLD) 
+FPGA_data<13> (fi=3): (FPGA_data<13>.D/N_PZ_12, net=CPLD) (FPGA_data<13>.CLK/N_PZ_13, net=CPLD) (FPGA_data<13>.OE/N_PZ_14, net=CPLD) 
+FLASH_A_DQ<13> (fi=3): (FLASH_A_DQ<13>.D/N_PZ_60, net=CPLD) (FLASH_A_DQ<13>.CLK/N_PZ_61, net=CPLD) (FLASH_A_DQ<13>.OE/N_PZ_62, net=CPLD) 
+FPGA_data<14> (fi=3): (FPGA_data<14>.D/N_PZ_15, net=CPLD) (FPGA_data<14>.CLK/N_PZ_16, net=CPLD) (FPGA_data<14>.OE/N_PZ_17, net=CPLD) 
+FLASH_A_DQ<14> (fi=3): (FLASH_A_DQ<14>.D/N_PZ_63, net=CPLD) (FLASH_A_DQ<14>.CLK/N_PZ_64, net=CPLD) (FLASH_A_DQ<14>.OE/N_PZ_65, net=CPLD) 
+FPGA_data<15> (fi=3): (FPGA_data<15>.D/N_PZ_18, net=CPLD) (FPGA_data<15>.CLK/N_PZ_19, net=CPLD) (FPGA_data<15>.OE/N_PZ_20, net=CPLD) 
+FLASH_A_DQ<15> (fi=3): (FLASH_A_DQ<15>.D/N_PZ_66, net=CPLD) (FLASH_A_DQ<15>.CLK/N_PZ_67, net=CPLD) (FLASH_A_DQ<15>.OE/N_PZ_68, net=CPLD) 
+FPGA_data<1> (fi=3): (FPGA_data<1>.D/N_PZ_21, net=CPLD) (FPGA_data<1>.CLK/N_PZ_22, net=CPLD) (FPGA_data<1>.OE/N_PZ_23, net=CPLD) 
+FLASH_A_DQ<1> (fi=3): (FLASH_A_DQ<1>.D/N_PZ_69, net=CPLD) (FLASH_A_DQ<1>.CLK/N_PZ_70, net=CPLD) (FLASH_A_DQ<1>.OE/N_PZ_71, net=CPLD) 
+FPGA_data<2> (fi=3): (FPGA_data<2>.D/N_PZ_24, net=CPLD) (FPGA_data<2>.CLK/N_PZ_25, net=CPLD) (FPGA_data<2>.OE/N_PZ_26, net=CPLD) 
+FLASH_A_DQ<2> (fi=3): (FLASH_A_DQ<2>.D/N_PZ_72, net=CPLD) (FLASH_A_DQ<2>.CLK/N_PZ_73, net=CPLD) (FLASH_A_DQ<2>.OE/N_PZ_74, net=CPLD) 
+FPGA_data<3> (fi=3): (FPGA_data<3>.D/N_PZ_27, net=CPLD) (FPGA_data<3>.CLK/N_PZ_28, net=CPLD) (FPGA_data<3>.OE/N_PZ_29, net=CPLD) 
+FLASH_A_DQ<3> (fi=3): (FLASH_A_DQ<3>.D/N_PZ_75, net=CPLD) (FLASH_A_DQ<3>.CLK/N_PZ_76, net=CPLD) (FLASH_A_DQ<3>.OE/N_PZ_77, net=CPLD) 
+FPGA_data<4> (fi=3): (FPGA_data<4>.D/N_PZ_30, net=CPLD) (FPGA_data<4>.CLK/N_PZ_31, net=CPLD) (FPGA_data<4>.OE/N_PZ_32, net=CPLD) 
+FLASH_A_DQ<4> (fi=3): (FLASH_A_DQ<4>.D/N_PZ_78, net=CPLD) (FLASH_A_DQ<4>.CLK/N_PZ_79, net=CPLD) (FLASH_A_DQ<4>.OE/N_PZ_80, net=CPLD) 
+FPGA_data<5> (fi=3): (FPGA_data<5>.D/N_PZ_33, net=CPLD) (FPGA_data<5>.CLK/N_PZ_34, net=CPLD) (FPGA_data<5>.OE/N_PZ_35, net=CPLD) 
+FLASH_A_DQ<5> (fi=3): (FLASH_A_DQ<5>.D/N_PZ_81, net=CPLD) (FLASH_A_DQ<5>.CLK/N_PZ_82, net=CPLD) (FLASH_A_DQ<5>.OE/N_PZ_83, net=CPLD) 
+FPGA_data<6> (fi=3): (FPGA_data<6>.D/N_PZ_36, net=CPLD) (FPGA_data<6>.CLK/N_PZ_37, net=CPLD) (FPGA_data<6>.OE/N_PZ_38, net=CPLD) 
+FLASH_A_DQ<6> (fi=3): (FLASH_A_DQ<6>.D/N_PZ_84, net=CPLD) (FLASH_A_DQ<6>.CLK/N_PZ_85, net=CPLD) (FLASH_A_DQ<6>.OE/N_PZ_86, net=CPLD) 
+FPGA_data<7> (fi=3): (FPGA_data<7>.D/N_PZ_39, net=CPLD) (FPGA_data<7>.CLK/N_PZ_40, net=CPLD) (FPGA_data<7>.OE/N_PZ_41, net=CPLD) 
+FLASH_A_DQ<7> (fi=3): (FLASH_A_DQ<7>.D/N_PZ_87, net=CPLD) (FLASH_A_DQ<7>.CLK/N_PZ_88, net=CPLD) (FLASH_A_DQ<7>.OE/N_PZ_89, net=CPLD) 
+FPGA_data<8> (fi=3): (FPGA_data<8>.D/N_PZ_42, net=CPLD) (FPGA_data<8>.CLK/N_PZ_43, net=CPLD) (FPGA_data<8>.OE/N_PZ_44, net=CPLD) 
+FLASH_A_DQ<8> (fi=3): (FLASH_A_DQ<8>.D/N_PZ_90, net=CPLD) (FLASH_A_DQ<8>.CLK/N_PZ_91, net=CPLD) (FLASH_A_DQ<8>.OE/N_PZ_92, net=CPLD) 
+FPGA_data<9> (fi=3): (FPGA_data<9>.D/N_PZ_45, net=CPLD) (FPGA_data<9>.CLK/N_PZ_46, net=CPLD) (FPGA_data<9>.OE/N_PZ_47, net=CPLD) 
+FLASH_A_DQ<9> (fi=3): (FLASH_A_DQ<9>.D/N_PZ_93, net=CPLD) (FLASH_A_DQ<9>.CLK/N_PZ_94, net=CPLD) (FLASH_A_DQ<9>.OE/N_PZ_95, net=CPLD) 
+CPLD_100MHZ (fi=0): 
+FPGA_G (fi=0): 
+FLASH_A_A<0> (fi=2): (FLASH_A_A<0>.D/N_PZ_103, net=CPLD) (FLASH_A_A<0>.CLK/N_PZ_104, net=CPLD) 
+FPGA_A<0> (fi=0): 
+FLASH_A_A<1> (fi=2): (FLASH_A_A<1>.D/N_PZ_105, net=CPLD) (FLASH_A_A<1>.CLK/N_PZ_106, net=CPLD) 
+FPGA_A<1> (fi=0): 
+FLASH_A_A<10> (fi=2): (FLASH_A_A<10>.D/N_PZ_107, net=CPLD) (FLASH_A_A<10>.CLK/N_PZ_108, net=CPLD) 
+FPGA_A<10> (fi=0): 
+FLASH_A_A<11> (fi=2): (FLASH_A_A<11>.D/N_PZ_109, net=CPLD) (FLASH_A_A<11>.CLK/N_PZ_110, net=CPLD) 
+FPGA_A<11> (fi=0): 
+FLASH_A_A<12> (fi=2): (FLASH_A_A<12>.D/N_PZ_111, net=CPLD) (FLASH_A_A<12>.CLK/N_PZ_112, net=CPLD) 
+FPGA_A<12> (fi=0): 
+FLASH_A_A<13> (fi=2): (FLASH_A_A<13>.D/N_PZ_113, net=CPLD) (FLASH_A_A<13>.CLK/N_PZ_114, net=CPLD) 
+FPGA_A<13> (fi=0): 
+FLASH_A_A<14> (fi=2): (FLASH_A_A<14>.D/N_PZ_115, net=CPLD) (FLASH_A_A<14>.CLK/N_PZ_116, net=CPLD) 
+FPGA_A<14> (fi=0): 
+FLASH_A_A<15> (fi=2): (FLASH_A_A<15>.D/N_PZ_117, net=CPLD) (FLASH_A_A<15>.CLK/N_PZ_118, net=CPLD) 
+FPGA_A<15> (fi=0): 
+FLASH_A_A<16> (fi=2): (FLASH_A_A<16>.D/N_PZ_119, net=CPLD) (FLASH_A_A<16>.CLK/N_PZ_120, net=CPLD) 
+FPGA_A<16> (fi=0): 
+FLASH_A_A<17> (fi=2): (FLASH_A_A<17>.D/N_PZ_121, net=CPLD) (FLASH_A_A<17>.CLK/N_PZ_122, net=CPLD) 
+FPGA_A<17> (fi=0): 
+FLASH_A_A<18> (fi=2): (FLASH_A_A<18>.D/N_PZ_123, net=CPLD) (FLASH_A_A<18>.CLK/N_PZ_124, net=CPLD) 
+FPGA_A<18> (fi=0): 
+FLASH_A_A<19> (fi=2): (FLASH_A_A<19>.D/N_PZ_125, net=CPLD) (FLASH_A_A<19>.CLK/N_PZ_126, net=CPLD) 
+FPGA_A<19> (fi=0): 
+FLASH_A_A<2> (fi=2): (FLASH_A_A<2>.D/N_PZ_127, net=CPLD) (FLASH_A_A<2>.CLK/N_PZ_128, net=CPLD) 
+FPGA_A<2> (fi=0): 
+FLASH_A_A<20> (fi=2): (FLASH_A_A<20>.D/N_PZ_129, net=CPLD) (FLASH_A_A<20>.CLK/N_PZ_130, net=CPLD) 
+FPGA_A<20> (fi=0): 
+FLASH_A_A<21> (fi=2): (FLASH_A_A<21>.D/N_PZ_131, net=CPLD) (FLASH_A_A<21>.CLK/N_PZ_132, net=CPLD) 
+FPGA_A<21> (fi=0): 
+FLASH_A_A<22> (fi=2): (FLASH_A_A<22>.D/N_PZ_133, net=CPLD) (FLASH_A_A<22>.CLK/N_PZ_134, net=CPLD) 
+FPGA_A<22> (fi=0): 
+FLASH_A_A<3> (fi=2): (FLASH_A_A<3>.D/N_PZ_135, net=CPLD) (FLASH_A_A<3>.CLK/N_PZ_136, net=CPLD) 
+FPGA_A<3> (fi=0): 
+FLASH_A_A<4> (fi=2): (FLASH_A_A<4>.D/N_PZ_137, net=CPLD) (FLASH_A_A<4>.CLK/N_PZ_138, net=CPLD) 
+FPGA_A<4> (fi=0): 
+FLASH_A_A<5> (fi=2): (FLASH_A_A<5>.D/N_PZ_139, net=CPLD) (FLASH_A_A<5>.CLK/N_PZ_140, net=CPLD) 
+FPGA_A<5> (fi=0): 
+FLASH_A_A<6> (fi=2): (FLASH_A_A<6>.D/N_PZ_141, net=CPLD) (FLASH_A_A<6>.CLK/N_PZ_142, net=CPLD) 
+FPGA_A<6> (fi=0): 
+FLASH_A_A<7> (fi=2): (FLASH_A_A<7>.D/N_PZ_143, net=CPLD) (FLASH_A_A<7>.CLK/N_PZ_144, net=CPLD) 
+FPGA_A<7> (fi=0): 
+FLASH_A_A<8> (fi=2): (FLASH_A_A<8>.D/N_PZ_145, net=CPLD) (FLASH_A_A<8>.CLK/N_PZ_146, net=CPLD) 
+FPGA_A<8> (fi=0): 
+FLASH_A_A<9> (fi=2): (FLASH_A_A<9>.D/N_PZ_147, net=CPLD) (FLASH_A_A<9>.CLK/N_PZ_148, net=CPLD) 
+FPGA_A<9> (fi=0): 
+FLASH_A_E (fi=2): (FLASH_A_E.D/N_PZ_149, net=CPLD) (FLASH_A_E.CLK/N_PZ_150, net=CPLD) 
+FPGA_E (fi=0): 
+FLASH_A_L (fi=2): (FLASH_A_L.D/N_PZ_151, net=CPLD) (FLASH_A_L.CLK/N_PZ_152, net=CPLD) 
+FPGA_L (fi=0): 
+FLASH_A_RP (fi=2): (FLASH_A_RP.D/N_PZ_153, net=CPLD) (FLASH_A_RP.CLK/N_PZ_154, net=CPLD) 
+FPGA_RP (fi=0): 
+FLASH_A_W (fi=2): (FLASH_A_W.D/N_PZ_155, net=CPLD) (FLASH_A_W.CLK/N_PZ_156, net=CPLD) 
+FPGA_W (fi=0): 
+LEDs<3> (fi=1): (LEDs<3>/N_PZ_157, net=CPLD) 
+reboot (fi=0): 
+FLASH_A_K (fi=3): (FLASH_A_K.CLK/N_PZ_160, net=CPLD) (FLASH_A_K.D/N_PZ_169, net=CPLD) 
+LEDs<1> (fi=0): (LEDs<1>/N_PZ_161, net=CPLD) 
+LEDs<0> (fi=0): (LEDs<0>/N_PZ_162, net=CPLD) 
+FLASH_A_A<23> (fi=0): (FLASH_A_A<23>/N_PZ_163, net=CPLD) 
+Program_B (fi=0): (Program_B/N_PZ_164, net=CPLD) 
+LEDs<2> (fi=0): (LEDs<2>/N_PZ_165, net=CPLD) 
+FLASH_A_WP (fi=0): (FLASH_A_WP/N_PZ_166, net=CPLD) 
+FLASH_A_RW (fi=0): (FLASH_A_RW/N_PZ_167, net=CPLD) 
+
+-------------------------------------------
+|  N O D E    E q n l i s t    [count=1]  |
+-------------------------------------------
+clk_cnt_i<0> (fi=1): clk_cnt_i<0>.CLK/N_PZ_102 clk_cnt_i<0>.T/N_PZ_203 
+
+---------------------------------
+|  D a t a   S t r u c t u r e  |
+---------------------------------
+PI ( 65) =  FLASH_A_DQ<0>.PIN FPGA_clock.Q FLASH_A_G.Q FLASH_A_DQ<10>.PIN 
+            FLASH_A_DQ<11>.PIN FLASH_A_DQ<12>.PIN FLASH_A_DQ<13>.PIN FLASH_A_DQ<14>.PIN 
+            FLASH_A_DQ<15>.PIN FLASH_A_DQ<1>.PIN FLASH_A_DQ<2>.PIN FLASH_A_DQ<3>.PIN 
+            FLASH_A_DQ<4>.PIN FLASH_A_DQ<5>.PIN FLASH_A_DQ<6>.PIN FLASH_A_DQ<7>.PIN 
+            FLASH_A_DQ<8>.PIN FLASH_A_DQ<9>.PIN FPGA_data<0>.PIN FPGA_data<10>.PIN 
+            FPGA_data<11>.PIN FPGA_data<12>.PIN FPGA_data<13>.PIN FPGA_data<14>.PIN 
+            FPGA_data<15>.PIN FPGA_data<1>.PIN FPGA_data<2>.PIN FPGA_data<3>.PIN 
+            FPGA_data<4>.PIN FPGA_data<5>.PIN FPGA_data<6>.PIN FPGA_data<7>.PIN 
+            FPGA_data<8>.PIN FPGA_data<9>.PIN CPLD_100MHZ FPGA_G FPGA_A<0> FPGA_A<1> 
+            FPGA_A<10> FPGA_A<11> FPGA_A<12> FPGA_A<13> FPGA_A<14> FPGA_A<15> 
+            FPGA_A<16> FPGA_A<17> FPGA_A<18> FPGA_A<19> FPGA_A<2> FPGA_A<20> FPGA_A<21> 
+            FPGA_A<22> FPGA_A<3> FPGA_A<4> FPGA_A<5> FPGA_A<6> FPGA_A<7> FPGA_A<8> 
+            FPGA_A<9> FPGA_E FPGA_L FPGA_RP FPGA_W reboot clk_cnt_i<0>.Q
+
+PO (166) =  FPGA_data<0>.D FPGA_data<0>.CLK FPGA_data<0>.OE FPGA_data<10>.D 
+            FPGA_data<10>.CLK FPGA_data<10>.OE FPGA_data<11>.D FPGA_data<11>.CLK 
+            FPGA_data<11>.OE FPGA_data<12>.D FPGA_data<12>.CLK FPGA_data<12>.OE 
+            FPGA_data<13>.D FPGA_data<13>.CLK FPGA_data<13>.OE FPGA_data<14>.D 
+            FPGA_data<14>.CLK FPGA_data<14>.OE FPGA_data<15>.D FPGA_data<15>.CLK 
+            FPGA_data<15>.OE FPGA_data<1>.D FPGA_data<1>.CLK FPGA_data<1>.OE 
+            FPGA_data<2>.D FPGA_data<2>.CLK FPGA_data<2>.OE FPGA_data<3>.D 
+            FPGA_data<3>.CLK FPGA_data<3>.OE FPGA_data<4>.D FPGA_data<4>.CLK 
+            FPGA_data<4>.OE FPGA_data<5>.D FPGA_data<5>.CLK FPGA_data<5>.OE 
+            FPGA_data<6>.D FPGA_data<6>.CLK FPGA_data<6>.OE FPGA_data<7>.D 
+            FPGA_data<7>.CLK FPGA_data<7>.OE FPGA_data<8>.D FPGA_data<8>.CLK 
+            FPGA_data<8>.OE FPGA_data<9>.D FPGA_data<9>.CLK FPGA_data<9>.OE 
+            FLASH_A_DQ<0>.D FLASH_A_DQ<0>.CLK FLASH_A_DQ<0>.OE FLASH_A_DQ<10>.D 
+            FLASH_A_DQ<10>.CLK FLASH_A_DQ<10>.OE FLASH_A_DQ<11>.D FLASH_A_DQ<11>.CLK 
+            FLASH_A_DQ<11>.OE FLASH_A_DQ<12>.D FLASH_A_DQ<12>.CLK FLASH_A_DQ<12>.OE 
+            FLASH_A_DQ<13>.D FLASH_A_DQ<13>.CLK FLASH_A_DQ<13>.OE FLASH_A_DQ<14>.D 
+            FLASH_A_DQ<14>.CLK FLASH_A_DQ<14>.OE FLASH_A_DQ<15>.D FLASH_A_DQ<15>.CLK 
+            FLASH_A_DQ<15>.OE FLASH_A_DQ<1>.D FLASH_A_DQ<1>.CLK FLASH_A_DQ<1>.OE 
+            FLASH_A_DQ<2>.D FLASH_A_DQ<2>.CLK FLASH_A_DQ<2>.OE FLASH_A_DQ<3>.D 
+            FLASH_A_DQ<3>.CLK FLASH_A_DQ<3>.OE FLASH_A_DQ<4>.D FLASH_A_DQ<4>.CLK 
+            FLASH_A_DQ<4>.OE FLASH_A_DQ<5>.D FLASH_A_DQ<5>.CLK FLASH_A_DQ<5>.OE 
+            FLASH_A_DQ<6>.D FLASH_A_DQ<6>.CLK FLASH_A_DQ<6>.OE FLASH_A_DQ<7>.D 
+            FLASH_A_DQ<7>.CLK FLASH_A_DQ<7>.OE FLASH_A_DQ<8>.D FLASH_A_DQ<8>.CLK 
+            FLASH_A_DQ<8>.OE FLASH_A_DQ<9>.D FLASH_A_DQ<9>.CLK FLASH_A_DQ<9>.OE 
+            FPGA_clock.CLK FLASH_A_G.D FLASH_A_G.CLK clk_cnt_i<0>.CLK FLASH_A_A<0>.D 
+            FLASH_A_A<0>.CLK FLASH_A_A<1>.D FLASH_A_A<1>.CLK FLASH_A_A<10>.D 
+            FLASH_A_A<10>.CLK FLASH_A_A<11>.D FLASH_A_A<11>.CLK FLASH_A_A<12>.D 
+            FLASH_A_A<12>.CLK FLASH_A_A<13>.D FLASH_A_A<13>.CLK FLASH_A_A<14>.D 
+            FLASH_A_A<14>.CLK FLASH_A_A<15>.D FLASH_A_A<15>.CLK FLASH_A_A<16>.D 
+            FLASH_A_A<16>.CLK FLASH_A_A<17>.D FLASH_A_A<17>.CLK FLASH_A_A<18>.D 
+            FLASH_A_A<18>.CLK FLASH_A_A<19>.D FLASH_A_A<19>.CLK FLASH_A_A<2>.D 
+            FLASH_A_A<2>.CLK FLASH_A_A<20>.D FLASH_A_A<20>.CLK FLASH_A_A<21>.D 
+            FLASH_A_A<21>.CLK FLASH_A_A<22>.D FLASH_A_A<22>.CLK FLASH_A_A<3>.D 
+            FLASH_A_A<3>.CLK FLASH_A_A<4>.D FLASH_A_A<4>.CLK FLASH_A_A<5>.D 
+            FLASH_A_A<5>.CLK FLASH_A_A<6>.D FLASH_A_A<6>.CLK FLASH_A_A<7>.D 
+            FLASH_A_A<7>.CLK FLASH_A_A<8>.D FLASH_A_A<8>.CLK FLASH_A_A<9>.D 
+            FLASH_A_A<9>.CLK FLASH_A_E.D FLASH_A_E.CLK FLASH_A_L.D FLASH_A_L.CLK 
+            FLASH_A_RP.D FLASH_A_RP.CLK FLASH_A_W.D FLASH_A_W.CLK LEDs<3> FLASH_A_K.CLK 
+            LEDs<1> LEDs<0> FLASH_A_A<23> Program_B LEDs<2> FLASH_A_WP FLASH_A_RW 
+            FLASH_A_K.D clk_cnt_i<0>.T FPGA_clock.T
+
+INT = (166) N_PZ_0 N_PZ_1 N_PZ_2 N_PZ_3 N_PZ_4 N_PZ_5 N_PZ_6 N_PZ_7 N_PZ_8 N_PZ_9 
+            N_PZ_10 N_PZ_11 N_PZ_12 N_PZ_13 N_PZ_14 N_PZ_15 N_PZ_16 N_PZ_17 N_PZ_18 
+            N_PZ_19 N_PZ_20 N_PZ_21 N_PZ_22 N_PZ_23 N_PZ_24 N_PZ_25 N_PZ_26 N_PZ_27 
+            N_PZ_28 N_PZ_29 N_PZ_30 N_PZ_31 N_PZ_32 N_PZ_33 N_PZ_34 N_PZ_35 N_PZ_36 
+            N_PZ_37 N_PZ_38 N_PZ_39 N_PZ_40 N_PZ_41 N_PZ_42 N_PZ_43 N_PZ_44 N_PZ_45 
+            N_PZ_46 N_PZ_47 N_PZ_48 N_PZ_49 N_PZ_50 N_PZ_51 N_PZ_52 N_PZ_53 N_PZ_54 
+            N_PZ_55 N_PZ_56 N_PZ_57 N_PZ_58 N_PZ_59 N_PZ_60 N_PZ_61 N_PZ_62 N_PZ_63 
+            N_PZ_64 N_PZ_65 N_PZ_66 N_PZ_67 N_PZ_68 N_PZ_69 N_PZ_70 N_PZ_71 N_PZ_72 
+            N_PZ_73 N_PZ_74 N_PZ_75 N_PZ_76 N_PZ_77 N_PZ_78 N_PZ_79 N_PZ_80 N_PZ_81 
+            N_PZ_82 N_PZ_83 N_PZ_84 N_PZ_85 N_PZ_86 N_PZ_87 N_PZ_88 N_PZ_89 N_PZ_90 
+            N_PZ_91 N_PZ_92 N_PZ_93 N_PZ_94 N_PZ_95 N_PZ_98 N_PZ_99 N_PZ_100 N_PZ_102 
+            N_PZ_103 N_PZ_104 N_PZ_105 N_PZ_106 N_PZ_107 N_PZ_108 N_PZ_109 N_PZ_110 
+            N_PZ_111 N_PZ_112 N_PZ_113 N_PZ_114 N_PZ_115 N_PZ_116 N_PZ_117 N_PZ_118 
+            N_PZ_119 N_PZ_120 N_PZ_121 N_PZ_122 N_PZ_123 N_PZ_124 N_PZ_125 N_PZ_126 
+            N_PZ_127 N_PZ_128 N_PZ_129 N_PZ_130 N_PZ_131 N_PZ_132 N_PZ_133 N_PZ_134 
+            N_PZ_135 N_PZ_136 N_PZ_137 N_PZ_138 N_PZ_139 N_PZ_140 N_PZ_141 N_PZ_142 
+            N_PZ_143 N_PZ_144 N_PZ_145 N_PZ_146 N_PZ_147 N_PZ_148 N_PZ_149 N_PZ_150 
+            N_PZ_151 N_PZ_152 N_PZ_153 N_PZ_154 N_PZ_155 N_PZ_156 N_PZ_157 N_PZ_160 
+            N_PZ_161 N_PZ_162 N_PZ_163 N_PZ_164 N_PZ_165 N_PZ_166 N_PZ_167 N_PZ_169 
+            N_PZ_203 N_PZ_231
+
+PINT= (  0)
+
+AINT= (166) N_PZ_0 N_PZ_1 N_PZ_2 N_PZ_3 N_PZ_4 N_PZ_5 N_PZ_6 N_PZ_7 N_PZ_8 N_PZ_9 
+            N_PZ_10 N_PZ_11 N_PZ_12 N_PZ_13 N_PZ_14 N_PZ_15 N_PZ_16 N_PZ_17 N_PZ_18 
+            N_PZ_19 N_PZ_20 N_PZ_21 N_PZ_22 N_PZ_23 N_PZ_24 N_PZ_25 N_PZ_26 N_PZ_27 
+            N_PZ_28 N_PZ_29 N_PZ_30 N_PZ_31 N_PZ_32 N_PZ_33 N_PZ_34 N_PZ_35 N_PZ_36 
+            N_PZ_37 N_PZ_38 N_PZ_39 N_PZ_40 N_PZ_41 N_PZ_42 N_PZ_43 N_PZ_44 N_PZ_45 
+            N_PZ_46 N_PZ_47 N_PZ_48 N_PZ_49 N_PZ_50 N_PZ_51 N_PZ_52 N_PZ_53 N_PZ_54 
+            N_PZ_55 N_PZ_56 N_PZ_57 N_PZ_58 N_PZ_59 N_PZ_60 N_PZ_61 N_PZ_62 N_PZ_63 
+            N_PZ_64 N_PZ_65 N_PZ_66 N_PZ_67 N_PZ_68 N_PZ_69 N_PZ_70 N_PZ_71 N_PZ_72 
+            N_PZ_73 N_PZ_74 N_PZ_75 N_PZ_76 N_PZ_77 N_PZ_78 N_PZ_79 N_PZ_80 N_PZ_81 
+            N_PZ_82 N_PZ_83 N_PZ_84 N_PZ_85 N_PZ_86 N_PZ_87 N_PZ_88 N_PZ_89 N_PZ_90 
+            N_PZ_91 N_PZ_92 N_PZ_93 N_PZ_94 N_PZ_95 N_PZ_98 N_PZ_99 N_PZ_100 N_PZ_102 
+            N_PZ_103 N_PZ_104 N_PZ_105 N_PZ_106 N_PZ_107 N_PZ_108 N_PZ_109 N_PZ_110 
+            N_PZ_111 N_PZ_112 N_PZ_113 N_PZ_114 N_PZ_115 N_PZ_116 N_PZ_117 N_PZ_118 
+            N_PZ_119 N_PZ_120 N_PZ_121 N_PZ_122 N_PZ_123 N_PZ_124 N_PZ_125 N_PZ_126 
+            N_PZ_127 N_PZ_128 N_PZ_129 N_PZ_130 N_PZ_131 N_PZ_132 N_PZ_133 N_PZ_134 
+            N_PZ_135 N_PZ_136 N_PZ_137 N_PZ_138 N_PZ_139 N_PZ_140 N_PZ_141 N_PZ_142 
+            N_PZ_143 N_PZ_144 N_PZ_145 N_PZ_146 N_PZ_147 N_PZ_148 N_PZ_149 N_PZ_150 
+            N_PZ_151 N_PZ_152 N_PZ_153 N_PZ_154 N_PZ_155 N_PZ_156 N_PZ_157 N_PZ_160 
+            N_PZ_161 N_PZ_162 N_PZ_163 N_PZ_164 N_PZ_165 N_PZ_166 N_PZ_167 N_PZ_169 
+            N_PZ_203 N_PZ_231
+
+
+----------------------------
+|  D F S    N e t w o r k  |
+----------------------------
+FLASH_A_DQ<0>.PIN N_PZ_0 FPGA_data<0>.D FPGA_clock.Q N_PZ_1 FPGA_data<0>.CLK  
+FLASH_A_G.Q N_PZ_2 FPGA_data<0>.OE FLASH_A_DQ<10>.PIN N_PZ_3 FPGA_data<10>.D N_PZ_4  
+FPGA_data<10>.CLK N_PZ_5 FPGA_data<10>.OE FLASH_A_DQ<11>.PIN N_PZ_6 FPGA_data<11>.D  
+N_PZ_7 FPGA_data<11>.CLK N_PZ_8 FPGA_data<11>.OE FLASH_A_DQ<12>.PIN N_PZ_9  
+FPGA_data<12>.D N_PZ_10 FPGA_data<12>.CLK N_PZ_11 FPGA_data<12>.OE FLASH_A_DQ<13>.PIN  
+N_PZ_12 FPGA_data<13>.D N_PZ_13 FPGA_data<13>.CLK N_PZ_14 FPGA_data<13>.OE  
+FLASH_A_DQ<14>.PIN N_PZ_15 FPGA_data<14>.D N_PZ_16 FPGA_data<14>.CLK N_PZ_17  
+FPGA_data<14>.OE FLASH_A_DQ<15>.PIN N_PZ_18 FPGA_data<15>.D N_PZ_19 FPGA_data<15>.CLK  
+N_PZ_20 FPGA_data<15>.OE FLASH_A_DQ<1>.PIN N_PZ_21 FPGA_data<1>.D N_PZ_22  
+FPGA_data<1>.CLK N_PZ_23 FPGA_data<1>.OE FLASH_A_DQ<2>.PIN N_PZ_24 FPGA_data<2>.D  
+N_PZ_25 FPGA_data<2>.CLK N_PZ_26 FPGA_data<2>.OE FLASH_A_DQ<3>.PIN N_PZ_27  
+FPGA_data<3>.D N_PZ_28 FPGA_data<3>.CLK N_PZ_29 FPGA_data<3>.OE FLASH_A_DQ<4>.PIN  
+N_PZ_30 FPGA_data<4>.D N_PZ_31 FPGA_data<4>.CLK N_PZ_32 FPGA_data<4>.OE  
+FLASH_A_DQ<5>.PIN N_PZ_33 FPGA_data<5>.D N_PZ_34 FPGA_data<5>.CLK N_PZ_35  
+FPGA_data<5>.OE FLASH_A_DQ<6>.PIN N_PZ_36 FPGA_data<6>.D N_PZ_37 FPGA_data<6>.CLK  
+N_PZ_38 FPGA_data<6>.OE FLASH_A_DQ<7>.PIN N_PZ_39 FPGA_data<7>.D N_PZ_40  
+FPGA_data<7>.CLK N_PZ_41 FPGA_data<7>.OE FLASH_A_DQ<8>.PIN N_PZ_42 FPGA_data<8>.D  
+N_PZ_43 FPGA_data<8>.CLK N_PZ_44 FPGA_data<8>.OE FLASH_A_DQ<9>.PIN N_PZ_45  
+FPGA_data<9>.D N_PZ_46 FPGA_data<9>.CLK N_PZ_47 FPGA_data<9>.OE FPGA_data<0>.PIN  
+N_PZ_48 FLASH_A_DQ<0>.D N_PZ_49 FLASH_A_DQ<0>.CLK N_PZ_50 FLASH_A_DQ<0>.OE  
+FPGA_data<10>.PIN N_PZ_51 FLASH_A_DQ<10>.D N_PZ_52 FLASH_A_DQ<10>.CLK N_PZ_53  
+FLASH_A_DQ<10>.OE FPGA_data<11>.PIN N_PZ_54 FLASH_A_DQ<11>.D N_PZ_55  
+FLASH_A_DQ<11>.CLK N_PZ_56 FLASH_A_DQ<11>.OE FPGA_data<12>.PIN N_PZ_57  
+FLASH_A_DQ<12>.D N_PZ_58 FLASH_A_DQ<12>.CLK N_PZ_59 FLASH_A_DQ<12>.OE  
+FPGA_data<13>.PIN N_PZ_60 FLASH_A_DQ<13>.D N_PZ_61 FLASH_A_DQ<13>.CLK N_PZ_62  
+FLASH_A_DQ<13>.OE FPGA_data<14>.PIN N_PZ_63 FLASH_A_DQ<14>.D N_PZ_64  
+FLASH_A_DQ<14>.CLK N_PZ_65 FLASH_A_DQ<14>.OE FPGA_data<15>.PIN N_PZ_66  
+FLASH_A_DQ<15>.D N_PZ_67 FLASH_A_DQ<15>.CLK N_PZ_68 FLASH_A_DQ<15>.OE FPGA_data<1>.PIN  
+N_PZ_69 FLASH_A_DQ<1>.D N_PZ_70 FLASH_A_DQ<1>.CLK N_PZ_71 FLASH_A_DQ<1>.OE  
+FPGA_data<2>.PIN N_PZ_72 FLASH_A_DQ<2>.D N_PZ_73 FLASH_A_DQ<2>.CLK N_PZ_74  
+FLASH_A_DQ<2>.OE FPGA_data<3>.PIN N_PZ_75 FLASH_A_DQ<3>.D N_PZ_76 FLASH_A_DQ<3>.CLK  
+N_PZ_77 FLASH_A_DQ<3>.OE FPGA_data<4>.PIN N_PZ_78 FLASH_A_DQ<4>.D N_PZ_79  
+FLASH_A_DQ<4>.CLK N_PZ_80 FLASH_A_DQ<4>.OE FPGA_data<5>.PIN N_PZ_81 FLASH_A_DQ<5>.D  
+N_PZ_82 FLASH_A_DQ<5>.CLK N_PZ_83 FLASH_A_DQ<5>.OE FPGA_data<6>.PIN N_PZ_84  
+FLASH_A_DQ<6>.D N_PZ_85 FLASH_A_DQ<6>.CLK N_PZ_86 FLASH_A_DQ<6>.OE FPGA_data<7>.PIN  
+N_PZ_87 FLASH_A_DQ<7>.D N_PZ_88 FLASH_A_DQ<7>.CLK N_PZ_89 FLASH_A_DQ<7>.OE  
+FPGA_data<8>.PIN N_PZ_90 FLASH_A_DQ<8>.D N_PZ_91 FLASH_A_DQ<8>.CLK N_PZ_92  
+FLASH_A_DQ<8>.OE FPGA_data<9>.PIN N_PZ_93 FLASH_A_DQ<9>.D N_PZ_94 FLASH_A_DQ<9>.CLK  
+N_PZ_95 FLASH_A_DQ<9>.OE CPLD_100MHZ N_PZ_98 FPGA_clock.CLK FPGA_G N_PZ_99 FLASH_A_G.D  
+N_PZ_100 FLASH_A_G.CLK N_PZ_102 clk_cnt_i<0>.CLK FPGA_A<0> N_PZ_103 FLASH_A_A<0>.D  
+N_PZ_104 FLASH_A_A<0>.CLK FPGA_A<1> N_PZ_105 FLASH_A_A<1>.D N_PZ_106 FLASH_A_A<1>.CLK  
+FPGA_A<10> N_PZ_107 FLASH_A_A<10>.D N_PZ_108 FLASH_A_A<10>.CLK FPGA_A<11> N_PZ_109  
+FLASH_A_A<11>.D N_PZ_110 FLASH_A_A<11>.CLK FPGA_A<12> N_PZ_111 FLASH_A_A<12>.D  
+N_PZ_112 FLASH_A_A<12>.CLK FPGA_A<13> N_PZ_113 FLASH_A_A<13>.D N_PZ_114  
+FLASH_A_A<13>.CLK FPGA_A<14> N_PZ_115 FLASH_A_A<14>.D N_PZ_116 FLASH_A_A<14>.CLK  
+FPGA_A<15> N_PZ_117 FLASH_A_A<15>.D N_PZ_118 FLASH_A_A<15>.CLK FPGA_A<16> N_PZ_119  
+FLASH_A_A<16>.D N_PZ_120 FLASH_A_A<16>.CLK FPGA_A<17> N_PZ_121 FLASH_A_A<17>.D  
+N_PZ_122 FLASH_A_A<17>.CLK FPGA_A<18> N_PZ_123 FLASH_A_A<18>.D N_PZ_124  
+FLASH_A_A<18>.CLK FPGA_A<19> N_PZ_125 FLASH_A_A<19>.D N_PZ_126 FLASH_A_A<19>.CLK  
+FPGA_A<2> N_PZ_127 FLASH_A_A<2>.D N_PZ_128 FLASH_A_A<2>.CLK FPGA_A<20> N_PZ_129  
+FLASH_A_A<20>.D N_PZ_130 FLASH_A_A<20>.CLK FPGA_A<21> N_PZ_131 FLASH_A_A<21>.D  
+N_PZ_132 FLASH_A_A<21>.CLK FPGA_A<22> N_PZ_133 FLASH_A_A<22>.D N_PZ_134  
+FLASH_A_A<22>.CLK FPGA_A<3> N_PZ_135 FLASH_A_A<3>.D N_PZ_136 FLASH_A_A<3>.CLK  
+FPGA_A<4> N_PZ_137 FLASH_A_A<4>.D N_PZ_138 FLASH_A_A<4>.CLK FPGA_A<5> N_PZ_139  
+FLASH_A_A<5>.D N_PZ_140 FLASH_A_A<5>.CLK FPGA_A<6> N_PZ_141 FLASH_A_A<6>.D N_PZ_142  
+FLASH_A_A<6>.CLK FPGA_A<7> N_PZ_143 FLASH_A_A<7>.D N_PZ_144 FLASH_A_A<7>.CLK FPGA_A<8>  
+N_PZ_145 FLASH_A_A<8>.D N_PZ_146 FLASH_A_A<8>.CLK FPGA_A<9> N_PZ_147 FLASH_A_A<9>.D  
+N_PZ_148 FLASH_A_A<9>.CLK FPGA_E N_PZ_149 FLASH_A_E.D N_PZ_150 FLASH_A_E.CLK FPGA_L  
+N_PZ_151 FLASH_A_L.D N_PZ_152 FLASH_A_L.CLK FPGA_RP N_PZ_153 FLASH_A_RP.D N_PZ_154  
+FLASH_A_RP.CLK FPGA_W N_PZ_155 FLASH_A_W.D N_PZ_156 FLASH_A_W.CLK reboot N_PZ_157  
+LEDs<3> N_PZ_160 FLASH_A_K.CLK N_PZ_161 LEDs<1> N_PZ_162 LEDs<0> N_PZ_163  
+FLASH_A_A<23> N_PZ_164 Program_B N_PZ_165 LEDs<2> N_PZ_166 FLASH_A_WP N_PZ_167  
+FLASH_A_RW clk_cnt_i<0>.Q N_PZ_169 FLASH_A_K.D N_PZ_203 clk_cnt_i<0>.T N_PZ_231  
+FPGA_clock.T 
+
+                                  Short Name                 Collapsible
+          Name       Base   Ext   | TypePolOld pt/th fi/FI fo | min          Pair        pxapin
+FLASH_A_DQ<0>.PINFLASH_A_DQ<0>  .PIN   a   PI  -  -  -| -  -| -  1 -   -             -             -
+  FPGA_clock.Q FPGA_clock    .Q   b   PI  -  -  -| -  -| - 61 -   -             -             -
+   FLASH_A_G.Q  FLASH_A_G    .Q   c   PI  -  -  -| -  -| - 32 -   -             -             -
+FLASH_A_DQ<10>.PINFLASH_A_DQ<10>  .PIN   d   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<11>.PINFLASH_A_DQ<11>  .PIN   e   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<12>.PINFLASH_A_DQ<12>  .PIN   f   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<13>.PINFLASH_A_DQ<13>  .PIN   g   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<14>.PINFLASH_A_DQ<14>  .PIN   h   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<15>.PINFLASH_A_DQ<15>  .PIN   i   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<1>.PINFLASH_A_DQ<1>  .PIN   j   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<2>.PINFLASH_A_DQ<2>  .PIN   k   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<3>.PINFLASH_A_DQ<3>  .PIN   l   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<4>.PINFLASH_A_DQ<4>  .PIN   m   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<5>.PINFLASH_A_DQ<5>  .PIN   n   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<6>.PINFLASH_A_DQ<6>  .PIN   o   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<7>.PINFLASH_A_DQ<7>  .PIN   p   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<8>.PINFLASH_A_DQ<8>  .PIN   q   PI  -  -  -| -  -| -  1 -   -             -             -
+FLASH_A_DQ<9>.PINFLASH_A_DQ<9>  .PIN   r   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<0>.PINFPGA_data<0>  .PIN   s   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<10>.PINFPGA_data<10>  .PIN   t   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<11>.PINFPGA_data<11>  .PIN   u   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<12>.PINFPGA_data<12>  .PIN   v   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<13>.PINFPGA_data<13>  .PIN   w   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<14>.PINFPGA_data<14>  .PIN   x   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<15>.PINFPGA_data<15>  .PIN   y   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<1>.PINFPGA_data<1>  .PIN   z   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<2>.PINFPGA_data<2>  .PIN  a0   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<3>.PINFPGA_data<3>  .PIN  b0   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<4>.PINFPGA_data<4>  .PIN  c0   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<5>.PINFPGA_data<5>  .PIN  d0   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<6>.PINFPGA_data<6>  .PIN  e0   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<7>.PINFPGA_data<7>  .PIN  f0   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<8>.PINFPGA_data<8>  .PIN  g0   PI  -  -  -| -  -| -  1 -   -             -             -
+FPGA_data<9>.PINFPGA_data<9>  .PIN  h0   PI  -  -  -| -  -| -  1 -   -             -             -
+   CPLD_100MHZCPLD_100MHZ        j0   PI  -  -  -| -  -| -  3 -   -             -             -
+        FPGA_G     FPGA_G        k0   PI  -  -  -| -  -| -  1 -   -             -             -
+     FPGA_A<0>  FPGA_A<0>        l0   PI  -  -  -| -  -| -  1 -   -             -             -
+     FPGA_A<1>  FPGA_A<1>        m0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<10> FPGA_A<10>        n0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<11> FPGA_A<11>        o0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<12> FPGA_A<12>        p0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<13> FPGA_A<13>        q0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<14> FPGA_A<14>        r0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<15> FPGA_A<15>        s0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<16> FPGA_A<16>        t0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<17> FPGA_A<17>        u0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<18> FPGA_A<18>        v0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<19> FPGA_A<19>        w0   PI  -  -  -| -  -| -  1 -   -             -             -
+     FPGA_A<2>  FPGA_A<2>        x0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<20> FPGA_A<20>        y0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<21> FPGA_A<21>        z0   PI  -  -  -| -  -| -  1 -   -             -             -
+    FPGA_A<22> FPGA_A<22>        a1   PI  -  -  -| -  -| -  1 -   -             -             -
+     FPGA_A<3>  FPGA_A<3>        b1   PI  -  -  -| -  -| -  1 -   -             -             -
+     FPGA_A<4>  FPGA_A<4>        c1   PI  -  -  -| -  -| -  1 -   -             -             -
+     FPGA_A<5>  FPGA_A<5>        d1   PI  -  -  -| -  -| -  1 -   -             -             -
+     FPGA_A<6>  FPGA_A<6>        e1   PI  -  -  -| -  -| -  1 -   -             -             -
+     FPGA_A<7>  FPGA_A<7>        f1   PI  -  -  -| -  -| -  1 -   -             -             -
+     FPGA_A<8>  FPGA_A<8>        g1   PI  -  -  -| -  -| -  1 -   -             -             -
+     FPGA_A<9>  FPGA_A<9>        h1   PI  -  -  -| -  -| -  1 -   -             -             -
+        FPGA_E     FPGA_E        i1   PI  -  -  -| -  -| -  1 -   -             -             -
+        FPGA_L     FPGA_L        j1   PI  -  -  -| -  -| -  1 -   -             -             -
+       FPGA_RP    FPGA_RP        k1   PI  -  -  -| -  -| -  1 -   -             -             -
+        FPGA_W     FPGA_W        l1   PI  -  -  -| -  -| -  1 -   -             -             -
+        reboot     reboot        m1   PI  -  -  -| -  -| -  1 -   -             -             -
+        N_PZ_0     N_PZ_0     -  z7 AINT  -  -  1|28  1|32  1 -   -FPGA_data<0>.D             -
+        N_PZ_1     N_PZ_1     -  a8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<0>.CLK             -
+        N_PZ_2     N_PZ_2     -  b8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<0>.OE             -
+        N_PZ_3     N_PZ_3     -  c8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<10>.D             -
+        N_PZ_4     N_PZ_4     -  d8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<10>.CLK             -
+        N_PZ_5     N_PZ_5     -  e8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<10>.OE             -
+        N_PZ_6     N_PZ_6     -  f8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<11>.D             -
+        N_PZ_7     N_PZ_7     -  g8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<11>.CLK             -
+        N_PZ_8     N_PZ_8     -  h8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<11>.OE             -
+        N_PZ_9     N_PZ_9     -  i8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<12>.D             -
+       N_PZ_10    N_PZ_10     -  j8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<12>.CLK             -
+       N_PZ_11    N_PZ_11     -  k8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<12>.OE             -
+       N_PZ_12    N_PZ_12     -  l8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<13>.D             -
+       N_PZ_13    N_PZ_13     -  m8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<13>.CLK             -
+       N_PZ_14    N_PZ_14     -  n8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<13>.OE             -
+       N_PZ_15    N_PZ_15     -  o8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<14>.D             -
+       N_PZ_16    N_PZ_16     -  p8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<14>.CLK             -
+       N_PZ_17    N_PZ_17     -  q8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<14>.OE             -
+       N_PZ_18    N_PZ_18     -  r8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<15>.D             -
+       N_PZ_19    N_PZ_19     -  s8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<15>.CLK             -
+       N_PZ_20    N_PZ_20     -  t8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<15>.OE             -
+       N_PZ_21    N_PZ_21     -  u8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<1>.D             -
+       N_PZ_22    N_PZ_22     -  v8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<1>.CLK             -
+       N_PZ_23    N_PZ_23     -  w8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<1>.OE             -
+       N_PZ_24    N_PZ_24     -  x8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<2>.D             -
+       N_PZ_25    N_PZ_25     -  y8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<2>.CLK             -
+       N_PZ_26    N_PZ_26     -  z8 AINT  -  -  1|28  1|32  1 -   -FPGA_data<2>.OE             -
+       N_PZ_27    N_PZ_27     -  a9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<3>.D             -
+       N_PZ_28    N_PZ_28     -  b9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<3>.CLK             -
+       N_PZ_29    N_PZ_29     -  c9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<3>.OE             -
+       N_PZ_30    N_PZ_30     -  d9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<4>.D             -
+       N_PZ_31    N_PZ_31     -  e9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<4>.CLK             -
+       N_PZ_32    N_PZ_32     -  f9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<4>.OE             -
+       N_PZ_33    N_PZ_33     -  g9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<5>.D             -
+       N_PZ_34    N_PZ_34     -  h9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<5>.CLK             -
+       N_PZ_35    N_PZ_35     -  i9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<5>.OE             -
+       N_PZ_36    N_PZ_36     -  j9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<6>.D             -
+       N_PZ_37    N_PZ_37     -  k9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<6>.CLK             -
+       N_PZ_38    N_PZ_38     -  l9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<6>.OE             -
+       N_PZ_39    N_PZ_39     -  m9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<7>.D             -
+       N_PZ_40    N_PZ_40     -  n9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<7>.CLK             -
+       N_PZ_41    N_PZ_41     -  o9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<7>.OE             -
+       N_PZ_42    N_PZ_42     -  p9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<8>.D             -
+       N_PZ_43    N_PZ_43     -  q9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<8>.CLK             -
+       N_PZ_44    N_PZ_44     -  r9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<8>.OE             -
+       N_PZ_45    N_PZ_45     -  s9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<9>.D             -
+       N_PZ_46    N_PZ_46     -  t9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<9>.CLK             -
+       N_PZ_47    N_PZ_47     -  u9 AINT  -  -  1|28  1|32  1 -   -FPGA_data<9>.OE             -
+       N_PZ_48    N_PZ_48     -  v9 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<0>.D             -
+       N_PZ_49    N_PZ_49     -  w9 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<0>.CLK             -
+       N_PZ_50    N_PZ_50     -  x9 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<0>.OE             -
+       N_PZ_51    N_PZ_51     -  y9 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<10>.D             -
+       N_PZ_52    N_PZ_52     -  z9 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<10>.CLK             -
+       N_PZ_53    N_PZ_53     - a10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<10>.OE             -
+       N_PZ_54    N_PZ_54     - b10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<11>.D             -
+       N_PZ_55    N_PZ_55     - c10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<11>.CLK             -
+       N_PZ_56    N_PZ_56     - d10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<11>.OE             -
+       N_PZ_57    N_PZ_57     - e10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<12>.D             -
+       N_PZ_58    N_PZ_58     - f10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<12>.CLK             -
+       N_PZ_59    N_PZ_59     - g10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<12>.OE             -
+       N_PZ_60    N_PZ_60     - h10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<13>.D             -
+       N_PZ_61    N_PZ_61     - i10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<13>.CLK             -
+       N_PZ_62    N_PZ_62     - j10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<13>.OE             -
+       N_PZ_63    N_PZ_63     - k10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<14>.D             -
+       N_PZ_64    N_PZ_64     - l10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<14>.CLK             -
+       N_PZ_65    N_PZ_65     - m10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<14>.OE             -
+       N_PZ_66    N_PZ_66     - n10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<15>.D             -
+       N_PZ_67    N_PZ_67     - o10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<15>.CLK             -
+       N_PZ_68    N_PZ_68     - p10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<15>.OE             -
+       N_PZ_69    N_PZ_69     - q10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<1>.D             -
+       N_PZ_70    N_PZ_70     - r10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<1>.CLK             -
+       N_PZ_71    N_PZ_71     - s10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<1>.OE             -
+       N_PZ_72    N_PZ_72     - t10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<2>.D             -
+       N_PZ_73    N_PZ_73     - u10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<2>.CLK             -
+       N_PZ_74    N_PZ_74     - v10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<2>.OE             -
+       N_PZ_75    N_PZ_75     - w10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<3>.D             -
+       N_PZ_76    N_PZ_76     - x10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<3>.CLK             -
+       N_PZ_77    N_PZ_77     - y10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<3>.OE             -
+       N_PZ_78    N_PZ_78     - z10 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<4>.D             -
+       N_PZ_79    N_PZ_79     - a11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<4>.CLK             -
+       N_PZ_80    N_PZ_80     - b11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<4>.OE             -
+       N_PZ_81    N_PZ_81     - c11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<5>.D             -
+       N_PZ_82    N_PZ_82     - d11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<5>.CLK             -
+       N_PZ_83    N_PZ_83     - e11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<5>.OE             -
+       N_PZ_84    N_PZ_84     - f11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<6>.D             -
+       N_PZ_85    N_PZ_85     - g11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<6>.CLK             -
+       N_PZ_86    N_PZ_86     - h11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<6>.OE             -
+       N_PZ_87    N_PZ_87     - i11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<7>.D             -
+       N_PZ_88    N_PZ_88     - j11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<7>.CLK             -
+       N_PZ_89    N_PZ_89     - k11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<7>.OE             -
+       N_PZ_90    N_PZ_90     - l11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<8>.D             -
+       N_PZ_91    N_PZ_91     - m11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<8>.CLK             -
+       N_PZ_92    N_PZ_92     - n11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<8>.OE             -
+       N_PZ_93    N_PZ_93     - o11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<9>.D             -
+       N_PZ_94    N_PZ_94     - p11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<9>.CLK             -
+       N_PZ_95    N_PZ_95     - q11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_DQ<9>.OE             -
+       N_PZ_98    N_PZ_98     - t11 AINT  -  -  1|28  1|32  1 -   -FPGA_clock.CLK             -
+       N_PZ_99    N_PZ_99     - u11 AINT  -  -  1|28  1|32  1 -   -   FLASH_A_G.D             -
+      N_PZ_100   N_PZ_100     - v11 AINT  -  -  1|28  1|32  1 -   - FLASH_A_G.CLK             -
+      N_PZ_102   N_PZ_102     - x11 AINT  -  -  1|28  1|32  1 -   -clk_cnt_i<0>.CLK             -
+      N_PZ_103   N_PZ_103     - y11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<0>.D             -
+      N_PZ_104   N_PZ_104     - z11 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<0>.CLK             -
+      N_PZ_105   N_PZ_105     - a12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<1>.D             -
+      N_PZ_106   N_PZ_106     - b12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<1>.CLK             -
+      N_PZ_107   N_PZ_107     - c12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<10>.D             -
+      N_PZ_108   N_PZ_108     - d12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<10>.CLK             -
+      N_PZ_109   N_PZ_109     - e12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<11>.D             -
+      N_PZ_110   N_PZ_110     - f12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<11>.CLK             -
+      N_PZ_111   N_PZ_111     - g12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<12>.D             -
+      N_PZ_112   N_PZ_112     - h12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<12>.CLK             -
+      N_PZ_113   N_PZ_113     - i12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<13>.D             -
+      N_PZ_114   N_PZ_114     - j12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<13>.CLK             -
+      N_PZ_115   N_PZ_115     - k12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<14>.D             -
+      N_PZ_116   N_PZ_116     - l12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<14>.CLK             -
+      N_PZ_117   N_PZ_117     - m12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<15>.D             -
+      N_PZ_118   N_PZ_118     - n12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<15>.CLK             -
+      N_PZ_119   N_PZ_119     - o12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<16>.D             -
+      N_PZ_120   N_PZ_120     - p12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<16>.CLK             -
+      N_PZ_121   N_PZ_121     - q12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<17>.D             -
+      N_PZ_122   N_PZ_122     - r12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<17>.CLK             -
+      N_PZ_123   N_PZ_123     - s12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<18>.D             -
+      N_PZ_124   N_PZ_124     - t12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<18>.CLK             -
+      N_PZ_125   N_PZ_125     - u12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<19>.D             -
+      N_PZ_126   N_PZ_126     - v12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<19>.CLK             -
+      N_PZ_127   N_PZ_127     - w12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<2>.D             -
+      N_PZ_128   N_PZ_128     - x12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<2>.CLK             -
+      N_PZ_129   N_PZ_129     - y12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<20>.D             -
+      N_PZ_130   N_PZ_130     - z12 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<20>.CLK             -
+      N_PZ_131   N_PZ_131     - a13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<21>.D             -
+      N_PZ_132   N_PZ_132     - b13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<21>.CLK             -
+      N_PZ_133   N_PZ_133     - c13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<22>.D             -
+      N_PZ_134   N_PZ_134     - d13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<22>.CLK             -
+      N_PZ_135   N_PZ_135     - e13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<3>.D             -
+      N_PZ_136   N_PZ_136     - f13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<3>.CLK             -
+      N_PZ_137   N_PZ_137     - g13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<4>.D             -
+      N_PZ_138   N_PZ_138     - h13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<4>.CLK             -
+      N_PZ_139   N_PZ_139     - i13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<5>.D             -
+      N_PZ_140   N_PZ_140     - j13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<5>.CLK             -
+      N_PZ_141   N_PZ_141     - k13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<6>.D             -
+      N_PZ_142   N_PZ_142     - l13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<6>.CLK             -
+      N_PZ_143   N_PZ_143     - m13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<7>.D             -
+      N_PZ_144   N_PZ_144     - n13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<7>.CLK             -
+      N_PZ_145   N_PZ_145     - o13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<8>.D             -
+      N_PZ_146   N_PZ_146     - p13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<8>.CLK             -
+      N_PZ_147   N_PZ_147     - q13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<9>.D             -
+      N_PZ_148   N_PZ_148     - r13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_A<9>.CLK             -
+      N_PZ_149   N_PZ_149     - s13 AINT  -  -  1|28  1|32  1 -   -   FLASH_A_E.D             -
+      N_PZ_150   N_PZ_150     - t13 AINT  -  -  1|28  1|32  1 -   - FLASH_A_E.CLK             -
+      N_PZ_151   N_PZ_151     - u13 AINT  -  -  1|28  1|32  1 -   -   FLASH_A_L.D             -
+      N_PZ_152   N_PZ_152     - v13 AINT  -  -  1|28  1|32  1 -   - FLASH_A_L.CLK             -
+      N_PZ_153   N_PZ_153     - w13 AINT  -  -  1|28  1|32  1 -   -  FLASH_A_RP.D             -
+      N_PZ_154   N_PZ_154     - x13 AINT  -  -  1|28  1|32  1 -   -FLASH_A_RP.CLK             -
+      N_PZ_155   N_PZ_155     - y13 AINT  -  -  1|28  1|32  1 -   -   FLASH_A_W.D             -
+      N_PZ_156   N_PZ_156     - z13 AINT  -  -  1|28  1|32  1 -   - FLASH_A_W.CLK             -
+      N_PZ_157   N_PZ_157     - a14 AINT  -  -  1|28  1|32  1 -   -       LEDs<3>             -
+      N_PZ_160   N_PZ_160     - d14 AINT  -  -  1|28  1|32  1 -   - FLASH_A_K.CLK             -
+      N_PZ_161   N_PZ_161     - e14 AINT  -  -  0|28  0|32  1 -   -       LEDs<1>             -
+      N_PZ_162   N_PZ_162     - f14 AINT  -  -  0|28  0|32  1 -   -       LEDs<0>             -
+      N_PZ_163   N_PZ_163     - g14 AINT  -  -  0|28  0|32  1 -   - FLASH_A_A<23>             -
+      N_PZ_164   N_PZ_164     - h14 AINT  -  -  1|28  0|32  1 -   -     Program_B             -
+      N_PZ_165   N_PZ_165     - i14 AINT  -  -  1|28  0|32  1 -   -       LEDs<2>             -
+      N_PZ_166   N_PZ_166     - j14 AINT  -  -  1|28  0|32  1 -   -    FLASH_A_WP             -
+      N_PZ_167   N_PZ_167     - k14 AINT  -  -  1|28  0|32  1 -   -    FLASH_A_RW             -
+FPGA_data<0>.DFPGA_data<0>    .D  n1   PO  -  -  -| -  -| -  0 -   -        N_PZ_0  FPGA_data<0>
+FPGA_data<0>.CLKFPGA_data<0>  .CLK  o1   PO  -  -  -| -  -| -  0 -   -        N_PZ_1  FPGA_data<0>
+FPGA_data<0>.OEFPGA_data<0>   .OE  p1   PO  -  -  -| -  -| -  0 -   -        N_PZ_2  FPGA_data<0>
+FPGA_data<10>.DFPGA_data<10>    .D  q1   PO  -  -  -| -  -| -  0 -   -        N_PZ_3 FPGA_data<10>
+FPGA_data<10>.CLKFPGA_data<10>  .CLK  r1   PO  -  -  -| -  -| -  0 -   -        N_PZ_4 FPGA_data<10>
+FPGA_data<10>.OEFPGA_data<10>   .OE  s1   PO  -  -  -| -  -| -  0 -   -        N_PZ_5 FPGA_data<10>
+FPGA_data<11>.DFPGA_data<11>    .D  t1   PO  -  -  -| -  -| -  0 -   -        N_PZ_6 FPGA_data<11>
+FPGA_data<11>.CLKFPGA_data<11>  .CLK  u1   PO  -  -  -| -  -| -  0 -   -        N_PZ_7 FPGA_data<11>
+FPGA_data<11>.OEFPGA_data<11>   .OE  v1   PO  -  -  -| -  -| -  0 -   -        N_PZ_8 FPGA_data<11>
+FPGA_data<12>.DFPGA_data<12>    .D  w1   PO  -  -  -| -  -| -  0 -   -        N_PZ_9 FPGA_data<12>
+FPGA_data<12>.CLKFPGA_data<12>  .CLK  x1   PO  -  -  -| -  -| -  0 -   -       N_PZ_10 FPGA_data<12>
+FPGA_data<12>.OEFPGA_data<12>   .OE  y1   PO  -  -  -| -  -| -  0 -   -       N_PZ_11 FPGA_data<12>
+FPGA_data<13>.DFPGA_data<13>    .D  z1   PO  -  -  -| -  -| -  0 -   -       N_PZ_12 FPGA_data<13>
+FPGA_data<13>.CLKFPGA_data<13>  .CLK  a2   PO  -  -  -| -  -| -  0 -   -       N_PZ_13 FPGA_data<13>
+FPGA_data<13>.OEFPGA_data<13>   .OE  b2   PO  -  -  -| -  -| -  0 -   -       N_PZ_14 FPGA_data<13>
+FPGA_data<14>.DFPGA_data<14>    .D  c2   PO  -  -  -| -  -| -  0 -   -       N_PZ_15 FPGA_data<14>
+FPGA_data<14>.CLKFPGA_data<14>  .CLK  d2   PO  -  -  -| -  -| -  0 -   -       N_PZ_16 FPGA_data<14>
+FPGA_data<14>.OEFPGA_data<14>   .OE  e2   PO  -  -  -| -  -| -  0 -   -       N_PZ_17 FPGA_data<14>
+FPGA_data<15>.DFPGA_data<15>    .D  f2   PO  -  -  -| -  -| -  0 -   -       N_PZ_18 FPGA_data<15>
+FPGA_data<15>.CLKFPGA_data<15>  .CLK  g2   PO  -  -  -| -  -| -  0 -   -       N_PZ_19 FPGA_data<15>
+FPGA_data<15>.OEFPGA_data<15>   .OE  h2   PO  -  -  -| -  -| -  0 -   -       N_PZ_20 FPGA_data<15>
+FPGA_data<1>.DFPGA_data<1>    .D  i2   PO  -  -  -| -  -| -  0 -   -       N_PZ_21  FPGA_data<1>
+FPGA_data<1>.CLKFPGA_data<1>  .CLK  j2   PO  -  -  -| -  -| -  0 -   -       N_PZ_22  FPGA_data<1>
+FPGA_data<1>.OEFPGA_data<1>   .OE  k2   PO  -  -  -| -  -| -  0 -   -       N_PZ_23  FPGA_data<1>
+FPGA_data<2>.DFPGA_data<2>    .D  l2   PO  -  -  -| -  -| -  0 -   -       N_PZ_24  FPGA_data<2>
+FPGA_data<2>.CLKFPGA_data<2>  .CLK  m2   PO  -  -  -| -  -| -  0 -   -       N_PZ_25  FPGA_data<2>
+FPGA_data<2>.OEFPGA_data<2>   .OE  n2   PO  -  -  -| -  -| -  0 -   -       N_PZ_26  FPGA_data<2>
+FPGA_data<3>.DFPGA_data<3>    .D  o2   PO  -  -  -| -  -| -  0 -   -       N_PZ_27  FPGA_data<3>
+FPGA_data<3>.CLKFPGA_data<3>  .CLK  p2   PO  -  -  -| -  -| -  0 -   -       N_PZ_28  FPGA_data<3>
+FPGA_data<3>.OEFPGA_data<3>   .OE  q2   PO  -  -  -| -  -| -  0 -   -       N_PZ_29  FPGA_data<3>
+FPGA_data<4>.DFPGA_data<4>    .D  r2   PO  -  -  -| -  -| -  0 -   -       N_PZ_30  FPGA_data<4>
+FPGA_data<4>.CLKFPGA_data<4>  .CLK  s2   PO  -  -  -| -  -| -  0 -   -       N_PZ_31  FPGA_data<4>
+FPGA_data<4>.OEFPGA_data<4>   .OE  t2   PO  -  -  -| -  -| -  0 -   -       N_PZ_32  FPGA_data<4>
+FPGA_data<5>.DFPGA_data<5>    .D  u2   PO  -  -  -| -  -| -  0 -   -       N_PZ_33  FPGA_data<5>
+FPGA_data<5>.CLKFPGA_data<5>  .CLK  v2   PO  -  -  -| -  -| -  0 -   -       N_PZ_34  FPGA_data<5>
+FPGA_data<5>.OEFPGA_data<5>   .OE  w2   PO  -  -  -| -  -| -  0 -   -       N_PZ_35  FPGA_data<5>
+FPGA_data<6>.DFPGA_data<6>    .D  x2   PO  -  -  -| -  -| -  0 -   -       N_PZ_36  FPGA_data<6>
+FPGA_data<6>.CLKFPGA_data<6>  .CLK  y2   PO  -  -  -| -  -| -  0 -   -       N_PZ_37  FPGA_data<6>
+FPGA_data<6>.OEFPGA_data<6>   .OE  z2   PO  -  -  -| -  -| -  0 -   -       N_PZ_38  FPGA_data<6>
+FPGA_data<7>.DFPGA_data<7>    .D  a3   PO  -  -  -| -  -| -  0 -   -       N_PZ_39  FPGA_data<7>
+FPGA_data<7>.CLKFPGA_data<7>  .CLK  b3   PO  -  -  -| -  -| -  0 -   -       N_PZ_40  FPGA_data<7>
+FPGA_data<7>.OEFPGA_data<7>   .OE  c3   PO  -  -  -| -  -| -  0 -   -       N_PZ_41  FPGA_data<7>
+FPGA_data<8>.DFPGA_data<8>    .D  d3   PO  -  -  -| -  -| -  0 -   -       N_PZ_42  FPGA_data<8>
+FPGA_data<8>.CLKFPGA_data<8>  .CLK  e3   PO  -  -  -| -  -| -  0 -   -       N_PZ_43  FPGA_data<8>
+FPGA_data<8>.OEFPGA_data<8>   .OE  f3   PO  -  -  -| -  -| -  0 -   -       N_PZ_44  FPGA_data<8>
+FPGA_data<9>.DFPGA_data<9>    .D  g3   PO  -  -  -| -  -| -  0 -   -       N_PZ_45  FPGA_data<9>
+FPGA_data<9>.CLKFPGA_data<9>  .CLK  h3   PO  -  -  -| -  -| -  0 -   -       N_PZ_46  FPGA_data<9>
+FPGA_data<9>.OEFPGA_data<9>   .OE  i3   PO  -  -  -| -  -| -  0 -   -       N_PZ_47  FPGA_data<9>
+FLASH_A_DQ<0>.DFLASH_A_DQ<0>    .D  j3   PO  -  -  -| -  -| -  0 -   -       N_PZ_48 FLASH_A_DQ<0>
+FLASH_A_DQ<0>.CLKFLASH_A_DQ<0>  .CLK  k3   PO  -  -  -| -  -| -  0 -   -       N_PZ_49 FLASH_A_DQ<0>
+FLASH_A_DQ<0>.OEFLASH_A_DQ<0>   .OE  l3   PO  -  -  -| -  -| -  0 -   -       N_PZ_50 FLASH_A_DQ<0>
+FLASH_A_DQ<10>.DFLASH_A_DQ<10>    .D  m3   PO  -  -  -| -  -| -  0 -   -       N_PZ_51FLASH_A_DQ<10>
+FLASH_A_DQ<10>.CLKFLASH_A_DQ<10>  .CLK  n3   PO  -  -  -| -  -| -  0 -   -       N_PZ_52FLASH_A_DQ<10>
+FLASH_A_DQ<10>.OEFLASH_A_DQ<10>   .OE  o3   PO  -  -  -| -  -| -  0 -   -       N_PZ_53FLASH_A_DQ<10>
+FLASH_A_DQ<11>.DFLASH_A_DQ<11>    .D  p3   PO  -  -  -| -  -| -  0 -   -       N_PZ_54FLASH_A_DQ<11>
+FLASH_A_DQ<11>.CLKFLASH_A_DQ<11>  .CLK  q3   PO  -  -  -| -  -| -  0 -   -       N_PZ_55FLASH_A_DQ<11>
+FLASH_A_DQ<11>.OEFLASH_A_DQ<11>   .OE  r3   PO  -  -  -| -  -| -  0 -   -       N_PZ_56FLASH_A_DQ<11>
+FLASH_A_DQ<12>.DFLASH_A_DQ<12>    .D  s3   PO  -  -  -| -  -| -  0 -   -       N_PZ_57FLASH_A_DQ<12>
+FLASH_A_DQ<12>.CLKFLASH_A_DQ<12>  .CLK  t3   PO  -  -  -| -  -| -  0 -   -       N_PZ_58FLASH_A_DQ<12>
+FLASH_A_DQ<12>.OEFLASH_A_DQ<12>   .OE  u3   PO  -  -  -| -  -| -  0 -   -       N_PZ_59FLASH_A_DQ<12>
+FLASH_A_DQ<13>.DFLASH_A_DQ<13>    .D  v3   PO  -  -  -| -  -| -  0 -   -       N_PZ_60FLASH_A_DQ<13>
+FLASH_A_DQ<13>.CLKFLASH_A_DQ<13>  .CLK  w3   PO  -  -  -| -  -| -  0 -   -       N_PZ_61FLASH_A_DQ<13>
+FLASH_A_DQ<13>.OEFLASH_A_DQ<13>   .OE  x3   PO  -  -  -| -  -| -  0 -   -       N_PZ_62FLASH_A_DQ<13>
+FLASH_A_DQ<14>.DFLASH_A_DQ<14>    .D  y3   PO  -  -  -| -  -| -  0 -   -       N_PZ_63FLASH_A_DQ<14>
+FLASH_A_DQ<14>.CLKFLASH_A_DQ<14>  .CLK  z3   PO  -  -  -| -  -| -  0 -   -       N_PZ_64FLASH_A_DQ<14>
+FLASH_A_DQ<14>.OEFLASH_A_DQ<14>   .OE  a4   PO  -  -  -| -  -| -  0 -   -       N_PZ_65FLASH_A_DQ<14>
+FLASH_A_DQ<15>.DFLASH_A_DQ<15>    .D  b4   PO  -  -  -| -  -| -  0 -   -       N_PZ_66FLASH_A_DQ<15>
+FLASH_A_DQ<15>.CLKFLASH_A_DQ<15>  .CLK  c4   PO  -  -  -| -  -| -  0 -   -       N_PZ_67FLASH_A_DQ<15>
+FLASH_A_DQ<15>.OEFLASH_A_DQ<15>   .OE  d4   PO  -  -  -| -  -| -  0 -   -       N_PZ_68FLASH_A_DQ<15>
+FLASH_A_DQ<1>.DFLASH_A_DQ<1>    .D  e4   PO  -  -  -| -  -| -  0 -   -       N_PZ_69 FLASH_A_DQ<1>
+FLASH_A_DQ<1>.CLKFLASH_A_DQ<1>  .CLK  f4   PO  -  -  -| -  -| -  0 -   -       N_PZ_70 FLASH_A_DQ<1>
+FLASH_A_DQ<1>.OEFLASH_A_DQ<1>   .OE  g4   PO  -  -  -| -  -| -  0 -   -       N_PZ_71 FLASH_A_DQ<1>
+FLASH_A_DQ<2>.DFLASH_A_DQ<2>    .D  h4   PO  -  -  -| -  -| -  0 -   -       N_PZ_72 FLASH_A_DQ<2>
+FLASH_A_DQ<2>.CLKFLASH_A_DQ<2>  .CLK  i4   PO  -  -  -| -  -| -  0 -   -       N_PZ_73 FLASH_A_DQ<2>
+FLASH_A_DQ<2>.OEFLASH_A_DQ<2>   .OE  j4   PO  -  -  -| -  -| -  0 -   -       N_PZ_74 FLASH_A_DQ<2>
+FLASH_A_DQ<3>.DFLASH_A_DQ<3>    .D  k4   PO  -  -  -| -  -| -  0 -   -       N_PZ_75 FLASH_A_DQ<3>
+FLASH_A_DQ<3>.CLKFLASH_A_DQ<3>  .CLK  l4   PO  -  -  -| -  -| -  0 -   -       N_PZ_76 FLASH_A_DQ<3>
+FLASH_A_DQ<3>.OEFLASH_A_DQ<3>   .OE  m4   PO  -  -  -| -  -| -  0 -   -       N_PZ_77 FLASH_A_DQ<3>
+FLASH_A_DQ<4>.DFLASH_A_DQ<4>    .D  n4   PO  -  -  -| -  -| -  0 -   -       N_PZ_78 FLASH_A_DQ<4>
+FLASH_A_DQ<4>.CLKFLASH_A_DQ<4>  .CLK  o4   PO  -  -  -| -  -| -  0 -   -       N_PZ_79 FLASH_A_DQ<4>
+FLASH_A_DQ<4>.OEFLASH_A_DQ<4>   .OE  p4   PO  -  -  -| -  -| -  0 -   -       N_PZ_80 FLASH_A_DQ<4>
+FLASH_A_DQ<5>.DFLASH_A_DQ<5>    .D  q4   PO  -  -  -| -  -| -  0 -   -       N_PZ_81 FLASH_A_DQ<5>
+FLASH_A_DQ<5>.CLKFLASH_A_DQ<5>  .CLK  r4   PO  -  -  -| -  -| -  0 -   -       N_PZ_82 FLASH_A_DQ<5>
+FLASH_A_DQ<5>.OEFLASH_A_DQ<5>   .OE  s4   PO  -  -  -| -  -| -  0 -   -       N_PZ_83 FLASH_A_DQ<5>
+FLASH_A_DQ<6>.DFLASH_A_DQ<6>    .D  t4   PO  -  -  -| -  -| -  0 -   -       N_PZ_84 FLASH_A_DQ<6>
+FLASH_A_DQ<6>.CLKFLASH_A_DQ<6>  .CLK  u4   PO  -  -  -| -  -| -  0 -   -       N_PZ_85 FLASH_A_DQ<6>
+FLASH_A_DQ<6>.OEFLASH_A_DQ<6>   .OE  v4   PO  -  -  -| -  -| -  0 -   -       N_PZ_86 FLASH_A_DQ<6>
+FLASH_A_DQ<7>.DFLASH_A_DQ<7>    .D  w4   PO  -  -  -| -  -| -  0 -   -       N_PZ_87 FLASH_A_DQ<7>
+FLASH_A_DQ<7>.CLKFLASH_A_DQ<7>  .CLK  x4   PO  -  -  -| -  -| -  0 -   -       N_PZ_88 FLASH_A_DQ<7>
+FLASH_A_DQ<7>.OEFLASH_A_DQ<7>   .OE  y4   PO  -  -  -| -  -| -  0 -   -       N_PZ_89 FLASH_A_DQ<7>
+FLASH_A_DQ<8>.DFLASH_A_DQ<8>    .D  z4   PO  -  -  -| -  -| -  0 -   -       N_PZ_90 FLASH_A_DQ<8>
+FLASH_A_DQ<8>.CLKFLASH_A_DQ<8>  .CLK  a5   PO  -  -  -| -  -| -  0 -   -       N_PZ_91 FLASH_A_DQ<8>
+FLASH_A_DQ<8>.OEFLASH_A_DQ<8>   .OE  b5   PO  -  -  -| -  -| -  0 -   -       N_PZ_92 FLASH_A_DQ<8>
+FLASH_A_DQ<9>.DFLASH_A_DQ<9>    .D  c5   PO  -  -  -| -  -| -  0 -   -       N_PZ_93 FLASH_A_DQ<9>
+FLASH_A_DQ<9>.CLKFLASH_A_DQ<9>  .CLK  d5   PO  -  -  -| -  -| -  0 -   -       N_PZ_94 FLASH_A_DQ<9>
+FLASH_A_DQ<9>.OEFLASH_A_DQ<9>   .OE  e5   PO  -  -  -| -  -| -  0 -   -       N_PZ_95 FLASH_A_DQ<9>
+FPGA_clock.CLK FPGA_clock  .CLK  h5   PO  -  -  -| -  -| -  0 -   -       N_PZ_98    FPGA_clock
+   FLASH_A_G.D  FLASH_A_G    .D  i5   PO  -  -  -| -  -| -  0 -   -       N_PZ_99     FLASH_A_G
+ FLASH_A_G.CLK  FLASH_A_G  .CLK  j5   PO  -  -  -| -  -| -  0 -   -      N_PZ_100     FLASH_A_G
+clk_cnt_i<0>.CLKclk_cnt_i<0>  .CLK  l5   PO  -  -  -| -  -| -  0 -   -      N_PZ_102  clk_cnt_i<0>
+FLASH_A_A<0>.DFLASH_A_A<0>    .D  m5   PO  -  -  -| -  -| -  0 -   -      N_PZ_103  FLASH_A_A<0>
+FLASH_A_A<0>.CLKFLASH_A_A<0>  .CLK  n5   PO  -  -  -| -  -| -  0 -   -      N_PZ_104  FLASH_A_A<0>
+FLASH_A_A<1>.DFLASH_A_A<1>    .D  o5   PO  -  -  -| -  -| -  0 -   -      N_PZ_105  FLASH_A_A<1>
+FLASH_A_A<1>.CLKFLASH_A_A<1>  .CLK  p5   PO  -  -  -| -  -| -  0 -   -      N_PZ_106  FLASH_A_A<1>
+FLASH_A_A<10>.DFLASH_A_A<10>    .D  q5   PO  -  -  -| -  -| -  0 -   -      N_PZ_107 FLASH_A_A<10>
+FLASH_A_A<10>.CLKFLASH_A_A<10>  .CLK  r5   PO  -  -  -| -  -| -  0 -   -      N_PZ_108 FLASH_A_A<10>
+FLASH_A_A<11>.DFLASH_A_A<11>    .D  s5   PO  -  -  -| -  -| -  0 -   -      N_PZ_109 FLASH_A_A<11>
+FLASH_A_A<11>.CLKFLASH_A_A<11>  .CLK  t5   PO  -  -  -| -  -| -  0 -   -      N_PZ_110 FLASH_A_A<11>
+FLASH_A_A<12>.DFLASH_A_A<12>    .D  u5   PO  -  -  -| -  -| -  0 -   -      N_PZ_111 FLASH_A_A<12>
+FLASH_A_A<12>.CLKFLASH_A_A<12>  .CLK  v5   PO  -  -  -| -  -| -  0 -   -      N_PZ_112 FLASH_A_A<12>
+FLASH_A_A<13>.DFLASH_A_A<13>    .D  w5   PO  -  -  -| -  -| -  0 -   -      N_PZ_113 FLASH_A_A<13>
+FLASH_A_A<13>.CLKFLASH_A_A<13>  .CLK  x5   PO  -  -  -| -  -| -  0 -   -      N_PZ_114 FLASH_A_A<13>
+FLASH_A_A<14>.DFLASH_A_A<14>    .D  y5   PO  -  -  -| -  -| -  0 -   -      N_PZ_115 FLASH_A_A<14>
+FLASH_A_A<14>.CLKFLASH_A_A<14>  .CLK  z5   PO  -  -  -| -  -| -  0 -   -      N_PZ_116 FLASH_A_A<14>
+FLASH_A_A<15>.DFLASH_A_A<15>    .D  a6   PO  -  -  -| -  -| -  0 -   -      N_PZ_117 FLASH_A_A<15>
+FLASH_A_A<15>.CLKFLASH_A_A<15>  .CLK  b6   PO  -  -  -| -  -| -  0 -   -      N_PZ_118 FLASH_A_A<15>
+FLASH_A_A<16>.DFLASH_A_A<16>    .D  c6   PO  -  -  -| -  -| -  0 -   -      N_PZ_119 FLASH_A_A<16>
+FLASH_A_A<16>.CLKFLASH_A_A<16>  .CLK  d6   PO  -  -  -| -  -| -  0 -   -      N_PZ_120 FLASH_A_A<16>
+FLASH_A_A<17>.DFLASH_A_A<17>    .D  e6   PO  -  -  -| -  -| -  0 -   -      N_PZ_121 FLASH_A_A<17>
+FLASH_A_A<17>.CLKFLASH_A_A<17>  .CLK  f6   PO  -  -  -| -  -| -  0 -   -      N_PZ_122 FLASH_A_A<17>
+FLASH_A_A<18>.DFLASH_A_A<18>    .D  g6   PO  -  -  -| -  -| -  0 -   -      N_PZ_123 FLASH_A_A<18>
+FLASH_A_A<18>.CLKFLASH_A_A<18>  .CLK  h6   PO  -  -  -| -  -| -  0 -   -      N_PZ_124 FLASH_A_A<18>
+FLASH_A_A<19>.DFLASH_A_A<19>    .D  i6   PO  -  -  -| -  -| -  0 -   -      N_PZ_125 FLASH_A_A<19>
+FLASH_A_A<19>.CLKFLASH_A_A<19>  .CLK  j6   PO  -  -  -| -  -| -  0 -   -      N_PZ_126 FLASH_A_A<19>
+FLASH_A_A<2>.DFLASH_A_A<2>    .D  k6   PO  -  -  -| -  -| -  0 -   -      N_PZ_127  FLASH_A_A<2>
+FLASH_A_A<2>.CLKFLASH_A_A<2>  .CLK  l6   PO  -  -  -| -  -| -  0 -   -      N_PZ_128  FLASH_A_A<2>
+FLASH_A_A<20>.DFLASH_A_A<20>    .D  m6   PO  -  -  -| -  -| -  0 -   -      N_PZ_129 FLASH_A_A<20>
+FLASH_A_A<20>.CLKFLASH_A_A<20>  .CLK  n6   PO  -  -  -| -  -| -  0 -   -      N_PZ_130 FLASH_A_A<20>
+FLASH_A_A<21>.DFLASH_A_A<21>    .D  o6   PO  -  -  -| -  -| -  0 -   -      N_PZ_131 FLASH_A_A<21>
+FLASH_A_A<21>.CLKFLASH_A_A<21>  .CLK  p6   PO  -  -  -| -  -| -  0 -   -      N_PZ_132 FLASH_A_A<21>
+FLASH_A_A<22>.DFLASH_A_A<22>    .D  q6   PO  -  -  -| -  -| -  0 -   -      N_PZ_133 FLASH_A_A<22>
+FLASH_A_A<22>.CLKFLASH_A_A<22>  .CLK  r6   PO  -  -  -| -  -| -  0 -   -      N_PZ_134 FLASH_A_A<22>
+FLASH_A_A<3>.DFLASH_A_A<3>    .D  s6   PO  -  -  -| -  -| -  0 -   -      N_PZ_135  FLASH_A_A<3>
+FLASH_A_A<3>.CLKFLASH_A_A<3>  .CLK  t6   PO  -  -  -| -  -| -  0 -   -      N_PZ_136  FLASH_A_A<3>
+FLASH_A_A<4>.DFLASH_A_A<4>    .D  u6   PO  -  -  -| -  -| -  0 -   -      N_PZ_137  FLASH_A_A<4>
+FLASH_A_A<4>.CLKFLASH_A_A<4>  .CLK  v6   PO  -  -  -| -  -| -  0 -   -      N_PZ_138  FLASH_A_A<4>
+FLASH_A_A<5>.DFLASH_A_A<5>    .D  w6   PO  -  -  -| -  -| -  0 -   -      N_PZ_139  FLASH_A_A<5>
+FLASH_A_A<5>.CLKFLASH_A_A<5>  .CLK  x6   PO  -  -  -| -  -| -  0 -   -      N_PZ_140  FLASH_A_A<5>
+FLASH_A_A<6>.DFLASH_A_A<6>    .D  y6   PO  -  -  -| -  -| -  0 -   -      N_PZ_141  FLASH_A_A<6>
+FLASH_A_A<6>.CLKFLASH_A_A<6>  .CLK  z6   PO  -  -  -| -  -| -  0 -   -      N_PZ_142  FLASH_A_A<6>
+FLASH_A_A<7>.DFLASH_A_A<7>    .D  a7   PO  -  -  -| -  -| -  0 -   -      N_PZ_143  FLASH_A_A<7>
+FLASH_A_A<7>.CLKFLASH_A_A<7>  .CLK  b7   PO  -  -  -| -  -| -  0 -   -      N_PZ_144  FLASH_A_A<7>
+FLASH_A_A<8>.DFLASH_A_A<8>    .D  c7   PO  -  -  -| -  -| -  0 -   -      N_PZ_145  FLASH_A_A<8>
+FLASH_A_A<8>.CLKFLASH_A_A<8>  .CLK  d7   PO  -  -  -| -  -| -  0 -   -      N_PZ_146  FLASH_A_A<8>
+FLASH_A_A<9>.DFLASH_A_A<9>    .D  e7   PO  -  -  -| -  -| -  0 -   -      N_PZ_147  FLASH_A_A<9>
+FLASH_A_A<9>.CLKFLASH_A_A<9>  .CLK  f7   PO  -  -  -| -  -| -  0 -   -      N_PZ_148  FLASH_A_A<9>
+   FLASH_A_E.D  FLASH_A_E    .D  g7   PO  -  -  -| -  -| -  0 -   -      N_PZ_149     FLASH_A_E
+ FLASH_A_E.CLK  FLASH_A_E  .CLK  h7   PO  -  -  -| -  -| -  0 -   -      N_PZ_150     FLASH_A_E
+   FLASH_A_L.D  FLASH_A_L    .D  i7   PO  -  -  -| -  -| -  0 -   -      N_PZ_151     FLASH_A_L
+ FLASH_A_L.CLK  FLASH_A_L  .CLK  j7   PO  -  -  -| -  -| -  0 -   -      N_PZ_152     FLASH_A_L
+  FLASH_A_RP.D FLASH_A_RP    .D  k7   PO  -  -  -| -  -| -  0 -   -      N_PZ_153    FLASH_A_RP
+FLASH_A_RP.CLK FLASH_A_RP  .CLK  l7   PO  -  -  -| -  -| -  0 -   -      N_PZ_154    FLASH_A_RP
+   FLASH_A_W.D  FLASH_A_W    .D  m7   PO  -  -  -| -  -| -  0 -   -      N_PZ_155     FLASH_A_W
+ FLASH_A_W.CLK  FLASH_A_W  .CLK  n7   PO  -  -  -| -  -| -  0 -   -      N_PZ_156     FLASH_A_W
+       LEDs<3>    LEDs<3>        o7   PO  -  -  -| -  -| -  0 -   -      N_PZ_157       LEDs<3>
+ FLASH_A_K.CLK  FLASH_A_K  .CLK  r7   PO  -  -  -| -  -| -  0 -   -      N_PZ_160     FLASH_A_K
+       LEDs<1>    LEDs<1>        s7   PO  -  -  -| -  -| -  0 -   -      N_PZ_161       LEDs<1>
+       LEDs<0>    LEDs<0>        t7   PO  -  -  -| -  -| -  0 -   -      N_PZ_162       LEDs<0>
+ FLASH_A_A<23>FLASH_A_A<23>        u7   PO  -  -  -| -  -| -  0 -   -      N_PZ_163 FLASH_A_A<23>
+     Program_B  Program_B        v7   PO  -  -  -| -  -| -  0 -   -      N_PZ_164     Program_B
+       LEDs<2>    LEDs<2>        w7   PO  -  -  -| -  -| -  0 -   -      N_PZ_165       LEDs<2>
+    FLASH_A_WP FLASH_A_WP        x7   PO  -  -  -| -  -| -  0 -   -      N_PZ_166    FLASH_A_WP
+    FLASH_A_RW FLASH_A_RW        y7   PO  -  -  -| -  -| -  0 -   -      N_PZ_167    FLASH_A_RW
+      N_PZ_169   N_PZ_169     - o14 AINT  -  -  2|28  2|32  1 -   -   FLASH_A_K.D             -
+   FLASH_A_K.D  FLASH_A_K    .D m14   PO  -  -  -| -  -| -  0 -   -      N_PZ_169     FLASH_A_K
+clk_cnt_i<0>.Qclk_cnt_i<0>    .Q p14   PI  -  -  -| -  -| -  2 -   -             -             -
+      N_PZ_203   N_PZ_203     - q20 AINT  -  -  1|28  0|32  1 -   -clk_cnt_i<0>.T             -
+      N_PZ_231   N_PZ_231     - s21 AINT  -  -  1|28  1|32  1 -   -  FPGA_clock.T             -
+clk_cnt_i<0>.Tclk_cnt_i<0>    .T d17   PO  -  -  -| -  -| -  0 -   -      N_PZ_203  clk_cnt_i<0>
+  FPGA_clock.T FPGA_clock    .T g19   PO  -  -  -| -  -| -  0 -   -      N_PZ_231    FPGA_clock
+
+----------------------------------------------------------
+|  PinCnt = 100, NodeCnt = 1, Total = 101, TotalPt = 164 |
+----------------------------------------------------------
+FLASH_A_DQ<0>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_0, CPLD) 
+FPGA_clock.Q,net=CPLD: PI
+  <--0-- 
+  --61--> (N_PZ_1, CPLD) (N_PZ_4, CPLD) (N_PZ_7, CPLD) (N_PZ_10, CPLD) (N_PZ_13, CPLD)  
+          (N_PZ_16, CPLD) (N_PZ_19, CPLD) (N_PZ_22, CPLD) (N_PZ_25, CPLD)  
+          (N_PZ_28, CPLD) (N_PZ_31, CPLD) (N_PZ_34, CPLD) (N_PZ_37, CPLD)  
+          (N_PZ_40, CPLD) (N_PZ_43, CPLD) (N_PZ_46, CPLD) (N_PZ_49, CPLD)  
+          (N_PZ_52, CPLD) (N_PZ_55, CPLD) (N_PZ_58, CPLD) (N_PZ_61, CPLD)  
+          (N_PZ_64, CPLD) (N_PZ_67, CPLD) (N_PZ_70, CPLD) (N_PZ_73, CPLD)  
+          (N_PZ_76, CPLD) (N_PZ_79, CPLD) (N_PZ_82, CPLD) (N_PZ_85, CPLD)  
+          (N_PZ_88, CPLD) (N_PZ_91, CPLD) (N_PZ_94, CPLD) (N_PZ_100, CPLD)  
+          (N_PZ_104, CPLD) (N_PZ_106, CPLD) (N_PZ_108, CPLD) (N_PZ_110, CPLD)  
+          (N_PZ_112, CPLD) (N_PZ_114, CPLD) (N_PZ_116, CPLD) (N_PZ_118, CPLD)  
+          (N_PZ_120, CPLD) (N_PZ_122, CPLD) (N_PZ_124, CPLD) (N_PZ_126, CPLD)  
+          (N_PZ_128, CPLD) (N_PZ_130, CPLD) (N_PZ_132, CPLD) (N_PZ_134, CPLD)  
+          (N_PZ_136, CPLD) (N_PZ_138, CPLD) (N_PZ_140, CPLD) (N_PZ_142, CPLD)  
+          (N_PZ_144, CPLD) (N_PZ_146, CPLD) (N_PZ_148, CPLD) (N_PZ_150, CPLD)  
+          (N_PZ_152, CPLD) (N_PZ_154, CPLD) (N_PZ_156, CPLD) (N_PZ_169, CPLD) 
+FLASH_A_G.Q,net=CPLD: PI
+  <--0-- 
+  --32--> (N_PZ_2, CPLD) (N_PZ_5, CPLD) (N_PZ_8, CPLD) (N_PZ_11, CPLD) (N_PZ_14, CPLD)  
+          (N_PZ_17, CPLD) (N_PZ_20, CPLD) (N_PZ_23, CPLD) (N_PZ_26, CPLD)  
+          (N_PZ_29, CPLD) (N_PZ_32, CPLD) (N_PZ_35, CPLD) (N_PZ_38, CPLD)  
+          (N_PZ_41, CPLD) (N_PZ_44, CPLD) (N_PZ_47, CPLD) (N_PZ_50, CPLD)  
+          (N_PZ_53, CPLD) (N_PZ_56, CPLD) (N_PZ_59, CPLD) (N_PZ_62, CPLD)  
+          (N_PZ_65, CPLD) (N_PZ_68, CPLD) (N_PZ_71, CPLD) (N_PZ_74, CPLD)  
+          (N_PZ_77, CPLD) (N_PZ_80, CPLD) (N_PZ_83, CPLD) (N_PZ_86, CPLD)  
+          (N_PZ_89, CPLD) (N_PZ_92, CPLD) (N_PZ_95, CPLD) 
+FLASH_A_DQ<10>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_3, CPLD) 
+FLASH_A_DQ<11>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_6, CPLD) 
+FLASH_A_DQ<12>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_9, CPLD) 
+FLASH_A_DQ<13>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_12, CPLD) 
+FLASH_A_DQ<14>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_15, CPLD) 
+FLASH_A_DQ<15>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_18, CPLD) 
+FLASH_A_DQ<1>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_21, CPLD) 
+FLASH_A_DQ<2>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_24, CPLD) 
+FLASH_A_DQ<3>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_27, CPLD) 
+FLASH_A_DQ<4>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_30, CPLD) 
+FLASH_A_DQ<5>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_33, CPLD) 
+FLASH_A_DQ<6>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_36, CPLD) 
+FLASH_A_DQ<7>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_39, CPLD) 
+FLASH_A_DQ<8>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_42, CPLD) 
+FLASH_A_DQ<9>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_45, CPLD) 
+FPGA_data<0>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_48, CPLD) 
+FPGA_data<10>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_51, CPLD) 
+FPGA_data<11>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_54, CPLD) 
+FPGA_data<12>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_57, CPLD) 
+FPGA_data<13>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_60, CPLD) 
+FPGA_data<14>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_63, CPLD) 
+FPGA_data<15>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_66, CPLD) 
+FPGA_data<1>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_69, CPLD) 
+FPGA_data<2>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_72, CPLD) 
+FPGA_data<3>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_75, CPLD) 
+FPGA_data<4>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_78, CPLD) 
+FPGA_data<5>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_81, CPLD) 
+FPGA_data<6>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_84, CPLD) 
+FPGA_data<7>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_87, CPLD) 
+FPGA_data<8>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_90, CPLD) 
+FPGA_data<9>.PIN,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_93, CPLD) 
+CPLD_100MHZ,net=CPLD: PI
+  <--0-- 
+  --3--> (N_PZ_98, CPLD) (N_PZ_102, CPLD) (N_PZ_160, CPLD) 
+FPGA_G,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_99, CPLD) 
+FPGA_A<0>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_103, CPLD) 
+FPGA_A<1>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_105, CPLD) 
+FPGA_A<10>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_107, CPLD) 
+FPGA_A<11>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_109, CPLD) 
+FPGA_A<12>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_111, CPLD) 
+FPGA_A<13>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_113, CPLD) 
+FPGA_A<14>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_115, CPLD) 
+FPGA_A<15>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_117, CPLD) 
+FPGA_A<16>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_119, CPLD) 
+FPGA_A<17>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_121, CPLD) 
+FPGA_A<18>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_123, CPLD) 
+FPGA_A<19>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_125, CPLD) 
+FPGA_A<2>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_127, CPLD) 
+FPGA_A<20>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_129, CPLD) 
+FPGA_A<21>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_131, CPLD) 
+FPGA_A<22>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_133, CPLD) 
+FPGA_A<3>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_135, CPLD) 
+FPGA_A<4>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_137, CPLD) 
+FPGA_A<5>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_139, CPLD) 
+FPGA_A<6>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_141, CPLD) 
+FPGA_A<7>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_143, CPLD) 
+FPGA_A<8>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_145, CPLD) 
+FPGA_A<9>,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_147, CPLD) 
+FPGA_E,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_149, CPLD) 
+FPGA_L,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_151, CPLD) 
+FPGA_RP,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_153, CPLD) 
+FPGA_W,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_155, CPLD) 
+reboot,net=CPLD: PI
+  <--0-- 
+  --1--> (N_PZ_157, CPLD) 
+N_PZ_0,net=CPLD: PINT ( FPGA_data<0>.D )
+  <--1--  (FLASH_A_DQ<0>.PIN, CPLD)
+  --1--> (FPGA_data<0>.D, CPLD) 
+N_PZ_1,net=CPLD: PINT ( FPGA_data<0>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<0>.CLK, CPLD) 
+N_PZ_2,net=CPLD: PINT ( FPGA_data<0>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<0>.OE, CPLD) 
+N_PZ_3,net=CPLD: PINT ( FPGA_data<10>.D )
+  <--1--  (FLASH_A_DQ<10>.PIN, CPLD)
+  --1--> (FPGA_data<10>.D, CPLD) 
+N_PZ_4,net=CPLD: PINT ( FPGA_data<10>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<10>.CLK, CPLD) 
+N_PZ_5,net=CPLD: PINT ( FPGA_data<10>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<10>.OE, CPLD) 
+N_PZ_6,net=CPLD: PINT ( FPGA_data<11>.D )
+  <--1--  (FLASH_A_DQ<11>.PIN, CPLD)
+  --1--> (FPGA_data<11>.D, CPLD) 
+N_PZ_7,net=CPLD: PINT ( FPGA_data<11>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<11>.CLK, CPLD) 
+N_PZ_8,net=CPLD: PINT ( FPGA_data<11>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<11>.OE, CPLD) 
+N_PZ_9,net=CPLD: PINT ( FPGA_data<12>.D )
+  <--1--  (FLASH_A_DQ<12>.PIN, CPLD)
+  --1--> (FPGA_data<12>.D, CPLD) 
+N_PZ_10,net=CPLD: PINT ( FPGA_data<12>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<12>.CLK, CPLD) 
+N_PZ_11,net=CPLD: PINT ( FPGA_data<12>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<12>.OE, CPLD) 
+N_PZ_12,net=CPLD: PINT ( FPGA_data<13>.D )
+  <--1--  (FLASH_A_DQ<13>.PIN, CPLD)
+  --1--> (FPGA_data<13>.D, CPLD) 
+N_PZ_13,net=CPLD: PINT ( FPGA_data<13>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<13>.CLK, CPLD) 
+N_PZ_14,net=CPLD: PINT ( FPGA_data<13>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<13>.OE, CPLD) 
+N_PZ_15,net=CPLD: PINT ( FPGA_data<14>.D )
+  <--1--  (FLASH_A_DQ<14>.PIN, CPLD)
+  --1--> (FPGA_data<14>.D, CPLD) 
+N_PZ_16,net=CPLD: PINT ( FPGA_data<14>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<14>.CLK, CPLD) 
+N_PZ_17,net=CPLD: PINT ( FPGA_data<14>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<14>.OE, CPLD) 
+N_PZ_18,net=CPLD: PINT ( FPGA_data<15>.D )
+  <--1--  (FLASH_A_DQ<15>.PIN, CPLD)
+  --1--> (FPGA_data<15>.D, CPLD) 
+N_PZ_19,net=CPLD: PINT ( FPGA_data<15>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<15>.CLK, CPLD) 
+N_PZ_20,net=CPLD: PINT ( FPGA_data<15>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<15>.OE, CPLD) 
+N_PZ_21,net=CPLD: PINT ( FPGA_data<1>.D )
+  <--1--  (FLASH_A_DQ<1>.PIN, CPLD)
+  --1--> (FPGA_data<1>.D, CPLD) 
+N_PZ_22,net=CPLD: PINT ( FPGA_data<1>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<1>.CLK, CPLD) 
+N_PZ_23,net=CPLD: PINT ( FPGA_data<1>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<1>.OE, CPLD) 
+N_PZ_24,net=CPLD: PINT ( FPGA_data<2>.D )
+  <--1--  (FLASH_A_DQ<2>.PIN, CPLD)
+  --1--> (FPGA_data<2>.D, CPLD) 
+N_PZ_25,net=CPLD: PINT ( FPGA_data<2>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<2>.CLK, CPLD) 
+N_PZ_26,net=CPLD: PINT ( FPGA_data<2>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<2>.OE, CPLD) 
+N_PZ_27,net=CPLD: PINT ( FPGA_data<3>.D )
+  <--1--  (FLASH_A_DQ<3>.PIN, CPLD)
+  --1--> (FPGA_data<3>.D, CPLD) 
+N_PZ_28,net=CPLD: PINT ( FPGA_data<3>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<3>.CLK, CPLD) 
+N_PZ_29,net=CPLD: PINT ( FPGA_data<3>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<3>.OE, CPLD) 
+N_PZ_30,net=CPLD: PINT ( FPGA_data<4>.D )
+  <--1--  (FLASH_A_DQ<4>.PIN, CPLD)
+  --1--> (FPGA_data<4>.D, CPLD) 
+N_PZ_31,net=CPLD: PINT ( FPGA_data<4>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<4>.CLK, CPLD) 
+N_PZ_32,net=CPLD: PINT ( FPGA_data<4>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<4>.OE, CPLD) 
+N_PZ_33,net=CPLD: PINT ( FPGA_data<5>.D )
+  <--1--  (FLASH_A_DQ<5>.PIN, CPLD)
+  --1--> (FPGA_data<5>.D, CPLD) 
+N_PZ_34,net=CPLD: PINT ( FPGA_data<5>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<5>.CLK, CPLD) 
+N_PZ_35,net=CPLD: PINT ( FPGA_data<5>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<5>.OE, CPLD) 
+N_PZ_36,net=CPLD: PINT ( FPGA_data<6>.D )
+  <--1--  (FLASH_A_DQ<6>.PIN, CPLD)
+  --1--> (FPGA_data<6>.D, CPLD) 
+N_PZ_37,net=CPLD: PINT ( FPGA_data<6>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<6>.CLK, CPLD) 
+N_PZ_38,net=CPLD: PINT ( FPGA_data<6>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<6>.OE, CPLD) 
+N_PZ_39,net=CPLD: PINT ( FPGA_data<7>.D )
+  <--1--  (FLASH_A_DQ<7>.PIN, CPLD)
+  --1--> (FPGA_data<7>.D, CPLD) 
+N_PZ_40,net=CPLD: PINT ( FPGA_data<7>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<7>.CLK, CPLD) 
+N_PZ_41,net=CPLD: PINT ( FPGA_data<7>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<7>.OE, CPLD) 
+N_PZ_42,net=CPLD: PINT ( FPGA_data<8>.D )
+  <--1--  (FLASH_A_DQ<8>.PIN, CPLD)
+  --1--> (FPGA_data<8>.D, CPLD) 
+N_PZ_43,net=CPLD: PINT ( FPGA_data<8>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<8>.CLK, CPLD) 
+N_PZ_44,net=CPLD: PINT ( FPGA_data<8>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<8>.OE, CPLD) 
+N_PZ_45,net=CPLD: PINT ( FPGA_data<9>.D )
+  <--1--  (FLASH_A_DQ<9>.PIN, CPLD)
+  --1--> (FPGA_data<9>.D, CPLD) 
+N_PZ_46,net=CPLD: PINT ( FPGA_data<9>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FPGA_data<9>.CLK, CPLD) 
+N_PZ_47,net=CPLD: PINT ( FPGA_data<9>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FPGA_data<9>.OE, CPLD) 
+N_PZ_48,net=CPLD: PINT ( FLASH_A_DQ<0>.D )
+  <--1--  (FPGA_data<0>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<0>.D, CPLD) 
+N_PZ_49,net=CPLD: PINT ( FLASH_A_DQ<0>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<0>.CLK, CPLD) 
+N_PZ_50,net=CPLD: PINT ( FLASH_A_DQ<0>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<0>.OE, CPLD) 
+N_PZ_51,net=CPLD: PINT ( FLASH_A_DQ<10>.D )
+  <--1--  (FPGA_data<10>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<10>.D, CPLD) 
+N_PZ_52,net=CPLD: PINT ( FLASH_A_DQ<10>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<10>.CLK, CPLD) 
+N_PZ_53,net=CPLD: PINT ( FLASH_A_DQ<10>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<10>.OE, CPLD) 
+N_PZ_54,net=CPLD: PINT ( FLASH_A_DQ<11>.D )
+  <--1--  (FPGA_data<11>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<11>.D, CPLD) 
+N_PZ_55,net=CPLD: PINT ( FLASH_A_DQ<11>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<11>.CLK, CPLD) 
+N_PZ_56,net=CPLD: PINT ( FLASH_A_DQ<11>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<11>.OE, CPLD) 
+N_PZ_57,net=CPLD: PINT ( FLASH_A_DQ<12>.D )
+  <--1--  (FPGA_data<12>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<12>.D, CPLD) 
+N_PZ_58,net=CPLD: PINT ( FLASH_A_DQ<12>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<12>.CLK, CPLD) 
+N_PZ_59,net=CPLD: PINT ( FLASH_A_DQ<12>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<12>.OE, CPLD) 
+N_PZ_60,net=CPLD: PINT ( FLASH_A_DQ<13>.D )
+  <--1--  (FPGA_data<13>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<13>.D, CPLD) 
+N_PZ_61,net=CPLD: PINT ( FLASH_A_DQ<13>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<13>.CLK, CPLD) 
+N_PZ_62,net=CPLD: PINT ( FLASH_A_DQ<13>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<13>.OE, CPLD) 
+N_PZ_63,net=CPLD: PINT ( FLASH_A_DQ<14>.D )
+  <--1--  (FPGA_data<14>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<14>.D, CPLD) 
+N_PZ_64,net=CPLD: PINT ( FLASH_A_DQ<14>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<14>.CLK, CPLD) 
+N_PZ_65,net=CPLD: PINT ( FLASH_A_DQ<14>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<14>.OE, CPLD) 
+N_PZ_66,net=CPLD: PINT ( FLASH_A_DQ<15>.D )
+  <--1--  (FPGA_data<15>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<15>.D, CPLD) 
+N_PZ_67,net=CPLD: PINT ( FLASH_A_DQ<15>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<15>.CLK, CPLD) 
+N_PZ_68,net=CPLD: PINT ( FLASH_A_DQ<15>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<15>.OE, CPLD) 
+N_PZ_69,net=CPLD: PINT ( FLASH_A_DQ<1>.D )
+  <--1--  (FPGA_data<1>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<1>.D, CPLD) 
+N_PZ_70,net=CPLD: PINT ( FLASH_A_DQ<1>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<1>.CLK, CPLD) 
+N_PZ_71,net=CPLD: PINT ( FLASH_A_DQ<1>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<1>.OE, CPLD) 
+N_PZ_72,net=CPLD: PINT ( FLASH_A_DQ<2>.D )
+  <--1--  (FPGA_data<2>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<2>.D, CPLD) 
+N_PZ_73,net=CPLD: PINT ( FLASH_A_DQ<2>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<2>.CLK, CPLD) 
+N_PZ_74,net=CPLD: PINT ( FLASH_A_DQ<2>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<2>.OE, CPLD) 
+N_PZ_75,net=CPLD: PINT ( FLASH_A_DQ<3>.D )
+  <--1--  (FPGA_data<3>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<3>.D, CPLD) 
+N_PZ_76,net=CPLD: PINT ( FLASH_A_DQ<3>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<3>.CLK, CPLD) 
+N_PZ_77,net=CPLD: PINT ( FLASH_A_DQ<3>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<3>.OE, CPLD) 
+N_PZ_78,net=CPLD: PINT ( FLASH_A_DQ<4>.D )
+  <--1--  (FPGA_data<4>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<4>.D, CPLD) 
+N_PZ_79,net=CPLD: PINT ( FLASH_A_DQ<4>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<4>.CLK, CPLD) 
+N_PZ_80,net=CPLD: PINT ( FLASH_A_DQ<4>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<4>.OE, CPLD) 
+N_PZ_81,net=CPLD: PINT ( FLASH_A_DQ<5>.D )
+  <--1--  (FPGA_data<5>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<5>.D, CPLD) 
+N_PZ_82,net=CPLD: PINT ( FLASH_A_DQ<5>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<5>.CLK, CPLD) 
+N_PZ_83,net=CPLD: PINT ( FLASH_A_DQ<5>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<5>.OE, CPLD) 
+N_PZ_84,net=CPLD: PINT ( FLASH_A_DQ<6>.D )
+  <--1--  (FPGA_data<6>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<6>.D, CPLD) 
+N_PZ_85,net=CPLD: PINT ( FLASH_A_DQ<6>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<6>.CLK, CPLD) 
+N_PZ_86,net=CPLD: PINT ( FLASH_A_DQ<6>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<6>.OE, CPLD) 
+N_PZ_87,net=CPLD: PINT ( FLASH_A_DQ<7>.D )
+  <--1--  (FPGA_data<7>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<7>.D, CPLD) 
+N_PZ_88,net=CPLD: PINT ( FLASH_A_DQ<7>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<7>.CLK, CPLD) 
+N_PZ_89,net=CPLD: PINT ( FLASH_A_DQ<7>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<7>.OE, CPLD) 
+N_PZ_90,net=CPLD: PINT ( FLASH_A_DQ<8>.D )
+  <--1--  (FPGA_data<8>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<8>.D, CPLD) 
+N_PZ_91,net=CPLD: PINT ( FLASH_A_DQ<8>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<8>.CLK, CPLD) 
+N_PZ_92,net=CPLD: PINT ( FLASH_A_DQ<8>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<8>.OE, CPLD) 
+N_PZ_93,net=CPLD: PINT ( FLASH_A_DQ<9>.D )
+  <--1--  (FPGA_data<9>.PIN, CPLD)
+  --1--> (FLASH_A_DQ<9>.D, CPLD) 
+N_PZ_94,net=CPLD: PINT ( FLASH_A_DQ<9>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_DQ<9>.CLK, CPLD) 
+N_PZ_95,net=CPLD: PINT ( FLASH_A_DQ<9>.OE )
+  <--1--  (FLASH_A_G.Q, CPLD)
+  --1--> (FLASH_A_DQ<9>.OE, CPLD) 
+N_PZ_98,net=CPLD: PINT ( FPGA_clock.CLK )
+  <--1--  (CPLD_100MHZ, CPLD)
+  --1--> (FPGA_clock.CLK, CPLD) 
+N_PZ_99,net=CPLD: PINT ( FLASH_A_G.D )
+  <--1--  (FPGA_G, CPLD)
+  --1--> (FLASH_A_G.D, CPLD) 
+N_PZ_100,net=CPLD: PINT ( FLASH_A_G.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_G.CLK, CPLD) 
+N_PZ_102,net=CPLD: PINT ( clk_cnt_i<0>.CLK )
+  <--1--  (CPLD_100MHZ, CPLD)
+  --1--> (clk_cnt_i<0>.CLK, CPLD) 
+N_PZ_103,net=CPLD: PINT ( FLASH_A_A<0>.D )
+  <--1--  (FPGA_A<0>, CPLD)
+  --1--> (FLASH_A_A<0>.D, CPLD) 
+N_PZ_104,net=CPLD: PINT ( FLASH_A_A<0>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<0>.CLK, CPLD) 
+N_PZ_105,net=CPLD: PINT ( FLASH_A_A<1>.D )
+  <--1--  (FPGA_A<1>, CPLD)
+  --1--> (FLASH_A_A<1>.D, CPLD) 
+N_PZ_106,net=CPLD: PINT ( FLASH_A_A<1>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<1>.CLK, CPLD) 
+N_PZ_107,net=CPLD: PINT ( FLASH_A_A<10>.D )
+  <--1--  (FPGA_A<10>, CPLD)
+  --1--> (FLASH_A_A<10>.D, CPLD) 
+N_PZ_108,net=CPLD: PINT ( FLASH_A_A<10>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<10>.CLK, CPLD) 
+N_PZ_109,net=CPLD: PINT ( FLASH_A_A<11>.D )
+  <--1--  (FPGA_A<11>, CPLD)
+  --1--> (FLASH_A_A<11>.D, CPLD) 
+N_PZ_110,net=CPLD: PINT ( FLASH_A_A<11>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<11>.CLK, CPLD) 
+N_PZ_111,net=CPLD: PINT ( FLASH_A_A<12>.D )
+  <--1--  (FPGA_A<12>, CPLD)
+  --1--> (FLASH_A_A<12>.D, CPLD) 
+N_PZ_112,net=CPLD: PINT ( FLASH_A_A<12>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<12>.CLK, CPLD) 
+N_PZ_113,net=CPLD: PINT ( FLASH_A_A<13>.D )
+  <--1--  (FPGA_A<13>, CPLD)
+  --1--> (FLASH_A_A<13>.D, CPLD) 
+N_PZ_114,net=CPLD: PINT ( FLASH_A_A<13>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<13>.CLK, CPLD) 
+N_PZ_115,net=CPLD: PINT ( FLASH_A_A<14>.D )
+  <--1--  (FPGA_A<14>, CPLD)
+  --1--> (FLASH_A_A<14>.D, CPLD) 
+N_PZ_116,net=CPLD: PINT ( FLASH_A_A<14>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<14>.CLK, CPLD) 
+N_PZ_117,net=CPLD: PINT ( FLASH_A_A<15>.D )
+  <--1--  (FPGA_A<15>, CPLD)
+  --1--> (FLASH_A_A<15>.D, CPLD) 
+N_PZ_118,net=CPLD: PINT ( FLASH_A_A<15>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<15>.CLK, CPLD) 
+N_PZ_119,net=CPLD: PINT ( FLASH_A_A<16>.D )
+  <--1--  (FPGA_A<16>, CPLD)
+  --1--> (FLASH_A_A<16>.D, CPLD) 
+N_PZ_120,net=CPLD: PINT ( FLASH_A_A<16>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<16>.CLK, CPLD) 
+N_PZ_121,net=CPLD: PINT ( FLASH_A_A<17>.D )
+  <--1--  (FPGA_A<17>, CPLD)
+  --1--> (FLASH_A_A<17>.D, CPLD) 
+N_PZ_122,net=CPLD: PINT ( FLASH_A_A<17>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<17>.CLK, CPLD) 
+N_PZ_123,net=CPLD: PINT ( FLASH_A_A<18>.D )
+  <--1--  (FPGA_A<18>, CPLD)
+  --1--> (FLASH_A_A<18>.D, CPLD) 
+N_PZ_124,net=CPLD: PINT ( FLASH_A_A<18>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<18>.CLK, CPLD) 
+N_PZ_125,net=CPLD: PINT ( FLASH_A_A<19>.D )
+  <--1--  (FPGA_A<19>, CPLD)
+  --1--> (FLASH_A_A<19>.D, CPLD) 
+N_PZ_126,net=CPLD: PINT ( FLASH_A_A<19>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<19>.CLK, CPLD) 
+N_PZ_127,net=CPLD: PINT ( FLASH_A_A<2>.D )
+  <--1--  (FPGA_A<2>, CPLD)
+  --1--> (FLASH_A_A<2>.D, CPLD) 
+N_PZ_128,net=CPLD: PINT ( FLASH_A_A<2>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<2>.CLK, CPLD) 
+N_PZ_129,net=CPLD: PINT ( FLASH_A_A<20>.D )
+  <--1--  (FPGA_A<20>, CPLD)
+  --1--> (FLASH_A_A<20>.D, CPLD) 
+N_PZ_130,net=CPLD: PINT ( FLASH_A_A<20>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<20>.CLK, CPLD) 
+N_PZ_131,net=CPLD: PINT ( FLASH_A_A<21>.D )
+  <--1--  (FPGA_A<21>, CPLD)
+  --1--> (FLASH_A_A<21>.D, CPLD) 
+N_PZ_132,net=CPLD: PINT ( FLASH_A_A<21>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<21>.CLK, CPLD) 
+N_PZ_133,net=CPLD: PINT ( FLASH_A_A<22>.D )
+  <--1--  (FPGA_A<22>, CPLD)
+  --1--> (FLASH_A_A<22>.D, CPLD) 
+N_PZ_134,net=CPLD: PINT ( FLASH_A_A<22>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<22>.CLK, CPLD) 
+N_PZ_135,net=CPLD: PINT ( FLASH_A_A<3>.D )
+  <--1--  (FPGA_A<3>, CPLD)
+  --1--> (FLASH_A_A<3>.D, CPLD) 
+N_PZ_136,net=CPLD: PINT ( FLASH_A_A<3>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<3>.CLK, CPLD) 
+N_PZ_137,net=CPLD: PINT ( FLASH_A_A<4>.D )
+  <--1--  (FPGA_A<4>, CPLD)
+  --1--> (FLASH_A_A<4>.D, CPLD) 
+N_PZ_138,net=CPLD: PINT ( FLASH_A_A<4>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<4>.CLK, CPLD) 
+N_PZ_139,net=CPLD: PINT ( FLASH_A_A<5>.D )
+  <--1--  (FPGA_A<5>, CPLD)
+  --1--> (FLASH_A_A<5>.D, CPLD) 
+N_PZ_140,net=CPLD: PINT ( FLASH_A_A<5>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<5>.CLK, CPLD) 
+N_PZ_141,net=CPLD: PINT ( FLASH_A_A<6>.D )
+  <--1--  (FPGA_A<6>, CPLD)
+  --1--> (FLASH_A_A<6>.D, CPLD) 
+N_PZ_142,net=CPLD: PINT ( FLASH_A_A<6>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<6>.CLK, CPLD) 
+N_PZ_143,net=CPLD: PINT ( FLASH_A_A<7>.D )
+  <--1--  (FPGA_A<7>, CPLD)
+  --1--> (FLASH_A_A<7>.D, CPLD) 
+N_PZ_144,net=CPLD: PINT ( FLASH_A_A<7>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<7>.CLK, CPLD) 
+N_PZ_145,net=CPLD: PINT ( FLASH_A_A<8>.D )
+  <--1--  (FPGA_A<8>, CPLD)
+  --1--> (FLASH_A_A<8>.D, CPLD) 
+N_PZ_146,net=CPLD: PINT ( FLASH_A_A<8>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<8>.CLK, CPLD) 
+N_PZ_147,net=CPLD: PINT ( FLASH_A_A<9>.D )
+  <--1--  (FPGA_A<9>, CPLD)
+  --1--> (FLASH_A_A<9>.D, CPLD) 
+N_PZ_148,net=CPLD: PINT ( FLASH_A_A<9>.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_A<9>.CLK, CPLD) 
+N_PZ_149,net=CPLD: PINT ( FLASH_A_E.D )
+  <--1--  (FPGA_E, CPLD)
+  --1--> (FLASH_A_E.D, CPLD) 
+N_PZ_150,net=CPLD: PINT ( FLASH_A_E.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_E.CLK, CPLD) 
+N_PZ_151,net=CPLD: PINT ( FLASH_A_L.D )
+  <--1--  (FPGA_L, CPLD)
+  --1--> (FLASH_A_L.D, CPLD) 
+N_PZ_152,net=CPLD: PINT ( FLASH_A_L.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_L.CLK, CPLD) 
+N_PZ_153,net=CPLD: PINT ( FLASH_A_RP.D )
+  <--1--  (FPGA_RP, CPLD)
+  --1--> (FLASH_A_RP.D, CPLD) 
+N_PZ_154,net=CPLD: PINT ( FLASH_A_RP.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_RP.CLK, CPLD) 
+N_PZ_155,net=CPLD: PINT ( FLASH_A_W.D )
+  <--1--  (FPGA_W, CPLD)
+  --1--> (FLASH_A_W.D, CPLD) 
+N_PZ_156,net=CPLD: PINT ( FLASH_A_W.CLK )
+  <--1--  (FPGA_clock.Q, CPLD)
+  --1--> (FLASH_A_W.CLK, CPLD) 
+N_PZ_157,net=CPLD: PINT ( LEDs<3> )
+  <--1--  (reboot, CPLD)
+  --1--> (LEDs<3>, CPLD) 
+N_PZ_160,net=CPLD: PINT ( FLASH_A_K.CLK )
+  <--1--  (CPLD_100MHZ, CPLD)
+  --1--> (FLASH_A_K.CLK, CPLD) 
+N_PZ_161,net=CPLD: PINT ( LEDs<1> )
+  <--0-- 
+  --1--> (LEDs<1>, CPLD) 
+N_PZ_162,net=CPLD: PINT ( LEDs<0> )
+  <--0-- 
+  --1--> (LEDs<0>, CPLD) 
+N_PZ_163,net=CPLD: PINT ( FLASH_A_A<23> )
+  <--0-- 
+  --1--> (FLASH_A_A<23>, CPLD) 
+N_PZ_164,net=CPLD: PINT ( Program_B )
+  <--0-- 
+  --1--> (Program_B, CPLD) 
+N_PZ_165,net=CPLD: PINT ( LEDs<2> )
+  <--0-- 
+  --1--> (LEDs<2>, CPLD) 
+N_PZ_166,net=CPLD: PINT ( FLASH_A_WP )
+  <--0-- 
+  --1--> (FLASH_A_WP, CPLD) 
+N_PZ_167,net=CPLD: PINT ( FLASH_A_RW )
+  <--0-- 
+  --1--> (FLASH_A_RW, CPLD) 
+FPGA_data<0>.D,net=CPLD: PO
+  <--1--  (N_PZ_0, CPLD)
+  --0--> 
+FPGA_data<0>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_1, CPLD)
+  --0--> 
+FPGA_data<0>.OE,net=CPLD: PO
+  <--1--  (N_PZ_2, CPLD)
+  --0--> 
+FPGA_data<10>.D,net=CPLD: PO
+  <--1--  (N_PZ_3, CPLD)
+  --0--> 
+FPGA_data<10>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_4, CPLD)
+  --0--> 
+FPGA_data<10>.OE,net=CPLD: PO
+  <--1--  (N_PZ_5, CPLD)
+  --0--> 
+FPGA_data<11>.D,net=CPLD: PO
+  <--1--  (N_PZ_6, CPLD)
+  --0--> 
+FPGA_data<11>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_7, CPLD)
+  --0--> 
+FPGA_data<11>.OE,net=CPLD: PO
+  <--1--  (N_PZ_8, CPLD)
+  --0--> 
+FPGA_data<12>.D,net=CPLD: PO
+  <--1--  (N_PZ_9, CPLD)
+  --0--> 
+FPGA_data<12>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_10, CPLD)
+  --0--> 
+FPGA_data<12>.OE,net=CPLD: PO
+  <--1--  (N_PZ_11, CPLD)
+  --0--> 
+FPGA_data<13>.D,net=CPLD: PO
+  <--1--  (N_PZ_12, CPLD)
+  --0--> 
+FPGA_data<13>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_13, CPLD)
+  --0--> 
+FPGA_data<13>.OE,net=CPLD: PO
+  <--1--  (N_PZ_14, CPLD)
+  --0--> 
+FPGA_data<14>.D,net=CPLD: PO
+  <--1--  (N_PZ_15, CPLD)
+  --0--> 
+FPGA_data<14>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_16, CPLD)
+  --0--> 
+FPGA_data<14>.OE,net=CPLD: PO
+  <--1--  (N_PZ_17, CPLD)
+  --0--> 
+FPGA_data<15>.D,net=CPLD: PO
+  <--1--  (N_PZ_18, CPLD)
+  --0--> 
+FPGA_data<15>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_19, CPLD)
+  --0--> 
+FPGA_data<15>.OE,net=CPLD: PO
+  <--1--  (N_PZ_20, CPLD)
+  --0--> 
+FPGA_data<1>.D,net=CPLD: PO
+  <--1--  (N_PZ_21, CPLD)
+  --0--> 
+FPGA_data<1>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_22, CPLD)
+  --0--> 
+FPGA_data<1>.OE,net=CPLD: PO
+  <--1--  (N_PZ_23, CPLD)
+  --0--> 
+FPGA_data<2>.D,net=CPLD: PO
+  <--1--  (N_PZ_24, CPLD)
+  --0--> 
+FPGA_data<2>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_25, CPLD)
+  --0--> 
+FPGA_data<2>.OE,net=CPLD: PO
+  <--1--  (N_PZ_26, CPLD)
+  --0--> 
+FPGA_data<3>.D,net=CPLD: PO
+  <--1--  (N_PZ_27, CPLD)
+  --0--> 
+FPGA_data<3>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_28, CPLD)
+  --0--> 
+FPGA_data<3>.OE,net=CPLD: PO
+  <--1--  (N_PZ_29, CPLD)
+  --0--> 
+FPGA_data<4>.D,net=CPLD: PO
+  <--1--  (N_PZ_30, CPLD)
+  --0--> 
+FPGA_data<4>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_31, CPLD)
+  --0--> 
+FPGA_data<4>.OE,net=CPLD: PO
+  <--1--  (N_PZ_32, CPLD)
+  --0--> 
+FPGA_data<5>.D,net=CPLD: PO
+  <--1--  (N_PZ_33, CPLD)
+  --0--> 
+FPGA_data<5>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_34, CPLD)
+  --0--> 
+FPGA_data<5>.OE,net=CPLD: PO
+  <--1--  (N_PZ_35, CPLD)
+  --0--> 
+FPGA_data<6>.D,net=CPLD: PO
+  <--1--  (N_PZ_36, CPLD)
+  --0--> 
+FPGA_data<6>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_37, CPLD)
+  --0--> 
+FPGA_data<6>.OE,net=CPLD: PO
+  <--1--  (N_PZ_38, CPLD)
+  --0--> 
+FPGA_data<7>.D,net=CPLD: PO
+  <--1--  (N_PZ_39, CPLD)
+  --0--> 
+FPGA_data<7>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_40, CPLD)
+  --0--> 
+FPGA_data<7>.OE,net=CPLD: PO
+  <--1--  (N_PZ_41, CPLD)
+  --0--> 
+FPGA_data<8>.D,net=CPLD: PO
+  <--1--  (N_PZ_42, CPLD)
+  --0--> 
+FPGA_data<8>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_43, CPLD)
+  --0--> 
+FPGA_data<8>.OE,net=CPLD: PO
+  <--1--  (N_PZ_44, CPLD)
+  --0--> 
+FPGA_data<9>.D,net=CPLD: PO
+  <--1--  (N_PZ_45, CPLD)
+  --0--> 
+FPGA_data<9>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_46, CPLD)
+  --0--> 
+FPGA_data<9>.OE,net=CPLD: PO
+  <--1--  (N_PZ_47, CPLD)
+  --0--> 
+FLASH_A_DQ<0>.D,net=CPLD: PO
+  <--1--  (N_PZ_48, CPLD)
+  --0--> 
+FLASH_A_DQ<0>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_49, CPLD)
+  --0--> 
+FLASH_A_DQ<0>.OE,net=CPLD: PO
+  <--1--  (N_PZ_50, CPLD)
+  --0--> 
+FLASH_A_DQ<10>.D,net=CPLD: PO
+  <--1--  (N_PZ_51, CPLD)
+  --0--> 
+FLASH_A_DQ<10>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_52, CPLD)
+  --0--> 
+FLASH_A_DQ<10>.OE,net=CPLD: PO
+  <--1--  (N_PZ_53, CPLD)
+  --0--> 
+FLASH_A_DQ<11>.D,net=CPLD: PO
+  <--1--  (N_PZ_54, CPLD)
+  --0--> 
+FLASH_A_DQ<11>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_55, CPLD)
+  --0--> 
+FLASH_A_DQ<11>.OE,net=CPLD: PO
+  <--1--  (N_PZ_56, CPLD)
+  --0--> 
+FLASH_A_DQ<12>.D,net=CPLD: PO
+  <--1--  (N_PZ_57, CPLD)
+  --0--> 
+FLASH_A_DQ<12>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_58, CPLD)
+  --0--> 
+FLASH_A_DQ<12>.OE,net=CPLD: PO
+  <--1--  (N_PZ_59, CPLD)
+  --0--> 
+FLASH_A_DQ<13>.D,net=CPLD: PO
+  <--1--  (N_PZ_60, CPLD)
+  --0--> 
+FLASH_A_DQ<13>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_61, CPLD)
+  --0--> 
+FLASH_A_DQ<13>.OE,net=CPLD: PO
+  <--1--  (N_PZ_62, CPLD)
+  --0--> 
+FLASH_A_DQ<14>.D,net=CPLD: PO
+  <--1--  (N_PZ_63, CPLD)
+  --0--> 
+FLASH_A_DQ<14>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_64, CPLD)
+  --0--> 
+FLASH_A_DQ<14>.OE,net=CPLD: PO
+  <--1--  (N_PZ_65, CPLD)
+  --0--> 
+FLASH_A_DQ<15>.D,net=CPLD: PO
+  <--1--  (N_PZ_66, CPLD)
+  --0--> 
+FLASH_A_DQ<15>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_67, CPLD)
+  --0--> 
+FLASH_A_DQ<15>.OE,net=CPLD: PO
+  <--1--  (N_PZ_68, CPLD)
+  --0--> 
+FLASH_A_DQ<1>.D,net=CPLD: PO
+  <--1--  (N_PZ_69, CPLD)
+  --0--> 
+FLASH_A_DQ<1>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_70, CPLD)
+  --0--> 
+FLASH_A_DQ<1>.OE,net=CPLD: PO
+  <--1--  (N_PZ_71, CPLD)
+  --0--> 
+FLASH_A_DQ<2>.D,net=CPLD: PO
+  <--1--  (N_PZ_72, CPLD)
+  --0--> 
+FLASH_A_DQ<2>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_73, CPLD)
+  --0--> 
+FLASH_A_DQ<2>.OE,net=CPLD: PO
+  <--1--  (N_PZ_74, CPLD)
+  --0--> 
+FLASH_A_DQ<3>.D,net=CPLD: PO
+  <--1--  (N_PZ_75, CPLD)
+  --0--> 
+FLASH_A_DQ<3>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_76, CPLD)
+  --0--> 
+FLASH_A_DQ<3>.OE,net=CPLD: PO
+  <--1--  (N_PZ_77, CPLD)
+  --0--> 
+FLASH_A_DQ<4>.D,net=CPLD: PO
+  <--1--  (N_PZ_78, CPLD)
+  --0--> 
+FLASH_A_DQ<4>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_79, CPLD)
+  --0--> 
+FLASH_A_DQ<4>.OE,net=CPLD: PO
+  <--1--  (N_PZ_80, CPLD)
+  --0--> 
+FLASH_A_DQ<5>.D,net=CPLD: PO
+  <--1--  (N_PZ_81, CPLD)
+  --0--> 
+FLASH_A_DQ<5>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_82, CPLD)
+  --0--> 
+FLASH_A_DQ<5>.OE,net=CPLD: PO
+  <--1--  (N_PZ_83, CPLD)
+  --0--> 
+FLASH_A_DQ<6>.D,net=CPLD: PO
+  <--1--  (N_PZ_84, CPLD)
+  --0--> 
+FLASH_A_DQ<6>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_85, CPLD)
+  --0--> 
+FLASH_A_DQ<6>.OE,net=CPLD: PO
+  <--1--  (N_PZ_86, CPLD)
+  --0--> 
+FLASH_A_DQ<7>.D,net=CPLD: PO
+  <--1--  (N_PZ_87, CPLD)
+  --0--> 
+FLASH_A_DQ<7>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_88, CPLD)
+  --0--> 
+FLASH_A_DQ<7>.OE,net=CPLD: PO
+  <--1--  (N_PZ_89, CPLD)
+  --0--> 
+FLASH_A_DQ<8>.D,net=CPLD: PO
+  <--1--  (N_PZ_90, CPLD)
+  --0--> 
+FLASH_A_DQ<8>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_91, CPLD)
+  --0--> 
+FLASH_A_DQ<8>.OE,net=CPLD: PO
+  <--1--  (N_PZ_92, CPLD)
+  --0--> 
+FLASH_A_DQ<9>.D,net=CPLD: PO
+  <--1--  (N_PZ_93, CPLD)
+  --0--> 
+FLASH_A_DQ<9>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_94, CPLD)
+  --0--> 
+FLASH_A_DQ<9>.OE,net=CPLD: PO
+  <--1--  (N_PZ_95, CPLD)
+  --0--> 
+FPGA_clock.CLK,net=CPLD: PO
+  <--1--  (N_PZ_98, CPLD)
+  --0--> 
+FLASH_A_G.D,net=CPLD: PO
+  <--1--  (N_PZ_99, CPLD)
+  --0--> 
+FLASH_A_G.CLK,net=CPLD: PO
+  <--1--  (N_PZ_100, CPLD)
+  --0--> 
+clk_cnt_i<0>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_102, CPLD)
+  --0--> 
+FLASH_A_A<0>.D,net=CPLD: PO
+  <--1--  (N_PZ_103, CPLD)
+  --0--> 
+FLASH_A_A<0>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_104, CPLD)
+  --0--> 
+FLASH_A_A<1>.D,net=CPLD: PO
+  <--1--  (N_PZ_105, CPLD)
+  --0--> 
+FLASH_A_A<1>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_106, CPLD)
+  --0--> 
+FLASH_A_A<10>.D,net=CPLD: PO
+  <--1--  (N_PZ_107, CPLD)
+  --0--> 
+FLASH_A_A<10>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_108, CPLD)
+  --0--> 
+FLASH_A_A<11>.D,net=CPLD: PO
+  <--1--  (N_PZ_109, CPLD)
+  --0--> 
+FLASH_A_A<11>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_110, CPLD)
+  --0--> 
+FLASH_A_A<12>.D,net=CPLD: PO
+  <--1--  (N_PZ_111, CPLD)
+  --0--> 
+FLASH_A_A<12>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_112, CPLD)
+  --0--> 
+FLASH_A_A<13>.D,net=CPLD: PO
+  <--1--  (N_PZ_113, CPLD)
+  --0--> 
+FLASH_A_A<13>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_114, CPLD)
+  --0--> 
+FLASH_A_A<14>.D,net=CPLD: PO
+  <--1--  (N_PZ_115, CPLD)
+  --0--> 
+FLASH_A_A<14>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_116, CPLD)
+  --0--> 
+FLASH_A_A<15>.D,net=CPLD: PO
+  <--1--  (N_PZ_117, CPLD)
+  --0--> 
+FLASH_A_A<15>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_118, CPLD)
+  --0--> 
+FLASH_A_A<16>.D,net=CPLD: PO
+  <--1--  (N_PZ_119, CPLD)
+  --0--> 
+FLASH_A_A<16>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_120, CPLD)
+  --0--> 
+FLASH_A_A<17>.D,net=CPLD: PO
+  <--1--  (N_PZ_121, CPLD)
+  --0--> 
+FLASH_A_A<17>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_122, CPLD)
+  --0--> 
+FLASH_A_A<18>.D,net=CPLD: PO
+  <--1--  (N_PZ_123, CPLD)
+  --0--> 
+FLASH_A_A<18>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_124, CPLD)
+  --0--> 
+FLASH_A_A<19>.D,net=CPLD: PO
+  <--1--  (N_PZ_125, CPLD)
+  --0--> 
+FLASH_A_A<19>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_126, CPLD)
+  --0--> 
+FLASH_A_A<2>.D,net=CPLD: PO
+  <--1--  (N_PZ_127, CPLD)
+  --0--> 
+FLASH_A_A<2>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_128, CPLD)
+  --0--> 
+FLASH_A_A<20>.D,net=CPLD: PO
+  <--1--  (N_PZ_129, CPLD)
+  --0--> 
+FLASH_A_A<20>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_130, CPLD)
+  --0--> 
+FLASH_A_A<21>.D,net=CPLD: PO
+  <--1--  (N_PZ_131, CPLD)
+  --0--> 
+FLASH_A_A<21>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_132, CPLD)
+  --0--> 
+FLASH_A_A<22>.D,net=CPLD: PO
+  <--1--  (N_PZ_133, CPLD)
+  --0--> 
+FLASH_A_A<22>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_134, CPLD)
+  --0--> 
+FLASH_A_A<3>.D,net=CPLD: PO
+  <--1--  (N_PZ_135, CPLD)
+  --0--> 
+FLASH_A_A<3>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_136, CPLD)
+  --0--> 
+FLASH_A_A<4>.D,net=CPLD: PO
+  <--1--  (N_PZ_137, CPLD)
+  --0--> 
+FLASH_A_A<4>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_138, CPLD)
+  --0--> 
+FLASH_A_A<5>.D,net=CPLD: PO
+  <--1--  (N_PZ_139, CPLD)
+  --0--> 
+FLASH_A_A<5>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_140, CPLD)
+  --0--> 
+FLASH_A_A<6>.D,net=CPLD: PO
+  <--1--  (N_PZ_141, CPLD)
+  --0--> 
+FLASH_A_A<6>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_142, CPLD)
+  --0--> 
+FLASH_A_A<7>.D,net=CPLD: PO
+  <--1--  (N_PZ_143, CPLD)
+  --0--> 
+FLASH_A_A<7>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_144, CPLD)
+  --0--> 
+FLASH_A_A<8>.D,net=CPLD: PO
+  <--1--  (N_PZ_145, CPLD)
+  --0--> 
+FLASH_A_A<8>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_146, CPLD)
+  --0--> 
+FLASH_A_A<9>.D,net=CPLD: PO
+  <--1--  (N_PZ_147, CPLD)
+  --0--> 
+FLASH_A_A<9>.CLK,net=CPLD: PO
+  <--1--  (N_PZ_148, CPLD)
+  --0--> 
+FLASH_A_E.D,net=CPLD: PO
+  <--1--  (N_PZ_149, CPLD)
+  --0--> 
+FLASH_A_E.CLK,net=CPLD: PO
+  <--1--  (N_PZ_150, CPLD)
+  --0--> 
+FLASH_A_L.D,net=CPLD: PO
+  <--1--  (N_PZ_151, CPLD)
+  --0--> 
+FLASH_A_L.CLK,net=CPLD: PO
+  <--1--  (N_PZ_152, CPLD)
+  --0--> 
+FLASH_A_RP.D,net=CPLD: PO
+  <--1--  (N_PZ_153, CPLD)
+  --0--> 
+FLASH_A_RP.CLK,net=CPLD: PO
+  <--1--  (N_PZ_154, CPLD)
+  --0--> 
+FLASH_A_W.D,net=CPLD: PO
+  <--1--  (N_PZ_155, CPLD)
+  --0--> 
+FLASH_A_W.CLK,net=CPLD: PO
+  <--1--  (N_PZ_156, CPLD)
+  --0--> 
+LEDs<3>,net=CPLD: PO
+  <--1--  (N_PZ_157, CPLD)
+  --0--> 
+FLASH_A_K.CLK,net=CPLD: PO
+  <--1--  (N_PZ_160, CPLD)
+  --0--> 
+LEDs<1>,net=CPLD: PO
+  <--1--  (N_PZ_161, CPLD)
+  --0--> 
+LEDs<0>,net=CPLD: PO
+  <--1--  (N_PZ_162, CPLD)
+  --0--> 
+FLASH_A_A<23>,net=CPLD: PO
+  <--1--  (N_PZ_163, CPLD)
+  --0--> 
+Program_B,net=CPLD: PO
+  <--1--  (N_PZ_164, CPLD)
+  --0--> 
+LEDs<2>,net=CPLD: PO
+  <--1--  (N_PZ_165, CPLD)
+  --0--> 
+FLASH_A_WP,net=CPLD: PO
+  <--1--  (N_PZ_166, CPLD)
+  --0--> 
+FLASH_A_RW,net=CPLD: PO
+  <--1--  (N_PZ_167, CPLD)
+  --0--> 
+N_PZ_169,net=CPLD: PINT ( FLASH_A_K.D )
+  <--2--  (FPGA_clock.Q, CPLD) (clk_cnt_i<0>.Q, CPLD)
+  --1--> (FLASH_A_K.D, CPLD) 
+FLASH_A_K.D,net=CPLD: PO
+  <--1--  (N_PZ_169, CPLD)
+  --0--> 
+clk_cnt_i<0>.Q,net=CPLD: PI
+  <--0-- 
+  --2--> (N_PZ_169, CPLD) (N_PZ_231, CPLD) 
+N_PZ_203,net=CPLD: PINT ( clk_cnt_i<0>.T )
+  <--0-- 
+  --1--> (clk_cnt_i<0>.T, CPLD) 
+N_PZ_231,net=CPLD: PINT ( FPGA_clock.T )
+  <--1--  (clk_cnt_i<0>.Q, CPLD)
+  --1--> (FPGA_clock.T, CPLD) 
+clk_cnt_i<0>.T,net=CPLD: PO
+  <--1--  (N_PZ_203, CPLD)
+  --0--> 
+FPGA_clock.T,net=CPLD: PO
+  <--1--  (N_PZ_231, CPLD)
+  --0--> 

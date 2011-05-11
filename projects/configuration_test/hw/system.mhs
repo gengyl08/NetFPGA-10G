@@ -1,0 +1,168 @@
+
+# ##############################################################################
+# Created by Base System Builder Wizard for Xilinx EDK 12.3 Build EDK_MS3.70d
+# Wed Oct 13 08:18:57 2010
+# Target Board:  xilinx.com ml605 Rev 1.0
+# Family:    virtex6
+# Device:    xc6vlx240t
+# Package:   ff1156
+# Speed Grade:  -1
+# ##############################################################################
+ PARAMETER VERSION = 2.1.0
+
+
+ PORT RESET = RESET, DIR = I, SIGIS = RST, RST_POLARITY = 0
+ PORT nf10_oped_0_PCIE_RSTN_pin = nf10_oped_0_PCIE_RSTN, DIR = I
+ PORT nf10_oped_0_PCIE_TXP_pin = nf10_oped_0_PCIE_TXP, DIR = O, VEC = [7:0]
+ PORT nf10_oped_0_PCIE_TXN_pin = nf10_oped_0_PCIE_TXN, DIR = O, VEC = [7:0]
+ PORT nf10_oped_0_PCIE_RXP_pin = nf10_oped_0_PCIE_RXP, DIR = I, VEC = [7:0]
+ PORT nf10_oped_0_PCIE_RXN_pin = nf10_oped_0_PCIE_RXN, DIR = I, VEC = [7:0]
+ PORT nf10_oped_0_PCIE_CLKP_pin = nf10_oped_0_PCIE_CLKP, DIR = I, SIGIS = CLK
+ PORT nf10_oped_0_PCIE_CLKN_pin = nf10_oped_0_PCIE_CLKN, DIR = I, SIGIS = CLK
+ PORT nf10_axi_flash_ctrl_0_FPGA_A_pin = nf10_axi_flash_ctrl_0_FPGA_A, DIR = O, VEC = [22:0]
+ PORT nf10_axi_flash_ctrl_0_FPGA_DQ = nf10_axi_flash_ctrl_0_FPGA_DQ, DIR = IO, VEC = [15:0]
+ PORT nf10_axi_flash_ctrl_0_FPGA_FOE_pin = nf10_axi_flash_ctrl_0_FPGA_FOE, DIR = O
+ PORT nf10_axi_flash_ctrl_0_FPGA_FWE_pin = nf10_axi_flash_ctrl_0_FPGA_FWE, DIR = O
+ PORT nf10_axi_flash_ctrl_0_FPGA_FCS_pin = nf10_axi_flash_ctrl_0_FPGA_FCS, DIR = O
+ PORT nf10_axi_flash_ctrl_0_FPGA_IOL9P_pin = nf10_axi_flash_ctrl_0_FPGA_IOL9P, DIR = O
+ PORT nf10_axi_flash_ctrl_0_FLASH_RST_pin = nf10_axi_flash_ctrl_0_FLASH_RST, DIR = O
+ PORT CPLD_CLK = nf10_axi_flash_ctrl_0_CPLD_CLK, DIR = I, SIGIS = CLK
+ PORT reboot = nf10_axi_flash_ctrl_0_reboot, DIR = O
+
+
+BEGIN microblaze
+ PARAMETER INSTANCE = microblaze_0
+ PARAMETER HW_VER = 8.00.b
+ PARAMETER C_INTERCONNECT = 2
+ PARAMETER C_USE_BARREL = 1
+ PARAMETER C_USE_FPU = 0
+ PARAMETER C_DEBUG_ENABLED = 0
+ PARAMETER C_ICACHE_BASEADDR = 0X00000000
+ PARAMETER C_ICACHE_HIGHADDR = 0X3FFFFFFF
+ PARAMETER C_USE_ICACHE = 0
+ PARAMETER C_ICACHE_ALWAYS_USED = 0
+ PARAMETER C_DCACHE_BASEADDR = 0X00000000
+ PARAMETER C_DCACHE_HIGHADDR = 0X3FFFFFFF
+ PARAMETER C_USE_DCACHE = 0
+ PARAMETER C_DCACHE_ALWAYS_USED = 0
+ PARAMETER C_INTERCONNECT_M_AXI_DC_AW_REGISTER = 0
+ PARAMETER C_INTERCONNECT_M_AXI_DC_W_REGISTER = 0
+ PARAMETER C_USE_HW_MUL = 0
+ BUS_INTERFACE DLMB = microblaze_0_dlmb
+ BUS_INTERFACE ILMB = microblaze_0_ilmb
+ BUS_INTERFACE M_AXI_DP = nf10_oped_0
+ PORT MB_RESET = microblaze_0_Reset_reset_0_Reset_0_adhoc
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = microblaze_0_ilmb
+ PARAMETER HW_VER = 1.00.a
+ PORT SYS_RST = sys_bus_reset
+ PORT LMB_CLK = clk_100_0000MHz
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = microblaze_0_dlmb
+ PARAMETER HW_VER = 1.00.a
+ PORT SYS_RST = sys_bus_reset
+ PORT LMB_CLK = clk_100_0000MHz
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_i_bram_ctrl
+ PARAMETER HW_VER = 2.10.b
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x00003fff
+ BUS_INTERFACE SLMB = microblaze_0_ilmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_i_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_d_bram_ctrl
+ PARAMETER HW_VER = 2.10.b
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x00003fff
+ BUS_INTERFACE SLMB = microblaze_0_dlmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_d_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = microblaze_0_bram_block
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTA = microblaze_0_i_bram_ctrl_2_microblaze_0_bram_block
+ BUS_INTERFACE PORTB = microblaze_0_d_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN proc_sys_reset
+ PARAMETER INSTANCE = reset_0
+ PARAMETER HW_VER = 3.00.a
+ PARAMETER C_EXT_RESET_HIGH = 0
+ PORT Ext_Reset_In = RESET
+ PORT MB_Reset = microblaze_0_Reset_reset_0_Reset_0_adhoc
+ PORT Slowest_sync_clk = clk_50_0000MHzMMCM0
+ PORT BUS_STRUCT_RESET = sys_bus_reset
+ PORT Dcm_locked = dcm_locked
+END
+
+BEGIN clock_generator
+ PARAMETER INSTANCE = clock_generator_0
+ PARAMETER HW_VER = 4.00.a
+ PARAMETER C_CLKIN_FREQ = 125000000
+ PARAMETER C_CLKOUT0_FREQ = 50000000
+ PARAMETER C_CLKOUT0_GROUP = NONE
+ PARAMETER C_EXT_RESET_HIGH = 0
+ PARAMETER C_CLKOUT1_FREQ = 100000000
+ PARAMETER C_CLKOUT2_FREQ = 100000000
+ PORT CLKIN = nf10_oped_0_M_AXIS_ACLK
+ PORT CLKOUT0 = clk_50_0000MHzMMCM0
+ PORT RST = RESET
+ PORT LOCKED = dcm_locked
+ PORT CLKOUT1 = clk_100_0000MHz
+END
+
+BEGIN nf10_axis_bridge_5ch
+ PARAMETER INSTANCE = nf10_axis_bridge_5ch_0
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE M_AXIS_MM2S = nf10_axis_bridge_5ch_0_M_AXIS_MM2S
+ BUS_INTERFACE S_AXIS_S2MM = nf10_oped_0_M_AXIS
+ PORT ACLK = nf10_oped_0_M_AXIS_ACLK
+ PORT ARESET_N = nf10_oped_0_ARESET_N
+END
+
+BEGIN nf10_oped
+ PARAMETER INSTANCE = nf10_oped_0
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE S_AXIS = nf10_axis_bridge_5ch_0_M_AXIS_MM2S
+ BUS_INTERFACE M_AXIS = nf10_oped_0_M_AXIS
+ BUS_INTERFACE M_AXI = nf10_oped_0
+ PORT ACLK = nf10_oped_0_M_AXIS_ACLK
+ PORT ARESET_N = nf10_oped_0_ARESET_N
+ PORT PCIE_TXP = nf10_oped_0_PCIE_TXP
+ PORT PCIE_TXN = nf10_oped_0_PCIE_TXN
+ PORT PCIE_RXP = nf10_oped_0_PCIE_RXP
+ PORT PCIE_RXN = nf10_oped_0_PCIE_RXN
+ PORT PCIE_CLKP = nf10_oped_0_PCIE_CLKP
+ PORT PCIE_CLKN = nf10_oped_0_PCIE_CLKN
+ PORT PCIE_RSTN = nf10_oped_0_PCIE_RSTN
+END
+
+BEGIN nf10_axi_flash_ctrl
+ PARAMETER INSTANCE = nf10_axi_flash_ctrl_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = nf10_oped_0.M_AXI
+ PARAMETER C_BASEADDR = 0x80004000
+ PARAMETER C_HIGHADDR = 0x80007fff
+ BUS_INTERFACE S_AXI = nf10_oped_0
+ PORT S_AXI_ARESETN = nf10_oped_0_ARESET_N
+ PORT FPGA_A = nf10_axi_flash_ctrl_0_FPGA_A
+ PORT FPGA_DQ = nf10_axi_flash_ctrl_0_FPGA_DQ
+ PORT FPGA_FOE = nf10_axi_flash_ctrl_0_FPGA_FOE
+ PORT FPGA_FWE = nf10_axi_flash_ctrl_0_FPGA_FWE
+ PORT FPGA_FCS = nf10_axi_flash_ctrl_0_FPGA_FCS
+ PORT FPGA_IOL9P = nf10_axi_flash_ctrl_0_FPGA_IOL9P
+ PORT FLASH_RST = nf10_axi_flash_ctrl_0_FLASH_RST
+ PORT S_AXI_ACLK = nf10_oped_0_M_AXIS_ACLK
+ PORT CPLD_CLK = nf10_axi_flash_ctrl_0_CPLD_CLK
+ PORT reboot = nf10_axi_flash_ctrl_0_reboot
+END
+
