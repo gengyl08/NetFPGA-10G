@@ -89,18 +89,31 @@ module nf10_bram_output_queues
    localparam IDLE = 0;
    localparam WR_PKT = 1;
    localparam DROP = 2;
+   
+   localparam NUM_METADATA_STATES = 2;
+   localparam WAIT_HEADER = 0;
+   localparam WAIT_EOP = 1;
 
    // ------------- Regs/ wires -----------
    
    reg [NUM_QUEUES-1:0]                nearly_full;
    wire [NUM_QUEUES-1:0]               nearly_full_fifo;
    wire [NUM_QUEUES-1:0]               empty;
+   
+   reg [NUM_QUEUES-1:0]                metadata_nearly_full;
+   wire [NUM_QUEUES-1:0]               metadata_nearly_full_fifo;
+   wire [NUM_QUEUES-1:0]               metadata_empty;
+   
    wire [C_USER_WIDTH-1:0]             fifo_out_tuser[NUM_QUEUES-1:0];
    wire [C_AXIS_DATA_WIDTH-1:0]        fifo_out_tdata[NUM_QUEUES-1:0];
    wire [((C_AXIS_DATA_WIDTH/8))-1:0]  fifo_out_tstrb[NUM_QUEUES-1:0];
-   wire [NUM_QUEUES-1:0] 	           fifo_out_tlast;	       
-   wire [NUM_QUEUES-1:0]                rd_en;
+   wire [NUM_QUEUES-1:0] 	           fifo_out_tlast;	  
+        
+   wire [NUM_QUEUES-1:0]               rd_en;
    reg [NUM_QUEUES-1:0]                wr_en;
+   
+   reg [NUM_QUEUES-1:0]                metadata_rd_en;
+   reg [NUM_QUEUES-1:0]                metadata_wr_en;
 
    reg [NUM_QUEUES-1:0]          cur_queue;
    reg [NUM_QUEUES-1:0]          cur_queue_next;
@@ -108,6 +121,11 @@ module nf10_bram_output_queues
 
    reg [NUM_STATES-1:0]                state;
    reg [NUM_STATES-1:0]                state_next;
+   
+   reg [NUM_METADATA_STATES-1:0]       metadata_state[NUM_QUEUES-1:0];
+   reg [NUM_METADATA_STATES-1:0]       metadata_state_next[NUM_QUEUES-1:0];
+   
+   reg								   first_word, first_word_next;
 
    // ------------ Modules -------------
 
@@ -119,17 +137,60 @@ module nf10_bram_output_queues
            .MAX_DEPTH_BITS(2))
       output_fifo
         (// Outputs
-         .dout                           ({fifo_out_tlast[i], fifo_out_tuser[i], fifo_out_tstrb[i], fifo_out_tdata[i]}),
+         .dout                           ({fifo_out_tlast[i], fifo_out_tstrb[i], fifo_out_tdata[i]}),
          .full                           (),
          .nearly_full                    (nearly_full_fifo[i]),
 	 	 .prog_full                      (),
          .empty                          (empty[i]),
          // Inputs
-         .din                            ({s_axis_tlast, s_axis_tuser, s_axis_tstrb, s_axis_tdata}),
+         .din                            ({s_axis_tlast, s_axis_tstrb, s_axis_tdata}),
          .wr_en                          (wr_en[i]),
          .rd_en                          (rd_en[i]),
          .reset                          (~axi_resetn),
          .clk                            (axi_aclk));
+
+      fallthrough_small_fifo
+        #( .WIDTH(C_USER_WIDTH),
+           .MAX_DEPTH_BITS(2))
+      metadata_fifo
+        (// Outputs
+         .dout                           (fifo_out_tuser[i]),
+         .full                           (),
+         .nearly_full                    (metadata_nearly_full_fifo[i]),
+	 	 .prog_full                      (),
+         .empty                          (metadata_empty[i]),
+         // Inputs
+         .din                            (s_axis_tuser),
+         .wr_en                          (metadata_wr_en[i]),
+         .rd_en                          (metadata_rd_en[i]),
+         .reset                          (~axi_resetn),
+         .clk                            (axi_aclk));
+         
+      always @(metadata_state[i], rd_en[i]) begin
+        metadata_rd_en[i] = 1'b0;
+      	case(metadata_state[i])
+      		WAIT_HEADER: begin
+      			if(rd_en[i]) begin
+      				metadata_state_next[i] = WAIT_EOP;
+      				metadata_rd_en[i] = 1'b1;
+      			end
+      		end
+      		WAIT_EOP: begin
+      			if(rd_en[i] & fifo_out_tlast[i]) begin
+      				metadata_state_next[i] = WAIT_HEADER;
+      			end
+      		end
+        endcase
+      end
+      
+      always @(posedge axi_aclk) begin
+      	if(~axi_resetn) begin
+         	metadata_state[i] <= WAIT_HEADER;
+      	end
+      	else begin
+         	metadata_state[i] <= metadata_state_next[i];
+      	end
+      end
    end 
    endgenerate
 
@@ -140,7 +201,9 @@ module nf10_bram_output_queues
       state_next     = state;
       cur_queue_next = cur_queue;      
       wr_en          = 0;
+      metadata_wr_en = 0;
       s_axis_tready  = 0;
+      first_word_next = first_word;
 
       case(state)
 
@@ -148,8 +211,9 @@ module nf10_bram_output_queues
         IDLE: begin
            cur_queue_next = oq;
            if(s_axis_tvalid) begin
-              if(~|(nearly_full & oq)) begin // All interesting oqs are NOT _nearly_ full (able to fit in the maximum pacekt).
+              if(~|(nearly_full & metadata_nearly_full_fifo & oq)) begin // All interesting oqs are NOT _nearly_ full (able to fit in the maximum pacekt).
                   state_next = WR_PKT;
+                  first_word_next = 1'b1;
               end
               else begin
               	  state_next = DROP;
@@ -161,7 +225,11 @@ module nf10_bram_output_queues
         WR_PKT: begin
            s_axis_tready = 1;
            if(s_axis_tvalid) begin
+           		first_word_next = 1'b0;
 				wr_en = cur_queue;
+				if(first_word) begin
+					metadata_wr_en = cur_queue;
+				end
 				if(s_axis_tlast) begin
 					state_next = IDLE;
 				end           	
@@ -182,13 +250,16 @@ module nf10_bram_output_queues
       if(~axi_resetn) begin
          state <= IDLE;
          cur_queue <= 0; 
+         first_word <= 0;
       end
       else begin
          state <= state_next;
          cur_queue <= cur_queue_next; 
+         first_word <= first_word_next;
       end
       
       nearly_full <= nearly_full_fifo;
+      metadata_nearly_full <= metadata_nearly_full_fifo;
    end
    
    
