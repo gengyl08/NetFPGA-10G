@@ -1,0 +1,55 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          output_port_lookup_v2_1_0.mpd
+#//
+#//  Description:
+#//          Microprocessor Peripheral Description File
+#//                 
+#//  Revision history:
+#//          2011/5/13 gac1: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
+
+BEGIN output_port_lookup
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION HDL = MIXED
+OPTION USAGE_LEVEL = BASE_USER
+OPTION STYLE = HDL
+OPTION RUN_NGCBUILD = TRUE
+PTION IMP_NETLIST = TRUE
+OPTION IP_GROUP = Communication High-Speed:MICROBLAZE
+OPTION DESC = NetFPGA-10G Input Arbiter
+OPTION LONG_DESC = NetFPGA-10G Input Arbiter
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXIS, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (8,32,64,256), BUS = M_AXIS:S_AXIS_
+PARAMETER C_USER_WIDTH = 128, DT = INTEGER, RANGE = (128), BUS = M_AXIS:S_AXIS
+
+## Ports
+PORT axi_aclk = "", DIR = I, SIGIS = CLK, BUS = M_AXIS:S_AXIS_
+PORT axi_resetn = ARESETN, DIR = I, SIGIS = RST, BUS = M_AXIS:S_AXIS
+
+PORT m_axis_tdata = TDATA, DIR = O, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT m_axis_tstrb = TSTRB, DIR = O, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT m_axis_tuser = TUSER, DIR = O, VEC = [C_USER_WIDTH-1:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT m_axis_tvalid = TVALID, DIR = O, BUS = M_AXIS
+PORT m_axis_tready = TREADY, DIR = I, BUS = M_AXIS
+PORT m_axis_tlast = TLAST, DIR = O, BUS = M_AXIS
+
+PORT s_axis_tdata = TDATA, DIR = I, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tstrb = TSTRB, DIR = I, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tuser = TUSER, DIR = I, VEC = [C_USER_WIDTH-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tvalid = TVALID, DIR = I, BUS = S_AXIS
+PORT s_axis_tready = TREADY, DIR = O, BUS = S_AXIS
+PORT s_axis_tlast = TLAST, DIR = I, BUS = S_AXIS
+
+end
