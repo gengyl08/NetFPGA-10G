@@ -13,23 +13,25 @@
 //
 ////////////////////////////////////////////////////////////////////////
 module output_port_lookup
-  #(
+#(
     //Master AXI Stream Data Width
     parameter C_AXIS_DATA_WIDTH=256,
-    parameter C_USER_WIDTH=128
-    )
-   (
+    parameter C_USER_WIDTH=128,
+    parameter SRC_PORT_POS=16,
+    parameter DST_PORT_POS=24
+)
+(
     // Global Ports
-    input axi_aclk;
-    input axi_resetn;
+    input axi_aclk,
+    input axi_resetn,
 
     // Master Stream Ports (interface to data path)
-    output reg [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
-    output reg [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
-    output reg [C_USER_WIDTH-1:0] m_axis_tuser,
+    output [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
+    output [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
+    output [C_USER_WIDTH-1:0] m_axis_tuser,
     output reg m_axis_tvalid,
     input  m_axis_tready,
-    output reg m_axis_tlast,
+    output m_axis_tlast,
 
     // Slave Stream Ports (interface to RX queues)
     input [C_AXIS_DATA_WIDTH - 1:0] s_axis_tdata,
@@ -38,7 +40,7 @@ module output_port_lookup
     input  s_axis_tvalid,
     output s_axis_tready,
     input  s_axis_tlast
-    );
+);
 
    function integer log2;
       input integer number;
@@ -56,7 +58,6 @@ module output_port_lookup
 
    //------------- Wires ------------------
    reg [C_USER_WIDTH-1:0] in_tuser_modded;
-   reg [7:0] 		  decoded_src;
    reg 			  state, state_next;     
    
    // ------------ Modules ----------------
@@ -73,7 +74,7 @@ module output_port_lookup
          .empty                          (in_fifo_empty),
          // Inputs
          .din                            ({s_axis_tlast, in_tuser_modded, s_axis_tstrb, s_axis_tdata}),
-         .wr_en                          (in_tvalid & ~nearly_full),
+         .wr_en                          (s_axis_tvalid & ~in_fifo_nearly_full),
          .rd_en                          (in_fifo_rd_en),
          .reset                          (~axi_resetn),
          .clk                            (axi_aclk));
@@ -83,14 +84,8 @@ module output_port_lookup
    assign s_axis_tready = !in_fifo_nearly_full;
 
    // packet is from the cpu if it is on an odd numbered port
-   assign pkt_is_from_cpu = s_axis_tuser[`SRC_PORT_POS+8:`SRC_PORT_POS];
+   assign pkt_is_from_cpu = s_axis_tuser[SRC_PORT_POS+7:SRC_PORT_POS];
 
-   // decode the source port
-   always @(*) begin
-      decoded_src = 0;
-      decoded_src[s_axis_tuser[`SRC_PORT_POS+8:`SRC_PORT_POS]] = 1'b1;
-   end
-     
    // modify the dst port in tuser
    always @(*) begin
       in_tuser_modded = s_axis_tuser;
@@ -100,10 +95,12 @@ module output_port_lookup
 	MODULE_HEADER: begin
 	   if (s_axis_tvalid) begin
 	      if(pkt_is_from_cpu) begin
-		 in_tuser_modded[`DST_PORT_POS+8:`DST_PORT_POS] = {1'b0, decoded_src[7:1]};
+		 in_tuser_modded[DST_PORT_POS+7:DST_PORT_POS] = {1'b0, 
+			s_axis_tuser[SRC_PORT_POS+7:SRC_PORT_POS]};
 	      end
 	      else begin
-		 in_tuser_modded[`DST_PORT_POS+8:`DST_PORT_POS] = {decoded_src[6:0], 1'b0};
+		 in_tuser_modded[DST_PORT_POS+7:DST_PORT_POS] = {
+			s_axis_tuser[SRC_PORT_POS+7:SRC_PORT_POS], 1'b0};
 	      end
 	   end
 	   state_next = IN_PACKET;
@@ -117,8 +114,8 @@ module output_port_lookup
       endcase // case (state)      
    end // always @ (*)
 
-   always @(posedge clk) begin
-      if(axi_resetn) begin
+   always @(posedge axi_aclk) begin
+      if(~axi_resetn) begin
 	 state <= MODULE_HEADER;
       end
       else begin
@@ -128,12 +125,8 @@ module output_port_lookup
 
    // Handle output
    assign in_fifo_rd_en = m_axis_tready && !in_fifo_empty;
-   always @(posedge clk) begin
+   always @(posedge axi_aclk) begin
       m_axis_tvalid <= ~axi_resetn ? 0 : in_fifo_rd_en;
    end
 
-endmodule // output_port_lookup
-
-   
-		
-   
+endmodule // output_port_lookup   
