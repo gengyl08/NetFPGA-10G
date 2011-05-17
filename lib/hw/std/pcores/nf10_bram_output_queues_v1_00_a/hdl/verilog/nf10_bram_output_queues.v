@@ -168,6 +168,7 @@ module nf10_bram_output_queues
          
       always @(metadata_state[i], rd_en[i]) begin
         metadata_rd_en[i] = 1'b0;
+        metadata_state_next[i] = metadata_state[i];
       	case(metadata_state[i])
       		WAIT_HEADER: begin
       			if(rd_en[i]) begin
