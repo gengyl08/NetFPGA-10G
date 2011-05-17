@@ -30,11 +30,11 @@ HW_LIB_DIR_INSTANCES := $(basename $(patsubst ./%,%,$(HW_LIB_DIR_INSTANCES)))
 
 cores: pcores subdirs
 
-pcores:
-	@for lib in $(HW_LIB_DIR_INSTANCES) ; do \
+pcores: check-env
+	for lib in $(HW_LIB_DIR_INSTANCES) ; do \
 		false | cp -ri $(XILINX_HW_LIB_DIR)/$$lib $(NF10_HW_LIB_DIR_XILINX) > /dev/null 2>&1; \
 	done;
-	@patch $(NF10_HW_LIB_DIR_XILINX)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.vhd $(NF10_HW_LIB_DIR_XILINX)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.diff;
+	patch $(NF10_HW_LIB_DIR_XILINX)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.vhd $(NF10_HW_LIB_DIR_XILINX)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.diff;
 	@echo "/////////////////////////////////////////";
 	@echo "//Xilinx EDK pcores installed.";
 	@echo "/////////////////////////////////////////";
@@ -46,3 +46,8 @@ subdirs:
 	$(MAKE) -C $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/
 	$(MAKE) -C $(NF10_HW_LIB_DIR)/nf10_mdio_v1_00_a/
 	#$(MAKE) -C $(NF10_SCRIPTS_DIR)/axitools
+	
+check-env:
+ifndef XILINX_EDK
+    $(error XILINX_EDK is undefined)
+endif
