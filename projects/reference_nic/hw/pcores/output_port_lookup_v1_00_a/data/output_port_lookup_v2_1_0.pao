@@ -13,5 +13,5 @@
 #//
 #////////////////////////////////////////////////////////////////////////
 
-lib output_port_lookup_v1_00_a output_port_looup.v verilog
+lib output_port_lookup_v1_00_a output_port_lookup.v verilog
 lib output_port_lookup_v1_00_a small_fifo_v3.v verilog

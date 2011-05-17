@@ -81,11 +81,19 @@
  PORT MDC = nf10_mdio_0_PHY_MDC, DIR = O
  PORT MDIO = nf10_mdio_0_PHY_MDIO, DIR = IO
  PORT PHY_RST_N = nf10_mdio_0_PHY_rst_n, DIR = O, RST_POLARITY = 1
+ PORT nf10_oped_0_PCIE_RSTN_pin = nf10_oped_0_PCIE_RSTN, DIR = I, SIGIS = RST
+ PORT nf10_oped_0_PCIE_CLKP_pin = nf10_oped_0_PCIE_CLKP, DIR = I, SIGIS = CLK
+ PORT nf10_oped_0_PCIE_CLKN_pin = nf10_oped_0_PCIE_CLKN, DIR = I, SIGIS = CLK
+ PORT nf10_oped_0_PCIE_RXN_pin = nf10_oped_0_PCIE_RXN, DIR = I, VEC = [7:0]
+ PORT nf10_oped_0_PCIE_RXP_pin = nf10_oped_0_PCIE_RXP, DIR = I, VEC = [7:0]
+ PORT nf10_oped_0_PCIE_TXN_pin = nf10_oped_0_PCIE_TXN, DIR = O, VEC = [7:0]
+ PORT nf10_oped_0_PCIE_TXP_pin = nf10_oped_0_PCIE_TXP, DIR = O, VEC = [7:0]
 
 
 BEGIN axi_interconnect
  PARAMETER INSTANCE = axi_interconnect_memory_mapped_lite_0
  PARAMETER HW_VER = 1.02.a
+ PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 1
  PORT INTERCONNECT_ARESETN = connectnetwork_0_reset_reset_0_Reset_2_adhoc
  PORT interconnect_aclk = control_clk
 END
@@ -174,9 +182,9 @@ BEGIN axi_uartlite
  PARAMETER C_DATA_BITS = 8
  PARAMETER C_USE_PARITY = 0
  PARAMETER C_ODD_PARITY = 1
- PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
  PARAMETER C_BASEADDR = 0x40600000
  PARAMETER C_HIGHADDR = 0x4060ffff
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
  BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
  PORT TX = RS232_Uart_1_sout
  PORT RX = RS232_Uart_1_sin
@@ -348,9 +356,9 @@ BEGIN nf10_mdio
  PARAMETER INSTANCE = nf10_mdio_0
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_INCLUDE_PHY_CONSTRAINTS = 0
- PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
  PARAMETER C_BASEADDR = 0x7a000000
  PARAMETER C_HIGHADDR = 0x7a00ffff
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
  BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
  PORT S_AXI_ACLK = control_clk
  PORT PHY_MDC = nf10_mdio_0_PHY_MDC
@@ -361,9 +369,9 @@ END
 BEGIN axi_timebase_wdt
  PARAMETER INSTANCE = axi_timebase_wdt_0
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
  PARAMETER C_BASEADDR = 0x41a00000
  PARAMETER C_HIGHADDR = 0x41a0ffff
+ PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
  BUS_INTERFACE S_AXI = axi_interconnect_memory_mapped_lite_0
  PORT S_AXI_ACLK = control_clk
 END
@@ -374,7 +382,7 @@ BEGIN nf10_axis_converter
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_axis_converter_0_M_AXIS
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
 END
 
 BEGIN nf10_axis_converter
@@ -383,7 +391,7 @@ BEGIN nf10_axis_converter
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE M_AXIS = nf10_axis_converter_1_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_10g_interface_1_M_AXIS
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
 END
 
 BEGIN nf10_axis_converter
@@ -392,7 +400,7 @@ BEGIN nf10_axis_converter
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE S_AXIS = nf10_10g_interface_2_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_axis_converter_2_M_AXIS
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
 END
 
 BEGIN nf10_axis_converter
@@ -401,7 +409,7 @@ BEGIN nf10_axis_converter
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE S_AXIS = nf10_10g_interface_3_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_axis_converter_3_M_AXIS
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
 END
 
 BEGIN nf10_axis_converter
@@ -410,7 +418,7 @@ BEGIN nf10_axis_converter
  PARAMETER C_S_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE M_AXIS = nf10_axis_converter_4_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_0
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
 END
 
 BEGIN nf10_axis_converter
@@ -419,7 +427,7 @@ BEGIN nf10_axis_converter
  PARAMETER C_S_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE M_AXIS = nf10_axis_converter_5_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_1
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
 END
 
 BEGIN nf10_axis_converter
@@ -428,7 +436,7 @@ BEGIN nf10_axis_converter
  PARAMETER C_S_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE M_AXIS = nf10_axis_converter_6_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_2
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
 END
 
 BEGIN nf10_axis_converter
@@ -437,7 +445,7 @@ BEGIN nf10_axis_converter
  PARAMETER C_S_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE M_AXIS = nf10_axis_converter_7_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_3
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
 END
 
 BEGIN nf10_input_arbiter
@@ -449,18 +457,64 @@ BEGIN nf10_input_arbiter
  BUS_INTERFACE S_AXIS_1 = nf10_axis_converter_1_M_AXIS
  BUS_INTERFACE S_AXIS_2 = nf10_axis_converter_2_M_AXIS
  BUS_INTERFACE S_AXIS_3 = nf10_axis_converter_3_M_AXIS
- PORT axi_aclk = core_clk
+ BUS_INTERFACE S_AXIS_4 = nf10_axis_converter_8_M_AXIS
+ PORT axi_aclk = nf10_oped_0_ACLK
 END
 
 BEGIN nf10_bram_output_queues
  PARAMETER INSTANCE = nf10_bram_output_queues_0
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_AXIS_DATA_WIDTH = 256
- BUS_INTERFACE S_AXIS = nf10_input_arbiter_0_M_AXIS
  BUS_INTERFACE M_AXIS_0 = nf10_bram_output_queues_0_M_AXIS_0
  BUS_INTERFACE M_AXIS_1 = nf10_bram_output_queues_0_M_AXIS_1
  BUS_INTERFACE M_AXIS_2 = nf10_bram_output_queues_0_M_AXIS_2
  BUS_INTERFACE M_AXIS_3 = nf10_bram_output_queues_0_M_AXIS_3
- PORT axi_aclk = core_clk
+ BUS_INTERFACE M_AXIS_4 = nf10_bram_output_queues_0_M_AXIS_4
+ BUS_INTERFACE S_AXIS = output_port_lookup_0_M_AXIS
+ PORT axi_aclk = nf10_oped_0_ACLK
+END
+
+BEGIN nf10_oped
+ PARAMETER INSTANCE = nf10_oped_0
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE M_AXIS = nf10_oped_0_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_axis_converter_9_M_AXIS
+ PORT ACLK = nf10_oped_0_ACLK
+ PORT PCIE_RSTN = nf10_oped_0_PCIE_RSTN
+ PORT PCIE_CLKP = nf10_oped_0_PCIE_CLKP
+ PORT PCIE_CLKN = nf10_oped_0_PCIE_CLKN
+ PORT PCIE_RXN = nf10_oped_0_PCIE_RXN
+ PORT PCIE_RXP = nf10_oped_0_PCIE_RXP
+ PORT PCIE_TXN = nf10_oped_0_PCIE_TXN
+ PORT PCIE_TXP = nf10_oped_0_PCIE_TXP
+END
+
+BEGIN nf10_axis_converter
+ PARAMETER INSTANCE = nf10_axis_converter_8
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
+ PARAMETER C_S_AXIS_DATA_WIDTH = 32
+ BUS_INTERFACE S_AXIS = nf10_oped_0_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_axis_converter_8_M_AXIS
+ PORT axi_aclk = nf10_oped_0_ACLK
+END
+
+BEGIN nf10_axis_converter
+ PARAMETER INSTANCE = nf10_axis_converter_9
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_M_AXIS_DATA_WIDTH = 32
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
+ BUS_INTERFACE M_AXIS = nf10_axis_converter_9_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_4
+ PORT axi_aclk = nf10_oped_0_ACLK
+END
+
+BEGIN output_port_lookup
+ PARAMETER INSTANCE = output_port_lookup_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_AXIS_DATA_WIDTH = 256
+ BUS_INTERFACE S_AXIS = nf10_input_arbiter_0_M_AXIS
+ BUS_INTERFACE M_AXIS = output_port_lookup_0_M_AXIS
+ PORT axi_aclk = nf10_oped_0_ACLK
 END
 
