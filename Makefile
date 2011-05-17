@@ -32,7 +32,9 @@ cores: pcores subdirs
 
 pcores: check-env
 	for lib in $(HW_LIB_DIR_INSTANCES) ; do \
-		false | cp -ri $(XILINX_HW_LIB_DIR)/$$lib $(NF10_HW_LIB_DIR_XILINX) > /dev/null 2>&1; \
+		if test -d $(XILINX_HW_LIB_DIR)/$$lib; \
+			then false | cp -ri $(XILINX_HW_LIB_DIR)/$$lib $(NF10_HW_LIB_DIR_XILINX) > /dev/null 2>&1; \
+		fi; \
 	done;
 	patch $(NF10_HW_LIB_DIR_XILINX)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.vhd $(NF10_HW_LIB_DIR_XILINX)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.diff;
 	@echo "/////////////////////////////////////////";

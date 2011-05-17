@@ -243,7 +243,6 @@ module nf10_input_arbiter
          m_axis_tstrb <= 0;
 	 m_axis_tdata <= 0;
 	 m_axis_tlast <= 0;
-	 m_axis_tvalid <= 0;	 
       end
       else begin
          state <= state_next;

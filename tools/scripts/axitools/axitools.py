@@ -20,6 +20,9 @@ def axis_dump( packets, f, bus_width, period ):
         return
 
     bus_width = bus_width / 8
+    
+    full_strb = (1 << bus_width) - 1
+    
     last_ts   = None
     period    = int(period * 1e9)
 
@@ -46,9 +49,9 @@ def axis_dump( packets, f, bus_width, period ):
             else:
                 terminal = ','
 
-            f.write( '%s, %02x%s\t\t\n' % (
+            f.write( '%s, %x%s\t\t\n' % (
                     ''.join( '%02x' % x for x in word ),        # TDATA
-                    ((-1 << padding) & 0xff),                   # TSTRB
+                    ((-1 << padding) & full_strb),                   # TSTRB
                     terminal ) )                                # TLAST
 
             # one clock tick
