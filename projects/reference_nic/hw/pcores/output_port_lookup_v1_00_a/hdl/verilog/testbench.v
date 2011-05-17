@@ -151,7 +151,7 @@ module testbench();
     
     // Slave Stream Ports
     .s_axis_tdata(tdata[0]),
-    .s_axis_tuser(128'h0001AAAA),
+    .s_axis_tuser(128'h0004AAAA),
     .s_axis_tstrb(8'hFF),
     .s_axis_tvalid(tvalid_0),
     .s_axis_tready(tready[0]),

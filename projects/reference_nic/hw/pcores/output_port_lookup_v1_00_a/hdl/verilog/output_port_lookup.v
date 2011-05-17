@@ -84,7 +84,10 @@ module output_port_lookup
    assign s_axis_tready = !in_fifo_nearly_full;
 
    // packet is from the cpu if it is on an odd numbered port
-   assign pkt_is_from_cpu = s_axis_tuser[SRC_PORT_POS+7:SRC_PORT_POS];
+   assign pkt_is_from_cpu = s_axis_tuser[SRC_PORT_POS+1] || 
+			    s_axis_tuser[SRC_PORT_POS+3] || 
+			    s_axis_tuser[SRC_PORT_POS+5] || 
+			    s_axis_tuser[SRC_PORT_POS+7];
 
    // modify the dst port in tuser
    always @(*) begin
@@ -96,11 +99,11 @@ module output_port_lookup
 	   if (s_axis_tvalid) begin
 	      if(pkt_is_from_cpu) begin
 		 in_tuser_modded[DST_PORT_POS+7:DST_PORT_POS] = {1'b0, 
-			s_axis_tuser[SRC_PORT_POS+7:SRC_PORT_POS]};
+			s_axis_tuser[SRC_PORT_POS+7:SRC_PORT_POS+1]};
 	      end
 	      else begin
 		 in_tuser_modded[DST_PORT_POS+7:DST_PORT_POS] = {
-			s_axis_tuser[SRC_PORT_POS+7:SRC_PORT_POS], 1'b0};
+			s_axis_tuser[SRC_PORT_POS+6:SRC_PORT_POS], 1'b0};
 	      end
 	   end
 	   state_next = IN_PACKET;
