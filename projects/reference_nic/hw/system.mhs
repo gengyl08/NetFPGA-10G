@@ -81,7 +81,6 @@
  PORT MDC = nf10_mdio_0_PHY_MDC, DIR = O
  PORT MDIO = nf10_mdio_0_PHY_MDIO, DIR = IO
  PORT PHY_RST_N = nf10_mdio_0_PHY_rst_n, DIR = O, RST_POLARITY = 1
- PORT nf10_oped_0_PCIE_RSTN_pin = nf10_oped_0_PCIE_RSTN, DIR = I, SIGIS = RST
  PORT nf10_oped_0_PCIE_CLKP_pin = nf10_oped_0_PCIE_CLKP, DIR = I, SIGIS = CLK
  PORT nf10_oped_0_PCIE_CLKN_pin = nf10_oped_0_PCIE_CLKN, DIR = I, SIGIS = CLK
  PORT nf10_oped_0_PCIE_RXN_pin = nf10_oped_0_PCIE_RXN, DIR = I, VEC = [7:0]
@@ -480,7 +479,7 @@ BEGIN nf10_oped
  BUS_INTERFACE M_AXIS = nf10_oped_0_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_axis_converter_9_M_AXIS
  PORT ACLK = nf10_oped_0_ACLK
- PORT PCIE_RSTN = nf10_oped_0_PCIE_RSTN
+ PORT PCIE_RSTN = RESET
  PORT PCIE_CLKP = nf10_oped_0_PCIE_CLKP
  PORT PCIE_CLKN = nf10_oped_0_PCIE_CLKN
  PORT PCIE_RXN = nf10_oped_0_PCIE_RXN

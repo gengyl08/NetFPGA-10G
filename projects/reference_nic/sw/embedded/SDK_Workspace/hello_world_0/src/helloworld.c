@@ -49,10 +49,6 @@ int main (void) {
 
    ConfigPtr = XEmacLite_LookupConfig(EMAC_DEVICE_ID);
    XEmacLite_CfgInitialize(EmacLiteInstPtr, ConfigPtr, ConfigPtr->BaseAddress);
-   
-   // Hold AXI4-Stream Packet Generator/Checker
-   Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x3, 0x1);
-   Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x3, 0x1);
 
    char s;
    int port, dev;
@@ -68,9 +64,6 @@ int main (void) {
    while(1){
        print("==NetFPGA-10G==\r\n");
        print("i : Initialize AEL2005\r\n");
-       print("s : Dump status\r\n");
-       print("t : Run AXI4-Stream Gen/Check\r\n");
-       print("r : Stop AXI4-Stream Gen/Check\r\n");
        
        s = inbyte();
        if(s == 'i'){
@@ -112,31 +105,6 @@ INIT:      for(port = 0; port < 4; port ++){
 #endif
            }
        }
-       else if (s == 'r'){
-           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x3, 0x1);
-           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x3, 0x1);
-           print("AXI4-Stream Gen/Check Stopped\r\n");
-       }
-       else if (s == 't'){
-           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x3, 0x0);
-           Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x3, 0x0);
-           print("AXI4-Stream Gen/Check Started\r\n");
-       }
-       else if (s == 's'){
-           test_status(EmacLiteInstPtr);
-           value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x0);
-		   xil_printf("AXI4-Stream Gen/Check 0\r\nTX\t0x%x\t", value);
-		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x1);
-		   xil_printf("RX\t0x%x\t", value);
-		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x2);
-		   xil_printf("ERR\t0x%x\r\n", value);
-		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x0);
-		   xil_printf("AXI4-Stream Gen/Check 1\r\nTX\t0x%x\t", value);
-		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x1);
-		   xil_printf("RX\t0x%x\t", value);
-		   value = Xil_In32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x2);
-		   xil_printf("ERR\t0x%x\r\n", value);
-	   }
 	   else
            continue;
    }
