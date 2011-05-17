@@ -1,0 +1,25 @@
+#################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  Project:
+#          loopback_test
+#                 
+#  Revision history:
+#          2010/12/1 hyzeng: Initial check-in
+#
+#################################################################
+
+"How to build the hardware?" You may ask. To rebuilt the project from 
+source, follow the simple 2 steps.
+
+1. Open system.xmp using Xilinx Platform Studio
+2. Click Hardware - Generate bitstream
+
+That's it! 
+
+The bitfile locates in implementation/. You need to 
+export it to your Xilinx SDK project in order to download the Microblaze 
+program to BRAM.
+
+For SDK instructions , please checkout /sw/embedded directory

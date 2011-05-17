@@ -1,0 +1,29 @@
+#################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  Project:
+#          loopback_test
+#                 
+#  Revision history:
+#          2010/12/1 hyzeng: Initial check-in
+#
+#################################################################
+
+"How to build the embedded software?" You may ask. There are two ways.
+    
+Method 1: GUI flow
+1. Export the platform specific files from XPS (HW) project by clicking Project -> Export to SDK
+   Use "Export only"
+2. Open Xilinx SDK, select the workspace at SDK_Workspace
+3. In the Xilinx SDK GUI, click Project -> Global Repository and point the repository to netfpga-10g/lib/sw/
+4. Import all projects under SDK_Workspace into your workspace by clicking File -> Import -> General -> Existing projects
+   do this for hw, bsp, and hello_world_0
+   
+That's it!
+Now you can build your project with standard Eclipse IDE :)
+
+Method 2: CLI flow
+0. Before doing anything, please add the following directory into your $PATH
+   $(XILINX_EDK)/gnu/microblaze/{Your OS}/bin/ 
+1. Type "make" and find download.bit at result/
