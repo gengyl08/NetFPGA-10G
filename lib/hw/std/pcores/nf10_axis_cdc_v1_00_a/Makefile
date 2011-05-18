@@ -18,7 +18,7 @@
 ################################################################################
 COREGEN_DIR:= coregen
 
-install: netlist/async_fifo_138.ngc netlist/async_fifo_165.ngc netlist/async_fifo_198.ngc netlist/async_fifo_417.ngc
+install: netlist/async_fifo_138.ngc netlist/async_fifo_165.ngc netlist/async_fifo_201.ngc netlist/async_fifo_417.ngc
 
 netlist/async_fifo_138.ngc: xco/async_fifo_138.xco
 	@mkdir -p netlist;
@@ -42,14 +42,14 @@ netlist/async_fifo_165.ngc: xco/async_fifo_165.xco
 	@echo "/////////////////////////////////////////";
 	@rm -rf $(COREGEN_DIR);
 
-netlist/async_fifo_198.ngc: xco/async_fifo_198.xco
+netlist/async_fifo_201.ngc: xco/async_fifo_201.xco
 	@mkdir -p netlist;
 	@mkdir -p $(COREGEN_DIR);
-	@cd $(COREGEN_DIR) && coregen -b ../xco/async_fifo_198.xco
-	@cp $(COREGEN_DIR)/async_fifo_198.ngc netlist/
-	@cp $(COREGEN_DIR)/async_fifo_198.vhd hdl/vhdl/
+	@cd $(COREGEN_DIR) && coregen -b ../xco/async_fifo_201.xco
+	@cp $(COREGEN_DIR)/async_fifo_201.ngc netlist/
+	@cp $(COREGEN_DIR)/async_fifo_201.vhd hdl/vhdl/
 	@echo "/////////////////////////////////////////";
-	@echo "//Xilinx async fifo 198 core installed.";
+	@echo "//Xilinx async fifo 201 core installed.";
 	@echo "/////////////////////////////////////////";
 	@rm -rf $(COREGEN_DIR);
 
