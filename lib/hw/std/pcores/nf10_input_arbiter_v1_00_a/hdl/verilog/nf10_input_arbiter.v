@@ -27,12 +27,12 @@ module nf10_input_arbiter
     input axi_resetn,
     
     // Master Stream Ports (interface to data path)
-    output reg [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
-    output reg [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
-    output reg [C_USER_WIDTH-1:0] m_axis_tuser,
-    output reg m_axis_tvalid,
+    output [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
+    output [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
+    output [C_USER_WIDTH-1:0] m_axis_tuser,
+    output m_axis_tvalid,
     input  m_axis_tready,
-    output reg m_axis_tlast,
+    output m_axis_tlast,
     
     // Slave Stream Ports (interface to RX queues)
     input [C_AXIS_DATA_WIDTH - 1:0] s_axis_tdata_0,
@@ -113,23 +113,12 @@ module nf10_input_arbiter
    reg [NUM_STATES-1:0]                state;
    reg [NUM_STATES-1:0]                state_next;
 
-   wire [C_USER_WIDTH-1:0]             fifo_out_tuser_sel;
-   wire [((C_AXIS_DATA_WIDTH/8))-1:0]  fifo_out_tstrb_sel;
-   wire [C_AXIS_DATA_WIDTH-1:0]        fifo_out_tdata_sel;
-   wire                                fifo_out_tlast_sel;
-
-   reg [C_AXIS_DATA_WIDTH-1:0]         out_tdata_next;
-   reg [C_USER_WIDTH-1:0]              out_tstrb_next;
-   reg [((C_AXIS_DATA_WIDTH/8))-1:0]   out_tuser_next;
-   reg                                 out_tlast_next;				       
-   reg                                 out_tvalid_next;
-
    // ------------ Modules -------------
 
    generate
    genvar i;
    for(i=0; i<NUM_QUEUES; i=i+1) begin: in_arb_queues
-      small_fifo
+      fallthrough_small_fifo
         #( .WIDTH(C_AXIS_DATA_WIDTH+C_USER_WIDTH+C_AXIS_DATA_WIDTH/8+1),
            .MAX_DEPTH_BITS(2))
       in_arb_fifo
@@ -187,21 +176,22 @@ module nf10_input_arbiter
   
    assign cur_queue_plus1    = (cur_queue == NUM_QUEUES-1) ? 0 : cur_queue + 1;
 
-   assign fifo_out_tuser_sel = fifo_out_tuser[cur_queue];
-   assign fifo_out_tdata_sel = fifo_out_tdata[cur_queue];
-   assign fifo_out_tlast_sel = fifo_out_tlast[cur_queue];
-   assign fifo_out_tstrb_sel = fifo_out_tstrb[cur_queue];
+   //assign fifo_out_tuser_sel = fifo_out_tuser[cur_queue];
+   //assign fifo_out_tdata_sel = fifo_out_tdata[cur_queue];
+   //assign fifo_out_tlast_sel = fifo_out_tlast[cur_queue];
+   //assign fifo_out_tstrb_sel = fifo_out_tstrb[cur_queue];
+
+   assign m_axis_tuser = fifo_out_tuser[cur_queue];
+   assign m_axis_tdata = fifo_out_tdata[cur_queue];
+   assign m_axis_tlast = fifo_out_tlast[cur_queue];
+   assign m_axis_tstrb = fifo_out_tstrb[cur_queue];
+   assign m_axis_tvalid = ~empty[cur_queue];
    
+      
    always @(*) begin
-      state_next     = state;
-      cur_queue_next = cur_queue;      
-      out_tvalid_next = 0;
-      out_tvalid_next = 0;      
-      out_tuser_next = fifo_out_tuser_sel;
-      out_tstrb_next = fifo_out_tstrb_sel;      
-      out_tdata_next = fifo_out_tdata_sel;
-      out_tlast_next = fifo_out_tlast_sel;
-      rd_en          = 0;
+      state_next      = state;
+      cur_queue_next  = cur_queue;                  
+      rd_en           = 0;
 
       case(state)
 
@@ -209,7 +199,7 @@ module nf10_input_arbiter
         IDLE: begin
            if(!empty[cur_queue] && m_axis_tready) begin
               state_next = WR_PKT;
-              rd_en[cur_queue] = 1;
+              rd_en[cur_queue] = 1;	     
            end
            if(empty[cur_queue] && m_axis_tready) begin
               cur_queue_next = cur_queue_plus1;
@@ -217,16 +207,15 @@ module nf10_input_arbiter
         end
 
         /* wait until eop */
-        WR_PKT: begin
+        WR_PKT: begin	   	   
            /* if this is the last word then write it and get out */
-           if(m_axis_tready & fifo_out_tlast_sel) begin
-              out_tvalid_next = 1;
+           if(m_axis_tready & m_axis_tlast) begin
               state_next = IDLE;
+	      rd_en[cur_queue] = 1;	      
               cur_queue_next = cur_queue_plus1;
            end
            /* otherwise read and write as usual */
            else if (m_axis_tready & !empty[cur_queue]) begin              
-              out_tvalid_next = 1;
               rd_en[cur_queue] = 1;
            end
         end // case: WR_PKT
@@ -238,20 +227,10 @@ module nf10_input_arbiter
       if(~axi_resetn) begin
          state <= IDLE;
          cur_queue <= 0;
-         m_axis_tvalid <= 0;
-         m_axis_tuser <= 0;
-         m_axis_tstrb <= 0;
-	 m_axis_tdata <= 0;
-	 m_axis_tlast <= 0;
       end
       else begin
          state <= state_next;
          cur_queue <= cur_queue_next;
-         m_axis_tuser <= out_tuser_next;
-         m_axis_tstrb <= out_tstrb_next;
-         m_axis_tdata <= out_tdata_next;
-	 m_axis_tlast <= out_tlast_next;
-	 m_axis_tvalid <= out_tvalid_next;	 
       end
    end
 
