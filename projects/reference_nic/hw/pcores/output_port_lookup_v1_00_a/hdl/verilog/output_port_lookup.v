@@ -96,7 +96,7 @@ module output_port_lookup
 
       case(state)
 	MODULE_HEADER: begin
-	   if (s_axis_tvalid) begin
+	   if (s_axis_tvalid & s_axis_tready) begin
 	      if(pkt_is_from_cpu) begin
 		 in_tuser_modded[DST_PORT_POS+7:DST_PORT_POS] = {1'b0, 
 			s_axis_tuser[SRC_PORT_POS+7:SRC_PORT_POS+1]};
@@ -105,12 +105,12 @@ module output_port_lookup
 		 in_tuser_modded[DST_PORT_POS+7:DST_PORT_POS] = {
 			s_axis_tuser[SRC_PORT_POS+6:SRC_PORT_POS], 1'b0};
 	      end
-	   end
-	   state_next = IN_PACKET;
+	      state_next = IN_PACKET;
+	   end	   
 	end // case: MODULE_HEADER
 
 	IN_PACKET: begin
-	   if(s_axis_tlast) begin
+	   if(s_axis_tlast & s_axis_tvalid & s_axis_tready) begin
 	      state_next = MODULE_HEADER;
 	   end
 	end

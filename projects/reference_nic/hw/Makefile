@@ -123,6 +123,7 @@ bitsclean:
 simclean: 
 	rm -rf simulation/behavioral
 	rm -rf axi_simulation/simulation/behavioral
+	rm -rf axi_simulation/*.axi
 	rm -f simgen.log
 	rm -f __xps/ise/_xmsgs/simgen.xmsgs
 
@@ -250,7 +251,8 @@ axi_model: axi_simulation/$(MHSFILE) __xps/simgen.opt \
 	@echo "*********************************************"
 	simgen $(SIMGEN_OPTIONS) -m behavioral axi_simulation/$(MHSFILE) -od axi_simulation/ -lp ../
 
-axi_sim: axi_model
+axisim: axi_model
+	./axi_simulation/simulation/make_pkts.py ; \
 	cd axi_simulation/simulation/behavioral ; \
 	cp ../../system_tb.v .; \
 	sh system_fuse.sh;

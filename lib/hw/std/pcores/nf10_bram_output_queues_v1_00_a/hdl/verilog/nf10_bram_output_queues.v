@@ -117,7 +117,7 @@ module nf10_bram_output_queues
 
    reg [NUM_QUEUES-1:0]          cur_queue;
    reg [NUM_QUEUES-1:0]          cur_queue_next;
-   wire [NUM_QUEUES-1:0]         oq = s_axis_tuser[31:24]; // Per NetFPGA-10G AXI Spec
+   wire [NUM_QUEUES-1:0]         oq;
 
    reg [NUM_STATES-1:0]                state;
    reg [NUM_STATES-1:0]                state_next;
@@ -134,7 +134,7 @@ module nf10_bram_output_queues
    for(i=0; i<NUM_QUEUES; i=i+1) begin: output_queues
       fallthrough_small_fifo
         #( .WIDTH(C_AXIS_DATA_WIDTH+C_USER_WIDTH+C_AXIS_DATA_WIDTH/8+1),
-           .MAX_DEPTH_BITS(2))
+           .MAX_DEPTH_BITS(8))
       output_fifo
         (// Outputs
          .dout                           ({fifo_out_tlast[i], fifo_out_tstrb[i], fifo_out_tdata[i]}),
@@ -165,38 +165,16 @@ module nf10_bram_output_queues
          .rd_en                          (metadata_rd_en[i]),
          .reset                          (~axi_resetn),
          .clk                            (axi_aclk));
-         
-      always @(metadata_state[i], rd_en[i]) begin
-        metadata_rd_en[i] = 1'b0;
-        metadata_state_next[i] = metadata_state[i];
-      	case(metadata_state[i])
-      		WAIT_HEADER: begin
-      			if(rd_en[i]) begin
-      				metadata_state_next[i] = WAIT_EOP;
-      				metadata_rd_en[i] = 1'b1;
-      			end
-      		end
-      		WAIT_EOP: begin
-      			if(rd_en[i] & fifo_out_tlast[i]) begin
-      				metadata_state_next[i] = WAIT_HEADER;
-      			end
-      		end
-        endcase
-      end
-      
-      always @(posedge axi_aclk) begin
-      	if(~axi_resetn) begin
-         	metadata_state[i] <= WAIT_HEADER;
-      	end
-      	else begin
-         	metadata_state[i] <= metadata_state_next[i];
-      	end
-      end
-   end 
-   endgenerate
 
    // ------------- Logic ------------
    
+   // Per NetFPGA-10G AXI Spec
+   localparam SRC_POS = 24;
+   assign oq = s_axis_tuser[SRC_POS] | 
+   			   (s_axis_tuser[SRC_POS + 2] << 1) | 
+   			   (s_axis_tuser[SRC_POS + 4] << 2) | 
+   			   (s_axis_tuser[SRC_POS + 6] << 3) | 
+   			   ((s_axis_tuser[SRC_POS + 1] | s_axis_tuser[SRC_POS + 3] | s_axis_tuser[SRC_POS + 5] | s_axis_tuser[SRC_POS + 7]) << 4);
    
    always @(*) begin
       state_next     = state;
@@ -212,7 +190,7 @@ module nf10_bram_output_queues
         IDLE: begin
            cur_queue_next = oq;
            if(s_axis_tvalid) begin
-              if(~|(nearly_full & metadata_nearly_full_fifo & oq)) begin // All interesting oqs are NOT _nearly_ full (able to fit in the maximum pacekt).
+              if(~|((nearly_full | metadata_nearly_full_fifo) & oq)) begin // All interesting oqs are NOT _nearly_ full (able to fit in the maximum pacekt).
                   state_next = WR_PKT;
                   first_word_next = 1'b1;
               end
@@ -246,6 +224,35 @@ module nf10_bram_output_queues
 
       endcase // case(state)
    end // always @ (*)
+   
+   always @(metadata_state[i], rd_en[i]) begin
+        metadata_rd_en[i] = 1'b0;
+        metadata_state_next[i] = metadata_state[i];
+      	case(metadata_state[i])
+      		WAIT_HEADER: begin
+      			if(rd_en[i]) begin
+      				metadata_state_next[i] = WAIT_EOP;
+      				metadata_rd_en[i] = 1'b1;
+      			end
+      		end
+      		WAIT_EOP: begin
+      			if(rd_en[i] & fifo_out_tlast[i]) begin
+      				metadata_state_next[i] = WAIT_HEADER;
+      			end
+      		end
+        endcase
+      end
+      
+      always @(posedge axi_aclk) begin
+      	if(~axi_resetn) begin
+         	metadata_state[i] <= WAIT_HEADER;
+      	end
+      	else begin
+         	metadata_state[i] <= metadata_state_next[i];
+      	end
+      end
+   end 
+   endgenerate
 
    always @(posedge axi_aclk) begin
       if(~axi_resetn) begin

@@ -6,10 +6,10 @@
 #          NetFPGA-10G 10G Ethernet Interface Loopback Test
 #
 #  Name:
-#          loopback_test
+#          reference_nic
 #                 
 #  Revision history:
-#          2010/12/1 hyzeng: Initial check-in
+#          2011/5/18 hyzeng: Initial check-in
 #
 #################################################################
 

@@ -37,17 +37,17 @@ f3 = open("stream_data_in_3.axi", "w")
 f4 = open("stream_data_in_4.axi", "w")
 
 # A simple TCP/IP packet embedded in an Ethernet II frame
-pkts.append( Ether(src='11:22:33:44:55:66', dst='77:88:99:aa:bb:cc') /
-             IP(src='192.168.1.1', dst='192.168.1.2')                /
-             TCP()
-             )
-
-# scapy doesn't pad packets for us, so we must do so manually.
-pkts[-1] = pkts[-1] / ('\0' * (60 - len(pkts[-1])))
-
+for i in range(0, 10):
+    pkt = (Ether(src='11:22:33:44:55:66', dst='77:88:99:aa:bb:cc')/
+           IP(src='192.168.1.1', dst='192.168.1.2')/
+           TCP()/
+           "Hello, NetFPGA-10G!")
+    pkt.time = i*(1e-8)
+    pkts.append(pkt)
+             
 # Write out to console
-axitools.axis_dump( pkts, f0, 64, 1/200e6 )
-axitools.axis_dump( pkts, f1, 64, 1/200e6 )
-axitools.axis_dump( pkts, f2, 64, 1/200e6 )
-axitools.axis_dump( pkts, f3, 64, 1/200e6 )
-axitools.axis_dump( pkts, f4, 32, 1/200e6 )
+axitools.axis_dump( pkts, f0, 64, 1e-9 )
+axitools.axis_dump( pkts, f1, 64, 1e-9 )
+axitools.axis_dump( pkts, f2, 64, 1e-9 )
+axitools.axis_dump( pkts, f3, 64, 1e-9 )
+axitools.axis_dump( pkts, f4, 32, 1e-9 )

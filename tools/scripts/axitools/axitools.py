@@ -29,7 +29,11 @@ def axis_dump( packets, f, bus_width, period ):
     for packet in packets:
         # Output delay parameter
         if last_ts is not None:
-            f.write( '+ %d\n' % (int(packet.time * 1e9)-last_ts) )
+            if (int(packet.time * 1e9)-last_ts) > 0 :
+                f.write( '+ %d\n' % (int(packet.time * 1e9)-last_ts) )
+            else :
+                f.write( '+ %d\n' % 0 )
+        
         last_ts = int(packet.time * 1e9)
 
         # Turn into a list of bytes
@@ -44,14 +48,23 @@ def axis_dump( packets, f, bus_width, period ):
                 padding = 0
                 word = packet[i:i+bus_width]
 
+			# James: Swap byte order
+            for j in range(0, bus_width / 2) :
+			    word[j], word[bus_width - 1 - j] = word[bus_width - 1 - j], word[j]
+				
+
             if i + bus_width >= len(packet):
                 terminal = '.'
             else:
                 terminal = ','
 
-            f.write( '%s, %x%s\t\t\n' % (
+            strb = full_strb >> padding
+            strb = hex( strb )[2:]
+            strb = ''.zfill(bus_width / 4 - len(strb)) + strb
+			    
+            f.write( '%s, %s%s\t\t\n' % (
                     ''.join( '%02x' % x for x in word ),        # TDATA
-                    ((-1 << padding) & full_strb),                   # TSTRB
+                    strb,                   # TSTRB
                     terminal ) )                                # TLAST
 
             # one clock tick
