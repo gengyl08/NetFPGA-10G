@@ -29,14 +29,14 @@ port (
    M_AXIS_ACLK : in std_logic;
    S_AXIS_ACLK : in std_logic;
    ARESETN : in std_logic;
-   M_AXIS_TDATA : out std_logic_vector (C_M_AXIS_DATA_WIDTH-1 downto 0);
-   M_AXIS_TUSER : out std_logic_vector (C_M_AXIS_USER_WIDTH-1 downto 0);
+   M_AXIS_TDATA : out std_logic_vector (C_M_AXIS_DATA_WIDTH-1   downto 0);
+   M_AXIS_TUSER : out std_logic_vector (C_M_AXIS_TUSER_WIDTH-1  downto 0);
    M_AXIS_TSTRB : out std_logic_vector (C_M_AXIS_DATA_WIDTH/8-1 downto 0);
    M_AXIS_TVALID : out std_logic;
    M_AXIS_TREADY : in std_logic;
    M_AXIS_TLAST : out std_logic;
-   S_AXIS_TDATA : in std_logic_vector (C_S_AXIS_DATA_WIDTH-1 downto 0);
-   S_AXIS_TUSER : in std_logic_vector (C_S_AXIS_USER_WIDTH-1 downto 0);
+   S_AXIS_TDATA : in std_logic_vector (C_S_AXIS_DATA_WIDTH-1   downto 0);
+   S_AXIS_TUSER : in std_logic_vector (C_S_AXIS_TUSER_WIDTH-1  downto 0);
    S_AXIS_TSTRB : in std_logic_vector (C_S_AXIS_DATA_WIDTH/8-1 downto 0);
    S_AXIS_TVALID : in std_logic;
    S_AXIS_TREADY : out std_logic;
@@ -72,7 +72,7 @@ full : OUT std_logic;
 empty : OUT std_logic);
 end component;
 
-component async_fifo_198
+component async_fifo_201
 port (
 rst : IN std_logic;
 wr_clk : IN std_logic;
@@ -101,8 +101,8 @@ end component;
 signal rst   : std_logic;
 signal wr_en : std_logic;
 signal rd_en : std_logic;
-signal din   : std_logic_vector(C_S_AXIS_TUSER_DATA_WIDTH+C_S_AXIS_DATA_WIDTH+C_S_AXIS_DATA_WIDTH/8 downto 0);
-signal dout  : std_logic_vector(C_M_AXIS_TUSER_DATA_WIDTH+C_M_AXIS_DATA_WIDTH+C_M_AXIS_DATA_WIDTH/8 downto 0);
+signal din   : std_logic_vector(C_S_AXIS_TUSER_WIDTH+C_S_AXIS_DATA_WIDTH+C_S_AXIS_DATA_WIDTH/8 downto 0);
+signal dout  : std_logic_vector(C_M_AXIS_TUSER_WIDTH+C_M_AXIS_DATA_WIDTH+C_M_AXIS_DATA_WIDTH/8 downto 0);
 
 begin
 
@@ -114,7 +114,7 @@ rd_en <= M_AXIS_TREADY;
 M_AXIS_TDATA <= dout(C_M_AXIS_DATA_WIDTH-1 downto 0);
 M_AXIS_TSTRB <= dout(C_M_AXIS_DATA_WIDTH+C_M_AXIS_DATA_WIDTH/8-1 downto C_M_AXIS_DATA_WIDTH);
 M_AXIS_TLAST <= dout(C_M_AXIS_DATA_WIDTH+C_M_AXIS_DATA_WIDTH/8);
-M_AXIS_TUSER <= dout(C_M_AXIS_TUSER_DATA_WIDTH+C_M_AXIS_DATA_WIDTH/8+C_M_AXIS_DATA_WIDTH-1 downto C_M_AXIS_DATA_WIDTH/8+C_M_AXIS_DATA_WIDTH+1);
+M_AXIS_TUSER <= dout(C_M_AXIS_TUSER_WIDTH+C_M_AXIS_DATA_WIDTH/8+C_M_AXIS_DATA_WIDTH-1 downto C_M_AXIS_DATA_WIDTH/8+C_M_AXIS_DATA_WIDTH);
 
 
 fifo8_i : IF ( C_M_AXIS_DATA_WIDTH = 8) GENERATE
@@ -149,7 +149,7 @@ END GENERATE fifo32_i;
 
 fifo64_i : IF ( C_M_AXIS_DATA_WIDTH = 64) GENERATE
 BEGIN
-   fifo_i : async_fifo_198
+   fifo_i : async_fifo_201
 port map (
 rst => rst,
 wr_clk => S_AXIS_ACLK,

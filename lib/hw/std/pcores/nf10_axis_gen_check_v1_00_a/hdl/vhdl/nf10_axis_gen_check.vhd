@@ -178,7 +178,7 @@ begin
         );
 
 M_AXIS_TLAST <= '1' when (gen_word_num = C_GEN_PKT_SIZE - 1) else '0';
-M_AXIS_TUSER <= x"00000000"; -- Dummy TUSER
+M_AXIS_TUSER <= (others => '0'); -- Dummy TUSER
 
 gen_p: process(ACLK, ARESETN)
 begin
