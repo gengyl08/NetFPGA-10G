@@ -13,48 +13,49 @@
 #             
 #  Revision history:
 #          2011 March mblott: Initial check-in
+#          2011 May   ssiegel TUSER added
 #
 ################################################################################
 COREGEN_DIR:= coregen
 
-install: netlist/async_fifo_10.ngc netlist/async_fifo_37.ngc netlist/async_fifo_73.ngc netlist/async_fifo_289.ngc
+install: netlist/async_fifo_138.ngc netlist/async_fifo_165.ngc netlist/async_fifo_198.ngc netlist/async_fifo_417.ngc
 
-netlist/async_fifo_10.ngc: xco/async_fifo_10.xco
+netlist/async_fifo_138.ngc: xco/async_fifo_138.xco
 	@mkdir -p netlist;
 	@mkdir -p $(COREGEN_DIR);
-	@cd $(COREGEN_DIR) && coregen -b ../xco/async_fifo_10.xco
-	@cp $(COREGEN_DIR)/async_fifo_10.ngc netlist/
+	@cd $(COREGEN_DIR) && coregen -b ../xco/async_fifo_138.xco
+	@cp $(COREGEN_DIR)/async_fifo_138.ngc netlist/
 	@echo "/////////////////////////////////////////";
-	@echo "//Xilinx async fifo 10 core installed.";
+	@echo "//Xilinx async fifo 138 core installed.";
 	@echo "/////////////////////////////////////////";
 	@rm -rf $(COREGEN_DIR);
 
-netlist/async_fifo_37.ngc: xco/async_fifo_37.xco
+netlist/async_fifo_165.ngc: xco/async_fifo_165.xco
 	@mkdir -p netlist;
 	@mkdir -p $(COREGEN_DIR);
-	@cd $(COREGEN_DIR) && coregen -b ../xco/async_fifo_37.xco
-	@cp $(COREGEN_DIR)/async_fifo_37.ngc netlist/
+	@cd $(COREGEN_DIR) && coregen -b ../xco/async_fifo_165.xco
+	@cp $(COREGEN_DIR)/async_fifo_165.ngc netlist/
 	@echo "/////////////////////////////////////////";
-	@echo "//Xilinx async fifo 37 core installed.";
+	@echo "//Xilinx async fifo 165 core installed.";
 	@echo "/////////////////////////////////////////";
 	@rm -rf $(COREGEN_DIR);
 
-netlist/async_fifo_73.ngc: xco/async_fifo_73.xco
+netlist/async_fifo_198.ngc: xco/async_fifo_198.xco
 	@mkdir -p netlist;
 	@mkdir -p $(COREGEN_DIR);
-	@cd $(COREGEN_DIR) && coregen -b ../xco/async_fifo_73.xco
-	@cp $(COREGEN_DIR)/async_fifo_73.ngc netlist/
+	@cd $(COREGEN_DIR) && coregen -b ../xco/async_fifo_198.xco
+	@cp $(COREGEN_DIR)/async_fifo_198.ngc netlist/
 	@echo "/////////////////////////////////////////";
-	@echo "//Xilinx async fifo 73 core installed.";
+	@echo "//Xilinx async fifo 198 core installed.";
 	@echo "/////////////////////////////////////////";
 	@rm -rf $(COREGEN_DIR);
 
-netlist/async_fifo_289.ngc: xco/async_fifo_289.xco
+netlist/async_fifo_417.ngc: xco/async_fifo_417.xco
 	@mkdir -p netlist;
 	@mkdir -p $(COREGEN_DIR);
-	@cd $(COREGEN_DIR) && coregen -b ../xco/async_fifo_289.xco
-	@cp $(COREGEN_DIR)/async_fifo_289.ngc netlist/
+	@cd $(COREGEN_DIR) && coregen -b ../xco/async_fifo_417.xco
+	@cp $(COREGEN_DIR)/async_fifo_417.ngc netlist/
 	@echo "/////////////////////////////////////////";
-	@echo "//Xilinx async fifo 289 core installed.";
+	@echo "//Xilinx async fifo 417 core installed.";
 	@echo "/////////////////////////////////////////";
 	@rm -rf $(COREGEN_DIR);

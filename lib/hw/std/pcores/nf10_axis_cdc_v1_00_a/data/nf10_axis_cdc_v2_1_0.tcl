@@ -10,6 +10,7 @@
 #//                 
 #//  Revision history:
 #//          2011 March: mblott - initial check-in
+#//          2011 May:   ssiegel - tuser added
 #//
 #////////////////////////////////////////////////////////////////////////
 
@@ -19,34 +20,34 @@ proc core_generate { handle } {
     puts [pwd]    
     set pcore_dir  [xget_hw_pcore_dir $handle]
         
-    set async_fifo_10 \
+    set async_fifo_138 \
       [file normalize \
-            [file join $pcore_dir ".." xco async_fifo_10.xco]] 
-    set async_fifo_37 \
+            [file join $pcore_dir ".." xco async_fifo_138.xco]] 
+    set async_fifo_165 \
       [file normalize \
-            [file join $pcore_dir ".." xco async_fifo_37.xco]] 
-    set async_fifo_73 \
+            [file join $pcore_dir ".." xco async_fifo_165.xco]] 
+    set async_fifo_198 \
       [file normalize \
-            [file join $pcore_dir ".." xco async_fifo_73.xco]] 
-    set async_fifo_289 \
+            [file join $pcore_dir ".." xco async_fifo_198.xco]] 
+    set async_fifo_417 \
       [file normalize \
-            [file join $pcore_dir ".." xco async_fifo_289.xco]] 
+            [file join $pcore_dir ".." xco async_fifo_417.xco]] 
            
-    puts $async_fifo_10_xco
-    puts $async_fifo_37_xco
-    puts $async_fifo_73_xco
-    puts $async_fifo_289_xco
+    puts $async_fifo_138_xco
+    puts $async_fifo_165_xco
+    puts $async_fifo_198_xco
+    puts $async_fifo_417_xco
     
     cd implementation
     
-    if { [file exist async_fifo_10.ngc] } {
+    if { [file exist async_fifo_138.ngc] } {
         cd ".."
         return true
     } else {
-        file copy -force $async_fifo_10_xco .
-        file copy -force $async_fifo_37_xco .
-        file copy -force $async_fifo_73_xco .
-        file copy -force $async_fifo_289_xco .
+        file copy -force $async_fifo_138_xco .
+        file copy -force $async_fifo_165_xco .
+        file copy -force $async_fifo_198_xco .
+        file copy -force $async_fifo_417_xco .
     }
     
     cd ".."
