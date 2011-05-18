@@ -29,7 +29,7 @@ module output_port_lookup
     output [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
     output [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
     output [C_USER_WIDTH-1:0] m_axis_tuser,
-    output reg m_axis_tvalid,
+    output m_axis_tvalid,
     input  m_axis_tready,
     output m_axis_tlast,
 
@@ -62,7 +62,7 @@ module output_port_lookup
    
    // ------------ Modules ----------------
    
-   small_fifo
+   fallthrough_small_fifo
         #( .WIDTH(C_AXIS_DATA_WIDTH+C_USER_WIDTH+C_AXIS_DATA_WIDTH/8+1),
            .MAX_DEPTH_BITS(2))
       input_fifo
@@ -125,11 +125,12 @@ module output_port_lookup
 	 state <= state_next;
       end
    end
-
+  
    // Handle output
    assign in_fifo_rd_en = m_axis_tready && !in_fifo_empty;
-   always @(posedge axi_aclk) begin
-      m_axis_tvalid <= ~axi_resetn ? 0 : in_fifo_rd_en;
-   end
+   assign m_axis_tvalid = !in_fifo_empty;
+   //always @(posedge axi_aclk) begin
+   //   m_axis_tvalid <= ~axi_resetn ? 0 : !in_fifo_empty;
+   //end
 
 endmodule // output_port_lookup   

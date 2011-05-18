@@ -214,7 +214,7 @@ BEGIN nf10_10g_interface
  PARAMETER C_XAUI_REVERSE = 1
  BUS_INTERFACE M_AXIS = nf10_10g_interface_0_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_axis_converter_4_M_AXIS
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
  PORT refclk = refclk_A
  PORT dclk = mb_clk
  PORT xaui_tx_l0_p = nf10_10g_interface_0_xaui_tx_l0_p
@@ -260,7 +260,7 @@ BEGIN nf10_10g_interface
  PORT xaui_rx_l3_n = nf10_10g_interface_1_xaui_rx_l3_n
  PORT xaui_tx_l2_p = nf10_10g_interface_1_xaui_tx_l2_p
  PORT refclk = refclk_B
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
  PORT axi_resetn = Peripheral_aresetn
 END
 
@@ -288,7 +288,7 @@ BEGIN nf10_10g_interface
  PORT xaui_rx_l3_n = nf10_10g_interface_2_xaui_rx_l3_n
  PORT xaui_tx_l1_n = nf10_10g_interface_2_xaui_tx_l1_n
  PORT refclk = refclk_C
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
  PORT axi_resetn = Peripheral_aresetn
 END
 
@@ -315,7 +315,7 @@ BEGIN nf10_10g_interface
  PORT xaui_tx_l1_n = nf10_10g_interface_3_xaui_tx_l1_n
  PORT dclk = mb_clk
  PORT refclk = refclk_D
- PORT axi_aclk = core_clk
+ PORT axi_aclk = nf10_oped_0_ACLK
  PORT axi_resetn = Peripheral_aresetn
 END
 
@@ -382,6 +382,7 @@ BEGIN nf10_axis_converter
  BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_axis_converter_0_M_AXIS
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_axis_converter
@@ -391,6 +392,7 @@ BEGIN nf10_axis_converter
  BUS_INTERFACE M_AXIS = nf10_axis_converter_1_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_10g_interface_1_M_AXIS
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_axis_converter
@@ -400,6 +402,7 @@ BEGIN nf10_axis_converter
  BUS_INTERFACE S_AXIS = nf10_10g_interface_2_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_axis_converter_2_M_AXIS
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_axis_converter
@@ -409,6 +412,7 @@ BEGIN nf10_axis_converter
  BUS_INTERFACE S_AXIS = nf10_10g_interface_3_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_axis_converter_3_M_AXIS
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_axis_converter
@@ -418,6 +422,7 @@ BEGIN nf10_axis_converter
  BUS_INTERFACE M_AXIS = nf10_axis_converter_4_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_0
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_axis_converter
@@ -427,6 +432,7 @@ BEGIN nf10_axis_converter
  BUS_INTERFACE M_AXIS = nf10_axis_converter_5_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_1
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_axis_converter
@@ -436,6 +442,7 @@ BEGIN nf10_axis_converter
  BUS_INTERFACE M_AXIS = nf10_axis_converter_6_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_2
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_axis_converter
@@ -445,6 +452,7 @@ BEGIN nf10_axis_converter
  BUS_INTERFACE M_AXIS = nf10_axis_converter_7_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_3
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_input_arbiter
@@ -458,6 +466,7 @@ BEGIN nf10_input_arbiter
  BUS_INTERFACE S_AXIS_3 = nf10_axis_converter_3_M_AXIS
  BUS_INTERFACE S_AXIS_4 = nf10_axis_converter_8_M_AXIS
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_bram_output_queues
@@ -471,6 +480,7 @@ BEGIN nf10_bram_output_queues
  BUS_INTERFACE M_AXIS_4 = nf10_bram_output_queues_0_M_AXIS_4
  BUS_INTERFACE S_AXIS = output_port_lookup_0_M_AXIS
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_oped
@@ -496,6 +506,7 @@ BEGIN nf10_axis_converter
  BUS_INTERFACE S_AXIS = nf10_oped_0_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_axis_converter_8_M_AXIS
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_axis_converter
@@ -506,6 +517,7 @@ BEGIN nf10_axis_converter
  BUS_INTERFACE M_AXIS = nf10_axis_converter_9_M_AXIS
  BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_4
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN output_port_lookup
@@ -515,5 +527,6 @@ BEGIN output_port_lookup
  BUS_INTERFACE S_AXIS = nf10_input_arbiter_0_M_AXIS
  BUS_INTERFACE M_AXIS = output_port_lookup_0_M_AXIS
  PORT axi_aclk = nf10_oped_0_ACLK
+ PORT axi_resetn = Peripheral_aresetn
 END
 
