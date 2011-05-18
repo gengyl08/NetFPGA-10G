@@ -4,6 +4,6 @@ verilog work ../../nf10_axis_gen_check_v1_00_a/hdl/verilog/axi4_lite_regs.v
 vhdl    work ../hdl/vhdl/nf10_axis_cdc.vhd
 vhdl    work ../hdl/vhdl/async_fifo_138.vhd
 vhdl    work ../hdl/vhdl/async_fifo_165.vhd
-vhdl    work ../hdl/vhdl/async_fifo_198.vhd
+vhdl    work ../hdl/vhdl/async_fifo_201.vhd
 vhdl    work ../hdl/vhdl/async_fifo_417.vhd
 
