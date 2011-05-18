@@ -278,7 +278,6 @@ module nf10_axis_converter
                 end
             end
 			else begin
-			    in_fifo_rd_en = 1'b1;
 			    if(s_axis_tlast_fifo) begin
 			        m_axis_tvalid = 1'b1;
                     if(m_axis_tready) begin
@@ -290,9 +289,12 @@ module nf10_axis_converter
                     end
 			    end
 			    else begin
-				    counter_next = counter + 1'b1;
-				    m_axis_tdata_prev_next = m_axis_tdata;
-        			m_axis_tstrb_prev_next = m_axis_tstrb;
+			        if(m_axis_tready) begin
+			            in_fifo_rd_en = 1'b1;
+				        counter_next = counter + 1'b1;
+				        m_axis_tdata_prev_next = m_axis_tdata;
+        			    m_axis_tstrb_prev_next = m_axis_tstrb;
+        			end
 				end
 			end
 		end
@@ -341,8 +343,9 @@ module nf10_axis_converter
          end
 			else begin
 			    m_axis_tvalid = 1'b1;
-			    counter_next = counter + 1'b1;
+			    
 			    if(m_axis_tready) begin
+			          counter_next = counter + 1'b1;
 			    	  if(counter == S_M_RATIO_COUNT - 1) begin
 							in_fifo_rd_en = 1'b1;
 							counter_next = 0;
