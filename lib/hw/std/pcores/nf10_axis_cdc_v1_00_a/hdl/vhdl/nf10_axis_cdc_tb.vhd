@@ -43,8 +43,7 @@ port(
    S_AXIS_TVALID      : in  std_logic;
    S_AXIS_TREADY      : out std_logic;
    S_AXIS_TLAST       : in  std_logic;
-	    
-   -- axi lite control/status interface
+   -- axi lite control/status interface...
    S_AXI_ACLK         : in  std_logic;
    S_AXI_ARESETN      : in  std_logic;
    S_AXI_AWADDR       : in  std_logic_vector(32-1 downto 0);
@@ -66,6 +65,30 @@ port(
    S_AXI_RREADY       : in  std_logic			
 );
 end component ;
+
+component nf10_axis_cdc
+generic (
+   C_M_AXIS_DATA_WIDTH  : integer := 64;
+   C_S_AXIS_DATA_WIDTH  : integer := 64;
+   C_M_AXIS_TUSER_WIDTH : integer := 128;
+   C_S_AXIS_TUSER_WIDTH : integer := 128 );
+port (
+   M_AXIS_ACLK        : in std_logic;
+   S_AXIS_ACLK        : in std_logic;
+   ARESETN            : in std_logic;
+   M_AXIS_TDATA       : out std_logic_vector (C_M_AXIS_DATA_WIDTH-1   downto 0);
+   M_AXIS_TUSER       : out std_logic_vector (C_M_AXIS_USER_WIDTH-1   downto 0);
+   M_AXIS_TSTRB       : out std_logic_vector (C_M_AXIS_DATA_WIDTH/8-1 downto 0);
+   M_AXIS_TVALID      : out std_logic;
+   M_AXIS_TREADY      : in std_logic;
+   M_AXIS_TLAST       : out std_logic;
+   S_AXIS_TDATA       : in std_logic_vector (C_S_AXIS_DATA_WIDTH-1   downto 0);
+   S_AXIS_TUSER       : in std_logic_vector (C_S_AXIS_USER_WIDTH-1   downto 0);
+   S_AXIS_TSTRB       : in std_logic_vector (C_S_AXIS_DATA_WIDTH/8-1 downto 0);
+   S_AXIS_TVALID      : in std_logic;
+   S_AXIS_TREADY      : out std_logic;
+   S_AXIS_TLAST       : in std_logic);
+end component;
 
 signal  aclk      : std_logic;
 signal  aresetn   : std_logic;
@@ -120,6 +143,30 @@ port map
    S_AXI_RRESP     => open,
    S_AXI_RVALID    => open,
    S_AXI_RREADY    => '1'
+);
+
+cdc_u : nf10_axis_cdc
+--generic  map(
+--   C_M_AXIS_DATA_WIDTH  : integer := 64;
+--   C_S_AXIS_DATA_WIDTH  : integer := 64;
+--   C_M_AXIS_TUSER_WIDTH : integer := 128;
+--   C_S_AXIS_TUSER_WIDTH : integer := 128 );
+port map(
+   M_AXIS_ACLK    =>  aclk,
+   S_AXIS_ACLK    =>  aclk,
+   ARESETN        =>  aresetn,
+   M_AXIS_TDATA   =>  a_tdata,
+   M_AXIS_TUSER   =>  a_tuser,
+   M_AXIS_TSTRB   =>  a_tstrb,
+   M_AXIS_TVALID  =>  a_tvalid,
+   M_AXIS_TREADY  =>  a_tready,
+   M_AXIS_TLAST   =>  a_tlast,
+   S_AXIS_TDATA   =>  b_tdata,
+   S_AXIS_TUSER   =>  b_tuser,
+   S_AXIS_TSTRB   =>  b_tstrb,
+   S_AXIS_TVALID  =>  b_tvalid,
+   S_AXIS_TREADY  =>  b_tready,
+   S_AXIS_TLAST   =>  b_tlast
 );
 
 clk_gen_p: process
