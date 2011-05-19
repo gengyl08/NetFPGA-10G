@@ -165,16 +165,43 @@ module nf10_bram_output_queues
          .rd_en                          (metadata_rd_en[i]),
          .reset                          (~axi_resetn),
          .clk                            (axi_aclk));
-
-   // ------------- Logic ------------
+   
+   always @(metadata_state[i], rd_en[i]) begin
+        metadata_rd_en[i] = 1'b0;
+        metadata_state_next[i] = metadata_state[i];
+      	case(metadata_state[i])
+      		WAIT_HEADER: begin
+      			if(rd_en[i]) begin
+      				metadata_state_next[i] = WAIT_EOP;
+      				metadata_rd_en[i] = 1'b1;
+      			end
+      		end
+      		WAIT_EOP: begin
+      			if(rd_en[i] & fifo_out_tlast[i]) begin
+      				metadata_state_next[i] = WAIT_HEADER;
+      			end
+      		end
+        endcase
+      end
+      
+      always @(posedge axi_aclk) begin
+      	if(~axi_resetn) begin
+         	metadata_state[i] <= WAIT_HEADER;
+      	end
+      	else begin
+         	metadata_state[i] <= metadata_state_next[i];
+      	end
+      end
+   end 
+   endgenerate
    
    // Per NetFPGA-10G AXI Spec
-   localparam SRC_POS = 24;
-   assign oq = s_axis_tuser[SRC_POS] | 
-   			   (s_axis_tuser[SRC_POS + 2] << 1) | 
-   			   (s_axis_tuser[SRC_POS + 4] << 2) | 
-   			   (s_axis_tuser[SRC_POS + 6] << 3) | 
-   			   ((s_axis_tuser[SRC_POS + 1] | s_axis_tuser[SRC_POS + 3] | s_axis_tuser[SRC_POS + 5] | s_axis_tuser[SRC_POS + 7]) << 4);
+   localparam DST_POS = 24;
+   assign oq = s_axis_tuser[DST_POS] | 
+   			   (s_axis_tuser[DST_POS + 2] << 1) | 
+   			   (s_axis_tuser[DST_POS + 4] << 2) | 
+   			   (s_axis_tuser[DST_POS + 6] << 3) | 
+   			   ((s_axis_tuser[DST_POS + 1] | s_axis_tuser[DST_POS + 3] | s_axis_tuser[DST_POS + 5] | s_axis_tuser[DST_POS + 7]) << 4);
    
    always @(*) begin
       state_next     = state;
@@ -225,34 +252,7 @@ module nf10_bram_output_queues
       endcase // case(state)
    end // always @ (*)
    
-   always @(metadata_state[i], rd_en[i]) begin
-        metadata_rd_en[i] = 1'b0;
-        metadata_state_next[i] = metadata_state[i];
-      	case(metadata_state[i])
-      		WAIT_HEADER: begin
-      			if(rd_en[i]) begin
-      				metadata_state_next[i] = WAIT_EOP;
-      				metadata_rd_en[i] = 1'b1;
-      			end
-      		end
-      		WAIT_EOP: begin
-      			if(rd_en[i] & fifo_out_tlast[i]) begin
-      				metadata_state_next[i] = WAIT_HEADER;
-      			end
-      		end
-        endcase
-      end
-      
-      always @(posedge axi_aclk) begin
-      	if(~axi_resetn) begin
-         	metadata_state[i] <= WAIT_HEADER;
-      	end
-      	else begin
-         	metadata_state[i] <= metadata_state_next[i];
-      	end
-      end
-   end 
-   endgenerate
+
 
    always @(posedge axi_aclk) begin
       if(~axi_resetn) begin
