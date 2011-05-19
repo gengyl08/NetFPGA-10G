@@ -18,8 +18,8 @@
 module testbench();
     
     reg clk, reset;
-    reg [63:0] tdata;
-    reg [7:0]  tstrb;
+    reg [31:0] tdata;
+    reg [3:0]  tstrb;
     reg        tvalid;
     reg        tlast;
     wire       tready;
@@ -38,6 +38,12 @@ module testbench();
     wire        tlast_1;
     wire        tready_1;
 	 wire	[127:0] tuser_1;
+	 
+	 reg         tready_out;
+	 
+	 always @(posedge clk) begin
+	     tready_out <= $random;
+	 end
     
     integer i;
     
@@ -82,9 +88,9 @@ module testbench();
                 tstrb = 8'hFF;
                 if(tready) begin
                     counter_next = counter + 1'b1;
-                    if(counter == 8'h1F) begin
-                        tstrb = 8'hFF;
-                        state_next = DEAD;
+                    if(counter == 8'h2F) begin
+                        tstrb = 8'h3F;
+                        state_next = HEADER_0;
                         counter_next = 8'b0;
                         tlast = 1'b1;
                     end
@@ -129,7 +135,7 @@ module testbench();
 
     nf10_axis_converter 
     #(.C_M_AXIS_DATA_WIDTH(256),
-      .C_S_AXIS_DATA_WIDTH(64)
+      .C_S_AXIS_DATA_WIDTH(32)
      ) dut_0
     (
     // Global Ports
@@ -140,7 +146,7 @@ module testbench();
     .m_axis_tdata(tdata_0),
     .m_axis_tstrb(tstrb_0),
     .m_axis_tvalid(tvalid_0),
-    .m_axis_tready(tready_0),
+    .m_axis_tready(tready_out),
     .m_axis_tlast(tlast_0),
 	 .m_axis_tuser(tuser_0),
     
@@ -153,7 +159,7 @@ module testbench();
 	 .s_axis_tuser(tuser)
    );
 
-    nf10_axis_converter 
+    /*nf10_axis_converter 
     #(.C_M_AXIS_DATA_WIDTH(256),
       .C_S_AXIS_DATA_WIDTH(256)
      ) dut_1
@@ -180,7 +186,7 @@ module testbench();
    );
 
     nf10_axis_converter
-    #(.C_M_AXIS_DATA_WIDTH(64),
+    #(.C_M_AXIS_DATA_WIDTH(32),
       .C_S_AXIS_DATA_WIDTH(256)
      ) dut_2
     (
@@ -192,7 +198,7 @@ module testbench();
     .m_axis_tdata(),
     .m_axis_tstrb(),
     .m_axis_tvalid(),
-    .m_axis_tready(1'b1),
+    .m_axis_tready(tready_out),
     .m_axis_tlast(),
 	 .m_axis_tuser(),
     
@@ -203,6 +209,6 @@ module testbench();
     .s_axis_tready(tready_1),
     .s_axis_tlast(tlast_1),
 	 .s_axis_tuser(tuser_1)
-   );
+   );*/
 
 endmodule

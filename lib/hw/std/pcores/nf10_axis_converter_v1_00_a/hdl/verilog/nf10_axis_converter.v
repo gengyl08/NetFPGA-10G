@@ -235,31 +235,30 @@ module nf10_axis_converter
         
         m_axis_tdata = m_axis_tdata_prev;
         m_axis_tstrb = m_axis_tstrb_prev;       
-        m_axis_tlast = s_axis_tlast_fifo;
+        m_axis_tlast = 1'b0;
         
-        m_axis_tdata_prev_next = {C_M_AXIS_DATA_WIDTH{1'b0}};
-        m_axis_tstrb_prev_next = {C_M_AXIS_DATA_WIDTH/8{1'b0}};
+        m_axis_tdata_prev_next = m_axis_tdata_prev;
+        m_axis_tstrb_prev_next = m_axis_tstrb_prev;
         
         counter_next = counter;  
         first_time_next = first_time;    
         m_axis_tvalid = 1'b0;
         
-        if(~in_fifo_empty) begin
-            for(j=0;j<C_S_AXIS_DATA_WIDTH;j=j+1) m_axis_tdata[C_S_AXIS_DATA_WIDTH*counter+j] = s_axis_tdata_fifo[j];
-        	   for(k=0;k<C_S_AXIS_DATA_WIDTH/8;k=k+1) m_axis_tstrb[C_S_AXIS_DATA_WIDTH/8*counter+k] = s_axis_tstrb_fifo[k];
+		  for(j=0;j<C_S_AXIS_DATA_WIDTH;j=j+1) m_axis_tdata[C_S_AXIS_DATA_WIDTH*counter+j] = s_axis_tdata_fifo[j];
+        for(k=0;k<C_S_AXIS_DATA_WIDTH/8;k=k+1) m_axis_tstrb[C_S_AXIS_DATA_WIDTH/8*counter+k] = s_axis_tstrb_fifo[k];
+		  
+        if(~in_fifo_empty) begin            
         	        	
             if(counter == M_S_RATIO_COUNT - 1) begin
 				if(first_time) begin
-				   m_axis_tdata_prev_next = m_axis_tdata_prev;
-					m_axis_tstrb_prev_next = m_axis_tstrb_prev;
 					if(~info_fifo_empty) begin
                         m_axis_tvalid = 1'b1;
                         if(m_axis_tready) begin
                             in_fifo_rd_en = 1'b1;
                             info_fifo_rd_en = 1'b1;
-                        	counter_next = 0;
-                        	first_time_next = 1'b0;
-                        	m_axis_tdata_prev_next = {C_M_AXIS_DATA_WIDTH{1'b0}};
+                        	 counter_next = 0;
+                        	 first_time_next = 1'b0;
+                        	 m_axis_tdata_prev_next = {C_M_AXIS_DATA_WIDTH{1'b0}};
                             m_axis_tstrb_prev_next = {C_M_AXIS_DATA_WIDTH/8{1'b0}};
                         end
                     end
@@ -273,6 +272,7 @@ module nf10_axis_converter
                     	in_fifo_rd_en = 1'b1;
                     	if(s_axis_tlast_fifo) begin
                     	    first_time_next = 1'b1;
+								 m_axis_tlast = 1'b1;
                     	end
                     end
                 end
@@ -280,6 +280,7 @@ module nf10_axis_converter
 			else begin
 			    if(s_axis_tlast_fifo) begin
 			        m_axis_tvalid = 1'b1;
+					  m_axis_tlast = 1'b1;
                     if(m_axis_tready) begin
                         in_fifo_rd_en = 1'b1;
                         counter_next = 0;
@@ -290,12 +291,12 @@ module nf10_axis_converter
 			    end
 			    else begin
 			        if(m_axis_tready) begin
-			            in_fifo_rd_en = 1'b1;
+			           in_fifo_rd_en = 1'b1;
 				        counter_next = counter + 1'b1;
-				        m_axis_tdata_prev_next = m_axis_tdata;
-        			    m_axis_tstrb_prev_next = m_axis_tstrb;
-        			end
-				end
+						  m_axis_tdata_prev_next = m_axis_tdata;
+						  m_axis_tstrb_prev_next = m_axis_tstrb;
+        		     end
+				 end
 			end
 		end
     end
@@ -343,7 +344,12 @@ module nf10_axis_converter
          end
 			else begin
 			    m_axis_tvalid = 1'b1;
-			    
+			    if(s_axis_tlast_fifo) begin // Last SLAVE word
+			       if(~|s_axis_tstrb_fifo[C_M_AXIS_DATA_WIDTH/8 * (counter+1) +: C_M_AXIS_DATA_WIDTH/8]) begin
+					     m_axis_tlast = 1'b1;
+					 end
+			    end
+				 
 			    if(m_axis_tready) begin
 			          counter_next = counter + 1'b1;
 			    	  if(counter == S_M_RATIO_COUNT - 1) begin
@@ -353,8 +359,7 @@ module nf10_axis_converter
 			        if(s_axis_tlast_fifo) begin // Last SLAVE word
 			            if(~|s_axis_tstrb_fifo[C_M_AXIS_DATA_WIDTH/8 * (counter+1) +: C_M_AXIS_DATA_WIDTH/8]) begin
 			            // Next MASTER strobe is empty == This master word is the last
-			            // Clean up the current word
-			                m_axis_tlast = 1'b1;
+			            // Clean up the current word							    
 			                counter_next = 0;
 			                first_time_next = 1'b1;
 								 in_fifo_rd_en = 1'b1;
