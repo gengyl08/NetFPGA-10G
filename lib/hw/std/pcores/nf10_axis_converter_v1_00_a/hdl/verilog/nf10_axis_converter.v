@@ -265,6 +265,9 @@ module nf10_axis_converter
                 end
                 else begin
                     m_axis_tvalid = 1'b1;
+						  if(s_axis_tlast_fifo) begin
+						      m_axis_tlast = 1'b1;
+						  end
                     if(m_axis_tready) begin
                     	counter_next = 0;
                     	m_axis_tdata_prev_next = {C_M_AXIS_DATA_WIDTH{1'b0}};
@@ -272,7 +275,6 @@ module nf10_axis_converter
                     	in_fifo_rd_en = 1'b1;
                     	if(s_axis_tlast_fifo) begin
                     	    first_time_next = 1'b1;
-								 m_axis_tlast = 1'b1;
                     	end
                     end
                 end
@@ -345,7 +347,10 @@ module nf10_axis_converter
 			else begin
 			    m_axis_tvalid = 1'b1;
 			    if(s_axis_tlast_fifo) begin // Last SLAVE word
-			       if(~|s_axis_tstrb_fifo[C_M_AXIS_DATA_WIDTH/8 * (counter+1) +: C_M_AXIS_DATA_WIDTH/8]) begin
+				    if(counter == S_M_RATIO_COUNT - 1) begin
+					     m_axis_tlast = 1'b1;
+					 end
+			       else if(~|s_axis_tstrb_fifo[C_M_AXIS_DATA_WIDTH/8 * (counter+1) +: C_M_AXIS_DATA_WIDTH/8]) begin
 					     m_axis_tlast = 1'b1;
 					 end
 			    end
@@ -356,7 +361,7 @@ module nf10_axis_converter
 							in_fifo_rd_en = 1'b1;
 							counter_next = 0;
 					  end
-			        if(s_axis_tlast_fifo) begin // Last SLAVE word
+			        else if(s_axis_tlast_fifo) begin // Last SLAVE word
 			            if(~|s_axis_tstrb_fifo[C_M_AXIS_DATA_WIDTH/8 * (counter+1) +: C_M_AXIS_DATA_WIDTH/8]) begin
 			            // Next MASTER strobe is empty == This master word is the last
 			            // Clean up the current word							    

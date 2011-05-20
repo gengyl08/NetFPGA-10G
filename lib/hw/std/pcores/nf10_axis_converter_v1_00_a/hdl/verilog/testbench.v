@@ -88,9 +88,9 @@ module testbench();
                 tstrb = 8'hFF;
                 if(tready) begin
                     counter_next = counter + 1'b1;
-                    if(counter == 8'h2F) begin
-                        tstrb = 8'h3F;
-                        state_next = HEADER_0;
+                    if(counter == 8'hD) begin
+                        tstrb = 8'hFF;
+                        state_next = DEAD;
                         counter_next = 8'b0;
                         tlast = 1'b1;
                     end
@@ -146,7 +146,7 @@ module testbench();
     .m_axis_tdata(tdata_0),
     .m_axis_tstrb(tstrb_0),
     .m_axis_tvalid(tvalid_0),
-    .m_axis_tready(tready_out),
+    .m_axis_tready(tready_0),
     .m_axis_tlast(tlast_0),
 	 .m_axis_tuser(tuser_0),
     
@@ -159,7 +159,7 @@ module testbench();
 	 .s_axis_tuser(tuser)
    );
 
-    /*nf10_axis_converter 
+    nf10_axis_converter 
     #(.C_M_AXIS_DATA_WIDTH(256),
       .C_S_AXIS_DATA_WIDTH(256)
      ) dut_1
@@ -209,6 +209,6 @@ module testbench();
     .s_axis_tready(tready_1),
     .s_axis_tlast(tlast_1),
 	 .s_axis_tuser(tuser_1)
-   );*/
+   );
 
 endmodule
