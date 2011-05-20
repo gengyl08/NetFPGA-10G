@@ -360,6 +360,9 @@ module nf10_axis_converter
 			    	  if(counter == S_M_RATIO_COUNT - 1) begin
 							in_fifo_rd_en = 1'b1;
 							counter_next = 0;
+							if(s_axis_tlast_fifo) begin
+							    first_time_next = 1'b1;
+							end
 					  end
 			        else if(s_axis_tlast_fifo) begin // Last SLAVE word
 			            if(~|s_axis_tstrb_fifo[C_M_AXIS_DATA_WIDTH/8 * (counter+1) +: C_M_AXIS_DATA_WIDTH/8]) begin
