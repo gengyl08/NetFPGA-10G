@@ -23,7 +23,7 @@ module testbench();
     reg        tvalid;
     reg        tlast;
     wire       tready;
-	 wire [127:0] tuser = 128'b0;
+	 wire [127:0] tuser = 128'hCAFEBEEFDEADCAFE;
     
     wire [255:0] tdata_0;
     wire [31:0]  tstrb_0;
