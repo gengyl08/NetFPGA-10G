@@ -18,23 +18,32 @@
 module testbench();
     
     reg clk, reset;
-    reg [63:0] tdata;
-    reg [7:0]  tstrb;
+    reg [31:0] tdata;
+    reg [3:0]  tstrb;
     reg        tvalid;
     reg        tlast;
     wire       tready;
+	 wire [127:0] tuser = 128'hCAFEBEEFDEADCAFE;
     
     wire [255:0] tdata_0;
     wire [31:0]  tstrb_0;
     wire        tvalid_0;
     wire        tlast_0;
     wire        tready_0;
+	 wire	[127:0] tuser_0;
     
     wire [255:0] tdata_1;
     wire [31:0]  tstrb_1;
     wire        tvalid_1;
     wire        tlast_1;
     wire        tready_1;
+	 wire	[127:0] tuser_1;
+	 
+	 reg         tready_out;
+	 
+	 always @(posedge clk) begin
+	     tready_out <= $random;
+	 end
     
     integer i;
     
@@ -54,10 +63,11 @@ module testbench();
         tdata = 64'b0;
         tstrb = 8'hFF;
         tlast = 1'b0;
-        tvalid = 1'b1;
+        tvalid = 1'b0;
         counter_next = counter;
         case(state)
             HEADER_0: begin
+					 tvalid = 1'b1;
                 tdata = header_word_0;
                 tstrb = 8'hFF;
                 if(tready) begin
@@ -65,6 +75,7 @@ module testbench();
                 end
             end
             HEADER_1: begin
+					 tvalid = 1'b1;
                 tdata = header_word_1;
                 tstrb = 8'hFF;
                 if(tready) begin
@@ -72,11 +83,12 @@ module testbench();
                 end
             end
             PAYLOAD: begin
+					 tvalid = 1'b1;
                 tdata = {8{counter}};
                 tstrb = 8'hFF;
                 if(tready) begin
                     counter_next = counter + 1'b1;
-                    if(counter == 8'h1F) begin
+                    if(counter == 8'hD) begin
                         tstrb = 8'hFF;
                         state_next = DEAD;
                         counter_next = 8'b0;
@@ -86,7 +98,6 @@ module testbench();
             end
             
             DEAD: begin
-                tvalid = 1'b0;
                 counter_next = counter + 1'b1;
                 tlast = 1'b0;
                 if(counter[7]==1'b1) begin
@@ -124,7 +135,7 @@ module testbench();
 
     nf10_axis_converter 
     #(.C_M_AXIS_DATA_WIDTH(256),
-      .C_S_AXIS_DATA_WIDTH(64)
+      .C_S_AXIS_DATA_WIDTH(32)
      ) dut_0
     (
     // Global Ports
@@ -137,13 +148,15 @@ module testbench();
     .m_axis_tvalid(tvalid_0),
     .m_axis_tready(tready_0),
     .m_axis_tlast(tlast_0),
+	 .m_axis_tuser(tuser_0),
     
     // Slave Stream Ports
     .s_axis_tdata(tdata),
     .s_axis_tstrb(tstrb),
     .s_axis_tvalid(tvalid),
     .s_axis_tready(tready),
-    .s_axis_tlast(tlast)
+    .s_axis_tlast(tlast),
+	 .s_axis_tuser(tuser)
    );
 
     nf10_axis_converter 
@@ -161,17 +174,19 @@ module testbench();
     .m_axis_tvalid(tvalid_1),
     .m_axis_tready(tready_1),
     .m_axis_tlast(tlast_1),
+	 .m_axis_tuser(tuser_1),
     
     // Slave Stream Ports
     .s_axis_tdata(tdata_0),
     .s_axis_tstrb(tstrb_0),
     .s_axis_tvalid(tvalid_0),
     .s_axis_tready(tready_0),
-    .s_axis_tlast(tlast_0)
+    .s_axis_tlast(tlast_0),
+	 .s_axis_tuser(tuser_0)
    );
 
     nf10_axis_converter
-    #(.C_M_AXIS_DATA_WIDTH(64),
+    #(.C_M_AXIS_DATA_WIDTH(32),
       .C_S_AXIS_DATA_WIDTH(256)
      ) dut_2
     (
@@ -183,15 +198,17 @@ module testbench();
     .m_axis_tdata(),
     .m_axis_tstrb(),
     .m_axis_tvalid(),
-    .m_axis_tready(1'b1),
+    .m_axis_tready(tready_out),
     .m_axis_tlast(),
+	 .m_axis_tuser(),
     
     // Slave Stream Ports
     .s_axis_tdata(tdata_1),
     .s_axis_tstrb(tstrb_1),
     .s_axis_tvalid(tvalid_1),
     .s_axis_tready(tready_1),
-    .s_axis_tlast(tlast_1)
+    .s_axis_tlast(tlast_1),
+	 .s_axis_tuser(tuser_1)
    );
 
 endmodule

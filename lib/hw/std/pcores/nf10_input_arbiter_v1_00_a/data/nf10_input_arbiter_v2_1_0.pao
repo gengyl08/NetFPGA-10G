@@ -1,0 +1,18 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_input_arbiter_v2_1_0.pao
+#//
+#//  Description:
+#//          Peripheral Analyze Order File
+#//                 
+#//  Revision history:
+#//          2011/5/3 gcoving: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
+
+lib nf10_input_arbiter_v1_00_a nf10_input_arbiter.v verilog
+lib nf10_input_arbiter_v1_00_a small_fifo_v3.v verilog
+lib nf10_input_arbiter_v1_00_a fallthrough_small_fifo_v2.v verilog

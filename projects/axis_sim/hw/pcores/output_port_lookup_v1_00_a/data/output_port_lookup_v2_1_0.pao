@@ -1,0 +1,17 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          output_port_lookup_v2_1_0.pao
+#//
+#//  Description:
+#//          Peripheral Analyze Order File
+#//                 
+#//  Revision history:
+#//          2011/5/13 gac1: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
+
+lib output_port_lookup_v1_00_a output_port_lookup.v verilog
+lib output_port_lookup_v1_00_a small_fifo_v3.v verilog

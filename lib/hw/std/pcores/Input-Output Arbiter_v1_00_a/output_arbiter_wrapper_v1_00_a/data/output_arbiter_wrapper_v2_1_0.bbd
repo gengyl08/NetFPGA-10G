@@ -1,9 +1,0 @@
-##############################################################################
-## Filename:          /home/adwait/nf10/netfpga-10g-dev/projects/loopback_test/hw/pcores/output_arbiter_wrapper_v1_00_a/data/output_arbiter_wrapper_v2_1_0.bbd
-## Description:       Black Box Definition
-## Date:              Fri Dec 31 16:12:53 2010 (by Create and Import Peripheral Wizard)
-##############################################################################
-
-Files
-################################################################################
-fifo.ngc

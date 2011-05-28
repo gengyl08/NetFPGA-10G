@@ -12,6 +12,7 @@
 --          2010/12/1  M.Blott  Initial version
 --          2010/12/15 hyzeng   Fixed last signal, AXI4-Lite
 --          2010/12/21 M.Blott  fixed reset issue
+--			2011/4/15  hyzeng	Update with TUSER
 --
 ------------------------------------------------------------------------
 
@@ -27,6 +28,7 @@ generic (
    C_HIGHADDR          : std_logic_vector(31 downto 0) := x"00000002";
    C_M_AXIS_DATA_WIDTH : integer := 64; -- max 256bit supported
    C_S_AXIS_DATA_WIDTH : integer := 64; -- max 256bit supported
+   C_USER_WIDTH  	   : integer := 128;
    C_GEN_PKT_SIZE      : integer := 16; -- in words;
    C_CHECK_PKT_SIZE    : integer := 16; -- in words;
    C_IFG_SIZE          : integer := 5;  -- in words irrespective of backpressure
@@ -39,11 +41,13 @@ port (
    -- axi streaming data interface
    M_AXIS_TDATA       : out std_logic_vector (C_M_AXIS_DATA_WIDTH-1 downto 0);
    M_AXIS_TSTRB       : out std_logic_vector (C_M_AXIS_DATA_WIDTH/8-1 downto 0);
+   M_AXIS_TUSER       : out std_logic_vector (C_USER_WIDTH-1 downto 0);
    M_AXIS_TVALID      : out std_logic;
    M_AXIS_TREADY      : in  std_logic;
    M_AXIS_TLAST       : out std_logic;
    S_AXIS_TDATA       : in  std_logic_vector (C_S_AXIS_DATA_WIDTH-1 downto 0);
    S_AXIS_TSTRB       : in  std_logic_vector (C_S_AXIS_DATA_WIDTH/8-1 downto 0);
+   S_AXIS_TUSER       : in  std_logic_vector (C_USER_WIDTH-1 downto 0);
    S_AXIS_TVALID      : in  std_logic;
    S_AXIS_TREADY      : out std_logic;
    S_AXIS_TLAST       : in  std_logic;
@@ -174,6 +178,7 @@ begin
         );
 
 M_AXIS_TLAST <= '1' when (gen_word_num = C_GEN_PKT_SIZE - 1) else '0';
+M_AXIS_TUSER <= (others => '0'); -- Dummy TUSER
 
 gen_p: process(ACLK, ARESETN)
 begin

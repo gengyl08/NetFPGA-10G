@@ -1,0 +1,273 @@
+" XPLAOPT Version 9.99.99.99
+" Created on Wed May 11 11:26:27 2011
+" 56 Mcells, 33 PLApts, 1 Levels, 32 Fanins
+" XPLAOPT -run s -it b -i CPLD.blx -dev XC2C256-6PQ208 -reg -xor a -mode 1 -th 
+"         28 -fi 32 -bfi 38 -pre keep -unused keeper -terminate keeper -no_output_files 
+MODULE CPLD
+
+	CPLD_100MHZ  pin 55 ; 
+ 	FLASH_A_A<0>  pin 39 ;  " 0 pt.
+ 	FLASH_A_A<10>  pin 54 ;  " 0 pt.
+ 	FLASH_A_A<11>  pin 56 ;  " 0 pt.
+ 	FLASH_A_A<12>  pin 57 ;  " 0 pt.
+ 	FLASH_A_A<13>  pin 58 ;  " 0 pt.
+ 	FLASH_A_A<14>  pin 60 ;  " 0 pt.
+ 	FLASH_A_A<15>  pin 61 ;  " 0 pt.
+ 	FLASH_A_A<16>  pin 62 ;  " 0 pt.
+ 	FLASH_A_A<17>  pin 63 ;  " 0 pt.
+ 	FLASH_A_A<18>  pin 27 ;  " 0 pt.
+ 	FLASH_A_A<19>  pin 28 ;  " 0 pt.
+ 	FLASH_A_A<1>  pin 40 ;  " 0 pt.
+ 	FLASH_A_A<20>  pin 29 ;  " 0 pt.
+ 	FLASH_A_A<21>  pin 30 ;  " 0 pt.
+ 	FLASH_A_A<22>  pin 31 ;  " 0 pt.
+ 	FLASH_A_A<23>  pin 32 ;  " 0 pt.
+ 	FLASH_A_A<2>  pin 41 ;  " 0 pt.
+ 	FLASH_A_A<3>  pin 43 ;  " 0 pt.
+ 	FLASH_A_A<4>  pin 45 ;  " 0 pt.
+ 	FLASH_A_A<5>  pin 47 ;  " 0 pt.
+ 	FLASH_A_A<6>  pin 48 ;  " 0 pt.
+ 	FLASH_A_A<7>  pin 49 ;  " 0 pt.
+ 	FLASH_A_A<8>  pin 50 ;  " 0 pt.
+ 	FLASH_A_A<9>  pin 51 ;  " 0 pt.
+ 	FLASH_A_DQ<0>  pin 101 ; 
+ 	FLASH_A_DQ<10>  pin 125 ; 
+ 	FLASH_A_DQ<11>  pin 126 ; 
+ 	FLASH_A_DQ<12>  pin 127 ; 
+ 	FLASH_A_DQ<13>  pin 128 ; 
+ 	FLASH_A_DQ<14>  pin 131 ; 
+ 	FLASH_A_DQ<15>  pin 77 ; 
+ 	FLASH_A_DQ<1>  pin 102 ; 
+ 	FLASH_A_DQ<2>  pin 103 ; 
+ 	FLASH_A_DQ<3>  pin 106 ; 
+ 	FLASH_A_DQ<4>  pin 118 ; 
+ 	FLASH_A_DQ<5>  pin 119 ; 
+ 	FLASH_A_DQ<6>  pin 120 ; 
+ 	FLASH_A_DQ<7>  pin 121 ; 
+ 	FLASH_A_DQ<8>  pin 122 ; 
+ 	FLASH_A_DQ<9>  pin 123 ; 
+ 	FLASH_A_E  pin 34 ;  " 1 pt.
+ 	FLASH_A_G  pin 35 ;  " 0 pt.
+ 	FLASH_A_K  pin 36 ;  " 3 pt.
+ 	FLASH_A_L  pin 66 ;  " 0 pt.
+ 	FLASH_A_RP  pin 37 ;  " 1 pt.
+ 	FLASH_A_RW  pin 67 ;  " 1 pt.
+ 	FLASH_A_W  pin 65 ;  " 0 pt.
+ 	FLASH_A_WP  pin 64 ;  " 1 pt.
+ 	FPGA_CCLK  pin 88 ;  " 3 pt.
+ 	FPGA_E  pin 144 ; 
+ 	FPGA_clock  pin 86 ;  " 1 pt.
+ 	FPGA_data<0>  pin 160 ;  " 1 pt.
+ 	FPGA_data<10>  pin 170 ;  " 1 pt.
+ 	FPGA_data<11>  pin 171 ;  " 1 pt.
+ 	FPGA_data<12>  pin 146 ;  " 1 pt.
+ 	FPGA_data<13>  pin 147 ;  " 1 pt.
+ 	FPGA_data<14>  pin 148 ;  " 1 pt.
+ 	FPGA_data<15>  pin 149 ;  " 1 pt.
+ 	FPGA_data<1>  pin 161 ;  " 1 pt.
+ 	FPGA_data<2>  pin 162 ;  " 1 pt.
+ 	FPGA_data<3>  pin 163 ;  " 1 pt.
+ 	FPGA_data<4>  pin 164 ;  " 1 pt.
+ 	FPGA_data<5>  pin 165 ;  " 1 pt.
+ 	FPGA_data<6>  pin 166 ;  " 1 pt.
+ 	FPGA_data<7>  pin 167 ;  " 1 pt.
+ 	FPGA_data<8>  pin 168 ;  " 1 pt.
+ 	FPGA_data<9>  pin 169 ;  " 1 pt.
+ 	INIT_B  pin 89 ; 
+ 	LEDs<0>  pin 83 ;  " 1 pt.
+ 	LEDs<1>  pin 82 ;  " 1 pt.
+ 	LEDs<2>  pin 80 ;  " 1 pt.
+ 	LEDs<3>  pin 78 ;  " 1 pt.
+ 	Program_B  pin 90 ; 
+ 
+
+	clk_cnt_i<0>  node ;  " 1 pt.
+ 	clk_cnt_i<1>  node ;  " 1 pt.
+ 
+
+xpla property 'USER_SLEW_RATE FPGA_clock FLASH_A_E FLASH_A_RP FPGA_data<0> FPGA_data<1> FPGA_data<10> 
+	FPGA_data<11> FPGA_data<12> FPGA_data<13> FPGA_data<14> FPGA_data<15> FPGA_data<2> FPGA_data<3> 
+	FPGA_data<4> FPGA_data<5> FPGA_data<6> FPGA_data<7> FPGA_data<8> FPGA_data<9> LEDs<0> LEDs<1> 
+	FLASH_A_RW LEDs<2> LEDs<3> FPGA_CCLK FLASH_A_K FLASH_A_W FLASH_A_L FLASH_A_G FLASH_A_A<23> 
+	FLASH_A_A<22> FLASH_A_A<21> FLASH_A_A<20> FLASH_A_A<1> FLASH_A_A<19> FLASH_A_A<18> FLASH_A_A<17> 
+	FLASH_A_A<16> FLASH_A_A<15> FLASH_A_A<9> FLASH_A_A<14> FLASH_A_A<13> FLASH_A_A<12> FLASH_A_A<11> 
+	FLASH_A_A<10> FLASH_A_A<0> FLASH_A_A<8> FLASH_A_A<7> FLASH_A_A<6> FLASH_A_A<5> FLASH_A_A<4> 
+	FLASH_A_A<3> FLASH_A_A<2> FLASH_A_WP '; 
+xpla property 'TERMINATE_KEEPER FLASH_A_W FLASH_A_L FLASH_A_G '; 
+xpla property 'unused_keeper'; 
+xpla property 'timespec  FPGA_clock.Q FPGA_clock.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<0>.Q FPGA_clock.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGA_clock.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<0>.Q clk_cnt_i<0>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q clk_cnt_i<1>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<0>.Q clk_cnt_i<1>.D 2.000000'; 
+xpla property 'timespec  FPGA_clock.Q FPGA_CCLK.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<0>.Q FPGA_CCLK.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGA_CCLK.D 2.000000'; 
+xpla property 'timespec  FPGA_clock.Q FLASH_A_K.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<0>.Q FLASH_A_K.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_K.D 2.000000'; 
+xpla property 'IOSTD FPGA_clock 0 -1';
+xpla property 'IOSTD CPLD_100MHZ 0 -1';
+xpla property 'IOSTD FLASH_A_E 0 -1';
+xpla property 'IOSTD FPGA_E 0 -1';
+xpla property 'IOSTD FLASH_A_RP 0 -1';
+xpla property 'IOSTD Program_B 0 -1';
+xpla property 'IOSTD FPGA_data<0> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<8> 0 -1';
+xpla property 'IOSTD FPGA_data<1> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<9> 0 -1';
+xpla property 'IOSTD FPGA_data<10> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<2> 0 -1';
+xpla property 'IOSTD FPGA_data<11> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<3> 0 -1';
+xpla property 'IOSTD FPGA_data<12> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<4> 0 -1';
+xpla property 'IOSTD FPGA_data<13> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<5> 0 -1';
+xpla property 'IOSTD FPGA_data<14> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<6> 0 -1';
+xpla property 'IOSTD FPGA_data<15> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<7> 0 -1';
+xpla property 'IOSTD FPGA_data<2> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<10> 0 -1';
+xpla property 'IOSTD FPGA_data<3> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<11> 0 -1';
+xpla property 'IOSTD FPGA_data<4> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<12> 0 -1';
+xpla property 'IOSTD FPGA_data<5> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<13> 0 -1';
+xpla property 'IOSTD FPGA_data<6> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<14> 0 -1';
+xpla property 'IOSTD FPGA_data<7> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<15> 0 -1';
+xpla property 'IOSTD FPGA_data<8> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<0> 0 -1';
+xpla property 'IOSTD FPGA_data<9> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<1> 0 -1';
+xpla property 'IOSTD LEDs<0> 0 -1';
+xpla property 'IOSTD LEDs<1> 0 -1';
+xpla property 'IOSTD INIT_B 0 -1';
+xpla property 'IOSTD FLASH_A_RW 0 -1';
+xpla property 'IOSTD LEDs<2> 0 -1';
+xpla property 'IOSTD LEDs<3> 0 -1';
+xpla property 'IOSTD FPGA_CCLK 0 -1';
+xpla property 'IOSTD FLASH_A_K 0 -1';
+xpla property 'IOSTD FLASH_A_W 0 -1';
+xpla property 'IOSTD FLASH_A_L 0 -1';
+xpla property 'IOSTD FLASH_A_G 0 -1';
+xpla property 'IOSTD FLASH_A_A<23> 0 -1';
+xpla property 'IOSTD FLASH_A_A<22> 0 -1';
+xpla property 'IOSTD FLASH_A_A<21> 0 -1';
+xpla property 'IOSTD FLASH_A_A<20> 0 -1';
+xpla property 'IOSTD FLASH_A_A<1> 0 -1';
+xpla property 'IOSTD FLASH_A_A<19> 0 -1';
+xpla property 'IOSTD FLASH_A_A<18> 0 -1';
+xpla property 'IOSTD FLASH_A_A<17> 0 -1';
+xpla property 'IOSTD FLASH_A_A<16> 0 -1';
+xpla property 'IOSTD FLASH_A_A<15> 0 -1';
+xpla property 'IOSTD FLASH_A_A<9> 0 -1';
+xpla property 'IOSTD FLASH_A_A<14> 0 -1';
+xpla property 'IOSTD FLASH_A_A<13> 0 -1';
+xpla property 'IOSTD FLASH_A_A<12> 0 -1';
+xpla property 'IOSTD FLASH_A_A<11> 0 -1';
+xpla property 'IOSTD FLASH_A_A<10> 0 -1';
+xpla property 'IOSTD FLASH_A_A<0> 0 -1';
+xpla property 'IOSTD FLASH_A_A<8> 0 -1';
+xpla property 'IOSTD FLASH_A_A<7> 0 -1';
+xpla property 'IOSTD FLASH_A_A<6> 0 -1';
+xpla property 'IOSTD FLASH_A_A<5> 0 -1';
+xpla property 'IOSTD FLASH_A_A<4> 0 -1';
+xpla property 'IOSTD FLASH_A_A<3> 0 -1';
+xpla property 'IOSTD FLASH_A_A<2> 0 -1';
+xpla property 'IOSTD FLASH_A_WP 0 -1';
+EQUATIONS 
+
+ FLASH_A_A<0> = 0;
+ FLASH_A_A<10> = 0;
+ FLASH_A_A<11> = 0;
+ FLASH_A_A<12> = 0;
+ FLASH_A_A<13> = 0;
+ FLASH_A_A<14> = 0;
+ FLASH_A_A<15> = 0;
+ FLASH_A_A<16> = 0;
+ FLASH_A_A<17> = 0;
+ FLASH_A_A<18> = 0;
+ FLASH_A_A<19> = 0;
+ FLASH_A_A<1> = 0;
+ FLASH_A_A<20> = 0;
+ FLASH_A_A<21> = 0;
+ FLASH_A_A<22> = 0;
+ FLASH_A_A<23> = 0;
+ FLASH_A_A<2> = 0;
+ FLASH_A_A<3> = 0;
+ FLASH_A_A<4> = 0;
+ FLASH_A_A<5> = 0;
+ FLASH_A_A<6> = 0;
+ FLASH_A_A<7> = 0;
+ FLASH_A_A<8> = 0;
+ FLASH_A_A<9> = 0;
+ FLASH_A_E.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_E.D = FPGA_E;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_G = 0;
+ FLASH_A_G.OE = 0;
+ FLASH_A_K.CLK = CPLD_100MHZ;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_K.D = !FPGA_clock.Q & clk_cnt_i<0>.Q & clk_cnt_i<1>.Q
+      # FPGA_clock.Q & !clk_cnt_i<1>.Q
+      # FPGA_clock.Q & !clk_cnt_i<0>.Q;		"--- [PT=3, FI=3, LVL=1] ---
+ FLASH_A_L = 0;
+ FLASH_A_L.OE = 0;
+ FLASH_A_RP.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_RP.D = Program_B;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_RW = INIT_B;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_W = 0;
+ FLASH_A_W.OE = 0;
+ FLASH_A_WP = 1;
+ FPGA_CCLK.CLK = CPLD_100MHZ;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_CCLK.D = !FPGA_clock.Q & clk_cnt_i<0>.Q & clk_cnt_i<1>.Q
+      # FPGA_clock.Q & !clk_cnt_i<1>.Q
+      # FPGA_clock.Q & !clk_cnt_i<0>.Q;		"--- [PT=3, FI=3, LVL=1] ---
+ FPGA_clock.CLK = CPLD_100MHZ;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_clock.T = clk_cnt_i<0>.Q & clk_cnt_i<1>.Q
+    ;		"--- [PT=1, FI=2, LVL=1] ---
+ FPGA_data<0>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<0>.D = FLASH_A_DQ<8>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<10>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<10>.D = FLASH_A_DQ<2>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<11>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<11>.D = FLASH_A_DQ<3>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<12>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<12>.D = FLASH_A_DQ<4>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<13>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<13>.D = FLASH_A_DQ<5>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<14>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<14>.D = FLASH_A_DQ<6>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<15>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<15>.D = FLASH_A_DQ<7>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<1>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<1>.D = FLASH_A_DQ<9>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<2>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<2>.D = FLASH_A_DQ<10>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<3>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<3>.D = FLASH_A_DQ<11>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<4>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<4>.D = FLASH_A_DQ<12>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<5>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<5>.D = FLASH_A_DQ<13>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<6>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<6>.D = FLASH_A_DQ<14>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<7>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<7>.D = FLASH_A_DQ<15>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<8>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<8>.D = FLASH_A_DQ<0>;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<9>.CLK = FPGA_clock.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FPGA_data<9>.D = FLASH_A_DQ<1>;		"--- [PT=1, FI=1, LVL=1] ---
+ LEDs<0> = Program_B;		"--- [PT=1, FI=1, LVL=1] ---
+ LEDs<1> = INIT_B;		"--- [PT=1, FI=1, LVL=1] ---
+ LEDs<2> = FPGA_E;		"--- [PT=1, FI=1, LVL=1] ---
+ LEDs<3> = FLASH_A_DQ<0>;		"--- [PT=1, FI=1, LVL=1] ---
+ clk_cnt_i<0>.CLK = CPLD_100MHZ;		"--- [PT=1, FI=1, LVL=1] ---
+ clk_cnt_i<0>.T = 1;
+ clk_cnt_i<1>.CLK = CPLD_100MHZ;		"--- [PT=1, FI=1, LVL=1] ---
+ clk_cnt_i<1>.T = clk_cnt_i<0>.Q;		"--- [PT=1, FI=1, LVL=1] ---
+END

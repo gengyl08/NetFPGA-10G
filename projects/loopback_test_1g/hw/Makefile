@@ -142,19 +142,24 @@ $(MICROBLAZE_0_BOOTLOOP): $(MICROBLAZE_BOOTLOOP_LE)
 $(BMM_FILE) \
 $(WRAPPER_NGC_FILES): $(MHSFILE) __xps/platgen.opt \
                       $(CORE_STATE_DEVELOPMENT_FILES)
+	@echo "+++testStarted:build.netlist"
 	@echo "****************************************************"
 	@echo "Creating system netlist for hardware specification.."
 	@echo "****************************************************"
 	platgen $(PLATGEN_OPTIONS) $(MHSFILE)
+	@echo "+++testFinished:build.netlist"
 
 #James: AXI interconnect workaround. Please note that the SCR is associated with the instance name.
 $(POSTSYN_NETLIST): $(WRAPPER_NGC_FILES)
+	@echo "+++testStarted:build.synthesis"
 	@echo "Running synthesis..."
 	cp nf10/axi_interconnect.scr ./synthesis/axi_interconnect_memory_mapped_lite_0_wrapper_xst.scr
 	bash -c "cd synthesis; ./synthesis.sh"
+	@echo "+++testFinished:build.synthesis"
 
 #James: Use multi-core map and par. Parameters in nf10/xflow.opt
 __xps/$(SYSTEM)_routed: $(FPGA_IMP_DEPENDENCY)
+	@echo "+++testStarted:build.implementation"
 	@echo "*********************************************"
 	@echo "Running Xilinx Implementation tools.."
 	@echo "*********************************************"
@@ -162,16 +167,20 @@ __xps/$(SYSTEM)_routed: $(FPGA_IMP_DEPENDENCY)
 	@cp -f nf10/xflow.opt implementation/xflow.opt
 	xflow -wd implementation -p $(DEVICE) -implement xflow.opt $(SYSTEM).ngc
 	touch __xps/$(SYSTEM)_routed
+	@echo "+++testFinished:build.implementation"
 
 $(SYSTEM_BIT): __xps/$(SYSTEM)_routed $(BITGEN_UT_FILE)
+	@echo "+++testStarted:build.bitgen"
 	xilperl $(XILINX_EDK_DIR)/data/fpga_impl/observe_par.pl $(OBSERVE_PAR_OPTIONS) implementation/$(SYSTEM).par
 	@echo "*********************************************"
 	@echo "Running Bitgen.."
 	@echo "*********************************************"
 	@cp -f $(BITGEN_UT_FILE) implementation/bitgen.ut
 	cd implementation ; bitgen -w -f bitgen.ut $(SYSTEM) ; cd ..
+	@echo "+++testFinished:build.bitgen"
 
 $(DOWNLOAD_BIT): $(SYSTEM_BIT) $(BRAMINIT_ELF_IMP_FILES) __xps/bitinit.opt
+	@echo "+++testStarted:build.init_bram"
 	@cp -f implementation/$(SYSTEM)_bd.bmm .
 	@echo "*********************************************"
 	@echo "Initializing BRAM contents of the bitstream"
@@ -179,6 +188,7 @@ $(DOWNLOAD_BIT): $(SYSTEM_BIT) $(BRAMINIT_ELF_IMP_FILES) __xps/bitinit.opt
 	bitinit -p $(DEVICE) $(MHSFILE) $(SEARCHPATHOPT) $(BRAMINIT_ELF_IMP_FILE_ARGS) \
 	-bt $(SYSTEM_BIT) -o $(DOWNLOAD_BIT)
 	@rm -f $(SYSTEM)_bd.bmm
+	@echo "+++testFinished:build.init_bram"
 
 $(SYSTEM_ACE):
 	@echo "In order to generate ace file, you must have:-"

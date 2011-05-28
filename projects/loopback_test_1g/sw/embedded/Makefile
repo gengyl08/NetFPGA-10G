@@ -31,34 +31,44 @@ $(RESULT_DIR):
 	mkdir -p $(RESULT_DIR)
 
 ${PROCESSOR}/lib/libxil.a: $(RESULT_DIR) $(SYSTEM_BIT) $(HWSPEC)
+	@echo "+++testStarted:build.embedded.sw.libraries"
 	libgen -hw ${HWSPEC}\
 	       ${REPOSITORIES}\
 	       -pe ${PROCESSOR} \
 	       -log libgen.log \
 	       $(MSS) \
 	       -od $(RESULT_DIR)
+	@echo "+++testFinished:build.embedded.sw.libraries"
 	       
 $(RESULT_DIR)/%.o: $(USER_APP_DIR)/src/%.c
+	@echo "+++testStarted:build.embedded.sw.microblaze.compile"
 	@echo 'Building file: $<'
 	@echo 'Invoking: MicroBlaze gcc compiler'
 	mb-gcc -Wall -O0 -g3 -I $(RESULT_DIR)/${PROCESSOR}/include -c -fmessage-length=0 -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v8.00.a -mxl-soft-mul -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
+	@echo "+++testFinished:build.embedded.sw.microblaze.compile"
 
 $(ELF): $(OBJS) $(USER_OBJS)
+	@echo "+++testStarted:build.embedded.sw.microblaze.linker"
 	@echo 'Building target: $@'
 	@echo 'Invoking: MicroBlaze gcc linker'
 	mb-gcc -L$(RESULT_DIR)/${PROCESSOR}/lib -Wl,-T -Wl,$(USER_APP_DIR)/src/lscript.ld -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v8.00.a -mxl-soft-mul -o $(ELF) $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
+	@echo "+++testFinished:build.embedded.sw.microblaze.linker"
     
 $(DOWNLOAD_BIT): ${PROCESSOR}/lib/libxil.a $(ELF) $(SYSTEM_BD) $(SYSTEM_BIT)
+	@echo "+++testStarted:build.embedded.sw.microblaze.mem_file"
 	data2mem -bm $(SYSTEM_BD) \
 		-bt $(SYSTEM_BIT) \
 		-bd $(ELF)\
 		tag microblaze_0 \
 		-o b $(DOWNLOAD_BIT)
+	@echo "+++testFinished:build.embedded.sw.microblaze.mem_file"
 
 $(SYSTEM_BIT) $(HWSPEC):
+	@echo "+++testStarted:build.embedded.sw.microblaze.exporttosdk"
 	$(MAKE) -C ../../hw exporttosdk
+	@echo "+++testFinished:build.embedded.sw.microblaze.exporttosdk"
 

@@ -1,0 +1,30 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  Module:
+#          pcore Makefile
+#
+#  Description:
+#          make install : Copy Xilinx files into NetFPGA-10G library
+#
+#          For more information about how Xilinx EDK works, please visit
+#          http://www.xilinx.com/support/documentation/dt_edk.htm
+#             
+#  Revision history:
+#          2011/3/3 hyzeng: Initial check-in
+#
+################################################################################
+COREGEN_DIR:= coregen
+
+all: hdl/verilog/xilinx/pcie_top.v
+
+hdl/verilog/xilinx/pcie_top.v: xco/endpoint_blk_plus_v1_14.xco
+	@mkdir -p hdl/verilog/xilinx
+	@mkdir -p $(COREGEN_DIR);
+	@cd $(COREGEN_DIR) && coregen -b ../xco/endpoint_blk_plus_v1_14.xco
+	@cp $(COREGEN_DIR)/endpoint_blk_plus_v1_14/source/*.v hdl/verilog/xilinx/
+	@echo "/////////////////////////////////////////";
+	@echo "//Xilinx PCIe core installed.";
+	@echo "/////////////////////////////////////////";
+	@rm -rf $(COREGEN_DIR);

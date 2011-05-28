@@ -122,6 +122,8 @@ bitsclean:
 
 simclean: 
 	rm -rf simulation/behavioral
+	rm -rf axi_simulation/simulation/behavioral
+	rm -rf axi_simulation/*.axi
 	rm -f simgen.log
 	rm -f __xps/ise/_xmsgs/simgen.xmsgs
 
@@ -239,6 +241,23 @@ $(TIMING_SIM_SCRIPT): implementation/$(SYSTEM).ncd __xps/simgen.opt \
 
 dummy:
 	@echo ""
+	
+################## AXI SIMULATION ##################
+
+axi_model: axi_simulation/$(MHSFILE) __xps/simgen.opt \
+           $(BRAMINIT_ELF_SIM_FILES)
+	@echo "*********************************************"
+	@echo "Creating AXI simulation models..."
+	@echo "*********************************************"
+	simgen $(SIMGEN_OPTIONS) -m behavioral axi_simulation/$(MHSFILE) -od axi_simulation/ -lp ../
+
+axisim: axi_model
+	./axi_simulation/simulation/make_pkts.py ; \
+	cd axi_simulation/simulation/behavioral ; \
+	cp ../../system_tb.v .; \
+	sh system_fuse.sh;
+	cd axi_simulation/simulation/behavioral ; \
+	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
 
 # James: workaround chicken'n'egg problem thanks to David Miller	
 system_incl.make: Makefile
