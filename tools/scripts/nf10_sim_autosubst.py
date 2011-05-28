@@ -166,8 +166,10 @@ def get_parameter( ents, name ):
     Attempt to find the instance PARAMETER by `name`.  Returns None if not
     found.  `ents` should be a list of Entity instances in which to search.
     """
-    params = get_ents_by_kw( ents, 'PARAMETER' )
-    params = filter( lambda x: x[0].upper() == name.upper(), params )
+    params = filter( lambda x: x[0].upper() == name.upper(),
+                     get_ents_by_kw( ents, 'PARAMETER' ) )
+    if len(params) > 1:
+        raise RuntimeError( 'more than two instances of PARAMETER %s' % name )
     return (params[0][1] if params else None)
 
 
