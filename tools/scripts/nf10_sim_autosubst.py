@@ -54,7 +54,6 @@ class Entity(object):
         if disabled:
             self.disabled_flag = True
             line = disabled.group(1)
-            print 'disabled:', line
 
         # Handle ordinary comments
         try:
