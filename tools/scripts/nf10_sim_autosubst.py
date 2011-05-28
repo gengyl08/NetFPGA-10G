@@ -151,13 +151,23 @@ def set_disabled_flag( ent, val ):
             set_disabled_flag( inst_ent, val )
 
 
+def get_ents_by_kw( ents, kw ):
+    """
+    Return a list of the args for all lines matching keyword `kw` (eg, all PORT
+    mappings)
+    """
+    return reduce( operator.add,
+                   [x.args for x in filter( lambda x: x.kw() == kw, ents )],
+                   [] )
+
+
 def get_parameter( ents, name ):
     """
     Attempt to find the instance PARAMETER by `name`.  Returns None if not
     found.  `ents` should be a list of Entity instances in which to search.
     """
-    params = [x.args for x in filter( lambda x: x.kw() == 'PARAMETER', ents )]
-    params = filter( lambda x: x[0].upper() == name.upper(), reduce( operator.add, params, [] ) )
+    params = get_ents_by_kw( ents, 'PARAMETER' )
+    params = filter( lambda x: x[0].upper() == name.upper(), params )
     return (params[0][1] if params else None)
 
 
@@ -210,8 +220,7 @@ def subst_mhs( mhs, targets, opts ):
         print 'Replacing pcore %s (instance %s):' % (core_name, core_inst)
 
         # Attempt to infer the correct clock and reset nets
-        ports = [x.args for x in filter( lambda x: x.kw() == 'PORT', ent.inst_ents )]
-        ports = reduce( operator.add, ports, [] )
+        ports = get_ents_by_kw( ent.inst_ents, 'PORT' )
 
         clocks = filter( lambda x: clk_re.match(x[0]), ports )
         if len(clocks) == 0:
@@ -241,8 +250,7 @@ def subst_mhs( mhs, targets, opts ):
             print '\tinferred reset net: %s' % reset_net
 
         # Find any AXI Stream ports, and what they're attached to
-        bus_ints = [x.args for x in filter( lambda x: x.kw() == 'BUS_INTERFACE', ent.inst_ents )]
-        bus_args = reduce( operator.add, bus_ints, [] )
+        bus_args = get_ents_by_kw( ent.inst_ents, 'BUS_INTERFACE' )
         s_axis_nets = [net for cls, net in filter( lambda av: s_axis_re.match( av[0] ), bus_args )]
         m_axis_nets = [net for cls, net in filter( lambda av: m_axis_re.match( av[0] ), bus_args )]
 
