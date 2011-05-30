@@ -25,6 +25,7 @@ import sys
 
 DEFAULT_TARGETS = [ 'nf10_10g_interface',
                     'nf10_1g_interface',
+                    'nf10_oped',
                     ]
 
 DISABLED_FLAG = '#!'
@@ -119,6 +120,18 @@ class Entity(object):
             return self.args[0][0]
 
 
+class TooManyError(Exception):
+    """
+    Exception for signalling the unexpected return of too many objects.
+    """
+    def __init__( self, what, ents ):
+        self.what = what
+        self.ents = ents
+
+    def __str__( self ):
+        return 'too many %s' % self.what
+
+
 def parse_mhs( fh, lno_gen = None ):
     """
     Parses an MHS file.  Returns a list of Entity instances representing the
@@ -154,8 +167,10 @@ def set_disabled_flag( ent, val ):
 def get_ents_by_kw( ents, kw ):
     """
     Return a list of the args for all lines matching keyword `kw` (eg, all PORT
-    mappings)
+    mappings).  `ents` should either be a list of Entities, or a reference to a
+    BEGIN Entity.
     """
+    if type(ents) == Entity: ents = ents.inst_ents
     return reduce( operator.add,
                    [x.args for x in filter( lambda x: x.kw() == kw, ents )],
                    [] )
@@ -164,19 +179,51 @@ def get_ents_by_kw( ents, kw ):
 def get_parameter( ents, name ):
     """
     Attempt to find the instance PARAMETER by `name`.  Returns None if not
-    found.  `ents` should be a list of Entity instances in which to search.
+    found.  `ents` should either be a list of Entities, or a reference to a
+    BEGIN Entity.
     """
+    if ents.is_begin(): ents = ents.inst_ents
     params = filter( lambda x: x[0].upper() == name.upper(),
                      get_ents_by_kw( ents, 'PARAMETER' ) )
     if len(params) > 1:
-        raise RuntimeError( 'more than two instances of PARAMETER %s' % name )
+        raise TooManyError( 'instances of PARAMETER %s' % name,
+                            [x[1] for x in params] )
     return (params[0][1] if params else None)
 
 
-def insert_recorder( mhs, index, comment, inst_name, ver, axi_file, net, clock ):
+def instances( mhs ):
+    """
+    Generator that iterates over all instances in the given MHS file
+    """
+    return (ent for ent in mhs if ent.is_begin())
+
+
+def get_other_inst( mhs, inst, net ):
+    """
+    Returns the other instance connected to `inst` by `net`
+    """
+    net_kws = ['PORT', 'BUS_INTERFACE']
+    others = filter( lambda other: (
+                            other is not inst and not other.disabled_flag and
+                            filter( lambda x: x[1].upper() == net.upper(),  # matching nets
+                                    reduce( operator.add,
+                                            (get_ents_by_kw( other, kw ) for kw in net_kws),
+                                            [] )                            # all instance nets
+                                    ) ),
+                     instances(mhs) )
+    if len(others) > 1:
+        raise TooManyError( 'instances on net %s' % net, others )
+    return (others[0] if others else None)
+
+
+def insert_recorder( mhs, index, comment, inst_name, ver, axi_file, width, net, clock ):
     """
     Inserts an nf10_axis_sim core with provided arguments.
     """
+    if width is None:
+        width = ''
+    else:
+        width = 'PARAMETER C_S_AXIS_DATA_WIDTH = %s\n' % width
     mhs[index:index] = list( parse_mhs( cStringIO.StringIO( """\
 #
 # %s
@@ -184,16 +231,22 @@ BEGIN nf10_axis_sim_record
 PARAMETER INSTANCE = %s
 PARAMETER HW_VER = %s
 PARAMETER output_file = %s
+%s\
 BUS_INTERFACE S_AXIS = %s
 PORT aclk = %s
 END
-""" % (comment, inst_name, ver, axi_file, net, clock) ) ) )
+""" % (comment,
+       inst_name, ver, axi_file, width, net, clock) ) ) )
 
 
-def insert_stimulator( mhs, index, comment, inst_name, ver, axi_file, net, clock, reset ):
+def insert_stimulator( mhs, index, comment, inst_name, ver, axi_file, width, net, clock, reset ):
     """
     Inserts an nf10_axis_sim core with provided arguments.
     """
+    if width is None:
+        width = ''
+    else:
+        width = 'PARAMETER C_M_AXIS_DATA_WIDTH = %s\n' % width
     mhs[index:index] = list( parse_mhs( cStringIO.StringIO( """\
 #
 # %s
@@ -201,11 +254,12 @@ BEGIN nf10_axis_sim_stim
 PARAMETER INSTANCE = %s
 PARAMETER HW_VER = %s
 PARAMETER input_file = %s
+%s\
 BUS_INTERFACE M_AXIS = %s
 PORT aclk = %s
 PORT aresetn = %s
 END
-""" % (comment, inst_name, ver, axi_file, net, clock, reset) ) ) )
+""" % (comment, inst_name, ver, axi_file, width, net, clock, reset) ) ) )
 
 
 def subst_mhs( mhs, targets, opts ):
@@ -217,12 +271,14 @@ def subst_mhs( mhs, targets, opts ):
             continue
 
         core_name = ent.core_name()
-        core_inst = get_parameter( ent.inst_ents, 'INSTANCE' )
+        core_inst = get_parameter( ent, 'INSTANCE' )
+        m_width   = get_parameter( ent, 'C_M_AXIS_DATA_WIDTH' )
+        s_width   = get_parameter( ent, 'C_S_AXIS_DATA_WIDTH' )
         set_disabled_flag( ent, True )
         print 'Replacing pcore %s (instance %s):' % (core_name, core_inst)
 
         # Attempt to infer the correct clock and reset nets
-        ports = get_ents_by_kw( ent.inst_ents, 'PORT' )
+        ports = get_ents_by_kw( ent, 'PORT' )
 
         clocks = filter( lambda x: clk_re.match(x[0]), ports )
         if len(clocks) == 0:
@@ -252,7 +308,7 @@ def subst_mhs( mhs, targets, opts ):
             print '\tinferred reset net: %s' % reset_net
 
         # Find any AXI Stream ports, and what they're attached to
-        bus_args = get_ents_by_kw( ent.inst_ents, 'BUS_INTERFACE' )
+        bus_args = get_ents_by_kw( ent, 'BUS_INTERFACE' )
         s_axis_nets = [net for cls, net in filter( lambda av: s_axis_re.match( av[0] ), bus_args )]
         m_axis_nets = [net for cls, net in filter( lambda av: m_axis_re.match( av[0] ), bus_args )]
 
@@ -263,20 +319,68 @@ def subst_mhs( mhs, targets, opts ):
         if s_axis_nets:
             print '\tnf10_axis_sim_record instance(s) on AXI Stream master net(s):'
             for net in s_axis_nets:
+                # Attempt to infer correct width parameter
+                try:
+                    other = get_other_inst( mhs, ent, net )
+                except TooManyError, e:
+                    print 'error: more than one other instance attached to net %s.' % net
+                    print '       instance name (core name) found:'
+                    print '\t\t%s' % '\n\t\t'.join( ['%s (%s)' % (
+                                                    get_parameter( x, 'INSTANCE'),
+                                                    x.core_name()) for x in e.ents] )
+                    return False
+                if not other:
+                    print '\twarning: nothing else attached to net %s' % net
+                    continue
+                other_width = get_parameter( other, 'C_M_AXIS_DATA_WIDTH' )
+                if other_width is not None and s_width is not None and other_width != s_width:
+                    print 'error: width of attached instance\'s port disagrees with this instance'
+                    print '       net %s' % net
+                    print '       this inst = %s, inst %s = %s' % (s_width,
+                                                                   get_parameter(other, 'INSTANCE'),
+                                                                   other_width)
+                    return False
+                width = (s_width if other_width is None else other_width)
+
+                # Perform substitution
                 inst_name = 'record_%s' % net
                 axi_file  = '%s/%s_out.axi' % (opts.axi_path, net)
                 insert_recorder( mhs, index+1,
                                  'Replacing core %s (instance %s)' % (core_name, core_inst),
-                                 inst_name, RECORDER_VER, axi_file, net, clock_net )
+                                 inst_name, RECORDER_VER, axi_file, width, net, clock_net )
                 print '\t\t%s (%s)' % (net, axi_file)
         if m_axis_nets:
             print '\tnf10_axis_sim_stim instance(s) on AXI Stream slave net(s):'
             for net in m_axis_nets:
+                # Attempt to infer correct width parameter
+                try:
+                    other = get_other_inst( mhs, ent, net )
+                except TooManyError, e:
+                    print 'error: more than one other instance attached to net %s.' % net
+                    print '       instance name (core name) found:'
+                    print '\t\t%s' % '\n\t\t'.join( ['%s (%s)' % (
+                                                    get_parameter( x, 'INSTANCE'),
+                                                    x.core_name()) for x in e.ents] )
+                    return False
+                if not other:
+                    print '\twarning: nothing else attached to net %s' % net
+                    continue
+                other_width = get_parameter( other, 'C_S_AXIS_DATA_WIDTH' )
+                if other_width is not None and m_width is not None and other_width != m_width:
+                    print 'error: width of attached instance\'s port disagrees with this instance'
+                    print '       net %s' % net
+                    print '       this inst = %s, inst %s = %s' % (m_width,
+                                                                   get_parameter(other, 'INSTANCE'),
+                                                                   other_width)
+                    return False
+                width = (m_width if other_width is None else other_width)
+
+                # Perform substitution
                 inst_name = 'stim_%s' % net
                 axi_file  = '%s/%s_in.axi' % (opts.axi_path, net)
                 insert_stimulator( mhs, index+1,
                                    'Replacing core %s (instance %s)' % (core_name, core_inst),
-                                   inst_name, STIM_VER, axi_file, net, clock_net, reset_net )
+                                   inst_name, STIM_VER, axi_file, width, net, clock_net, reset_net )
                 print '\t\t%s (%s)' % (net, axi_file)
         print
 
