@@ -15,6 +15,7 @@
 
 from __future__ import with_statement
 
+import copy
 import cStringIO
 import itertools
 import operator
@@ -118,6 +119,12 @@ class Entity(object):
         """
         if self.is_begin():
             return self.args[0][0]
+
+    def copy( self ):
+        """
+        Returns a deep copy of self.
+        """
+        return copy.deepcopy(self)
 
 
 class TooManyError(Exception):
@@ -266,7 +273,7 @@ def subst_mhs( mhs, targets, opts ):
     """
     def get_override( overrides, name, inst ):
         """
-        returns override by instance if one exists, failing which, by core,
+        Returns override by instance if one exists, failing which, by core,
         failing which, by default, failing which, None.
         """
         if inst in overrides: return overrides[inst]
@@ -274,10 +281,10 @@ def subst_mhs( mhs, targets, opts ):
         if ''   in overrides: return overrides['']
         return None
 
-    for index, ent in enumerate(mhs):
-        if not ent.is_begin() or ent.core_name() not in targets:
-            continue
-
+    def do_subst( index, ent ):
+        """
+        Perform substitution with nf10_axis_sim_{record,stim}.
+        """
         core_name = ent.core_name()
         core_inst = get_parameter( ent, 'INSTANCE' )
         m_width   = get_parameter( ent, 'C_M_AXIS_DATA_WIDTH' )
@@ -299,6 +306,8 @@ def subst_mhs( mhs, targets, opts ):
                 print '\t\t%s' % '\n\t\t'.join( ['%s (net %s)' % x for x in clocks] )
                 return False
             clock_net = clocks[0][1]
+            if clock_net in opts.xlate:
+                clock_net = opts.xlate[clock_net]
             print '\tinferred clock net: %s' % clock_net
         else:
             print '\tusing clock net override: %s' % clock_net
@@ -314,6 +323,8 @@ def subst_mhs( mhs, targets, opts ):
                 print '\t\t%s' % '\n\t\t'.join( ['%s (net %s)' % x for x in resets] )
                 return False
             reset_net = resets[0][1]
+            if reset_net in opts.xlate:
+                reset_net = opts.xlate[reset_net]
             print '\tinferred reset net: %s' % reset_net
         else:
             print '\tusing reset net override: %s' % reset_net
@@ -326,7 +337,7 @@ def subst_mhs( mhs, targets, opts ):
         # Insert stimulator and recorder cores for AXI Stream nets attached to this entity
         if not s_axis_nets and not m_axis_nets:
             print '\twarning: no AXI Stream nets found, even though core is a candidate\n'
-            continue
+            return True
         if s_axis_nets:
             print '\tnf10_axis_sim_record instance(s) on AXI Stream master net(s):'
             for net in s_axis_nets:
@@ -342,7 +353,7 @@ def subst_mhs( mhs, targets, opts ):
                     return False
                 if not other:
                     print '\twarning: nothing else attached to net %s' % net
-                    continue
+                    return True
                 other_width = get_parameter( other, 'C_M_AXIS_DATA_WIDTH' )
                 if other_width is not None and s_width is not None and other_width != s_width:
                     print 'error: width of attached instance\'s port disagrees with this instance'
@@ -375,7 +386,7 @@ def subst_mhs( mhs, targets, opts ):
                     return False
                 if not other:
                     print '\twarning: nothing else attached to net %s' % net
-                    continue
+                    return True
                 other_width = get_parameter( other, 'C_S_AXIS_DATA_WIDTH' )
                 if other_width is not None and m_width is not None and other_width != m_width:
                     print 'error: width of attached instance\'s port disagrees with this instance'
@@ -394,7 +405,48 @@ def subst_mhs( mhs, targets, opts ):
                                    inst_name, STIM_VER, axi_file, width, net, clock_net, reset_net )
                 print '\t\t%s (%s)' % (net, axi_file)
         print
+        return True
 
+    def do_overrides( index, ent ):
+        """
+        Perform reset and clock overrides on the specified entity, if required.
+        The original instance is retained - but disabled - in the MHS file.  A
+        special comment marker flags to UNDO to remove such overriden
+        instances.
+        """
+        core_name = ent.core_name()
+        core_inst = get_parameter( ent, 'INSTANCE' )
+        subst_required = False
+        new_inst = ent.copy()
+        for inst_ent in new_inst.inst_ents:
+            if inst_ent.kw() != 'PORT':
+                continue
+            for args_index in range(len(inst_ent.args)):
+                port, net = inst_ent.args[args_index]
+                if net in opts.xlate:
+                    inst_ent.args[args_index] = (port, opts.xlate[net])
+                    subst_required = True
+        if subst_required:
+            print 'Performing overrides on pcore %s' % core_name
+            print '                    (instance %s)' % core_inst
+            set_disabled_flag( ent, True )
+            ent.comment = DISABLED_FLAG
+            mhs.insert( index+1, new_inst )
+            print
+
+        return True
+
+    for index in reversed(xrange(len(mhs))):
+        ent = mhs[index]
+        if not ent.is_begin():
+            continue
+
+        if ent.core_name() in targets:
+            cont_flag = do_subst( index, ent )
+        else:
+            cont_flag = do_overrides( index, ent )
+        if not cont_flag:
+            return False
     return True     # Success
 
 
@@ -414,10 +466,13 @@ def unsubst_mhs( mhs ):
         else:
             del_comments = False
 
-        # Delete sim cores, and enable disabled cores
+        # Delete sim cores and cores with substituted nets, and enable disabled cores
         if ent.is_begin():
             if ent.disabled_flag:
                 set_disabled_flag( ent, False )
+                if ent.comment == DISABLED_FLAG:
+                    ent.comment = None
+                    del mhs[index+1]
             if ent.core_name() in ['nf10_axis_sim_stim', 'nf10_axis_sim_record']:
                 del mhs[index]
                 del_comments = True
@@ -430,15 +485,19 @@ def write_mhs( fh, mhs ):
             write_mhs( fh, ent.inst_ents )
 
 
-def net_override_cb( opt, opt_str, value, parser ):
+def net_override_cb( opt, opt_str, value, parser, lblank_allowed ):
     """
     Callback for processing net override arguments.
     """
     try:
-        inst, net = [x.strip() for x in value.split( '=', 1 )]
+        lval, rval = [x.strip() for x in value.split( '=', 1 )]
     except ValueError:
         raise optparse.OptionValueError( '%s: bad spec %s' % (opt_str, value) )
-    getattr( parser.values, opt.dest )[inst] = net
+    if not rval:
+        raise optparse.OptionValueError( '%s: null rvalue %s' % (opt_str, value) )
+    if not lblank_allowed and not lval:
+        raise optparse.OptionValueError( '%s: null lvalue %s' % (opt_str, value) )
+    getattr( parser.values, opt.dest )[lval] = rval
 
 
 def main():
@@ -467,12 +526,16 @@ Current list of default target pcores:
         help='Input MHS file')
     parser.add_option(
         '-r', '--reset', type='string', metavar='[INST|CORE]=NET', dest='resets', default={},
-        action='callback', callback=net_override_cb, nargs=1,
+        action='callback', callback=net_override_cb, nargs=1, callback_args=(True,),
         help='Override reset net for targets')
     parser.add_option(
         '-c', '--clock', type='string', metavar='[INST|CORE]=NET', dest='clocks', default={},
-        action='callback', callback=net_override_cb, nargs=1,
+        action='callback', callback=net_override_cb, nargs=1, callback_args=(True,),
         help='Override clock net for targets')
+    parser.add_option(
+        '-x', '--xlate', type='string', metavar='NET=NET', dest='xlate', default={},
+        action='callback', callback=net_override_cb, nargs=1, callback_args=(False,),
+        help='Translate net names')
     parser.add_option(
         '-a', '--axi-path', type='string', metavar='PATH', default='../..',
         help='Path to AXI files (default: ../../ which, from the simulator, means the project directory)')
