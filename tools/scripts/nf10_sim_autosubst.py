@@ -171,9 +171,8 @@ def get_ents_by_kw( ents, kw ):
     BEGIN Entity.
     """
     if type(ents) == Entity: ents = ents.inst_ents
-    return reduce( operator.add,
-                   [x.args for x in filter( lambda x: x.kw() == kw, ents )],
-                   [] )
+    return sum( [x.args for x in filter( lambda x: x.kw() == kw, ents )],
+                [] )
 
 
 def get_parameter( ents, name ):
@@ -206,9 +205,8 @@ def get_other_inst( mhs, inst, net ):
     others = filter( lambda other: (
                             other is not inst and not other.disabled_flag and
                             filter( lambda x: x[1].upper() == net.upper(),  # matching nets
-                                    reduce( operator.add,
-                                            (get_ents_by_kw( other, kw ) for kw in net_kws),
-                                            [] )                            # all instance nets
+                                    sum( (get_ents_by_kw( other, kw ) for kw in net_kws),
+                                         [] )                               # all instance nets
                                     ) ),
                      instances(mhs) )
     if len(others) > 1:
