@@ -266,6 +266,16 @@ def subst_mhs( mhs, targets, opts ):
     """
     Perform AXI Stream source/sink substitutions
     """
+    def get_override( overrides, name, inst ):
+        """
+        returns override by instance if one exists, failing which, by core,
+        failing which, by default, failing which, None.
+        """
+        if inst in overrides: return overrides[inst]
+        if name in overrides: return overrides[name]
+        if ''   in overrides: return overrides['']
+        return None
+
     for index, ent in enumerate(mhs):
         if not ent.is_begin() or ent.core_name() not in targets:
             continue
@@ -280,32 +290,35 @@ def subst_mhs( mhs, targets, opts ):
         # Attempt to infer the correct clock and reset nets
         ports = get_ents_by_kw( ent, 'PORT' )
 
-        clocks = filter( lambda x: clk_re.match(x[0]), ports )
-        if len(clocks) == 0:
-            print '\terror: failed to infer clock - no candidates found'
-            return False
-        if len(clocks) > 1:
-            print '\terror: failed to infer clock - ambiguous possibilities:'
-            print '\t\t%s' % '\n\t\t'.join( ['%s (net %s)' % x for x in clocks] )
-            return False
-        clock_net = clocks[0][1]
-        print '\tinferred clock net: %s' % clock_net
-
-        resets = filter( lambda x: rst_re.match(x[0]), ports )
-        if len(resets) > 1:
-            print '\terror: failed to infer reset - ambiguous possibilities:'
-            print '\t\t%s' % '\n\t\t'.join( ['%s (net %s)' % x for x in resets] )
-            return False
-        if len(resets) == 0:
-            if opts.default_reset is None:
-                print '\terror: failed to infer reset: no candidates found, and no default specified'
+        clock_net = get_override( opts.clocks, core_name, core_inst )
+        if clock_net is None:
+            clocks = filter( lambda x: clk_re.match(x[0]), ports )
+            if len(clocks) == 0:
+                print '\terror: failed to infer clock - no candidates found'
                 return False
-            else:
-                print '\tno candidate reset found: using default (net %s)' % opts.default_reset
-                reset_net = opts.default_reset
-        else: # len(resets) == 1
+            if len(clocks) > 1:
+                print '\terror: failed to infer clock - ambiguous possibilities:'
+                print '\t\t%s' % '\n\t\t'.join( ['%s (net %s)' % x for x in clocks] )
+                return False
+            clock_net = clocks[0][1]
+            print '\tinferred clock net: %s' % clock_net
+        else:
+            print '\tusing clock net override: %s' % clock_net
+
+        reset_net = get_override( opts.resets, core_name, core_inst )
+        if reset_net is None:
+            resets = filter( lambda x: rst_re.match(x[0]), ports )
+            if len(resets) == 0:
+                print '\terror: failed to infer reset - no candidates found'
+                return False
+            if len(resets) > 1:
+                print '\terror: failed to infer reset - ambiguous possibilities:'
+                print '\t\t%s' % '\n\t\t'.join( ['%s (net %s)' % x for x in resets] )
+                return False
             reset_net = resets[0][1]
             print '\tinferred reset net: %s' % reset_net
+        else:
+            print '\tusing reset net override: %s' % reset_net
 
         # Find any AXI Stream ports, and what they're attached to
         bus_args = get_ents_by_kw( ent, 'BUS_INTERFACE' )
@@ -419,6 +432,17 @@ def write_mhs( fh, mhs ):
             write_mhs( fh, ent.inst_ents )
 
 
+def net_override_cb( opt, opt_str, value, parser ):
+    """
+    Callback for processing net override arguments.
+    """
+    try:
+        inst, net = [x.strip() for x in value.split( '=', 1 )]
+    except ValueError:
+        raise optparse.OptionValueError( '%s: bad spec %s' % (opt_str, value) )
+    getattr( parser.values, opt.dest )[inst] = net
+
+
 def main():
     # Hackish but simple fix to optparser's annoying default behaviour of
     # stripping newlines from the epilog.
@@ -429,6 +453,10 @@ def main():
         usage  = '%prog [options] -m <input.mhs> [target_pcores ...]',
         version= '1.0',
         epilog = """
+NB: A clock or reset net override not constrained to a specific instance or
+    type of pcore (eg -r =my_reset) forces respective net on ALL target
+    instances.
+
 Current list of default target pcores:
         %s
 """ % '\n\t'.join( DEFAULT_TARGETS )
@@ -440,8 +468,13 @@ Current list of default target pcores:
         '-m', '--mhs-file', type='string', metavar='FILE',
         help='Input MHS file')
     parser.add_option(
-        '-r', '--default-reset', type='string', metavar='NET',
-        help='Default reset net for targets otherwise lacking an explicit reset')
+        '-r', '--reset', type='string', metavar='[INST|CORE]=NET', dest='resets', default={},
+        action='callback', callback=net_override_cb, nargs=1,
+        help='Override reset net for targets')
+    parser.add_option(
+        '-c', '--clock', type='string', metavar='[INST|CORE]=NET', dest='clocks', default={},
+        action='callback', callback=net_override_cb, nargs=1,
+        help='Override clock net for targets')
     parser.add_option(
         '-a', '--axi-path', type='string', metavar='PATH', default='../..',
         help='Path to AXI files (default: ../../ which, from the simulator, means the project directory)')
