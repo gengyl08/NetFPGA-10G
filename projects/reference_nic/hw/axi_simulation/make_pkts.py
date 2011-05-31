@@ -46,8 +46,8 @@ for i in range(0, 10):
     pkts.append(pkt)
              
 # Write out to console
-axitools.axis_dump( pkts, f0, 64, 1e-9 )
-axitools.axis_dump( pkts, f1, 64, 1e-9 )
-axitools.axis_dump( pkts, f2, 64, 1e-9 )
-axitools.axis_dump( pkts, f3, 64, 1e-9 )
-axitools.axis_dump( pkts, f4, 32, 1e-9 )
+axitools.axis_dump( pkts, f0, 256, 1e-9 )
+axitools.axis_dump( pkts, f1, 256, 1e-9 )
+axitools.axis_dump( pkts, f2, 256, 1e-9 )
+axitools.axis_dump( pkts, f3, 256, 1e-9 )
+axitools.axis_dump( pkts, f4, 256, 1e-9 )

@@ -97,7 +97,10 @@ module output_port_lookup
       case(state)
 	MODULE_HEADER: begin
 	   if (s_axis_tvalid & s_axis_tready) begin
-	      if(pkt_is_from_cpu) begin
+	      if(~|s_axis_tuser[SRC_PORT_POS+:7]) begin
+	      	in_tuser_modded[DST_PORT_POS+7:DST_PORT_POS] = 8'b1;
+	      end // Default: Send to MAC 0
+	      else if(pkt_is_from_cpu) begin
 		 in_tuser_modded[DST_PORT_POS+7:DST_PORT_POS] = {1'b0, 
 			s_axis_tuser[SRC_PORT_POS+7:SRC_PORT_POS+1]};
 	      end

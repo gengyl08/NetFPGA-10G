@@ -15,7 +15,7 @@
 //
 //  Revision history:
 //          2010/11/28 hyzeng: Initial check-in
-//          2010/12/17 hyzeng: Added AXI4-Stream packet generator/checker
+//          2011/5/26  hyzeng: Tailored for refernce NIC
 //
 ////////////////////////////////////////////////////////////////////////
 

@@ -33,7 +33,10 @@ module nf10_oped #
   parameter                              C_M_AXIS_DAT_DATA_WIDTH = 32,
   parameter                              C_S_AXIS_DAT_DATA_WIDTH = 32,
   parameter                              C_M_AXIS_DAT_USER_WIDTH = 128,
-  parameter                              C_S_AXIS_DAT_USER_WIDTH = 128)
+  parameter                              C_S_AXIS_DAT_USER_WIDTH = 128,
+    parameter C_DEFAULT_VALUE_ENABLE = 0,
+    parameter C_DEFAULT_SRC_PORT = 0,
+    parameter C_DEFAULT_DST_PORT = 0)
 
   ( // OPED uses the MPD-specified signal names for the AXI user-facing ports...
   input                                  PCIE_CLKP,           // PCIe connections...
@@ -92,13 +95,32 @@ module nf10_oped #
 // This adaptation layer may be removed at a later date when it is clear it is not needed
 //
 
+  localparam                              C_M_AXIS_DAT_DATA_WIDTH_INTERNAL = 32;
+  localparam                              C_S_AXIS_DAT_DATA_WIDTH_INTERNAL = 32;
+  localparam                              C_M_AXIS_DAT_USER_WIDTH_INTERNAL = 128;
+  localparam                              C_S_AXIS_DAT_USER_WIDTH_INTERNAL = 128;
+
 // Compile time check for expected paramaters...
 initial begin
-  if (C_M_AXIS_DAT_DATA_WIDTH != 32)  begin $display("Unsupported M_AXIS_DAT DATA width"); $finish; end
-  if (C_S_AXIS_DAT_DATA_WIDTH != 32)  begin $display("Unsupported S_AXIS_DAT DATA width"); $finish; end
-  if (C_M_AXIS_DAT_USER_WIDTH != 128) begin $display("Unsupported M_AXIS_DAT USER width"); $finish; end
-  if (C_S_AXIS_DAT_USER_WIDTH != 128) begin $display("Unsupported S_AXIS_DAT USER width"); $finish; end
+  if (C_M_AXIS_DAT_DATA_WIDTH_INTERNAL != 32)  begin $display("Unsupported M_AXIS_DAT DATA width"); $finish; end
+  if (C_S_AXIS_DAT_DATA_WIDTH_INTERNAL != 32)  begin $display("Unsupported S_AXIS_DAT DATA width"); $finish; end
+  if (C_M_AXIS_DAT_USER_WIDTH_INTERNAL != 128) begin $display("Unsupported M_AXIS_DAT USER width"); $finish; end
+  if (C_S_AXIS_DAT_USER_WIDTH_INTERNAL != 128) begin $display("Unsupported S_AXIS_DAT USER width"); $finish; end
 end
+
+  wire [C_M_AXIS_DAT_DATA_WIDTH_INTERNAL-1:0]   M_AXIS_DAT_TDATA_INTERNAL;    // AXI4-Stream (Ingress from PCIe) Master-Producer...
+  wire [C_M_AXIS_DAT_DATA_WIDTH_INTERNAL/8-1:0] M_AXIS_DAT_TSTRB_INTERNAL;
+  wire [C_M_AXIS_DAT_USER_WIDTH_INTERNAL-1:0]   M_AXIS_DAT_TUSER_INTERNAL; 
+  wire                                 M_AXIS_DAT_TLAST_INTERNAL;
+  wire                                 M_AXIS_DAT_TVALID_INTERNAL;
+  wire                                 M_AXIS_DAT_TREADY_INTERNAL;
+
+  wire  [C_S_AXIS_DAT_DATA_WIDTH_INTERNAL-1:0]   S_AXIS_DAT_TDATA_INTERNAL;    // AXI4-Stream (Egress to PCIe) Slave-Consumer...
+  wire  [C_S_AXIS_DAT_DATA_WIDTH_INTERNAL/8-1:0] S_AXIS_DAT_TSTRB_INTERNAL;
+  wire  [C_S_AXIS_DAT_USER_WIDTH_INTERNAL-1:0]   S_AXIS_DAT_TUSER_INTERNAL; 
+  wire                                  S_AXIS_DAT_TLAST_INTERNAL;
+  wire                                  S_AXIS_DAT_TVALID_INTERNAL;
+  wire                                  S_AXIS_DAT_TREADY_INTERNAL;
 
  mkOPED_v5 oped (
   .pci0_clkp         (PCIE_CLKP),
@@ -131,21 +153,76 @@ end
   .axi4m_RVALID      (M_AXI_RVALID),
   .axi4m_RREADY      (M_AXI_RREADY),
 
-  .axisM_TDATA       (M_AXIS_DAT_TDATA),
-  .axisM_TVALID      (M_AXIS_DAT_TVALID),
-  .axisM_TSTRB       (M_AXIS_DAT_TSTRB),
-  .axisM_TUSER       (M_AXIS_DAT_TUSER),
-  .axisM_TLAST       (M_AXIS_DAT_TLAST),
-  .axisM_TREADY      (M_AXIS_DAT_TREADY),
+  .axisM_TDATA       (M_AXIS_DAT_TDATA_INTERNAL),
+  .axisM_TVALID      (M_AXIS_DAT_TVALID_INTERNAL),
+  .axisM_TSTRB       (M_AXIS_DAT_TSTRB_INTERNAL),
+  .axisM_TUSER       (M_AXIS_DAT_TUSER_INTERNAL),
+  .axisM_TLAST       (M_AXIS_DAT_TLAST_INTERNAL),
+  .axisM_TREADY      (M_AXIS_DAT_TREADY_INTERNAL),
 
-  .axisS_TDATA       (S_AXIS_DAT_TDATA),
-  .axisS_TVALID      (S_AXIS_DAT_TVALID),
-  .axisS_TSTRB       (S_AXIS_DAT_TSTRB),
-  .axisS_TUSER       (S_AXIS_DAT_TUSER),
-  .axisS_TLAST       (S_AXIS_DAT_TLAST),
-  .axisS_TREADY      (S_AXIS_DAT_TREADY),
+  .axisS_TDATA       (S_AXIS_DAT_TDATA_INTERNAL),
+  .axisS_TVALID      (S_AXIS_DAT_TVALID_INTERNAL),
+  .axisS_TSTRB       (S_AXIS_DAT_TSTRB_INTERNAL),
+  .axisS_TUSER       (S_AXIS_DAT_TUSER_INTERNAL),
+  .axisS_TLAST       (S_AXIS_DAT_TLAST_INTERNAL),
+  .axisS_TREADY      (S_AXIS_DAT_TREADY_INTERNAL),
 
   .debug             (DEBUG)
 );
+
+    nf10_axis_converter 
+    #(.C_M_AXIS_DATA_WIDTH(C_M_AXIS_DAT_DATA_WIDTH),
+      .C_S_AXIS_DATA_WIDTH(C_M_AXIS_DAT_DATA_WIDTH_INTERNAL),
+      .C_DEFAULT_VALUE_ENABLE(C_DEFAULT_VALUE_ENABLE),
+      .C_DEFAULT_SRC_PORT(C_DEFAULT_SRC_PORT),
+      .C_DEFAULT_DST_PORT(C_DEFAULT_DST_PORT)
+     ) converter_master
+    (
+    // Global Ports
+    .axi_aclk(ACLK),
+    .axi_resetn(ARESETN),
+    
+    // Master Stream Ports
+    .m_axis_tdata(M_AXIS_DAT_TDATA),
+    .m_axis_tstrb(M_AXIS_DAT_TSTRB),
+    .m_axis_tvalid(M_AXIS_DAT_TVALID),
+    .m_axis_tready(M_AXIS_DAT_TREADY),
+    .m_axis_tlast(M_AXIS_DAT_TLAST),
+	.m_axis_tuser(M_AXIS_DAT_TUSER),
+    
+    // Slave Stream Ports
+    .s_axis_tdata(M_AXIS_DAT_TDATA_INTERNAL),
+    .s_axis_tstrb(M_AXIS_DAT_TSTRB_INTERNAL),
+    .s_axis_tvalid(M_AXIS_DAT_TVALID_INTERNAL),
+    .s_axis_tready(M_AXIS_DAT_TREADY_INTERNAL),
+    .s_axis_tlast(M_AXIS_DAT_TLAST_INTERNAL),
+	.s_axis_tuser(M_AXIS_DAT_TUSER_INTERNAL)
+   );
+
+    nf10_axis_converter 
+    #(.C_M_AXIS_DATA_WIDTH(C_S_AXIS_DAT_DATA_WIDTH_INTERNAL),
+      .C_S_AXIS_DATA_WIDTH(C_S_AXIS_DAT_DATA_WIDTH)
+     ) converter_slave
+    (
+    // Global Ports
+    .axi_aclk(ACLK),
+    .axi_resetn(ARESETN),
+    
+    // Master Stream Ports
+    .m_axis_tdata(S_AXIS_DAT_TDATA_INTERNAL),
+    .m_axis_tstrb(S_AXIS_DAT_TSTRB_INTERNAL),
+    .m_axis_tvalid(S_AXIS_DAT_TVALID_INTERNAL),
+    .m_axis_tready(S_AXIS_DAT_TREADY_INTERNAL),
+    .m_axis_tlast(S_AXIS_DAT_TLAST_INTERNAL),
+	 .m_axis_tuser(S_AXIS_DAT_TUSER_INTERNAL),
+    
+    // Slave Stream Ports
+    .s_axis_tdata(S_AXIS_DAT_TDATA),
+    .s_axis_tstrb(S_AXIS_DAT_TSTRB),
+    .s_axis_tvalid(S_AXIS_DAT_TVALID),
+    .s_axis_tready(S_AXIS_DAT_TREADY),
+    .s_axis_tlast(S_AXIS_DAT_TLAST),
+	.s_axis_tuser(S_AXIS_DAT_TUSER)
+   );
 
 endmodule
