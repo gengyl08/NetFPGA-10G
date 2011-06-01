@@ -27,6 +27,12 @@ ifeq "$(shell uname -o)" "Cygwin"
 SIM_CMD := $(subst ./, cmd /c , $(SIM_CMD))
 endif
 
+NF10_NGC_FILES := implementation/nf10_oped_0_wrapper.ngc \
+				  implementation/axi_interconnect_0_wrapper.ngc
+
+NF10_SCR_FILES := nf10/nf10_oped_0_wrapper_xst.scr \
+				  nf10/axi_interconnect_0_wrapper_xst.scr
+
 #################################################################
 # PHONY TARGETS
 #################################################################
@@ -149,11 +155,16 @@ $(WRAPPER_NGC_FILES): $(MHSFILE) __xps/platgen.opt \
 	@echo "****************************************************"
 	platgen $(PLATGEN_OPTIONS) $(MHSFILE)
 
-#James: AXI interconnect workaround. Please note that the SCR is associated with the instance name.
-$(POSTSYN_NETLIST): $(WRAPPER_NGC_FILES)
+#James: Platgen cannot accept special xst switch. This is a dirty workaround.
+$(NF10_NGC_FILES): $(NF10_SCR_FILES)
+	@echo "Running NetFPGA-10G specific synthesis..."
+	cd synthesis ; for scr in $(NF10_SCR_FILES); do \
+		xst -ifn ../$$scr; \
+	done;
+
+$(POSTSYN_NETLIST): $(WRAPPER_NGC_FILES) $(NF10_NGC_FILES)
 	@echo "Running synthesis..."
-	cp nf10/axi_interconnect.scr ./synthesis/axi_interconnect_memory_mapped_lite_0_wrapper_xst.scr
-	bash -c "cd synthesis; ./synthesis.sh"
+	cd synthesis; xst -ifn "system_xst.scr"
 
 #James: Use multi-core map and par. Parameters in nf10/xflow.opt
 __xps/$(SYSTEM)_routed: $(FPGA_IMP_DEPENDENCY)
