@@ -29,7 +29,8 @@ OPTION LONG_DESC = Records traffic received from an AXI Stream master to an AXI 
 BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
 
 ## Generics for VHDL or Parameters for Verilog
-PARAMETER C_S_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (8,32,64,256), BUS = S_AXIS
+PARAMETER C_S_AXIS_DATA_WIDTH = 256, DT = INTEGER, RANGE = (8,32,64,256), BUS = S_AXIS
+PARAMETER C_USER_WIDTH = 128, DT = INTEGER, RANGE = (128), BUS = S_AXIS
 PARAMETER output_file = ../../stream_data_out.axi, DT = STRING
 
 ## Ports
@@ -37,6 +38,7 @@ PORT aclk = "", DIR = I, SIGIS = CLK, BUS = S_AXIS, ASSIGNMENT=REQUIRE
 
 PORT s_axis_tdata = TDATA, DIR = I, VEC = [C_S_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS, ENDIAN = LITTLE
 PORT s_axis_tstrb = TSTRB, DIR = I, VEC = [(C_S_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tuser = TUSER, DIR = I, VEC = [C_USER_WIDTH-1:0], BUS = S_AXIS, ENDIAN = LITTLE
 PORT s_axis_tvalid = TVALID, DIR = I, BUS = S_AXIS
 PORT s_axis_tready = TREADY, DIR = O, BUS = S_AXIS
 PORT s_axis_tlast = TLAST, DIR = I, BUS = S_AXIS

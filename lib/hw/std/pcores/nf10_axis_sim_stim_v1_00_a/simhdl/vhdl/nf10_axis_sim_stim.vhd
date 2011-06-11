@@ -22,7 +22,8 @@ use nf10_axis_sim_pkg_v1_00_a.nf10_axis_sim_pkg.all;
 
 entity nf10_axis_sim_stim is
     generic (
-	C_M_AXIS_DATA_WIDTH : integer := 64;  -- max 256bit supported
+	C_M_AXIS_DATA_WIDTH : integer := 256;
+	C_USER_WIDTH	    : integer := 128;
 	input_file	    : string  := "../../stream_data_in.axi"
 	);
     port (
@@ -30,8 +31,9 @@ entity nf10_axis_sim_stim is
 	ARESETN       : in std_logic;
 
 	-- axi streaming data interface
-	M_AXIS_TDATA  : out std_logic_vector (C_M_AXIS_DATA_WIDTH-1 downto 0);
-	M_AXIS_TSTRB  : out std_logic_vector (C_M_AXIS_DATA_WIDTH/8-1 downto 0);
+	M_AXIS_TDATA  : out std_logic_vector( C_M_AXIS_DATA_WIDTH-1 downto 0 );
+	M_AXIS_TSTRB  : out std_logic_vector( C_M_AXIS_DATA_WIDTH/8-1 downto 0 );
+	M_AXIS_TUSER  : out std_logic_vector( C_USER_WIDTH-1 downto 0 );
 	M_AXIS_TVALID : out std_logic;
 	M_AXIS_TREADY : in  std_logic;
 	M_AXIS_TLAST  : out std_logic
@@ -51,6 +53,7 @@ begin
 	begin
 	    M_AXIS_TDATA <= (others => '0');
 	    M_AXIS_TSTRB <= (others => '0');
+	    M_AXIS_TUSER <= (others => '0');
 	    M_AXIS_TLAST <= '0';
 	    M_AXIS_TVALID <= '0';
 	end procedure;
@@ -130,6 +133,11 @@ begin
 		    severity failure;
 		read_char( l, c );	-- discard ','
 		parse_slv( l, M_AXIS_TSTRB, dontcare );
+		assert not dontcare
+		    report "bad input: nf10_axis_sim_stim doesn't accept 'don't-cares'"
+		    severity failure;
+		read_char( l, c );	-- discard ','
+		parse_slv( l, M_AXIS_TUSER, dontcare );
 		assert not dontcare
 		    report "bad input: nf10_axis_sim_stim doesn't accept 'don't-cares'"
 		    severity failure;
