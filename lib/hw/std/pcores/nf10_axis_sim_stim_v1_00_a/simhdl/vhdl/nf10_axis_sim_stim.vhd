@@ -123,11 +123,6 @@ begin
 	    else
 		M_AXIS_TVALID <= '1';
 
-		-- block until target ready
-		while M_AXIS_TREADY /= '1' loop
-		    wait_cycle;
-		end loop;
-
 		-- parse out each component of the stimulus
 		parse_slv( l, M_AXIS_TDATA, dontcare );
 		assert not dontcare
@@ -152,6 +147,11 @@ begin
 	    end if;
 
 	    deallocate(l); 		-- finished with input line
+	    
+	    -- block until target ready
+		while M_AXIS_TREADY /= '1' loop
+		    wait_cycle;
+		end loop;
 	end loop;
 
 	-- End of stimuli.

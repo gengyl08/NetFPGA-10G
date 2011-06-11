@@ -141,7 +141,7 @@ END
 BEGIN nf10_axis_sim_stim
  PARAMETER INSTANCE = nf10_axis_sim_stim_0
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_M_AXIS_DATA_WIDTH = 64
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
  PARAMETER input_file = ../../stream_data_in_0.axi
  BUS_INTERFACE M_AXIS = nf10_10g_interface_0_M_AXIS
  PORT ACLK = core_clk
@@ -151,16 +151,16 @@ END
 BEGIN nf10_axis_sim_record
  PARAMETER INSTANCE = nf10_axis_sim_record_0
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_S_AXIS_DATA_WIDTH = 64
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
  PARAMETER output_file = ../../stream_data_out_0.axi
- BUS_INTERFACE S_AXIS = nf10_axis_converter_4_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_0
  PORT ACLK = core_clk
 END
 
 BEGIN nf10_axis_sim_stim
  PARAMETER INSTANCE = nf10_axis_sim_stim_1
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_M_AXIS_DATA_WIDTH = 64
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
  PARAMETER input_file = ../../stream_data_in_1.axi
  BUS_INTERFACE M_AXIS = nf10_10g_interface_1_M_AXIS
  PORT ACLK = core_clk
@@ -170,16 +170,16 @@ END
 BEGIN nf10_axis_sim_record
  PARAMETER INSTANCE = nf10_axis_sim_record_1
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_S_AXIS_DATA_WIDTH = 64
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
  PARAMETER output_file = ../../stream_data_out_1.axi
- BUS_INTERFACE S_AXIS = nf10_axis_converter_5_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_1
  PORT ACLK = core_clk
 END
 
 BEGIN nf10_axis_sim_stim
  PARAMETER INSTANCE = nf10_axis_sim_stim_2
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_M_AXIS_DATA_WIDTH = 64
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
  PARAMETER input_file = ../../stream_data_in_2.axi
  BUS_INTERFACE M_AXIS = nf10_10g_interface_2_M_AXIS
  PORT ACLK = core_clk
@@ -189,16 +189,16 @@ END
 BEGIN nf10_axis_sim_record
  PARAMETER INSTANCE = nf10_axis_sim_record_2
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_S_AXIS_DATA_WIDTH = 64
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
  PARAMETER output_file = ../../stream_data_out_2.axi
- BUS_INTERFACE S_AXIS = nf10_axis_converter_6_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_2
  PORT ACLK = core_clk
 END
 
 BEGIN nf10_axis_sim_stim
  PARAMETER INSTANCE = nf10_axis_sim_stim_3
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_M_AXIS_DATA_WIDTH = 64
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
  PARAMETER input_file = ../../stream_data_in_3.axi
  BUS_INTERFACE M_AXIS = nf10_10g_interface_3_M_AXIS
  PORT ACLK = core_clk
@@ -208,9 +208,9 @@ END
 BEGIN nf10_axis_sim_record
  PARAMETER INSTANCE = nf10_axis_sim_record_3
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_S_AXIS_DATA_WIDTH = 64
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
  PARAMETER output_file = ../../stream_data_out_3.axi
- BUS_INTERFACE S_AXIS = nf10_axis_converter_7_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_3
  PORT ACLK = core_clk
 END
 
@@ -270,104 +270,16 @@ BEGIN axi_timebase_wdt
  PORT S_AXI_ACLK = control_clk
 END
 
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_0
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_M_AXIS_DATA_WIDTH = 256
- PARAMETER C_DEFAULT_VALUE_ENABLE = 1
- PARAMETER C_DEFAULT_SRC_PORT = 0x1
- BUS_INTERFACE S_AXIS = nf10_10g_interface_0_M_AXIS
- BUS_INTERFACE M_AXIS = nf10_axis_converter_0_M_AXIS
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
-END
-
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_1
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_M_AXIS_DATA_WIDTH = 256
- PARAMETER C_DEFAULT_VALUE_ENABLE = 1
- PARAMETER C_DEFAULT_SRC_PORT = 0x4
- BUS_INTERFACE M_AXIS = nf10_axis_converter_1_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_10g_interface_1_M_AXIS
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
-END
-
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_2
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_M_AXIS_DATA_WIDTH = 256
- PARAMETER C_DEFAULT_VALUE_ENABLE = 1
- PARAMETER C_DEFAULT_SRC_PORT = 0x10
- BUS_INTERFACE S_AXIS = nf10_10g_interface_2_M_AXIS
- BUS_INTERFACE M_AXIS = nf10_axis_converter_2_M_AXIS
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
-END
-
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_3
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_M_AXIS_DATA_WIDTH = 256
- PARAMETER C_DEFAULT_VALUE_ENABLE = 1
- PARAMETER C_DEFAULT_SRC_PORT = 0x40
- BUS_INTERFACE S_AXIS = nf10_10g_interface_3_M_AXIS
- BUS_INTERFACE M_AXIS = nf10_axis_converter_3_M_AXIS
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
-END
-
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_4
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_S_AXIS_DATA_WIDTH = 256
- BUS_INTERFACE M_AXIS = nf10_axis_converter_4_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_0
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
-END
-
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_5
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_S_AXIS_DATA_WIDTH = 256
- BUS_INTERFACE M_AXIS = nf10_axis_converter_5_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_1
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
-END
-
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_6
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_S_AXIS_DATA_WIDTH = 256
- BUS_INTERFACE M_AXIS = nf10_axis_converter_6_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_2
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
-END
-
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_7
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_S_AXIS_DATA_WIDTH = 256
- BUS_INTERFACE M_AXIS = nf10_axis_converter_7_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_3
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
-END
-
 BEGIN nf10_input_arbiter
  PARAMETER INSTANCE = nf10_input_arbiter_0
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE M_AXIS = nf10_input_arbiter_0_M_AXIS
- BUS_INTERFACE S_AXIS_0 = nf10_axis_converter_0_M_AXIS
- BUS_INTERFACE S_AXIS_1 = nf10_axis_converter_1_M_AXIS
- BUS_INTERFACE S_AXIS_2 = nf10_axis_converter_2_M_AXIS
- BUS_INTERFACE S_AXIS_3 = nf10_axis_converter_3_M_AXIS
- BUS_INTERFACE S_AXIS_4 = nf10_axis_converter_8_M_AXIS
+ BUS_INTERFACE S_AXIS_0 = nf10_10g_interface_0_M_AXIS
+ BUS_INTERFACE S_AXIS_1 = nf10_10g_interface_1_M_AXIS
+ BUS_INTERFACE S_AXIS_2 = nf10_10g_interface_2_M_AXIS
+ BUS_INTERFACE S_AXIS_3 = nf10_10g_interface_3_M_AXIS
+ BUS_INTERFACE S_AXIS_4 = nf10_oped_0_M_AXIS
  PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
 END
@@ -389,7 +301,7 @@ END
 BEGIN nf10_axis_sim_stim
  PARAMETER INSTANCE = nf10_axis_sim_stim_4
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_M_AXIS_DATA_WIDTH = 32
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
  PARAMETER input_file = ../../stream_data_in_4.axi
  BUS_INTERFACE M_AXIS = nf10_oped_0_M_AXIS
  PORT ACLK = core_clk
@@ -399,35 +311,10 @@ END
 BEGIN nf10_axis_sim_record
  PARAMETER INSTANCE = nf10_axis_sim_record_4
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_S_AXIS_DATA_WIDTH = 32
- PARAMETER output_file = ../../stream_data_out_4.axi
- BUS_INTERFACE S_AXIS = nf10_axis_converter_9_M_AXIS
- PORT ACLK = core_clk
-END
-
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_8
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_M_AXIS_DATA_WIDTH = 256
- PARAMETER C_S_AXIS_DATA_WIDTH = 32
- PARAMETER C_DEFAULT_VALUE_ENABLE = 1
- PARAMETER C_DEFAULT_SRC_PORT = 0x2
- BUS_INTERFACE S_AXIS = nf10_oped_0_M_AXIS
- BUS_INTERFACE M_AXIS = nf10_axis_converter_8_M_AXIS
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
-END
-
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_9
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_M_AXIS_DATA_WIDTH = 32
  PARAMETER C_S_AXIS_DATA_WIDTH = 256
- PARAMETER C_DEFAULT_VALUE_ENABLE = 0
- BUS_INTERFACE M_AXIS = nf10_axis_converter_9_M_AXIS
+ PARAMETER output_file = ../../stream_data_out_4.axi
  BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_4
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
+ PORT ACLK = core_clk
 END
 
 BEGIN output_port_lookup

@@ -1,0 +1,28 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_10g_interface_v2_1_0.pao
+#//
+#//  Description:
+#//          Peripheral Analyze Order File
+#//                 
+#//  Revision history:
+#//          2010/11/28 hyzeng: Initial check-in
+#//          2011/5/26  hyzeng: Included AXIS converter
+#//
+#////////////////////////////////////////////////////////////////////////
+lib nf10_axis_converter_v1_00_a all
+lib nf10_10g_interface_v1_10_a rocketio_wrapper.v verilog
+lib nf10_10g_interface_v1_10_a rocketio_wrapper_tile.v verilog
+lib nf10_10g_interface_v1_10_a xaui_block.v verilog
+lib nf10_10g_interface_v1_10_a tx_queue.v verilog
+lib nf10_10g_interface_v1_10_a rx_queue.v verilog
+lib nf10_10g_interface_v1_10_a nf10_10g_interface.v verilog
+lib nf10_10g_interface_v1_10_a small_async_fifo.v verilog
+lib nf10_10g_interface_v1_10_a tx_sync.v verilog
+lib nf10_10g_interface_v1_10_a chanbond_monitor.v verilog
+lib nf10_10g_interface_v1_10_a cc_2b_1skp.v verilog
+lib nf10_10g_interface_v1_10_a xgmac.v verilog
+lib nf10_10g_interface_v1_10_a xaui.v verilog

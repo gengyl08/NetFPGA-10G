@@ -1,0 +1,212 @@
+181a182,201
+>      // James : another stage
+>      wire [63:0]   gt_rx_data_reg2;
+>      wire [7:0]    gt_rx_data_k_reg2;
+>      wire [7:0]    gt_rx_valid_reg2;
+>      wire [7:0]    gt_rx_elec_idle_reg2;
+>      wire [23:0]   gt_rx_status_reg2;
+>      wire [7:0]    gt_rx_phy_status_reg2;
+>      wire [7:0]    gt_rx_chanisaligned_reg2;
+>      
+>      wire [7:0]    gt_pipe_reset_reg2;
+>      wire [15:0]   gt_rx_power_down_reg2;
+>      wire [7:0]    gt_rx_polarity_reg2;
+>      
+>      wire [63:0]   gt_tx_data_reg2;              
+>      wire [7:0]    gt_tx_data_k_reg2;            
+>      wire [7:0]    gt_tx_elec_idle_reg2;         
+>      wire [7:0]    gt_tx_detect_rx_loopback_reg2;
+>      wire [7:0]    gt_tx_compliance_reg2;        
+>      wire [15:0]   gt_tx_power_down_reg2;
+> 
+280a301,388
+> //////////////////////////////////////////////////////////
+> // Flop Locations for GT TX signals (James: Again!)
+> /////////////////////////////////////////////////////////
+>     genvar a2;
+>     generate
+>     for (a2=0 ; a2 < NO_OF_LANES ; a2= a2+1)
+>     begin:flop2
+> 
+>         FD tx_data0         ( .Q (gt_tx_data_reg2[8*a2+0]), .D (gt_tx_data_reg[8*a2+0]), .C(gt_usrclk2));
+>         FD tx_data1         ( .Q (gt_tx_data_reg2[8*a2+1]), .D (gt_tx_data_reg[8*a2+1]), .C(gt_usrclk2));
+>         FD tx_data2         ( .Q (gt_tx_data_reg2[8*a2+2]), .D (gt_tx_data_reg[8*a2+2]), .C(gt_usrclk2));
+>         FD tx_data3         ( .Q (gt_tx_data_reg2[8*a2+3]), .D (gt_tx_data_reg[8*a2+3]), .C(gt_usrclk2));
+>         FD tx_data4         ( .Q (gt_tx_data_reg2[8*a2+4]), .D (gt_tx_data_reg[8*a2+4]), .C(gt_usrclk2));
+>         FD tx_data5         ( .Q (gt_tx_data_reg2[8*a2+5]), .D (gt_tx_data_reg[8*a2+5]), .C(gt_usrclk2));
+>         FD tx_data6         ( .Q (gt_tx_data_reg2[8*a2+6]), .D (gt_tx_data_reg[8*a2+6]), .C(gt_usrclk2));
+>         FD tx_data7         ( .Q (gt_tx_data_reg2[8*a2+7]), .D (gt_tx_data_reg[8*a2+7]), .C(gt_usrclk2));
+> 
+>         FD tx_data_k        ( .Q (gt_tx_data_k_reg2[a2]),     .D (gt_tx_data_k_reg[a2]),     .C(gt_usrclk2));
+> 
+>         FDCP #(.INIT(1'b1)) tx_elec_idle  ( .Q (gt_tx_elec_idle_reg2[a2]),  .D (gt_tx_elec_idle_reg[a2]),  .C(gt_usrclk2), .CLR(1'b0), .PRE(~clock_lock));
+> 
+>         FD tx_compliance    ( .Q (gt_tx_compliance_reg2[a2]), .D (gt_tx_compliance_reg[a2]), .C(gt_usrclk2));
+> 
+>         FD tx_detect_rx_loopback ( .Q (gt_tx_detect_rx_loopback_reg2[a2]), .D (gt_tx_detect_rx_loopback_reg[a2]), .C(gt_usrclk2));
+> 
+>         FDCP #(.INIT(1'b1)) tx_power_down0 ( .Q (gt_tx_power_down_reg2[2*a2+0]),  .D (gt_tx_power_down_reg[2*a2+0]),  .C(gt_usrclk2), .CLR(1'b0), .PRE(~clock_lock));
+> 
+>         FDCP #(.INIT(1'b0)) tx_power_down1 ( .Q (gt_tx_power_down_reg2[2*a2+1]),  .D (gt_tx_power_down_reg[2*a2+1]),  .C(gt_usrclk2), .CLR(~clock_lock), .PRE(1'b0));
+> 
+>         FDCP #(.INIT(1'b1)) rx_power_down0 ( .Q (gt_rx_power_down_reg2[2*a2+0]),  .D (gt_rx_power_down_reg[2*a2+0]),  .C(gt_usrclk2), .CLR(1'b0), .PRE(~clock_lock));
+> 
+>         FDCP #(.INIT(1'b0)) rx_power_down1 ( .Q (gt_rx_power_down_reg2[2*a2+1]),  .D (gt_rx_power_down_reg[2*a2+1]),  .C(gt_usrclk2), .CLR(~clock_lock), .PRE(1'b0));
+> 
+>         FD rx_polarity      ( .Q (gt_rx_polarity_reg2[a2]),   .D (gt_rx_polarity_reg[a2]),   .C(gt_usrclk2));
+>      
+>         FDCP #(.INIT(1'b1)) reset          ( .Q (gt_pipe_reset_reg2[a2]),    .D (gt_pipe_reset_reg[a2]),    .C(gt_usrclk2), .CLR(1'b0), .PRE(~clock_lock));
+> 
+>         FD rx_data_0        ( .Q (gt_rx_data_reg[8*a2+0]),    .D (gt_rx_data_reg2[8*a2+0]),     .C(gt_usrclk2));
+>         FD rx_data_1        ( .Q (gt_rx_data_reg[8*a2+1]),    .D (gt_rx_data_reg2[8*a2+1]),     .C(gt_usrclk2));
+>         FD rx_data_2        ( .Q (gt_rx_data_reg[8*a2+2]),    .D (gt_rx_data_reg2[8*a2+2]),     .C(gt_usrclk2));
+>         FD rx_data_3        ( .Q (gt_rx_data_reg[8*a2+3]),    .D (gt_rx_data_reg2[8*a2+3]),     .C(gt_usrclk2));
+>         FD rx_data_4        ( .Q (gt_rx_data_reg[8*a2+4]),    .D (gt_rx_data_reg2[8*a2+4]),     .C(gt_usrclk2));
+>         FD rx_data_5        ( .Q (gt_rx_data_reg[8*a2+5]),    .D (gt_rx_data_reg2[8*a2+5]),     .C(gt_usrclk2));
+>         FD rx_data_6        ( .Q (gt_rx_data_reg[8*a2+6]),    .D (gt_rx_data_reg2[8*a2+6]),     .C(gt_usrclk2));
+>         FD rx_data_7        ( .Q (gt_rx_data_reg[8*a2+7]),    .D (gt_rx_data_reg2[8*a2+7]),     .C(gt_usrclk2));
+> 
+>         FD rx_data_k        ( .Q (gt_rx_data_k_reg[a2]),      .D (gt_rx_data_k_reg2[a2]),       .C(gt_usrclk2));
+>         
+>         FDCP #(.INIT(1'b1)) rx_elec_idle   ( .Q (gt_rx_elec_idle_reg[a2]),   .D (gt_rx_elec_idle_reg2[a2]),    .C(gt_usrclk2), .CLR(1'b0), .PRE(~clock_lock));
+>         
+>         FD rx_valid         ( .Q (gt_rx_valid_reg[a2]),       .D (gt_rx_valid_reg2[a2]),        .C(gt_usrclk2));
+> 
+>         FDCP #(.INIT(1'b1)) rx_phy_status  ( .Q (gt_rx_phy_status_reg[a2]),    .D (gt_rx_phy_status_reg2[a2]),      .C(gt_usrclk2), .CLR(1'b0), .PRE(~clock_lock));
+>         
+>         FD rx_chanisaligned ( .Q (gt_rx_chanisaligned_reg[a2]), .D (gt_rx_chanisaligned_reg2[a2]),   .C(gt_usrclk2));
+> 
+>         FD rx_status_0      ( .Q (gt_rx_status_reg[3*a2+0]),  .D (gt_rx_status_reg2[3*a2+0]),   .C(gt_usrclk2));
+>         FD rx_status_1      ( .Q (gt_rx_status_reg[3*a2+1]),  .D (gt_rx_status_reg2[3*a2+1]),   .C(gt_usrclk2));
+>         FD rx_status_2      ( .Q (gt_rx_status_reg[3*a2+2]),  .D (gt_rx_status_reg2[3*a2+2]),   .C(gt_usrclk2));
+> 
+>     end
+>     endgenerate
+> 
+>     genvar b2;
+>     generate
+>     for (b2=NO_OF_LANES; b2 < 8; b2=b2+1) 
+>     begin: tied_off2  
+>         assign gt_tx_data_reg2[8*b2+7:8*b2+0]          = 8'b0;
+>         assign gt_tx_data_k_reg2[b2]                  = 1'b0;
+>         assign gt_tx_elec_idle_reg[b2]               = 1'b1;
+>         assign gt_tx_detect_rx_loopback_reg2[b2]      = 1'b0;
+>         assign gt_tx_compliance_reg2[b2]              = 1'b0;
+>         assign gt_tx_power_down_reg2[2*b2+1:2*b2+0]    = 2'b0;
+>         assign gt_rx_power_down_reg2[2*b2+1:2*b2+0]    = 2'b0;
+>         assign gt_pipe_reset_reg2[b2]                 = 1'b0;
+>         assign gt_rx_polarity_reg2[b2]                = 1'b0;
+> 
+>         assign gt_rx_data_reg[8*b2+7:8*b2+0]              = 8'b0;   
+>         assign gt_rx_data_k_reg[b2]                      = 1'b0;    
+>         assign gt_rx_valid_reg[b2]                       = 1'b0;   
+>         assign gt_rx_elec_idle_reg[b2]                   = 1'b1;
+>         assign gt_rx_status_reg[3*b2+2:3*b2]              = 3'b0;   
+>         assign gt_rx_phy_status_reg[b2]                  = 1'b0;
+>         assign gt_rx_chanisaligned_reg[b2]               = 1'b0;
+> 
+>     end
+>     endgenerate   
+> 
+574,575c682,683
+<             .PHYSTATUS0(gt_rx_phy_status_reg[i+0]),
+<             .PHYSTATUS1(gt_rx_phy_status_reg[i+1]),
+---
+>             .PHYSTATUS0(gt_rx_phy_status_reg2[i+0]),
+>             .PHYSTATUS1(gt_rx_phy_status_reg2[i+1]),
+588,589c696,697
+<             .RXCHANISALIGNED0(gt_rx_chanisaligned_reg[i+0]),
+<             .RXCHANISALIGNED1(gt_rx_chanisaligned_reg[i+1]),
+---
+>             .RXCHANISALIGNED0(gt_rx_chanisaligned_reg2[i+0]),
+>             .RXCHANISALIGNED1(gt_rx_chanisaligned_reg2[i+1]),
+594,595c702,703
+<             .RXCHARISK0({float_rx_data_k[i],float_rx_data_k[i],float_rx_data_k[i],gt_rx_data_k_reg[i]}),
+<             .RXCHARISK1({float_rx_data_k[i+1],float_rx_data_k[i+1],float_rx_data_k[i+1],gt_rx_data_k_reg[i+1]}),
+---
+>             .RXCHARISK0({float_rx_data_k[i],float_rx_data_k[i],float_rx_data_k[i],gt_rx_data_k_reg2[i]}),
+>             .RXCHARISK1({float_rx_data_k[i+1],float_rx_data_k[i+1],float_rx_data_k[i+1],gt_rx_data_k_reg2[i+1]}),
+602,603c710,711
+<             .RXDATA0({float_rx_data[8*i+7:8*i],float_rx_data[8*i+7:8*i],float_rx_data[8*i+7:8*i],gt_rx_data_reg[8*i+7:8*i]}),
+<             .RXDATA1({float_rx_data[8*i+15:8*i+8],float_rx_data[8*i+15:8*i+8],float_rx_data[8*i+15:8*i+8],gt_rx_data_reg[8*i+15:8*i+8]}),
+---
+>             .RXDATA0({float_rx_data[8*i+7:8*i],float_rx_data[8*i+7:8*i],float_rx_data[8*i+7:8*i],gt_rx_data_reg2[8*i+7:8*i]}),
+>             .RXDATA1({float_rx_data[8*i+15:8*i+8],float_rx_data[8*i+15:8*i+8],float_rx_data[8*i+15:8*i+8],gt_rx_data_reg2[8*i+15:8*i+8]}),
+606,607c714,715
+<             .RXELECIDLE0(gt_rx_elec_idle_reg[i+0]),
+<             .RXELECIDLE1(gt_rx_elec_idle_reg[i+1]),
+---
+>             .RXELECIDLE0(gt_rx_elec_idle_reg2[i+0]),
+>             .RXELECIDLE1(gt_rx_elec_idle_reg2[i+1]),
+620,623c728,731
+<             .RXSTATUS0(gt_rx_status_reg[3*i+2:3*i]),
+<             .RXSTATUS1(gt_rx_status_reg[3*i+5:3*i+3]),
+<             .RXVALID0(gt_rx_valid_reg[i+0]),
+<             .RXVALID1(gt_rx_valid_reg[i+1]),
+---
+>             .RXSTATUS0(gt_rx_status_reg2[3*i+2:3*i]),
+>             .RXSTATUS1(gt_rx_status_reg2[3*i+5:3*i+3]),
+>             .RXVALID0(gt_rx_valid_reg2[i+0]),
+>             .RXVALID1(gt_rx_valid_reg2[i+1]),
+656,657c764,765
+<             .RXCDRRESET0(gt_pipe_reset_reg[i+0] & ~rst_pcie),
+<             .RXCDRRESET1(gt_pipe_reset_reg[i+1] & ~rst_pcie),
+---
+>             .RXCDRRESET0(gt_pipe_reset_reg2[i+0] & ~rst_pcie),
+>             .RXCDRRESET1(gt_pipe_reset_reg2[i+1] & ~rst_pcie),
+688,691c796,799
+<             .RXPOLARITY0(gt_rx_polarity_reg[i+0]),
+<             .RXPOLARITY1(gt_rx_polarity_reg[i+1]),
+<             .RXPOWERDOWN0(gt_rx_power_down_reg[2*i+1:2*i]),
+<             .RXPOWERDOWN1(gt_rx_power_down_reg[2*i+3:2*i+2]),
+---
+>             .RXPOLARITY0(gt_rx_polarity_reg2[i+0]),
+>             .RXPOLARITY1(gt_rx_polarity_reg2[i+1]),
+>             .RXPOWERDOWN0(gt_rx_power_down_reg2[2*i+1:2*i]),
+>             .RXPOWERDOWN1(gt_rx_power_down_reg2[2*i+3:2*i+2]),
+704,705c812,813
+<             .TXCHARDISPMODE0({3'b0,gt_tx_compliance_reg[i+0]}),
+<             .TXCHARDISPMODE1({3'b0,gt_tx_compliance_reg[i+1]}),
+---
+>             .TXCHARDISPMODE0({3'b0,gt_tx_compliance_reg2[i+0]}),
+>             .TXCHARDISPMODE1({3'b0,gt_tx_compliance_reg2[i+1]}),
+708,709c816,817
+<             .TXCHARISK0({3'b0,gt_tx_data_k_reg[i+0]}),
+<             .TXCHARISK1({3'b0,gt_tx_data_k_reg[i+1]}),
+---
+>             .TXCHARISK0({3'b0,gt_tx_data_k_reg2[i+0]}),
+>             .TXCHARISK1({3'b0,gt_tx_data_k_reg2[i+1]}),
+714,715c822,823
+<             .TXDATA0({24'b0,gt_tx_data_reg[8*i+7:8*i]}),
+<             .TXDATA1({24'b0,gt_tx_data_reg[8*i+15:8*i+8]}),
+---
+>             .TXDATA0({24'b0,gt_tx_data_reg2[8*i+7:8*i]}),
+>             .TXDATA1({24'b0,gt_tx_data_reg2[8*i+15:8*i+8]}),
+718,719c826,827
+<             .TXDETECTRX0(gt_tx_detect_rx_loopback_reg[i+0]),
+<             .TXDETECTRX1(gt_tx_detect_rx_loopback_reg[i+1]),
+---
+>             .TXDETECTRX0(gt_tx_detect_rx_loopback_reg2[i+0]),
+>             .TXDETECTRX1(gt_tx_detect_rx_loopback_reg2[i+1]),
+722,723c830,831
+<             .TXELECIDLE0(gt_tx_elec_idle_reg[i+0]),
+<             .TXELECIDLE1(gt_tx_elec_idle_reg[i+1]),
+---
+>             .TXELECIDLE0(gt_tx_elec_idle_reg2[i+0]),
+>             .TXELECIDLE1(gt_tx_elec_idle_reg2[i+1]),
+738,739c846,847
+<             .TXPOWERDOWN0(gt_tx_power_down_reg[2*i+1:2*i]),
+<             .TXPOWERDOWN1(gt_tx_power_down_reg[2*i+3:2*i+2]),
+---
+>             .TXPOWERDOWN0(gt_tx_power_down_reg2[2*i+1:2*i]),
+>             .TXPOWERDOWN1(gt_tx_power_down_reg2[2*i+3:2*i+2]),
+1016c1124
+<                    assign icdrreset[j] = resetdone[j] & gt_rx_elec_idle_reg[j];
+---
+>                    assign icdrreset[j] = resetdone[j] & gt_rx_elec_idle_reg2[j];
+1018,1019c1126,1127
+<                    always @( icdrreset or gt_rx_valid_reg) begin : yes_latch
+<                        if ( icdrreset[j] & ~ gt_rx_valid_reg[j] ) begin
+---
+>                    always @( icdrreset or gt_rx_valid_reg2) begin : yes_latch
+>                        if ( icdrreset[j] & ~ gt_rx_valid_reg2[j] ) begin

@@ -160,10 +160,10 @@ TIMESPEC "TS_mac3_flow" = FROM "mac3_flow_grp" TO "clk156_top" 6400 ps DATAPATHO
 #  metastability and skew in the reset nets.               #
 ############################################################
 
-NET "*xgmac/BU2/U0/G_RX_RESET.sync_rx_reset_i/reset_out*" MAXDELAY = 4500 ps;
-NET "*xgmac/BU2/U0/G_TX_RESET.sync_tx_reset_i/reset_out*" MAXDELAY = 4500 ps;
-NET "*xgmac/BU2/U0/G_TX_RESET.sync_flow_ctrl_tx_reset_i/reset_out*" MAXDELAY = 4500 ps;
-NET "*xgmac/BU2/U0/G_RX_RESET.sync_flow_ctrl_rx_reset_i/reset_out*" MAXDELAY = 4500 ps;
+NET "*xgmac/BU2/U0/G_RX_RESET.sync_rx_reset_i/reset_out*" MAXDELAY = 5000 ps;
+NET "*xgmac/BU2/U0/G_TX_RESET.sync_tx_reset_i/reset_out*" MAXDELAY = 5000 ps;
+NET "*xgmac/BU2/U0/G_TX_RESET.sync_flow_ctrl_tx_reset_i/reset_out*" MAXDELAY = 5000 ps;
+NET "*xgmac/BU2/U0/G_RX_RESET.sync_flow_ctrl_rx_reset_i/reset_out*" MAXDELAY = 5000 ps;
 
 ###############################################################################
 # Timing Constraints

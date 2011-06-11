@@ -19,11 +19,12 @@ COREGEN_DIR:= coregen
 
 all: hdl/verilog/xilinx/pcie_top.v
 
-hdl/verilog/xilinx/pcie_top.v: xco/endpoint_blk_plus_v1_14.xco
+hdl/verilog/xilinx/pcie_top.v: xco/endpoint_blk_plus_v1_14.xco hdl/verilog/xilinx/pcie_gtx_wrapper.v.diff
 	@mkdir -p hdl/verilog/xilinx
 	@mkdir -p $(COREGEN_DIR);
 	@cd $(COREGEN_DIR) && coregen -b ../xco/endpoint_blk_plus_v1_14.xco
 	@cp $(COREGEN_DIR)/endpoint_blk_plus_v1_14/source/*.v hdl/verilog/xilinx/
+	@patch hdl/verilog/xilinx/pcie_gtx_wrapper.v hdl/verilog/xilinx/pcie_gtx_wrapper.v.diff
 	@echo "/////////////////////////////////////////";
 	@echo "//Xilinx PCIe core installed.";
 	@echo "/////////////////////////////////////////";

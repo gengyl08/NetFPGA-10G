@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+        <!ENTITY C_XAUI_REVERSE ' 
+        <widget id="C_XAUI_REVERSE">
+	            <key>C_XAUI_REVERSE</key>
+	            <label>XAUI lanes reversal</label>
+	            <tip>1 to reverse the XAUI lanes, 0 by default</tip>
+        </widget>
+        '>
+        <!ENTITY C_XGMAC_CONFIGURATION '
+        <widget id="C_XGMAC_CONFIGURATION">
+	            <key>C_XGMAC_CONFIGURATION</key>
+	            <label>10G Ethernet MAC Configuration</label>
+	            <tip>Xilinx 10G Ethernet MAC Configuration vector. Please consult Xilinx UG148 for more information.</tip>
+        </widget>
+        '>
+        <!ENTITY C_XAUI_CONFIGURATION '
+        <widget id="C_XAUI_CONFIGURATION">
+	            <key>C_XAUI_CONFIGURATION</key>
+	            <label>XAUI Congiuration</label>
+	            <tip>Xilinx XAUI core configuration vector. Please consult Xilinx UG150 for more information.</tip>
+        </widget>
+        '>
+        <!ENTITY C_M_AXIS_DATA_WIDTH '
+        <widget id="C_M_AXIS_DATA_WIDTH">
+                        <key>C_M_AXIS_DATA_WIDTH</key>
+                <label>Master Stream Data Width</label>
+                <tip>Master Stream Data Width must be equal to 
+                MM2S Memory Map Data Width</tip>
+        </widget>
+        '>
+        <!ENTITY C_S_AXIS_DATA_WIDTH '
+        <widget id="C_S_AXIS_DATA_WIDTH">
+                        <key>C_S_AXIS_DATA_WIDTH</key>
+                <label>Slave Stream Data Width</label>
+                <tip>Slave Stream Data Width must be equal to 
+                S2MM Memory Map Data Width</tip>
+        </widget>
+        '>
+        <!ENTITY C_DEFAULT_VALUE_ENABLE '
+        <widget id="C_DEFAULT_VALUE_ENABLE">
+                        <key>C_DEFAULT_VALUE_ENABLE</key>
+                <label>Enable default metadata value</label>
+                <tip>Enable default metadata value. Will override slave port metadata.</tip>
+        </widget>
+        '>
+        <!ENTITY C_DEFAULT_DST_PORT '
+        <widget id="C_DEFAULT_DST_PORT">
+                        <key>C_DEFAULT_DST_PORT</key>
+                <label>Default Destination port</label>
+        </widget>
+        '>
+        <!ENTITY C_DEFAULT_SRC_PORT '
+        <widget id="C_DEFAULT_SRC_PORT">
+                        <key>C_DEFAULT_SRC_PORT</key>
+                <label>Default source port</label>
+        </widget>
+        '>
+]>
+<doc>
+        <view id="System">
+                <display>System</display>
+                <group id="AXI">
+                        <display>AXI</display>
+                        <item>&C_M_AXIS_DATA_WIDTH;</item>
+                        <item>&C_S_AXIS_DATA_WIDTH;</item>
+                </group>
+                <group id="XAUI">
+                        <display>XAUI</display>
+                        <item>&C_XAUI_REVERSE;</item>
+                        <item>&C_XAUI_CONFIGURATION;</item>
+                </group>
+                <group id="XGMAC">
+                        <display>10G Ethernet MAC</display>
+                        <item>&C_XGMAC_CONFIGURATION;</item>
+                </group>
+                <group id="metadata">
+                        <display>Metadata</display>
+                        <item>&C_DEFAULT_VALUE_ENABLE;</item>
+                        <item>&C_DEFAULT_SRC_PORT;</item>
+                        <item>&C_DEFAULT_DST_PORT;</item>
+                </group>
+	</view>
+</doc>

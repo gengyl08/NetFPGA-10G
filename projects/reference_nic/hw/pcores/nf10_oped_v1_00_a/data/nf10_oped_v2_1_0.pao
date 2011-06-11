@@ -14,9 +14,7 @@
 #//			 2011/05/16: hyzeng: added new files
 #//
 #////////////////////////////////////////////////////////////////////////
-
-
-vlgincdir nf10_oped_v1_00_a  hdl/verilog
+lib nf10_axis_converter_v1_00_a all
 lib nf10_oped_v1_00_a nf10_oped.v verilog
 
 lib nf10_oped_v1_00_a oped/xilinx_v5_pcie_wrapper.v verilog
@@ -29,9 +27,6 @@ lib nf10_oped_v1_00_a oped/mkOPED_v5.v verilog
 lib nf10_oped_v1_00_a oped/mkSMAdapter4B.v verilog
 lib nf10_oped_v1_00_a oped/mkBiasWorker4B.v verilog
 lib nf10_oped_v1_00_a oped/mkAXISDWorker4B.v verilog
-#lib nf10_oped_v1_00_a oped/pci_exp_8_lane_64b_ep.v verilog
-#lib nf10_oped_v1_00_a oped/mkTLPCM.v verilog
-#lib nf10_oped_v1_00_a oped/mkUUID.v verilog
 
 lib nf10_oped_v1_00_a util/FIFO2.v verilog
 lib nf10_oped_v1_00_a util/arSRLFIFO.v verilog

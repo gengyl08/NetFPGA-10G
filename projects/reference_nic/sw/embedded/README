@@ -3,7 +3,7 @@
 #  NetFPGA-10G http://www.netfpga.org
 #
 #  Project:
-#          loopback_test
+#          reference_nic
 #                 
 #  Revision history:
 #          2010/12/1 hyzeng: Initial check-in
@@ -24,6 +24,7 @@ That's it!
 Now you can build your project with standard Eclipse IDE :)
 
 Method 2: CLI flow
-0. Before doing anything, please add the following directory into your $PATH
+0. [Not necessary if you use version newer than ISE 13.1] Before doing 
+anything, please add the following directory into your $PATH
    $(XILINX_EDK)/gnu/microblaze/{Your OS}/bin/ 
 1. Type "make" and find download.bit at result/
