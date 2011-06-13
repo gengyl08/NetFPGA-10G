@@ -13,6 +13,7 @@
 #             
 #  Revision history:
 #          2011/3/3 hyzeng: Initial check-in
+#          2011/6/13 ericklo: Add target "clean"
 #
 ################################################################################
 XILINX_HW_LIB_DIR = $(XILINX_EDK)/hw/XilinxProcessorIPLib/pcores
@@ -31,3 +32,10 @@ hdl/vhdl/axi_interface.vhd: $(XILINX_HW_LIB_DIR)/axi_ethernetlite_v1_00_a/hdl/vh
 	@echo "/////////////////////////////////////////";
 	@echo "//Xilinx MDIO interface - Hardware installed.";
 	@echo "/////////////////////////////////////////";
+
+clean:
+	@rm -rf hdl/vhdl/*.vhd
+	@echo "/////////////////////////////////////////";
+	@echo "//Xilinx files removed.";
+	@echo "/////////////////////////////////////////";
+

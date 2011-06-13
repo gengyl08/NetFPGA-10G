@@ -15,6 +15,7 @@
 #          2010/12/8 hyzeng: Initial check-in
 #          2011/3/3  hyzeng: Improved subdir installation flow
 #		   2011/5/5  hyzeng: Main target renamed to "cores"
+#		   2011/6/13 ericklo: Restructure Makefiles, add target "clean"
 #
 ################################################################################
 
@@ -32,11 +33,10 @@ cores: pcores subdirs
 
 pcores: check-env
 	for lib in $(HW_LIB_DIR_INSTANCES) ; do \
-		if test -d $(XILINX_HW_LIB_DIR)/$$lib; \
-			then false | cp -ri $(XILINX_HW_LIB_DIR)/$$lib $(NF10_HW_LIB_DIR_XILINX) > /dev/null 2>&1; \
+		if test -f $(NF10_HW_LIB_DIR_XILINX)/$$lib/Makefile; \
+			then $(MAKE) -C $(NF10_HW_LIB_DIR_XILINX)/$$lib; \
 		fi; \
 	done;
-	patch $(NF10_HW_LIB_DIR_XILINX)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.vhd $(NF10_HW_LIB_DIR_XILINX)/axi_lite_ipif_v1_00_a/hdl/vhdl/address_decoder.diff;
 	@echo "/////////////////////////////////////////";
 	@echo "//Xilinx EDK pcores installed.";
 	@echo "/////////////////////////////////////////";
@@ -53,3 +53,15 @@ check-env:
 ifndef XILINX_EDK
     $(error XILINX_EDK is undefined)
 endif
+
+clean:
+	for lib in $(HW_LIB_DIR_INSTANCES) ; do \
+		if test -f $(NF10_HW_LIB_DIR_XILINX)/$$lib/Makefile; \
+			then $(MAKE) -C $(NF10_HW_LIB_DIR_XILINX)/$$lib clean; \
+		fi; \
+	done;
+	$(MAKE) -C $(NF10_HW_LIB_DIR)/nf10_10g_interface_v1_00_a/ clean
+	$(MAKE) -C $(NF10_HW_LIB_DIR)/nf10_1g_interface_v1_00_a/ clean
+	$(MAKE) -C $(NF10_HW_LIB_DIR)/nf10_axis_cdc_v1_00_a/ clean
+	$(MAKE) -C $(NF10_SW_LIB_DIR)/nf10_mdio_v1_00_a/ clean
+	$(MAKE) -C $(NF10_HW_LIB_DIR)/nf10_mdio_v1_00_a/ clean
