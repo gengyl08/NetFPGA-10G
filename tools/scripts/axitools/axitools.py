@@ -20,9 +20,7 @@ def axis_dump( packets, f, bus_width, period ):
         return
 
     bus_width = bus_width / 8
-    
-    full_strb = (1 << bus_width) - 1
-    
+    strb_mask = (1 << bus_width) - 1
     last_ts   = None
     period    = int(period * 1e9)
 
@@ -31,9 +29,6 @@ def axis_dump( packets, f, bus_width, period ):
         if last_ts is not None:
             if (int(packet.time * 1e9)-last_ts) > 0 :
                 f.write( '+ %d\n' % (int(packet.time * 1e9)-last_ts) )
-            else :
-                f.write( '+ %d\n' % 0 )
-        
         last_ts = int(packet.time * 1e9)
 
         # Turn into a list of bytes
@@ -47,25 +42,17 @@ def axis_dump( packets, f, bus_width, period ):
             else:
                 padding = 0
                 word = packet[i:i+bus_width]
-
-			# James: Swap byte order
-            for j in range(0, bus_width / 2) :
-			    word[j], word[bus_width - 1 - j] = word[bus_width - 1 - j], word[j]
-				
+            word.reverse()                            # TDATA is little-endian
 
             if i + bus_width >= len(packet):
                 terminal = '.'
             else:
                 terminal = ','
 
-            strb = full_strb >> padding
-            strb = hex( strb )[2:]
-            strb = ''.zfill(bus_width / 4 - len(strb)) + strb
-			    
             f.write( '%s, %s%s\t\t\n' % (
-                    ''.join( '%02x' % x for x in word ),        # TDATA
-                    strb,                   # TSTRB
-                    terminal ) )                                # TLAST
+                    ''.join( '%02x' % x for x in word ),                # TDATA
+                    ('%x' % (strb_mask >> padding)).zfill(bus_width/4), # TSTRB
+                    terminal ) )                                        # TLAST
 
             # one clock tick
             last_ts += period
