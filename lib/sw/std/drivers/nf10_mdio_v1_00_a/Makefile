@@ -13,6 +13,7 @@
 #             
 #  Revision history:
 #          2011/3/3 hyzeng: Initial check-in
+#          2011/6/13 ericklo: Add target "clean"
 #
 ################################################################################
 XILINX_SW_LIB_DIR = $(XILINX_EDK)/sw/XilinxProcessorIPLib/drivers
@@ -28,3 +29,11 @@ data/emaclite_header.h: $(XILINX_SW_LIB_DIR)/emaclite_v3_01_a/data/emaclite_head
 	@echo "/////////////////////////////////////////";
 	@echo "//Xilinx MDIO interface - Software installed.";
 	@echo "/////////////////////////////////////////";
+
+clean:
+	rm -rf build doc examples
+	rm -f data/emaclite*
+	if test -f src/Makefile; \
+		then $(MAKE) -C src/ clean; \
+	fi; \
+	rm -f src/Makefile src/*.h src/*.c

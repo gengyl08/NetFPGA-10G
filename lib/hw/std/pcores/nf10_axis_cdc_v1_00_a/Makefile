@@ -14,6 +14,7 @@
 #  Revision history:
 #          2011 March mblott: Initial check-in
 #          2011 May   ssiegel TUSER added
+#          2011 June  ericklo Add target "clean"
 #
 ################################################################################
 COREGEN_DIR:= coregen
@@ -63,3 +64,9 @@ netlist/async_fifo_417.ngc: xco/async_fifo_417.xco
 	@echo "//Xilinx async fifo 417 core installed.";
 	@echo "/////////////////////////////////////////";
 	@rm -rf $(COREGEN_DIR);
+
+clean:
+	rm -rf netlist
+	@echo "/////////////////////////////////////////";
+	@echo "//Generated ngcs removed.";
+	@echo "/////////////////////////////////////////";
