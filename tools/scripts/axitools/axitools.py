@@ -11,9 +11,11 @@
 
 import sys
 
-def axis_dump( packets, f, bus_width, period ):
+def axis_dump( packets, f, bus_width, period,
+               sport = None, dport = None, tuser_width = 128 ):
     """
     Dumps the list of packets to an AXI Stream-grammar formatted text file.
+    Optionally set SPORT/DPORT fields in TUSER.
     """
     if bus_width % 8 != 0:
         print "bus_width must be a multiple of 8!"
@@ -49,9 +51,20 @@ def axis_dump( packets, f, bus_width, period ):
             else:
                 terminal = ','
 
-            f.write( '%s, %s%s\t\t\n' % (
+            tuser = [0] * (tuser_width/8)
+            if i == 0:
+                if dport is not None:
+                    tuser[3] = dport
+                if sport is not None:
+                    tuser[2] = sport
+                tuser[1] = len(packet) >> 8
+                tuser[0] = len(packet) & 0xff
+                tuser.reverse()                        # Make index 0 LSB
+
+            f.write( '%s, %s, %s%s\t\t\n' % (
                     ''.join( '%02x' % x for x in word ),                # TDATA
                     ('%x' % (strb_mask >> padding)).zfill(bus_width/4), # TSTRB
+                    ''.join( '%02x' % x for x in tuser ),               # TUSER
                     terminal ) )                                        # TLAST
 
             # one clock tick
