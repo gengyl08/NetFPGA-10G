@@ -152,14 +152,14 @@ begin
 			severity failure;
 		end if;
 		wait_cycle;
-	    end if;
 
-	    deallocate(l); 		-- finished with input line
-	    
-	    -- block until target ready
+		-- block until target ready
 		while M_AXIS_TREADY /= '1' loop
 		    wait_cycle;
 		end loop;
+	    end if;
+
+	    deallocate(l); 		-- finished with input line
 	end loop;
 
 	-- End of stimuli.
