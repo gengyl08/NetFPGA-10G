@@ -21,7 +21,7 @@ HdlLang: Verilog
 SimModel: BEHAVIORAL
 UserMakeFile: Makefile
 UcfFile: data/nf10.ucf
-EnableParTimingError: 1
+EnableParTimingError: 0
 ShowLicenseDialog: 1
 Processor: microblaze_0
 ElfImp: 

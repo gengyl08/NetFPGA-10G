@@ -1,0 +1,93 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_oped_v2_1_0.pao
+#//
+#//  Description:
+#//          Peripheral Analyze Order File
+#//                 
+#//  Revision history:
+#//          2011/01/14: mblott: Initial check-in
+#//          2011/03/10: sfriederich: expansion
+#//			 2011/05/16: hyzeng: added new files
+#//
+#////////////////////////////////////////////////////////////////////////
+lib nf10_axis_converter_v1_00_a all
+lib nf10_oped_v1_10_a nf10_oped.v verilog
+
+lib nf10_oped_v1_10_a oped/xilinx_v5_pcie_wrapper.v verilog
+lib nf10_oped_v1_10_a oped/mkTLPSM.v verilog
+lib nf10_oped_v1_10_a oped/mkPktFork.v verilog
+lib nf10_oped_v1_10_a oped/mkPktMerge.v verilog
+lib nf10_oped_v1_10_a oped/mkOCCP.v verilog
+lib nf10_oped_v1_10_a oped/mkWCIS2A4LM.v verilog
+lib nf10_oped_v1_10_a oped/mkOPED_v5.v verilog
+lib nf10_oped_v1_10_a oped/mkSMAdapter4B.v verilog
+lib nf10_oped_v1_10_a oped/mkBiasWorker4B.v verilog
+lib nf10_oped_v1_10_a oped/mkAXISDWorker4B.v verilog
+
+lib nf10_oped_v1_10_a util/FIFO2.v verilog
+lib nf10_oped_v1_10_a util/arSRLFIFO.v verilog
+lib nf10_oped_v1_10_a util/arSRLFIFOD.v verilog
+lib nf10_oped_v1_10_a util/BRAM2.v verilog
+lib nf10_oped_v1_10_a util/FIFO1.v verilog
+lib nf10_oped_v1_10_a util/FIFO10.v verilog
+lib nf10_oped_v1_10_a util/ResetToBool.v verilog
+lib nf10_oped_v1_10_a util/SizedFIFO.v verilog
+lib nf10_oped_v1_10_a util/SyncResetA.v verilog
+lib nf10_oped_v1_10_a util/SyncRegister.v verilog
+lib nf10_oped_v1_10_a util/MakeResetA.v verilog
+lib nf10_oped_v1_10_a util/SyncBit.v verilog
+lib nf10_oped_v1_10_a util/SyncHandshake.v verilog
+lib nf10_oped_v1_10_a util/SyncFIFO.v verilog
+lib nf10_oped_v1_10_a util/FIFO20.v verilog
+
+lib nf10_oped_v1_10_a cdc/axisFIFO.v verilog
+lib nf10_oped_v1_10_a cdc/fallthrough_small_async_fifo.v verilog
+lib nf10_oped_v1_10_a cdc/small_async_fifo.v verilog
+
+# Xilinx PCIe files
+lib nf10_oped_v1_10_a xilinx/bram_common.v verilog
+lib nf10_oped_v1_10_a xilinx/cmm_decoder.v verilog
+lib nf10_oped_v1_10_a xilinx/cmm_errman_cnt_en.v verilog
+lib nf10_oped_v1_10_a xilinx/cmm_errman_cor.v verilog
+lib nf10_oped_v1_10_a xilinx/cmm_errman_cpl.v verilog
+lib nf10_oped_v1_10_a xilinx/cmm_errman_ftl.v verilog
+lib nf10_oped_v1_10_a xilinx/cmm_errman_ram4x26.v verilog
+lib nf10_oped_v1_10_a xilinx/cmm_errman_ram8x26.v verilog
+lib nf10_oped_v1_10_a xilinx/cmm_intr.v verilog
+lib nf10_oped_v1_10_a xilinx/endpoint_blk_plus_v1_14.v verilog
+lib nf10_oped_v1_10_a xilinx/extend_clk.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_cf.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_cf_arb.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_cf_err.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_cf_mgmt.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_cf_pwr.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_if.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_ll.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_ll_arb.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_ll_credit.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_ll_oqbqfifo.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_ll_tx.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_ll_tx_arb.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_plus_ll_rx.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_blk_plus_ll_tx.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_clocking.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_ep.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_gt_wrapper.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_gt_wrapper_top.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_gtx_wrapper.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_mim_wrapper.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_reset_logic.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_soft_int.v verilog
+lib nf10_oped_v1_10_a xilinx/pcie_top.v verilog
+lib nf10_oped_v1_10_a xilinx/prod_fixes.v verilog
+lib nf10_oped_v1_10_a xilinx/sync_fifo.v verilog
+lib nf10_oped_v1_10_a xilinx/tlm_rx_data_snk.v verilog
+lib nf10_oped_v1_10_a xilinx/tlm_rx_data_snk_bar.v verilog
+lib nf10_oped_v1_10_a xilinx/tlm_rx_data_snk_mal.v verilog
+lib nf10_oped_v1_10_a xilinx/tlm_rx_data_snk_pwr_mgmt.v verilog
+lib nf10_oped_v1_10_a xilinx/tx_sync_gtp.v verilog
+lib nf10_oped_v1_10_a xilinx/tx_sync_gtx.v verilog

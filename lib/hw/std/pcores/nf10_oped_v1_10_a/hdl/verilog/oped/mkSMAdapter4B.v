@@ -1424,6 +1424,7 @@ module mkSMAdapter4B(wciS0_Clk,
 				       .EMPTY_N(mesgTokenF$EMPTY_N));
 
   // submodule respF_memory
+  (*ram_style="block"*)
   BRAM2 #(.PIPELINED(1'd0),
 	  .ADDR_WIDTH(32'd11),
 	  .DATA_WIDTH(32'd61),
