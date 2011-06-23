@@ -3,7 +3,7 @@
 //  NetFPGA-10G http://www.netfpga.org
 //
 //  Module:
-//          output_port_lookup
+//          nf10_nic_output_port_lookup
 //
 //  Description:
 //          Hardwire the hardware interfaces to CPU and vice versa
@@ -13,7 +13,7 @@
 //          2011/6/2 hyzeng: Move state machine to output
 //
 ////////////////////////////////////////////////////////////////////////
-module nf10_output_port_lookup
+module nf10_nic_output_port_lookup
 #(
     //Master AXI Stream Data Width
     parameter C_AXIS_DATA_WIDTH=256,
