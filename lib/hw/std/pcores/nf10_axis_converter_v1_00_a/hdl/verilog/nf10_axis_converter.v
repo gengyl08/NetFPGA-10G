@@ -49,7 +49,7 @@ module nf10_axis_converter
     input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb,
     input [C_USER_WIDTH-1:0] s_axis_tuser,
     input  s_axis_tvalid,
-    output s_axis_tready,
+    output reg s_axis_tready,
     input  s_axis_tlast
 );
 
@@ -122,8 +122,14 @@ module nf10_axis_converter
 	// 1. Count incoming bytes and present to tuser_len
 	// 2. Fill tuser_dpt and tuser_spt with default value
 	////////////////////////////////////////////////////////////////
+	
+	         
+    always @(posedge axi_aclk) begin
+        s_axis_tready <= ~in_fifo_nearly_full & ~info_fifo_nearly_full;
+    end
+	
     generate
-    if(C_DEFAULT_VALUE_ENABLE) begin: DEFAULT_VALUE_ENABLE
+    if(C_DEFAULT_VALUE_ENABLE == 1) begin: DEFAULT_VALUE_ENABLE
     
     fallthrough_small_fifo #
     (.WIDTH(C_LEN_WIDTH), 
@@ -140,8 +146,6 @@ module nf10_axis_converter
          .reset         (~axi_resetn),
          .clk           (axi_aclk)
          );
-         
-    assign s_axis_tready = ~in_fifo_nearly_full & ~info_fifo_nearly_full;
 
 	always @(*) begin
 		local_sum = 0;
@@ -200,8 +204,6 @@ module nf10_axis_converter
         	metadata_state <= metadata_state_next;
         end           
     end
-    
-    assign s_axis_tready = ~in_fifo_nearly_full & ~info_fifo_nearly_full;
         
     fallthrough_small_fifo #
     (.WIDTH(C_USER_WIDTH), 
@@ -324,6 +326,86 @@ module nf10_axis_converter
         end           
     end    
     end
+    
+    else if(C_M_AXIS_DATA_WIDTH == 8) begin: SPECIAL_CASE
+    // Workaround Virtex-5 XST issue
+    
+    reg  [log2(S_M_RATIO_COUNT)-1:0] counter, counter_next;
+    wire [log2(S_M_RATIO_COUNT)-1:0] counter_plus_1 = counter + 1'b1;
+    
+    always @(*) begin
+        in_fifo_rd_en = 1'b0;
+        info_fifo_rd_en = 1'b0;
+        
+        m_axis_tdata = s_axis_tdata_fifo[C_M_AXIS_DATA_WIDTH * (counter) +: C_M_AXIS_DATA_WIDTH];
+        m_axis_tstrb = s_axis_tstrb_fifo[C_M_AXIS_DATA_WIDTH/8 * (counter)];
+        m_axis_tlast = 1'b0;
+        
+        counter_next = counter;  
+        first_time_next = first_time;    
+        m_axis_tvalid = 1'b0;
+        
+        if(~in_fifo_empty) begin
+        	if(first_time) begin
+				if(~info_fifo_empty) begin
+                    m_axis_tvalid = 1'b1;
+                    if(m_axis_tready) begin
+                        info_fifo_rd_en = 1'b1;
+                        first_time_next = 1'b0;
+                        counter_next = counter_plus_1;
+                    end
+            end
+         end
+			else begin
+			    m_axis_tvalid = 1'b1;
+			    if(s_axis_tlast_fifo) begin // Last SLAVE word
+				    if(counter == S_M_RATIO_COUNT - 1) begin
+					     m_axis_tlast = 1'b1;
+					 end
+			       else if(~|s_axis_tstrb_fifo[C_M_AXIS_DATA_WIDTH/8 * (counter_plus_1)]) begin
+					     m_axis_tlast = 1'b1;
+					 end
+			    end
+				 
+			    if(m_axis_tready) begin
+			          counter_next = counter_plus_1;
+			    	  if(counter == S_M_RATIO_COUNT - 1) begin
+							in_fifo_rd_en = 1'b1;
+							counter_next = 0;
+							if(s_axis_tlast_fifo) begin
+							    first_time_next = 1'b1;
+							end
+					  end
+			        else if(s_axis_tlast_fifo) begin // Last SLAVE word
+			            if(~|s_axis_tstrb_fifo[C_M_AXIS_DATA_WIDTH/8 * (counter_plus_1)]) begin
+			            // Next MASTER strobe is empty == This master word is the last
+			            // Clean up the current word							    
+			                counter_next = 0;
+			                first_time_next = 1'b1;
+								 in_fifo_rd_en = 1'b1;
+			            end
+			        end
+				end
+			end
+		end
+    end
+    
+        
+    always @(posedge axi_aclk) begin
+        if (~axi_resetn) begin
+            counter <= 0;
+            first_time <= 1'b1;
+            length_prev <= 1'b0;
+        end
+        else begin
+            counter <= counter_next;
+            first_time <= first_time_next;
+            length_prev <= length_prev_next;
+        end           
+    end   
+    end
+    
+    
     else begin: SLAVE_WIDER
     
     reg  [log2(S_M_RATIO_COUNT)-1:0] counter, counter_next;
