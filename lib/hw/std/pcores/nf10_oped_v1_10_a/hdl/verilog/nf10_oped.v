@@ -47,8 +47,10 @@ module nf10_oped #
   output [7:0]                           PCIE_TXP,
   output [7:0]                           PCIE_TXN,
 
-  output                                 ACLK,                // Clock (125 MHz) (BUFG driven)
-  output                                 ARESETN,             // Synchronous Reset, Active-Low
+  input                                  ACLK,
+  input                                  ARESETN,
+  
+  output                                 ACLK_OPED,           // Clock (125 MHz) (BUFG driven)
 
   output [31:0]                          M_AXI_AWADDR,        // AXI4-Lite Write-Address channel..
   output [2:0]                           M_AXI_AWPROT,
@@ -95,32 +97,48 @@ module nf10_oped #
 // This adaptation layer may be removed at a later date when it is clear it is not needed
 //
 
-  localparam                              C_M_AXIS_DAT_DATA_WIDTH_INTERNAL = 32;
-  localparam                              C_S_AXIS_DAT_DATA_WIDTH_INTERNAL = 32;
-  localparam                              C_M_AXIS_DAT_USER_WIDTH_INTERNAL = 128;
-  localparam                              C_S_AXIS_DAT_USER_WIDTH_INTERNAL = 128;
+  localparam                              C_M_AXIS_DAT_DATA_WIDTH_OPED = 32;
+  localparam                              C_S_AXIS_DAT_DATA_WIDTH_OPED = 32;
+  localparam                              C_M_AXIS_DAT_USER_WIDTH_OPED = 128;
+  localparam                              C_S_AXIS_DAT_USER_WIDTH_OPED = 128;
 
 // Compile time check for expected paramaters...
 initial begin
-  if (C_M_AXIS_DAT_DATA_WIDTH_INTERNAL != 32)  begin $display("Unsupported M_AXIS_DAT DATA width"); $finish; end
-  if (C_S_AXIS_DAT_DATA_WIDTH_INTERNAL != 32)  begin $display("Unsupported S_AXIS_DAT DATA width"); $finish; end
-  if (C_M_AXIS_DAT_USER_WIDTH_INTERNAL != 128) begin $display("Unsupported M_AXIS_DAT USER width"); $finish; end
-  if (C_S_AXIS_DAT_USER_WIDTH_INTERNAL != 128) begin $display("Unsupported S_AXIS_DAT USER width"); $finish; end
+  if (C_M_AXIS_DAT_DATA_WIDTH_OPED != 32)  begin $display("Unsupported M_AXIS_DAT DATA width"); $finish; end
+  if (C_S_AXIS_DAT_DATA_WIDTH_OPED != 32)  begin $display("Unsupported S_AXIS_DAT DATA width"); $finish; end
+  if (C_M_AXIS_DAT_USER_WIDTH_OPED != 128) begin $display("Unsupported M_AXIS_DAT USER width"); $finish; end
+  if (C_S_AXIS_DAT_USER_WIDTH_OPED != 128) begin $display("Unsupported S_AXIS_DAT USER width"); $finish; end
 end
 
-  wire [C_M_AXIS_DAT_DATA_WIDTH_INTERNAL-1:0]   M_AXIS_DAT_TDATA_INTERNAL;    // AXI4-Stream (Ingress from PCIe) Master-Producer...
-  wire [C_M_AXIS_DAT_DATA_WIDTH_INTERNAL/8-1:0] M_AXIS_DAT_TSTRB_INTERNAL;
-  wire [C_M_AXIS_DAT_USER_WIDTH_INTERNAL-1:0]   M_AXIS_DAT_TUSER_INTERNAL; 
-  wire                                 M_AXIS_DAT_TLAST_INTERNAL;
-  wire                                 M_AXIS_DAT_TVALID_INTERNAL;
-  wire                                 M_AXIS_DAT_TREADY_INTERNAL;
+  wire [C_M_AXIS_DAT_DATA_WIDTH_OPED-1:0]   M_AXIS_DAT_TDATA_OPED;    // AXI4-Stream (Ingress from PCIe) Master-Producer...
+  wire [C_M_AXIS_DAT_DATA_WIDTH_OPED/8-1:0] M_AXIS_DAT_TSTRB_OPED;
+  wire [C_M_AXIS_DAT_USER_WIDTH_OPED-1:0]   M_AXIS_DAT_TUSER_OPED; 
+  wire                                 M_AXIS_DAT_TLAST_OPED;
+  wire                                 M_AXIS_DAT_TVALID_OPED;
+  wire                                 M_AXIS_DAT_TREADY_OPED;
 
-  wire  [C_S_AXIS_DAT_DATA_WIDTH_INTERNAL-1:0]   S_AXIS_DAT_TDATA_INTERNAL;    // AXI4-Stream (Egress to PCIe) Slave-Consumer...
-  wire  [C_S_AXIS_DAT_DATA_WIDTH_INTERNAL/8-1:0] S_AXIS_DAT_TSTRB_INTERNAL;
-  wire  [C_S_AXIS_DAT_USER_WIDTH_INTERNAL-1:0]   S_AXIS_DAT_TUSER_INTERNAL; 
-  wire                                  S_AXIS_DAT_TLAST_INTERNAL;
-  wire                                  S_AXIS_DAT_TVALID_INTERNAL;
-  wire                                  S_AXIS_DAT_TREADY_INTERNAL;
+  wire  [C_S_AXIS_DAT_DATA_WIDTH_OPED-1:0]   S_AXIS_DAT_TDATA_OPED;    // AXI4-Stream (Egress to PCIe) Slave-Consumer...
+  wire  [C_S_AXIS_DAT_DATA_WIDTH_OPED/8-1:0] S_AXIS_DAT_TSTRB_OPED;
+  wire  [C_S_AXIS_DAT_USER_WIDTH_OPED-1:0]   S_AXIS_DAT_TUSER_OPED; 
+  wire                                  S_AXIS_DAT_TLAST_OPED;
+  wire                                  S_AXIS_DAT_TVALID_OPED;
+  wire                                  S_AXIS_DAT_TREADY_OPED;
+
+  wire [C_M_AXIS_DAT_DATA_WIDTH-1:0]   M_AXIS_DAT_TDATA_FIFO;
+  wire [C_M_AXIS_DAT_DATA_WIDTH/8-1:0] M_AXIS_DAT_TSTRB_FIFO;
+  wire [C_M_AXIS_DAT_USER_WIDTH-1:0]   M_AXIS_DAT_TUSER_FIFO; 
+  wire                                 M_AXIS_DAT_TLAST_FIFO;
+  wire                                 M_AXIS_DAT_TVALID_FIFO;
+  wire                                 M_AXIS_DAT_TREADY_FIFO;
+
+  wire  [C_S_AXIS_DAT_DATA_WIDTH-1:0]   S_AXIS_DAT_TDATA_FIFO;
+  wire  [C_S_AXIS_DAT_DATA_WIDTH/8-1:0] S_AXIS_DAT_TSTRB_FIFO;
+  wire  [C_S_AXIS_DAT_USER_WIDTH-1:0]   S_AXIS_DAT_TUSER_FIFO; 
+  wire                                  S_AXIS_DAT_TLAST_FIFO;
+  wire                                  S_AXIS_DAT_TVALID_FIFO;
+  wire                                  S_AXIS_DAT_TREADY_FIFO;
+
+  wire ARESETN_OPED;
 
  mkOPED_v5 oped (
   .pci0_clkp         (PCIE_CLKP),
@@ -130,9 +148,9 @@ end
   .pcie_rxn_i        (PCIE_RXN),
   .pcie_txp          (PCIE_TXP),
   .pcie_txn          (PCIE_TXN),
-  .p125clk           (ACLK),
+  .p125clk           (ACLK_OPED),
   .CLK_GATE_p125clk  (),
-  .RST_N_p125rst     (ARESETN),
+  .RST_N_p125rst     (ARESETN_OPED),
   .axi4m_AWADDR      (M_AXI_AWADDR),
   .axi4m_AWPROT      (M_AXI_AWPROT),
   .axi4m_AWVALID     (M_AXI_AWVALID),
@@ -153,68 +171,91 @@ end
   .axi4m_RVALID      (M_AXI_RVALID),
   .axi4m_RREADY      (M_AXI_RREADY),
 
-  .axisM_TDATA       (M_AXIS_DAT_TDATA_INTERNAL),
-  .axisM_TVALID      (M_AXIS_DAT_TVALID_INTERNAL),
-  .axisM_TSTRB       (M_AXIS_DAT_TSTRB_INTERNAL),
-  .axisM_TUSER       (M_AXIS_DAT_TUSER_INTERNAL),
-  .axisM_TLAST       (M_AXIS_DAT_TLAST_INTERNAL),
-  .axisM_TREADY      (M_AXIS_DAT_TREADY_INTERNAL),
+  .axisM_TDATA       (M_AXIS_DAT_TDATA_OPED),
+  .axisM_TVALID      (M_AXIS_DAT_TVALID_OPED),
+  .axisM_TSTRB       (M_AXIS_DAT_TSTRB_OPED),
+  .axisM_TUSER       (M_AXIS_DAT_TUSER_OPED),
+  .axisM_TLAST       (M_AXIS_DAT_TLAST_OPED),
+  .axisM_TREADY      (M_AXIS_DAT_TREADY_OPED),
 
-  .axisS_TDATA       (S_AXIS_DAT_TDATA_INTERNAL),
-  .axisS_TVALID      (S_AXIS_DAT_TVALID_INTERNAL),
-  .axisS_TSTRB       (S_AXIS_DAT_TSTRB_INTERNAL),
-  .axisS_TUSER       (S_AXIS_DAT_TUSER_INTERNAL),
-  .axisS_TLAST       (S_AXIS_DAT_TLAST_INTERNAL),
-  .axisS_TREADY      (S_AXIS_DAT_TREADY_INTERNAL),
+  .axisS_TDATA       (S_AXIS_DAT_TDATA_OPED),
+  .axisS_TVALID      (S_AXIS_DAT_TVALID_OPED),
+  .axisS_TSTRB       (S_AXIS_DAT_TSTRB_OPED),
+  .axisS_TUSER       (S_AXIS_DAT_TUSER_OPED),
+  .axisS_TLAST       (S_AXIS_DAT_TLAST_OPED),
+  .axisS_TREADY      (S_AXIS_DAT_TREADY_OPED),
 
   .debug             (DEBUG)
 );
 
     nf10_axis_converter 
     #(.C_M_AXIS_DATA_WIDTH(C_M_AXIS_DAT_DATA_WIDTH),
-      .C_S_AXIS_DATA_WIDTH(C_M_AXIS_DAT_DATA_WIDTH_INTERNAL),
+      .C_S_AXIS_DATA_WIDTH(C_M_AXIS_DAT_DATA_WIDTH_OPED),
       .C_DEFAULT_VALUE_ENABLE(C_DEFAULT_VALUE_ENABLE),
       .C_DEFAULT_SRC_PORT(C_DEFAULT_SRC_PORT),
       .C_DEFAULT_DST_PORT(C_DEFAULT_DST_PORT)
      ) converter_master
     (
     // Global Ports
-    .axi_aclk(ACLK),
-    .axi_resetn(ARESETN),
+    .axi_aclk(ACLK_OPED),
+    .axi_resetn(ARESETN_OPED),
     
     // Master Stream Ports
-    .m_axis_tdata(M_AXIS_DAT_TDATA),
-    .m_axis_tstrb(M_AXIS_DAT_TSTRB),
-    .m_axis_tvalid(M_AXIS_DAT_TVALID),
-    .m_axis_tready(M_AXIS_DAT_TREADY),
-    .m_axis_tlast(M_AXIS_DAT_TLAST),
-	.m_axis_tuser(M_AXIS_DAT_TUSER),
+    .m_axis_tdata(M_AXIS_DAT_TDATA_FIFO),
+    .m_axis_tstrb(M_AXIS_DAT_TSTRB_FIFO),
+    .m_axis_tvalid(M_AXIS_DAT_TVALID_FIFO),
+    .m_axis_tready(M_AXIS_DAT_TREADY_FIFO),
+    .m_axis_tlast(M_AXIS_DAT_TLAST_FIFO),
+	.m_axis_tuser(M_AXIS_DAT_TUSER_FIFO),
     
     // Slave Stream Ports
-    .s_axis_tdata(M_AXIS_DAT_TDATA_INTERNAL),
-    .s_axis_tstrb(M_AXIS_DAT_TSTRB_INTERNAL),
-    .s_axis_tvalid(M_AXIS_DAT_TVALID_INTERNAL),
-    .s_axis_tready(M_AXIS_DAT_TREADY_INTERNAL),
-    .s_axis_tlast(M_AXIS_DAT_TLAST_INTERNAL),
-	.s_axis_tuser(M_AXIS_DAT_TUSER_INTERNAL)
+    .s_axis_tdata(M_AXIS_DAT_TDATA_OPED),
+    .s_axis_tstrb(M_AXIS_DAT_TSTRB_OPED),
+    .s_axis_tvalid(M_AXIS_DAT_TVALID_OPED),
+    .s_axis_tready(M_AXIS_DAT_TREADY_OPED),
+    .s_axis_tlast(M_AXIS_DAT_TLAST_OPED),
+	.s_axis_tuser(M_AXIS_DAT_TUSER_OPED)
    );
 
     nf10_axis_converter 
-    #(.C_M_AXIS_DATA_WIDTH(C_S_AXIS_DAT_DATA_WIDTH_INTERNAL),
+    #(.C_M_AXIS_DATA_WIDTH(C_S_AXIS_DAT_DATA_WIDTH_OPED),
       .C_S_AXIS_DATA_WIDTH(C_S_AXIS_DAT_DATA_WIDTH)
      ) converter_slave
     (
     // Global Ports
-    .axi_aclk(ACLK),
-    .axi_resetn(ARESETN),
+    .axi_aclk(ACLK_OPED),
+    .axi_resetn(ARESETN_OPED),
     
     // Master Stream Ports
-    .m_axis_tdata(S_AXIS_DAT_TDATA_INTERNAL),
-    .m_axis_tstrb(S_AXIS_DAT_TSTRB_INTERNAL),
-    .m_axis_tvalid(S_AXIS_DAT_TVALID_INTERNAL),
-    .m_axis_tready(S_AXIS_DAT_TREADY_INTERNAL),
-    .m_axis_tlast(S_AXIS_DAT_TLAST_INTERNAL),
-	 .m_axis_tuser(S_AXIS_DAT_TUSER_INTERNAL),
+    .m_axis_tdata(S_AXIS_DAT_TDATA_OPED),
+    .m_axis_tstrb(S_AXIS_DAT_TSTRB_OPED),
+    .m_axis_tvalid(S_AXIS_DAT_TVALID_OPED),
+    .m_axis_tready(S_AXIS_DAT_TREADY_OPED),
+    .m_axis_tlast(S_AXIS_DAT_TLAST_OPED),
+	 .m_axis_tuser(S_AXIS_DAT_TUSER_OPED),
+    
+    // Slave Stream Ports
+    .s_axis_tdata(S_AXIS_DAT_TDATA_FIFO),
+    .s_axis_tstrb(S_AXIS_DAT_TSTRB_FIFO),
+    .s_axis_tvalid(S_AXIS_DAT_TVALID_FIFO),
+    .s_axis_tready(S_AXIS_DAT_TREADY_FIFO),
+    .s_axis_tlast(S_AXIS_DAT_TLAST_FIFO),
+	.s_axis_tuser(S_AXIS_DAT_TUSER_FIFO)
+   );
+   
+    axisFIFO 
+    #(.C_AXIS_DATA_WIDTH(C_S_AXIS_DAT_DATA_WIDTH),
+      .C_AXIS_USER_WIDTH(C_S_AXIS_DAT_USER_WIDTH)
+     ) fifo_slave
+    (    
+    // Master Stream Ports
+    .m_axis_tdata(S_AXIS_DAT_TDATA_FIFO),
+    .m_axis_tstrb(S_AXIS_DAT_TSTRB_FIFO),
+    .m_axis_tvalid(S_AXIS_DAT_TVALID_FIFO),
+    .m_axis_tready(S_AXIS_DAT_TREADY_FIFO),
+    .m_axis_tlast(S_AXIS_DAT_TLAST_FIFO),
+	.m_axis_tuser(S_AXIS_DAT_TUSER_FIFO),
+	.m_aclk(ACLK_OPED),
     
     // Slave Stream Ports
     .s_axis_tdata(S_AXIS_DAT_TDATA),
@@ -222,7 +263,34 @@ end
     .s_axis_tvalid(S_AXIS_DAT_TVALID),
     .s_axis_tready(S_AXIS_DAT_TREADY),
     .s_axis_tlast(S_AXIS_DAT_TLAST),
-	.s_axis_tuser(S_AXIS_DAT_TUSER)
+	.s_axis_tuser(S_AXIS_DAT_TUSER),
+	.s_aclk(ACLK),
+	.s_aresetn(ARESETN)
+   );
+
+    axisFIFO 
+    #(.C_AXIS_DATA_WIDTH(C_M_AXIS_DAT_DATA_WIDTH),
+      .C_AXIS_USER_WIDTH(C_M_AXIS_DAT_USER_WIDTH)
+     ) fifo_master
+    (    
+    // Master Stream Ports
+    .m_axis_tdata(M_AXIS_DAT_TDATA),
+    .m_axis_tstrb(M_AXIS_DAT_TSTRB),
+    .m_axis_tvalid(M_AXIS_DAT_TVALID),
+    .m_axis_tready(M_AXIS_DAT_TREADY),
+    .m_axis_tlast(M_AXIS_DAT_TLAST),
+	.m_axis_tuser(M_AXIS_DAT_TUSER),
+	.m_aclk(ACLK),
+    
+    // Slave Stream Ports
+    .s_axis_tdata(M_AXIS_DAT_TDATA_FIFO),
+    .s_axis_tstrb(M_AXIS_DAT_TSTRB_FIFO),
+    .s_axis_tvalid(M_AXIS_DAT_TVALID_FIFO),
+    .s_axis_tready(M_AXIS_DAT_TREADY_FIFO),
+    .s_axis_tlast(M_AXIS_DAT_TLAST_FIFO),
+	.s_axis_tuser(M_AXIS_DAT_TUSER_FIFO),
+	.s_aclk(ACLK_OPED),
+	.s_aresetn(ARESETN_OPED)
    );
 
 endmodule

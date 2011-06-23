@@ -30,6 +30,7 @@ lib nf10_oped_v1_00_a oped/mkAXISDWorker4B.v verilog
 
 lib nf10_oped_v1_00_a util/FIFO2.v verilog
 lib nf10_oped_v1_00_a util/arSRLFIFO.v verilog
+lib nf10_oped_v1_00_a util/arSRLFIFOD.v verilog
 lib nf10_oped_v1_00_a util/BRAM2.v verilog
 lib nf10_oped_v1_00_a util/FIFO1.v verilog
 lib nf10_oped_v1_00_a util/FIFO10.v verilog
@@ -42,6 +43,10 @@ lib nf10_oped_v1_00_a util/SyncBit.v verilog
 lib nf10_oped_v1_00_a util/SyncHandshake.v verilog
 lib nf10_oped_v1_00_a util/SyncFIFO.v verilog
 lib nf10_oped_v1_00_a util/FIFO20.v verilog
+
+lib nf10_oped_v1_00_a cdc/axisFIFO.v verilog
+lib nf10_oped_v1_00_a cdc/fallthrough_small_async_fifo.v verilog
+lib nf10_oped_v1_00_a cdc/small_async_fifo.v verilog
 
 # Xilinx PCIe files
 lib nf10_oped_v1_00_a xilinx/bram_common.v verilog
