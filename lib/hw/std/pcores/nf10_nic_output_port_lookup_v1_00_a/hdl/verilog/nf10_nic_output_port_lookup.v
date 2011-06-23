@@ -10,9 +10,10 @@
 //                 
 //  Revision history:
 //          2011/5/13 gac1: Initial check-in
+//          2011/6/2 hyzeng: Move state machine to output
 //
 ////////////////////////////////////////////////////////////////////////
-module output_port_lookup
+module nf10_output_port_lookup
 #(
     //Master AXI Stream Data Width
     parameter C_AXIS_DATA_WIDTH=256,
@@ -28,7 +29,7 @@ module output_port_lookup
     // Master Stream Ports (interface to data path)
     output [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
     output [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
-    output [C_USER_WIDTH-1:0] m_axis_tuser,
+    output reg [C_USER_WIDTH-1:0] m_axis_tuser,
     output m_axis_tvalid,
     input  m_axis_tready,
     output m_axis_tlast,
@@ -57,7 +58,7 @@ module output_port_lookup
    localparam IN_PACKET     = 1;
 
    //------------- Wires ------------------
-   reg [C_USER_WIDTH-1:0] in_tuser_modded;
+   wire  [C_USER_WIDTH-1:0] tuser_fifo;
    reg 			  state, state_next;     
    
    // ------------ Modules ----------------
@@ -67,13 +68,13 @@ module output_port_lookup
            .MAX_DEPTH_BITS(2))
       input_fifo
         (// Outputs
-         .dout                           ({m_axis_tlast, m_axis_tuser, m_axis_tstrb, m_axis_tdata}),
+         .dout                           ({m_axis_tlast, tuser_fifo, m_axis_tstrb, m_axis_tdata}),
          .full                           (),
          .nearly_full                    (in_fifo_nearly_full),
          .prog_full                      (),
          .empty                          (in_fifo_empty),
          // Inputs
-         .din                            ({s_axis_tlast, in_tuser_modded, s_axis_tstrb, s_axis_tdata}),
+         .din                            ({s_axis_tlast, s_axis_tuser, s_axis_tstrb, s_axis_tdata}),
          .wr_en                          (s_axis_tvalid & ~in_fifo_nearly_full),
          .rd_en                          (in_fifo_rd_en),
          .reset                          (~axi_resetn),
@@ -84,36 +85,38 @@ module output_port_lookup
    assign s_axis_tready = !in_fifo_nearly_full;
 
    // packet is from the cpu if it is on an odd numbered port
-   assign pkt_is_from_cpu = s_axis_tuser[SRC_PORT_POS+1] || 
-			    s_axis_tuser[SRC_PORT_POS+3] || 
-			    s_axis_tuser[SRC_PORT_POS+5] || 
-			    s_axis_tuser[SRC_PORT_POS+7];
+   assign pkt_is_from_cpu = m_axis_tuser[SRC_PORT_POS+1] || 
+			    m_axis_tuser[SRC_PORT_POS+3] || 
+			    m_axis_tuser[SRC_PORT_POS+5] || 
+			    m_axis_tuser[SRC_PORT_POS+7];
 
    // modify the dst port in tuser
    always @(*) begin
-      in_tuser_modded = s_axis_tuser;
+      m_axis_tuser = tuser_fifo;
       state_next      = state;
 
       case(state)
 	MODULE_HEADER: begin
-	   if (s_axis_tvalid & s_axis_tready) begin
-	      if(~|s_axis_tuser[SRC_PORT_POS+:7]) begin
-	      	in_tuser_modded[DST_PORT_POS+7:DST_PORT_POS] = 8'b1;
+	   if (m_axis_tvalid) begin
+	      if(~|m_axis_tuser[SRC_PORT_POS+:7]) begin
+	      	m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = 8'b1;
 	      end // Default: Send to MAC 0
 	      else if(pkt_is_from_cpu) begin
-		 in_tuser_modded[DST_PORT_POS+7:DST_PORT_POS] = {1'b0, 
-			s_axis_tuser[SRC_PORT_POS+7:SRC_PORT_POS+1]};
+		 m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = {1'b0, 
+			tuser_fifo[SRC_PORT_POS+7:SRC_PORT_POS+1]};
 	      end
 	      else begin
-		 in_tuser_modded[DST_PORT_POS+7:DST_PORT_POS] = {
-			s_axis_tuser[SRC_PORT_POS+6:SRC_PORT_POS], 1'b0};
+		 m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = {
+			tuser_fifo[SRC_PORT_POS+6:SRC_PORT_POS], 1'b0};
 	      end
-	      state_next = IN_PACKET;
+	      if(m_axis_tready) begin
+			    state_next = IN_PACKET;
+			end
 	   end	   
 	end // case: MODULE_HEADER
 
 	IN_PACKET: begin
-	   if(s_axis_tlast & s_axis_tvalid & s_axis_tready) begin
+	   if(m_axis_tlast & m_axis_tvalid & m_axis_tready) begin
 	      state_next = MODULE_HEADER;
 	   end
 	end
@@ -132,8 +135,5 @@ module output_port_lookup
    // Handle output
    assign in_fifo_rd_en = m_axis_tready && !in_fifo_empty;
    assign m_axis_tvalid = !in_fifo_empty;
-   //always @(posedge axi_aclk) begin
-   //   m_axis_tvalid <= ~axi_resetn ? 0 : !in_fifo_empty;
-   //end
 
 endmodule // output_port_lookup   
