@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+########################################################################
+##
+## Copyright (c) 2005 Xilinx, Inc.  All rights reserved.
+##
+########################################################################
+-->
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+        <!ENTITY C_M_AXIS_DATA_WIDTH '
+        <widget id="C_M_AXIS_DATA_WIDTH">
+                        <key>C_M_AXIS_DATA_WIDTH</key>
+                <label>Master Stream Data Width</label>
+                <tip>Master Stream Data Width must be equal to 
+                MM2S Memory Map Data Width</tip>
+        </widget>
+        '>
+
+        <!ENTITY C_S_AXIS_DATA_WIDTH '
+        <widget id="C_S_AXIS_DATA_WIDTH">
+                        <key>C_S_AXIS_DATA_WIDTH</key>
+                <label>Slave Stream Data Width</label>
+                <tip>Slave Stream Data Width must be equal to 
+                S2MM Memory Map Data Width</tip>
+        </widget>
+        '>
+        <!ENTITY C_DEFAULT_VALUE_ENABLE_0 '
+        <widget id="C_DEFAULT_VALUE_ENABLE_0">
+                        <key>C_DEFAULT_VALUE_ENABLE_0</key>
+                <label>Enable default metadata value</label>
+                <tip>Enable default metadata value. Will override slave port metadata.</tip>
+        </widget>
+        '>
+        <!ENTITY C_DEFAULT_DST_PORT_0 '
+        <widget id="C_DEFAULT_DST_PORT_0">
+                        <key>C_DEFAULT_DST_PORT_0</key>
+                <label>Default Destination port 0</label>
+        </widget>
+        '>
+        <!ENTITY C_DEFAULT_SRC_PORT_0 '
+        <widget id="C_DEFAULT_SRC_PORT_0">
+                        <key>C_DEFAULT_SRC_PORT_0</key>
+                <label>Default source port 0</label>
+        </widget>
+        '>
+        <!ENTITY C_DEFAULT_VALUE_ENABLE_1 '
+        <widget id="C_DEFAULT_VALUE_ENABLE_1">
+                        <key>C_DEFAULT_VALUE_ENABLE_1</key>
+                <label>Enable default metadata value</label>
+                <tip>Enable default metadata value. Will override slave port metadata.</tip>
+        </widget>
+        '>
+        <!ENTITY C_DEFAULT_DST_PORT_1 '
+        <widget id="C_DEFAULT_DST_PORT_1">
+                        <key>C_DEFAULT_DST_PORT_1</key>
+                <label>Default Destination port 1</label>
+        </widget>
+        '>
+        <!ENTITY C_DEFAULT_SRC_PORT_1 '
+        <widget id="C_DEFAULT_SRC_PORT_1">
+                        <key>C_DEFAULT_SRC_PORT_1</key>
+                <label>Default source port 1</label>
+        </widget>
+        '>
+]>
+<doc>
+        <view id="System">
+                <display>System</display>
+                <group id="AXI">
+                        <display>AXI</display>
+                        <item>&C_M_AXIS_DATA_WIDTH;</item>
+                        <item>&C_S_AXIS_DATA_WIDTH;</item>
+                </group>
+		<group id="metadata">
+                        <display>Metadata</display>
+                        <item>&C_DEFAULT_VALUE_ENABLE_0;</item>
+                        <item>&C_DEFAULT_SRC_PORT_0;</item>
+                        <item>&C_DEFAULT_DST_PORT_0;</item>
+			<item>&C_DEFAULT_VALUE_ENABLE_1;</item>
+                        <item>&C_DEFAULT_SRC_PORT_1;</item>
+                        <item>&C_DEFAULT_DST_PORT_1;</item>
+                </group>
+
+	</view>
+</doc>

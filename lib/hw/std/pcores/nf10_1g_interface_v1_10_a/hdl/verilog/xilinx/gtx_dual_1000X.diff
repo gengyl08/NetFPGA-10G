@@ -1,0 +1,329 @@
+diff --git a/lib/hw/std/pcores/nf10_1g_interface_v1_00_a/hdl/verilog/gtx_dual_1000X.v.orig b/lib/hw/std/pcores/nf10_1g_interface_v1_00_a/hdl/verilog/gtx_dual_1000X.v
+index 9d9ccca..e7f84a8 100755
+--- a/lib/hw/std/pcores/nf10_1g_interface_v1_00_a/hdl/verilog/gtx_dual_1000X.v.orig
++++ b/lib/hw/std/pcores/nf10_1g_interface_v1_00_a/hdl/verilog/gtx_dual_1000X.v
+@@ -5,59 +5,19 @@
+ // Version    : 1.8
+ //-----------------------------------------------------------------------------
+ //
+-// (c) Copyright 2004-2010 Xilinx, Inc. All rights reserved.
++//  NetFPGA-10G http://www.netfpga.org
+ //
+-// This file contains confidential and proprietary information
+-// of Xilinx, Inc. and is protected under U.S. and
+-// international copyright and other intellectual property
+-// laws.
++//  Module:
++//          gtx_dual_1000X
+ //
+-// DISCLAIMER
+-// This disclaimer is not a license and does not grant any
+-// rights to the materials distributed herewith. Except as
+-// otherwise provided in a valid license issued to you by
+-// Xilinx, and to the maximum extent permitted by applicable
+-// law: (1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND
+-// WITH ALL FAULTS, AND XILINX HEREBY DISCLAIMS ALL WARRANTIES
+-// AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY, INCLUDING
+-// BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, NON-
+-// INFRINGEMENT, OR FITNESS FOR ANY PARTICULAR PURPOSE; and
+-// (2) Xilinx shall not be liable (whether in contract or tort,
+-// including negligence, or under any other theory of
+-// liability) for any loss or damage of any kind or nature
+-// related to, arising under or in connection with these
+-// materials, including for any direct, or any indirect,
+-// special, incidental, or consequential loss or damage
+-// (including loss of data, profits, goodwill, or any type of
+-// loss or damage suffered as a result of any action brought
+-// by a third party) even if such damage or loss was
+-// reasonably foreseeable or Xilinx had been advised of the
+-// possibility of the same.
++//  Description:
++//          Instiatiate only half of the GTX_DUAL to match NetFPGA-10G
++//          schematic
++//                 
++//  Revision history:
++//          2010/12/8 hyzeng: Initial check-in
+ //
+-// CRITICAL APPLICATIONS
+-// Xilinx products are not designed or intended to be fail-
+-// safe, or for use in any application requiring fail-safe
+-// performance, such as life-support or safety devices or
+-// systems, Class III medical devices, nuclear facilities,
+-// applications related to the deployment of airbags, or any
+-// other applications that could lead to death, personal
+-// injury, or severe property or environmental damage
+-// (individually and collectively, "Critical
+-// Applications"). Customer assumes the sole risk and
+-// liability of any use of Xilinx products in Critical
+-// Applications, subject only to applicable laws and
+-// regulations governing limitations on product liability.
+-//
+-// THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
+-// PART OF THIS FILE AT ALL TIMES.
+-//
+-//----------------------------------------------------------------------
+-// Description:  This is the Verilog instantiation of a Virtex-5 GTX    
+-//               RocketIO tile for the Embedded Ethernet MAC.
+-//
+-//               Two GTX's must be instantiated regardless of how many  
+-//               GTXs are used in the MGT tile. 
+-//----------------------------------------------------------------------
++////////////////////////////////////////////////////////////////////////
+ 
+ `timescale 1 ps / 1 ps
+ 
+@@ -95,37 +55,10 @@ module GTX_dual_1000X
+           RX1N_0, 
+           RX1P_0,
+ 
+-          RESETDONE_1,
+-          ENMCOMMAALIGN_1, 
+-          ENPCOMMAALIGN_1, 
+-          LOOPBACK_1, 
+-          POWERDOWN_1,
+-          RXUSRCLK_1, 
+-          RXUSRCLK2_1, 
+-          RXRESET_1,          
+-          TXCHARDISPMODE_1, 
+-          TXCHARDISPVAL_1, 
+-          TXCHARISK_1, 
+-          TXDATA_1, 
+-          TXUSRCLK_1, 
+-          TXUSRCLK2_1, 
+-          TXRESET_1,
+-          RXCHARISCOMMA_1, 
+-          RXCHARISK_1,
+-          RXCLKCORCNT_1,           
+-          RXDATA_1, 
+-          RXDISPERR_1, 
+-          RXNOTINTABLE_1,
+-          RXRUNDISP_1, 
+-          RXBUFERR_1, 
+-          TXBUFERR_1, 
+-          PLLLKDET_1, 
+-          TXOUTCLK_1, 
+-          RXELECIDLE_1,
+-          TX1N_1, 
+-          TX1P_1,
+-          RX1N_1, 
+-          RX1P_1,
++          TX1N_1_UNUSED,
++          TX1P_1_UNUSED,
++          RX1N_1_UNUSED,
++          RX1P_1_UNUSED,
+ 
+ 
+           CLK_DS,
+@@ -166,37 +99,10 @@ module GTX_dual_1000X
+   input           RX1N_0; 
+   input           RX1P_0;
+ 
+-  output          RESETDONE_1;
+-  input           ENMCOMMAALIGN_1; 
+-  input           ENPCOMMAALIGN_1; 
+-  input           LOOPBACK_1; 
+-  input           POWERDOWN_1;
+-  input           RXUSRCLK_1;
+-  input           RXUSRCLK2_1;
+-  input           RXRESET_1;          
+-  input           TXCHARDISPMODE_1; 
+-  input           TXCHARDISPVAL_1; 
+-  input           TXCHARISK_1; 
+-  input [7:0]     TXDATA_1; 
+-  input           TXUSRCLK_1; 
+-  input           TXUSRCLK2_1; 
+-  input           TXRESET_1; 
+-  output          RXCHARISCOMMA_1; 
+-  output          RXCHARISK_1;
+-  output [2:0]    RXCLKCORCNT_1;           
+-  output [7:0]    RXDATA_1; 
+-  output          RXDISPERR_1; 
+-  output          RXNOTINTABLE_1;
+-  output          RXRUNDISP_1; 
+-  output          RXBUFERR_1; 
+-  output          TXBUFERR_1; 
+-  output          PLLLKDET_1; 
+-  output          TXOUTCLK_1; 
+-  output          RXELECIDLE_1;
+-  output          TX1N_1; 
+-  output          TX1P_1;
+-  input           RX1N_1; 
+-  input           RX1P_1;
++  output          TX1N_1_UNUSED;
++  output          TX1P_1_UNUSED;
++  input           RX1N_1_UNUSED;
++  input           RX1P_1_UNUSED;
+ 
+ 
+   input           CLK_DS;
+@@ -231,25 +137,6 @@ module GTX_dual_1000X
+    wire rxelecidle0_i;
+    wire resetdone0_i;
+ 
+-   wire RXNOTINTABLE_1_INT;   
+-   wire [7:0] RXDATA_1_INT;
+-   wire RXCHARISK_1_INT;   
+-   wire RXDISPERR_1_INT;
+-   wire RXRUNDISP_1_INT;
+-         
+-   wire [1:0] RXBUFSTATUS_float1;
+-   wire TXBUFSTATUS_float1;
+-
+-   wire gt_txoutclk1_1;
+-
+-   reg  [7:0] RXDATA_1;
+-   reg  RXCHARISK_1;
+-   reg  RXRUNDISP_1;
+-   wire resetdone1_i_del;
+-
+-   wire rxelecidle1_i;
+-   wire resetdone1_i;
+-
+    
+    //--------------------------------------------------------------------
+    // Wait for both PLL's to lock   
+@@ -258,8 +145,6 @@ module GTX_dual_1000X
+    
+    assign PLLLKDET_0        =   PLLLOCK;
+ 
+-   assign PLLLKDET_1        =   PLLLOCK;
+-
+ 
+    //--------------------------------------------------------------------
+    // Wire internal signals to outputs   
+@@ -273,13 +158,6 @@ module GTX_dual_1000X
+    assign RXELECIDLE_0 = rxelecidle0_i;
+ 
+   
+-   assign TXOUTCLK_1      =   gt_txoutclk1_1;
+-   assign RXNOTINTABLE_1  =   RXNOTINTABLE_1_INT;
+-   assign RXDISPERR_1     =   RXDISPERR_1_INT;
+-
+-   assign RESETDONE_1 = resetdone1_i;
+-   assign RXELECIDLE_1 = rxelecidle1_i;
+-
+  
+ 
+    //--------------------------------------------------------------------
+@@ -345,51 +223,39 @@ module GTX_dual_1000X
+         //------------- Transmit Ports - TX Driver and OOB signalling --------------
+         .TILE0_TXN0_OUT                 (TX1N_0),
+         .TILE0_TXP0_OUT                 (TX1P_0),
+-        //---------------------- Loopback and Powerdown Ports ----------------------
+-        .TILE0_LOOPBACK1_IN             ({2'b00, LOOPBACK_1}),
+-        .TILE0_RXPOWERDOWN1_IN          ({POWERDOWN_1, POWERDOWN_1}),
+-        .TILE0_TXPOWERDOWN1_IN          ({POWERDOWN_1, POWERDOWN_1}),
+-        //--------------------- Receive Ports - 8b10b Decoder ----------------------
+-        .TILE0_RXCHARISCOMMA1_OUT       (RXCHARISCOMMA_1),
+-        .TILE0_RXCHARISK1_OUT           (RXCHARISK_1_INT),
+-        .TILE0_RXDISPERR1_OUT           (RXDISPERR_1_INT),
+-        .TILE0_RXNOTINTABLE1_OUT        (RXNOTINTABLE_1_INT),
+-        .TILE0_RXRUNDISP1_OUT           (RXRUNDISP_1_INT),
+-        //----------------- Receive Ports - Clock Correction Ports -----------------
+-        .TILE0_RXCLKCORCNT1_OUT         (RXCLKCORCNT_1),
+-        //------------- Receive Ports - Comma Detection and Alignment --------------
+-        .TILE0_RXENMCOMMAALIGN1_IN      (ENMCOMMAALIGN_1),
+-        .TILE0_RXENPCOMMAALIGN1_IN      (ENPCOMMAALIGN_1),
+-        //----------------- Receive Ports - RX Data Path interface -----------------
+-        .TILE0_RXDATA1_OUT              (RXDATA_1_INT),
++        .TILE0_LOOPBACK1_IN             (3'b000),
++        .TILE0_RXPOWERDOWN1_IN          (2'b00),
++        .TILE0_TXPOWERDOWN1_IN          (2'b00),
++        .TILE0_RXCHARISCOMMA1_OUT       (),
++        .TILE0_RXCHARISK1_OUT           (),
++        .TILE0_RXDISPERR1_OUT           (),
++        .TILE0_RXNOTINTABLE1_OUT        (),
++        .TILE0_RXRUNDISP1_OUT           (),
++        .TILE0_RXCLKCORCNT1_OUT         (),
++        .TILE0_RXENMCOMMAALIGN1_IN      (1'b0),
++        .TILE0_RXENPCOMMAALIGN1_IN      (1'b0),
++        .TILE0_RXDATA1_OUT              (),
+         .TILE0_RXRECCLK1_OUT            (),
+-        .TILE0_RXRESET1_IN              (RXRESET_1),
+-        .TILE0_RXUSRCLK1_IN             (RXUSRCLK_1),
+-        .TILE0_RXUSRCLK21_IN            (RXUSRCLK2_1),
+-        //------ Receive Ports - RX Elastic Buffer and Phase Alignment Ports -------
+-        .TILE0_RXBUFSTATUS1_OUT         ({RXBUFERR_1, RXBUFSTATUS_float1}),
+-	.TILE0_RXBUFRESET1_IN           (RXRESET_1),
+-        //----- Receive Ports - RX Driver,OOB signalling,Coupling and Eq.,CDR ------
+-        .TILE0_RXELECIDLE1_OUT          (rxelecidle1_i),
+-        .TILE0_RXN1_IN                  (RX1N_1),
+-        .TILE0_RXP1_IN                  (RX1P_1),       
+-        //------------- ResetDone Ports --------------------------------------------
+-        .TILE0_RESETDONE1_OUT           (resetdone1_i),
+-        //-------------- Transmit Ports - 8b10b Encoder Control Ports --------------
+-        .TILE0_TXCHARDISPMODE1_IN       (TXCHARDISPMODE_1),
+-        .TILE0_TXCHARDISPVAL1_IN        (TXCHARDISPVAL_1),
+-        .TILE0_TXCHARISK1_IN            (TXCHARISK_1),
+-        //----------- Transmit Ports - TX Buffering and Phase Alignment ------------
+-        .TILE0_TXBUFSTATUS1_OUT         ({TXBUFERR_1, TXBUFSTATUS_float1}),
+-        //---------------- Transmit Ports - TX Data Path interface -----------------
+-        .TILE0_TXDATA1_IN               (TXDATA_1),
+-        .TILE0_TXOUTCLK1_OUT            (gt_txoutclk1_1),
+-        .TILE0_TXRESET1_IN              (TXRESET_1),
+-        .TILE0_TXUSRCLK1_IN             (TXUSRCLK_1),
+-        .TILE0_TXUSRCLK21_IN            (TXUSRCLK2_1),
+-        //------------- Transmit Ports - TX Driver and OOB signalling --------------
+-        .TILE0_TXN1_OUT                 (TX1N_1),
+-        .TILE0_TXP1_OUT                 (TX1P_1)
++        .TILE0_RXRESET1_IN              (1'b0),
++        .TILE0_RXUSRCLK1_IN             (1'b0),
++        .TILE0_RXUSRCLK21_IN            (1'b0),
++        .TILE0_RXBUFRESET1_IN           (1'b0),
++        .TILE0_RXBUFSTATUS1_OUT         (),
++        .TILE0_RXELECIDLE1_OUT          (),
++        .TILE0_RXN1_IN                  (RX1N_1_UNUSED),
++        .TILE0_RXP1_IN                  (RX1P_1_UNUSED),       
++        .TILE0_RESETDONE1_OUT           (),
++        .TILE0_TXCHARDISPMODE1_IN       (1'b0),
++        .TILE0_TXCHARDISPVAL1_IN        (1'b0),
++        .TILE0_TXCHARISK1_IN            (1'b0),
++        .TILE0_TXBUFSTATUS1_OUT         (),
++        .TILE0_TXDATA1_IN               (8'h00),
++        .TILE0_TXOUTCLK1_OUT            (),
++        .TILE0_TXRESET1_IN              (1'b0),
++        .TILE0_TXUSRCLK1_IN             (1'b0),
++        .TILE0_TXUSRCLK21_IN            (1'b0),
++        .TILE0_TXN1_OUT                 (TX1N_1_UNUSED),
++        .TILE0_TXP1_OUT                 (TX1P_1_UNUSED)	
+    );
+ 
+ 
+@@ -428,37 +294,6 @@ module GTX_dual_1000X
+ 
+ 
+ 
+-   //---------------------------------------------------------------------------
+-   // EMAC1 to GTX logic shim
+-   //---------------------------------------------------------------------------
+-
+-   // When the RXNOTINTABLE condition is detected, the Virtex5 RocketIO
+-   // GTX outputs the raw 10B code in a bit swapped order to that of the
+-   // Virtex-II Pro RocketIO.
+-   always @ (RXNOTINTABLE_1_INT, RXDISPERR_1_INT, RXCHARISK_1_INT, RXDATA_1_INT,
+-                         RXRUNDISP_1_INT)
+-   begin
+-      if (RXNOTINTABLE_1_INT == 1'b1)
+-      begin
+-         RXDATA_1[0] <= RXDISPERR_1_INT;
+-         RXDATA_1[1] <= RXCHARISK_1_INT;
+-         RXDATA_1[2] <= RXDATA_1_INT[7];
+-         RXDATA_1[3] <= RXDATA_1_INT[6];
+-         RXDATA_1[4] <= RXDATA_1_INT[5];
+-         RXDATA_1[5] <= RXDATA_1_INT[4];
+-         RXDATA_1[6] <= RXDATA_1_INT[3];
+-         RXDATA_1[7] <= RXDATA_1_INT[2];
+-         RXRUNDISP_1 <= RXDATA_1_INT[1];
+-         RXCHARISK_1 <= RXDATA_1_INT[0];
+-      end
+-      else
+-      begin
+-         RXDATA_1    <= RXDATA_1_INT;
+-         RXRUNDISP_1 <= RXRUNDISP_1_INT;
+-         RXCHARISK_1 <= RXCHARISK_1_INT;
+-      end
+-   end
+-
+ 
+ endmodule
+ 

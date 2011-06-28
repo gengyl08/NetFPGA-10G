@@ -1,0 +1,104 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_1g_interface_v2_1_0.mpd
+#//
+#//  Description:
+#//          Microprocessor Peripheral Description File
+#//                 
+#//  Revision history:
+#//          2010/12/8 hyzeng: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
+
+BEGIN nf10_1g_interface
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = TRUE
+OPTION HDL = MIXED
+OPTION USAGE_LEVEL = BASE_USER
+OPTION RUN_NGCBUILD = TRUE
+OPTION STYLE = HDL
+OPTION IP_GROUP = Communication High-Speed:MICROBLAZE
+OPTION DESC = NetFPGA-10G Gigabit Ethernet Interface
+OPTION LONG_DESC = NetFPGA-10G Gigabit Ethernet Interface
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXIS_0, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_AXIS_0, BUS_STD = AXIS, BUS_TYPE = TARGET
+
+BUS_INTERFACE BUS = M_AXIS_1, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_AXIS_1, BUS_STD = AXIS, BUS_TYPE = TARGET
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_M_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (8,32,64,256), BUS = M_AXIS_0:M_AXIS_1
+PARAMETER C_S_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (8,32,64,256), BUS = S_AXIS_0:S_AXIS_1
+PARAMETER C_USER_WIDTH = 128, DT = INTEGER, RANGE = (128), BUS = M_AXIS_0:S_AXIS_0:M_AXIS_1:S_AXIS_1
+
+PARAMETER C_DEFAULT_VALUE_ENABLE_0 = 0, DT = INTEGER, RANGE = (0,1)
+PARAMETER C_DEFAULT_SRC_PORT_0 = 0x00, DT=STD_LOGIC_VECTOR, ISVALID = (C_DEFAULT_VALUE_ENABLE == 1)
+PARAMETER C_DEFAULT_DST_PORT_0 = 0x00, DT=STD_LOGIC_VECTOR, ISVALID = (C_DEFAULT_VALUE_ENABLE == 1)
+PARAMETER C_DEFAULT_VALUE_ENABLE_1 = 0, DT = INTEGER, RANGE = (0,1)
+PARAMETER C_DEFAULT_SRC_PORT_1 = 0x00, DT=STD_LOGIC_VECTOR, ISVALID = (C_DEFAULT_VALUE_ENABLE == 1)
+PARAMETER C_DEFAULT_DST_PORT_1 = 0x00, DT=STD_LOGIC_VECTOR, ISVALID = (C_DEFAULT_VALUE_ENABLE == 1)
+
+## Ports
+PORT axi_aclk = "", DIR = I, SIGIS = CLK, BUS = M_AXIS_0:S_AXIS_0:M_AXIS_1:S_AXIS_1
+PORT axi_resetn = "", DIR = I, SIGIS = RST
+
+PORT m_axis_tdata_0 = TDATA, DIR = O, VEC = [C_M_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_0, ENDIAN = LITTLE
+PORT m_axis_tstrb_0 = TSTRB, DIR = O, VEC = [(C_M_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_0, ENDIAN = LITTLE
+PORT m_axis_tuser_0 = TUSER, DIR = O, VEC = [C_USER_WIDTH-1:0], BUS = M_AXIS_0, ENDIAN = LITTLE
+PORT m_axis_tvalid_0 = TVALID, DIR = O, BUS = M_AXIS_0
+PORT m_axis_tready_0 = TREADY, DIR = I, BUS = M_AXIS_0
+PORT m_axis_tlast_0 = TLAST, DIR = O, BUS = M_AXIS_0
+
+PORT s_axis_tdata_0 = TDATA, DIR = I, VEC = [C_S_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS_0, ENDIAN = LITTLE
+PORT s_axis_tstrb_0 = TSTRB, DIR = I, VEC = [(C_S_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS_0, ENDIAN = LITTLE
+PORT s_axis_tuser_0 = TUSER, DIR = I, VEC = [C_USER_WIDTH-1:0], BUS = S_AXIS_0, ENDIAN = LITTLE
+PORT s_axis_tvalid_0 = TVALID, DIR = I, BUS = S_AXIS_0
+PORT s_axis_tready_0 = TREADY, DIR = O, BUS = S_AXIS_0
+PORT s_axis_tlast_0 = TLAST, DIR = I, BUS = S_AXIS_0
+
+PORT m_axis_tdata_1 = TDATA, DIR = O, VEC = [C_M_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_1, ENDIAN = LITTLE
+PORT m_axis_tstrb_1 = TSTRB, DIR = O, VEC = [(C_M_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_1, ENDIAN = LITTLE
+PORT m_axis_tuser_1 = TUSER, DIR = O, VEC = [C_USER_WIDTH-1:0], BUS = M_AXIS_1, ENDIAN = LITTLE
+PORT m_axis_tvalid_1 = TVALID, DIR = O, BUS = M_AXIS_1
+PORT m_axis_tready_1 = TREADY, DIR = I, BUS = M_AXIS_1
+PORT m_axis_tlast_1 = TLAST, DIR = O, BUS = M_AXIS_1
+
+PORT s_axis_tdata_1 = TDATA, DIR = I, VEC = [C_S_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS_1, ENDIAN = LITTLE
+PORT s_axis_tstrb_1 = TSTRB, DIR = I, VEC = [(C_S_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS_1, ENDIAN = LITTLE
+PORT s_axis_tuser_1 = TUSER, DIR = I, VEC = [C_USER_WIDTH-1:0], BUS = S_AXIS_1, ENDIAN = LITTLE
+PORT s_axis_tvalid_1 = TVALID, DIR = I, BUS = S_AXIS_1
+PORT s_axis_tready_1 = TREADY, DIR = O, BUS = S_AXIS_1
+PORT s_axis_tlast_1 = TLAST, DIR = I, BUS = S_AXIS_1
+
+#GTX Tranceiver
+PORT gtxclk_0 = "", DIR = I, SIGIS = CLK
+PORT gtxclk_1 = "", DIR = I, SIGIS = CLK
+
+PORT TXP_0 = "", DIR = O
+PORT TXN_0 = "", DIR = O
+PORT TXP_1 = "", DIR = O
+PORT TXN_1 = "", DIR = O
+
+PORT RXP_0 = "", DIR = I, INITIALVAL = VCC 
+PORT RXN_0 = "", DIR = I, INITIALVAL = GND
+PORT RXP_1 = "", DIR = I, INITIALVAL = VCC 
+PORT RXN_1 = "", DIR = I, INITIALVAL = GND
+
+#PORT TXP_0_dummy = "", DIR = O
+#PORT TXN_0_dummy = "", DIR = O
+#PORT TXP_1_dummy = "", DIR = O
+#PORT TXN_1_dummy = "", DIR = O
+
+#PORT RXP_0_dummy = "", DIR = I, INITIALVAL = VCC 
+#PORT RXN_0_dummy = "", DIR = I, INITIALVAL = GND
+#PORT RXP_1_dummy = "", DIR = I, INITIALVAL = VCC 
+#PORT RXN_1_dummy = "", DIR = I, INITIALVAL = GND
+
+END
