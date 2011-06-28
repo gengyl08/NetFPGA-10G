@@ -1,0 +1,27 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_oped.scr
+#//
+#//  Description:
+#//          scr file to provide better timing
+#//                 
+#//  Revision history:
+#//          2010/12/20 hyzeng: Initial check-in
+#//
+#////////////////////////////////////////////////////////////////////////
+run
+-opt_mode speed
+-netlist_hierarchy as_optimized
+-opt_level 2
+-p xc5vtx240tff1759-2
+-top nf10_oped_0_wrapper
+-ifmt MIXED
+-ifn nf10_oped_0_wrapper_xst.prj
+-ofn ../implementation/nf10_oped_0_wrapper.ngc
+-hierarchy_separator /
+-iobuf NO
+-uc ../nf10/nf10_oped.xcf
+-sd {../implementation/nf10_oped_0_wrapper}
