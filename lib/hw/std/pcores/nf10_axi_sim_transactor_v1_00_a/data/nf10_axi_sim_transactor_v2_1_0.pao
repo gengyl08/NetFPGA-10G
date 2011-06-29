@@ -1,0 +1,24 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_axi_sim_transactor_v2_1_0.pao
+#//
+#//  Description:
+#//          Peripheral Analyze Order File for AXI4 Lite stimulation.
+#//          Transmits AXI4-Lite transactions from data read from an
+#//          AXI grammar formatted text file on disc, and logs the
+#//          results.
+#//
+#////////////////////////////////////////////////////////////////////////
+
+# Generic FIFOs
+lib proc_common_v3_00_a all
+
+# Common I/O handling package
+simlib nf10_axis_sim_pkg_v1_00_a all
+
+# Implementation for this pcore
+simlib nf10_axi_sim_transactor_v1_00_a transactor_fifos vhdl
+simlib nf10_axi_sim_transactor_v1_00_a nf10_axi_sim_transactor vhdl

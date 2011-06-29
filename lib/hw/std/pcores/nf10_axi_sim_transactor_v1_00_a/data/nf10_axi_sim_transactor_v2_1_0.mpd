@@ -1,0 +1,59 @@
+#////////////////////////////////////////////////////////////////////////
+#//
+#//  NetFPGA-10G http://www.netfpga.org
+#//
+#//  Module:
+#//          nf10_axi_sim_transactor_v2_1_0.mpd
+#//
+#//  Description:
+#//          Microprocessor Peripheral Description File for AXI4 Lite
+#//          stimulation.  Transmits AXI4-Lite transactions from data
+#//          read from an AXI grammar formatted text file on disc, and
+#//          logs the results.
+#//
+#////////////////////////////////////////////////////////////////////////
+
+BEGIN nf10_axi_sim_transactor
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION HDL = VHDL
+OPTION USAGE_LEVEL = BASE_USER
+OPTION STYLE = HDL
+OPTION RUN_NGCBUILD = TRUE
+OPTION IMP_NETLIST = TRUE
+OPTION IP_GROUP = Communication High-Speed:MICROBLAZE
+OPTION DESC = NetFPGA-10G AXI4-Lite stimulation and logger
+OPTION LONG_DESC = Reads a series of AXI4 Lite transactions from the nominated text file, transmits them, and logs the results.
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXI, BUS_STD = AXI, BUS_TYPE = MASTER
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_M_AXI_PROTOCOL = AXI4LITE, BUS = M_AXI, DT = STRING, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER stim_file = ../../reg_stim.axi, DT = STRING
+PARAMETER log_file = ../../reg_stim.log, DT = STRING
+
+## Ports
+PORT M_AXI_ACLK = "", DIR = I, SIGIS = CLK, BUS = M_AXI, ASSIGNMENT=REQUIRE
+PORT M_AXI_ARESETN = "", DIR = I, SIGIS = RST
+
+PORT M_AXI_AWADDR = AWADDR, DIR = O, VEC = [31:0], ENDIAN = LITTLE
+PORT M_AXI_AWVALID = AWVALID, DIR = O
+PORT M_AXI_AWREADY = AWREADY, DIR = I
+PORT M_AXI_WDATA = WDATA, DIR = O, VEC = [31:0], ENDIAN = LITTLE
+PORT M_AXI_WSTRB = WSTRB, DIR = O, VEC = [3:0], ENDIAN = LITTLE
+PORT M_AXI_WVALID = WVALID, DIR = O
+PORT M_AXI_WREADY = WREADY, DIR = I
+PORT M_AXI_BRESP = BRESP, DIR = I, VEC = [1:0]
+PORT M_AXI_BVALID = BVALID, DIR = I
+PORT M_AXI_BREADY = BREADY, DIR = O
+PORT M_AXI_ARADDR = ARADDR, DIR = O, VEC = [31:0], ENDIAN = LITTLE
+PORT M_AXI_ARVALID = ARVALID, DIR = O
+PORT M_AXI_ARREADY = ARREADY, DIR = I
+PORT M_AXI_RDATA = RDATA, DIR = I, VEC = [31:0], ENDIAN = LITTLE
+PORT M_AXI_RRESP = RRESP, DIR = I, VEC = [1:0]
+PORT M_AXI_RVALID = RVALID, DIR = I
+PORT M_AXI_RREADY = RREADY, DIR = O
+
+END

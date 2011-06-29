@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+        <!ENTITY stim_file '
+		<widget id="stim_file">
+		<key>stim_file</key>
+		<label>Name of the file from which AXI4 Lite stimuli
+		should be read.</label>
+		<tip></tip>
+        </widget>
+	'>
+        <!ENTITY log_file '
+		<widget id="log_file">
+		<key>log_file</key>
+		<label>Name of the file to which AXI4 Lite transactions
+		should be logged.</label>
+		<tip></tip>
+        </widget>
+	'>
+]>
