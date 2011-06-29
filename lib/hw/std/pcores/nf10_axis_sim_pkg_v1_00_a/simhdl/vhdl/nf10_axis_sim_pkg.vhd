@@ -18,6 +18,12 @@ use std.textio.all;
 use ieee.std_logic_textio.all;
 
 package nf10_axis_sim_pkg is
+    ----------------------------------------------------------------------
+    -- (make) Standard Logic
+    --
+    --  Return a standard logic from a boolean
+    function sl( b: boolean ) return std_logic;
+
     -----------------------------------------------------------------------
     -- lookahead_char()
     --
@@ -51,6 +57,19 @@ package nf10_axis_sim_pkg is
 end;
 
 package body nf10_axis_sim_pkg is
+    ----------------------------------------------------------------------
+    -- (make) Standard Logic
+    --
+    --  Return a standard logic from a boolean
+    function sl( b: boolean ) return std_logic is
+    begin
+        if b then
+            return '1';
+        else
+            return '0';
+        end if;
+    end;
+
     -----------------------------------------------------------------------
     -- lookahead_char()
     --
