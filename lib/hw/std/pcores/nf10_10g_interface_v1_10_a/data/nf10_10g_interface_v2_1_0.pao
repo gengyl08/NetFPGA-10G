@@ -12,16 +12,17 @@
 #//          2010/11/28 hyzeng: Initial check-in
 #//          2011/5/26  hyzeng: Included AXIS converter
 #//          2011/6/13 ericklo: Separate Stanford and Xilinx verilog
+#//          2011/6/27 ericklo: Rename stanford dir to nf10
 #//
 #////////////////////////////////////////////////////////////////////////
 lib nf10_axis_converter_v1_00_a all
 lib nf10_10g_interface_v1_10_a xilinx/rocketio_wrapper.v verilog
 lib nf10_10g_interface_v1_10_a xilinx/rocketio_wrapper_tile.v verilog
 lib nf10_10g_interface_v1_10_a xilinx/xaui_block.v verilog
-lib nf10_10g_interface_v1_10_a stanford/tx_queue.v verilog
-lib nf10_10g_interface_v1_10_a stanford/rx_queue.v verilog
-lib nf10_10g_interface_v1_10_a stanford/nf10_10g_interface.v verilog
-lib nf10_10g_interface_v1_10_a stanford/small_async_fifo.v verilog
+lib nf10_10g_interface_v1_10_a nf10/tx_queue.v verilog
+lib nf10_10g_interface_v1_10_a nf10/rx_queue.v verilog
+lib nf10_10g_interface_v1_10_a nf10/nf10_10g_interface.v verilog
+lib nf10_10g_interface_v1_10_a nf10/small_async_fifo.v verilog
 lib nf10_10g_interface_v1_10_a xilinx/tx_sync.v verilog
 lib nf10_10g_interface_v1_10_a xilinx/chanbond_monitor.v verilog
 lib nf10_10g_interface_v1_10_a xilinx/cc_2b_1skp.v verilog

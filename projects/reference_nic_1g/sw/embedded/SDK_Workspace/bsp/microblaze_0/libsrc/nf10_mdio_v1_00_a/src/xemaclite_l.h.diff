@@ -1,0 +1,17 @@
+137a138,153
+> //James: MDIO Clause 45
+> #define XEL_MDIO_OP_READ_MASK		0x00000800	/**< PHY read access */
+> #define XEL_MDIO_OP_WRITE_MASK		0x00000400	/**< PHY write access */
+> #define XEL_MDIO_OP_45_ADDRESS		0x00000000	/**< PHY address access */
+> #define XEL_MDIO_OP_45_WRITE		0x00000400	/**< PHY write access */
+> #define XEL_MDIO_OP_45_READ_INC		0x00000800	/**< PHY read inc access */
+> #define XEL_MDIO_OP_45_READ		0x00000C00	/**< PHY read access */
+> 
+> #define XEL_MDIO_OP_22_WRITE		0x00000400	/**< PHY write access */
+> #define XEL_MDIO_OP_22_READ		0x00000800	/**< PHY read access */
+> 
+> #define XEL_MDIO_OP_SHIFT               10              /**< PHY OP Code shift */
+> #define XEL_MDIO_CLAUSE_SHIFT           12              /**< PHY Clause shift */
+> #define XEL_MDIO_CLAUSE_MASK            0x00001000      /**< PHY Clause type access */
+> #define XEL_MDIO_CLAUSE_22              0x00000000      /**< PHY Clause type access */
+> #define XEL_MDIO_CLAUSE_45              0x00001000      /**< PHY Clause type access */

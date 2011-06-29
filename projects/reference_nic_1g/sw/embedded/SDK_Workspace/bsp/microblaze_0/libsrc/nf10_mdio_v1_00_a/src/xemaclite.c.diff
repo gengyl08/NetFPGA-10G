@@ -1,0 +1,22 @@
+733c733
+< 			u16 *PhyDataPtr)
+---
+>                       u32 opcode, u32 clause, u16 *PhyDataPtr)
+755a756,757
+> 	//PhyAddrReg = ((((PhyAddress << XEL_MDIO_ADDRESS_SHIFT) &
+> 	//		XEL_MDIO_ADDRESS_MASK) | RegNum) | XEL_MDIO_OP_MASK);
+757c759
+< 			XEL_MDIO_ADDRESS_MASK) | RegNum) | XEL_MDIO_OP_MASK);
+---
+> 			XEL_MDIO_ADDRESS_MASK) | RegNum) | opcode | clause);
+822c824
+< 			u16 PhyData)
+---
+>                       u32 opcode, u32 clause, u16 PhyData)
+845a848,849
+> 	//PhyAddrReg = ((((PhyAddress << XEL_MDIO_ADDRESS_SHIFT) &
+> 	//		XEL_MDIO_ADDRESS_MASK) | RegNum) & ~XEL_MDIO_OP_MASK);
+847c851
+< 			XEL_MDIO_ADDRESS_MASK) | RegNum) & ~XEL_MDIO_OP_MASK);
+---
+> 			XEL_MDIO_ADDRESS_MASK) | RegNum) | opcode | clause);

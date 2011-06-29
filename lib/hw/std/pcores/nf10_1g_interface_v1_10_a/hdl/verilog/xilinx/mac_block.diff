@@ -1,0 +1,520 @@
+74,75c74,88
+< 
+< 
+---
+> ////////////////////////////////////////////////////////////////////////
+> //
+> //  NetFPGA-10G http://www.netfpga.org
+> //
+> //  Module:
+> //          mac_block
+> //
+> //  Description:
+> //          mac_block patched with optional pipeline registers
+> //          and two GTXs
+> //                 
+> //  Revision history:
+> //          2010/12/8 hyzeng: Initial check-in
+> //
+> ////////////////////////////////////////////////////////////////////////
+83c96,98
+< (
+---
+> # (parameter PIPELINE_PORT_0 = 1,
+>              PIPELINE_PORT_1 = 1)
+>   (
+177c192,193
+<     CLK_DS, 
+---
+>     CLK_DS_0, 
+>     CLK_DS_1, 
+281c297,298
+<     input           CLK_DS; 
+---
+>     input           CLK_DS_0; 
+>     input           CLK_DS_1;
+303,329c320,367
+<     wire            emac_locked_0_i;
+<     wire     [7:0]  mgt_rx_data_0_i;
+<     wire     [7:0]  mgt_tx_data_0_i;
+<     wire            signal_detect_0_i;
+<     wire            rxelecidle_0_i;
+<     wire            encommaalign_0_i;
+<     wire            loopback_0_i;
+<     wire            mgt_rx_reset_0_i;
+<     wire            mgt_tx_reset_0_i;
+<     wire            powerdown_0_i;
+<     wire     [2:0]  rxclkcorcnt_0_i;
+<     wire            rxbuferr_0_i;
+<     wire            rxchariscomma_0_i;
+<     wire            rxcharisk_0_i;
+<     wire            rxdisperr_0_i;
+<     wire     [1:0]  rxlossofsync_0_i;
+<     wire            rxnotintable_0_i;
+<     wire            rxrundisp_0_i;
+<     wire            txbuferr_0_i;
+<     wire            txchardispmode_0_i;
+<     wire            txchardispval_0_i;
+<     wire            txcharisk_0_i;
+<     wire     [1:0]  rxbufstatus_0_i;
+<     reg      [3:0]  tx_reset_sm_0_r;
+<     reg             tx_pcs_reset_0_r;
+<     reg      [3:0]  rx_reset_sm_0_r;
+<     reg             rx_pcs_reset_0_r;
+---
+>     wire           emac_locked_0_i;
+>     reg            emac_locked_0_ii;
+>     wire    [7:0]  mgt_rx_data_0_i;
+>     reg     [7:0]  mgt_rx_data_0_ii;
+>     reg     [7:0]  mgt_tx_data_0_i;
+>     wire    [7:0]  mgt_tx_data_0_ii;
+>     wire           signal_detect_0_i;
+>     reg            signal_detect_0_ii;
+>     wire           rxelecidle_0_i;
+>     reg            encommaalign_0_i;
+>     wire           encommaalign_0_ii;
+>     reg            loopback_0_i;
+>     wire           loopback_0_ii;
+>     reg            mgt_rx_reset_0_i;
+>     wire           mgt_rx_reset_0_ii;
+>     reg            mgt_tx_reset_0_i;
+>     wire           mgt_tx_reset_0_ii;
+>     reg            powerdown_0_i;
+>     wire           powerdown_0_ii;
+>     wire    [2:0]  rxclkcorcnt_0_i;
+>     reg     [2:0]  rxclkcorcnt_0_ii;
+>     wire           rxbuferr_0_i;
+>     reg            rxbuferr_0_ii;
+>     wire           rxchariscomma_0_i;
+>     reg            rxchariscomma_0_ii;
+>     wire           rxcharisk_0_i;
+>     reg            rxcharisk_0_ii;
+>     wire           rxdisperr_0_i;
+>     reg            rxdisperr_0_ii;
+>     wire    [1:0]  rxlossofsync_0_i; 
+>     reg     [1:0]  rxlossofsync_0_ii;
+>     wire           rxnotintable_0_i;
+>     reg            rxnotintable_0_ii;
+>     wire           rxrundisp_0_i;
+>     reg            rxrundisp_0_ii;
+>     wire           txbuferr_0_i;
+>     reg            txbuferr_0_ii;
+>     reg            txchardispmode_0_i;
+>     wire           txchardispmode_0_ii;
+>     reg            txchardispval_0_i;
+>     wire           txchardispval_0_ii;
+>     reg            txcharisk_0_i;
+>     wire           txcharisk_0_ii;
+>     wire    [1:0]  rxbufstatus_0_i;
+>     reg     [3:0]  tx_reset_sm_0_r;
+>     reg            tx_pcs_reset_0_r;
+>     reg     [3:0]  rx_reset_sm_0_r;
+>     reg            rx_pcs_reset_0_r;
+338,364c376,423
+<     wire            emac_locked_1_i;
+<     wire     [7:0]  mgt_rx_data_1_i;
+<     wire     [7:0]  mgt_tx_data_1_i;
+<     wire            signal_detect_1_i;
+<     wire            rxelecidle_1_i;
+<     wire            encommaalign_1_i;
+<     wire            loopback_1_i;
+<     wire            mgt_rx_reset_1_i;
+<     wire            mgt_tx_reset_1_i;
+<     wire            powerdown_1_i;
+<     wire     [2:0]  rxclkcorcnt_1_i;
+<     wire            rxbuferr_1_i;
+<     wire            rxchariscomma_1_i;
+<     wire            rxcharisk_1_i;
+<     wire            rxdisperr_1_i;
+<     wire     [1:0]  rxlossofsync_1_i;
+<     wire            rxnotintable_1_i;
+<     wire            rxrundisp_1_i;
+<     wire            txbuferr_1_i;
+<     wire            txchardispmode_1_i;
+<     wire            txchardispval_1_i;
+<     wire            txcharisk_1_i;
+<     wire     [1:0]  rxbufstatus_1_i;
+<     reg      [3:0]  tx_reset_sm_1_r;
+<     reg             tx_pcs_reset_1_r;
+<     reg      [3:0]  rx_reset_sm_1_r;
+<     reg             rx_pcs_reset_1_r;
+---
+>     wire           emac_locked_1_i;
+>     reg            emac_locked_1_ii;
+>     wire    [7:0]  mgt_rx_data_1_i;
+>     reg     [7:0]  mgt_rx_data_1_ii;
+>     reg     [7:0]  mgt_tx_data_1_i;
+>     wire    [7:0]  mgt_tx_data_1_ii;
+>     wire           signal_detect_1_i;
+>     reg            signal_detect_1_ii;
+>     wire           rxelecidle_1_i;
+>     reg            encommaalign_1_i;
+>     wire           encommaalign_1_ii;
+>     reg            loopback_1_i;
+>     wire           loopback_1_ii;
+>     reg            mgt_rx_reset_1_i;
+>     wire           mgt_rx_reset_1_ii;
+>     reg            mgt_tx_reset_1_i;
+>     wire           mgt_tx_reset_1_ii;
+>     reg            powerdown_1_i;
+>     wire           powerdown_1_ii;
+>     wire    [2:0]  rxclkcorcnt_1_i;
+>     reg     [2:0]  rxclkcorcnt_1_ii;
+>     wire           rxbuferr_1_i;
+>     reg            rxbuferr_1_ii;
+>     wire           rxchariscomma_1_i;
+>     reg            rxchariscomma_1_ii;
+>     wire           rxcharisk_1_i;
+>     reg            rxcharisk_1_ii;
+>     wire           rxdisperr_1_i;
+>     reg            rxdisperr_1_ii;
+>     wire    [1:0]  rxlossofsync_1_i; 
+>     reg     [1:0]  rxlossofsync_1_ii;
+>     wire           rxnotintable_1_i;
+>     reg            rxnotintable_1_ii;
+>     wire           rxrundisp_1_i;
+>     reg            rxrundisp_1_ii;
+>     wire           txbuferr_1_i;
+>     reg            txbuferr_1_ii;
+>     reg            txchardispmode_1_i;
+>     wire           txchardispmode_1_ii;
+>     reg            txchardispval_1_i;
+>     wire           txchardispval_1_ii;
+>     reg            txcharisk_1_i;
+>     wire           txcharisk_1_ii;
+>     wire    [1:0]  rxbufstatus_1_i;
+>     reg     [3:0]  tx_reset_sm_1_r;
+>     reg            tx_pcs_reset_1_r;
+>     reg     [3:0]  rx_reset_sm_1_r;
+>     reg            rx_pcs_reset_1_r;
+376d434
+< 
+412,413c470,472
+<     //EMAC0 and EMAC1 instances
+<     GTX_dual_1000X GTX_DUAL_1000X_inst
+---
+>    //EMAC0-only instance (uses GTX Port 0)
+>     GTX_dual_1000X GTX_DUAL_1000X_inst_0
+>  
+429c488
+<          .TXRESET_0             (mgt_tx_reset_0_i),                                   
+---
+>          .TXRESET_0             (mgt_tx_reset_0_i),
+437c496
+<          .RXBUFERR_0            (rxbuferr_0_i),         
+---
+>          .RXBUFERR_0            (rxbuferr_0_i),
+446,477c505,509
+<          .RESETDONE_1           (RESETDONE_1),
+<          .ENMCOMMAALIGN_1       (encommaalign_1_i),
+<          .ENPCOMMAALIGN_1       (encommaalign_1_i),
+<          .LOOPBACK_1            (loopback_1_i),
+<          .POWERDOWN_1           (powerdown_1_i),
+<          .RXUSRCLK_1            (usrclk),
+<          .RXUSRCLK2_1           (usrclk2),
+<          .RXRESET_1             (mgt_rx_reset_1_i),
+<          .TXCHARDISPMODE_1      (txchardispmode_1_i),
+<          .TXCHARDISPVAL_1       (txchardispval_1_i),
+<          .TXCHARISK_1           (txcharisk_1_i),
+<          .TXDATA_1              (mgt_tx_data_1_i),
+<          .TXUSRCLK_1            (usrclk),
+<          .TXUSRCLK2_1           (usrclk2),
+<          .TXRESET_1             (mgt_tx_reset_1_i),                                   
+<          .RXCHARISCOMMA_1       (rxchariscomma_1_i),
+<          .RXCHARISK_1           (rxcharisk_1_i),
+<          .RXCLKCORCNT_1         (rxclkcorcnt_1_i),
+<          .RXDATA_1              (mgt_rx_data_1_i),
+<          .RXDISPERR_1           (rxdisperr_1_i),
+<          .RXNOTINTABLE_1        (rxnotintable_1_i),
+<          .RXRUNDISP_1           (rxrundisp_1_i),
+<          .RXBUFERR_1            (rxbuferr_1_i),         
+<          .TXBUFERR_1            (txbuferr_1_i),
+<          .PLLLKDET_1            (plllock_1_i),
+<          .TXOUTCLK_1            (),
+<          .RXELECIDLE_1          (rxelecidle_1_i),
+<          .RX1P_1                (RXP_1),
+<          .RX1N_1                (RXN_1),
+<          .TX1N_1                (TXN_1),
+<          .TX1P_1                (TXP_1),
+<          .CLK_DS                (CLK_DS),         
+---
+>          .TX1N_1_UNUSED         (),
+>          .TX1P_1_UNUSED         (),
+>          .RX1N_1_UNUSED         (),
+>          .RX1P_1_UNUSED         (),
+>          .CLK_DS                (CLK_DS_0),         
+482a515,558
+>    //EMAC1-only instance (uses GTX Port 0)
+>     GTX_dual_1000X GTX_DUAL_1000X_inst_1
+>  
+>          (
+>          .RESETDONE_0           (RESETDONE_1),
+>          .ENMCOMMAALIGN_0       (encommaalign_1_i),
+>          .ENPCOMMAALIGN_0       (encommaalign_1_i),
+>          .LOOPBACK_0            (loopback_1_i),
+>          .POWERDOWN_0           (powerdown_1_i),
+>          .RXUSRCLK_0            (usrclk),
+>          .RXUSRCLK2_0           (usrclk2),
+>          .RXRESET_0             (mgt_rx_reset_1_i),
+>          .TXCHARDISPMODE_0      (txchardispmode_1_i),
+>          .TXCHARDISPVAL_0       (txchardispval_1_i),
+>          .TXCHARISK_0           (txcharisk_1_i),
+>          .TXDATA_0              (mgt_tx_data_1_i),
+>          .TXUSRCLK_0            (usrclk),
+>          .TXUSRCLK2_0           (usrclk2),
+>          .TXRESET_0             (mgt_tx_reset_1_i),
+>          .RXCHARISCOMMA_0       (rxchariscomma_1_i),
+>          .RXCHARISK_0           (rxcharisk_1_i),
+>          .RXCLKCORCNT_0         (rxclkcorcnt_1_i),
+>          .RXDATA_0              (mgt_rx_data_1_i),
+>          .RXDISPERR_0           (rxdisperr_1_i),
+>          .RXNOTINTABLE_0        (rxnotintable_1_i),
+>          .RXRUNDISP_0           (rxrundisp_1_i),
+>          .RXBUFERR_0            (rxbuferr_1_i),
+>          .TXBUFERR_0            (txbuferr_1_i),
+>          .PLLLKDET_0            (plllock_1_i),
+>          .TXOUTCLK_0            (),
+>          .RXELECIDLE_0          (rxelecidle_1_i),
+>          .RX1P_0                (RXP_1),
+>          .RX1N_0                (RXN_1),
+>          .TX1N_0                (TXN_1),
+>          .TX1P_0                (TXP_1),
+>          .TX1N_1_UNUSED         (),
+>          .TX1P_1_UNUSED         (),
+>          .RX1N_1_UNUSED         (),
+>          .RX1P_1_UNUSED         (),
+>          .CLK_DS                (CLK_DS_1),         
+>          .GTRESET               (GTRESET),
+>          .REFCLKOUT             (/* refclkout */),
+>          .PMARESET              (reset_ibuf_i),
+>          .DCM_LOCKED            (dcm_locked_gtp));
+490c566
+<     assign rxbufstatus_0_i[1] = rxbuferr_0_i;
+---
+>     assign rxbufstatus_0_i[1] = rxbuferr_0_ii;
+503c579
+<     assign rxbufstatus_1_i[1] = rxbuferr_1_i;
+---
+>     assign rxbufstatus_1_i[1] = rxbuferr_1_ii;
+629,631c705,707
+<         .RXDATA_0                       (mgt_rx_data_0_i),
+<         .TXDATA_0                       (mgt_tx_data_0_i),
+<         .DCM_LOCKED_0                   (emac_locked_0_i  ),
+---
+>         .RXDATA_0                       (mgt_rx_data_0_ii),
+>         .TXDATA_0                       (mgt_tx_data_0_ii),
+>         .DCM_LOCKED_0                   (emac_locked_0_ii  ),
+633c709
+<         .SIGNAL_DETECT_0                (signal_detect_0_i), 
+---
+>         .SIGNAL_DETECT_0                (signal_detect_0_ii), 
+635,639c711,715
+<         .ENCOMMAALIGN_0                 (encommaalign_0_i),
+<         .LOOPBACKMSB_0                  (loopback_0_i),
+<         .MGTRXRESET_0                   (mgt_rx_reset_0_i),
+<         .MGTTXRESET_0                   (mgt_tx_reset_0_i),
+<         .POWERDOWN_0                    (powerdown_0_i),
+---
+>         .ENCOMMAALIGN_0                 (encommaalign_0_ii),
+>         .LOOPBACKMSB_0                  (loopback_0_ii),
+>         .MGTRXRESET_0                   (mgt_rx_reset_0_ii),
+>         .MGTTXRESET_0                   (mgt_tx_reset_0_ii),
+>         .POWERDOWN_0                    (powerdown_0_ii),
+641c717
+<         .RXCLKCORCNT_0                  (rxclkcorcnt_0_i),
+---
+>         .RXCLKCORCNT_0                  (rxclkcorcnt_0_ii),
+643,646c719,722
+<         .RXCHARISCOMMA_0                (rxchariscomma_0_i),
+<         .RXCHARISK_0                    (rxcharisk_0_i),
+<         .RXDISPERR_0                    (rxdisperr_0_i),
+<         .RXNOTINTABLE_0                 (rxnotintable_0_i),
+---
+>         .RXCHARISCOMMA_0                (rxchariscomma_0_ii),
+>         .RXCHARISK_0                    (rxcharisk_0_ii),
+>         .RXDISPERR_0                    (rxdisperr_0_ii),
+>         .RXNOTINTABLE_0                 (rxnotintable_0_ii),
+648,649c724,725
+<         .RXRUNDISP_0                    (rxrundisp_0_i),
+<         .TXBUFERR_0                     (txbuferr_0_i),
+---
+>         .RXRUNDISP_0                    (rxrundisp_0_ii),
+>         .TXBUFERR_0                     (txbuferr_0_ii),
+651,653c727,729
+<         .TXCHARDISPMODE_0               (txchardispmode_0_i),
+<         .TXCHARDISPVAL_0                (txchardispval_0_i),
+<         .TXCHARISK_0                    (txcharisk_0_i),
+---
+>         .TXCHARDISPMODE_0               (txchardispmode_0_ii),
+>         .TXCHARDISPVAL_0                (txchardispval_0_ii),
+>         .TXCHARISK_0                    (txcharisk_0_ii),
+694,696c770,772
+<         .RXDATA_1                       (mgt_rx_data_1_i),
+<         .TXDATA_1                       (mgt_tx_data_1_i),
+<         .DCM_LOCKED_1                   (emac_locked_1_i  ),
+---
+>         .RXDATA_1                       (mgt_rx_data_1_ii),
+>         .TXDATA_1                       (mgt_tx_data_1_ii),
+>         .DCM_LOCKED_1                   (emac_locked_1_ii  ),
+698c774
+<         .SIGNAL_DETECT_1                (signal_detect_1_i),
+---
+>         .SIGNAL_DETECT_1                (signal_detect_1_ii),
+700,704c776,780
+<         .ENCOMMAALIGN_1                 (encommaalign_1_i),
+<         .LOOPBACKMSB_1                  (loopback_1_i),
+<         .MGTRXRESET_1                   (mgt_rx_reset_1_i),
+<         .MGTTXRESET_1                   (mgt_tx_reset_1_i),
+<         .POWERDOWN_1                    (powerdown_1_i),
+---
+>         .ENCOMMAALIGN_1                 (encommaalign_1_ii),
+>         .LOOPBACKMSB_1                  (loopback_1_ii),
+>         .MGTRXRESET_1                   (mgt_rx_reset_1_ii),
+>         .MGTTXRESET_1                   (mgt_tx_reset_1_ii),
+>         .POWERDOWN_1                    (powerdown_1_ii),
+706c782
+<         .RXCLKCORCNT_1                  (rxclkcorcnt_1_i),
+---
+>         .RXCLKCORCNT_1                  (rxclkcorcnt_1_ii),
+708,711c784,787
+<         .RXCHARISCOMMA_1                (rxchariscomma_1_i),
+<         .RXCHARISK_1                    (rxcharisk_1_i),
+<         .RXDISPERR_1                    (rxdisperr_1_i),
+<         .RXNOTINTABLE_1                 (rxnotintable_1_i),
+---
+>         .RXCHARISCOMMA_1                (rxchariscomma_1_ii),
+>         .RXCHARISK_1                    (rxcharisk_1_ii),
+>         .RXDISPERR_1                    (rxdisperr_1_ii),
+>         .RXNOTINTABLE_1                 (rxnotintable_1_ii),
+713,714c789,790
+<         .RXRUNDISP_1                    (rxrundisp_1_i),
+<         .TXBUFERR_1                     (txbuferr_1_i),
+---
+>         .RXRUNDISP_1                    (rxrundisp_1_ii),
+>         .TXBUFERR_1                     (txbuferr_1_ii),
+716,720c792,794
+<         .TXCHARDISPMODE_1               (txchardispmode_1_i),
+<         .TXCHARDISPVAL_1                (txchardispval_1_i),
+<         .TXCHARISK_1                    (txcharisk_1_i),
+< 
+< 
+---
+>         .TXCHARDISPMODE_1               (txchardispmode_1_ii),
+>         .TXCHARDISPVAL_1                (txchardispval_1_ii),
+>         .TXCHARISK_1                    (txcharisk_1_ii),
+726a801,915
+>    // Add pipleine register for timing closure for GTX port 0
+>    // No reset since only one stage and reset is held longer
+>    // GTX nets are suffix i and TEMAC nets are suffix ii
+>    generate if (PIPELINE_PORT_0 == 1) begin
+>      always @(posedge usrclk2) begin
+>        emac_locked_0_ii <= emac_locked_0_i;
+>        mgt_rx_data_0_ii <= mgt_rx_data_0_i;
+>        mgt_tx_data_0_i <= mgt_tx_data_0_ii;
+>        signal_detect_0_ii <= signal_detect_0_i;
+>        // rxelecidle_0_i <= rxelecidle_0_ii; // Actually signal_detect 
+>        encommaalign_0_i <= encommaalign_0_ii;
+>        loopback_0_i <= loopback_0_ii;
+>        mgt_rx_reset_0_i <= mgt_rx_reset_0_ii;
+>        mgt_tx_reset_0_i <= mgt_tx_reset_0_ii;
+>        powerdown_0_i <= powerdown_0_ii;
+>        rxclkcorcnt_0_ii <= rxclkcorcnt_0_i;
+>        rxbuferr_0_ii <= rxbuferr_0_i; 
+>        rxchariscomma_0_ii <= rxchariscomma_0_i;
+>        rxcharisk_0_ii <= rxcharisk_0_i;
+>        rxdisperr_0_ii <= rxdisperr_0_i;
+>        rxlossofsync_0_ii <= rxlossofsync_0_i;
+>        rxnotintable_0_ii <= rxnotintable_0_i;
+>        rxrundisp_0_ii <= rxrundisp_0_i;
+>        txbuferr_0_ii <= txbuferr_0_i;
+>        txchardispmode_0_i <= txchardispmode_0_ii;
+>        txchardispval_0_i <= txchardispval_0_ii;
+>        txcharisk_0_i <= txcharisk_0_ii;
+>        // rxbufstatus_0_i <= rxbufstatus_0_ii; // Actually rxbuferr
+>      end
+>    end else begin
+>      always @(*) begin
+>        emac_locked_0_ii <= emac_locked_0_i;
+>        mgt_rx_data_0_ii <= mgt_rx_data_0_i;
+>        mgt_tx_data_0_i <= mgt_tx_data_0_ii;
+>        signal_detect_0_ii <= signal_detect_0_i;
+>        // rxelecidle_0_i <= rxelecidle_0_ii; // Actually signal_detect 
+>        encommaalign_0_i <= encommaalign_0_ii;
+>        loopback_0_i <= loopback_0_ii;
+>        mgt_rx_reset_0_i <= mgt_rx_reset_0_ii;
+>        mgt_tx_reset_0_i <= mgt_tx_reset_0_ii;
+>        powerdown_0_i <= powerdown_0_ii;
+>        rxclkcorcnt_0_ii <= rxclkcorcnt_0_i;
+>        rxbuferr_0_ii <= rxbuferr_0_i; 
+>        rxchariscomma_0_ii <= rxchariscomma_0_i;
+>        rxcharisk_0_ii <= rxcharisk_0_i;
+>        rxdisperr_0_ii <= rxdisperr_0_i;
+>        rxlossofsync_0_ii <= rxlossofsync_0_i;
+>        rxnotintable_0_ii <= rxnotintable_0_i;
+>        rxrundisp_0_ii <= rxrundisp_0_i;
+>        txbuferr_0_ii <= txbuferr_0_i;
+>        txchardispmode_0_i <= txchardispmode_0_ii;
+>        txchardispval_0_i <= txchardispval_0_ii;
+>        txcharisk_0_i <= txcharisk_0_ii;
+>        // rxbufstatus_0_i <= rxbufstatus_0_ii; // Actually rxbuferr
+>      end
+>   end
+>   endgenerate
+> 
+>    // Add pipleine register for timing closure for GTX port 1
+>    // No reset since only one stage and reset is held longer
+>    // GTX nets are suffix i and TEMAC nets are suffix ii
+>    generate if (PIPELINE_PORT_1 == 1) begin
+>      always @(posedge usrclk2) begin
+>        emac_locked_1_ii <= emac_locked_1_i;
+>        mgt_rx_data_1_ii <= mgt_rx_data_1_i;
+>        mgt_tx_data_1_i <= mgt_tx_data_1_ii;
+>        signal_detect_1_ii <= signal_detect_1_i;
+>        // rxelecidle_1_i <= rxelecidle_1_ii; // Actually signal_detect 
+>        encommaalign_1_i <= encommaalign_1_ii;
+>        loopback_1_i <= loopback_1_ii;
+>        mgt_rx_reset_1_i <= mgt_rx_reset_1_ii;
+>        mgt_tx_reset_1_i <= mgt_tx_reset_1_ii;
+>        powerdown_1_i <= powerdown_1_ii;
+>        rxclkcorcnt_1_ii <= rxclkcorcnt_1_i;
+>        rxbuferr_1_ii <= rxbuferr_1_i; 
+>        rxchariscomma_1_ii <= rxchariscomma_1_i;
+>        rxcharisk_1_ii <= rxcharisk_1_i;
+>        rxdisperr_1_ii <= rxdisperr_1_i;
+>        rxlossofsync_1_ii <= rxlossofsync_1_i;
+>        rxnotintable_1_ii <= rxnotintable_1_i;
+>        rxrundisp_1_ii <= rxrundisp_1_i;
+>        txbuferr_1_ii <= txbuferr_1_i;
+>        txchardispmode_1_i <= txchardispmode_1_ii;
+>        txchardispval_1_i <= txchardispval_1_ii;
+>        txcharisk_1_i <= txcharisk_1_ii;
+>        // rxbufstatus_1_i <= rxbufstatus_1_ii; // Actually rxbuferr
+>      end
+>    end else begin
+>      always @(*) begin
+>        emac_locked_1_ii <= emac_locked_1_i;
+>        mgt_rx_data_1_ii <= mgt_rx_data_1_i;
+>        mgt_tx_data_1_i <= mgt_tx_data_1_ii;
+>        signal_detect_1_ii <= signal_detect_1_i;
+>        // rxelecidle_1_i <= rxelecidle_1_ii; // Actually signal_detect 
+>        encommaalign_1_i <= encommaalign_1_ii;
+>        loopback_1_i <= loopback_1_ii;
+>        mgt_rx_reset_1_i <= mgt_rx_reset_1_ii;
+>        mgt_tx_reset_1_i <= mgt_tx_reset_1_ii;
+>        powerdown_1_i <= powerdown_1_ii;
+>        rxclkcorcnt_1_ii <= rxclkcorcnt_1_i;
+>        rxbuferr_1_ii <= rxbuferr_1_i; 
+>        rxchariscomma_1_ii <= rxchariscomma_1_i;
+>        rxcharisk_1_ii <= rxcharisk_1_i;
+>        rxdisperr_1_ii <= rxdisperr_1_i;
+>        rxlossofsync_1_ii <= rxlossofsync_1_i;
+>        rxnotintable_1_ii <= rxnotintable_1_i;
+>        rxrundisp_1_ii <= rxrundisp_1_i;
+>        txbuferr_1_ii <= txbuferr_1_i;
+>        txchardispmode_1_i <= txchardispmode_1_ii;
+>        txchardispval_1_i <= txchardispval_1_ii;
+>        txcharisk_1_i <= txcharisk_1_ii;
+>        // rxbufstatus_1_i <= rxbufstatus_1_ii; // Actually rxbuferr
+>      end
+>   end
+>   endgenerate

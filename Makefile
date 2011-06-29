@@ -51,9 +51,12 @@ xilinx: check-env
 #        similar mechanism used in Xilinx cores.
 std:
 	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_10g_interface_v1_00_a/
+	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_10g_interface_v1_10_a/
 	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_1g_interface_v1_00_a/
+	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_1g_interface_v1_10_a/
 	$(MAKE) -C $(NF10_SW_LIB_DIR_STD)/nf10_mdio_v1_00_a/
 	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_mdio_v1_00_a/
+	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_oped_v1_10_a/
 	@echo "/////////////////////////////////////////";
 	@echo "//NF10 standard cores installed.";
 	@echo "/////////////////////////////////////////";
@@ -70,6 +73,9 @@ clean:
 		fi; \
 	done;
 	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_10g_interface_v1_00_a/ clean
+	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_10g_interface_v1_10_a/ clean
 	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_1g_interface_v1_00_a/ clean
+	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_1g_interface_v1_10_a/ clean
 	$(MAKE) -C $(NF10_SW_LIB_DIR_STD)/nf10_mdio_v1_00_a/ clean
 	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_mdio_v1_00_a/ clean
+	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_oped_v1_10_a/ clean
