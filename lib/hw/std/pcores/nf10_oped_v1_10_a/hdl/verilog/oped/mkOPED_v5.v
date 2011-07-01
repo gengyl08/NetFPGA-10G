@@ -5446,6 +5446,7 @@ module mkOPED_v5(pci0_clkp,
 	    .RST_N_wci_Vm_14(cp$RST_N_wci_Vm_14));
 
   // submodule dp0_bram_memory
+  (*ram_style="block"*)
   BRAM2 #(.PIPELINED(1'd0),
 	  .ADDR_WIDTH(32'd11),
 	  .DATA_WIDTH(32'd32),
@@ -5463,6 +5464,7 @@ module mkOPED_v5(pci0_clkp,
 					      .DOB(dp0_bram_memory$DOB));
 
   // submodule dp0_bram_memory_1
+  (*ram_style="block"*)
   BRAM2 #(.PIPELINED(1'd0),
 	  .ADDR_WIDTH(32'd11),
 	  .DATA_WIDTH(32'd32),
@@ -5480,6 +5482,7 @@ module mkOPED_v5(pci0_clkp,
 						.DOB(dp0_bram_memory_1$DOB));
 
   // submodule dp0_bram_memory_2
+  (*ram_style="block"*)
   BRAM2 #(.PIPELINED(1'd0),
 	  .ADDR_WIDTH(32'd11),
 	  .DATA_WIDTH(32'd32),
@@ -5497,6 +5500,7 @@ module mkOPED_v5(pci0_clkp,
 						.DOB(dp0_bram_memory_2$DOB));
 
   // submodule dp0_bram_memory_3
+  (*ram_style="block"*)
   BRAM2 #(.PIPELINED(1'd0),
 	  .ADDR_WIDTH(32'd11),
 	  .DATA_WIDTH(32'd32),
@@ -5751,6 +5755,7 @@ module mkOPED_v5(pci0_clkp,
 						.EMPTY_N(dp0_wmi_wmi_reqF$EMPTY_N));
 
   // submodule dp1_bram_memory
+  (*ram_style="block"*)
   BRAM2 #(.PIPELINED(1'd0),
 	  .ADDR_WIDTH(32'd11),
 	  .DATA_WIDTH(32'd32),
@@ -5768,6 +5773,7 @@ module mkOPED_v5(pci0_clkp,
 					      .DOB(dp1_bram_memory$DOB));
 
   // submodule dp1_bram_memory_1
+  (*ram_style="block"*)
   BRAM2 #(.PIPELINED(1'd0),
 	  .ADDR_WIDTH(32'd11),
 	  .DATA_WIDTH(32'd32),
@@ -5785,6 +5791,7 @@ module mkOPED_v5(pci0_clkp,
 						.DOB(dp1_bram_memory_1$DOB));
 
   // submodule dp1_bram_memory_2
+  (*ram_style="block"*)
   BRAM2 #(.PIPELINED(1'd0),
 	  .ADDR_WIDTH(32'd11),
 	  .DATA_WIDTH(32'd32),
@@ -5802,6 +5809,7 @@ module mkOPED_v5(pci0_clkp,
 						.DOB(dp1_bram_memory_2$DOB));
 
   // submodule dp1_bram_memory_3
+  (*ram_style="block"*)
   BRAM2 #(.PIPELINED(1'd0),
 	  .ADDR_WIDTH(32'd11),
 	  .DATA_WIDTH(32'd32),
