@@ -98,7 +98,7 @@ module nf10_nic_output_port_lookup
       case(state)
 	MODULE_HEADER: begin
 	   if (m_axis_tvalid) begin
-	      if(~|m_axis_tuser[SRC_PORT_POS+:7]) begin
+	      if(~|m_axis_tuser[SRC_PORT_POS+:8]) begin
 	      	m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = 8'b1;
 	      end // Default: Send to MAC 0
 	      else if(pkt_is_from_cpu) begin
