@@ -45,9 +45,7 @@ xilinx: check-env
 	@echo "/////////////////////////////////////////";
 	@echo "//Xilinx EDK cores installed.";
 	@echo "/////////////////////////////////////////";
-	
-# James: In the public release, we should replace this with
-#        similar mechanism used in Xilinx cores.
+
 std:
 	for lib in $(HW_LIB_DIR_INSTANCES_STD) ; do \
 		if test -f $(NF10_HW_LIB_DIR_STD)/$$lib/Makefile; \
