@@ -26,6 +26,7 @@ all: $(DOWNLOAD_BIT)
 clean:
 	rm -rf $(RESULT_DIR)
 	rm -rf $(HW_DIR)/*
+	$(MAKE) -C $(BSP_DIR) clean
 
 $(RESULT_DIR):
 	mkdir -p $(RESULT_DIR)
