@@ -14,8 +14,8 @@
 #  Revision history:
 #          2010/12/8 hyzeng: Initial check-in
 #          2011/3/3  hyzeng: Improved subdir installation flow
-#		   2011/5/5  hyzeng: Main target renamed to "cores"
-#		   2011/6/13 ericklo: Restructure Makefiles, add target "clean"
+#          2011/5/5  hyzeng: Main target renamed to "cores"
+#          2011/6/13 ericklo: Restructure Makefiles, add target "clean"
 #
 ################################################################################
 
@@ -34,7 +34,6 @@ HW_LIB_DIR_INSTANCES_XILINX := $(basename $(patsubst ./%,%,$(HW_LIB_DIR_INSTANCE
 HW_LIB_DIR_INSTANCES_STD := $(shell cd $(NF10_HW_LIB_DIR_STD) && find . -maxdepth 1 -type d)
 HW_LIB_DIR_INSTANCES_STD := $(basename $(patsubst ./%,%,$(HW_LIB_DIR_INSTANCES_STD)))
 
-
 cores: xilinx std
 
 xilinx: check-env
@@ -50,13 +49,11 @@ xilinx: check-env
 # James: In the public release, we should replace this with
 #        similar mechanism used in Xilinx cores.
 std:
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_10g_interface_v1_00_a/
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_10g_interface_v1_10_a/
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_1g_interface_v1_00_a/
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_1g_interface_v1_10_a/
-	$(MAKE) -C $(NF10_SW_LIB_DIR_STD)/nf10_mdio_v1_00_a/
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_mdio_v1_00_a/
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_oped_v1_10_a/
+	for lib in $(HW_LIB_DIR_INSTANCES_STD) ; do \
+		if test -f $(NF10_HW_LIB_DIR_STD)/$$lib/Makefile; \
+			then $(MAKE) -C $(NF10_HW_LIB_DIR_STD)/$$lib; \
+		fi; \
+	done;
 	@echo "/////////////////////////////////////////";
 	@echo "//NF10 standard cores installed.";
 	@echo "/////////////////////////////////////////";
@@ -72,10 +69,8 @@ clean:
 			then $(MAKE) -C $(NF10_HW_LIB_DIR_XILINX)/$$lib clean; \
 		fi; \
 	done;
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_10g_interface_v1_00_a/ clean
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_10g_interface_v1_10_a/ clean
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_1g_interface_v1_00_a/ clean
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_1g_interface_v1_10_a/ clean
-	$(MAKE) -C $(NF10_SW_LIB_DIR_STD)/nf10_mdio_v1_00_a/ clean
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_mdio_v1_00_a/ clean
-	$(MAKE) -C $(NF10_HW_LIB_DIR_STD)/nf10_oped_v1_10_a/ clean
+	for lib in $(HW_LIB_DIR_INSTANCES_STD) ; do \
+		if test -f $(NF10_HW_LIB_DIR_STD)/$$lib/Makefile; \
+			then $(MAKE) -C $(NF10_HW_LIB_DIR_STD)/$$lib clean; \
+		fi; \
+	done;
