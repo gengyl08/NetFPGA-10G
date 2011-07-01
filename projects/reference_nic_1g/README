@@ -3,10 +3,10 @@
 #  NetFPGA-10G http://www.netfpga.org
 #
 #  Project:
-#          NetFPGA-10G 10G Reference NIC
+#          NetFPGA-10G 1G Reference NIC
 #
 #  Name:
-#          reference_nic
+#          reference_nic_1g
 #                 
 #  Revision history:
 #          2011/5/18 hyzeng: Initial check-in

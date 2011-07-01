@@ -3,10 +3,11 @@
 #  NetFPGA-10G http://www.netfpga.org
 #
 #  Project:
-#          reference_nic
+#          reference_nic_1g
 #                 
 #  Revision history:
 #          2010/12/1 hyzeng: Initial check-in
+#          2011/7/1  hyzeng: Added simulation guide
 #
 #################################################################
 
@@ -23,3 +24,6 @@ export it to your Xilinx SDK project in order to download the Microblaze
 program to BRAM.
 
 For SDK instructions , please checkout /sw/embedded directory
+
+For simulation, just run "make sim". Please follow Xilinx iSim
+documentation for more details.
