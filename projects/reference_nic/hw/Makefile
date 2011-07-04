@@ -84,12 +84,12 @@ download: $(DOWNLOAD_BIT) dummy
 init_bram: $(DOWNLOAD_BIT)
 
 #James: Copy the simulation testbench
-sim: $(DEFAULT_SIM_SCRIPT)
-	cd simulation/behavioral ; \
-	cp ../../nf10/system_tb.v .; \
-	sh system_fuse.sh;
-	cd simulation/behavioral ; \
-	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
+#sim: $(DEFAULT_SIM_SCRIPT)
+#	cd simulation/behavioral ; \
+#	cp ../../nf10/system_tb.v .; \
+#	sh system_fuse.sh;
+#	cd simulation/behavioral ; \
+#	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
 
 simmodel: $(DEFAULT_SIM_SCRIPT)
 
@@ -262,7 +262,7 @@ axi_model: axi_simulation/$(MHSFILE) __xps/simgen.opt \
 	@echo "*********************************************"
 	simgen $(SIMGEN_OPTIONS) -m behavioral axi_simulation/$(MHSFILE) -od axi_simulation/ -lp ../
 
-axisim: axi_model
+sim: axi_model
 	./axi_simulation/simulation/make_pkts.py ; \
 	cd axi_simulation/simulation/behavioral ; \
 	cp ../../system_tb.v .; \
