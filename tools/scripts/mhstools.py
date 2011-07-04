@@ -172,7 +172,7 @@ def get_parameter( ents, name ):
     found.  `ents` should either be a list of Entities, or a reference to a
     BEGIN Entity.
     """
-    if ents.is_begin(): ents = ents.inst_ents
+    if type(ents) == Entity and ents.is_begin(): ents = ents.inst_ents
     params = filter( lambda x: x[0].upper() == name.upper(),
                      get_ents_by_kw( ents, 'PARAMETER' ) )
     if len(params) > 1:
