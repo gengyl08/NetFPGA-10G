@@ -15,10 +15,8 @@
 
 from __future__ import with_statement
 
-import copy
 import cStringIO
-import itertools
-import operator
+import mhstools
 import optparse
 import os
 import re
@@ -29,9 +27,6 @@ DEFAULT_TARGETS = [ 'nf10_10g_interface',
                     'nf10_oped',
                     ]
 
-DISABLED_FLAG = '#!'
-df_re     = re.compile( '^\s*#\s*!(.*)' ) # disabled flag
-
 clk_re    = re.compile( '\w*aclk', re.IGNORECASE )
 rst_re    = re.compile( '\w*(?:axi_|a)reset_?n', re.IGNORECASE )
 m_axis_re = re.compile( 'M_AXIS\w*' )
@@ -39,186 +34,6 @@ s_axis_re = re.compile( 'S_AXIS\w*' )
 
 RECORDER_VER = '1.00.a'
 STIM_VER     = '1.00.a'
-
-class Entity(object):
-    """
-    Storage class for objects within an MHS file.
-    """
-
-    def __init__( self, line ):
-        self.disabled_flag = False
-        self._kw           = None
-        self.args          = []
-        self.comment       = None
-
-        # Handle disabled (commented) core instances
-        disabled = df_re.match( line )
-        if disabled:
-            self.disabled_flag = True
-            line = disabled.group(1)
-
-        # Handle ordinary comments
-        try:
-            # Look to see if a comment is present.  If not, index() will throw
-            # an exception, and we skip this section.
-            hash_index = line.index( '#' )
-        except ValueError:
-            pass
-        else:
-            self.comment = line[hash_index + 1:].rstrip('\r\n')
-            line = line[:hash_index]
-
-        # Tokenise a keyword line
-        kwargs = line.strip().split( None, 1 )
-        if len(kwargs) > 0:
-            self._kw = kwargs[0]
-        if len(kwargs) > 1:
-            self.args = [tuple(elt.strip() for elt in av.split('=',1))           # tuples of (a,v)
-                                               for av in kwargs[1].split(',')    # list of 'a=v'
-                        ]                                                        # [(a,v),...]
-
-    def __str__( self ):
-        s = ''
-        if self.disabled_flag:
-            s += DISABLED_FLAG
-        if self._kw is not None:
-            args = ', '.join( ' = '.join( av ) for av in self.args )
-            s += '%s%s%s' % (self._kw, ' ' if args else '', args)
-        if self.comment is not None:
-            s += '%s#%s' % ('\t' if s else '', self.comment)
-        return s
-
-    def is_begin( self ):
-        """
-        Check for BEGIN keyword
-        """
-        return self.kw() == 'BEGIN'
-
-    def is_end( self ):
-        """
-        Check for END keyword
-        """
-        return self.kw() == 'END'
-
-    def is_comment( self ):
-        """
-        Returns True when this object is an ordinary comment
-        """
-        return self.comment is not None
-
-    def kw( self ):
-        """
-        Returns keyword (as uppercase) if present, otherwise empty string
-        """
-        return ('' if self._kw is None else self._kw.upper())
-
-    def core_name( self ):
-        """
-        Returns the name of the core instance represented by this record, or
-        None if not a core instance.
-        """
-        if self.is_begin():
-            return self.args[0][0]
-
-    def copy( self ):
-        """
-        Returns a deep copy of self.
-        """
-        return copy.deepcopy(self)
-
-
-class TooManyError(Exception):
-    """
-    Exception for signalling the unexpected return of too many objects.
-    """
-    def __init__( self, what, ents ):
-        self.what = what
-        self.ents = ents
-
-    def __str__( self ):
-        return 'too many %s' % self.what
-
-
-def parse_mhs( fh, lno_gen = None ):
-    """
-    Parses an MHS file.  Returns a list of Entity instances representing the
-    entities in the MHS file.
-
-    NB: BEGIN Entites include the additional attribute `inst_ents`, which is
-        itself a list of Entity objects representing the lines that belong to
-        that core instance.
-    """
-    if lno_gen is None:
-        lno_gen = itertools.count(1)
-
-    for lno, line in itertools.izip(lno_gen, fh):
-        ent = Entity( line )
-        if ent.is_begin():
-            ent.inst_ents = list(parse_mhs( fh, lno_gen ))
-        yield ent
-        if ent.is_end():
-            return
-
-
-def set_disabled_flag( ent, val ):
-    """
-    Set the entity's disabled flag to the specified value.  If the entity is a
-    core instance, set all subordinate entities to the same value.
-    """
-    ent.disabled_flag = val
-    if ent.is_begin():
-        for inst_ent in ent.inst_ents:
-            set_disabled_flag( inst_ent, val )
-
-
-def get_ents_by_kw( ents, kw ):
-    """
-    Return a list of the args for all lines matching keyword `kw` (eg, all PORT
-    mappings).  `ents` should either be a list of Entities, or a reference to a
-    BEGIN Entity.
-    """
-    if type(ents) == Entity: ents = ents.inst_ents
-    return sum( [x.args for x in filter( lambda x: x.kw() == kw, ents )],
-                [] )
-
-
-def get_parameter( ents, name ):
-    """
-    Attempt to find the instance PARAMETER by `name`.  Returns None if not
-    found.  `ents` should either be a list of Entities, or a reference to a
-    BEGIN Entity.
-    """
-    if ents.is_begin(): ents = ents.inst_ents
-    params = filter( lambda x: x[0].upper() == name.upper(),
-                     get_ents_by_kw( ents, 'PARAMETER' ) )
-    if len(params) > 1:
-        raise TooManyError( 'instances of PARAMETER %s' % name,
-                            [x[1] for x in params] )
-    return (params[0][1] if params else None)
-
-
-def instances( mhs ):
-    """
-    Generator that iterates over all instances in the given MHS file
-    """
-    return (ent for ent in mhs if ent.is_begin())
-
-
-def get_other_inst( mhs, inst, net ):
-    """
-    Returns the other instance connected to `inst` by `net`
-    """
-    net_kws = ['PORT', 'BUS_INTERFACE']
-    others = filter( lambda other: (
-                            other is not inst and not other.disabled_flag and
-                            filter( lambda x: x[1].upper() == net.upper(),  # matching nets
-                                    sum( (get_ents_by_kw( other, kw ) for kw in net_kws),
-                                         [] )                               # all instance nets
-                                    ) ),
-                     instances(mhs) )
-    if len(others) > 1:
-        raise TooManyError( 'instances on net %s' % net, others )
-    return (others[0] if others else None)
 
 
 def insert_recorder( mhs, index, comment, inst_name, ver, axi_file, width, net, clock ):
@@ -229,7 +44,7 @@ def insert_recorder( mhs, index, comment, inst_name, ver, axi_file, width, net, 
         width = ''
     else:
         width = 'PARAMETER C_S_AXIS_DATA_WIDTH = %s\n' % width
-    mhs[index:index] = list( parse_mhs( cStringIO.StringIO( """\
+    mhs[index:index] = list( mhstools.parse_mhs( cStringIO.StringIO( """\
 #
 # %s
 BEGIN nf10_axis_sim_record
@@ -252,7 +67,7 @@ def insert_stimulator( mhs, index, comment, inst_name, ver, axi_file, width, net
         width = ''
     else:
         width = 'PARAMETER C_M_AXIS_DATA_WIDTH = %s\n' % width
-    mhs[index:index] = list( parse_mhs( cStringIO.StringIO( """\
+    mhs[index:index] = list( mhstools.parse_mhs( cStringIO.StringIO( """\
 #
 # %s
 BEGIN nf10_axis_sim_stim
@@ -286,14 +101,14 @@ def subst_mhs( mhs, targets, opts ):
         Perform substitution with nf10_axis_sim_{record,stim}.
         """
         core_name = ent.core_name()
-        core_inst = get_parameter( ent, 'INSTANCE' )
-        m_width   = get_parameter( ent, 'C_M_AXIS_DATA_WIDTH' )
-        s_width   = get_parameter( ent, 'C_S_AXIS_DATA_WIDTH' )
-        set_disabled_flag( ent, True )
+        core_inst = mhstools.get_parameter( ent, 'INSTANCE' )
+        m_width   = mhstools.get_parameter( ent, 'C_M_AXIS_DATA_WIDTH' )
+        s_width   = mhstools.get_parameter( ent, 'C_S_AXIS_DATA_WIDTH' )
+        mhstools.set_disabled_flag( ent, True )
         print 'Replacing pcore %s (instance %s):' % (core_name, core_inst)
 
         # Attempt to infer the correct clock and reset nets
-        ports = get_ents_by_kw( ent, 'PORT' )
+        ports = mhstools.get_ents_by_kw( ent, 'PORT' )
 
         clock_net = get_override( opts.clocks, core_name, core_inst )
         if clock_net is None:
@@ -330,7 +145,7 @@ def subst_mhs( mhs, targets, opts ):
             print '\tusing reset net override: %s' % reset_net
 
         # Find any AXI Stream ports, and what they're attached to
-        bus_args = get_ents_by_kw( ent, 'BUS_INTERFACE' )
+        bus_args = mhstools.get_ents_by_kw( ent, 'BUS_INTERFACE' )
         s_axis_nets = [net for cls, net in filter( lambda av: s_axis_re.match( av[0] ), bus_args )]
         m_axis_nets = [net for cls, net in filter( lambda av: m_axis_re.match( av[0] ), bus_args )]
 
@@ -343,23 +158,23 @@ def subst_mhs( mhs, targets, opts ):
             for net in s_axis_nets:
                 # Attempt to infer correct width parameter
                 try:
-                    other = get_other_inst( mhs, ent, net )
-                except TooManyError, e:
+                    other = mhstools.get_other_inst( mhs, ent, net )
+                except mhstools.TooManyError, e:
                     print 'error: more than one other instance attached to net %s.' % net
                     print '       instance name (core name) found:'
                     print '\t\t%s' % '\n\t\t'.join( ['%s (%s)' % (
-                                                    get_parameter( x, 'INSTANCE'),
+                                                    mhstools.get_parameter( x, 'INSTANCE'),
                                                     x.core_name()) for x in e.ents] )
                     return False
                 if not other:
                     print '\twarning: nothing else attached to net %s' % net
                     return True
-                other_width = get_parameter( other, 'C_M_AXIS_DATA_WIDTH' )
+                other_width = mhstools.get_parameter( other, 'C_M_AXIS_DATA_WIDTH' )
                 if other_width is not None and s_width is not None and other_width != s_width:
                     print 'error: width of attached instance\'s port disagrees with this instance'
                     print '       net %s' % net
                     print '       this inst = %s, inst %s = %s' % (s_width,
-                                                                   get_parameter(other, 'INSTANCE'),
+                                                                   mhstools.get_parameter(other, 'INSTANCE'),
                                                                    other_width)
                     return False
                 width = (s_width if other_width is None else other_width)
@@ -376,23 +191,23 @@ def subst_mhs( mhs, targets, opts ):
             for net in m_axis_nets:
                 # Attempt to infer correct width parameter
                 try:
-                    other = get_other_inst( mhs, ent, net )
-                except TooManyError, e:
+                    other = mhstools.get_other_inst( mhs, ent, net )
+                except mhstools.TooManyError, e:
                     print 'error: more than one other instance attached to net %s.' % net
                     print '       instance name (core name) found:'
                     print '\t\t%s' % '\n\t\t'.join( ['%s (%s)' % (
-                                                    get_parameter( x, 'INSTANCE'),
+                                                    mhstools.get_parameter( x, 'INSTANCE'),
                                                     x.core_name()) for x in e.ents] )
                     return False
                 if not other:
                     print '\twarning: nothing else attached to net %s' % net
                     return True
-                other_width = get_parameter( other, 'C_S_AXIS_DATA_WIDTH' )
+                other_width = mhstools.get_parameter( other, 'C_S_AXIS_DATA_WIDTH' )
                 if other_width is not None and m_width is not None and other_width != m_width:
                     print 'error: width of attached instance\'s port disagrees with this instance'
                     print '       net %s' % net
                     print '       this inst = %s, inst %s = %s' % (m_width,
-                                                                   get_parameter(other, 'INSTANCE'),
+                                                                   mhstools.get_parameter(other, 'INSTANCE'),
                                                                    other_width)
                     return False
                 width = (m_width if other_width is None else other_width)
@@ -415,7 +230,7 @@ def subst_mhs( mhs, targets, opts ):
         instances.
         """
         core_name = ent.core_name()
-        core_inst = get_parameter( ent, 'INSTANCE' )
+        core_inst = mhstools.get_parameter( ent, 'INSTANCE' )
         subst_required = False
         new_inst = ent.copy()
         for inst_ent in new_inst.inst_ents:
@@ -429,8 +244,8 @@ def subst_mhs( mhs, targets, opts ):
         if subst_required:
             print 'Performing overrides on pcore %s' % core_name
             print '                    (instance %s)' % core_inst
-            set_disabled_flag( ent, True )
-            ent.comment = DISABLED_FLAG
+            mhstools.set_disabled_flag( ent, True )
+            ent.comment = mhstools.DISABLED_FLAG
             mhs.insert( index+1, new_inst )
             print
 
@@ -469,20 +284,13 @@ def unsubst_mhs( mhs ):
         # Delete sim cores and cores with substituted nets, and enable disabled cores
         if ent.is_begin():
             if ent.disabled_flag:
-                set_disabled_flag( ent, False )
-                if ent.comment == DISABLED_FLAG:
+                mhstools.set_disabled_flag( ent, False )
+                if ent.comment == mhstools.DISABLED_FLAG:
                     ent.comment = None
                     del mhs[index+1]
             if ent.core_name() in ['nf10_axis_sim_stim', 'nf10_axis_sim_record']:
                 del mhs[index]
                 del_comments = True
-
-
-def write_mhs( fh, mhs ):
-    for ent in mhs:
-        fh.write( '%s\n' % ent )
-        if ent.is_begin():
-            write_mhs( fh, ent.inst_ents )
 
 
 def net_override_cb( opt, opt_str, value, parser, lblank_allowed ):
@@ -551,7 +359,7 @@ Current list of default target pcores:
 
     # read and parse MHS file
     with open( opts.mhs_file ) as mhs_fh:
-        mhs = list(parse_mhs( mhs_fh ))
+        mhs = list( mhstools.parse_mhs( mhs_fh ) )
 
     # perform (or undo) substitutions
     if opts.undo:
@@ -563,7 +371,7 @@ Current list of default target pcores:
     # rename and write out MHS file
     os.rename( opts.mhs_file, os.path.splitext(opts.mhs_file)[0] + '.bk' )
     with open( opts.mhs_file, 'w' ) as mhs_fh:
-        write_mhs( mhs_fh, mhs )
+        mhstools.write_mhs( mhs_fh, mhs )
 
     return 0
 
