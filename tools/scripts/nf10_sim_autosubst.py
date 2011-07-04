@@ -44,7 +44,7 @@ def insert_recorder( mhs, index, comment, inst_name, ver, axi_file, width, net, 
         width = ''
     else:
         width = 'PARAMETER C_S_AXIS_DATA_WIDTH = %s\n' % width
-    mhs[index:index] = list( mhstools.parse_mhs( cStringIO.StringIO( """\
+    mhs[index:index] = mhstools.parse_mhs( cStringIO.StringIO( """\
 #
 # %s
 BEGIN nf10_axis_sim_record
@@ -56,7 +56,7 @@ BUS_INTERFACE S_AXIS = %s
 PORT aclk = %s
 END
 """ % (comment,
-       inst_name, ver, axi_file, width, net, clock) ) ) )
+       inst_name, ver, axi_file, width, net, clock) ) )
 
 
 def insert_stimulator( mhs, index, comment, inst_name, ver, axi_file, width, net, clock, reset ):
@@ -67,7 +67,7 @@ def insert_stimulator( mhs, index, comment, inst_name, ver, axi_file, width, net
         width = ''
     else:
         width = 'PARAMETER C_M_AXIS_DATA_WIDTH = %s\n' % width
-    mhs[index:index] = list( mhstools.parse_mhs( cStringIO.StringIO( """\
+    mhs[index:index] = mhstools.parse_mhs( cStringIO.StringIO( """\
 #
 # %s
 BEGIN nf10_axis_sim_stim
@@ -79,7 +79,7 @@ BUS_INTERFACE M_AXIS = %s
 PORT aclk = %s
 PORT aresetn = %s
 END
-""" % (comment, inst_name, ver, axi_file, width, net, clock, reset) ) ) )
+""" % (comment, inst_name, ver, axi_file, width, net, clock, reset) ) )
 
 
 def subst_mhs( mhs, targets, opts ):
@@ -359,7 +359,7 @@ Current list of default target pcores:
 
     # read and parse MHS file
     with open( opts.mhs_file ) as mhs_fh:
-        mhs = list( mhstools.parse_mhs( mhs_fh ) )
+        mhs = mhstools.parse_mhs( mhs_fh )
 
     # perform (or undo) substitutions
     if opts.undo:

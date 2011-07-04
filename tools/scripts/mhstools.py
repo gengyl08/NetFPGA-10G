@@ -11,12 +11,9 @@
 #
 #
 
-from __future__ import with_statement
-
 import copy
 import itertools
 import re
-import types
 
 
 DISABLED_FLAG = '#!'
@@ -131,16 +128,20 @@ def parse_mhs( fh, lno_gen = None ):
         itself a list of Entity objects representing the lines that belong to
         that core instance.
     """
+    if type(fh) == str:
+        raise Exception('parse_mhs: expected an open file handle, not a string (%s)' % fh)
     if lno_gen is None:
         lno_gen = itertools.count(1)
 
+    ents = []
     for lno, line in itertools.izip(lno_gen, fh):
         ent = Entity( line )
         if ent.is_begin():
-            ent.inst_ents = list(parse_mhs( fh, lno_gen ))
-        yield ent
+            ent.inst_ents = parse_mhs( fh, lno_gen )
+        ents.append( ent )
         if ent.is_end():
-            return
+            return ents
+    return ents
 
 
 def set_disabled_flag( ent, val ):
@@ -208,6 +209,9 @@ def write_mhs( fh, mhs ):
     """
     Write out MHS file (inverse of parse_mhs()).
     """
+    if type(fh) == str:
+        raise Exception('write_mhs: expected an open file handle, not a string (%s)' % fh)
+
     for ent in mhs:
         fh.write( '%s\n' % ent )
         if ent.is_begin():
