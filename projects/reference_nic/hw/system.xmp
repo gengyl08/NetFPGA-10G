@@ -1,7 +1,8 @@
 #Please do not modify this file by hand
-XmpVersion: 13.1
-VerMgmt: 13.1
+XmpVersion: 13.2
+VerMgmt: 13.2
 IntStyle: default
+Flow: ise
 ModuleSearchPath: ../../../lib/hw
 MHS File: system.mhs
 Architecture: virtex5
@@ -19,6 +20,7 @@ InsertNoPads: 0
 WarnForEAArch: 1
 HdlLang: Verilog
 SimModel: BEHAVIORAL
+ExternalMemSim: 0
 UserMakeFile: Makefile
 UcfFile: data/nf10.ucf
 EnableParTimingError: 0
