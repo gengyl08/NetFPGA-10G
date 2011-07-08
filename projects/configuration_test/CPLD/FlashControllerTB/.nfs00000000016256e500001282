@@ -1,0 +1,29 @@
+ISim log file
+Running: /home/mgrinda/netfpga_10g_dev_WORKING_BOOT/projects/configuration_test/CPLD/FlashControllerTB/FlashTest_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/mgrinda/netfpga_10g_dev_WORKING_BOOT/projects/configuration_test/CPLD/FlashControllerTB/FlashTest_isim_beh.wdb 
+ISim O.40d (signature 0xfb738814)
+This is a Full version of ISim.
+Time resolution is 1 ps
+# onerror resume
+# wave add /
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+ISim O.40d (signature 0xfb738814)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run 1000.00us
+at 14320 ns: Note: Electronic signature is 0x0009 (/flashtest/).
+at 14370 ns(1): Note: Got to the first state (/flashtest/flash/).
+at 14375 ns(1): Note: Got to the first state (/flashtest/flash/).
+at 14650 ns: Note: Written 0x1234 to address 0xbcdef (/flashtest/).
+at 14690 ns(1): Note: Got to the first state (/flashtest/flash/).
+at 14695 ns(1): Note: Got to the first state (/flashtest/flash/).
+at 14980 ns: Note: Written 0x5432 to address 0xbcdf0 (/flashtest/).
+at 15020 ns(1): Note: Got to the first read state (/flashtest/flash/).
+at 15025 ns(1): Note: Got to the first read state (/flashtest/flash/).
+at 16270 ns: Note: Read0x1234 from address 0xbcdef   (/flashtest/).
+at 16310 ns(1): Note: Got to the first read state (/flashtest/flash/).
+at 16315 ns(1): Note: Got to the first read state (/flashtest/flash/).
+at 17560 ns: Note: Read0x5432 from address 0xbcdf0   (/flashtest/).

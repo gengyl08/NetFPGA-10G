@@ -1,0 +1,3 @@
+WARNING:Cpld - Unable to retrieve the path to the iSE Project Repository. Will
+   use the default filename of 'FlashEmulator.ise'.
+ERROR:Cpld:1005 - Design 'FlashEmulator' has no outputs. 

@@ -1,0 +1,296 @@
+Release 13.1 - xst O.40d (lin)
+Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
+--> 
+Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.07 secs
+ 
+--> 
+Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 0.07 secs
+ 
+--> 
+Reading design: CPLDLoaderSteph.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "CPLDLoaderSteph.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "CPLDLoaderSteph"
+Output Format                      : NGC
+Target Device                      : CoolRunner2 CPLDs
+
+---- Source Options
+Top Module Name                    : CPLDLoaderSteph
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+Mux Extraction                     : Yes
+Resource Sharing                   : YES
+
+---- Target Options
+Add IO Buffers                     : YES
+MACRO Preserve                     : YES
+XOR Preserve                       : YES
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Keep Hierarchy                     : Yes
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Verilog 2001                       : YES
+
+---- Other Options
+Clock Enable                       : YES
+wysiwyg                            : NO
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "/home/mgrinda/CPLD/CPLDStephOld/CPLDStephOld/CPLDLoaderSteph_old.vhd" in Library work.
+Entity <cpldloadersteph> compiled.
+Entity <cpldloadersteph> (Architecture <structural>) compiled.
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for entity <CPLDLoaderSteph> in library <work> (architecture <structural>).
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <CPLDLoaderSteph> in library <work> (Architecture <structural>).
+INFO:Xst:2679 - Register <FLASH_A_WP> in unit <CPLDLoaderSteph> has a constant value of 1 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FLASH_A_A<23>> in unit <CPLDLoaderSteph> has a constant value of 0 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FLASH_A_RP> in unit <CPLDLoaderSteph> has a constant value of 1 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FLASH_A_RW> in unit <CPLDLoaderSteph> has a constant value of 1 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <config_cnt> in unit <CPLDLoaderSteph> has a constant value of 00 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FlashAddress> in unit <CPLDLoaderSteph> has a constant value of 000000000000000000000000 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <SendAddress> in unit <CPLDLoaderSteph> has a constant value of 0 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FPGAData<15>> in unit <CPLDLoaderSteph> has a constant value of 1 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FPGAData<14>> in unit <CPLDLoaderSteph> has a constant value of 1 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FPGAData<13>> in unit <CPLDLoaderSteph> has a constant value of 1 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FPGAData<12>> in unit <CPLDLoaderSteph> has a constant value of 1 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FPGAData<11>> in unit <CPLDLoaderSteph> has a constant value of 1 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FPGAData<10>> in unit <CPLDLoaderSteph> has a constant value of 1 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FPGAData<9>> in unit <CPLDLoaderSteph> has a constant value of 1 during circuit operation. The register is replaced by logic.
+INFO:Xst:2679 - Register <FPGAData<8>> in unit <CPLDLoaderSteph> has a constant value of 1 during circuit operation. The register is replaced by logic.
+Entity <CPLDLoaderSteph> analyzed. Unit <CPLDLoaderSteph> generated.
+
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <CPLDLoaderSteph>.
+    Related source file is "/home/mgrinda/CPLD/CPLDStephOld/CPLDStephOld/CPLDLoaderSteph_old.vhd".
+WARNING:Xst:1306 - Output <FLASH_B_K> is never assigned.
+WARNING:Xst:1306 - Output <FLASH_B_L> is never assigned.
+WARNING:Xst:1306 - Output <FLASH_B_W> is never assigned.
+WARNING:Xst:647 - Input <FPGA_RP> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <reboot> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:1306 - Output <FLASH_B_RP> is never assigned.
+WARNING:Xst:2565 - Inout <FLASH_B_RW> is never assigned.
+WARNING:Xst:1306 - Output <FLASH_B_WP> is never assigned.
+WARNING:Xst:1306 - Output <FLASH_B_A> is never assigned.
+WARNING:Xst:1306 - Output <FLASH_B_E> is never assigned.
+WARNING:Xst:1306 - Output <FLASH_B_G> is never assigned.
+WARNING:Xst:646 - Signal <config_cnt> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <clk50_i> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <clk125_i> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:1780 - Signal <Top16Bits> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <SendAddress> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <PrevConfProceed> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:1780 - Signal <PrevCCLK> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <Flash_A_G_buffered_2> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <FlashAddress> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:653 - Signal <CCLK> is used but never assigned. This sourceless signal will be automatically connected to value 0.
+    Found 16-bit tristate buffer for signal <FPGA_data>.
+    Found 23-bit register for signal <FLASH_A_A<22:0>>.
+    Found 16-bit tristate buffer for signal <FLASH_A_DQ>.
+    Found 1-bit register for signal <FLASH_A_E>.
+    Found 1-bit register for signal <FLASH_A_G>.
+    Found 1-bit register for signal <FLASH_A_W>.
+    Found 1-bit register for signal <FLASH_A_L>.
+    Found 1-bit register for signal <AlternateCycle>.
+    Found 25-bit up counter for signal <clk_cnt_i>.
+    Found 1-bit register for signal <ConfProceed>.
+    Found 1-bit register for signal <DelayedPause>.
+    Found 16-bit register for signal <FLASH_A_DQ_buffered>.
+    Found 1-bit register for signal <Flash_A_G_buffered>.
+    Found 1-bit register for signal <FLASH_AK>.
+    Found 16-bit register for signal <FPGA_data_buffered>.
+    Found 8-bit register for signal <FPGAData<7:0>>.
+    Found 24-bit register for signal <pause>.
+    Found 24-bit subtractor for signal <pause$addsub0000> created at line 222.
+    Found 1-bit register for signal <PrevInit_B>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred  53 D-type flip-flop(s).
+	inferred   1 Adder/Subtractor(s).
+	inferred  32 Tristate(s).
+Unit <CPLDLoaderSteph> synthesized.
+
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# Adders/Subtractors                                   : 1
+ 24-bit subtractor                                     : 1
+# Counters                                             : 1
+ 25-bit up counter                                     : 1
+# Registers                                            : 59
+ 1-bit register                                        : 57
+ 16-bit register                                       : 1
+ 24-bit register                                       : 1
+# Tristates                                            : 2
+ 16-bit tristate buffer                                : 2
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# Adders/Subtractors                                   : 1
+ 24-bit subtractor                                     : 1
+# Counters                                             : 1
+ 25-bit up counter                                     : 1
+# Registers                                            : 53
+ Flip-Flops                                            : 53
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+WARNING:Xst:2677 - Node <clk_cnt_i_2> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_3> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_4> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_5> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_6> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_7> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_8> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_9> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_10> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_11> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_12> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_13> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_14> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_15> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_16> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_17> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_18> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_19> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_20> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_21> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_22> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_23> of sequential type is unconnected in block <CPLDLoaderSteph>.
+WARNING:Xst:2677 - Node <clk_cnt_i_24> of sequential type is unconnected in block <CPLDLoaderSteph>.
+
+Optimizing unit <CPLDLoaderSteph> ...
+  implementation constraint: INIT=r	 : clk_cnt_i_0
+  implementation constraint: INIT=r	 : clk_cnt_i_1
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : CPLDLoaderSteph.ngr
+Top Level Output File Name         : CPLDLoaderSteph
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : Yes
+Target Technology                  : CoolRunner2 CPLDs
+Macro Preserve                     : YES
+XOR Preserve                       : YES
+Clock Enable                       : YES
+wysiwyg                            : NO
+
+Design Statistics
+# IOs                              : 151
+
+Cell Usage :
+# BELS                             : 359
+#      AND2                        : 103
+#      AND3                        : 1
+#      AND8                        : 3
+#      GND                         : 1
+#      INV                         : 140
+#      OR2                         : 85
+#      OR3                         : 1
+#      VCC                         : 1
+#      XOR2                        : 24
+# FlipFlops/Latches                : 99
+#      FD                          : 6
+#      FDCE                        : 93
+# IO Buffers                       : 117
+#      IBUF                        : 31
+#      IOBUFE                      : 32
+#      OBUF                        : 54
+=========================================================================
+
+
+Total REAL time to Xst completion: 11.00 secs
+Total CPU time to Xst completion: 5.77 secs
+ 
+--> 
+
+
+Total memory usage is 153116 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   44 (   0 filtered)
+Number of infos    :   15 (   0 filtered)
+

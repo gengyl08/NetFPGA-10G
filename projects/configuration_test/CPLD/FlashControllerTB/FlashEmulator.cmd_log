@@ -1,0 +1,3 @@
+xst -intstyle ise -ifn "/home/mgrinda/netfpga_10g_dev_WORKING_BOOT/projects/configuration_test/CPLD/FlashControllerTB/FlashEmulator.xst" -ofn "/home/mgrinda/netfpga_10g_dev_WORKING_BOOT/projects/configuration_test/CPLD/FlashControllerTB/FlashEmulator.syr" 
+ngdbuild -intstyle ise -dd _ngo -i -p xc2c256-PQ208-6 FlashEmulator.ngc FlashEmulator.ngd  
+cpldfit -intstyle ise -p xc2c256-6-PQ208 -ofmt vhdl -optimize density -htmlrpt -loc on -slew fast -init low -inputs 32 -pterms 28 -unused keeper -terminate keeper -iostd LVCMOS18 FlashEmulator.ngd 

@@ -1,0 +1,2123 @@
+MDF Database:  version 1.0
+MDF_INFO | CPLDLoaderSteph | XC2C256-6-PQ208
+MACROCELL | 4 | 14 | FLASH_A_A<0>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<0>  | DONE
+INPUTP | 2 | 158 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<0> := FPGA_A<0>;	// (1 pt, 1 inp)
+    FLASH_A_A<0>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<0>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 0 | 7 | N_PZ_761_MC
+ATTRIBUTES | 536871680 | 0
+INPUTS | 3 | DONE  | clk_cnt_i<1>  | CPLD_100MHZ
+INPUTMC | 1 | 0 | 9
+INPUTP | 2 | 91 | 59
+EQ | 2 | 
+   N_PZ_761 = DONE & clk_cnt_i<1>
+	# !DONE & CPLD_100MHZ;	// (2 pt, 3 inp)
+
+MACROCELL | 0 | 9 | clk_cnt_i<1>_MC
+ATTRIBUTES | 2151711488 | 0
+OUTPUTMC | 4 | 0 | 7 | 6 | 1 | 15 | 2 | 15 | 4
+INPUTS | 1 | clk_cnt_i<0>
+INPUTMC | 1 | 0 | 10
+EQ | 2 | 
+   clk_cnt_i<1>.T := clk_cnt_i<0>;	// (1 pt, 1 inp)
+   clk_cnt_i<1>.CLK  =  CPLD_100MHZ;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | CPLD_100MHZ
+
+MACROCELL | 0 | 10 | clk_cnt_i<0>_MC
+ATTRIBUTES | 2151711488 | 0
+OUTPUTMC | 1 | 0 | 9
+INPUTS | 0
+EQ | 2 | 
+   !clk_cnt_i<0>.T := Gnd;	// (0 pt, 0 inp)
+   clk_cnt_i<0>.CLK  =  CPLD_100MHZ;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | CPLD_100MHZ
+
+MACROCELL | 5 | 2 | FLASH_A_A<10>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<10>  | DONE
+INPUTP | 2 | 185 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<10> := FPGA_A<10>;	// (1 pt, 1 inp)
+    FLASH_A_A<10>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<10>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 5 | 4 | FLASH_A_A<11>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<11>  | DONE
+INPUTP | 2 | 190 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<11> := FPGA_A<11>;	// (1 pt, 1 inp)
+    FLASH_A_A<11>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<11>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 5 | 5 | FLASH_A_A<12>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<12>  | DONE
+INPUTP | 2 | 191 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<12> := FPGA_A<12>;	// (1 pt, 1 inp)
+    FLASH_A_A<12>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<12>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 5 | 11 | FLASH_A_A<13>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<13>  | DONE
+INPUTP | 2 | 192 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<13> := FPGA_A<13>;	// (1 pt, 1 inp)
+    FLASH_A_A<13>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<13>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 5 | 12 | FLASH_A_A<14>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<14>  | DONE
+INPUTP | 2 | 194 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<14> := FPGA_A<14>;	// (1 pt, 1 inp)
+    FLASH_A_A<14>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<14>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 5 | 13 | FLASH_A_A<15>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<15>  | DONE
+INPUTP | 2 | 195 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<15> := FPGA_A<15>;	// (1 pt, 1 inp)
+    FLASH_A_A<15>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<15>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 5 | 14 | FLASH_A_A<16>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<16>  | DONE
+INPUTP | 2 | 196 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<16> := FPGA_A<16>;	// (1 pt, 1 inp)
+    FLASH_A_A<16>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<16>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 5 | 15 | FLASH_A_A<17>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<17>  | DONE
+INPUTP | 2 | 142 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<17> := FPGA_A<17>;	// (1 pt, 1 inp)
+    FLASH_A_A<17>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<17>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 6 | 13 | FLASH_A_A<18>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<18>  | DONE
+INPUTP | 2 | 143 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<18> := FPGA_A<18>;	// (1 pt, 1 inp)
+    FLASH_A_A<18>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<18>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 6 | 12 | FLASH_A_A<19>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<19>  | DONE
+INPUTP | 2 | 144 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<19> := FPGA_A<19>;	// (1 pt, 1 inp)
+    FLASH_A_A<19>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<19>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 4 | 13 | FLASH_A_A<1>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<1>  | DONE
+INPUTP | 2 | 159 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<1> := FPGA_A<1>;	// (1 pt, 1 inp)
+    FLASH_A_A<1>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<1>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 6 | 11 | FLASH_A_A<20>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<20>  | DONE
+INPUTP | 2 | 145 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<20> := FPGA_A<20>;	// (1 pt, 1 inp)
+    FLASH_A_A<20>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<20>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 6 | 10 | FLASH_A_A<21>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<21>  | DONE
+INPUTP | 2 | 146 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<21> := FPGA_A<21>;	// (1 pt, 1 inp)
+    FLASH_A_A<21>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<21>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 6 | 5 | FLASH_A_A<22>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<22>  | DONE
+INPUTP | 2 | 147 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<22> := FPGA_A<22>;	// (1 pt, 1 inp)
+    FLASH_A_A<22>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<22>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 0 | 0 | FLASH_A_A<23>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_A_A<23> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 4 | 12 | FLASH_A_A<2>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<2>  | DONE
+INPUTP | 2 | 160 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<2> := FPGA_A<2>;	// (1 pt, 1 inp)
+    FLASH_A_A<2>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<2>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 4 | 11 | FLASH_A_A<3>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<3>  | DONE
+INPUTP | 2 | 161 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<3> := FPGA_A<3>;	// (1 pt, 1 inp)
+    FLASH_A_A<3>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<3>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 4 | 4 | FLASH_A_A<4>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<4>  | DONE
+INPUTP | 2 | 162 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<4> := FPGA_A<4>;	// (1 pt, 1 inp)
+    FLASH_A_A<4>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<4>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 4 | 2 | FLASH_A_A<5>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<5>  | DONE
+INPUTP | 2 | 163 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<5> := FPGA_A<5>;	// (1 pt, 1 inp)
+    FLASH_A_A<5>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<5>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 4 | 1 | FLASH_A_A<6>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<6>  | DONE
+INPUTP | 2 | 166 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<6> := FPGA_A<6>;	// (1 pt, 1 inp)
+    FLASH_A_A<6>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<6>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 4 | 0 | FLASH_A_A<7>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<7>  | DONE
+INPUTP | 2 | 167 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<7> := FPGA_A<7>;	// (1 pt, 1 inp)
+    FLASH_A_A<7>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<7>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 5 | 0 | FLASH_A_A<8>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<8>  | DONE
+INPUTP | 2 | 183 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<8> := FPGA_A<8>;	// (1 pt, 1 inp)
+    FLASH_A_A<8>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<8>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 5 | 1 | FLASH_A_A<9>_MC
+ATTRIBUTES | 142869314 | 0
+INPUTS | 2 | FPGA_A<9>  | DONE
+INPUTP | 2 | 184 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_A_A<9> := FPGA_A<9>;	// (1 pt, 1 inp)
+    FLASH_A_A<9>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_A<9>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 13 | 3 | FLASH_A_DQ<0>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<0>.PIN  | DONE
+INPUTP | 2 | 168 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<0> := FPGA_data<0>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<0>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<0>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<0>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 11 | 2 | Flash_A_G_buffered_MC
+ATTRIBUTES | 2290090048 | 4
+OUTPUTMC | 1 | 0 | 8
+INPUTS | 1 | DONE
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 5 | 
+   
+// Direct Input Register
+Flash_A_G_buffered := FPGA_G;	// (0 pt, 0 inp)
+    Flash_A_G_buffered.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    Flash_A_G_buffered.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 14 | 10 | FLASH_A_DQ<10>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<10>.PIN  | DONE
+INPUTP | 2 | 178 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<10> := FPGA_data<10>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<10>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<10>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<10>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 14 | 11 | FLASH_A_DQ<11>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<11>.PIN  | DONE
+INPUTP | 2 | 179 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<11> := FPGA_data<11>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<11>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<11>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<11>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 14 | 12 | FLASH_A_DQ<12>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<12>.PIN  | DONE
+INPUTP | 2 | 154 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<12> := FPGA_data<12>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<12>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<12>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<12>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 14 | 13 | FLASH_A_DQ<13>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<13>.PIN  | DONE
+INPUTP | 2 | 155 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<13> := FPGA_data<13>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<13>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<13>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<13>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 14 | 15 | FLASH_A_DQ<14>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<14>.PIN  | DONE
+INPUTP | 2 | 156 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<14> := FPGA_data<14>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<14>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<14>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<14>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 15 | 15 | FLASH_A_DQ<15>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<15>.PIN  | DONE
+INPUTP | 2 | 157 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<15> := FPGA_data<15>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<15>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<15>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<15>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 13 | 2 | FLASH_A_DQ<1>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<1>.PIN  | DONE
+INPUTP | 2 | 169 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<1> := FPGA_data<1>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<1>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<1>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<1>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 13 | 1 | FLASH_A_DQ<2>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<2>.PIN  | DONE
+INPUTP | 2 | 170 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<2> := FPGA_data<2>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<2>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<2>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<2>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 13 | 0 | FLASH_A_DQ<3>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<3>.PIN  | DONE
+INPUTP | 2 | 171 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<3> := FPGA_data<3>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<3>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<3>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<3>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 14 | 0 | FLASH_A_DQ<4>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<4>.PIN  | DONE
+INPUTP | 2 | 172 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<4> := FPGA_data<4>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<4>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<4>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<4>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 14 | 1 | FLASH_A_DQ<5>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<5>.PIN  | DONE
+INPUTP | 2 | 173 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<5> := FPGA_data<5>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<5>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<5>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<5>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 14 | 2 | FLASH_A_DQ<6>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<6>.PIN  | DONE
+INPUTP | 2 | 174 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<6> := FPGA_data<6>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<6>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<6>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<6>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 14 | 3 | FLASH_A_DQ<7>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<7>.PIN  | DONE
+INPUTP | 2 | 175 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<7> := FPGA_data<7>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<7>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<7>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<7>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 14 | 4 | FLASH_A_DQ<8>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<8>.PIN  | DONE
+INPUTP | 2 | 176 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<8> := FPGA_data<8>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<8>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<8>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<8>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 14 | 5 | FLASH_A_DQ<9>_MC
+ATTRIBUTES | 209978178 | 2
+INPUTS | 2 | FPGA_data<9>.PIN  | DONE
+INPUTP | 2 | 177 | 91
+LCT | 2 | 2 | Internal_Name | 5 | Internal_Name
+EQ | 4 | 
+   FLASH_A_DQ<9> := FPGA_data<9>.PIN;	// (1 pt, 1 inp)
+    FLASH_A_DQ<9>.OE = DONE & Flash_A_G_buffered;	// CTE	(1 pt, 2 inp)
+    FLASH_A_DQ<9>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_A_DQ<9>.CE = DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 6 | 3 | FLASH_A_E_MC
+ATTRIBUTES | 142869250 | 0
+INPUTS | 2 | DONE  | FPGA_E
+INPUTP | 2 | 91 | 152
+LCT | 1 | 2 | Internal_Name
+EQ | 2 | 
+   FLASH_A_E := DONE & FPGA_E;	// (1 pt, 2 inp)
+    FLASH_A_E.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 6 | 2 | FLASH_A_G_MC
+ATTRIBUTES | 142869250 | 0
+INPUTS | 2 | DONE  | FPGA_G
+INPUTP | 2 | 91 | 151
+LCT | 1 | 2 | Internal_Name
+EQ | 2 | 
+   FLASH_A_G := DONE & FPGA_G;	// (1 pt, 2 inp)
+    FLASH_A_G.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 6 | 1 | FLASH_A_K_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 3 | DONE  | clk_cnt_i<1>  | FLASH_AK
+INPUTMC | 2 | 0 | 9 | 0 | 15
+INPUTP | 1 | 91
+EQ | 2 | 
+   !FLASH_A_K = DONE & !clk_cnt_i<1>
+	# !DONE & !FLASH_AK;	// (2 pt, 3 inp)
+
+MACROCELL | 0 | 15 | FLASH_AK_MC
+ATTRIBUTES | 2290090816 | 0
+OUTPUTMC | 1 | 6 | 1
+INPUTS | 3 | AlternateCycle  | DONE  | DelayedPause
+INPUTMC | 2 | 0 | 6 | 1 | 15
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   FLASH_AK := AlternateCycle;	// (1 pt, 1 inp)
+    FLASH_AK.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    FLASH_AK.CE = !DONE & !DelayedPause;	// (1 pt, 2 inp)
+
+MACROCELL | 0 | 6 | AlternateCycle_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 26 | 0 | 6 | 0 | 15 | 0 | 14 | 4 | 5 | 5 | 7 | 4 | 3 | 0 | 11 | 0 | 3 | 3 | 6 | 4 | 10 | 4 | 7 | 5 | 10 | 4 | 15 | 4 | 6 | 0 | 4 | 4 | 8 | 4 | 9 | 0 | 1 | 3 | 13 | 3 | 15 | 0 | 2 | 0 | 5 | 5 | 8 | 5 | 9 | 0 | 12 | 0 | 13
+INPUTS | 3 | DONE  | AlternateCycle  | DelayedPause
+INPUTMC | 2 | 0 | 6 | 1 | 15
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 3 | 
+   AlternateCycle := DONE & AlternateCycle
+	# !DONE & !AlternateCycle & !DelayedPause;	// (2 pt, 3 inp)
+    AlternateCycle.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 1 | 15 | DelayedPause_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 27 | 1 | 15 | 0 | 6 | 0 | 15 | 0 | 14 | 4 | 5 | 5 | 7 | 4 | 3 | 0 | 11 | 0 | 3 | 3 | 6 | 4 | 10 | 4 | 7 | 5 | 10 | 4 | 15 | 4 | 6 | 0 | 4 | 4 | 8 | 4 | 9 | 0 | 1 | 3 | 13 | 3 | 15 | 0 | 2 | 0 | 5 | 5 | 8 | 5 | 9 | 0 | 12 | 0 | 13
+INPUTS | 27 | DONE  | DelayedPause  | ConfProceed  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 26 | 1 | 15 | 3 | 7 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 8 | 
+   !DelayedPause := DONE & !DelayedPause
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & !pause<19> & !pause<20> & !pause<21> & 
+	!pause<22> & !pause<23>;	// (2 pt, 27 inp)
+    DelayedPause.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 3 | 7 | ConfProceed_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 26 | 3 | 7 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 5 | DONE  | ConfProceed  | Program_B  | INIT_B  | PrevInit_B
+INPUTMC | 2 | 3 | 7 | 15 | 1
+INPUTP | 3 | 91 | 94 | 93
+LCT | 1 | 2 | Internal_Name
+EQ | 4 | 
+   ConfProceed := DONE & ConfProceed
+	# ConfProceed & Program_B
+	# !DONE & INIT_B & !PrevInit_B;	// (3 pt, 5 inp)
+    ConfProceed.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 15 | 1 | PrevInit_B_MC
+ATTRIBUTES | 2290090048 | 4
+OUTPUTMC | 1 | 3 | 7
+INPUTS | 1 | DONE
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 5 | 
+   
+// Direct Input Register
+PrevInit_B := INIT_B;	// (0 pt, 0 inp)
+    PrevInit_B.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+    PrevInit_B.CE = !DONE;	// (1 pt, 1 inp)
+
+MACROCELL | 1 | 9 | pause<0>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | pause<0>  | ConfProceed  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 1 | 9 | 3 | 7 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 9 | 
+   !pause<0> := DONE & !pause<0>
+	# !DONE & ConfProceed & pause<0>
+	# !DONE & ConfProceed & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & !pause<13> & 
+	!pause<4> & !pause<14> & !pause<5> & !pause<15> & !pause<6> & 
+	!pause<16> & !pause<7> & !pause<17> & !pause<8> & !pause<18> & 
+	!pause<9> & !pause<19> & !pause<20> & !pause<21> & !pause<22> & 
+	!pause<23>;	// (3 pt, 26 inp)
+    pause<0>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 2 | 9 | pause<10>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<0>  | pause<1>  | pause<2>  | pause<3>  | pause<4>  | pause<5>  | pause<6>  | pause<7>  | pause<8>  | pause<9>  | pause<10>  | pause<11>  | pause<12>  | pause<13>  | pause<14>  | pause<15>  | pause<16>  | pause<17>  | pause<18>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 1 | 9 | 1 | 7 | 1 | 13 | 1 | 11 | 1 | 4 | 2 | 15 | 2 | 13 | 3 | 9 | 2 | 7 | 2 | 8 | 2 | 9 | 2 | 10 | 3 | 14 | 6 | 15 | 3 | 8 | 3 | 10 | 2 | 14 | 2 | 6 | 1 | 5 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 16 | 
+   !pause<10>.T := DONE
+	# ConfProceed & pause<0>
+	# ConfProceed & pause<1>
+	# ConfProceed & pause<2>
+	# ConfProceed & pause<3>
+	# ConfProceed & pause<4>
+	# ConfProceed & pause<5>
+	# ConfProceed & pause<6>
+	# ConfProceed & pause<7>
+	# ConfProceed & pause<8>
+	# ConfProceed & pause<9>
+	# !ConfProceed & !pause<10>
+	# !pause<10> & !pause<11> & !pause<12> & !pause<13> & 
+	!pause<14> & !pause<15> & !pause<16> & !pause<17> & !pause<18> & 
+	!pause<19> & !pause<20> & !pause<21> & !pause<22> & !pause<23>;	// (13 pt, 26 inp)
+    pause<10>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 1 | 7 | pause<1>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | pause<1>  | ConfProceed  | pause<0>  | pause<10>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 1 | 7 | 3 | 7 | 1 | 9 | 2 | 9 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 10 | 
+   !pause<1> := DONE & !pause<1>
+	# ConfProceed & pause<0> & !pause<1>
+	# !DONE & ConfProceed & !pause<0> & pause<1>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & !pause<13> & 
+	!pause<4> & !pause<14> & !pause<5> & !pause<15> & !pause<6> & 
+	!pause<16> & !pause<7> & !pause<17> & !pause<8> & !pause<18> & 
+	!pause<9> & !pause<19> & !pause<20> & !pause<21> & !pause<22> & 
+	!pause<23>;	// (4 pt, 26 inp)
+    pause<1>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 2 | 10 | pause<11>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<0>  | pause<10>  | pause<1>  | pause<2>  | pause<3>  | pause<4>  | pause<5>  | pause<6>  | pause<7>  | pause<8>  | pause<9>  | pause<11>  | pause<12>  | pause<13>  | pause<14>  | pause<15>  | pause<16>  | pause<17>  | pause<18>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 1 | 9 | 2 | 9 | 1 | 7 | 1 | 13 | 1 | 11 | 1 | 4 | 2 | 15 | 2 | 13 | 3 | 9 | 2 | 7 | 2 | 8 | 2 | 10 | 3 | 14 | 6 | 15 | 3 | 8 | 3 | 10 | 2 | 14 | 2 | 6 | 1 | 5 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 17 | 
+   !pause<11>.T := DONE
+	# ConfProceed & pause<0>
+	# ConfProceed & pause<10>
+	# ConfProceed & pause<1>
+	# ConfProceed & pause<2>
+	# ConfProceed & pause<3>
+	# ConfProceed & pause<4>
+	# ConfProceed & pause<5>
+	# ConfProceed & pause<6>
+	# ConfProceed & pause<7>
+	# ConfProceed & pause<8>
+	# ConfProceed & pause<9>
+	# !ConfProceed & !pause<11>
+	# !pause<11> & !pause<12> & !pause<13> & !pause<14> & 
+	!pause<15> & !pause<16> & !pause<17> & !pause<18> & !pause<19> & 
+	!pause<20> & !pause<21> & !pause<22> & !pause<23>;	// (14 pt, 26 inp)
+    pause<11>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 1 | 13 | pause<2>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | pause<2>  | ConfProceed  | pause<0>  | pause<1>  | pause<10>  | pause<11>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 1 | 13 | 3 | 7 | 1 | 9 | 1 | 7 | 2 | 9 | 2 | 10 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 11 | 
+   !pause<2> := DONE & !pause<2>
+	# ConfProceed & pause<0> & !pause<2>
+	# ConfProceed & pause<1> & !pause<2>
+	# !DONE & ConfProceed & !pause<0> & !pause<1> & 
+	pause<2>
+	# ConfProceed & !pause<10> & !pause<11> & !pause<2> & 
+	!pause<12> & !pause<3> & !pause<13> & !pause<4> & !pause<14> & 
+	!pause<5> & !pause<15> & !pause<6> & !pause<16> & !pause<7> & 
+	!pause<17> & !pause<8> & !pause<18> & !pause<9> & !pause<19> & 
+	!pause<20> & !pause<21> & !pause<22> & !pause<23>;	// (5 pt, 26 inp)
+    pause<2>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 3 | 14 | pause<12>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<12>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<3>  | pause<4>  | pause<5>  | pause<6>  | pause<7>  | pause<8>  | pause<9>  | pause<13>  | pause<14>  | pause<15>  | pause<16>  | pause<17>  | pause<18>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 3 | 14 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 1 | 11 | 1 | 4 | 2 | 15 | 2 | 13 | 3 | 9 | 2 | 7 | 2 | 8 | 6 | 15 | 3 | 8 | 3 | 10 | 2 | 14 | 2 | 6 | 1 | 5 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 49 | 
+   pause<12>.T := !DONE & !ConfProceed & pause<12>
+	# !DONE & !pause<0> & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & pause<12> & !pause<3> & !pause<4> & 
+	!pause<5> & !pause<6> & !pause<7> & !pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<3> & pause<13> & 
+	!pause<4> & !pause<5> & !pause<6> & !pause<7> & !pause<8> & 
+	!pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<3> & !pause<4> & 
+	pause<14> & !pause<5> & !pause<6> & !pause<7> & !pause<8> & 
+	!pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<3> & !pause<4> & 
+	!pause<5> & pause<15> & !pause<6> & !pause<7> & !pause<8> & 
+	!pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<3> & !pause<4> & 
+	!pause<5> & !pause<6> & pause<16> & !pause<7> & !pause<8> & 
+	!pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<3> & !pause<4> & 
+	!pause<5> & !pause<6> & !pause<7> & pause<17> & !pause<8> & 
+	!pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<3> & !pause<4> & 
+	!pause<5> & !pause<6> & !pause<7> & !pause<8> & pause<18> & 
+	!pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<3> & !pause<4> & 
+	!pause<5> & !pause<6> & !pause<7> & !pause<8> & !pause<9> & 
+	pause<19>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<3> & !pause<4> & 
+	!pause<5> & !pause<6> & !pause<7> & !pause<8> & !pause<9> & 
+	pause<20>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<3> & !pause<4> & 
+	!pause<5> & !pause<6> & !pause<7> & !pause<8> & !pause<9> & 
+	pause<21>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<3> & !pause<4> & 
+	!pause<5> & !pause<6> & !pause<7> & !pause<8> & !pause<9> & 
+	pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<3> & !pause<4> & 
+	!pause<5> & !pause<6> & !pause<7> & !pause<8> & !pause<9> & 
+	pause<23>;	// (13 pt, 26 inp)
+    pause<12>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 1 | 11 | pause<3>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | pause<3>  | ConfProceed  | pause<0>  | pause<1>  | pause<2>  | pause<10>  | pause<11>  | pause<12>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 1 | 11 | 3 | 7 | 1 | 9 | 1 | 7 | 1 | 13 | 2 | 9 | 2 | 10 | 3 | 14 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 12 | 
+   !pause<3> := DONE & !pause<3>
+	# ConfProceed & pause<0> & !pause<3>
+	# ConfProceed & pause<1> & !pause<3>
+	# ConfProceed & pause<2> & !pause<3>
+	# !DONE & ConfProceed & !pause<0> & !pause<1> & 
+	!pause<2> & pause<3>
+	# ConfProceed & !pause<10> & !pause<11> & !pause<12> & 
+	!pause<3> & !pause<13> & !pause<4> & !pause<14> & !pause<5> & 
+	!pause<15> & !pause<6> & !pause<16> & !pause<7> & !pause<17> & 
+	!pause<8> & !pause<18> & !pause<9> & !pause<19> & !pause<20> & 
+	!pause<21> & !pause<22> & !pause<23>;	// (6 pt, 26 inp)
+    pause<3>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 6 | 15 | pause<13>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<13>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<4>  | pause<5>  | pause<6>  | pause<7>  | pause<8>  | pause<9>  | pause<14>  | pause<15>  | pause<16>  | pause<17>  | pause<18>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 6 | 15 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 1 | 4 | 2 | 15 | 2 | 13 | 3 | 9 | 2 | 7 | 2 | 8 | 3 | 8 | 3 | 10 | 2 | 14 | 2 | 6 | 1 | 5 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 46 | 
+   pause<13>.T := !DONE & !ConfProceed & pause<13>
+	# !DONE & !pause<0> & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & pause<13> & 
+	!pause<4> & !pause<5> & !pause<6> & !pause<7> & !pause<8> & 
+	!pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<4> & pause<14> & !pause<5> & !pause<6> & !pause<7> & 
+	!pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<4> & !pause<5> & pause<15> & !pause<6> & !pause<7> & 
+	!pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<4> & !pause<5> & !pause<6> & pause<16> & !pause<7> & 
+	!pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<4> & !pause<5> & !pause<6> & !pause<7> & pause<17> & 
+	!pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<4> & !pause<5> & !pause<6> & !pause<7> & !pause<8> & 
+	pause<18> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<4> & !pause<5> & !pause<6> & !pause<7> & !pause<8> & 
+	!pause<9> & pause<19>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<4> & !pause<5> & !pause<6> & !pause<7> & !pause<8> & 
+	!pause<9> & pause<20>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<4> & !pause<5> & !pause<6> & !pause<7> & !pause<8> & 
+	!pause<9> & pause<21>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<4> & !pause<5> & !pause<6> & !pause<7> & !pause<8> & 
+	!pause<9> & pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<4> & !pause<5> & !pause<6> & !pause<7> & !pause<8> & 
+	!pause<9> & pause<23>;	// (12 pt, 26 inp)
+    pause<13>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 1 | 4 | pause<4>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | pause<4>  | ConfProceed  | pause<0>  | pause<1>  | pause<2>  | pause<3>  | pause<10>  | pause<11>  | pause<12>  | pause<13>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 1 | 4 | 3 | 7 | 1 | 9 | 1 | 7 | 1 | 13 | 1 | 11 | 2 | 9 | 2 | 10 | 3 | 14 | 6 | 15 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 13 | 
+   !pause<4> := DONE & !pause<4>
+	# ConfProceed & pause<0> & !pause<4>
+	# ConfProceed & pause<1> & !pause<4>
+	# ConfProceed & pause<2> & !pause<4>
+	# ConfProceed & pause<3> & !pause<4>
+	# !DONE & ConfProceed & !pause<0> & !pause<1> & 
+	!pause<2> & !pause<3> & pause<4>
+	# ConfProceed & !pause<10> & !pause<11> & !pause<12> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & !pause<19> & !pause<20> & !pause<21> & 
+	!pause<22> & !pause<23>;	// (7 pt, 26 inp)
+    pause<4>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 3 | 8 | pause<14>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<14>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<5>  | pause<6>  | pause<7>  | pause<8>  | pause<9>  | pause<15>  | pause<16>  | pause<17>  | pause<18>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 3 | 8 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 2 | 15 | 2 | 13 | 3 | 9 | 2 | 7 | 2 | 8 | 3 | 10 | 2 | 14 | 2 | 6 | 1 | 5 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 42 | 
+   pause<14>.T := !DONE & !ConfProceed & pause<14>
+	# !DONE & !pause<0> & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & !pause<13> & 
+	!pause<4> & pause<14> & !pause<5> & !pause<6> & !pause<7> & 
+	!pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<5> & pause<15> & !pause<6> & 
+	!pause<7> & !pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<5> & !pause<6> & pause<16> & 
+	!pause<7> & !pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<5> & !pause<6> & !pause<7> & 
+	pause<17> & !pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<5> & !pause<6> & !pause<7> & 
+	!pause<8> & pause<18> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<5> & !pause<6> & !pause<7> & 
+	!pause<8> & !pause<9> & pause<19>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<5> & !pause<6> & !pause<7> & 
+	!pause<8> & !pause<9> & pause<20>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<5> & !pause<6> & !pause<7> & 
+	!pause<8> & !pause<9> & pause<21>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<5> & !pause<6> & !pause<7> & 
+	!pause<8> & !pause<9> & pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<5> & !pause<6> & !pause<7> & 
+	!pause<8> & !pause<9> & pause<23>;	// (11 pt, 26 inp)
+    pause<14>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 2 | 15 | pause<5>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | pause<5>  | ConfProceed  | pause<0>  | pause<1>  | pause<2>  | pause<3>  | pause<4>  | pause<10>  | pause<11>  | pause<12>  | pause<13>  | pause<14>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 2 | 15 | 3 | 7 | 1 | 9 | 1 | 7 | 1 | 13 | 1 | 11 | 1 | 4 | 2 | 9 | 2 | 10 | 3 | 14 | 6 | 15 | 3 | 8 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 14 | 
+   !pause<5> := DONE & !pause<5>
+	# ConfProceed & pause<0> & !pause<5>
+	# ConfProceed & pause<1> & !pause<5>
+	# ConfProceed & pause<2> & !pause<5>
+	# ConfProceed & pause<3> & !pause<5>
+	# ConfProceed & pause<4> & !pause<5>
+	# !DONE & ConfProceed & !pause<0> & !pause<1> & 
+	!pause<2> & !pause<3> & !pause<4> & pause<5>
+	# ConfProceed & !pause<10> & !pause<11> & !pause<12> & 
+	!pause<13> & !pause<14> & !pause<5> & !pause<15> & !pause<6> & 
+	!pause<16> & !pause<7> & !pause<17> & !pause<8> & !pause<18> & 
+	!pause<9> & !pause<19> & !pause<20> & !pause<21> & !pause<22> & 
+	!pause<23>;	// (8 pt, 26 inp)
+    pause<5>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 3 | 10 | pause<15>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<15>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<6>  | pause<7>  | pause<8>  | pause<9>  | pause<16>  | pause<17>  | pause<18>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 3 | 10 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 2 | 13 | 3 | 9 | 2 | 7 | 2 | 8 | 2 | 14 | 2 | 6 | 1 | 5 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 38 | 
+   pause<15>.T := !DONE & !ConfProceed & pause<15>
+	# !DONE & !pause<0> & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & !pause<13> & 
+	!pause<4> & !pause<14> & !pause<5> & pause<15> & !pause<6> & 
+	!pause<7> & !pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<6> & 
+	pause<16> & !pause<7> & !pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<6> & 
+	!pause<7> & pause<17> & !pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<6> & 
+	!pause<7> & !pause<8> & pause<18> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<6> & 
+	!pause<7> & !pause<8> & !pause<9> & pause<19>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<6> & 
+	!pause<7> & !pause<8> & !pause<9> & pause<20>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<6> & 
+	!pause<7> & !pause<8> & !pause<9> & pause<21>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<6> & 
+	!pause<7> & !pause<8> & !pause<9> & pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<6> & 
+	!pause<7> & !pause<8> & !pause<9> & pause<23>;	// (10 pt, 26 inp)
+    pause<15>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 2 | 13 | pause<6>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | pause<6>  | ConfProceed  | pause<0>  | pause<1>  | pause<2>  | pause<3>  | pause<4>  | pause<5>  | pause<10>  | pause<11>  | pause<12>  | pause<13>  | pause<14>  | pause<15>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 2 | 13 | 3 | 7 | 1 | 9 | 1 | 7 | 1 | 13 | 1 | 11 | 1 | 4 | 2 | 15 | 2 | 9 | 2 | 10 | 3 | 14 | 6 | 15 | 3 | 8 | 3 | 10 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 14 | 
+   !pause<6> := DONE & !pause<6>
+	# ConfProceed & pause<0> & !pause<6>
+	# ConfProceed & pause<1> & !pause<6>
+	# ConfProceed & pause<2> & !pause<6>
+	# ConfProceed & pause<3> & !pause<6>
+	# ConfProceed & pause<4> & !pause<6>
+	# ConfProceed & pause<5> & !pause<6>
+	# !DONE & ConfProceed & !pause<0> & !pause<1> & 
+	!pause<2> & !pause<3> & !pause<4> & !pause<5> & pause<6>
+	# ConfProceed & !pause<10> & !pause<11> & !pause<12> & 
+	!pause<13> & !pause<14> & !pause<15> & !pause<6> & !pause<16> & 
+	!pause<7> & !pause<17> & !pause<8> & !pause<18> & !pause<9> & 
+	!pause<19> & !pause<20> & !pause<21> & !pause<22> & !pause<23>;	// (9 pt, 26 inp)
+    pause<6>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 2 | 14 | pause<16>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<16>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<7>  | pause<8>  | pause<9>  | pause<17>  | pause<18>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 2 | 14 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 3 | 9 | 2 | 7 | 2 | 8 | 2 | 6 | 1 | 5 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 34 | 
+   pause<16>.T := !DONE & !ConfProceed & pause<16>
+	# !DONE & !pause<0> & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & !pause<13> & 
+	!pause<4> & !pause<14> & !pause<5> & !pause<15> & !pause<6> & 
+	pause<16> & !pause<7> & !pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<7> & pause<17> & !pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<7> & !pause<8> & pause<18> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<7> & !pause<8> & !pause<9> & pause<19>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<7> & !pause<8> & !pause<9> & pause<20>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<7> & !pause<8> & !pause<9> & pause<21>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<7> & !pause<8> & !pause<9> & pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<7> & !pause<8> & !pause<9> & pause<23>;	// (9 pt, 26 inp)
+    pause<16>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 3 | 9 | pause<7>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | pause<7>  | ConfProceed  | pause<0>  | pause<1>  | pause<2>  | pause<3>  | pause<4>  | pause<5>  | pause<6>  | pause<10>  | pause<11>  | pause<12>  | pause<13>  | pause<14>  | pause<15>  | pause<16>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 9 | 3 | 7 | 1 | 9 | 1 | 7 | 1 | 13 | 1 | 11 | 1 | 4 | 2 | 15 | 2 | 13 | 2 | 9 | 2 | 10 | 3 | 14 | 6 | 15 | 3 | 8 | 3 | 10 | 2 | 14 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 16 | 
+   !pause<7> := DONE & !pause<7>
+	# ConfProceed & pause<0> & !pause<7>
+	# ConfProceed & pause<1> & !pause<7>
+	# ConfProceed & pause<2> & !pause<7>
+	# ConfProceed & pause<3> & !pause<7>
+	# ConfProceed & pause<4> & !pause<7>
+	# ConfProceed & pause<5> & !pause<7>
+	# ConfProceed & pause<6> & !pause<7>
+	# !DONE & ConfProceed & !pause<0> & !pause<1> & 
+	!pause<2> & !pause<3> & !pause<4> & !pause<5> & !pause<6> & 
+	pause<7>
+	# ConfProceed & !pause<10> & !pause<11> & !pause<12> & 
+	!pause<13> & !pause<14> & !pause<15> & !pause<16> & !pause<7> & 
+	!pause<17> & !pause<8> & !pause<18> & !pause<9> & !pause<19> & 
+	!pause<20> & !pause<21> & !pause<22> & !pause<23>;	// (10 pt, 26 inp)
+    pause<7>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 2 | 6 | pause<17>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<17>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<8>  | pause<9>  | pause<18>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 2 | 6 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 7 | 2 | 8 | 1 | 5 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 36 | 
+   pause<17>.T := !DONE & !ConfProceed & pause<17>
+	# !DONE & !pause<0> & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & !pause<13> & 
+	!pause<4> & !pause<14> & !pause<5> & !pause<15> & !pause<6> & 
+	!pause<16> & !pause<7> & pause<17> & !pause<8> & !pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<8> & pause<18> & 
+	!pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<8> & !pause<9> & 
+	pause<19>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<8> & !pause<9> & 
+	pause<20>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<8> & !pause<9> & 
+	pause<21>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<8> & !pause<9> & 
+	pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<8> & !pause<9> & 
+	pause<23>;	// (8 pt, 26 inp)
+    pause<17>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 2 | 7 | pause<8>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<0>  | pause<1>  | pause<2>  | pause<3>  | pause<4>  | pause<5>  | pause<6>  | pause<7>  | pause<8>  | pause<10>  | pause<11>  | pause<12>  | pause<13>  | pause<14>  | pause<15>  | pause<16>  | pause<17>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 1 | 9 | 1 | 7 | 1 | 13 | 1 | 11 | 1 | 4 | 2 | 15 | 2 | 13 | 3 | 9 | 2 | 7 | 2 | 9 | 2 | 10 | 3 | 14 | 6 | 15 | 3 | 8 | 3 | 10 | 2 | 14 | 2 | 6 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 15 | 
+   !pause<8>.T := DONE
+	# ConfProceed & pause<0>
+	# ConfProceed & pause<1>
+	# ConfProceed & pause<2>
+	# ConfProceed & pause<3>
+	# ConfProceed & pause<4>
+	# ConfProceed & pause<5>
+	# ConfProceed & pause<6>
+	# ConfProceed & pause<7>
+	# !ConfProceed & !pause<8>
+	# !pause<10> & !pause<11> & !pause<12> & !pause<13> & 
+	!pause<14> & !pause<15> & !pause<16> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & !pause<19> & !pause<20> & !pause<21> & 
+	!pause<22> & !pause<23>;	// (11 pt, 26 inp)
+    pause<8>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 1 | 5 | pause<18>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<18>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 1 | 5 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 32 | 
+   pause<18>.T := !DONE & !ConfProceed & pause<18>
+	# !DONE & !pause<0> & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & !pause<13> & 
+	!pause<4> & !pause<14> & !pause<5> & !pause<15> & !pause<6> & 
+	!pause<16> & !pause<7> & !pause<17> & !pause<8> & pause<18> & 
+	!pause<9>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<9> & pause<19>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<9> & pause<20>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<9> & pause<21>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<9> & pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<9> & pause<23>;	// (7 pt, 26 inp)
+    pause<18>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 2 | 8 | pause<9>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<0>  | pause<1>  | pause<2>  | pause<3>  | pause<4>  | pause<5>  | pause<6>  | pause<7>  | pause<8>  | pause<9>  | pause<10>  | pause<11>  | pause<12>  | pause<13>  | pause<14>  | pause<15>  | pause<16>  | pause<17>  | pause<18>  | pause<19>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 1 | 9 | 1 | 7 | 1 | 13 | 1 | 11 | 1 | 4 | 2 | 15 | 2 | 13 | 3 | 9 | 2 | 7 | 2 | 8 | 2 | 9 | 2 | 10 | 3 | 14 | 6 | 15 | 3 | 8 | 3 | 10 | 2 | 14 | 2 | 6 | 1 | 5 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 16 | 
+   !pause<9>.T := DONE
+	# ConfProceed & pause<0>
+	# ConfProceed & pause<1>
+	# ConfProceed & pause<2>
+	# ConfProceed & pause<3>
+	# ConfProceed & pause<4>
+	# ConfProceed & pause<5>
+	# ConfProceed & pause<6>
+	# ConfProceed & pause<7>
+	# ConfProceed & pause<8>
+	# !ConfProceed & !pause<9>
+	# !pause<10> & !pause<11> & !pause<12> & !pause<13> & 
+	!pause<14> & !pause<15> & !pause<16> & !pause<17> & !pause<18> & 
+	!pause<9> & !pause<19> & !pause<20> & !pause<21> & !pause<22> & 
+	!pause<23>;	// (12 pt, 26 inp)
+    pause<9>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 1 | 12 | pause<19>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<19>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<20>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 1 | 12 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 14 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 27 | 
+   pause<19>.T := !DONE & !ConfProceed & pause<19>
+	# !DONE & !pause<0> & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & !pause<13> & 
+	!pause<4> & !pause<14> & !pause<5> & !pause<15> & !pause<6> & 
+	!pause<16> & !pause<7> & !pause<17> & !pause<8> & !pause<18> & 
+	!pause<9> & pause<19>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & pause<20>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & pause<21>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & pause<23>;	// (6 pt, 26 inp)
+    pause<19>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 1 | 14 | pause<20>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<20>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<21>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 1 | 14 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 6 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 22 | 
+   pause<20>.T := !DONE & !ConfProceed & pause<20>
+	# !DONE & !pause<0> & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & !pause<13> & 
+	!pause<4> & !pause<14> & !pause<5> & !pause<15> & !pause<6> & 
+	!pause<16> & !pause<7> & !pause<17> & !pause<8> & !pause<18> & 
+	!pause<9> & !pause<19> & pause<20>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & !pause<19> & pause<21>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & !pause<19> & pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & !pause<19> & pause<23>;	// (5 pt, 26 inp)
+    pause<20>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 1 | 6 | pause<21>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<21>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<22>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 1 | 6 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 8 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 17 | 
+   pause<21>.T := !DONE & !ConfProceed & pause<21>
+	# !DONE & !pause<0> & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & !pause<13> & 
+	!pause<4> & !pause<14> & !pause<5> & !pause<15> & !pause<6> & 
+	!pause<16> & !pause<7> & !pause<17> & !pause<8> & !pause<18> & 
+	!pause<9> & !pause<19> & !pause<20> & pause<21>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & !pause<19> & !pause<20> & pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & !pause<19> & !pause<20> & pause<23>;	// (4 pt, 26 inp)
+    pause<21>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 1 | 8 | pause<22>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<22>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<23>
+INPUTMC | 25 | 3 | 7 | 1 | 8 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 14 | 
+   pause<22>.T := !DONE & !ConfProceed & pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & !pause<19> & !pause<20> & !pause<21> & 
+	pause<22>
+	# !DONE & ConfProceed & !pause<0> & !pause<10> & 
+	!pause<1> & !pause<11> & !pause<2> & !pause<12> & !pause<3> & 
+	!pause<13> & !pause<4> & !pause<14> & !pause<5> & !pause<15> & 
+	!pause<6> & !pause<16> & !pause<7> & !pause<17> & !pause<8> & 
+	!pause<18> & !pause<9> & !pause<19> & !pause<20> & !pause<21> & 
+	pause<23>;	// (3 pt, 26 inp)
+    pause<22>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 1 | 10 | pause<23>_MC
+ATTRIBUTES | 2285896448 | 0
+OUTPUTMC | 25 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15
+INPUTS | 26 | DONE  | ConfProceed  | pause<23>  | pause<0>  | pause<10>  | pause<1>  | pause<11>  | pause<2>  | pause<12>  | pause<3>  | pause<13>  | pause<4>  | pause<14>  | pause<5>  | pause<15>  | pause<6>  | pause<16>  | pause<7>  | pause<17>  | pause<8>  | pause<18>  | pause<9>  | pause<19>  | pause<20>  | pause<21>  | pause<22>
+INPUTMC | 25 | 3 | 7 | 1 | 10 | 1 | 9 | 2 | 9 | 1 | 7 | 2 | 10 | 1 | 13 | 3 | 14 | 1 | 11 | 6 | 15 | 1 | 4 | 3 | 8 | 2 | 15 | 3 | 10 | 2 | 13 | 2 | 14 | 3 | 9 | 2 | 6 | 2 | 7 | 1 | 5 | 2 | 8 | 1 | 12 | 1 | 14 | 1 | 6 | 1 | 8
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 8 | 
+   pause<23>.T := !DONE & !ConfProceed & pause<23>
+	# !DONE & !pause<0> & !pause<10> & !pause<1> & 
+	!pause<11> & !pause<2> & !pause<12> & !pause<3> & !pause<13> & 
+	!pause<4> & !pause<14> & !pause<5> & !pause<15> & !pause<6> & 
+	!pause<16> & !pause<7> & !pause<17> & !pause<8> & !pause<18> & 
+	!pause<9> & !pause<19> & !pause<20> & !pause<21> & !pause<22> & 
+	pause<23>;	// (2 pt, 26 inp)
+    pause<23>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 7 | 2 | FLASH_A_L_MC
+ATTRIBUTES | 142869250 | 0
+INPUTS | 2 | DONE  | FPGA_L
+INPUTP | 2 | 91 | 153
+LCT | 1 | 2 | Internal_Name
+EQ | 2 | 
+   FLASH_A_L := DONE & FPGA_L;	// (1 pt, 2 inp)
+    FLASH_A_L.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 6 | 0 | FLASH_A_RP_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   !FLASH_A_RP = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 7 | 3 | FLASH_A_RW_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   !FLASH_A_RW = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 7 | 1 | FLASH_A_W_MC
+ATTRIBUTES | 142869250 | 0
+INPUTS | 2 | DONE  | FPGA_W
+INPUTP | 2 | 91 | 150
+LCT | 1 | 2 | Internal_Name
+EQ | 2 | 
+   !FLASH_A_W := DONE & !FPGA_W;	// (1 pt, 2 inp)
+    FLASH_A_W.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 7 | 0 | FLASH_A_WP_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   !FLASH_A_WP = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 12 | 0 | FLASH_B_DQ<0>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<0> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 12 | 15 | FLASH_B_DQ<10>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<10> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 13 | 15 | FLASH_B_DQ<11>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<11> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 13 | 13 | FLASH_B_DQ<12>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<12> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 13 | 12 | FLASH_B_DQ<13>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<13> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 13 | 11 | FLASH_B_DQ<14>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<14> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 13 | 4 | FLASH_B_DQ<15>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<15> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 12 | 1 | FLASH_B_DQ<1>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<1> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 12 | 2 | FLASH_B_DQ<2>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<2> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 12 | 3 | FLASH_B_DQ<3>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<3> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 12 | 4 | FLASH_B_DQ<4>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<4> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 12 | 5 | FLASH_B_DQ<5>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<5> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 12 | 11 | FLASH_B_DQ<6>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<6> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 12 | 12 | FLASH_B_DQ<7>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<7> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 12 | 13 | FLASH_B_DQ<8>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<8> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 12 | 14 | FLASH_B_DQ<9>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   FLASH_B_DQ<9> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 15 | 2 | FPGA_CCLK_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 3 | DONE  | clk_cnt_i<1>  | CPLD_100MHZ
+INPUTMC | 1 | 0 | 9
+INPUTP | 2 | 91 | 59
+EQ | 2 | 
+   FPGA_CCLK = DONE & !clk_cnt_i<1>
+	# !DONE & !CPLD_100MHZ;	// (2 pt, 3 inp)
+
+MACROCELL | 15 | 4 | FPGA_clock_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 3 | DONE  | clk_cnt_i<1>  | CPLD_100MHZ
+INPUTMC | 1 | 0 | 9
+INPUTP | 2 | 91 | 59
+EQ | 2 | 
+   !FPGA_clock = DONE & !clk_cnt_i<1>
+	# !DONE & !CPLD_100MHZ;	// (2 pt, 3 inp)
+
+MACROCELL | 8 | 0 | FPGA_data<0>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 3 | DONE  | FLASH_A_DQ_buffered<0>  | FPGAData<0>
+INPUTMC | 2 | 0 | 14 | 4 | 3
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 3 | 
+   !FPGA_data<0> = DONE & !FLASH_A_DQ_buffered<0>
+	# !DONE & !FPGAData<0>;	// (2 pt, 3 inp)
+    FPGA_data<0>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 0 | 14 | FLASH_A_DQ_buffered<0>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 0 | 14 | 8 | 0 | 0 | 13
+INPUTS | 5 | DONE  | FLASH_A_DQ<0>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<0>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 0 | 14
+INPUTP | 2 | 91 | 107
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<0> := DONE & !FLASH_A_DQ<0>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<0>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<0>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<0>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 4 | 3 | FPGAData<0>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 2 | 4 | 3 | 8 | 0
+INPUTS | 6 | DONE  | FPGAData<0>  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<15>  | FLASH_A_DQ_buffered<7>
+INPUTMC | 5 | 4 | 3 | 0 | 6 | 1 | 15 | 4 | 5 | 5 | 7
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FPGAData<0> := DONE & !FPGAData<0>
+	# !DONE & AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<15>
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<7>;	// (3 pt, 6 inp)
+    FPGAData<0>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 4 | 5 | FLASH_A_DQ_buffered<15>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 4 | 5 | 4 | 3 | 9 | 12
+INPUTS | 5 | DONE  | FLASH_A_DQ<15>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<15>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 4 | 5
+INPUTP | 2 | 91 | 81
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<15> := DONE & !FLASH_A_DQ<15>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<15>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<15>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<15>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 5 | 7 | FLASH_A_DQ_buffered<7>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 5 | 7 | 4 | 3 | 8 | 11
+INPUTS | 5 | DONE  | FLASH_A_DQ<7>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<7>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 5 | 7
+INPUTP | 2 | 91 | 127
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<7> := DONE & !FLASH_A_DQ<7>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<7>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<7>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<7>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 0 | 8 | N_PZ_680_MC
+ATTRIBUTES | 536871680 | 0
+INPUTS | 2 | DONE  | Flash_A_G_buffered
+INPUTMC | 1 | 11 | 2
+INPUTP | 1 | 91
+EQ | 1 | 
+   N_PZ_680 = DONE & Flash_A_G_buffered;	// (1 pt, 2 inp)
+
+MACROCELL | 8 | 14 | FPGA_data<10>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 2 | DONE  | FLASH_A_DQ_buffered<10>
+INPUTMC | 1 | 0 | 11
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 2 | 
+   !FPGA_data<10> = DONE & !FLASH_A_DQ_buffered<10>;	// (1 pt, 2 inp)
+    FPGA_data<10>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 0 | 11 | FLASH_A_DQ_buffered<10>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 0 | 11 | 8 | 14 | 0 | 5
+INPUTS | 5 | DONE  | FLASH_A_DQ<10>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<10>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 0 | 11
+INPUTP | 2 | 91 | 131
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<10> := DONE & !FLASH_A_DQ<10>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<10>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<10>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<10>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 8 | 15 | FPGA_data<11>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 2 | DONE  | FLASH_A_DQ_buffered<11>
+INPUTMC | 1 | 0 | 3
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 2 | 
+   !FPGA_data<11> = DONE & !FLASH_A_DQ_buffered<11>;	// (1 pt, 2 inp)
+    FPGA_data<11>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 0 | 3 | FLASH_A_DQ_buffered<11>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 0 | 3 | 8 | 15 | 0 | 2
+INPUTS | 5 | DONE  | FLASH_A_DQ<11>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<11>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 0 | 3
+INPUTP | 2 | 91 | 132
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<11> := DONE & !FLASH_A_DQ<11>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<11>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<11>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<11>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 9 | 15 | FPGA_data<12>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 2 | DONE  | FLASH_A_DQ_buffered<12>
+INPUTMC | 1 | 3 | 6
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 2 | 
+   !FPGA_data<12> = DONE & !FLASH_A_DQ_buffered<12>;	// (1 pt, 2 inp)
+    FPGA_data<12>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 3 | 6 | FLASH_A_DQ_buffered<12>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 3 | 6 | 9 | 15 | 3 | 15
+INPUTS | 5 | DONE  | FLASH_A_DQ<12>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<12>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 3 | 6
+INPUTP | 2 | 91 | 133
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<12> := DONE & !FLASH_A_DQ<12>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<12>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<12>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<12>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 9 | 14 | FPGA_data<13>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 2 | DONE  | FLASH_A_DQ_buffered<13>
+INPUTMC | 1 | 4 | 10
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 2 | 
+   !FPGA_data<13> = DONE & !FLASH_A_DQ_buffered<13>;	// (1 pt, 2 inp)
+    FPGA_data<13>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 4 | 10 | FLASH_A_DQ_buffered<13>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 4 | 10 | 9 | 14 | 4 | 9
+INPUTS | 5 | DONE  | FLASH_A_DQ<13>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<13>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 4 | 10
+INPUTP | 2 | 91 | 134
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<13> := DONE & !FLASH_A_DQ<13>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<13>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<13>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<13>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 9 | 13 | FPGA_data<14>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 2 | DONE  | FLASH_A_DQ_buffered<14>
+INPUTMC | 1 | 4 | 7
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 2 | 
+   !FPGA_data<14> = DONE & !FLASH_A_DQ_buffered<14>;	// (1 pt, 2 inp)
+    FPGA_data<14>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 4 | 7 | FLASH_A_DQ_buffered<14>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 4 | 7 | 9 | 13 | 4 | 6
+INPUTS | 5 | DONE  | FLASH_A_DQ<14>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<14>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 4 | 7
+INPUTP | 2 | 91 | 138
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<14> := DONE & !FLASH_A_DQ<14>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<14>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<14>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<14>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 9 | 12 | FPGA_data<15>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 2 | DONE  | FLASH_A_DQ_buffered<15>
+INPUTMC | 1 | 4 | 5
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 2 | 
+   !FPGA_data<15> = DONE & !FLASH_A_DQ_buffered<15>;	// (1 pt, 2 inp)
+    FPGA_data<15>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 8 | 1 | FPGA_data<1>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 3 | DONE  | FLASH_A_DQ_buffered<1>  | FPGAData<1>
+INPUTMC | 2 | 5 | 10 | 4 | 6
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 3 | 
+   !FPGA_data<1> = DONE & !FLASH_A_DQ_buffered<1>
+	# !DONE & !FPGAData<1>;	// (2 pt, 3 inp)
+    FPGA_data<1>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 5 | 10 | FLASH_A_DQ_buffered<1>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 5 | 10 | 8 | 1 | 5 | 9
+INPUTS | 5 | DONE  | FLASH_A_DQ<1>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<1>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 5 | 10
+INPUTP | 2 | 91 | 108
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<1> := DONE & !FLASH_A_DQ<1>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<1>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<1>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<1>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 4 | 6 | FPGAData<1>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 2 | 4 | 6 | 8 | 1
+INPUTS | 6 | DONE  | FPGAData<1>  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<14>  | FLASH_A_DQ_buffered<6>
+INPUTMC | 5 | 4 | 6 | 0 | 6 | 1 | 15 | 4 | 7 | 4 | 15
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FPGAData<1> := DONE & !FPGAData<1>
+	# !DONE & AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<14>
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<6>;	// (3 pt, 6 inp)
+    FPGAData<1>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 4 | 15 | FLASH_A_DQ_buffered<6>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 4 | 15 | 4 | 6 | 8 | 10
+INPUTS | 5 | DONE  | FLASH_A_DQ<6>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<6>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 4 | 15
+INPUTP | 2 | 91 | 126
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<6> := DONE & !FLASH_A_DQ<6>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<6>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<6>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<6>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 8 | 2 | FPGA_data<2>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 3 | DONE  | FLASH_A_DQ_buffered<2>  | FPGAData<2>
+INPUTMC | 2 | 0 | 4 | 4 | 9
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 3 | 
+   !FPGA_data<2> = DONE & !FLASH_A_DQ_buffered<2>
+	# !DONE & !FPGAData<2>;	// (2 pt, 3 inp)
+    FPGA_data<2>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 0 | 4 | FLASH_A_DQ_buffered<2>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 0 | 4 | 8 | 2 | 0 | 5
+INPUTS | 5 | DONE  | FLASH_A_DQ<2>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<2>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 0 | 4
+INPUTP | 2 | 91 | 109
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<2> := DONE & !FLASH_A_DQ<2>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<2>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<2>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<2>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 4 | 9 | FPGAData<2>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 2 | 4 | 9 | 8 | 2
+INPUTS | 6 | DONE  | FPGAData<2>  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<13>  | FLASH_A_DQ_buffered<5>
+INPUTMC | 5 | 4 | 9 | 0 | 6 | 1 | 15 | 4 | 10 | 4 | 8
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FPGAData<2> := DONE & !FPGAData<2>
+	# !DONE & AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<13>
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<5>;	// (3 pt, 6 inp)
+    FPGAData<2>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 4 | 8 | FLASH_A_DQ_buffered<5>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 4 | 8 | 4 | 9 | 8 | 5
+INPUTS | 5 | DONE  | FLASH_A_DQ<5>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<5>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 4 | 8
+INPUTP | 2 | 91 | 125
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<5> := DONE & !FLASH_A_DQ<5>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<5>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<5>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<5>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 8 | 3 | FPGA_data<3>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 3 | DONE  | FLASH_A_DQ_buffered<3>  | FPGAData<3>
+INPUTMC | 2 | 0 | 1 | 3 | 15
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 3 | 
+   !FPGA_data<3> = DONE & !FLASH_A_DQ_buffered<3>
+	# !DONE & !FPGAData<3>;	// (2 pt, 3 inp)
+    FPGA_data<3>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 0 | 1 | FLASH_A_DQ_buffered<3>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 0 | 1 | 8 | 3 | 0 | 2
+INPUTS | 5 | DONE  | FLASH_A_DQ<3>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<3>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 0 | 1
+INPUTP | 2 | 91 | 112
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<3> := DONE & !FLASH_A_DQ<3>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<3>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<3>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<3>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 3 | 15 | FPGAData<3>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 2 | 3 | 15 | 8 | 3
+INPUTS | 6 | DONE  | FPGAData<3>  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<12>  | FLASH_A_DQ_buffered<4>
+INPUTMC | 5 | 3 | 15 | 0 | 6 | 1 | 15 | 3 | 6 | 3 | 13
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FPGAData<3> := DONE & !FPGAData<3>
+	# !DONE & AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<12>
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<4>;	// (3 pt, 6 inp)
+    FPGAData<3>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 3 | 13 | FLASH_A_DQ_buffered<4>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 3 | 13 | 3 | 15 | 8 | 4
+INPUTS | 5 | DONE  | FLASH_A_DQ<4>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<4>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 3 | 13
+INPUTP | 2 | 91 | 124
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<4> := DONE & !FLASH_A_DQ<4>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<4>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<4>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<4>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 8 | 4 | FPGA_data<4>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 3 | DONE  | FLASH_A_DQ_buffered<4>  | FPGAData<4>
+INPUTMC | 2 | 3 | 13 | 0 | 2
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 3 | 
+   !FPGA_data<4> = DONE & !FLASH_A_DQ_buffered<4>
+	# !DONE & !FPGAData<4>;	// (2 pt, 3 inp)
+    FPGA_data<4>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 0 | 2 | FPGAData<4>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 2 | 0 | 2 | 8 | 4
+INPUTS | 6 | DONE  | FPGAData<4>  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<11>  | FLASH_A_DQ_buffered<3>
+INPUTMC | 5 | 0 | 2 | 0 | 6 | 1 | 15 | 0 | 3 | 0 | 1
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FPGAData<4> := DONE & !FPGAData<4>
+	# !DONE & AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<11>
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<3>;	// (3 pt, 6 inp)
+    FPGAData<4>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 8 | 5 | FPGA_data<5>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 3 | DONE  | FLASH_A_DQ_buffered<5>  | FPGAData<5>
+INPUTMC | 2 | 4 | 8 | 0 | 5
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 3 | 
+   !FPGA_data<5> = DONE & !FLASH_A_DQ_buffered<5>
+	# !DONE & !FPGAData<5>;	// (2 pt, 3 inp)
+    FPGA_data<5>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 0 | 5 | FPGAData<5>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 2 | 0 | 5 | 8 | 5
+INPUTS | 6 | DONE  | FPGAData<5>  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<10>  | FLASH_A_DQ_buffered<2>
+INPUTMC | 5 | 0 | 5 | 0 | 6 | 1 | 15 | 0 | 11 | 0 | 4
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FPGAData<5> := DONE & !FPGAData<5>
+	# !DONE & AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<10>
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<2>;	// (3 pt, 6 inp)
+    FPGAData<5>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 8 | 10 | FPGA_data<6>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 3 | DONE  | FLASH_A_DQ_buffered<6>  | FPGAData<6>
+INPUTMC | 2 | 4 | 15 | 5 | 9
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 3 | 
+   !FPGA_data<6> = DONE & !FLASH_A_DQ_buffered<6>
+	# !DONE & !FPGAData<6>;	// (2 pt, 3 inp)
+    FPGA_data<6>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 5 | 9 | FPGAData<6>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 2 | 5 | 9 | 8 | 10
+INPUTS | 6 | DONE  | FPGAData<6>  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<9>  | FLASH_A_DQ_buffered<1>
+INPUTMC | 5 | 5 | 9 | 0 | 6 | 1 | 15 | 5 | 8 | 5 | 10
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FPGAData<6> := DONE & !FPGAData<6>
+	# !DONE & AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<9>
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<1>;	// (3 pt, 6 inp)
+    FPGAData<6>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 5 | 8 | FLASH_A_DQ_buffered<9>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 5 | 8 | 5 | 9 | 8 | 13
+INPUTS | 5 | DONE  | FLASH_A_DQ<9>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<9>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 5 | 8
+INPUTP | 2 | 91 | 129
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<9> := DONE & !FLASH_A_DQ<9>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<9>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<9>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<9>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 8 | 11 | FPGA_data<7>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 3 | DONE  | FLASH_A_DQ_buffered<7>  | FPGAData<7>
+INPUTMC | 2 | 5 | 7 | 0 | 13
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 3 | 
+   !FPGA_data<7> = DONE & !FLASH_A_DQ_buffered<7>
+	# !DONE & !FPGAData<7>;	// (2 pt, 3 inp)
+    FPGA_data<7>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 0 | 13 | FPGAData<7>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 2 | 0 | 13 | 8 | 11
+INPUTS | 6 | DONE  | FPGAData<7>  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<8>  | FLASH_A_DQ_buffered<0>
+INPUTMC | 5 | 0 | 13 | 0 | 6 | 1 | 15 | 0 | 12 | 0 | 14
+INPUTP | 1 | 91
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FPGAData<7> := DONE & !FPGAData<7>
+	# !DONE & AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<8>
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<0>;	// (3 pt, 6 inp)
+    FPGAData<7>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 0 | 12 | FLASH_A_DQ_buffered<8>_MC
+ATTRIBUTES | 2290090752 | 0
+OUTPUTMC | 3 | 0 | 12 | 0 | 13 | 8 | 12
+INPUTS | 5 | DONE  | FLASH_A_DQ<8>.PIN  | AlternateCycle  | DelayedPause  | FLASH_A_DQ_buffered<8>
+INPUTMC | 3 | 0 | 6 | 1 | 15 | 0 | 12
+INPUTP | 2 | 91 | 128
+LCT | 1 | 2 | Internal_Name
+EQ | 6 | 
+   !FLASH_A_DQ_buffered<8> := DONE & !FLASH_A_DQ<8>.PIN
+	# AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ<8>.PIN
+	# !DONE & !AlternateCycle & !DelayedPause & 
+	!FLASH_A_DQ_buffered<8>;	// (3 pt, 5 inp)
+    FLASH_A_DQ_buffered<8>.CLK = N_PZ_761;	// CTC	(1 pt, 1 inp)
+
+MACROCELL | 8 | 12 | FPGA_data<8>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 2 | DONE  | FLASH_A_DQ_buffered<8>
+INPUTMC | 1 | 0 | 12
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 2 | 
+   !FPGA_data<8> = DONE & !FLASH_A_DQ_buffered<8>;	// (1 pt, 2 inp)
+    FPGA_data<8>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 8 | 13 | FPGA_data<9>_MC
+ATTRIBUTES | 1141113602 | 2
+INPUTS | 2 | DONE  | FLASH_A_DQ_buffered<9>
+INPUTMC | 1 | 5 | 8
+INPUTP | 1 | 91
+LCT | 1 | 5 | Internal_Name
+EQ | 2 | 
+   !FPGA_data<9> = DONE & !FLASH_A_DQ_buffered<9>;	// (1 pt, 2 inp)
+    FPGA_data<9>.OE = !N_PZ_680;	// CTE	(1 pt, 1 inp)
+
+MACROCELL | 15 | 11 | LEDs<0>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 1 | Program_B
+INPUTP | 1 | 94
+EQ | 1 | 
+   LEDs<0> = Program_B;	// (1 pt, 1 inp)
+
+MACROCELL | 15 | 12 | LEDs<1>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 1 | INIT_B
+INPUTP | 1 | 93
+EQ | 1 | 
+   LEDs<1> = INIT_B;	// (1 pt, 1 inp)
+
+MACROCELL | 15 | 13 | LEDs<2>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   LEDs<2> = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 15 | 14 | LEDs<3>_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 1 | FPGA_data<0>.PIN
+INPUTP | 1 | 168
+EQ | 1 | 
+   LEDs<3> = FPGA_data<0>.PIN;	// (1 pt, 1 inp)
+
+PIN | CPLD_100MHZ | 16448 | 16 | LVCMOS33 | 59 | 5 | 0 | 7 | 15 | 2 | 15 | 4 | 0 | 10 | 0 | 9
+PIN | DONE | 64 | 16 | LVCMOS33 | 91 | 118 | 4 | 14 | 0 | 7 | 5 | 2 | 5 | 4 | 5 | 5 | 5 | 11 | 5 | 12 | 5 | 13 | 5 | 14 | 5 | 15 | 6 | 13 | 6 | 12 | 4 | 13 | 6 | 11 | 6 | 10 | 6 | 5 | 4 | 12 | 4 | 11 | 4 | 4 | 4 | 2 | 4 | 1 | 4 | 0 | 5 | 0 | 5 | 1 | 13 | 3 | 11 | 2 | 14 | 10 | 14 | 11 | 14 | 12 | 14 | 13 | 14 | 15 | 15 | 15 | 13 | 2 | 13 | 1 | 13 | 0 | 14 | 0 | 14 | 1 | 14 | 2 | 14 | 3 | 14 | 4 | 14 | 5 | 6 | 3 | 6 | 2 | 15 | 1 | 3 | 7 | 1 | 10 | 1 | 8 | 1 | 6 | 1 | 14 | 1 | 12 | 2 | 8 | 1 | 5 | 2 | 7 | 2 | 6 | 3 | 9 | 2 | 14 | 2 | 13 | 3 | 10 | 2 | 15 | 3 | 8 | 1 | 4 | 6 | 15 | 1 | 11 | 3 | 14 | 1 | 13 | 2 | 10 | 1 | 7 | 2 | 9 | 1 | 9 | 1 | 15 | 0 | 6 | 0 | 15 | 6 | 1 | 7 | 2 | 7 | 1 | 15 | 2 | 15 | 4 | 0 | 14 | 4 | 5 | 5 | 7 | 4 | 3 | 8 | 0 | 0 | 8 | 0 | 11 | 8 | 14 | 0 | 3 | 8 | 15 | 3 | 6 | 9 | 15 | 4 | 10 | 9 | 14 | 4 | 7 | 9 | 13 | 9 | 12 | 5 | 10 | 4 | 15 | 4 | 6 | 8 | 1 | 0 | 4 | 4 | 8 | 4 | 9 | 8 | 2 | 0 | 1 | 3 | 13 | 3 | 15 | 8 | 3 | 0 | 2 | 8 | 4 | 0 | 5 | 8 | 5 | 5 | 8 | 5 | 9 | 8 | 10 | 0 | 12 | 0 | 13 | 8 | 11 | 8 | 12 | 8 | 13
+PIN | FPGA_A<0> | 64 | 16 | LVCMOS33 | 158 | 1 | 4 | 14
+PIN | FPGA_A<10> | 64 | 16 | LVCMOS33 | 185 | 1 | 5 | 2
+PIN | FPGA_A<11> | 64 | 16 | LVCMOS33 | 190 | 1 | 5 | 4
+PIN | FPGA_A<12> | 64 | 16 | LVCMOS33 | 191 | 1 | 5 | 5
+PIN | FPGA_A<13> | 64 | 16 | LVCMOS33 | 192 | 1 | 5 | 11
+PIN | FPGA_A<14> | 64 | 16 | LVCMOS33 | 194 | 1 | 5 | 12
+PIN | FPGA_A<15> | 64 | 16 | LVCMOS33 | 195 | 1 | 5 | 13
+PIN | FPGA_A<16> | 64 | 16 | LVCMOS33 | 196 | 1 | 5 | 14
+PIN | FPGA_A<17> | 64 | 16 | LVCMOS33 | 142 | 1 | 5 | 15
+PIN | FPGA_A<18> | 64 | 16 | LVCMOS33 | 143 | 1 | 6 | 13
+PIN | FPGA_A<19> | 64 | 16 | LVCMOS33 | 144 | 1 | 6 | 12
+PIN | FPGA_A<1> | 64 | 16 | LVCMOS33 | 159 | 1 | 4 | 13
+PIN | FPGA_A<20> | 64 | 16 | LVCMOS33 | 145 | 1 | 6 | 11
+PIN | FPGA_A<21> | 64 | 16 | LVCMOS33 | 146 | 1 | 6 | 10
+PIN | FPGA_A<22> | 64 | 16 | LVCMOS33 | 147 | 1 | 6 | 5
+PIN | FPGA_A<2> | 64 | 16 | LVCMOS33 | 160 | 1 | 4 | 12
+PIN | FPGA_A<3> | 64 | 16 | LVCMOS33 | 161 | 1 | 4 | 11
+PIN | FPGA_A<4> | 64 | 16 | LVCMOS33 | 162 | 1 | 4 | 4
+PIN | FPGA_A<5> | 64 | 16 | LVCMOS33 | 163 | 1 | 4 | 2
+PIN | FPGA_A<6> | 64 | 16 | LVCMOS33 | 166 | 1 | 4 | 1
+PIN | FPGA_A<7> | 64 | 16 | LVCMOS33 | 167 | 1 | 4 | 0
+PIN | FPGA_A<8> | 64 | 16 | LVCMOS33 | 183 | 1 | 5 | 0
+PIN | FPGA_A<9> | 64 | 16 | LVCMOS33 | 184 | 1 | 5 | 1
+PIN | FPGA_E | 64 | 16 | LVCMOS33 | 152 | 1 | 6 | 3
+PIN | FPGA_G | 64 | 16 | LVCMOS33 | 151 | 2 | 6 | 2 | 11 | 2
+PIN | Program_B | 64 | 16 | LVCMOS33 | 94 | 2 | 3 | 7 | 15 | 11
+PIN | INIT_B | 64 | 16 | LVCMOS33 | 93 | 3 | 3 | 7 | 15 | 12 | 15 | 1
+PIN | FPGA_L | 64 | 16 | LVCMOS33 | 153 | 1 | 7 | 2
+PIN | FPGA_W | 64 | 16 | LVCMOS33 | 150 | 1 | 7 | 1
+PIN | FLASH_A_A<0> | 536871040 | 0 | LVCMOS33 | 43
+PIN | FLASH_A_A<10> | 536871040 | 0 | LVCMOS33 | 58
+PIN | FLASH_A_A<11> | 536871040 | 0 | LVCMOS33 | 60
+PIN | FLASH_A_A<12> | 536871040 | 0 | LVCMOS33 | 61
+PIN | FLASH_A_A<13> | 536871040 | 0 | LVCMOS33 | 62
+PIN | FLASH_A_A<14> | 536871040 | 0 | LVCMOS33 | 64
+PIN | FLASH_A_A<15> | 536871040 | 0 | LVCMOS33 | 65
+PIN | FLASH_A_A<16> | 536871040 | 0 | LVCMOS33 | 66
+PIN | FLASH_A_A<17> | 536871040 | 0 | LVCMOS33 | 67
+PIN | FLASH_A_A<18> | 536871040 | 0 | LVCMOS33 | 30
+PIN | FLASH_A_A<19> | 536871040 | 0 | LVCMOS33 | 31
+PIN | FLASH_A_A<1> | 536871040 | 0 | LVCMOS33 | 44
+PIN | FLASH_A_A<20> | 536871040 | 0 | LVCMOS33 | 32
+PIN | FLASH_A_A<21> | 536871040 | 0 | LVCMOS33 | 33
+PIN | FLASH_A_A<22> | 536871040 | 0 | LVCMOS33 | 34
+PIN | FLASH_A_A<23> | 536871040 | 0 | LVCMOS33 | 222
+PIN | FLASH_A_A<2> | 536871040 | 0 | LVCMOS33 | 45
+PIN | FLASH_A_A<3> | 536871040 | 0 | LVCMOS33 | 47
+PIN | FLASH_A_A<4> | 536871040 | 0 | LVCMOS33 | 49
+PIN | FLASH_A_A<5> | 536871040 | 0 | LVCMOS33 | 51
+PIN | FLASH_A_A<6> | 536871040 | 0 | LVCMOS33 | 52
+PIN | FLASH_A_A<7> | 536871040 | 0 | LVCMOS33 | 53
+PIN | FLASH_A_A<8> | 536871040 | 0 | LVCMOS33 | 54
+PIN | FLASH_A_A<9> | 536871040 | 0 | LVCMOS33 | 55
+PIN | FLASH_A_E | 536871040 | 0 | LVCMOS33 | 37
+PIN | FLASH_A_G | 536871040 | 0 | LVCMOS33 | 38
+PIN | FLASH_A_K | 536871040 | 0 | LVCMOS33 | 40
+PIN | FLASH_A_L | 536871040 | 0 | LVCMOS33 | 70
+PIN | FLASH_A_RP | 536871040 | 0 | LVCMOS33 | 41
+PIN | FLASH_A_RW | 536871040 | 0 | LVCMOS33 | 71
+PIN | FLASH_A_W | 536871040 | 0 | LVCMOS33 | 69
+PIN | FLASH_A_WP | 536871040 | 0 | LVCMOS33 | 68
+PIN | FLASH_B_DQ<0> | 536871040 | 0 | LVCMOS33 | 113
+PIN | FLASH_B_DQ<10> | 536871040 | 0 | LVCMOS33 | 123
+PIN | FLASH_B_DQ<11> | 536871040 | 0 | LVCMOS33 | 95
+PIN | FLASH_B_DQ<12> | 536871040 | 0 | LVCMOS33 | 100
+PIN | FLASH_B_DQ<13> | 536871040 | 0 | LVCMOS33 | 102
+PIN | FLASH_B_DQ<14> | 536871040 | 0 | LVCMOS33 | 104
+PIN | FLASH_B_DQ<15> | 536871040 | 0 | LVCMOS33 | 106
+PIN | FLASH_B_DQ<1> | 536871040 | 0 | LVCMOS33 | 114
+PIN | FLASH_B_DQ<2> | 536871040 | 0 | LVCMOS33 | 115
+PIN | FLASH_B_DQ<3> | 536871040 | 0 | LVCMOS33 | 116
+PIN | FLASH_B_DQ<4> | 536871040 | 0 | LVCMOS33 | 117
+PIN | FLASH_B_DQ<5> | 536871040 | 0 | LVCMOS33 | 118
+PIN | FLASH_B_DQ<6> | 536871040 | 0 | LVCMOS33 | 119
+PIN | FLASH_B_DQ<7> | 536871040 | 0 | LVCMOS33 | 120
+PIN | FLASH_B_DQ<8> | 536871040 | 0 | LVCMOS33 | 121
+PIN | FLASH_B_DQ<9> | 536871040 | 0 | LVCMOS33 | 122
+PIN | FPGA_CCLK | 536871040 | 0 | LVCMOS33 | 92
+PIN | FPGA_clock | 536871040 | 0 | LVCMOS33 | 90
+PIN | LEDs<0> | 536871040 | 0 | LVCMOS33 | 87
+PIN | LEDs<1> | 536871040 | 0 | LVCMOS33 | 86
+PIN | LEDs<2> | 536871040 | 0 | LVCMOS33 | 84
+PIN | LEDs<3> | 536871040 | 0 | LVCMOS33 | 82
+PIN | FLASH_A_DQ<0> | 536870976 | 16 | LVCMOS33 | 107 | 1 | 0 | 14
+PIN | FLASH_A_DQ<10> | 536870976 | 16 | LVCMOS33 | 131 | 1 | 0 | 11
+PIN | FLASH_A_DQ<11> | 536870976 | 16 | LVCMOS33 | 132 | 1 | 0 | 3
+PIN | FLASH_A_DQ<12> | 536870976 | 16 | LVCMOS33 | 133 | 1 | 3 | 6
+PIN | FLASH_A_DQ<13> | 536870976 | 16 | LVCMOS33 | 134 | 1 | 4 | 10
+PIN | FLASH_A_DQ<14> | 536870976 | 16 | LVCMOS33 | 138 | 1 | 4 | 7
+PIN | FLASH_A_DQ<15> | 536870976 | 16 | LVCMOS33 | 81 | 1 | 4 | 5
+PIN | FLASH_A_DQ<1> | 536870976 | 16 | LVCMOS33 | 108 | 1 | 5 | 10
+PIN | FLASH_A_DQ<2> | 536870976 | 16 | LVCMOS33 | 109 | 1 | 0 | 4
+PIN | FLASH_A_DQ<3> | 536870976 | 16 | LVCMOS33 | 112 | 1 | 0 | 1
+PIN | FLASH_A_DQ<4> | 536870976 | 16 | LVCMOS33 | 124 | 1 | 3 | 13
+PIN | FLASH_A_DQ<5> | 536870976 | 16 | LVCMOS33 | 125 | 1 | 4 | 8
+PIN | FLASH_A_DQ<6> | 536870976 | 16 | LVCMOS33 | 126 | 1 | 4 | 15
+PIN | FLASH_A_DQ<7> | 536870976 | 16 | LVCMOS33 | 127 | 1 | 5 | 7
+PIN | FLASH_A_DQ<8> | 536870976 | 16 | LVCMOS33 | 128 | 1 | 0 | 12
+PIN | FLASH_A_DQ<9> | 536870976 | 16 | LVCMOS33 | 129 | 1 | 5 | 8
+PIN | FPGA_data<0> | 536870976 | 16 | LVCMOS33 | 168 | 2 | 13 | 3 | 15 | 14
+PIN | FPGA_data<10> | 536870976 | 16 | LVCMOS33 | 178 | 1 | 14 | 10
+PIN | FPGA_data<11> | 536870976 | 16 | LVCMOS33 | 179 | 1 | 14 | 11
+PIN | FPGA_data<12> | 536870976 | 16 | LVCMOS33 | 154 | 1 | 14 | 12
+PIN | FPGA_data<13> | 536870976 | 16 | LVCMOS33 | 155 | 1 | 14 | 13
+PIN | FPGA_data<14> | 536870976 | 16 | LVCMOS33 | 156 | 1 | 14 | 15
+PIN | FPGA_data<15> | 536870976 | 16 | LVCMOS33 | 157 | 1 | 15 | 15
+PIN | FPGA_data<1> | 536870976 | 16 | LVCMOS33 | 169 | 1 | 13 | 2
+PIN | FPGA_data<2> | 536870976 | 16 | LVCMOS33 | 170 | 1 | 13 | 1
+PIN | FPGA_data<3> | 536870976 | 16 | LVCMOS33 | 171 | 1 | 13 | 0
+PIN | FPGA_data<4> | 536870976 | 16 | LVCMOS33 | 172 | 1 | 14 | 0
+PIN | FPGA_data<5> | 536870976 | 16 | LVCMOS33 | 173 | 1 | 14 | 1
+PIN | FPGA_data<6> | 536870976 | 16 | LVCMOS33 | 174 | 1 | 14 | 2
+PIN | FPGA_data<7> | 536870976 | 16 | LVCMOS33 | 175 | 1 | 14 | 3
+PIN | FPGA_data<8> | 536870976 | 16 | LVCMOS33 | 176 | 1 | 14 | 4
+PIN | FPGA_data<9> | 536870976 | 16 | LVCMOS33 | 177 | 1 | 14 | 5

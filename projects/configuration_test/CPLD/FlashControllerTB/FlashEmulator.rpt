@@ -1,0 +1,13 @@
+ 
+cpldfit:  version O.40d                             Xilinx Inc.
+                                  No Fit Report
+Design Name: FlashEmulator                       Date:  7- 5-2011,  5:10PM
+Device Used: 
+Fitting Status: Design Rule Checking Failed
+
+**************************  Errors and Warnings  ***************************
+
+WARNING:Cpld - Unable to retrieve the path to the iSE Project Repository. Will
+   use the default filename of 'FlashEmulator.ise'.
+ERROR:Cpld:1005 - Design 'FlashEmulator' has no outputs. 
+

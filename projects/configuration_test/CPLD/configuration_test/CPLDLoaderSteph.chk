@@ -1,0 +1,397 @@
+
+----------------------------------------
+|  P a r t i t i o n    S u c c e e d  |
+----------------------------------------
+0 Group(s)
+
+GCLK2: 62=CPLD_100MHZ.p
+----------------- B l o c k 0 ------------------
+PLApt(56/56), Fanin(27/38), Clk(1/3), Bct(1/4), Pin(0/11), Mcell(13/16)
+PLApts[56/56] 401 402 413 457 484 308 317 318 325 326 410 453 455 303 309 310 315 316 323 324 409 451 462 452 
+              454 461 327 411 298 299 307 314 322 408 158 450 341 175 404 328 329 412 456 176 183 340 403 190 
+              191 192 339 199 200 201 202 338
+Fanins[27] BootCount<0>.n BootCount<10>.n BootCount<11>.n BootCount<12>.n BootCount<13>.n BootCount<14>.n 
+           BootCount<15>.n BootCount<16>.n BootCount<17>.n BootCount<18>.n BootCount<19>.n BootCount<1>.n 
+           BootCount<2>.n BootCount<3>.n BootCount<4>.n BootCount<5>.n BootCount<6>.n BootCount<7>.n 
+           BootCount<8>.n BootCount<9>.n Mtrien_Program_B.n N_PZ_983.n OldBoot.n WasDone<0>.n WasDone<15>.n 
+           DONE.p reboot.p
+clk[1] CPLD_100MHZ 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: 
+vref: [0]
+Signal[13] [Mtrien_Program_B(219)] [BootCount<17>(218)] [BootCount<16>(217)] [BootCount<18>(216)]  
+           [BootCount<15>(215)] [BootCount<0>(224)] [BootCount<19>(223)] [BootCount<1>(222)]  
+           [BootCount<2>(221)] [BootCount<3>(220)] [WasDone<0>(214)] [WasDone<1>(213)] [clk_cnt_i<0>(212)] 
+Signal[13] [ 0: (2)  ][ 1: (208)  ][ 2: (206)  ][ 3: clk_cnt_i<0>(212) (205)  ][ 4: WasDone<1>(213) (203)  ] 
+           [ 5: WasDone<0>(214) (202)  ][ 6: BootCount<15>(215)  ][ 7: BootCount<18>(216)  ][ 8:  
+           BootCount<16>(217)  ][ 9: BootCount<17>(218)  ][ 10: Mtrien_Program_B(219)  ][ 11:  
+           BootCount<3>(220) (201)  ][ 12: BootCount<2>(221) (200)  ][ 13: BootCount<1>(222) (199)  ][ 14:  
+           BootCount<19>(223) (198)  ][ 15: BootCount<0>(224) (197)  ]
+----------------- B l o c k 1 ------------------
+PLApt(56/56), Fanin(27/38), Clk(0/3), Bct(1/4), Pin(0/10), Mcell(7/16)
+PLApts[56/56] 142 143 178 185 484 194 204 215 227 240 254 269 285 330 403 209 210 211 212 213 337 220 221 222 
+              223 224 225 336 232 233 234 235 236 237 238 335 245 246 247 248 249 250 251 252 334 259 260 261 
+              262 263 264 265 463 266 267 333
+Fanins[27] BootCount<0>.n BootCount<10>.n BootCount<11>.n BootCount<12>.n BootCount<13>.n BootCount<14>.n 
+           BootCount<15>.n BootCount<16>.n BootCount<17>.n BootCount<18>.n BootCount<19>.n BootCount<1>.n 
+           BootCount<2>.n BootCount<3>.n BootCount<4>.n BootCount<5>.n BootCount<6>.n BootCount<7>.n 
+           BootCount<8>.n BootCount<9>.n N_PZ_983.n OldBoot.n WasDone<0>.n WasDone<15>.n WasDone<1>.n DONE.p 
+           reboot.p
+clk[0] 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: 
+vref: [0]
+Signal[ 7] [BootCount<11>(240)] [BootCount<4>(235)] [BootCount<5>(234)] [BootCount<6>(233)]  
+           [BootCount<7>(232)] [BootCount<8>(231)] [WasDone<2>(239)] 
+Signal[ 7] [ 0: (3)  ][ 1: (4)  ][ 2: (5)  ][ 3: (6)  ][ 4: (7)  ][ 5: (8)  ][ 6: BootCount<8>(231)  ][ 7:  
+           BootCount<7>(232)  ][ 8: BootCount<6>(233)  ][ 9: BootCount<5>(234)  ][ 10: BootCount<4>(235)  ] 
+           [ 11: (9)  ][ 12: (10)  ][ 13: (12)  ][ 14: WasDone<2>(239) (14)  ][ 15: BootCount<11>(240)  ]
+----------------- B l o c k 2 ------------------
+PLApt(56/56), Fanin(28/38), Clk(0/3), Bct(1/4), Pin(0/11), Mcell(6/16)
+PLApts[56/56] 141 177 184 193 484 203 214 226 239 253 268 284 331 403 274 275 276 277 278 279 280 281 282 283 
+              332 293 294 297 302 306 313 321 407 449 289 290 292 296 301 305 312 320 406 448 286 287 288 291 
+              295 300 304 311 319 405 447 464
+Fanins[28] BootCount<0>.n BootCount<10>.n BootCount<11>.n BootCount<12>.n BootCount<13>.n BootCount<14>.n 
+           BootCount<15>.n BootCount<16>.n BootCount<17>.n BootCount<18>.n BootCount<19>.n BootCount<1>.n 
+           BootCount<2>.n BootCount<3>.n BootCount<4>.n BootCount<5>.n BootCount<6>.n BootCount<7>.n 
+           BootCount<8>.n BootCount<9>.n N_PZ_983.n OldBoot.n WasDone<0>.n WasDone<15>.n WasDone<1>.n 
+           WasDone<2>.n DONE.p reboot.p
+clk[0] 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: 
+vref: [0]
+Signal[ 6] [BootCount<10>(251)] [BootCount<9>(250)] [BootCount<14>(249)] [BootCount<13>(248)]  
+           [BootCount<12>(247)] [WasDone<3>(256)] 
+Signal[ 6] [ 0: (196)  ][ 1: (195)  ][ 2: (194)  ][ 3: (193)  ][ 4: (192)  ][ 5: (191)  ][ 6:  
+           BootCount<12>(247)  ][ 7: BootCount<13>(248)  ][ 8: BootCount<14>(249)  ][ 9: BootCount<9>(250)  ] 
+           [ 10: BootCount<10>(251)  ][ 11: (189)  ][ 12: (188)  ][ 13: (187)  ][ 14: (186)  ][ 15:  
+           WasDone<3>(256) (185)  ]
+----------------- B l o c k 3 ------------------
+PLApt(24/56), Fanin(27/38), Clk(0/3), Bct(1/4), Pin(0/10), Mcell(16/16)
+PLApts[24/56] 107 140 106 360 484 375 384 96 97 134 135 () () () () () 103 () () () () () 465 () () 466 () () 
+              471 () () 472 () () 473 () () 474 () () 475 () () 467 () () 468 () () 469 () () 476 () () 470
+Fanins[27] LEDs<3>.n AlternateCycle.n ConfProceed.n FLASH_A_DQ_buffered<15>.n FLASH_A_DQ_buffered<7>.n 
+           FPGAData<0>.n N_PZ_983.n WasDone<0>.n WasDone<10>.n WasDone<11>.n WasDone<12>.n WasDone<13>.n 
+           WasDone<14>.n WasDone<15>.n WasDone<1>.n WasDone<2>.n WasDone<3>.n WasDone<4>.n WasDone<5>.n 
+           WasDone<6>.n WasDone<7>.n WasDone<8>.n WasDone<9>.n DONE.p FLASH_A_DQ<7>.p FLASH_B_DQ<7>.p 
+           FPGA_A<23>.p
+clk[0] 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: 
+vref: [0]
+Signal[16] [WasDone<15>(271)] [WasDone<14>(267)] [WasDone<13>(266)] [WasDone<12>(265)] [WasDone<11>(264)]  
+           [WasDone<10>(263)] [WasDone<9>(272)] [WasDone<8>(270)] [WasDone<7>(269)] [WasDone<6>(268)]  
+           [WasDone<5>(262)] [WasDone<4>(261)] [AlternateCycle(260)] [FLASH_AK(259)] [FPGAData<0>(258)]  
+           [FLASH_A_DQ_buffered<7>(257)] 
+Signal[16] [ 0: FLASH_A_DQ_buffered<7>(257) (15)  ][ 1: FPGAData<0>(258) (16)  ][ 2: FLASH_AK(259) (17)  ] 
+           [ 3: AlternateCycle(260) (18)  ][ 4: WasDone<4>(261) (19)  ][ 5: WasDone<5>(262) (20)  ][ 6:  
+           WasDone<10>(263)  ][ 7: WasDone<11>(264)  ][ 8: WasDone<12>(265)  ][ 9: WasDone<13>(266)  ][ 10:  
+           WasDone<14>(267)  ][ 11: WasDone<6>(268) (21)  ][ 12: WasDone<7>(269) (22)  ][ 13:  
+           WasDone<8>(270) (23)  ][ 14: WasDone<15>(271)  ][ 15: WasDone<9>(272) (25)  ]
+----------------- B l o c k 4 ------------------
+PLApt(51/56), Fanin(35/38), Clk(0/3), Bct(1/4), Pin(8/11), Mcell(16/16)
+PLApts[51/53] 21 22 33 37 484 38 39 40 41 102 3 459 357 3 373 386 3 94 95 132 133 80 3 81 118 119 358 70 71 
+              108 109 343 72 73 110 111 346 74 75 112 113 349 76 3 77 114 3 115 352 3 () () 3
+Fanins[35] LEDs<3>.n AlternateCycle.n ConfProceed.n FLASH_A_DQ_buffered<0>.n FLASH_A_DQ_buffered<10>.n 
+           FLASH_A_DQ_buffered<11>.n FLASH_A_DQ_buffered<12>.n FLASH_A_DQ_buffered<14>.n 
+           FLASH_A_DQ_buffered<6>.n FPGAData<1>.n Init_b_Reg.n N_PZ_983.n Prog_B_Reg.n DONE.p FLASH_A_DQ<0>.p 
+           FLASH_A_DQ<10>.p FLASH_A_DQ<11>.p FLASH_A_DQ<12>.p FLASH_A_DQ<14>.p FLASH_A_DQ<6>.p 
+           FLASH_B_DQ<0>.p FLASH_B_DQ<10>.p FLASH_B_DQ<11>.p FLASH_B_DQ<12>.p FLASH_B_DQ<14>.p 
+           FLASH_B_DQ<6>.p FPGA_A<0>.p FPGA_A<1>.p FPGA_A<23>.p FPGA_A<2>.p FPGA_A<3>.p FPGA_A<4>.p 
+           FPGA_A<5>.p FPGA_A<6>.p FPGA_A<7>.p
+clk[0] 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: 
+vref: [0]
+Signal[16] [FLASH_A_A<0>(287),FLASH_A_A<0>(39)] [FLASH_A_A<1>(286),FLASH_A_A<1>(40)]  
+           [FLASH_A_A<2>(285),FLASH_A_A<2>(41)] [FLASH_A_A<3>(284),FLASH_A_A<3>(43)]  
+           [FLASH_A_A<4>(277),FLASH_A_A<4>(45)] [FLASH_A_A<5>(275),FLASH_A_A<5>(47)]  
+           [FLASH_A_A<6>(274),FLASH_A_A<6>(48)] [FLASH_A_A<7>(273),FLASH_A_A<7>(49)] [ConfProceed(283)]  
+           [FPGAData<1>(282)] [FLASH_A_DQ_buffered<6>(281)] [FLASH_A_DQ_buffered<14>(280)]  
+           [FLASH_A_DQ_buffered<0>(279)] [FLASH_A_DQ_buffered<10>(288)] [FLASH_A_DQ_buffered<11>(278)]  
+           [FLASH_A_DQ_buffered<12>(276)] 
+Signal[16] [ 0: FLASH_A_A<7>(273) FLASH_A_A<7>(49)  ][ 1: FLASH_A_A<6>(274) FLASH_A_A<6>(48)  ][ 2:  
+           FLASH_A_A<5>(275) FLASH_A_A<5>(47)  ][ 3: FLASH_A_DQ_buffered<12>(276) (46)  ][ 4:  
+           FLASH_A_A<4>(277) FLASH_A_A<4>(45)  ][ 5: FLASH_A_DQ_buffered<11>(278) (44)  ][ 6:  
+           FLASH_A_DQ_buffered<0>(279)  ][ 7: FLASH_A_DQ_buffered<14>(280)  ][ 8:  
+           FLASH_A_DQ_buffered<6>(281)  ][ 9: FPGAData<1>(282)  ][ 10: ConfProceed(283)  ][ 11:  
+           FLASH_A_A<3>(284) FLASH_A_A<3>(43)  ][ 12: FLASH_A_A<2>(285) FLASH_A_A<2>(41)  ][ 13:  
+           FLASH_A_A<1>(286) FLASH_A_A<1>(40)  ][ 14: FLASH_A_A<0>(287) FLASH_A_A<0>(39)  ][ 15:  
+           FLASH_A_DQ_buffered<10>(288) (38)  ]
+----------------- B l o c k 5 ------------------
+PLApt(48/56), Fanin(32/38), Clk(0/3), Bct(1/4), Pin(11/11), Mcell(16/16)
+PLApts[48/56] 23 24 25 26 484 27 28 29 30 42 3 43 354 3 371 388 3 92 93 130 131 78 3 79 116 3 117 355 82 83 
+              120 121 361 84 85 122 123 363 86 87 124 125 365 3 () () 3 () () 3 () () 3 () () 3
+Fanins[32] LEDs<3>.n AlternateCycle.n ConfProceed.n FLASH_A_DQ_buffered<13>.n FLASH_A_DQ_buffered<15>.n 
+           FLASH_A_DQ_buffered<1>.n FLASH_A_DQ_buffered<2>.n FLASH_A_DQ_buffered<5>.n FPGAData<2>.n 
+           N_PZ_983.n DONE.p FLASH_A_DQ<13>.p FLASH_A_DQ<15>.p FLASH_A_DQ<1>.p FLASH_A_DQ<2>.p 
+           FLASH_A_DQ<5>.p FLASH_B_DQ<13>.p FLASH_B_DQ<15>.p FLASH_B_DQ<1>.p FLASH_B_DQ<2>.p FLASH_B_DQ<5>.p 
+           FPGA_A<10>.p FPGA_A<11>.p FPGA_A<12>.p FPGA_A<13>.p FPGA_A<14>.p FPGA_A<15>.p FPGA_A<16>.p 
+           FPGA_A<17>.p FPGA_A<23>.p FPGA_A<8>.p FPGA_A<9>.p
+clk[0] 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: 
+vref: [0]
+Signal[17] [FLASH_A_A<10>(291),FLASH_A_A<10>(54)] [FLASH_A_A<11>(293),FLASH_A_A<11>(56)]  
+           [FLASH_A_A<12>(294),FLASH_A_A<12>(57)] [FLASH_A_A<13>(300),FLASH_A_A<13>(58)]  
+           [FLASH_A_A<14>(301),FLASH_A_A<14>(60)] [FLASH_A_A<15>(302),FLASH_A_A<15>(61)]  
+           [FLASH_A_A<16>(303),FLASH_A_A<16>(62)] [FLASH_A_A<17>(304),FLASH_A_A<17>(63)]  
+           [FLASH_A_A<8>(289),FLASH_A_A<8>(50)] [FLASH_A_A<9>(290),FLASH_A_A<9>(51)] [CPLD_100MHZ(55)]  
+           [FPGAData<2>(299)] [FLASH_A_DQ_buffered<5>(298)] [FLASH_A_DQ_buffered<13>(297)]  
+           [FLASH_A_DQ_buffered<15>(296)] [FLASH_A_DQ_buffered<1>(295)] [FLASH_A_DQ_buffered<2>(292)] 
+Signal[17] [ 0: FLASH_A_A<8>(289) FLASH_A_A<8>(50)  ][ 1: FLASH_A_A<9>(290) FLASH_A_A<9>(51)  ][ 2:  
+           FLASH_A_A<10>(291) FLASH_A_A<10>(54)  ][ 3: FLASH_A_DQ_buffered<2>(292) CPLD_100MHZ(55)  ][ 4:  
+           FLASH_A_A<11>(293) FLASH_A_A<11>(56)  ][ 5: FLASH_A_A<12>(294) FLASH_A_A<12>(57)  ][ 6:  
+           FLASH_A_DQ_buffered<1>(295)  ][ 7: FLASH_A_DQ_buffered<15>(296)  ][ 8:  
+           FLASH_A_DQ_buffered<13>(297)  ][ 9: FLASH_A_DQ_buffered<5>(298)  ][ 10: FPGAData<2>(299)  ][ 11:  
+           FLASH_A_A<13>(300) FLASH_A_A<13>(58)  ][ 12: FLASH_A_A<14>(301) FLASH_A_A<14>(60)  ][ 13:  
+           FLASH_A_A<15>(302) FLASH_A_A<15>(61)  ][ 14: FLASH_A_A<16>(303) FLASH_A_A<16>(62)  ][ 15:  
+           FLASH_A_A<17>(304) FLASH_A_A<17>(63)  ]
+----------------- B l o c k 6 ------------------
+PLApt(41/56), Fanin(31/38), Clk(0/3), Bct(1/4), Pin(10/10), Mcell(16/16)
+PLApts[41/50] 67 68 31 32 484 34 35 36 383 479 105 88 89 126 127 367 20 90 91 128 129 369 98 99 136 3 137 378 
+              100 101 138 139 381 351 390 348 392 () () () 3 () () 3 () () 3 () () 3
+Fanins[31] LEDs<3>.n AlternateCycle.n ConfProceed.n FLASH_AK.n FLASH_A_DQ_buffered<11>.n 
+           FLASH_A_DQ_buffered<12>.n FLASH_A_DQ_buffered<3>.n FLASH_A_DQ_buffered<4>.n 
+           FLASH_A_DQ_buffered<8>.n FLASH_A_DQ_buffered<9>.n FPGAData<3>.n FPGAData<4>.n N_PZ_983.n 
+           clk_cnt_i<1>.n DONE.p FLASH_A_DQ<3>.p FLASH_A_DQ<4>.p FLASH_A_DQ<8>.p FLASH_A_DQ<9>.p 
+           FLASH_B_DQ<3>.p FLASH_B_DQ<4>.p FLASH_B_DQ<8>.p FLASH_B_DQ<9>.p FPGA_A<18>.p FPGA_A<19>.p 
+           FPGA_A<20>.p FPGA_A<21>.p FPGA_A<22>.p FPGA_A<23>.p FPGA_E.p FPGA_G.p
+clk[0] 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: 
+vref: [0]
+Signal[16] [FLASH_A_E(308),FLASH_A_E(34)] [FLASH_A_A<18>(318),FLASH_A_A<18>(27)]  
+           [FLASH_A_A<19>(317),FLASH_A_A<19>(28)] [FLASH_A_A<20>(316),FLASH_A_A<20>(29)]  
+           [FLASH_A_A<21>(315),FLASH_A_A<21>(30)] [FLASH_A_A<22>(310),FLASH_A_A<22>(31)]  
+           [FLASH_A_G(307),FLASH_A_G(35)] [FLASH_A_RP(305),FLASH_A_RP(37)] [FLASH_A_K(306),FLASH_A_K(36)]  
+           [FLASH_A_A<23>(309),FLASH_A_A<23>(32)] [FLASH_A_DQ_buffered<3>(320)]  
+           [FLASH_A_DQ_buffered<4>(319)] [FLASH_A_DQ_buffered<8>(314)] [FLASH_A_DQ_buffered<9>(313)]  
+           [FPGAData<3>(312)] [FPGAData<4>(311)] 
+Signal[16] [ 0: FLASH_A_RP(305) FLASH_A_RP(37)  ][ 1: FLASH_A_K(306) FLASH_A_K(36)  ][ 2: FLASH_A_G(307)  
+           FLASH_A_G(35)  ][ 3: FLASH_A_E(308) FLASH_A_E(34)  ][ 4: FLASH_A_A<23>(309) FLASH_A_A<23>(32)  ] 
+           [ 5: FLASH_A_A<22>(310) FLASH_A_A<22>(31)  ][ 6: FPGAData<4>(311)  ][ 7: FPGAData<3>(312)  ][ 8:  
+           FLASH_A_DQ_buffered<9>(313)  ][ 9: FLASH_A_DQ_buffered<8>(314)  ][ 10: FLASH_A_A<21>(315)  
+           FLASH_A_A<21>(30)  ][ 11: FLASH_A_A<20>(316) FLASH_A_A<20>(29)  ][ 12: FLASH_A_A<19>(317)  
+           FLASH_A_A<19>(28)  ][ 13: FLASH_A_A<18>(318) FLASH_A_A<18>(27)  ][ 14:  
+           FLASH_A_DQ_buffered<4>(319)  ][ 15: FLASH_A_DQ_buffered<3>(320)  ]
+----------------- B l o c k 7 ------------------
+PLApt(22/56), Fanin(21/38), Clk(0/3), Bct(1/4), Pin(12/12), Mcell(16/16)
+PLApts[22/53] 67 69 383 479 484 345 365 394 363 380 396 343 377 45 398 63 44 477 () () () () () () () 20 () 
+              () () () () () () () () () () () () () () () () 105 () () () () () 45 () () 44
+Fanins[21] AlternateCycle.n ConfProceed.n FLASH_AK.n FLASH_A_DQ_buffered<0>.n FLASH_A_DQ_buffered<10>.n 
+           FLASH_A_DQ_buffered<1>.n FLASH_A_DQ_buffered<2>.n FLASH_A_DQ_buffered<8>.n 
+           FLASH_A_DQ_buffered<9>.n FPGAData<5>.n FPGAData<6>.n FPGAData<7>.n N_PZ_983.n clk_cnt_i<1>.n 
+           CPLD_100MHZ.p DONE.p FPGA_A<23>.p FPGA_E.p FPGA_G.p FPGA_L.p FPGA_W.p
+clk[0] 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: 
+vref: [0]
+Signal[16] [FLASH_B_E(325),FLASH_B_E(69)] [FLASH_A_L(323),FLASH_A_L(66)] [FLASH_A_W(322),FLASH_A_W(65)]  
+           [FLASH_B_G(326),FLASH_B_G(70)] [FLASH_B_L(335),FLASH_B_L(75)] [FLASH_B_RP(332),FLASH_B_RP(72)]  
+           [FLASH_B_W(334),FLASH_B_W(74)] [FLASH_B_K(331),FLASH_B_K(71)] [FLASH_A_RW(324),FLASH_A_RW(67)]  
+           [FLASH_A_WP(321),FLASH_A_WP(64)] [FLASH_B_RW(336),FLASH_B_RW(76)]  
+           [FLASH_B_WP(333),FLASH_B_WP(73)] [FPGAData<5>(330)] [FPGAData<6>(329)] [FPGAData<7>(328)]  
+           [N_PZ_983(327)] 
+Signal[16] [ 0: FLASH_A_WP(321) FLASH_A_WP(64)  ][ 1: FLASH_A_W(322) FLASH_A_W(65)  ][ 2: FLASH_A_L(323)  
+           FLASH_A_L(66)  ][ 3: FLASH_A_RW(324) FLASH_A_RW(67)  ][ 4: FLASH_B_E(325) FLASH_B_E(69)  ][ 5:  
+           FLASH_B_G(326) FLASH_B_G(70)  ][ 6: N_PZ_983(327)  ][ 7: FPGAData<7>(328)  ][ 8: FPGAData<6>(329)  
+            ][ 9: FPGAData<5>(330)  ][ 10: FLASH_B_K(331) FLASH_B_K(71)  ][ 11: FLASH_B_RP(332)  
+           FLASH_B_RP(72)  ][ 12: FLASH_B_WP(333) FLASH_B_WP(73)  ][ 13: FLASH_B_W(334) FLASH_B_W(74)  ] 
+           [ 14: FLASH_B_L(335) FLASH_B_L(75)  ][ 15: FLASH_B_RW(336) FLASH_B_RW(76)  ]
+----------------- B l o c k 8 ------------------
+PLApt(25/56), Fanin(26/38), Clk(1/3), Bct(2/4), Pin(12/12), Mcell(15/16)
+PLApts[25/56] 342 385 362 387 484 364 389 485 366 391 368 393 370 395 372 397 374 399 () () () () () () () () 
+              () () () () () 66 () () 458 () () 382 () () () () () () () () 376 () () 379 () () 344 () () 347
+Fanins[26] FLASH_A_DQ_buffered<0>.n FLASH_A_DQ_buffered<10>.n FLASH_A_DQ_buffered<11>.n 
+           FLASH_A_DQ_buffered<1>.n FLASH_A_DQ_buffered<2>.n FLASH_A_DQ_buffered<3>.n 
+           FLASH_A_DQ_buffered<4>.n FLASH_A_DQ_buffered<5>.n FLASH_A_DQ_buffered<6>.n 
+           FLASH_A_DQ_buffered<7>.n FLASH_A_DQ_buffered<8>.n FLASH_A_DQ_buffered<9>.n FPGAData<0>.n 
+           FPGAData<1>.n FPGAData<2>.n FPGAData<3>.n FPGAData<4>.n FPGAData<5>.n FPGAData<6>.n FPGAData<7>.n 
+           Flash_A_G_buffered.n N_PZ_880.n N_PZ_983.n clk_cnt_i<0>.n DONE.p Program_B.p
+clk[1] CPLD_100MHZ 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: (pt=485) N_PZ_880' ;
+vref: [0]
+Signal[15] [FPGA_data<0>(337),FPGA_data<0>(160)] [FPGA_data<1>(338),FPGA_data<1>(161)]  
+           [FPGA_data<2>(339),FPGA_data<2>(162)] [FPGA_data<3>(340),FPGA_data<3>(163)]  
+           [FPGA_data<4>(341),FPGA_data<4>(164)] [FPGA_data<5>(342),FPGA_data<5>(165)]  
+           [FPGA_data<6>(347),FPGA_data<6>(166)] [FPGA_data<7>(348),FPGA_data<7>(167)]  
+           [FPGA_data<10>(351),FPGA_data<10>(170)] [FPGA_data<11>(352),FPGA_data<11>(171)]  
+           [FPGA_data<8>(349),FPGA_data<8>(168)] [FPGA_data<9>(350),FPGA_data<9>(169)] [N_PZ_880(346)]  
+           [clk_cnt_i<1>(345)] [Prog_B_Reg(344)] 
+Signal[15] [ 0: FPGA_data<0>(337) FPGA_data<0>(160)  ][ 1: FPGA_data<1>(338) FPGA_data<1>(161)  ][ 2:  
+           FPGA_data<2>(339) FPGA_data<2>(162)  ][ 3: FPGA_data<3>(340) FPGA_data<3>(163)  ][ 4:  
+           FPGA_data<4>(341) FPGA_data<4>(164)  ][ 5: FPGA_data<5>(342) FPGA_data<5>(165)  ][ 6:  ][ 7:  
+           Prog_B_Reg(344)  ][ 8: clk_cnt_i<1>(345)  ][ 9: N_PZ_880(346)  ][ 10: FPGA_data<6>(347)  
+           FPGA_data<6>(166)  ][ 11: FPGA_data<7>(348) FPGA_data<7>(167)  ][ 12: FPGA_data<8>(349)  
+           FPGA_data<8>(168)  ][ 13: FPGA_data<9>(350) FPGA_data<9>(169)  ][ 14: FPGA_data<10>(351)  
+           FPGA_data<10>(170)  ][ 15: FPGA_data<11>(352) FPGA_data<11>(171)  ]
+----------------- B l o c k 9 ------------------
+PLApt(5/56), Fanin(6/38), Clk(0/3), Bct(1/4), Pin(12/12), Mcell(4/16)
+PLApts[5/56] () () () () () () () 485 () () () () () () () () () () () () () () () () () () () () () () () () 
+             () () () () () () () () () () () () () () 359 () () 356 () () 353 () () 350
+Fanins[ 6] FLASH_A_DQ_buffered<12>.n FLASH_A_DQ_buffered<13>.n FLASH_A_DQ_buffered<14>.n 
+           FLASH_A_DQ_buffered<15>.n N_PZ_880.n DONE.p
+clk[0] 
+CTC: 
+CTR: 
+CTS: 
+CTE: (pt=485) N_PZ_880' ;
+vref: [0]
+Signal[12] [FPGA_data<12>(368),FPGA_data<12>(146)] [FPGA_data<13>(367),FPGA_data<13>(147)]  
+           [FPGA_data<14>(366),FPGA_data<14>(148)] [FPGA_data<15>(365),FPGA_data<15>(149)] [FPGA_A<0>(150)]  
+           [FPGA_A<1>(151)] [FPGA_A<2>(152)] [FPGA_A<3>(153)] [FPGA_A<4>(154)] [FPGA_A<5>(155)]  
+           [FPGA_A<6>(158)] [FPGA_A<7>(159)] 
+Signal[12] [ 0: FPGA_A<7>(159)  ][ 1: FPGA_A<6>(158)  ][ 2: FPGA_A<5>(155)  ][ 3: FPGA_A<4>(154)  ][ 4:  
+           FPGA_A<3>(153)  ][ 5: FPGA_A<2>(152)  ][ 6:  ][ 7:  ][ 8:  ][ 9:  ][ 10: FPGA_A<1>(151)  ][ 11:  
+           FPGA_A<0>(150)  ][ 12: FPGA_data<15>(365) FPGA_data<15>(149)  ][ 13: FPGA_data<14>(366)  
+           FPGA_data<14>(148)  ][ 14: FPGA_data<13>(367) FPGA_data<13>(147)  ][ 15: FPGA_data<12>(368)  
+           FPGA_data<12>(146)  ]
+----------------- B l o c k 10 ------------------
+PLApt(0/56), Fanin(0/38), Clk(0/3), Bct(0/4), Pin(9/9), Mcell(0/16)
+PLApts[0/0]
+Fanins[ 0]
+clk[0] 
+CTC: 
+CTR: 
+CTS: 
+CTE: 
+vref: [0]
+Signal[ 9] [FPGA_A<10>(175)] [FPGA_A<11>(178)] [FPGA_A<12>(179)] [FPGA_A<13>(180)] [FPGA_A<14>(182)]  
+           [FPGA_A<15>(183)] [FPGA_A<16>(184)] [FPGA_A<8>(173)] [FPGA_A<9>(174)] 
+Signal[ 9] [ 0:  ][ 1: FPGA_A<8>(173)  ][ 2: FPGA_A<9>(174)  ][ 3: FPGA_A<10>(175)  ][ 4:  ][ 5:  ][ 6:  ] 
+           [ 7:  ][ 8:  ][ 9:  ][ 10: FPGA_A<11>(178)  ][ 11: FPGA_A<12>(179)  ][ 12: FPGA_A<13>(180)  ] 
+           [ 13: FPGA_A<14>(182)  ][ 14: FPGA_A<15>(183)  ][ 15: FPGA_A<16>(184)  ]
+----------------- B l o c k 11 ------------------
+PLApt(2/56), Fanin(2/38), Clk(0/3), Bct(1/4), Pin(11/11), Mcell(2/16)
+PLApts[2/17] () () () () 484 () () () () () () () () () () () 3
+Fanins[ 2] N_PZ_983.n DONE.p
+clk[0] 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: 
+vref: [0]
+Signal[13] [FPGA_A<17>(134)] [FPGA_A<18>(135)] [FPGA_A<19>(136)] [FPGA_A<20>(137)] [FPGA_A<21>(138)]  
+           [FPGA_A<22>(139)] [FPGA_E(144)] [FPGA_L(145)] [FPGA_W(142)] [Flash_A_G_buffered,FPGA_G(143)]  
+           [OldBoot,reboot(140)] 
+Signal[13] [ 0: FPGA_L(145)  ][ 1: FPGA_E(144)  ][ 2: Flash_A_G_buffered(387) FPGA_G(143)  ][ 3: FPGA_W(142)  
+            ][ 4: OldBoot(389) reboot(140)  ][ 5: FPGA_A<22>(139)  ][ 6:  ][ 7:  ][ 8:  ][ 9:  ][ 10:  
+           FPGA_A<21>(138)  ][ 11: FPGA_A<20>(137)  ][ 12: FPGA_A<19>(136)  ][ 13: FPGA_A<18>(135)  ][ 14:  
+           FPGA_A<17>(134)  ][ 15:  ]
+----------------- B l o c k 12 ------------------
+PLApt(24/56), Fanin(14/38), Clk(0/3), Bct(2/4), Pin(11/11), Mcell(11/16)
+PLApts[24/56] 2 4 10 11 484 12 13 382 14 15 3 16 17 3 18 () 3 () () 3 () () 3 () () 3 () () () () () () () () 
+              () () () () () () () () () 3 () () 3 () () 3 () () 3 () () 3
+Fanins[14] Flash_A_G_buffered.n N_PZ_983.n DONE.p FPGA_data<0>.p FPGA_data<10>.p FPGA_data<1>.p 
+           FPGA_data<2>.p FPGA_data<3>.p FPGA_data<4>.p FPGA_data<5>.p FPGA_data<6>.p FPGA_data<7>.p 
+           FPGA_data<8>.p FPGA_data<9>.p
+clk[0] 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: (pt=382) DONE Flash_A_G_buffered ;
+vref: [0]
+Signal[11] [FLASH_B_DQ<0>(401),FLASH_B_DQ<0>(107)] [FLASH_B_DQ<10>(416),FLASH_B_DQ<10>(117)]  
+           [FLASH_B_DQ<1>(402),FLASH_B_DQ<1>(108)] [FLASH_B_DQ<2>(403),FLASH_B_DQ<2>(109)]  
+           [FLASH_B_DQ<3>(404),FLASH_B_DQ<3>(110)] [FLASH_B_DQ<4>(405),FLASH_B_DQ<4>(111)]  
+           [FLASH_B_DQ<5>(406),FLASH_B_DQ<5>(112)] [FLASH_B_DQ<6>(412),FLASH_B_DQ<6>(113)]  
+           [FLASH_B_DQ<7>(413),FLASH_B_DQ<7>(114)] [FLASH_B_DQ<8>(414),FLASH_B_DQ<8>(115)]  
+           [FLASH_B_DQ<9>(415),FLASH_B_DQ<9>(116)] 
+Signal[11] [ 0: FLASH_B_DQ<0>(401) FLASH_B_DQ<0>(107)  ][ 1: FLASH_B_DQ<1>(402) FLASH_B_DQ<1>(108)  ][ 2:  
+           FLASH_B_DQ<2>(403) FLASH_B_DQ<2>(109)  ][ 3: FLASH_B_DQ<3>(404) FLASH_B_DQ<3>(110)  ][ 4:  
+           FLASH_B_DQ<4>(405) FLASH_B_DQ<4>(111)  ][ 5: FLASH_B_DQ<5>(406) FLASH_B_DQ<5>(112)  ][ 6:  ][ 7:  
+            ][ 8:  ][ 9:  ][ 10:  ][ 11: FLASH_B_DQ<6>(412) FLASH_B_DQ<6>(113)  ][ 12: FLASH_B_DQ<7>(413)  
+           FLASH_B_DQ<7>(114)  ][ 13: FLASH_B_DQ<8>(414) FLASH_B_DQ<8>(115)  ][ 14: FLASH_B_DQ<9>(415)  
+           FLASH_B_DQ<9>(116)  ][ 15: FLASH_B_DQ<10>(416) FLASH_B_DQ<10>(117)  ]
+----------------- B l o c k 13 ------------------
+PLApt(16/56), Fanin(12/38), Clk(0/3), Bct(2/4), Pin(9/9), Mcell(9/16)
+PLApts[16/56] 5 6 7 8 484 9 () 382 () () 55 () () 54 () () 53 () () 46 () () 3 () () () () () () () () () () 
+              () () () () () () () () () () 3 () () 3 () () 3 () () () () () 3
+Fanins[12] FLASH_B_DQ<0>.n FLASH_B_DQ<1>.n FLASH_B_DQ<2>.n FLASH_B_DQ<3>.n Flash_A_G_buffered.n N_PZ_983.n 
+           DONE.p FPGA_data<11>.p FPGA_data<12>.p FPGA_data<13>.p FPGA_data<14>.p FPGA_data<15>.p
+clk[0] 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: (pt=382) DONE Flash_A_G_buffered ;
+vref: [0]
+Signal[ 9] [FLASH_B_DQ<11>(432),FLASH_B_DQ<11>(91)] [FLASH_B_DQ<12>(430),FLASH_B_DQ<12>(95)]  
+           [FLASH_B_DQ<13>(429),FLASH_B_DQ<13>(97)] [FLASH_B_DQ<14>(428),FLASH_B_DQ<14>(99)]  
+           [FLASH_B_DQ<15>(421),FLASH_B_DQ<15>(100)] [FLASH_A_DQ<0>(420),FLASH_A_DQ<0>(101)]  
+           [FLASH_A_DQ<1>(419),FLASH_A_DQ<1>(102)] [FLASH_A_DQ<2>(418),FLASH_A_DQ<2>(103)]  
+           [FLASH_A_DQ<3>(417),FLASH_A_DQ<3>(106)] 
+Signal[ 9] [ 0: FLASH_A_DQ<3>(417) FLASH_A_DQ<3>(106)  ][ 1: FLASH_A_DQ<2>(418) FLASH_A_DQ<2>(103)  ][ 2:  
+           FLASH_A_DQ<1>(419) FLASH_A_DQ<1>(102)  ][ 3: FLASH_A_DQ<0>(420) FLASH_A_DQ<0>(101)  ][ 4:  
+           FLASH_B_DQ<15>(421) FLASH_B_DQ<15>(100)  ][ 5:  ][ 6:  ][ 7:  ][ 8:  ][ 9:  ][ 10:  ][ 11:  
+           FLASH_B_DQ<14>(428) FLASH_B_DQ<14>(99)  ][ 12: FLASH_B_DQ<13>(429) FLASH_B_DQ<13>(97)  ][ 13:  
+           FLASH_B_DQ<12>(430) FLASH_B_DQ<12>(95)  ][ 14:  ][ 15: FLASH_B_DQ<11>(432) FLASH_B_DQ<11>(91)  ]
+----------------- B l o c k 14 ------------------
+PLApt(12/56), Fanin(13/38), Clk(0/3), Bct(1/4), Pin(11/11), Mcell(11/16)
+PLApts[12/56] () () () () () () () 382 () () 56 () () 57 () () 58 () () 59 () () 60 () () 61 () () () () () 
+              () () () () () () () () () 47 () () 48 () () 49 () () 50 () () () () () 51
+Fanins[13] FLASH_B_DQ<10>.n FLASH_B_DQ<11>.n FLASH_B_DQ<12>.n FLASH_B_DQ<13>.n FLASH_B_DQ<14>.n 
+           FLASH_B_DQ<4>.n FLASH_B_DQ<5>.n FLASH_B_DQ<6>.n FLASH_B_DQ<7>.n FLASH_B_DQ<8>.n FLASH_B_DQ<9>.n 
+           Flash_A_G_buffered.n DONE.p
+clk[0] 
+CTC: 
+CTR: 
+CTS: 
+CTE: (pt=382) DONE Flash_A_G_buffered ;
+vref: [0]
+Signal[11] [FLASH_A_DQ<10>(443),FLASH_A_DQ<10>(125)] [FLASH_A_DQ<11>(444),FLASH_A_DQ<11>(126)]  
+           [FLASH_A_DQ<12>(445),FLASH_A_DQ<12>(127)] [FLASH_A_DQ<13>(446),FLASH_A_DQ<13>(128)]  
+           [FLASH_A_DQ<14>(448),FLASH_A_DQ<14>(131)] [FLASH_A_DQ<4>(433),FLASH_A_DQ<4>(118)]  
+           [FLASH_A_DQ<5>(434),FLASH_A_DQ<5>(119)] [FLASH_A_DQ<6>(435),FLASH_A_DQ<6>(120)]  
+           [FLASH_A_DQ<7>(436),FLASH_A_DQ<7>(121)] [FLASH_A_DQ<8>(437),FLASH_A_DQ<8>(122)]  
+           [FLASH_A_DQ<9>(438),FLASH_A_DQ<9>(123)] 
+Signal[11] [ 0: FLASH_A_DQ<4>(433) FLASH_A_DQ<4>(118)  ][ 1: FLASH_A_DQ<5>(434) FLASH_A_DQ<5>(119)  ][ 2:  
+           FLASH_A_DQ<6>(435) FLASH_A_DQ<6>(120)  ][ 3: FLASH_A_DQ<7>(436) FLASH_A_DQ<7>(121)  ][ 4:  
+           FLASH_A_DQ<8>(437) FLASH_A_DQ<8>(122)  ][ 5: FLASH_A_DQ<9>(438) FLASH_A_DQ<9>(123)  ][ 6:  ][ 7:  
+            ][ 8:  ][ 9:  ][ 10: FLASH_A_DQ<10>(443) FLASH_A_DQ<10>(125)  ][ 11: FLASH_A_DQ<11>(444)  
+           FLASH_A_DQ<11>(126)  ][ 12: FLASH_A_DQ<12>(445) FLASH_A_DQ<12>(127)  ][ 13: FLASH_A_DQ<13>(446)  
+           FLASH_A_DQ<13>(128)  ][ 14:  ][ 15: FLASH_A_DQ<14>(448) FLASH_A_DQ<14>(131)  ]
+----------------- B l o c k 15 ------------------
+PLApt(16/56), Fanin(35/38), Clk(0/3), Bct(2/4), Pin(11/12), Mcell(9/16)
+PLApts[16/56] 480 481 482 483 484 104 478 400 64 479 () () () () () () () () () () () () () () () () () () () 
+              () () () () () () () () () () () () () () 66 () () 65 () () 1 () () 460 () 382 52
+Fanins[35] FLASH_B_DQ<15>.n LEDs<3>.n Program_B.n BootCount<0>.n BootCount<10>.n BootCount<11>.n 
+           BootCount<12>.n BootCount<13>.n BootCount<14>.n BootCount<15>.n BootCount<16>.n BootCount<17>.n 
+           BootCount<18>.n BootCount<19>.n BootCount<1>.n BootCount<2>.n BootCount<3>.n BootCount<4>.n 
+           BootCount<5>.n BootCount<6>.n BootCount<7>.n BootCount<8>.n BootCount<9>.n ConfProceed.n 
+           Flash_A_G_buffered.n Mtrien_Program_B.n N_PZ_983.n OldBoot.n WasDone<15>.n clk_cnt_i<1>.n 
+           CPLD_100MHZ.p DONE.p INIT_B.p Program_B.p reboot.p
+clk[0] 
+CTC: (pt=484) N_PZ_983 ;
+CTR: 
+CTS: 
+CTE: (pt=400) Mtrien_Program_B' ;
+vref: [0]
+Signal[12] [Program_B(449),Program_B(90)] [LEDs<3>(463),LEDs<3>(78)] [FPGA_CCLK(451),FPGA_CCLK(88)]  
+           [FPGA_clock(453),FPGA_clock(86)] [FLASH_A_DQ<15>(464),FLASH_A_DQ<15>(77)]  
+           [LEDs<0>(460),LEDs<0>(83)] [LEDs<1>(461),LEDs<1>(82)] [LEDs<2>(462),LEDs<2>(80)] [DONE(87)]  
+           [FPGA_A<23>(85)] [Init_b_Reg,INIT_B(89)] 
+Signal[12] [ 0: Program_B(449) Program_B(90)  ][ 1: Init_b_Reg(450) INIT_B(89)  ][ 2: FPGA_CCLK(451)  
+           FPGA_CCLK(88)  ][ 3: DONE(87)  ][ 4: FPGA_clock(453) FPGA_clock(86)  ][ 5: FPGA_A<23>(85)  ][ 6:  
+            ][ 7:  ][ 8:  ][ 9:  ][ 10: (84)  ][ 11: LEDs<0>(460) LEDs<0>(83)  ][ 12: LEDs<1>(461)  
+           LEDs<1>(82)  ][ 13: LEDs<2>(462) LEDs<2>(80)  ][ 14: LEDs<3>(463) LEDs<3>(78)  ][ 15:  
+           FLASH_A_DQ<15>(464) FLASH_A_DQ<15>(77)  ]

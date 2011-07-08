@@ -1,0 +1,10 @@
+Command line:
+   FlashTest_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  47334
+
+Fri Jul  8 10:04:31 2011
+
+
+ Elaboration Time: 0.22 sec

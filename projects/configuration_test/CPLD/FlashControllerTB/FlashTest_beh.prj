@@ -1,0 +1,3 @@
+vhdl work "FlashEmulator.vhd"
+vhdl work "../../../../lib/hw/std/pcores/nf10_axi_flash_ctrl_v1_00_a/hdl/vhdl/flash_controller.vhd"
+vhdl work "FlashTest.vhd"

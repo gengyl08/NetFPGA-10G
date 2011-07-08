@@ -1,0 +1,1947 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="paths.js"></script><script src="eqns.js"></script><script>
+      var design = "CPLDLoaderSteph";
+      var device = "XC2C256";
+      signals = new Array("AlternateCycle","ConfProceed","DelayedPause","FLASH_AK","FLASH_A_A0_SPECSIG","FLASH_A_A10_SPECSIG","FLASH_A_A11_SPECSIG","FLASH_A_A12_SPECSIG","FLASH_A_A13_SPECSIG","FLASH_A_A14_SPECSIG","FLASH_A_A15_SPECSIG","FLASH_A_A16_SPECSIG","FLASH_A_A17_SPECSIG","FLASH_A_A18_SPECSIG","FLASH_A_A19_SPECSIG","FLASH_A_A1_SPECSIG","FLASH_A_A20_SPECSIG","FLASH_A_A21_SPECSIG","FLASH_A_A22_SPECSIG","FLASH_A_A23_SPECSIG","FLASH_A_A2_SPECSIG","FLASH_A_A3_SPECSIG","FLASH_A_A4_SPECSIG","FLASH_A_A5_SPECSIG","FLASH_A_A6_SPECSIG","FLASH_A_A7_SPECSIG","FLASH_A_A8_SPECSIG","FLASH_A_A9_SPECSIG","FLASH_A_DQ0_SPECSIG","FLASH_A_DQ10_SPECSIG","FLASH_A_DQ11_SPECSIG","FLASH_A_DQ12_SPECSIG","FLASH_A_DQ13_SPECSIG","FLASH_A_DQ14_SPECSIG","FLASH_A_DQ15_SPECSIG","FLASH_A_DQ1_SPECSIG","FLASH_A_DQ2_SPECSIG","FLASH_A_DQ3_SPECSIG","FLASH_A_DQ4_SPECSIG","FLASH_A_DQ5_SPECSIG","FLASH_A_DQ6_SPECSIG","FLASH_A_DQ7_SPECSIG","FLASH_A_DQ8_SPECSIG","FLASH_A_DQ9_SPECSIG","FLASH_A_DQ_buffered0_SPECSIG","FLASH_A_DQ_buffered10_SPECSIG","FLASH_A_DQ_buffered11_SPECSIG","FLASH_A_DQ_buffered12_SPECSIG","FLASH_A_DQ_buffered13_SPECSIG","FLASH_A_DQ_buffered14_SPECSIG","FLASH_A_DQ_buffered15_SPECSIG","FLASH_A_DQ_buffered1_SPECSIG","FLASH_A_DQ_buffered2_SPECSIG","FLASH_A_DQ_buffered3_SPECSIG","FLASH_A_DQ_buffered4_SPECSIG","FLASH_A_DQ_buffered5_SPECSIG","FLASH_A_DQ_buffered6_SPECSIG","FLASH_A_DQ_buffered7_SPECSIG","FLASH_A_DQ_buffered8_SPECSIG","FLASH_A_DQ_buffered9_SPECSIG","FLASH_A_E","FLASH_A_G","FLASH_A_K","FLASH_A_L","FLASH_A_RP","FLASH_A_RW","FLASH_A_W","FLASH_A_WP","FLASH_B_DQ0_SPECSIG","FLASH_B_DQ10_SPECSIG","FLASH_B_DQ11_SPECSIG","FLASH_B_DQ12_SPECSIG","FLASH_B_DQ13_SPECSIG","FLASH_B_DQ14_SPECSIG","FLASH_B_DQ15_SPECSIG","FLASH_B_DQ1_SPECSIG","FLASH_B_DQ2_SPECSIG","FLASH_B_DQ3_SPECSIG","FLASH_B_DQ4_SPECSIG","FLASH_B_DQ5_SPECSIG","FLASH_B_DQ6_SPECSIG","FLASH_B_DQ7_SPECSIG","FLASH_B_DQ8_SPECSIG","FLASH_B_DQ9_SPECSIG","FPGAData0_SPECSIG","FPGAData1_SPECSIG","FPGAData2_SPECSIG","FPGAData3_SPECSIG","FPGAData4_SPECSIG","FPGAData5_SPECSIG","FPGAData6_SPECSIG","FPGAData7_SPECSIG","FPGA_CCLK","FPGA_clock","FPGA_data0_SPECSIG","FPGA_data10_SPECSIG","FPGA_data11_SPECSIG","FPGA_data12_SPECSIG","FPGA_data13_SPECSIG","FPGA_data14_SPECSIG","FPGA_data15_SPECSIG","FPGA_data1_SPECSIG","FPGA_data2_SPECSIG","FPGA_data3_SPECSIG","FPGA_data4_SPECSIG","FPGA_data5_SPECSIG","FPGA_data6_SPECSIG","FPGA_data7_SPECSIG","FPGA_data8_SPECSIG","FPGA_data9_SPECSIG","Flash_A_G_buffered","LEDs0_SPECSIG","LEDs1_SPECSIG","LEDs2_SPECSIG","LEDs3_SPECSIG","N_PZ_680","N_PZ_761","PrevInit_B","clk_cnt_i0_SPECSIG","clk_cnt_i1_SPECSIG","pause0_SPECSIG","pause10_SPECSIG","pause11_SPECSIG","pause12_SPECSIG","pause13_SPECSIG","pause14_SPECSIG","pause15_SPECSIG","pause16_SPECSIG","pause17_SPECSIG","pause18_SPECSIG","pause19_SPECSIG","pause1_SPECSIG","pause20_SPECSIG","pause21_SPECSIG","pause22_SPECSIG","pause23_SPECSIG","pause2_SPECSIG","pause3_SPECSIG","pause4_SPECSIG","pause5_SPECSIG","pause6_SPECSIG","pause7_SPECSIG","pause8_SPECSIG","pause9_SPECSIG");
+      sigNegs = new Array("OFF","OFF","ON","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","OFF","OFF","ON","OFF","ON","ON","ON","ON","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","ON","ON","ON","ON","ON","ON","ON","ON","OFF","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","ON","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","ON","OFF","ON","ON","ON","OFF","OFF","OFF","OFF","OFF","OFF","OFF","OFF","ON","OFF","OFF","OFF","OFF","ON","ON","ON","ON","ON","ON","ON","ON");
+      sigTypes = new Array("DFF","DFF","DFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DEFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","","DFF","","","DFF","","","","","","","","","","","","","","","","","","DFF","DFF","DFF","DFF","DFF","DFF","DFF","DFF","","","","","","","","","","","","","","","","","","","DEFF","","","","","","","DEFF","TFF","TFF","DFF","TFF","TFF","TFF","TFF","TFF","TFF","TFF","TFF","TFF","TFF","DFF","TFF","TFF","TFF","TFF","DFF","DFF","DFF","DFF","DFF","DFF","TFF","TFF");
+
+      
+           iostyle["CPLD_100MHZ"]=new Array("KPR");
+        
+           iostyle["FPGA_data0_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data1_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data2_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data3_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data4_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data5_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data6_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data7_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data8_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data9_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data10_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data11_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A7_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A6_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A5_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A4_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A3_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A2_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A1_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A0_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data15_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data14_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data13_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_data12_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A8_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A9_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A10_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A11_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A12_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A13_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A14_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A15_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A16_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_L"]=new Array("KPR");
+        
+           iostyle["FPGA_E"]=new Array("KPR");
+        
+           iostyle["FPGA_G"]=new Array("KPR");
+        
+           iostyle["FPGA_W"]=new Array("KPR");
+        
+           iostyle["FPGA_A22_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A21_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A20_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A19_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A18_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FPGA_A17_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ3_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ2_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ1_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ0_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ4_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ5_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ6_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ7_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ8_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ9_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ10_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ11_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ12_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ13_SPECSIG"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ14_SPECSIG"]=new Array("KPR");
+        
+           iostyle["Program_B"]=new Array("KPR");
+        
+           iostyle["INIT_B"]=new Array("KPR");
+        
+           iostyle["DONE"]=new Array("KPR");
+        
+           iostyle["FLASH_A_DQ15_SPECSIG"]=new Array("KPR");
+        
+        specSig["FPGA_A0_SPECSIG"]=new Array("FPGA_A<0>");
+      
+        specSig["FPGA_A10_SPECSIG"]=new Array("FPGA_A<10>");
+      
+        specSig["FPGA_A11_SPECSIG"]=new Array("FPGA_A<11>");
+      
+        specSig["FPGA_A12_SPECSIG"]=new Array("FPGA_A<12>");
+      
+        specSig["FPGA_A13_SPECSIG"]=new Array("FPGA_A<13>");
+      
+        specSig["FPGA_A14_SPECSIG"]=new Array("FPGA_A<14>");
+      
+        specSig["FPGA_A15_SPECSIG"]=new Array("FPGA_A<15>");
+      
+        specSig["FPGA_A16_SPECSIG"]=new Array("FPGA_A<16>");
+      
+        specSig["FPGA_A17_SPECSIG"]=new Array("FPGA_A<17>");
+      
+        specSig["FPGA_A18_SPECSIG"]=new Array("FPGA_A<18>");
+      
+        specSig["FPGA_A19_SPECSIG"]=new Array("FPGA_A<19>");
+      
+        specSig["FPGA_A1_SPECSIG"]=new Array("FPGA_A<1>");
+      
+        specSig["FPGA_A20_SPECSIG"]=new Array("FPGA_A<20>");
+      
+        specSig["FPGA_A21_SPECSIG"]=new Array("FPGA_A<21>");
+      
+        specSig["FPGA_A22_SPECSIG"]=new Array("FPGA_A<22>");
+      
+        specSig["FPGA_A2_SPECSIG"]=new Array("FPGA_A<2>");
+      
+        specSig["FPGA_A3_SPECSIG"]=new Array("FPGA_A<3>");
+      
+        specSig["FPGA_A4_SPECSIG"]=new Array("FPGA_A<4>");
+      
+        specSig["FPGA_A5_SPECSIG"]=new Array("FPGA_A<5>");
+      
+        specSig["FPGA_A6_SPECSIG"]=new Array("FPGA_A<6>");
+      
+        specSig["FPGA_A7_SPECSIG"]=new Array("FPGA_A<7>");
+      
+        specSig["FPGA_A8_SPECSIG"]=new Array("FPGA_A<8>");
+      
+        specSig["FPGA_A9_SPECSIG"]=new Array("FPGA_A<9>");
+      
+        specSig["FPGA_data0PIN_SPECSIG"]=new Array("FPGA_data<0>.PIN");
+      
+        specSig["FPGA_data10PIN_SPECSIG"]=new Array("FPGA_data<10>.PIN");
+      
+        specSig["FPGA_data11PIN_SPECSIG"]=new Array("FPGA_data<11>.PIN");
+      
+        specSig["FPGA_data12PIN_SPECSIG"]=new Array("FPGA_data<12>.PIN");
+      
+        specSig["FPGA_data13PIN_SPECSIG"]=new Array("FPGA_data<13>.PIN");
+      
+        specSig["FPGA_data14PIN_SPECSIG"]=new Array("FPGA_data<14>.PIN");
+      
+        specSig["FPGA_data15PIN_SPECSIG"]=new Array("FPGA_data<15>.PIN");
+      
+        specSig["FPGA_data1PIN_SPECSIG"]=new Array("FPGA_data<1>.PIN");
+      
+        specSig["FPGA_data2PIN_SPECSIG"]=new Array("FPGA_data<2>.PIN");
+      
+        specSig["FPGA_data3PIN_SPECSIG"]=new Array("FPGA_data<3>.PIN");
+      
+        specSig["FPGA_data4PIN_SPECSIG"]=new Array("FPGA_data<4>.PIN");
+      
+        specSig["FPGA_data5PIN_SPECSIG"]=new Array("FPGA_data<5>.PIN");
+      
+        specSig["FPGA_data6PIN_SPECSIG"]=new Array("FPGA_data<6>.PIN");
+      
+        specSig["FPGA_data7PIN_SPECSIG"]=new Array("FPGA_data<7>.PIN");
+      
+        specSig["FPGA_data8PIN_SPECSIG"]=new Array("FPGA_data<8>.PIN");
+      
+        specSig["FPGA_data9PIN_SPECSIG"]=new Array("FPGA_data<9>.PIN");
+      
+        specSig["FLASH_A_DQ0PIN_SPECSIG"]=new Array("FLASH_A_DQ<0>.PIN");
+      
+        specSig["FLASH_A_DQ15PIN_SPECSIG"]=new Array("FLASH_A_DQ<15>.PIN");
+      
+        specSig["FLASH_A_DQ7PIN_SPECSIG"]=new Array("FLASH_A_DQ<7>.PIN");
+      
+        specSig["FLASH_A_DQ10PIN_SPECSIG"]=new Array("FLASH_A_DQ<10>.PIN");
+      
+        specSig["FLASH_A_DQ11PIN_SPECSIG"]=new Array("FLASH_A_DQ<11>.PIN");
+      
+        specSig["FLASH_A_DQ12PIN_SPECSIG"]=new Array("FLASH_A_DQ<12>.PIN");
+      
+        specSig["FLASH_A_DQ13PIN_SPECSIG"]=new Array("FLASH_A_DQ<13>.PIN");
+      
+        specSig["FLASH_A_DQ14PIN_SPECSIG"]=new Array("FLASH_A_DQ<14>.PIN");
+      
+        specSig["FLASH_A_DQ1PIN_SPECSIG"]=new Array("FLASH_A_DQ<1>.PIN");
+      
+        specSig["FLASH_A_DQ6PIN_SPECSIG"]=new Array("FLASH_A_DQ<6>.PIN");
+      
+        specSig["FLASH_A_DQ2PIN_SPECSIG"]=new Array("FLASH_A_DQ<2>.PIN");
+      
+        specSig["FLASH_A_DQ5PIN_SPECSIG"]=new Array("FLASH_A_DQ<5>.PIN");
+      
+        specSig["FLASH_A_DQ3PIN_SPECSIG"]=new Array("FLASH_A_DQ<3>.PIN");
+      
+        specSig["FLASH_A_DQ4PIN_SPECSIG"]=new Array("FLASH_A_DQ<4>.PIN");
+      
+        specSig["FLASH_A_DQ9PIN_SPECSIG"]=new Array("FLASH_A_DQ<9>.PIN");
+      
+        specSig["FLASH_A_DQ8PIN_SPECSIG"]=new Array("FLASH_A_DQ<8>.PIN");
+      
+        specSig["FLASH_A_A23_SPECSIG"]=new Array("FLASH_A_A<23>");
+      
+        specSig["b_SPECSIG"]=new Array("(b)");
+      
+        specSig["FLASH_A_DQ_buffered3_SPECSIG"]=new Array("FLASH_A_DQ_buffered<3>");
+      
+        specSig["FPGAData4_SPECSIG"]=new Array("FPGAData<4>");
+      
+        specSig["FLASH_A_DQ_buffered11_SPECSIG"]=new Array("FLASH_A_DQ_buffered<11>");
+      
+        specSig["FLASH_A_DQ_buffered2_SPECSIG"]=new Array("FLASH_A_DQ_buffered<2>");
+      
+        specSig["FPGAData5_SPECSIG"]=new Array("FPGAData<5>");
+      
+        specSig["FLASH_A_DQ_buffered10_SPECSIG"]=new Array("FLASH_A_DQ_buffered<10>");
+      
+        specSig["FLASH_A_DQ_buffered8_SPECSIG"]=new Array("FLASH_A_DQ_buffered<8>");
+      
+        specSig["FPGAData7_SPECSIG"]=new Array("FPGAData<7>");
+      
+        specSig["FLASH_A_DQ_buffered0_SPECSIG"]=new Array("FLASH_A_DQ_buffered<0>");
+      
+        specSig["pause4_SPECSIG"]=new Array("pause<4>");
+      
+        specSig["pause18_SPECSIG"]=new Array("pause<18>");
+      
+        specSig["pause3_SPECSIG"]=new Array("pause<3>");
+      
+        specSig["pause19_SPECSIG"]=new Array("pause<19>");
+      
+        specSig["pause2_SPECSIG"]=new Array("pause<2>");
+      
+        specSig["pause20_SPECSIG"]=new Array("pause<20>");
+      
+        specSig["pause6_SPECSIG"]=new Array("pause<6>");
+      
+        specSig["pause16_SPECSIG"]=new Array("pause<16>");
+      
+        specSig["pause5_SPECSIG"]=new Array("pause<5>");
+      
+        specSig["FLASH_A_DQ_buffered4_SPECSIG"]=new Array("FLASH_A_DQ_buffered<4>");
+      
+        specSig["FPGAData3_SPECSIG"]=new Array("FPGAData<3>");
+      
+        specSig["FLASH_A_A7_SPECSIG"]=new Array("FLASH_A_A<7>");
+      
+        specSig["FLASH_A_A6_SPECSIG"]=new Array("FLASH_A_A<6>");
+      
+        specSig["FLASH_A_A5_SPECSIG"]=new Array("FLASH_A_A<5>");
+      
+        specSig["FPGAData0_SPECSIG"]=new Array("FPGAData<0>");
+      
+        specSig["FLASH_A_A4_SPECSIG"]=new Array("FLASH_A_A<4>");
+      
+        specSig["FLASH_A_DQ_buffered15_SPECSIG"]=new Array("FLASH_A_DQ_buffered<15>");
+      
+        specSig["FLASH_A_A3_SPECSIG"]=new Array("FLASH_A_A<3>");
+      
+        specSig["FLASH_A_A2_SPECSIG"]=new Array("FLASH_A_A<2>");
+      
+        specSig["FLASH_A_A1_SPECSIG"]=new Array("FLASH_A_A<1>");
+      
+        specSig["FLASH_A_A0_SPECSIG"]=new Array("FLASH_A_A<0>");
+      
+        specSig["FLASH_A_DQ_buffered6_SPECSIG"]=new Array("FLASH_A_DQ_buffered<6>");
+      
+        specSig["FLASH_A_A8_SPECSIG"]=new Array("FLASH_A_A<8>");
+      
+        specSig["FLASH_A_A9_SPECSIG"]=new Array("FLASH_A_A<9>");
+      
+        specSig["FLASH_A_A10_SPECSIG"]=new Array("FLASH_A_A<10>");
+      
+        specSig["GCKI_SPECSIG"]=new Array("GCK/I");
+      
+        specSig["FLASH_A_A11_SPECSIG"]=new Array("FLASH_A_A<11>");
+      
+        specSig["FLASH_A_A12_SPECSIG"]=new Array("FLASH_A_A<12>");
+      
+        specSig["FLASH_A_A13_SPECSIG"]=new Array("FLASH_A_A<13>");
+      
+        specSig["FLASH_A_A14_SPECSIG"]=new Array("FLASH_A_A<14>");
+      
+        specSig["FLASH_A_A15_SPECSIG"]=new Array("FLASH_A_A<15>");
+      
+        specSig["FLASH_A_A16_SPECSIG"]=new Array("FLASH_A_A<16>");
+      
+        specSig["FLASH_A_A17_SPECSIG"]=new Array("FLASH_A_A<17>");
+      
+        specSig["FLASH_A_A22_SPECSIG"]=new Array("FLASH_A_A<22>");
+      
+        specSig["FLASH_A_A21_SPECSIG"]=new Array("FLASH_A_A<21>");
+      
+        specSig["FLASH_A_A20_SPECSIG"]=new Array("FLASH_A_A<20>");
+      
+        specSig["FLASH_A_A19_SPECSIG"]=new Array("FLASH_A_A<19>");
+      
+        specSig["FLASH_A_A18_SPECSIG"]=new Array("FLASH_A_A<18>");
+      
+        specSig["IO_SPECSIG"]=new Array("I/O");
+      
+        specSig["FPGA_data0_SPECSIG"]=new Array("FPGA_data<0>");
+      
+        specSig["FPGA_data1_SPECSIG"]=new Array("FPGA_data<1>");
+      
+        specSig["FPGA_data2_SPECSIG"]=new Array("FPGA_data<2>");
+      
+        specSig["FPGA_data3_SPECSIG"]=new Array("FPGA_data<3>");
+      
+        specSig["FPGA_data4_SPECSIG"]=new Array("FPGA_data<4>");
+      
+        specSig["FPGA_data5_SPECSIG"]=new Array("FPGA_data<5>");
+      
+        specSig["FPGA_data6_SPECSIG"]=new Array("FPGA_data<6>");
+      
+        specSig["FPGA_data7_SPECSIG"]=new Array("FPGA_data<7>");
+      
+        specSig["FPGA_data8_SPECSIG"]=new Array("FPGA_data<8>");
+      
+        specSig["FPGA_data9_SPECSIG"]=new Array("FPGA_data<9>");
+      
+        specSig["FPGA_data10_SPECSIG"]=new Array("FPGA_data<10>");
+      
+        specSig["FPGA_data11_SPECSIG"]=new Array("FPGA_data<11>");
+      
+        specSig["FPGA_data15_SPECSIG"]=new Array("FPGA_data<15>");
+      
+        specSig["FPGA_data14_SPECSIG"]=new Array("FPGA_data<14>");
+      
+        specSig["FPGA_data13_SPECSIG"]=new Array("FPGA_data<13>");
+      
+        specSig["FPGA_data12_SPECSIG"]=new Array("FPGA_data<12>");
+      
+        specSig["FLASH_B_DQ0_SPECSIG"]=new Array("FLASH_B_DQ<0>");
+      
+        specSig["FLASH_B_DQ1_SPECSIG"]=new Array("FLASH_B_DQ<1>");
+      
+        specSig["FLASH_B_DQ2_SPECSIG"]=new Array("FLASH_B_DQ<2>");
+      
+        specSig["FLASH_B_DQ3_SPECSIG"]=new Array("FLASH_B_DQ<3>");
+      
+        specSig["FLASH_B_DQ4_SPECSIG"]=new Array("FLASH_B_DQ<4>");
+      
+        specSig["FLASH_B_DQ5_SPECSIG"]=new Array("FLASH_B_DQ<5>");
+      
+        specSig["FLASH_B_DQ6_SPECSIG"]=new Array("FLASH_B_DQ<6>");
+      
+        specSig["FLASH_B_DQ7_SPECSIG"]=new Array("FLASH_B_DQ<7>");
+      
+        specSig["FLASH_B_DQ8_SPECSIG"]=new Array("FLASH_B_DQ<8>");
+      
+        specSig["FLASH_B_DQ9_SPECSIG"]=new Array("FLASH_B_DQ<9>");
+      
+        specSig["FLASH_B_DQ10_SPECSIG"]=new Array("FLASH_B_DQ<10>");
+      
+        specSig["FLASH_A_DQ3_SPECSIG"]=new Array("FLASH_A_DQ<3>");
+      
+        specSig["FLASH_A_DQ2_SPECSIG"]=new Array("FLASH_A_DQ<2>");
+      
+        specSig["FLASH_A_DQ1_SPECSIG"]=new Array("FLASH_A_DQ<1>");
+      
+        specSig["FLASH_A_DQ0_SPECSIG"]=new Array("FLASH_A_DQ<0>");
+      
+        specSig["FLASH_B_DQ15_SPECSIG"]=new Array("FLASH_B_DQ<15>");
+      
+        specSig["FLASH_B_DQ14_SPECSIG"]=new Array("FLASH_B_DQ<14>");
+      
+        specSig["FLASH_B_DQ13_SPECSIG"]=new Array("FLASH_B_DQ<13>");
+      
+        specSig["FLASH_B_DQ12_SPECSIG"]=new Array("FLASH_B_DQ<12>");
+      
+        specSig["FLASH_B_DQ11_SPECSIG"]=new Array("FLASH_B_DQ<11>");
+      
+        specSig["FLASH_A_DQ4_SPECSIG"]=new Array("FLASH_A_DQ<4>");
+      
+        specSig["FLASH_A_DQ5_SPECSIG"]=new Array("FLASH_A_DQ<5>");
+      
+        specSig["FLASH_A_DQ6_SPECSIG"]=new Array("FLASH_A_DQ<6>");
+      
+        specSig["FLASH_A_DQ7_SPECSIG"]=new Array("FLASH_A_DQ<7>");
+      
+        specSig["FLASH_A_DQ8_SPECSIG"]=new Array("FLASH_A_DQ<8>");
+      
+        specSig["FLASH_A_DQ9_SPECSIG"]=new Array("FLASH_A_DQ<9>");
+      
+        specSig["FLASH_A_DQ10_SPECSIG"]=new Array("FLASH_A_DQ<10>");
+      
+        specSig["FLASH_A_DQ11_SPECSIG"]=new Array("FLASH_A_DQ<11>");
+      
+        specSig["FLASH_A_DQ12_SPECSIG"]=new Array("FLASH_A_DQ<12>");
+      
+        specSig["FLASH_A_DQ13_SPECSIG"]=new Array("FLASH_A_DQ<13>");
+      
+        specSig["FLASH_A_DQ14_SPECSIG"]=new Array("FLASH_A_DQ<14>");
+      
+        specSig["LEDs0_SPECSIG"]=new Array("LEDs<0>");
+      
+        specSig["LEDs1_SPECSIG"]=new Array("LEDs<1>");
+      
+        specSig["LEDs2_SPECSIG"]=new Array("LEDs<2>");
+      
+        specSig["LEDs3_SPECSIG"]=new Array("LEDs<3>");
+      
+        specSig["FLASH_A_DQ15_SPECSIG"]=new Array("FLASH_A_DQ<15>");
+      
+        specSig["clk_cnt_i1_SPECSIG"]=new Array("clk_cnt_i<1>");
+      
+        specSig["clk_cnt_i0_SPECSIG"]=new Array("clk_cnt_i<0>");
+      
+        specSig["pause21_SPECSIG"]=new Array("pause<21>");
+      
+        specSig["pause1_SPECSIG"]=new Array("pause<1>");
+      
+        specSig["pause22_SPECSIG"]=new Array("pause<22>");
+      
+        specSig["pause0_SPECSIG"]=new Array("pause<0>");
+      
+        specSig["pause23_SPECSIG"]=new Array("pause<23>");
+      
+        specSig["pause10_SPECSIG"]=new Array("pause<10>");
+      
+        specSig["pause11_SPECSIG"]=new Array("pause<11>");
+      
+        specSig["pause12_SPECSIG"]=new Array("pause<12>");
+      
+        specSig["pause13_SPECSIG"]=new Array("pause<13>");
+      
+        specSig["pause14_SPECSIG"]=new Array("pause<14>");
+      
+        specSig["pause15_SPECSIG"]=new Array("pause<15>");
+      
+        specSig["pause17_SPECSIG"]=new Array("pause<17>");
+      
+        specSig["pause7_SPECSIG"]=new Array("pause<7>");
+      
+        specSig["pause8_SPECSIG"]=new Array("pause<8>");
+      
+        specSig["pause9_SPECSIG"]=new Array("pause<9>");
+      
+        specSig["FLASH_A_DQ_buffered12_SPECSIG"]=new Array("FLASH_A_DQ_buffered<12>");
+      
+        specSig["FPGAData1_SPECSIG"]=new Array("FPGAData<1>");
+      
+        specSig["FLASH_A_DQ_buffered14_SPECSIG"]=new Array("FLASH_A_DQ_buffered<14>");
+      
+        specSig["FLASH_A_DQ_buffered5_SPECSIG"]=new Array("FLASH_A_DQ_buffered<5>");
+      
+        specSig["FPGAData2_SPECSIG"]=new Array("FPGAData<2>");
+      
+        specSig["FLASH_A_DQ_buffered13_SPECSIG"]=new Array("FLASH_A_DQ_buffered<13>");
+      
+        specSig["FLASH_A_DQ_buffered7_SPECSIG"]=new Array("FLASH_A_DQ_buffered<7>");
+      
+        specSig["FLASH_A_DQ_buffered9_SPECSIG"]=new Array("FLASH_A_DQ_buffered<9>");
+      
+        specSig["FPGAData6_SPECSIG"]=new Array("FPGAData<6>");
+      
+        specSig["FLASH_A_DQ_buffered1_SPECSIG"]=new Array("FLASH_A_DQ_buffered<1>");
+      
+            pterms["FB1_0"]=new Array("/DONE","CPLD_100MHZ");
+          
+            pterms["FB1_1"]=new Array("DONE","clk_cnt_i1_SPECSIG");
+          
+            pterms["FB1_2"]=new Array("DONE","AlternateCycle");
+          
+            pterms["FB1_3"]=new Array("/DONE","/AlternateCycle","/DelayedPause");
+          
+            pterms["FB1_4"]=new Array("N_PZ_761");
+          
+            pterms["FB1_5"]=new Array("AlternateCycle");
+          
+            pterms["FB1_6"]=new Array("DONE","/FLASH_A_DQ0PIN_SPECSIG");
+          
+            pterms["FB1_7"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ0PIN_SPECSIG");
+          
+            pterms["FB1_8"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered0_SPECSIG");
+          
+            pterms["FB1_9"]=new Array("/DONE","AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered8_SPECSIG");
+          
+            pterms["FB1_10"]=new Array("DONE","/FPGAData7_SPECSIG");
+          
+            pterms["FB1_11"]=new Array("DONE","/FLASH_A_DQ8PIN_SPECSIG");
+          
+            pterms["FB1_12"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ8PIN_SPECSIG");
+          
+            pterms["FB1_13"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered8_SPECSIG");
+          
+            pterms["FB1_14"]=new Array("DONE","/FLASH_A_DQ10PIN_SPECSIG");
+          
+            pterms["FB1_15"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ10PIN_SPECSIG");
+          
+            pterms["FB1_16"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered10_SPECSIG");
+          
+            pterms["FB1_17"]=new Array("/DONE","AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered10_SPECSIG");
+          
+            pterms["FB1_18"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered2_SPECSIG");
+          
+            pterms["FB1_19"]=new Array("DONE","/FPGAData5_SPECSIG");
+          
+            pterms["FB1_20"]=new Array("DONE","/FLASH_A_DQ2PIN_SPECSIG");
+          
+            pterms["FB1_21"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ2PIN_SPECSIG");
+          
+            pterms["FB1_22"]=new Array("DONE","/FLASH_A_DQ11PIN_SPECSIG");
+          
+            pterms["FB1_23"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ11PIN_SPECSIG");
+          
+            pterms["FB1_24"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered11_SPECSIG");
+          
+            pterms["FB1_25"]=new Array("/DONE","AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered11_SPECSIG");
+          
+            pterms["FB1_26"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered3_SPECSIG");
+          
+            pterms["FB1_27"]=new Array("DONE","/FPGAData4_SPECSIG");
+          
+            pterms["FB1_28"]=new Array("DONE","/FLASH_A_DQ3PIN_SPECSIG");
+          
+            pterms["FB1_29"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ3PIN_SPECSIG");
+          
+            pterms["FB1_34"]=new Array("DONE","Flash_A_G_buffered");
+          
+            pterms["FB1_37"]=new Array("clk_cnt_i0_SPECSIG");
+          
+            pterms["FB1_55"]=new Array("/DONE","/DelayedPause");
+          
+            pterms["FB2_0"]=new Array("DONE","/DelayedPause");
+          
+            pterms["FB2_1"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB2_2"]=new Array("/DONE","/ConfProceed","pause23_SPECSIG");
+          
+            pterms["FB2_3"]=new Array("/DONE","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB2_4"]=new Array("N_PZ_761");
+          
+            pterms["FB2_5"]=new Array("/DONE","ConfProceed","pause0_SPECSIG");
+          
+            pterms["FB2_6"]=new Array("DONE","/pause0_SPECSIG");
+          
+            pterms["FB2_7"]=new Array("/DONE","ConfProceed","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB2_8"]=new Array("/DONE","/ConfProceed","pause22_SPECSIG");
+          
+            pterms["FB2_9"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","pause22_SPECSIG");
+          
+            pterms["FB2_10"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB2_11"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","pause1_SPECSIG");
+          
+            pterms["FB2_12"]=new Array("DONE","/pause1_SPECSIG");
+          
+            pterms["FB2_13"]=new Array("ConfProceed","pause0_SPECSIG","/pause1_SPECSIG");
+          
+            pterms["FB2_14"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB2_15"]=new Array("/DONE","/ConfProceed","pause21_SPECSIG");
+          
+            pterms["FB2_16"]=new Array("/DONE","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","pause21_SPECSIG");
+          
+            pterms["FB2_17"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","pause22_SPECSIG");
+          
+            pterms["FB2_18"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB2_19"]=new Array("/DONE","/ConfProceed","pause20_SPECSIG");
+          
+            pterms["FB2_20"]=new Array("/DONE","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","pause20_SPECSIG");
+          
+            pterms["FB2_21"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","pause21_SPECSIG");
+          
+            pterms["FB2_22"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","pause22_SPECSIG");
+          
+            pterms["FB2_23"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB2_24"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause1_SPECSIG","pause2_SPECSIG");
+          
+            pterms["FB2_25"]=new Array("DONE","/pause2_SPECSIG");
+          
+            pterms["FB2_26"]=new Array("ConfProceed","pause0_SPECSIG","/pause2_SPECSIG");
+          
+            pterms["FB2_27"]=new Array("ConfProceed","pause1_SPECSIG","/pause2_SPECSIG");
+          
+            pterms["FB2_28"]=new Array("ConfProceed","/pause10_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB2_29"]=new Array("/DONE","/ConfProceed","pause19_SPECSIG");
+          
+            pterms["FB2_30"]=new Array("/DONE","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","pause19_SPECSIG");
+          
+            pterms["FB2_31"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","pause20_SPECSIG");
+          
+            pterms["FB2_32"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","pause21_SPECSIG");
+          
+            pterms["FB2_33"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","pause22_SPECSIG");
+          
+            pterms["FB2_34"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB2_35"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause1_SPECSIG","/pause2_SPECSIG","pause3_SPECSIG");
+          
+            pterms["FB2_36"]=new Array("DONE","/pause3_SPECSIG");
+          
+            pterms["FB2_37"]=new Array("ConfProceed","pause0_SPECSIG","/pause3_SPECSIG");
+          
+            pterms["FB2_38"]=new Array("ConfProceed","pause1_SPECSIG","/pause3_SPECSIG");
+          
+            pterms["FB2_39"]=new Array("ConfProceed","pause2_SPECSIG","/pause3_SPECSIG");
+          
+            pterms["FB2_40"]=new Array("ConfProceed","/pause10_SPECSIG","/pause11_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB2_41"]=new Array("/DONE","/ConfProceed","pause18_SPECSIG");
+          
+            pterms["FB2_42"]=new Array("/DONE","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","pause18_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB2_43"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause19_SPECSIG");
+          
+            pterms["FB2_44"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause20_SPECSIG");
+          
+            pterms["FB2_45"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause21_SPECSIG");
+          
+            pterms["FB2_46"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause22_SPECSIG");
+          
+            pterms["FB2_47"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB2_48"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause1_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","pause4_SPECSIG");
+          
+            pterms["FB2_49"]=new Array("DONE","/pause4_SPECSIG");
+          
+            pterms["FB2_50"]=new Array("ConfProceed","pause0_SPECSIG","/pause4_SPECSIG");
+          
+            pterms["FB2_51"]=new Array("ConfProceed","pause1_SPECSIG","/pause4_SPECSIG");
+          
+            pterms["FB2_52"]=new Array("ConfProceed","pause2_SPECSIG","/pause4_SPECSIG");
+          
+            pterms["FB2_53"]=new Array("ConfProceed","pause3_SPECSIG","/pause4_SPECSIG");
+          
+            pterms["FB2_54"]=new Array("ConfProceed","/pause10_SPECSIG","/pause11_SPECSIG","/pause12_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB3_0"]=new Array("DONE");
+          
+            pterms["FB3_1"]=new Array("ConfProceed","pause0_SPECSIG");
+          
+            pterms["FB3_2"]=new Array("ConfProceed","pause10_SPECSIG");
+          
+            pterms["FB3_3"]=new Array("/ConfProceed","/pause11_SPECSIG");
+          
+            pterms["FB3_4"]=new Array("N_PZ_761");
+          
+            pterms["FB3_5"]=new Array("ConfProceed","pause1_SPECSIG");
+          
+            pterms["FB3_6"]=new Array("ConfProceed","pause2_SPECSIG");
+          
+            pterms["FB3_7"]=new Array("ConfProceed","pause3_SPECSIG");
+          
+            pterms["FB3_8"]=new Array("ConfProceed","pause4_SPECSIG");
+          
+            pterms["FB3_9"]=new Array("ConfProceed","pause5_SPECSIG");
+          
+            pterms["FB3_10"]=new Array("ConfProceed","pause6_SPECSIG");
+          
+            pterms["FB3_11"]=new Array("ConfProceed","pause7_SPECSIG");
+          
+            pterms["FB3_12"]=new Array("ConfProceed","pause8_SPECSIG");
+          
+            pterms["FB3_13"]=new Array("ConfProceed","pause9_SPECSIG");
+          
+            pterms["FB3_14"]=new Array("/pause11_SPECSIG","/pause12_SPECSIG","/pause13_SPECSIG","/pause14_SPECSIG","/pause15_SPECSIG","/pause16_SPECSIG","/pause17_SPECSIG","/pause18_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB3_15"]=new Array("/ConfProceed","/pause10_SPECSIG");
+          
+            pterms["FB3_16"]=new Array("/pause10_SPECSIG","/pause11_SPECSIG","/pause12_SPECSIG","/pause13_SPECSIG","/pause14_SPECSIG","/pause15_SPECSIG","/pause16_SPECSIG","/pause17_SPECSIG","/pause18_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB3_17"]=new Array("/ConfProceed","/pause9_SPECSIG");
+          
+            pterms["FB3_18"]=new Array("/pause10_SPECSIG","/pause11_SPECSIG","/pause12_SPECSIG","/pause13_SPECSIG","/pause14_SPECSIG","/pause15_SPECSIG","/pause16_SPECSIG","/pause17_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB3_19"]=new Array("/ConfProceed","/pause8_SPECSIG");
+          
+            pterms["FB3_20"]=new Array("/pause10_SPECSIG","/pause11_SPECSIG","/pause12_SPECSIG","/pause13_SPECSIG","/pause14_SPECSIG","/pause15_SPECSIG","/pause16_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB3_21"]=new Array("/DONE","/ConfProceed","pause17_SPECSIG");
+          
+            pterms["FB3_22"]=new Array("/DONE","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","pause17_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB3_23"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","pause18_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB3_24"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause19_SPECSIG");
+          
+            pterms["FB3_25"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause20_SPECSIG");
+          
+            pterms["FB3_26"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause21_SPECSIG");
+          
+            pterms["FB3_27"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause22_SPECSIG");
+          
+            pterms["FB3_28"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB3_29"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause1_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","pause5_SPECSIG");
+          
+            pterms["FB3_30"]=new Array("DONE","/pause5_SPECSIG");
+          
+            pterms["FB3_31"]=new Array("ConfProceed","pause0_SPECSIG","/pause5_SPECSIG");
+          
+            pterms["FB3_32"]=new Array("ConfProceed","pause1_SPECSIG","/pause5_SPECSIG");
+          
+            pterms["FB3_33"]=new Array("ConfProceed","pause2_SPECSIG","/pause5_SPECSIG");
+          
+            pterms["FB3_34"]=new Array("ConfProceed","pause3_SPECSIG","/pause5_SPECSIG");
+          
+            pterms["FB3_35"]=new Array("ConfProceed","pause4_SPECSIG","/pause5_SPECSIG");
+          
+            pterms["FB3_36"]=new Array("ConfProceed","/pause10_SPECSIG","/pause11_SPECSIG","/pause12_SPECSIG","/pause13_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB3_37"]=new Array("/DONE","/ConfProceed","pause16_SPECSIG");
+          
+            pterms["FB3_38"]=new Array("/DONE","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","pause16_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB3_39"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","pause17_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB3_40"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","pause18_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB3_41"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause19_SPECSIG");
+          
+            pterms["FB3_42"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause20_SPECSIG");
+          
+            pterms["FB3_43"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause21_SPECSIG");
+          
+            pterms["FB3_44"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause22_SPECSIG");
+          
+            pterms["FB3_45"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB3_46"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause1_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","pause6_SPECSIG");
+          
+            pterms["FB3_47"]=new Array("DONE","/pause6_SPECSIG");
+          
+            pterms["FB3_48"]=new Array("ConfProceed","pause0_SPECSIG","/pause6_SPECSIG");
+          
+            pterms["FB3_49"]=new Array("ConfProceed","pause1_SPECSIG","/pause6_SPECSIG");
+          
+            pterms["FB3_50"]=new Array("ConfProceed","pause2_SPECSIG","/pause6_SPECSIG");
+          
+            pterms["FB3_51"]=new Array("ConfProceed","pause3_SPECSIG","/pause6_SPECSIG");
+          
+            pterms["FB3_52"]=new Array("ConfProceed","pause4_SPECSIG","/pause6_SPECSIG");
+          
+            pterms["FB3_53"]=new Array("ConfProceed","pause5_SPECSIG","/pause6_SPECSIG");
+          
+            pterms["FB3_54"]=new Array("ConfProceed","/pause10_SPECSIG","/pause11_SPECSIG","/pause12_SPECSIG","/pause13_SPECSIG","/pause14_SPECSIG","/pause15_SPECSIG","/pause6_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB4_0"]=new Array("/DONE","/ConfProceed","pause12_SPECSIG");
+          
+            pterms["FB4_1"]=new Array("/DONE","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","pause12_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_2"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","pause13_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_3"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","pause14_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_4"]=new Array("N_PZ_761");
+          
+            pterms["FB4_5"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","pause15_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_6"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","pause16_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_7"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","pause17_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_8"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","pause18_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_9"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause19_SPECSIG");
+          
+            pterms["FB4_10"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause20_SPECSIG");
+          
+            pterms["FB4_11"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause21_SPECSIG");
+          
+            pterms["FB4_12"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause22_SPECSIG");
+          
+            pterms["FB4_13"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB4_14"]=new Array("/DONE","/ConfProceed","pause15_SPECSIG");
+          
+            pterms["FB4_15"]=new Array("/DONE","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","pause15_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_16"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","pause16_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_17"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","pause17_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_18"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","pause18_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_19"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause19_SPECSIG");
+          
+            pterms["FB4_20"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause20_SPECSIG");
+          
+            pterms["FB4_21"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause21_SPECSIG");
+          
+            pterms["FB4_22"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause22_SPECSIG");
+          
+            pterms["FB4_23"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause14_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB4_24"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause1_SPECSIG","/pause2_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","pause7_SPECSIG");
+          
+            pterms["FB4_25"]=new Array("DONE","/pause7_SPECSIG");
+          
+            pterms["FB4_26"]=new Array("ConfProceed","pause0_SPECSIG","/pause7_SPECSIG");
+          
+            pterms["FB4_27"]=new Array("ConfProceed","pause1_SPECSIG","/pause7_SPECSIG");
+          
+            pterms["FB4_28"]=new Array("ConfProceed","pause2_SPECSIG","/pause7_SPECSIG");
+          
+            pterms["FB4_29"]=new Array("ConfProceed","pause3_SPECSIG","/pause7_SPECSIG");
+          
+            pterms["FB4_30"]=new Array("ConfProceed","pause4_SPECSIG","/pause7_SPECSIG");
+          
+            pterms["FB4_31"]=new Array("ConfProceed","pause5_SPECSIG","/pause7_SPECSIG");
+          
+            pterms["FB4_32"]=new Array("ConfProceed","pause6_SPECSIG","/pause7_SPECSIG");
+          
+            pterms["FB4_33"]=new Array("ConfProceed","/pause10_SPECSIG","/pause11_SPECSIG","/pause12_SPECSIG","/pause13_SPECSIG","/pause14_SPECSIG","/pause15_SPECSIG","/pause16_SPECSIG","/pause7_SPECSIG","/pause17_SPECSIG","/pause8_SPECSIG","/pause18_SPECSIG","/pause9_SPECSIG","/pause19_SPECSIG","/pause20_SPECSIG","/pause21_SPECSIG","/pause22_SPECSIG","/pause23_SPECSIG");
+          
+            pterms["FB4_34"]=new Array("/DONE","/ConfProceed","pause14_SPECSIG");
+          
+            pterms["FB4_35"]=new Array("/DONE","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","pause14_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_36"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","pause15_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_37"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","pause16_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_38"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","pause17_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_39"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","pause18_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB4_40"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause19_SPECSIG");
+          
+            pterms["FB4_41"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause20_SPECSIG");
+          
+            pterms["FB4_42"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause21_SPECSIG");
+          
+            pterms["FB4_43"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause22_SPECSIG");
+          
+            pterms["FB4_44"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause13_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB4_45"]=new Array("DONE","ConfProceed");
+          
+            pterms["FB4_46"]=new Array("ConfProceed","Program_B");
+          
+            pterms["FB4_47"]=new Array("/DONE","INIT_B","/PrevInit_B");
+          
+            pterms["FB4_48"]=new Array("DONE","/FLASH_A_DQ12PIN_SPECSIG");
+          
+            pterms["FB4_49"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ12PIN_SPECSIG");
+          
+            pterms["FB4_50"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered12_SPECSIG");
+          
+            pterms["FB4_51"]=new Array("/DONE","AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered12_SPECSIG");
+          
+            pterms["FB4_52"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered4_SPECSIG");
+          
+            pterms["FB4_53"]=new Array("DONE","/FPGAData3_SPECSIG");
+          
+            pterms["FB4_54"]=new Array("DONE","/FLASH_A_DQ4PIN_SPECSIG");
+          
+            pterms["FB4_55"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ4PIN_SPECSIG");
+          
+            pterms["FB5_0"]=new Array("FPGA_A0_SPECSIG");
+          
+            pterms["FB5_1"]=new Array("FPGA_A1_SPECSIG");
+          
+            pterms["FB5_2"]=new Array("FPGA_A2_SPECSIG");
+          
+            pterms["FB5_3"]=new Array("FPGA_A3_SPECSIG");
+          
+            pterms["FB5_4"]=new Array("N_PZ_761");
+          
+            pterms["FB5_5"]=new Array("FPGA_A4_SPECSIG");
+          
+            pterms["FB5_6"]=new Array("FPGA_A5_SPECSIG");
+          
+            pterms["FB5_7"]=new Array("FPGA_A6_SPECSIG");
+          
+            pterms["FB5_8"]=new Array("FPGA_A7_SPECSIG");
+          
+            pterms["FB5_9"]=new Array("DONE","/FLASH_A_DQ13PIN_SPECSIG");
+          
+            pterms["FB5_10"]=new Array("DONE");
+          
+            pterms["FB5_11"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ13PIN_SPECSIG");
+          
+            pterms["FB5_12"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered13_SPECSIG");
+          
+            pterms["FB5_13"]=new Array("DONE");
+          
+            pterms["FB5_14"]=new Array("/DONE","AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered13_SPECSIG");
+          
+            pterms["FB5_15"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered5_SPECSIG");
+          
+            pterms["FB5_16"]=new Array("DONE");
+          
+            pterms["FB5_17"]=new Array("DONE","/FPGAData2_SPECSIG");
+          
+            pterms["FB5_18"]=new Array("DONE","/FLASH_A_DQ5PIN_SPECSIG");
+          
+            pterms["FB5_19"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ5PIN_SPECSIG");
+          
+            pterms["FB5_20"]=new Array("DONE","/FLASH_A_DQ14PIN_SPECSIG");
+          
+            pterms["FB5_21"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ14PIN_SPECSIG");
+          
+            pterms["FB5_22"]=new Array("DONE");
+          
+            pterms["FB5_23"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered14_SPECSIG");
+          
+            pterms["FB5_24"]=new Array("/DONE","AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered14_SPECSIG");
+          
+            pterms["FB5_25"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered6_SPECSIG");
+          
+            pterms["FB5_26"]=new Array("DONE","/FPGAData1_SPECSIG");
+          
+            pterms["FB5_27"]=new Array("DONE","/FLASH_A_DQ6PIN_SPECSIG");
+          
+            pterms["FB5_28"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ6PIN_SPECSIG");
+          
+            pterms["FB5_29"]=new Array("DONE","/FLASH_A_DQ15PIN_SPECSIG");
+          
+            pterms["FB5_30"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ15PIN_SPECSIG");
+          
+            pterms["FB5_31"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered15_SPECSIG");
+          
+            pterms["FB5_32"]=new Array("/DONE","AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered15_SPECSIG");
+          
+            pterms["FB5_33"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered7_SPECSIG");
+          
+            pterms["FB5_34"]=new Array("DONE","/FPGAData0_SPECSIG");
+          
+            pterms["FB5_43"]=new Array("DONE");
+          
+            pterms["FB5_46"]=new Array("DONE");
+          
+            pterms["FB5_49"]=new Array("DONE");
+          
+            pterms["FB5_52"]=new Array("DONE");
+          
+            pterms["FB6_0"]=new Array("FPGA_A10_SPECSIG");
+          
+            pterms["FB6_1"]=new Array("FPGA_A11_SPECSIG");
+          
+            pterms["FB6_2"]=new Array("FPGA_A12_SPECSIG");
+          
+            pterms["FB6_3"]=new Array("FPGA_A13_SPECSIG");
+          
+            pterms["FB6_4"]=new Array("N_PZ_761");
+          
+            pterms["FB6_5"]=new Array("FPGA_A14_SPECSIG");
+          
+            pterms["FB6_6"]=new Array("FPGA_A15_SPECSIG");
+          
+            pterms["FB6_7"]=new Array("FPGA_A16_SPECSIG");
+          
+            pterms["FB6_8"]=new Array("FPGA_A17_SPECSIG");
+          
+            pterms["FB6_9"]=new Array("FPGA_A8_SPECSIG");
+          
+            pterms["FB6_10"]=new Array("DONE");
+          
+            pterms["FB6_11"]=new Array("FPGA_A9_SPECSIG");
+          
+            pterms["FB6_12"]=new Array("DONE","/FLASH_A_DQ1PIN_SPECSIG");
+          
+            pterms["FB6_13"]=new Array("DONE");
+          
+            pterms["FB6_14"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ1PIN_SPECSIG");
+          
+            pterms["FB6_15"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered1_SPECSIG");
+          
+            pterms["FB6_16"]=new Array("DONE");
+          
+            pterms["FB6_17"]=new Array("/DONE","AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered9_SPECSIG");
+          
+            pterms["FB6_18"]=new Array("DONE","/FPGAData6_SPECSIG");
+          
+            pterms["FB6_19"]=new Array("DONE","/FLASH_A_DQ9PIN_SPECSIG");
+          
+            pterms["FB6_20"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ9PIN_SPECSIG");
+          
+            pterms["FB6_21"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered9_SPECSIG");
+          
+            pterms["FB6_22"]=new Array("DONE");
+          
+            pterms["FB6_23"]=new Array("DONE","/FLASH_A_DQ7PIN_SPECSIG");
+          
+            pterms["FB6_24"]=new Array("AlternateCycle","/DelayedPause","/FLASH_A_DQ7PIN_SPECSIG");
+          
+            pterms["FB6_25"]=new Array("DONE");
+          
+            pterms["FB6_26"]=new Array("/DONE","/AlternateCycle","/DelayedPause","/FLASH_A_DQ_buffered7_SPECSIG");
+          
+            pterms["FB6_43"]=new Array("DONE");
+          
+            pterms["FB6_46"]=new Array("DONE");
+          
+            pterms["FB6_49"]=new Array("DONE");
+          
+            pterms["FB6_52"]=new Array("DONE");
+          
+            pterms["FB6_55"]=new Array("DONE");
+          
+            pterms["FB7_0"]=new Array("FPGA_A18_SPECSIG");
+          
+            pterms["FB7_1"]=new Array("FPGA_A19_SPECSIG");
+          
+            pterms["FB7_2"]=new Array("FPGA_A20_SPECSIG");
+          
+            pterms["FB7_3"]=new Array("FPGA_A21_SPECSIG");
+          
+            pterms["FB7_4"]=new Array("N_PZ_761");
+          
+            pterms["FB7_5"]=new Array("FPGA_A22_SPECSIG");
+          
+            pterms["FB7_6"]=new Array("/DONE","/FLASH_AK");
+          
+            pterms["FB7_7"]=new Array("DONE","/clk_cnt_i1_SPECSIG");
+          
+            pterms["FB7_8"]=new Array("/DONE","/ConfProceed","pause13_SPECSIG");
+          
+            pterms["FB7_9"]=new Array("/DONE","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","pause13_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB7_10"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","pause14_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB7_11"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","pause15_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB7_12"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","pause16_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB7_13"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","pause17_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB7_14"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","pause18_SPECSIG","/pause9_SPECSIG");
+          
+            pterms["FB7_15"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause19_SPECSIG");
+          
+            pterms["FB7_16"]=new Array("DONE","FPGA_G");
+          
+            pterms["FB7_17"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause20_SPECSIG");
+          
+            pterms["FB7_18"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause21_SPECSIG");
+          
+            pterms["FB7_19"]=new Array("DONE","FPGA_E");
+          
+            pterms["FB7_20"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause22_SPECSIG");
+          
+            pterms["FB7_21"]=new Array("/DONE","ConfProceed","/pause0_SPECSIG","/pause10_SPECSIG","/pause1_SPECSIG","/pause11_SPECSIG","/pause2_SPECSIG","/pause12_SPECSIG","/pause3_SPECSIG","/pause4_SPECSIG","/pause5_SPECSIG","/pause6_SPECSIG","/pause7_SPECSIG","/pause8_SPECSIG","/pause9_SPECSIG","pause23_SPECSIG");
+          
+            pterms["FB7_25"]=new Array("DONE");
+          
+            pterms["FB7_40"]=new Array("DONE");
+          
+            pterms["FB7_43"]=new Array("DONE");
+          
+            pterms["FB7_46"]=new Array("DONE");
+          
+            pterms["FB7_49"]=new Array("DONE");
+          
+            pterms["FB8_4"]=new Array("N_PZ_761");
+          
+            pterms["FB8_13"]=new Array("DONE","/FPGA_W");
+          
+            pterms["FB8_16"]=new Array("DONE","FPGA_L");
+          
+            pterms["FB9_0"]=new Array("DONE","/FLASH_A_DQ_buffered0_SPECSIG");
+          
+            pterms["FB9_1"]=new Array("/DONE","/FPGAData0_SPECSIG");
+          
+            pterms["FB9_2"]=new Array("DONE","/FLASH_A_DQ_buffered1_SPECSIG");
+          
+            pterms["FB9_3"]=new Array("/DONE","/FPGAData1_SPECSIG");
+          
+            pterms["FB9_4"]=new Array("DONE","/FLASH_A_DQ_buffered2_SPECSIG");
+          
+            pterms["FB9_5"]=new Array("/DONE","/FPGAData2_SPECSIG");
+          
+            pterms["FB9_6"]=new Array("DONE","/FLASH_A_DQ_buffered3_SPECSIG");
+          
+            pterms["FB9_7"]=new Array("/N_PZ_680");
+          
+            pterms["FB9_8"]=new Array("/DONE","/FPGAData3_SPECSIG");
+          
+            pterms["FB9_9"]=new Array("DONE","/FLASH_A_DQ_buffered4_SPECSIG");
+          
+            pterms["FB9_10"]=new Array("/DONE","/FPGAData4_SPECSIG");
+          
+            pterms["FB9_11"]=new Array("DONE","/FLASH_A_DQ_buffered5_SPECSIG");
+          
+            pterms["FB9_12"]=new Array("/DONE","/FPGAData5_SPECSIG");
+          
+            pterms["FB9_13"]=new Array("DONE","/FLASH_A_DQ_buffered6_SPECSIG");
+          
+            pterms["FB9_14"]=new Array("/DONE","/FPGAData6_SPECSIG");
+          
+            pterms["FB9_15"]=new Array("DONE","/FLASH_A_DQ_buffered7_SPECSIG");
+          
+            pterms["FB9_16"]=new Array("/DONE","/FPGAData7_SPECSIG");
+          
+            pterms["FB9_46"]=new Array("DONE","/FLASH_A_DQ_buffered8_SPECSIG");
+          
+            pterms["FB9_49"]=new Array("DONE","/FLASH_A_DQ_buffered9_SPECSIG");
+          
+            pterms["FB9_52"]=new Array("DONE","/FLASH_A_DQ_buffered10_SPECSIG");
+          
+            pterms["FB9_55"]=new Array("DONE","/FLASH_A_DQ_buffered11_SPECSIG");
+          
+            pterms["FB10_7"]=new Array("/N_PZ_680");
+          
+            pterms["FB10_46"]=new Array("DONE","/FLASH_A_DQ_buffered15_SPECSIG");
+          
+            pterms["FB10_49"]=new Array("DONE","/FLASH_A_DQ_buffered14_SPECSIG");
+          
+            pterms["FB10_52"]=new Array("DONE","/FLASH_A_DQ_buffered13_SPECSIG");
+          
+            pterms["FB10_55"]=new Array("DONE","/FLASH_A_DQ_buffered12_SPECSIG");
+          
+            pterms["FB12_4"]=new Array("N_PZ_761");
+          
+            pterms["FB12_16"]=new Array("DONE");
+          
+            pterms["FB14_0"]=new Array("FPGA_data0PIN_SPECSIG");
+          
+            pterms["FB14_1"]=new Array("FPGA_data1PIN_SPECSIG");
+          
+            pterms["FB14_2"]=new Array("FPGA_data2PIN_SPECSIG");
+          
+            pterms["FB14_3"]=new Array("FPGA_data3PIN_SPECSIG");
+          
+            pterms["FB14_4"]=new Array("N_PZ_761");
+          
+            pterms["FB14_7"]=new Array("DONE","Flash_A_G_buffered");
+          
+            pterms["FB14_10"]=new Array("DONE");
+          
+            pterms["FB14_13"]=new Array("DONE");
+          
+            pterms["FB14_16"]=new Array("DONE");
+          
+            pterms["FB14_19"]=new Array("DONE");
+          
+            pterms["FB15_0"]=new Array("FPGA_data10PIN_SPECSIG");
+          
+            pterms["FB15_1"]=new Array("FPGA_data11PIN_SPECSIG");
+          
+            pterms["FB15_2"]=new Array("FPGA_data12PIN_SPECSIG");
+          
+            pterms["FB15_3"]=new Array("FPGA_data13PIN_SPECSIG");
+          
+            pterms["FB15_4"]=new Array("N_PZ_761");
+          
+            pterms["FB15_5"]=new Array("FPGA_data14PIN_SPECSIG");
+          
+            pterms["FB15_6"]=new Array("FPGA_data4PIN_SPECSIG");
+          
+            pterms["FB15_7"]=new Array("DONE","Flash_A_G_buffered");
+          
+            pterms["FB15_8"]=new Array("FPGA_data5PIN_SPECSIG");
+          
+            pterms["FB15_9"]=new Array("FPGA_data6PIN_SPECSIG");
+          
+            pterms["FB15_10"]=new Array("DONE");
+          
+            pterms["FB15_11"]=new Array("FPGA_data7PIN_SPECSIG");
+          
+            pterms["FB15_12"]=new Array("FPGA_data8PIN_SPECSIG");
+          
+            pterms["FB15_13"]=new Array("DONE");
+          
+            pterms["FB15_14"]=new Array("FPGA_data9PIN_SPECSIG");
+          
+            pterms["FB15_16"]=new Array("DONE");
+          
+            pterms["FB15_19"]=new Array("DONE");
+          
+            pterms["FB15_22"]=new Array("DONE");
+          
+            pterms["FB15_25"]=new Array("DONE");
+          
+            pterms["FB15_40"]=new Array("DONE");
+          
+            pterms["FB15_43"]=new Array("DONE");
+          
+            pterms["FB15_46"]=new Array("DONE");
+          
+            pterms["FB15_49"]=new Array("DONE");
+          
+            pterms["FB15_55"]=new Array("DONE");
+          
+            pterms["FB16_0"]=new Array("FPGA_data15PIN_SPECSIG");
+          
+            pterms["FB16_1"]=new Array("/DONE","/CPLD_100MHZ");
+          
+            pterms["FB16_2"]=new Array("DONE","/clk_cnt_i1_SPECSIG");
+          
+            pterms["FB16_4"]=new Array("N_PZ_761");
+          
+            pterms["FB16_7"]=new Array("DONE","Flash_A_G_buffered");
+          
+            pterms["FB16_13"]=new Array("/DONE");
+          
+            pterms["FB16_43"]=new Array("Program_B");
+          
+            pterms["FB16_46"]=new Array("INIT_B");
+          
+            pterms["FB16_52"]=new Array("FPGA_data0PIN_SPECSIG");
+          
+            pterms["FB16_55"]=new Array("DONE");
+          
+          d2["FLASH_A_A23_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_A_DQ_buffered3_SPECSIG"]=new Array("FB1_28","FB1_29","FB1_26");
+          
+              clk["FLASH_A_DQ_buffered3_SPECSIG"]=new Array("FB1_4");
+              prld["FLASH_A_DQ_buffered3_SPECSIG"]="GND";
+          d2["FPGAData4_SPECSIG"]=new Array("FB1_27","FB1_25","FB1_26");
+          
+              clk["FPGAData4_SPECSIG"]=new Array("FB1_4");
+              prld["FPGAData4_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered11_SPECSIG"]=new Array("FB1_22","FB1_23","FB1_24");
+          
+              clk["FLASH_A_DQ_buffered11_SPECSIG"]=new Array("FB1_4");
+              prld["FLASH_A_DQ_buffered11_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered2_SPECSIG"]=new Array("FB1_20","FB1_21","FB1_18");
+          
+              clk["FLASH_A_DQ_buffered2_SPECSIG"]=new Array("FB1_4");
+              prld["FLASH_A_DQ_buffered2_SPECSIG"]="GND";
+          d2["FPGAData5_SPECSIG"]=new Array("FB1_19","FB1_17","FB1_18");
+          
+              clk["FPGAData5_SPECSIG"]=new Array("FB1_4");
+              prld["FPGAData5_SPECSIG"]="GND";
+          d2["AlternateCycle"]=new Array("FB1_2","FB1_3");
+          
+              clk["AlternateCycle"]=new Array("FB1_4");
+              prld["AlternateCycle"]="GND";
+          d2["N_PZ_761"]=new Array("FB1_1","FB1_0");
+          
+          d1["N_PZ_680"]=new Array("FB1_34");
+          
+          d1["clk_cnt_i1_SPECSIG"]=new Array("FB1_37");
+          
+              gblclk["clk_cnt_i1_SPECSIG"]=new Array("CPLD_100MHZ");
+            prld["clk_cnt_i1_SPECSIG"]="GND";
+          d2["clk_cnt_i0_SPECSIG"]=new Array("GND");
+          
+              gblclk["clk_cnt_i0_SPECSIG"]=new Array("CPLD_100MHZ");
+            prld["clk_cnt_i0_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered10_SPECSIG"]=new Array("FB1_14","FB1_15","FB1_16");
+          
+              clk["FLASH_A_DQ_buffered10_SPECSIG"]=new Array("FB1_4");
+              prld["FLASH_A_DQ_buffered10_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered8_SPECSIG"]=new Array("FB1_11","FB1_12","FB1_13");
+          
+              clk["FLASH_A_DQ_buffered8_SPECSIG"]=new Array("FB1_4");
+              prld["FLASH_A_DQ_buffered8_SPECSIG"]="GND";
+          d2["FPGAData7_SPECSIG"]=new Array("FB1_10","FB1_9","FB1_8");
+          
+              clk["FPGAData7_SPECSIG"]=new Array("FB1_4");
+              prld["FPGAData7_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered0_SPECSIG"]=new Array("FB1_6","FB1_7","FB1_8");
+          
+              clk["FLASH_A_DQ_buffered0_SPECSIG"]=new Array("FB1_4");
+              prld["FLASH_A_DQ_buffered0_SPECSIG"]="GND";
+          d2["FLASH_AK"]=new Array("FB1_5");
+          
+              clk["FLASH_AK"]=new Array("FB1_4");
+              
+          ce["FLASH_AK"]=new Array("FB1_55");
+          prld["FLASH_AK"]="GND";
+          d2["pause4_SPECSIG"]=new Array("FB2_49","FB2_50","FB2_51","FB2_52","FB2_53","FB2_48","FB2_54");
+          
+              clk["pause4_SPECSIG"]=new Array("FB2_4");
+              prld["pause4_SPECSIG"]="GND";
+          d2["pause18_SPECSIG"]=new Array("FB2_41","FB2_42","FB2_43","FB2_44","FB2_45","FB2_46","FB2_47");
+          
+              clk["pause18_SPECSIG"]=new Array("FB2_4");
+              prld["pause18_SPECSIG"]="GND";
+          d2["pause21_SPECSIG"]=new Array("FB2_15","FB2_16","FB2_17","FB2_18");
+          
+              clk["pause21_SPECSIG"]=new Array("FB2_4");
+              prld["pause21_SPECSIG"]="GND";
+          d2["pause1_SPECSIG"]=new Array("FB2_12","FB2_13","FB2_11","FB2_14");
+          
+              clk["pause1_SPECSIG"]=new Array("FB2_4");
+              prld["pause1_SPECSIG"]="GND";
+          d2["pause22_SPECSIG"]=new Array("FB2_8","FB2_9","FB2_10");
+          
+              clk["pause22_SPECSIG"]=new Array("FB2_4");
+              prld["pause22_SPECSIG"]="GND";
+          d2["pause0_SPECSIG"]=new Array("FB2_6","FB2_5","FB2_7");
+          
+              clk["pause0_SPECSIG"]=new Array("FB2_4");
+              prld["pause0_SPECSIG"]="GND";
+          d2["pause23_SPECSIG"]=new Array("FB2_2","FB2_3");
+          
+              clk["pause23_SPECSIG"]=new Array("FB2_4");
+              prld["pause23_SPECSIG"]="GND";
+          d2["pause3_SPECSIG"]=new Array("FB2_36","FB2_37","FB2_38","FB2_39","FB2_35","FB2_40");
+          
+              clk["pause3_SPECSIG"]=new Array("FB2_4");
+              prld["pause3_SPECSIG"]="GND";
+          d2["pause19_SPECSIG"]=new Array("FB2_29","FB2_30","FB2_31","FB2_32","FB2_33","FB2_34");
+          
+              clk["pause19_SPECSIG"]=new Array("FB2_4");
+              prld["pause19_SPECSIG"]="GND";
+          d2["pause2_SPECSIG"]=new Array("FB2_25","FB2_26","FB2_27","FB2_24","FB2_28");
+          
+              clk["pause2_SPECSIG"]=new Array("FB2_4");
+              prld["pause2_SPECSIG"]="GND";
+          d2["pause20_SPECSIG"]=new Array("FB2_19","FB2_20","FB2_21","FB2_22","FB2_23");
+          
+              clk["pause20_SPECSIG"]=new Array("FB2_4");
+              prld["pause20_SPECSIG"]="GND";
+          d2["DelayedPause"]=new Array("FB2_0","FB2_1");
+          
+              clk["DelayedPause"]=new Array("FB2_4");
+              prld["DelayedPause"]="GND";
+          d2["pause17_SPECSIG"]=new Array("FB3_21","FB3_22","FB3_23","FB3_24","FB3_25","FB3_26","FB3_27","FB3_28");
+          
+              clk["pause17_SPECSIG"]=new Array("FB3_4");
+              prld["pause17_SPECSIG"]="GND";
+          d2["pause8_SPECSIG"]=new Array("FB3_0","FB3_1","FB3_5","FB3_6","FB3_7","FB3_8","FB3_9","FB3_10","FB3_11","FB3_19","FB3_20");
+          
+              clk["pause8_SPECSIG"]=new Array("FB3_4");
+              prld["pause8_SPECSIG"]="GND";
+          d2["pause9_SPECSIG"]=new Array("FB3_0","FB3_1","FB3_5","FB3_6","FB3_7","FB3_8","FB3_9","FB3_10","FB3_11","FB3_12","FB3_17","FB3_18");
+          
+              clk["pause9_SPECSIG"]=new Array("FB3_4");
+              prld["pause9_SPECSIG"]="GND";
+          d2["pause10_SPECSIG"]=new Array("FB3_0","FB3_1","FB3_5","FB3_6","FB3_7","FB3_8","FB3_9","FB3_10","FB3_11","FB3_12","FB3_13","FB3_15","FB3_16");
+          
+              clk["pause10_SPECSIG"]=new Array("FB3_4");
+              prld["pause10_SPECSIG"]="GND";
+          d2["pause11_SPECSIG"]=new Array("FB3_0","FB3_1","FB3_2","FB3_5","FB3_6","FB3_7","FB3_8","FB3_9","FB3_10","FB3_11","FB3_12","FB3_13","FB3_3","FB3_14");
+          
+              clk["pause11_SPECSIG"]=new Array("FB3_4");
+              prld["pause11_SPECSIG"]="GND";
+          d2["pause6_SPECSIG"]=new Array("FB3_47","FB3_48","FB3_49","FB3_50","FB3_51","FB3_52","FB3_53","FB3_46","FB3_54");
+          
+              clk["pause6_SPECSIG"]=new Array("FB3_4");
+              prld["pause6_SPECSIG"]="GND";
+          d2["pause16_SPECSIG"]=new Array("FB3_37","FB3_38","FB3_39","FB3_40","FB3_41","FB3_42","FB3_43","FB3_44","FB3_45");
+          
+              clk["pause16_SPECSIG"]=new Array("FB3_4");
+              prld["pause16_SPECSIG"]="GND";
+          d2["pause5_SPECSIG"]=new Array("FB3_30","FB3_31","FB3_32","FB3_33","FB3_34","FB3_35","FB3_29","FB3_36");
+          
+              clk["pause5_SPECSIG"]=new Array("FB3_4");
+              prld["pause5_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered12_SPECSIG"]=new Array("FB4_48","FB4_49","FB4_50");
+          
+              clk["FLASH_A_DQ_buffered12_SPECSIG"]=new Array("FB4_4");
+              prld["FLASH_A_DQ_buffered12_SPECSIG"]="GND";
+          d2["ConfProceed"]=new Array("FB4_45","FB4_46","FB4_47");
+          
+              clk["ConfProceed"]=new Array("FB4_4");
+              prld["ConfProceed"]="GND";
+          d2["pause14_SPECSIG"]=new Array("FB4_34","FB4_35","FB4_36","FB4_37","FB4_38","FB4_39","FB4_40","FB4_41","FB4_42","FB4_43","FB4_44");
+          
+              clk["pause14_SPECSIG"]=new Array("FB4_4");
+              prld["pause14_SPECSIG"]="GND";
+          d2["pause7_SPECSIG"]=new Array("FB4_25","FB4_26","FB4_27","FB4_28","FB4_29","FB4_30","FB4_31","FB4_32","FB4_24","FB4_33");
+          
+              clk["pause7_SPECSIG"]=new Array("FB4_4");
+              prld["pause7_SPECSIG"]="GND";
+          d2["pause15_SPECSIG"]=new Array("FB4_14","FB4_15","FB4_16","FB4_17","FB4_18","FB4_19","FB4_20","FB4_21","FB4_22","FB4_23");
+          
+              clk["pause15_SPECSIG"]=new Array("FB4_4");
+              prld["pause15_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered4_SPECSIG"]=new Array("FB4_54","FB4_55","FB4_52");
+          
+              clk["FLASH_A_DQ_buffered4_SPECSIG"]=new Array("FB4_4");
+              prld["FLASH_A_DQ_buffered4_SPECSIG"]="GND";
+          d2["pause12_SPECSIG"]=new Array("FB4_0","FB4_1","FB4_2","FB4_3","FB4_5","FB4_6","FB4_7","FB4_8","FB4_9","FB4_10","FB4_11","FB4_12","FB4_13");
+          
+              clk["pause12_SPECSIG"]=new Array("FB4_4");
+              prld["pause12_SPECSIG"]="GND";
+          d2["FPGAData3_SPECSIG"]=new Array("FB4_53","FB4_51","FB4_52");
+          
+              clk["FPGAData3_SPECSIG"]=new Array("FB4_4");
+              prld["FPGAData3_SPECSIG"]="GND";
+          d2["FLASH_A_A7_SPECSIG"]=new Array("FB5_8");
+          
+              clk["FLASH_A_A7_SPECSIG"]=new Array("FB5_4");
+              
+          ce["FLASH_A_A7_SPECSIG"]=new Array("FB5_10");
+          prld["FLASH_A_A7_SPECSIG"]="GND";
+          d2["FLASH_A_A6_SPECSIG"]=new Array("FB5_7");
+          
+              clk["FLASH_A_A6_SPECSIG"]=new Array("FB5_4");
+              
+          ce["FLASH_A_A6_SPECSIG"]=new Array("FB5_10");
+          prld["FLASH_A_A6_SPECSIG"]="GND";
+          d2["FLASH_A_A5_SPECSIG"]=new Array("FB5_6");
+          
+              clk["FLASH_A_A5_SPECSIG"]=new Array("FB5_4");
+              
+          ce["FLASH_A_A5_SPECSIG"]=new Array("FB5_10");
+          prld["FLASH_A_A5_SPECSIG"]="GND";
+          d2["FPGAData0_SPECSIG"]=new Array("FB5_34","FB5_32","FB5_33");
+          
+              clk["FPGAData0_SPECSIG"]=new Array("FB5_4");
+              prld["FPGAData0_SPECSIG"]="GND";
+          d2["FLASH_A_A4_SPECSIG"]=new Array("FB5_5");
+          
+              clk["FLASH_A_A4_SPECSIG"]=new Array("FB5_4");
+              
+          ce["FLASH_A_A4_SPECSIG"]=new Array("FB5_10");
+          prld["FLASH_A_A4_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered15_SPECSIG"]=new Array("FB5_29","FB5_30","FB5_31");
+          
+              clk["FLASH_A_DQ_buffered15_SPECSIG"]=new Array("FB5_4");
+              prld["FLASH_A_DQ_buffered15_SPECSIG"]="GND";
+          d2["FPGAData1_SPECSIG"]=new Array("FB5_26","FB5_24","FB5_25");
+          
+              clk["FPGAData1_SPECSIG"]=new Array("FB5_4");
+              prld["FPGAData1_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered14_SPECSIG"]=new Array("FB5_20","FB5_21","FB5_23");
+          
+              clk["FLASH_A_DQ_buffered14_SPECSIG"]=new Array("FB5_4");
+              prld["FLASH_A_DQ_buffered14_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered5_SPECSIG"]=new Array("FB5_18","FB5_19","FB5_15");
+          
+              clk["FLASH_A_DQ_buffered5_SPECSIG"]=new Array("FB5_4");
+              prld["FLASH_A_DQ_buffered5_SPECSIG"]="GND";
+          d2["FPGAData2_SPECSIG"]=new Array("FB5_17","FB5_14","FB5_15");
+          
+              clk["FPGAData2_SPECSIG"]=new Array("FB5_4");
+              prld["FPGAData2_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered13_SPECSIG"]=new Array("FB5_9","FB5_11","FB5_12");
+          
+              clk["FLASH_A_DQ_buffered13_SPECSIG"]=new Array("FB5_4");
+              prld["FLASH_A_DQ_buffered13_SPECSIG"]="GND";
+          d2["FLASH_A_A3_SPECSIG"]=new Array("FB5_3");
+          
+              clk["FLASH_A_A3_SPECSIG"]=new Array("FB5_4");
+              
+          ce["FLASH_A_A3_SPECSIG"]=new Array("FB5_10");
+          prld["FLASH_A_A3_SPECSIG"]="GND";
+          d2["FLASH_A_A2_SPECSIG"]=new Array("FB5_2");
+          
+              clk["FLASH_A_A2_SPECSIG"]=new Array("FB5_4");
+              
+          ce["FLASH_A_A2_SPECSIG"]=new Array("FB5_10");
+          prld["FLASH_A_A2_SPECSIG"]="GND";
+          d2["FLASH_A_A1_SPECSIG"]=new Array("FB5_1");
+          
+              clk["FLASH_A_A1_SPECSIG"]=new Array("FB5_4");
+              
+          ce["FLASH_A_A1_SPECSIG"]=new Array("FB5_10");
+          prld["FLASH_A_A1_SPECSIG"]="GND";
+          d2["FLASH_A_A0_SPECSIG"]=new Array("FB5_0");
+          
+              clk["FLASH_A_A0_SPECSIG"]=new Array("FB5_4");
+              
+          ce["FLASH_A_A0_SPECSIG"]=new Array("FB5_10");
+          prld["FLASH_A_A0_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered6_SPECSIG"]=new Array("FB5_27","FB5_28","FB5_25");
+          
+              clk["FLASH_A_DQ_buffered6_SPECSIG"]=new Array("FB5_4");
+              prld["FLASH_A_DQ_buffered6_SPECSIG"]="GND";
+          d2["FLASH_A_A8_SPECSIG"]=new Array("FB6_9");
+          
+              clk["FLASH_A_A8_SPECSIG"]=new Array("FB6_4");
+              
+          ce["FLASH_A_A8_SPECSIG"]=new Array("FB6_10");
+          prld["FLASH_A_A8_SPECSIG"]="GND";
+          d2["FLASH_A_A9_SPECSIG"]=new Array("FB6_11");
+          
+              clk["FLASH_A_A9_SPECSIG"]=new Array("FB6_4");
+              
+          ce["FLASH_A_A9_SPECSIG"]=new Array("FB6_10");
+          prld["FLASH_A_A9_SPECSIG"]="GND";
+          d2["FLASH_A_A10_SPECSIG"]=new Array("FB6_0");
+          
+              clk["FLASH_A_A10_SPECSIG"]=new Array("FB6_4");
+              
+          ce["FLASH_A_A10_SPECSIG"]=new Array("FB6_10");
+          prld["FLASH_A_A10_SPECSIG"]="GND";
+          d2["FLASH_A_A11_SPECSIG"]=new Array("FB6_1");
+          
+              clk["FLASH_A_A11_SPECSIG"]=new Array("FB6_4");
+              
+          ce["FLASH_A_A11_SPECSIG"]=new Array("FB6_10");
+          prld["FLASH_A_A11_SPECSIG"]="GND";
+          d2["FLASH_A_A12_SPECSIG"]=new Array("FB6_2");
+          
+              clk["FLASH_A_A12_SPECSIG"]=new Array("FB6_4");
+              
+          ce["FLASH_A_A12_SPECSIG"]=new Array("FB6_10");
+          prld["FLASH_A_A12_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered7_SPECSIG"]=new Array("FB6_23","FB6_24","FB6_26");
+          
+              clk["FLASH_A_DQ_buffered7_SPECSIG"]=new Array("FB6_4");
+              prld["FLASH_A_DQ_buffered7_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered9_SPECSIG"]=new Array("FB6_19","FB6_20","FB6_21");
+          
+              clk["FLASH_A_DQ_buffered9_SPECSIG"]=new Array("FB6_4");
+              prld["FLASH_A_DQ_buffered9_SPECSIG"]="GND";
+          d2["FPGAData6_SPECSIG"]=new Array("FB6_18","FB6_17","FB6_15");
+          
+              clk["FPGAData6_SPECSIG"]=new Array("FB6_4");
+              prld["FPGAData6_SPECSIG"]="GND";
+          d2["FLASH_A_DQ_buffered1_SPECSIG"]=new Array("FB6_12","FB6_14","FB6_15");
+          
+              clk["FLASH_A_DQ_buffered1_SPECSIG"]=new Array("FB6_4");
+              prld["FLASH_A_DQ_buffered1_SPECSIG"]="GND";
+          d2["FLASH_A_A13_SPECSIG"]=new Array("FB6_3");
+          
+              clk["FLASH_A_A13_SPECSIG"]=new Array("FB6_4");
+              
+          ce["FLASH_A_A13_SPECSIG"]=new Array("FB6_10");
+          prld["FLASH_A_A13_SPECSIG"]="GND";
+          d2["FLASH_A_A14_SPECSIG"]=new Array("FB6_5");
+          
+              clk["FLASH_A_A14_SPECSIG"]=new Array("FB6_4");
+              
+          ce["FLASH_A_A14_SPECSIG"]=new Array("FB6_10");
+          prld["FLASH_A_A14_SPECSIG"]="GND";
+          d2["FLASH_A_A15_SPECSIG"]=new Array("FB6_6");
+          
+              clk["FLASH_A_A15_SPECSIG"]=new Array("FB6_4");
+              
+          ce["FLASH_A_A15_SPECSIG"]=new Array("FB6_10");
+          prld["FLASH_A_A15_SPECSIG"]="GND";
+          d2["FLASH_A_A16_SPECSIG"]=new Array("FB6_7");
+          
+              clk["FLASH_A_A16_SPECSIG"]=new Array("FB6_4");
+              
+          ce["FLASH_A_A16_SPECSIG"]=new Array("FB6_10");
+          prld["FLASH_A_A16_SPECSIG"]="GND";
+          d2["FLASH_A_A17_SPECSIG"]=new Array("FB6_8");
+          
+              clk["FLASH_A_A17_SPECSIG"]=new Array("FB6_4");
+              
+          ce["FLASH_A_A17_SPECSIG"]=new Array("FB6_10");
+          prld["FLASH_A_A17_SPECSIG"]="GND";
+          d2["FLASH_A_RP"]=new Array("GND");
+          
+          d2["FLASH_A_K"]=new Array("FB7_7","FB7_6");
+          
+          d1["FLASH_A_G"]=new Array("FB7_16");
+          
+              clk["FLASH_A_G"]=new Array("FB7_4");
+              prld["FLASH_A_G"]="GND";
+          d1["FLASH_A_E"]=new Array("FB7_19");
+          
+              clk["FLASH_A_E"]=new Array("FB7_4");
+              prld["FLASH_A_E"]="GND";
+          d2["FLASH_A_A22_SPECSIG"]=new Array("FB7_5");
+          
+              clk["FLASH_A_A22_SPECSIG"]=new Array("FB7_4");
+              
+          ce["FLASH_A_A22_SPECSIG"]=new Array("FB7_25");
+          prld["FLASH_A_A22_SPECSIG"]="GND";
+          d2["FLASH_A_A21_SPECSIG"]=new Array("FB7_3");
+          
+              clk["FLASH_A_A21_SPECSIG"]=new Array("FB7_4");
+              
+          ce["FLASH_A_A21_SPECSIG"]=new Array("FB7_25");
+          prld["FLASH_A_A21_SPECSIG"]="GND";
+          d2["FLASH_A_A20_SPECSIG"]=new Array("FB7_2");
+          
+              clk["FLASH_A_A20_SPECSIG"]=new Array("FB7_4");
+              
+          ce["FLASH_A_A20_SPECSIG"]=new Array("FB7_25");
+          prld["FLASH_A_A20_SPECSIG"]="GND";
+          d2["FLASH_A_A19_SPECSIG"]=new Array("FB7_1");
+          
+              clk["FLASH_A_A19_SPECSIG"]=new Array("FB7_4");
+              
+          ce["FLASH_A_A19_SPECSIG"]=new Array("FB7_25");
+          prld["FLASH_A_A19_SPECSIG"]="GND";
+          d2["FLASH_A_A18_SPECSIG"]=new Array("FB7_0");
+          
+              clk["FLASH_A_A18_SPECSIG"]=new Array("FB7_4");
+              
+          ce["FLASH_A_A18_SPECSIG"]=new Array("FB7_25");
+          prld["FLASH_A_A18_SPECSIG"]="GND";
+          d2["pause13_SPECSIG"]=new Array("FB7_8","FB7_9","FB7_10","FB7_11","FB7_12","FB7_13","FB7_14","FB7_15","FB7_17","FB7_18","FB7_20","FB7_21");
+          
+              clk["pause13_SPECSIG"]=new Array("FB7_4");
+              prld["pause13_SPECSIG"]="GND";
+          d2["FLASH_A_WP"]=new Array("GND");
+          
+          d1["FLASH_A_W"]=new Array("FB8_13");
+          
+              clk["FLASH_A_W"]=new Array("FB8_4");
+              prld["FLASH_A_W"]="GND";
+          d1["FLASH_A_L"]=new Array("FB8_16");
+          
+              clk["FLASH_A_L"]=new Array("FB8_4");
+              prld["FLASH_A_L"]="GND";
+          d2["FLASH_A_RW"]=new Array("GND");
+          
+          d2["FPGA_data0_SPECSIG"]=new Array("FB9_0","FB9_1");
+          
+              trst["FPGA_data0_SPECSIG"]=new Array("FB9_7");
+              
+          d2["FPGA_data1_SPECSIG"]=new Array("FB9_2","FB9_3");
+          
+              trst["FPGA_data1_SPECSIG"]=new Array("FB9_7");
+              
+          d2["FPGA_data2_SPECSIG"]=new Array("FB9_4","FB9_5");
+          
+              trst["FPGA_data2_SPECSIG"]=new Array("FB9_7");
+              
+          d2["FPGA_data3_SPECSIG"]=new Array("FB9_6","FB9_8");
+          
+              trst["FPGA_data3_SPECSIG"]=new Array("FB9_7");
+              
+          d2["FPGA_data4_SPECSIG"]=new Array("FB9_9","FB9_10");
+          
+              trst["FPGA_data4_SPECSIG"]=new Array("FB9_7");
+              
+          d2["FPGA_data5_SPECSIG"]=new Array("FB9_11","FB9_12");
+          
+              trst["FPGA_data5_SPECSIG"]=new Array("FB9_7");
+              
+          d2["FPGA_data6_SPECSIG"]=new Array("FB9_13","FB9_14");
+          
+              trst["FPGA_data6_SPECSIG"]=new Array("FB9_7");
+              
+          d2["FPGA_data7_SPECSIG"]=new Array("FB9_15","FB9_16");
+          
+              trst["FPGA_data7_SPECSIG"]=new Array("FB9_7");
+              
+          d1["FPGA_data8_SPECSIG"]=new Array("FB9_46");
+          
+              trst["FPGA_data8_SPECSIG"]=new Array("FB9_7");
+              
+          d1["FPGA_data9_SPECSIG"]=new Array("FB9_49");
+          
+              trst["FPGA_data9_SPECSIG"]=new Array("FB9_7");
+              
+          d1["FPGA_data10_SPECSIG"]=new Array("FB9_52");
+          
+              trst["FPGA_data10_SPECSIG"]=new Array("FB9_7");
+              
+          d1["FPGA_data11_SPECSIG"]=new Array("FB9_55");
+          
+              trst["FPGA_data11_SPECSIG"]=new Array("FB9_7");
+              
+          d1["FPGA_data15_SPECSIG"]=new Array("FB10_46");
+          
+              trst["FPGA_data15_SPECSIG"]=new Array("FB10_7");
+              
+          d1["FPGA_data14_SPECSIG"]=new Array("FB10_49");
+          
+              trst["FPGA_data14_SPECSIG"]=new Array("FB10_7");
+              
+          d1["FPGA_data13_SPECSIG"]=new Array("FB10_52");
+          
+              trst["FPGA_data13_SPECSIG"]=new Array("FB10_7");
+              
+          d1["FPGA_data12_SPECSIG"]=new Array("FB10_55");
+          
+              trst["FPGA_data12_SPECSIG"]=new Array("FB10_7");
+              
+              clk["Flash_A_G_buffered"]=new Array("FB12_4");
+              
+          ce["Flash_A_G_buffered"]=new Array("FB12_16");
+          prld["Flash_A_G_buffered"]="GND";
+          inreg["Flash_A_G_buffered"]=new Array("FPGA_G");
+        
+          d2["FLASH_B_DQ0_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ1_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ2_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ3_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ4_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ5_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ6_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ7_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ8_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ9_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ10_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_A_DQ3_SPECSIG"]=new Array("FB14_3");
+          
+              clk["FLASH_A_DQ3_SPECSIG"]=new Array("FB14_4");
+              
+              trst["FLASH_A_DQ3_SPECSIG"]=new Array("FB14_7");
+              
+          ce["FLASH_A_DQ3_SPECSIG"]=new Array("FB14_10");
+          prld["FLASH_A_DQ3_SPECSIG"]="GND";
+          d2["FLASH_A_DQ2_SPECSIG"]=new Array("FB14_2");
+          
+              clk["FLASH_A_DQ2_SPECSIG"]=new Array("FB14_4");
+              
+              trst["FLASH_A_DQ2_SPECSIG"]=new Array("FB14_7");
+              
+          ce["FLASH_A_DQ2_SPECSIG"]=new Array("FB14_10");
+          prld["FLASH_A_DQ2_SPECSIG"]="GND";
+          d2["FLASH_A_DQ1_SPECSIG"]=new Array("FB14_1");
+          
+              clk["FLASH_A_DQ1_SPECSIG"]=new Array("FB14_4");
+              
+              trst["FLASH_A_DQ1_SPECSIG"]=new Array("FB14_7");
+              
+          ce["FLASH_A_DQ1_SPECSIG"]=new Array("FB14_10");
+          prld["FLASH_A_DQ1_SPECSIG"]="GND";
+          d2["FLASH_A_DQ0_SPECSIG"]=new Array("FB14_0");
+          
+              clk["FLASH_A_DQ0_SPECSIG"]=new Array("FB14_4");
+              
+              trst["FLASH_A_DQ0_SPECSIG"]=new Array("FB14_7");
+              
+          ce["FLASH_A_DQ0_SPECSIG"]=new Array("FB14_10");
+          prld["FLASH_A_DQ0_SPECSIG"]="GND";
+          d2["FLASH_B_DQ15_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ14_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ13_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ12_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_B_DQ11_SPECSIG"]=new Array("GND");
+          
+          d2["FLASH_A_DQ4_SPECSIG"]=new Array("FB15_6");
+          
+              clk["FLASH_A_DQ4_SPECSIG"]=new Array("FB15_4");
+              
+              trst["FLASH_A_DQ4_SPECSIG"]=new Array("FB15_7");
+              
+          ce["FLASH_A_DQ4_SPECSIG"]=new Array("FB15_10");
+          prld["FLASH_A_DQ4_SPECSIG"]="GND";
+          d2["FLASH_A_DQ5_SPECSIG"]=new Array("FB15_8");
+          
+              clk["FLASH_A_DQ5_SPECSIG"]=new Array("FB15_4");
+              
+              trst["FLASH_A_DQ5_SPECSIG"]=new Array("FB15_7");
+              
+          ce["FLASH_A_DQ5_SPECSIG"]=new Array("FB15_10");
+          prld["FLASH_A_DQ5_SPECSIG"]="GND";
+          d2["FLASH_A_DQ6_SPECSIG"]=new Array("FB15_9");
+          
+              clk["FLASH_A_DQ6_SPECSIG"]=new Array("FB15_4");
+              
+              trst["FLASH_A_DQ6_SPECSIG"]=new Array("FB15_7");
+              
+          ce["FLASH_A_DQ6_SPECSIG"]=new Array("FB15_10");
+          prld["FLASH_A_DQ6_SPECSIG"]="GND";
+          d2["FLASH_A_DQ7_SPECSIG"]=new Array("FB15_11");
+          
+              clk["FLASH_A_DQ7_SPECSIG"]=new Array("FB15_4");
+              
+              trst["FLASH_A_DQ7_SPECSIG"]=new Array("FB15_7");
+              
+          ce["FLASH_A_DQ7_SPECSIG"]=new Array("FB15_10");
+          prld["FLASH_A_DQ7_SPECSIG"]="GND";
+          d2["FLASH_A_DQ8_SPECSIG"]=new Array("FB15_12");
+          
+              clk["FLASH_A_DQ8_SPECSIG"]=new Array("FB15_4");
+              
+              trst["FLASH_A_DQ8_SPECSIG"]=new Array("FB15_7");
+              
+          ce["FLASH_A_DQ8_SPECSIG"]=new Array("FB15_10");
+          prld["FLASH_A_DQ8_SPECSIG"]="GND";
+          d2["FLASH_A_DQ9_SPECSIG"]=new Array("FB15_14");
+          
+              clk["FLASH_A_DQ9_SPECSIG"]=new Array("FB15_4");
+              
+              trst["FLASH_A_DQ9_SPECSIG"]=new Array("FB15_7");
+              
+          ce["FLASH_A_DQ9_SPECSIG"]=new Array("FB15_10");
+          prld["FLASH_A_DQ9_SPECSIG"]="GND";
+          d2["FLASH_A_DQ10_SPECSIG"]=new Array("FB15_0");
+          
+              clk["FLASH_A_DQ10_SPECSIG"]=new Array("FB15_4");
+              
+              trst["FLASH_A_DQ10_SPECSIG"]=new Array("FB15_7");
+              
+          ce["FLASH_A_DQ10_SPECSIG"]=new Array("FB15_10");
+          prld["FLASH_A_DQ10_SPECSIG"]="GND";
+          d2["FLASH_A_DQ11_SPECSIG"]=new Array("FB15_1");
+          
+              clk["FLASH_A_DQ11_SPECSIG"]=new Array("FB15_4");
+              
+              trst["FLASH_A_DQ11_SPECSIG"]=new Array("FB15_7");
+              
+          ce["FLASH_A_DQ11_SPECSIG"]=new Array("FB15_10");
+          prld["FLASH_A_DQ11_SPECSIG"]="GND";
+          d2["FLASH_A_DQ12_SPECSIG"]=new Array("FB15_2");
+          
+              clk["FLASH_A_DQ12_SPECSIG"]=new Array("FB15_4");
+              
+              trst["FLASH_A_DQ12_SPECSIG"]=new Array("FB15_7");
+              
+          ce["FLASH_A_DQ12_SPECSIG"]=new Array("FB15_10");
+          prld["FLASH_A_DQ12_SPECSIG"]="GND";
+          d2["FLASH_A_DQ13_SPECSIG"]=new Array("FB15_3");
+          
+              clk["FLASH_A_DQ13_SPECSIG"]=new Array("FB15_4");
+              
+              trst["FLASH_A_DQ13_SPECSIG"]=new Array("FB15_7");
+              
+          ce["FLASH_A_DQ13_SPECSIG"]=new Array("FB15_10");
+          prld["FLASH_A_DQ13_SPECSIG"]="GND";
+          d2["FLASH_A_DQ14_SPECSIG"]=new Array("FB15_5");
+          
+              clk["FLASH_A_DQ14_SPECSIG"]=new Array("FB15_4");
+              
+              trst["FLASH_A_DQ14_SPECSIG"]=new Array("FB15_7");
+              
+          ce["FLASH_A_DQ14_SPECSIG"]=new Array("FB15_10");
+          prld["FLASH_A_DQ14_SPECSIG"]="GND";
+              clk["PrevInit_B"]=new Array("FB16_4");
+              
+          ce["PrevInit_B"]=new Array("FB16_13");
+          prld["PrevInit_B"]="GND";
+          inreg["PrevInit_B"]=new Array("INIT_B");
+        
+          d2["FPGA_CCLK"]=new Array("FB16_2","FB16_1");
+          
+          d2["FPGA_clock"]=new Array("FB16_2","FB16_1");
+          
+          d1["LEDs0_SPECSIG"]=new Array("FB16_43");
+          
+          d1["LEDs1_SPECSIG"]=new Array("FB16_46");
+          
+          d2["LEDs2_SPECSIG"]=new Array("GND");
+          
+          d1["LEDs3_SPECSIG"]=new Array("FB16_52");
+          
+          d2["FLASH_A_DQ15_SPECSIG"]=new Array("FB16_0");
+          
+              clk["FLASH_A_DQ15_SPECSIG"]=new Array("FB16_4");
+              
+              trst["FLASH_A_DQ15_SPECSIG"]=new Array("FB16_7");
+              
+          ce["FLASH_A_DQ15_SPECSIG"]=new Array("FB16_55");
+          prld["FLASH_A_DQ15_SPECSIG"]="GND";
+
+      uimSignals = new Array();
+
+      uimSigNegs = new Array();
+
+      uimPterms = new Array();
+      
+
+      
+        function getEqnList() {
+          var str = "<html><head><link type='text/css' href='style.css' rel='stylesheet'></head><body class='pgBgnd'>";
+          str += "<center><h3>Equations</h3></center>";
+          str += "<table width='90%' align='center' border='1' cellpadding='0' cellspacing='0'>";
+          for (s=0; s<uimSignals.length; s++) {
+            str += "<tr><td>";
+            str += retUimEqn(uimSignals[s]);
+            str += "</td></tr>";
+          }
+          for (s=0; s<signals.length; s++) {
+            str += "<tr><td>";
+            str += retEqn(signals[s]);
+            str += "</td></tr>";
+          }
+
+          var legend = retLegend();
+		      if (legend != "") {
+		        str += "<tr><td>" + legend + "</td></tr>";
+		      }
+
+          str += "</table>";
+          str += "<form><span class='pgRef'>";
+
+          if (!parent.leftnav.IsNS()) {
+            str += "<table width='90%' align='center'>";
+            str += "<tr><td align='left'><input type='button' value='back to top' ";
+            str += "onclick='javascript:parent.leftnav.showEqnAll()' ";
+            str += "onmouseover=\"window.status='goto top of page'; return true;\" ";
+            str += "onmouseout=\"window.status=''\">";
+            str += "</td>";
+            str += "<td align='right'>";
+            str += "<input type='button' value='print page' ";
+            str += "onclick='javascript:window.print()' ";
+            str += "onmouseover=\"window.status='print page'; return true;\" ";
+            str += "onmouseout=\"window.status=''\">";
+            str += "</td>";
+            str += "</tr></table>";
+          }
+          else {
+            str += "<table width='90%' align='center'>";
+            str += "<tr><td align='left'><a href='javascript:parent.leftnav.showEqnAll()'>back to top</a>";
+            str += "</td>";
+            str += "<td align='right'>";
+            str += "<a href='javascript:window.print()'>";
+            str += "print page</a>";
+            str += "</td>";
+            str += "</tr></table>";
+          }
+
+          str += "</span></form>";
+          str += "</body></html>";
+          return str;
+        }
+      
+    </script>
+</head></html>

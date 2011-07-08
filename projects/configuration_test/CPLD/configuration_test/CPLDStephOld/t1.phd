@@ -1,0 +1,2744 @@
+" XPLAOPT Version 9.99.99.99
+" Created on Tue Jun 28 15:17:49 2011
+" 156 Mcells, 343 PLApts, 2 Levels, 881 Fanins
+" XPLAOPT -run s -it b -i CPLDLoaderSteph.blx -dev XC2C256-6PQ208 -reg -xor a 
+"         -mode 1 -th 28 -fi 32 -bfi 38 -pre keep -unused keeper -terminate keeper -no_output_files 
+MODULE CPLDLoaderSteph
+
+	CPLD_100MHZ  pin 55 ; 
+ 	DONE  pin 87 ; 
+ 	FLASH_A_A<0>  pin 39 ;  " 1 pt.
+ 	FLASH_A_A<10>  pin 54 ;  " 1 pt.
+ 	FLASH_A_A<11>  pin 56 ;  " 1 pt.
+ 	FLASH_A_A<12>  pin 57 ;  " 1 pt.
+ 	FLASH_A_A<13>  pin 58 ;  " 1 pt.
+ 	FLASH_A_A<14>  pin 60 ;  " 1 pt.
+ 	FLASH_A_A<15>  pin 61 ;  " 1 pt.
+ 	FLASH_A_A<16>  pin 62 ;  " 1 pt.
+ 	FLASH_A_A<17>  pin 63 ;  " 1 pt.
+ 	FLASH_A_A<18>  pin 27 ;  " 1 pt.
+ 	FLASH_A_A<19>  pin 28 ;  " 1 pt.
+ 	FLASH_A_A<1>  pin 40 ;  " 1 pt.
+ 	FLASH_A_A<20>  pin 29 ;  " 1 pt.
+ 	FLASH_A_A<21>  pin 30 ;  " 1 pt.
+ 	FLASH_A_A<22>  pin 31 ;  " 1 pt.
+ 	FLASH_A_A<23>  pin ;  " 0 pt.
+ 	FLASH_A_A<2>  pin 41 ;  " 1 pt.
+ 	FLASH_A_A<3>  pin 43 ;  " 1 pt.
+ 	FLASH_A_A<4>  pin 45 ;  " 1 pt.
+ 	FLASH_A_A<5>  pin 47 ;  " 1 pt.
+ 	FLASH_A_A<6>  pin 48 ;  " 1 pt.
+ 	FLASH_A_A<7>  pin 49 ;  " 1 pt.
+ 	FLASH_A_A<8>  pin 50 ;  " 1 pt.
+ 	FLASH_A_A<9>  pin 51 ;  " 1 pt.
+ 	FLASH_A_DQ<0>  pin 101 ;  " 1 pt.
+ 	FLASH_A_DQ<10>  pin 125 ;  " 1 pt.
+ 	FLASH_A_DQ<11>  pin 126 ;  " 1 pt.
+ 	FLASH_A_DQ<12>  pin 127 ;  " 1 pt.
+ 	FLASH_A_DQ<13>  pin 128 ;  " 1 pt.
+ 	FLASH_A_DQ<14>  pin 131 ;  " 1 pt.
+ 	FLASH_A_DQ<15>  pin 77 ;  " 1 pt.
+ 	FLASH_A_DQ<1>  pin 102 ;  " 1 pt.
+ 	FLASH_A_DQ<2>  pin 103 ;  " 1 pt.
+ 	FLASH_A_DQ<3>  pin 106 ;  " 1 pt.
+ 	FLASH_A_DQ<4>  pin 118 ;  " 1 pt.
+ 	FLASH_A_DQ<5>  pin 119 ;  " 1 pt.
+ 	FLASH_A_DQ<6>  pin 120 ;  " 1 pt.
+ 	FLASH_A_DQ<7>  pin 121 ;  " 1 pt.
+ 	FLASH_A_DQ<8>  pin 122 ;  " 1 pt.
+ 	FLASH_A_DQ<9>  pin 123 ;  " 1 pt.
+ 	FLASH_A_E  pin 34 ;  " 1 pt.
+ 	FLASH_A_G  pin 35 ;  " 1 pt.
+ 	FLASH_A_K  pin 36 ;  " 2 pt.
+ 	FLASH_A_L  pin 66 ;  " 1 pt.
+ 	FLASH_A_RP  pin 37 ;  " 2 pt.
+ 	FLASH_A_RW  pin 67 ;  " 1 pt.
+ 	FLASH_A_W  pin 65 ;  " 1 pt.
+ 	FLASH_A_WP  pin 64 ;  " 1 pt.
+ 	FLASH_B_DQ<0>  pin 107 ;  " 0 pt.
+ 	FLASH_B_DQ<10>  pin 117 ;  " 0 pt.
+ 	FLASH_B_DQ<11>  pin 91 ;  " 0 pt.
+ 	FLASH_B_DQ<12>  pin 95 ;  " 0 pt.
+ 	FLASH_B_DQ<13>  pin 97 ;  " 0 pt.
+ 	FLASH_B_DQ<14>  pin 99 ;  " 0 pt.
+ 	FLASH_B_DQ<15>  pin 100 ;  " 0 pt.
+ 	FLASH_B_DQ<1>  pin 108 ;  " 0 pt.
+ 	FLASH_B_DQ<2>  pin 109 ;  " 0 pt.
+ 	FLASH_B_DQ<3>  pin 110 ;  " 0 pt.
+ 	FLASH_B_DQ<4>  pin 111 ;  " 0 pt.
+ 	FLASH_B_DQ<5>  pin 112 ;  " 0 pt.
+ 	FLASH_B_DQ<6>  pin 113 ;  " 0 pt.
+ 	FLASH_B_DQ<7>  pin 114 ;  " 0 pt.
+ 	FLASH_B_DQ<8>  pin 115 ;  " 0 pt.
+ 	FLASH_B_DQ<9>  pin 116 ;  " 0 pt.
+ 	FPGA_A<0>  pin 150 ; 
+ 	FPGA_A<10>  pin 175 ; 
+ 	FPGA_A<11>  pin 178 ; 
+ 	FPGA_A<12>  pin 179 ; 
+ 	FPGA_A<13>  pin 180 ; 
+ 	FPGA_A<14>  pin 182 ; 
+ 	FPGA_A<15>  pin 183 ; 
+ 	FPGA_A<16>  pin 184 ; 
+ 	FPGA_A<17>  pin 134 ; 
+ 	FPGA_A<18>  pin 135 ; 
+ 	FPGA_A<19>  pin 136 ; 
+ 	FPGA_A<1>  pin 151 ; 
+ 	FPGA_A<20>  pin 137 ; 
+ 	FPGA_A<21>  pin 138 ; 
+ 	FPGA_A<22>  pin 139 ; 
+ 	FPGA_A<2>  pin 152 ; 
+ 	FPGA_A<3>  pin 153 ; 
+ 	FPGA_A<4>  pin 154 ; 
+ 	FPGA_A<5>  pin 155 ; 
+ 	FPGA_A<6>  pin 158 ; 
+ 	FPGA_A<7>  pin 159 ; 
+ 	FPGA_A<8>  pin 173 ; 
+ 	FPGA_A<9>  pin 174 ; 
+ 	FPGA_CCLK  pin 88 ;  " 1 pt.
+ 	FPGA_E  pin 144 ; 
+ 	FPGA_G  pin 143 ; 
+ 	FPGA_L  pin 145 ; 
+ 	FPGA_RP  pin 85 ; 
+ 	FPGA_W  pin 142 ; 
+ 	FPGA_clock  pin 86 ;  " 1 pt.
+ 	FPGA_data<0>  pin 160 ;  " 2 pt.
+ 	FPGA_data<10>  pin 170 ;  " 1 pt.
+ 	FPGA_data<11>  pin 171 ;  " 1 pt.
+ 	FPGA_data<12>  pin 146 ;  " 1 pt.
+ 	FPGA_data<13>  pin 147 ;  " 1 pt.
+ 	FPGA_data<14>  pin 148 ;  " 1 pt.
+ 	FPGA_data<15>  pin 149 ;  " 1 pt.
+ 	FPGA_data<1>  pin 161 ;  " 2 pt.
+ 	FPGA_data<2>  pin 162 ;  " 2 pt.
+ 	FPGA_data<3>  pin 163 ;  " 2 pt.
+ 	FPGA_data<4>  pin 164 ;  " 2 pt.
+ 	FPGA_data<5>  pin 165 ;  " 2 pt.
+ 	FPGA_data<6>  pin 166 ;  " 2 pt.
+ 	FPGA_data<7>  pin 167 ;  " 2 pt.
+ 	FPGA_data<8>  pin 168 ;  " 1 pt.
+ 	FPGA_data<9>  pin 169 ;  " 1 pt.
+ 	INIT_B  pin 89 ; 
+ 	LEDs<0>  pin 83 ;  " 1 pt.
+ 	LEDs<1>  pin 82 ;  " 1 pt.
+ 	LEDs<2>  pin 80 ;  " 0 pt.
+ 	LEDs<3>  pin 78 ;  " 1 pt.
+ 	Program_B  pin 90 ; 
+ 
+
+	AlternateCycle  node ;  " 2 pt.
+ 	ConfProceed  node ;  " 2 pt.
+ 	DelayedPause  node ;  " 2 pt.
+ 	FLASH_AK  node ;  " 1 pt.
+ 	FLASH_A_DQ_buffered<0>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<10>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<11>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<12>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<13>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<14>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<15>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<1>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<2>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<3>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<4>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<5>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<6>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<7>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<8>  node ;  " 2 pt.
+ 	FLASH_A_DQ_buffered<9>  node ;  " 2 pt.
+ 	FPGAData<0>  node ;  " 3 pt.
+ 	FPGAData<1>  node ;  " 3 pt.
+ 	FPGAData<2>  node ;  " 3 pt.
+ 	FPGAData<3>  node ;  " 3 pt.
+ 	FPGAData<4>  node ;  " 3 pt.
+ 	FPGAData<5>  node ;  " 3 pt.
+ 	FPGAData<6>  node ;  " 3 pt.
+ 	FPGAData<7>  node ;  " 3 pt.
+ 	Flash_A_G_buffered  node ;  " 1 pt.
+ 	N_PZ_539  node istype 'collapse';  " 2 pt.
+ 	N_PZ_540  node istype 'collapse';  " 2 pt.
+ 	N_PZ_547  node istype 'collapse';  " 2 pt.
+ 	N_PZ_550  node istype 'collapse';  " 2 pt.
+ 	N_PZ_551  node istype 'collapse';  " 2 pt.
+ 	N_PZ_553  node istype 'collapse';  " 2 pt.
+ 	N_PZ_554  node istype 'collapse';  " 2 pt.
+ 	N_PZ_557  node istype 'collapse';  " 2 pt.
+ 	N_PZ_559  node istype 'collapse';  " 1 pt.
+ 	N_PZ_560  node istype 'collapse';  " 1 pt.
+ 	N_PZ_561  node istype 'collapse';  " 1 pt.
+ 	N_PZ_569  node istype 'collapse';  " 1 pt.
+ 	N_PZ_576  node istype 'collapse';  " 1 pt.
+ 	N_PZ_585  node istype 'collapse';  " 2 pt.
+ 	PrevInit_B  node ;  " 1 pt.
+ 	clk_cnt_i<0>  node ;  " 1 pt.
+ 	clk_cnt_i<1>  node ;  " 1 pt.
+ 	pause<0>  node ;  " 3 pt.
+ 	pause<10>  node ;  " 10 pt.
+ 	pause<11>  node ;  " 12 pt.
+ 	pause<12>  node ;  " 12 pt.
+ 	pause<13>  node ;  " 12 pt.
+ 	pause<14>  node ;  " 11 pt.
+ 	pause<15>  node ;  " 10 pt.
+ 	pause<16>  node ;  " 9 pt.
+ 	pause<17>  node ;  " 8 pt.
+ 	pause<18>  node ;  " 7 pt.
+ 	pause<19>  node ;  " 6 pt.
+ 	pause<1>  node ;  " 4 pt.
+ 	pause<20>  node ;  " 5 pt.
+ 	pause<21>  node ;  " 3 pt.
+ 	pause<22>  node ;  " 2 pt.
+ 	pause<23>  node ;  " 3 pt.
+ 	pause<2>  node ;  " 4 pt.
+ 	pause<3>  node ;  " 6 pt.
+ 	pause<4>  node ;  " 7 pt.
+ 	pause<5>  node ;  " 7 pt.
+ 	pause<6>  node ;  " 8 pt.
+ 	pause<7>  node ;  " 8 pt.
+ 	pause<8>  node ;  " 9 pt.
+ 	pause<9>  node ;  " 9 pt.
+ 
+
+xpla property 'USER_SLEW_RATE FLASH_A_DQ<0> FPGA_data<0> FPGA_clock FLASH_A_DQ<10> FPGA_data<10> 
+	FLASH_A_DQ<11> FPGA_data<11> FLASH_A_DQ<12> FPGA_data<12> FLASH_A_DQ<13> FPGA_data<13> 
+	FLASH_A_DQ<14> FPGA_data<14> FLASH_A_DQ<15> FPGA_data<15> FLASH_A_DQ<1> FPGA_data<1> FLASH_A_DQ<2> 
+	FPGA_data<2> FLASH_A_DQ<3> FPGA_data<3> FLASH_A_DQ<4> FPGA_data<4> FLASH_A_DQ<5> FPGA_data<5> 
+	FLASH_A_DQ<6> FPGA_data<6> FLASH_A_DQ<7> FPGA_data<7> FLASH_A_DQ<8> FPGA_data<8> FLASH_A_DQ<9> 
+	FPGA_data<9> FLASH_A_A<0> FLASH_A_A<1> FLASH_A_A<10> FLASH_A_A<11> FLASH_A_A<12> FLASH_A_A<13> 
+	FLASH_A_A<14> FLASH_A_A<15> FLASH_A_A<16> FLASH_A_A<17> FLASH_A_A<18> FLASH_A_A<19> FLASH_A_A<2> 
+	FLASH_A_A<20> FLASH_A_A<21> FLASH_A_A<22> FLASH_A_A<3> FLASH_A_A<4> FLASH_A_A<5> FLASH_A_A<6> 
+	FLASH_A_A<7> FLASH_A_A<8> FLASH_A_A<9> FLASH_A_E FLASH_A_G FLASH_A_L FLASH_A_RP FLASH_A_W 
+	FLASH_A_K FPGA_CCLK LEDs<0> LEDs<1> LEDs<3> LEDs<2> FLASH_B_DQ<9> FLASH_B_DQ<8> FLASH_B_DQ<14> 
+	FLASH_B_DQ<13> FLASH_B_DQ<12> FLASH_B_DQ<11> FLASH_B_DQ<10> FLASH_B_DQ<0> FLASH_A_A<23> 
+	FLASH_B_DQ<7> FLASH_B_DQ<6> FLASH_B_DQ<5> FLASH_B_DQ<4> FLASH_B_DQ<3> FLASH_B_DQ<2> FLASH_B_DQ<1> 
+	FLASH_B_DQ<15> FLASH_A_WP FLASH_A_RW '; 
+xpla property 'TERMINATE_KEEPER FLASH_A_DQ<0> FPGA_data<0> FLASH_A_DQ<10> FPGA_data<10> 
+	FLASH_A_DQ<11> FPGA_data<11> FLASH_A_DQ<12> FPGA_data<12> FLASH_A_DQ<13> FPGA_data<13> 
+	FLASH_A_DQ<14> FPGA_data<14> FLASH_A_DQ<15> FPGA_data<15> FLASH_A_DQ<1> FPGA_data<1> FLASH_A_DQ<2> 
+	FPGA_data<2> FLASH_A_DQ<3> FPGA_data<3> FLASH_A_DQ<4> FPGA_data<4> FLASH_A_DQ<5> FPGA_data<5> 
+	FLASH_A_DQ<6> FPGA_data<6> FLASH_A_DQ<7> FPGA_data<7> FLASH_A_DQ<8> FPGA_data<8> FLASH_A_DQ<9> 
+	FPGA_data<9> '; 
+xpla property 'unused_keeper'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<0>.Q FLASH_A_DQ<0>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<0>.D 2.000000'; 
+xpla property 'timespec  FPGAData<0>.Q FLASH_A_DQ<0>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<0>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<0>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<10>.Q FLASH_A_DQ<10>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<10>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<10>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<10>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<11>.Q FLASH_A_DQ<11>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<11>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<11>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<11>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<12>.Q FLASH_A_DQ<12>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<12>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<12>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<12>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<13>.Q FLASH_A_DQ<13>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<13>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<13>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<13>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<14>.Q FLASH_A_DQ<14>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<14>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<14>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<14>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<15>.Q FLASH_A_DQ<15>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<15>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<15>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<15>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<1>.Q FLASH_A_DQ<1>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<1>.D 2.000000'; 
+xpla property 'timespec  FPGAData<1>.Q FLASH_A_DQ<1>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<1>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<1>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<2>.Q FLASH_A_DQ<2>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<2>.D 2.000000'; 
+xpla property 'timespec  FPGAData<2>.Q FLASH_A_DQ<2>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<2>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<2>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<3>.Q FLASH_A_DQ<3>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<3>.D 2.000000'; 
+xpla property 'timespec  FPGAData<3>.Q FLASH_A_DQ<3>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<3>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<3>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<4>.Q FLASH_A_DQ<4>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<4>.D 2.000000'; 
+xpla property 'timespec  FPGAData<4>.Q FLASH_A_DQ<4>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<4>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<4>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<5>.Q FLASH_A_DQ<5>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<5>.D 2.000000'; 
+xpla property 'timespec  FPGAData<5>.Q FLASH_A_DQ<5>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<5>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<5>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<6>.Q FLASH_A_DQ<6>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<6>.D 2.000000'; 
+xpla property 'timespec  FPGAData<6>.Q FLASH_A_DQ<6>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<6>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<6>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<7>.Q FLASH_A_DQ<7>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<7>.D 2.000000'; 
+xpla property 'timespec  FPGAData<7>.Q FLASH_A_DQ<7>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<7>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<7>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<8>.Q FLASH_A_DQ<8>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<8>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<8>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<8>.CLK 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<9>.Q FLASH_A_DQ<9>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<9>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ<9>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ<9>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q DelayedPause.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q DelayedPause.CLK 2.000000'; 
+xpla property 'timespec  PrevInit_B.Q ConfProceed.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q ConfProceed.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q ConfProceed.CLK 2.000000'; 
+xpla property 'timespec  PrevInit_B.Q ConfProceed.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q ConfProceed.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q AlternateCycle.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q AlternateCycle.D 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q AlternateCycle.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q AlternateCycle.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<0>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<0>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<0>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<10>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<10>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<10>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<11>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<11>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<11>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<12>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<12>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<12>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<13>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<13>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<13>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<14>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<14>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<14>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<15>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<15>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<15>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<16>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<16>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<16>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<17>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<17>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<17>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<18>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<18>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<18>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<19>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<19>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<19>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<1>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<1>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<1>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<20>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<20>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<20>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<21>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<21>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<21>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<22>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<22>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<22>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<2>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<2>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<2>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<3>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<3>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<3>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<4>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<4>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<4>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<5>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<5>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<5>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<6>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<6>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<6>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<7>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<7>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<7>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<8>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<8>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<8>.CE 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<9>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<9>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<9>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<0>.Q FLASH_A_DQ_buffered<0>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<0>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<0>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<0>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<0>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<0>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<0>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<0>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<10>.Q FLASH_A_DQ_buffered<10>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<10>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<10>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<10>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<10>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<10>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<10>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<10>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<11>.Q FLASH_A_DQ_buffered<11>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<11>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<11>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<11>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<11>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<11>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<11>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<11>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<12>.Q FLASH_A_DQ_buffered<12>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<12>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<12>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<12>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<12>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<12>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<12>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<12>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<13>.Q FLASH_A_DQ_buffered<13>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<13>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<13>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<13>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<13>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<13>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<13>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<13>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<14>.Q FLASH_A_DQ_buffered<14>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<14>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<14>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<14>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<14>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<14>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<14>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<14>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<15>.Q FLASH_A_DQ_buffered<15>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<15>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<15>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<15>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<15>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<15>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<15>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<15>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<1>.Q FLASH_A_DQ_buffered<1>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<1>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<1>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<1>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<1>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<1>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<1>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<1>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<2>.Q FLASH_A_DQ_buffered<2>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<2>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<2>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<2>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<2>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<2>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<2>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<2>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<3>.Q FLASH_A_DQ_buffered<3>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<3>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<3>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<3>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<3>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<3>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<3>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<3>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<4>.Q FLASH_A_DQ_buffered<4>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<4>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<4>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<4>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<4>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<4>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<4>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<4>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<5>.Q FLASH_A_DQ_buffered<5>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<5>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<5>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<5>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<5>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<5>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<5>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<5>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<6>.Q FLASH_A_DQ_buffered<6>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<6>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<6>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<6>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<6>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<6>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<6>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<6>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<7>.Q FLASH_A_DQ_buffered<7>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<7>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<7>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<7>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<7>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<7>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<7>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<7>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<8>.Q FLASH_A_DQ_buffered<8>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<8>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<8>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<8>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<8>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<8>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<8>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<8>.CE 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ<9>.Q FLASH_A_DQ_buffered<9>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<9>.D 2.000000'; 
+xpla property 'timespec  Flash_A_G_buffered.Q FLASH_A_DQ_buffered<9>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<9>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<9>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_A_DQ_buffered<9>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_DQ_buffered<9>.CE 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_A_DQ_buffered<9>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q Flash_A_G_buffered.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q PrevInit_B.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<23>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<23>.CLK 2.000000'; 
+xpla property 'timespec  ConfProceed.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<0>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<1>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<2>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<3>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<4>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<5>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<6>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<7>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<10>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<11>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<12>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<13>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<14>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<16>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<8>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<9>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<15>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<17>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<18>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<19>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<20>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<21>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<22>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  pause<23>.Q pause<23>.CE 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FLASH_AK.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_AK.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_AK.CLK 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FLASH_AK.CE 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_AK.CE 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FPGAData<0>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<0>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<7>.Q FPGAData<0>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FPGAData<0>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<15>.Q FPGAData<0>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<0>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FPGAData<1>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<1>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<6>.Q FPGAData<1>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FPGAData<1>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<14>.Q FPGAData<1>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<1>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FPGAData<2>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<2>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<5>.Q FPGAData<2>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FPGAData<2>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<13>.Q FPGAData<2>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<2>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FPGAData<3>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<3>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<4>.Q FPGAData<3>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FPGAData<3>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<12>.Q FPGAData<3>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<3>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FPGAData<4>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<4>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<3>.Q FPGAData<4>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FPGAData<4>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<11>.Q FPGAData<4>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<4>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FPGAData<5>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<5>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<2>.Q FPGAData<5>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FPGAData<5>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<10>.Q FPGAData<5>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<5>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FPGAData<6>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<6>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<1>.Q FPGAData<6>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FPGAData<6>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<9>.Q FPGAData<6>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<6>.CLK 2.000000'; 
+xpla property 'timespec  AlternateCycle.Q FPGAData<7>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<7>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<0>.Q FPGAData<7>.D 2.000000'; 
+xpla property 'timespec  DelayedPause.Q FPGAData<7>.D 2.000000'; 
+xpla property 'timespec  FLASH_A_DQ_buffered<8>.Q FPGAData<7>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FPGAData<7>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<0>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<1>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<10>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<11>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<12>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<13>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<14>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<15>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<16>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<17>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<18>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<19>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<2>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<20>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<21>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<22>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<3>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<4>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<5>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<6>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<7>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<8>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_A<9>.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<0>.Q clk_cnt_i<0>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q clk_cnt_i<1>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<0>.Q clk_cnt_i<1>.D 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_E.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_G.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_L.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_RP.CLK 2.000000'; 
+xpla property 'timespec  clk_cnt_i<1>.Q FLASH_A_W.CLK 2.000000'; 
+xpla property 'IOSTD FLASH_A_DQ<0> 0 -1';
+xpla property 'IOSTD FPGA_data<0> 0 -1';
+xpla property 'IOSTD FPGA_clock 0 -1';
+xpla property 'IOSTD DONE 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<10> 0 -1';
+xpla property 'IOSTD FPGA_data<10> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<11> 0 -1';
+xpla property 'IOSTD FPGA_data<11> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<12> 0 -1';
+xpla property 'IOSTD FPGA_data<12> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<13> 0 -1';
+xpla property 'IOSTD FPGA_data<13> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<14> 0 -1';
+xpla property 'IOSTD FPGA_data<14> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<15> 0 -1';
+xpla property 'IOSTD FPGA_data<15> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<1> 0 -1';
+xpla property 'IOSTD FPGA_data<1> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<2> 0 -1';
+xpla property 'IOSTD FPGA_data<2> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<3> 0 -1';
+xpla property 'IOSTD FPGA_data<3> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<4> 0 -1';
+xpla property 'IOSTD FPGA_data<4> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<5> 0 -1';
+xpla property 'IOSTD FPGA_data<5> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<6> 0 -1';
+xpla property 'IOSTD FPGA_data<6> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<7> 0 -1';
+xpla property 'IOSTD FPGA_data<7> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<8> 0 -1';
+xpla property 'IOSTD FPGA_data<8> 0 -1';
+xpla property 'IOSTD FLASH_A_DQ<9> 0 -1';
+xpla property 'IOSTD FPGA_data<9> 0 -1';
+xpla property 'IOSTD INIT_B 0 -1';
+xpla property 'IOSTD FPGA_G 0 -1';
+xpla property 'IOSTD FLASH_A_A<0> 0 -1';
+xpla property 'IOSTD FPGA_A<0> 0 -1';
+xpla property 'IOSTD FLASH_A_A<1> 0 -1';
+xpla property 'IOSTD FPGA_A<1> 0 -1';
+xpla property 'IOSTD FLASH_A_A<10> 0 -1';
+xpla property 'IOSTD FPGA_A<10> 0 -1';
+xpla property 'IOSTD FLASH_A_A<11> 0 -1';
+xpla property 'IOSTD FPGA_A<11> 0 -1';
+xpla property 'IOSTD FLASH_A_A<12> 0 -1';
+xpla property 'IOSTD FPGA_A<12> 0 -1';
+xpla property 'IOSTD FLASH_A_A<13> 0 -1';
+xpla property 'IOSTD FPGA_A<13> 0 -1';
+xpla property 'IOSTD FLASH_A_A<14> 0 -1';
+xpla property 'IOSTD FPGA_A<14> 0 -1';
+xpla property 'IOSTD FLASH_A_A<15> 0 -1';
+xpla property 'IOSTD FPGA_A<15> 0 -1';
+xpla property 'IOSTD FLASH_A_A<16> 0 -1';
+xpla property 'IOSTD FPGA_A<16> 0 -1';
+xpla property 'IOSTD FLASH_A_A<17> 0 -1';
+xpla property 'IOSTD FPGA_A<17> 0 -1';
+xpla property 'IOSTD FLASH_A_A<18> 0 -1';
+xpla property 'IOSTD FPGA_A<18> 0 -1';
+xpla property 'IOSTD FLASH_A_A<19> 0 -1';
+xpla property 'IOSTD FPGA_A<19> 0 -1';
+xpla property 'IOSTD FLASH_A_A<2> 0 -1';
+xpla property 'IOSTD FPGA_A<2> 0 -1';
+xpla property 'IOSTD FLASH_A_A<20> 0 -1';
+xpla property 'IOSTD FPGA_A<20> 0 -1';
+xpla property 'IOSTD FLASH_A_A<21> 0 -1';
+xpla property 'IOSTD FPGA_A<21> 0 -1';
+xpla property 'IOSTD FLASH_A_A<22> 0 -1';
+xpla property 'IOSTD FPGA_A<22> 0 -1';
+xpla property 'IOSTD FLASH_A_A<3> 0 -1';
+xpla property 'IOSTD FPGA_A<3> 0 -1';
+xpla property 'IOSTD FLASH_A_A<4> 0 -1';
+xpla property 'IOSTD FPGA_A<4> 0 -1';
+xpla property 'IOSTD FLASH_A_A<5> 0 -1';
+xpla property 'IOSTD FPGA_A<5> 0 -1';
+xpla property 'IOSTD FLASH_A_A<6> 0 -1';
+xpla property 'IOSTD FPGA_A<6> 0 -1';
+xpla property 'IOSTD FLASH_A_A<7> 0 -1';
+xpla property 'IOSTD FPGA_A<7> 0 -1';
+xpla property 'IOSTD FLASH_A_A<8> 0 -1';
+xpla property 'IOSTD FPGA_A<8> 0 -1';
+xpla property 'IOSTD FLASH_A_A<9> 0 -1';
+xpla property 'IOSTD FPGA_A<9> 0 -1';
+xpla property 'IOSTD CPLD_100MHZ 0 -1';
+xpla property 'IOSTD Program_B 0 -1';
+xpla property 'IOSTD FPGA_RP 0 -1';
+xpla property 'IOSTD FLASH_A_E 0 -1';
+xpla property 'IOSTD FPGA_E 0 -1';
+xpla property 'IOSTD FLASH_A_G 0 -1';
+xpla property 'IOSTD FLASH_A_L 0 -1';
+xpla property 'IOSTD FPGA_L 0 -1';
+xpla property 'IOSTD FLASH_A_RP 0 -1';
+xpla property 'IOSTD FLASH_A_W 0 -1';
+xpla property 'IOSTD FPGA_W 0 -1';
+xpla property 'IOSTD FLASH_A_K 0 -1';
+xpla property 'IOSTD FPGA_CCLK 0 -1';
+xpla property 'IOSTD LEDs<0> 0 -1';
+xpla property 'IOSTD LEDs<1> 0 -1';
+xpla property 'IOSTD LEDs<3> 0 -1';
+xpla property 'IOSTD LEDs<2> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<9> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<8> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<14> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<13> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<12> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<11> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<10> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<0> 0 -1';
+xpla property 'IOSTD FLASH_A_A<23> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<7> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<6> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<5> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<4> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<3> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<2> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<1> 0 -1';
+xpla property 'IOSTD FLASH_B_DQ<15> 0 -1';
+xpla property 'IOSTD FLASH_A_WP 0 -1';
+xpla property 'IOSTD FLASH_A_RW 0 -1';
+EQUATIONS 
+
+ AlternateCycle.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ AlternateCycle.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q
+      # DONE & AlternateCycle.Q;		"--- [PT=2, FI=3, LVL=1] ---
+ ConfProceed.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ ConfProceed.D = !DONE & INIT_B & !PrevInit_B.Q
+      # ConfProceed.Q & N_PZ_585;		"--- [PT=2, FI=5, LVL=2] ---
+ DelayedPause.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! DelayedPause.D = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !
+    pause<1>.Q & !pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !pause<2>.Q & !
+    pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    pause<23>.Q & !N_PZ_550 & !N_PZ_557 & N_PZ_559
+      # DONE & !DelayedPause.Q;		"--- [PT=2, FI=24, LVL=2] ---
+ FLASH_AK.CE = N_PZ_560;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_AK.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_AK.D = AlternateCycle.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<0>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<0>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<0>.D = FPGA_A<0>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<10>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<10>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<10>.D = FPGA_A<10>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<11>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<11>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<11>.D = FPGA_A<11>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<12>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<12>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<12>.D = FPGA_A<12>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<13>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<13>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<13>.D = FPGA_A<13>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<14>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<14>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<14>.D = FPGA_A<14>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<15>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<15>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<15>.D = FPGA_A<15>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<16>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<16>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<16>.D = FPGA_A<16>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<17>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<17>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<17>.D = FPGA_A<17>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<18>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<18>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<18>.D = FPGA_A<18>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<19>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<19>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<19>.D = FPGA_A<19>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<1>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<1>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<1>.D = FPGA_A<1>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<20>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<20>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<20>.D = FPGA_A<20>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<21>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<21>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<21>.D = FPGA_A<21>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<22>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<22>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<22>.D = FPGA_A<22>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<23> = 0;
+ FLASH_A_A<2>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<2>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<2>.D = FPGA_A<2>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<3>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<3>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<3>.D = FPGA_A<3>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<4>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<4>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<4>.D = FPGA_A<4>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<5>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<5>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<5>.D = FPGA_A<5>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<6>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<6>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<6>.D = FPGA_A<6>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<7>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<7>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<7>.D = FPGA_A<7>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<8>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<8>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<8>.D = FPGA_A<8>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<9>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_A<9>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_A<9>.D = FPGA_A<9>;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<0>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<0>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<0>.D = FPGA_data<0>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<0>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<10>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<10>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<10>.D = FPGA_data<10>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<10>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<11>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<11>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<11>.D = FPGA_data<11>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<11>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<12>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<12>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<12>.D = FPGA_data<12>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<12>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<13>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<13>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<13>.D = FPGA_data<13>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<13>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<14>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<14>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<14>.D = FPGA_data<14>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<14>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<15>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<15>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<15>.D = FPGA_data<15>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<15>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<1>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<1>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<1>.D = FPGA_data<1>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<1>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<2>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<2>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<2>.D = FPGA_data<2>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<2>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<3>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<3>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<3>.D = FPGA_data<3>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<3>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<4>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<4>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<4>.D = FPGA_data<4>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<4>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<5>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<5>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<5>.D = FPGA_data<5>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<5>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<6>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<6>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<6>.D = FPGA_data<6>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<6>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<7>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<7>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<7>.D = FPGA_data<7>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<7>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<8>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<8>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<8>.D = FPGA_data<8>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<8>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<9>.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<9>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ<9>.D = FPGA_data<9>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ FLASH_A_DQ<9>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_DQ_buffered<0>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<0>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<0>.Q
+      # !FLASH_A_DQ<0>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<10>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<10>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<10>.Q
+      # !FLASH_A_DQ<10>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<11>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<11>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<11>.Q
+      # !FLASH_A_DQ<11>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<12>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<12>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<12>.Q
+      # !FLASH_A_DQ<12>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<13>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<13>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<13>.Q
+      # !FLASH_A_DQ<13>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<14>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<14>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<14>.Q
+      # !FLASH_A_DQ<14>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<15>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<15>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<15>.Q
+      # !FLASH_A_DQ<15>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<1>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<1>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<1>.Q
+      # !FLASH_A_DQ<1>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<2>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<2>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<2>.Q
+      # !FLASH_A_DQ<2>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<3>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<3>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<3>.Q
+      # !FLASH_A_DQ<3>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<4>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<4>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<4>.Q
+      # !FLASH_A_DQ<4>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<5>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<5>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<5>.Q
+      # !FLASH_A_DQ<5>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<6>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<6>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<6>.Q
+      # !FLASH_A_DQ<6>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<7>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<7>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<7>.Q
+      # !FLASH_A_DQ<7>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<8>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<8>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<8>.Q
+      # !FLASH_A_DQ<8>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_DQ_buffered<9>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_DQ_buffered<9>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<9>.Q
+      # !FLASH_A_DQ<9>.PIN & N_PZ_551;		"--- [PT=2, FI=6, LVL=2] ---
+ FLASH_A_E.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_E.D = DONE & FPGA_E;		"--- [PT=1, FI=2, LVL=1] ---
+ FLASH_A_G.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_G.D = DONE & FPGA_G;		"--- [PT=1, FI=2, LVL=1] ---
+! FLASH_A_K = DONE & !clk_cnt_i<1>.Q
+      # !DONE & !FLASH_AK.Q;		"--- [PT=2, FI=3, LVL=1] ---
+ FLASH_A_L.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ FLASH_A_L.D = DONE & FPGA_L;		"--- [PT=1, FI=2, LVL=1] ---
+ FLASH_A_RP.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_RP.D = DONE & !FPGA_RP
+      # !N_PZ_585;		"--- [PT=2, FI=3, LVL=2] ---
+ FLASH_A_RW = 1;
+ FLASH_A_W.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FLASH_A_W.D = DONE & !FPGA_W;		"--- [PT=1, FI=2, LVL=1] ---
+ FLASH_A_WP = 1;
+ FLASH_B_DQ<0> = 0;
+ FLASH_B_DQ<10> = 0;
+ FLASH_B_DQ<11> = 0;
+ FLASH_B_DQ<12> = 0;
+ FLASH_B_DQ<13> = 0;
+ FLASH_B_DQ<14> = 0;
+ FLASH_B_DQ<15> = 0;
+ FLASH_B_DQ<1> = 0;
+ FLASH_B_DQ<2> = 0;
+ FLASH_B_DQ<3> = 0;
+ FLASH_B_DQ<4> = 0;
+ FLASH_B_DQ<5> = 0;
+ FLASH_B_DQ<6> = 0;
+ FLASH_B_DQ<7> = 0;
+ FLASH_B_DQ<8> = 0;
+ FLASH_B_DQ<9> = 0;
+ FPGAData<0>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGAData<0>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<7>.Q
+      # !DONE & !DelayedPause.Q & AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<15>.Q
+      # DONE & !FPGAData<0>.Q;		"--- [PT=3, FI=6, LVL=1] ---
+ FPGAData<1>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGAData<1>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<6>.Q
+      # !DONE & !DelayedPause.Q & AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<14>.Q
+      # DONE & !FPGAData<1>.Q;		"--- [PT=3, FI=6, LVL=1] ---
+ FPGAData<2>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGAData<2>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<5>.Q
+      # !DONE & !DelayedPause.Q & AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<13>.Q
+      # DONE & !FPGAData<2>.Q;		"--- [PT=3, FI=6, LVL=1] ---
+ FPGAData<3>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGAData<3>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<4>.Q
+      # !DONE & !DelayedPause.Q & AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<12>.Q
+      # DONE & !FPGAData<3>.Q;		"--- [PT=3, FI=6, LVL=1] ---
+ FPGAData<4>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGAData<4>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<3>.Q
+      # !DONE & !DelayedPause.Q & AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<11>.Q
+      # DONE & !FPGAData<4>.Q;		"--- [PT=3, FI=6, LVL=1] ---
+ FPGAData<5>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGAData<5>.D = !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<2>.Q
+      # !DONE & !DelayedPause.Q & AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<10>.Q
+      # DONE & !FPGAData<5>.Q;		"--- [PT=3, FI=6, LVL=1] ---
+ FPGAData<6>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGAData<6>.D = !DONE & !DelayedPause.Q & AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<9>.Q
+      # !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<1>.Q
+      # DONE & !FPGAData<6>.Q;		"--- [PT=3, FI=6, LVL=1] ---
+ FPGAData<7>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGAData<7>.D = !DONE & !DelayedPause.Q & AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<8>.Q
+      # !DONE & !DelayedPause.Q & !AlternateCycle.Q & !
+    FLASH_A_DQ_buffered<0>.Q
+      # DONE & !FPGAData<7>.Q;		"--- [PT=3, FI=6, LVL=1] ---
+ FPGA_CCLK = N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_clock = N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<0> = !DONE & !FPGAData<0>.Q
+      # DONE & !FLASH_A_DQ_buffered<0>.Q;		"--- [PT=2, FI=3, LVL=1] ---
+! FPGA_data<0>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<10> = DONE & !FLASH_A_DQ_buffered<10>.Q
+    ;		"--- [PT=1, FI=2, LVL=1] ---
+! FPGA_data<10>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<11> = DONE & !FLASH_A_DQ_buffered<11>.Q
+    ;		"--- [PT=1, FI=2, LVL=1] ---
+! FPGA_data<11>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<12> = DONE & !FLASH_A_DQ_buffered<12>.Q
+    ;		"--- [PT=1, FI=2, LVL=1] ---
+! FPGA_data<12>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<13> = DONE & !FLASH_A_DQ_buffered<13>.Q
+    ;		"--- [PT=1, FI=2, LVL=1] ---
+! FPGA_data<13>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<14> = DONE & !FLASH_A_DQ_buffered<14>.Q
+    ;		"--- [PT=1, FI=2, LVL=1] ---
+! FPGA_data<14>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<15> = DONE & !FLASH_A_DQ_buffered<15>.Q
+    ;		"--- [PT=1, FI=2, LVL=1] ---
+! FPGA_data<15>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<1> = !DONE & !FPGAData<1>.Q
+      # DONE & !FLASH_A_DQ_buffered<1>.Q;		"--- [PT=2, FI=3, LVL=1] ---
+! FPGA_data<1>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<2> = !DONE & !FPGAData<2>.Q
+      # DONE & !FLASH_A_DQ_buffered<2>.Q;		"--- [PT=2, FI=3, LVL=1] ---
+! FPGA_data<2>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<3> = !DONE & !FPGAData<3>.Q
+      # DONE & !FLASH_A_DQ_buffered<3>.Q;		"--- [PT=2, FI=3, LVL=1] ---
+! FPGA_data<3>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<4> = !DONE & !FPGAData<4>.Q
+      # DONE & !FLASH_A_DQ_buffered<4>.Q;		"--- [PT=2, FI=3, LVL=1] ---
+! FPGA_data<4>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<5> = !DONE & !FPGAData<5>.Q
+      # DONE & !FLASH_A_DQ_buffered<5>.Q;		"--- [PT=2, FI=3, LVL=1] ---
+! FPGA_data<5>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<6> = !DONE & !FPGAData<6>.Q
+      # DONE & !FLASH_A_DQ_buffered<6>.Q;		"--- [PT=2, FI=3, LVL=1] ---
+! FPGA_data<6>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<7> = !DONE & !FPGAData<7>.Q
+      # DONE & !FLASH_A_DQ_buffered<7>.Q;		"--- [PT=2, FI=3, LVL=1] ---
+! FPGA_data<7>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<8> = DONE & !FLASH_A_DQ_buffered<8>.Q
+    ;		"--- [PT=1, FI=2, LVL=1] ---
+! FPGA_data<8>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+! FPGA_data<9> = DONE & !FLASH_A_DQ_buffered<9>.Q
+    ;		"--- [PT=1, FI=2, LVL=1] ---
+! FPGA_data<9>.OE = N_PZ_561;		"--- [PT=1, FI=1, LVL=2] ---
+ Flash_A_G_buffered.CE = DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ Flash_A_G_buffered.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ Flash_A_G_buffered.D = FPGA_G;		"--- [PT=1, FI=1, LVL=1] ---
+ LEDs<0> = Program_B;		"--- [PT=1, FI=1, LVL=1] ---
+ LEDs<1> = INIT_B;		"--- [PT=1, FI=1, LVL=1] ---
+ LEDs<2> = 0;
+ LEDs<3> = FPGA_data<0>.PIN;		"--- [PT=1, FI=1, LVL=1] ---
+ N_PZ_539 = !DONE & !CPLD_100MHZ
+      # DONE & !clk_cnt_i<1>.Q;		"--- [PT=2, FI=3, LVL=1] ---
+ N_PZ_540 = pause<23>.Q
+      # pause<22>.Q;		"--- [PT=2, FI=2, LVL=1] ---
+ N_PZ_547 = pause<1>.Q
+      # pause<0>.Q;		"--- [PT=2, FI=2, LVL=1] ---
+ N_PZ_550 = pause<4>.Q
+      # pause<3>.Q;		"--- [PT=2, FI=2, LVL=1] ---
+ N_PZ_551 = !DelayedPause.Q & AlternateCycle.Q
+      # DONE;		"--- [PT=2, FI=3, LVL=1] ---
+ N_PZ_553 = pause<6>.Q
+      # pause<5>.Q;		"--- [PT=2, FI=2, LVL=1] ---
+ N_PZ_554 = pause<8>.Q
+      # pause<7>.Q;		"--- [PT=2, FI=2, LVL=1] ---
+ N_PZ_557 = pause<14>.Q
+      # pause<13>.Q;		"--- [PT=2, FI=2, LVL=1] ---
+ N_PZ_559 = !pause<11>.Q & !pause<12>.Q;		"--- [PT=1, FI=2, LVL=1] ---
+ N_PZ_560 = !DONE & !DelayedPause.Q;		"--- [PT=1, FI=2, LVL=1] ---
+ N_PZ_561 = DONE & Flash_A_G_buffered.Q;		"--- [PT=1, FI=2, LVL=1] ---
+ N_PZ_569 = !DONE & !ConfProceed.Q;		"--- [PT=1, FI=2, LVL=1] ---
+ N_PZ_576 = !DONE & ConfProceed.Q;		"--- [PT=1, FI=2, LVL=1] ---
+ N_PZ_585 = Program_B
+      # DONE;		"--- [PT=2, FI=2, LVL=1] ---
+ PrevInit_B.CE = !DONE;		"--- [PT=1, FI=1, LVL=1] ---
+ PrevInit_B.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ PrevInit_B.D = INIT_B;		"--- [PT=1, FI=1, LVL=1] ---
+ clk_cnt_i<0>.CLK = CPLD_100MHZ;		"--- [PT=1, FI=1, LVL=1] ---
+ clk_cnt_i<0>.T = 1;
+ clk_cnt_i<1>.CLK = CPLD_100MHZ;		"--- [PT=1, FI=1, LVL=1] ---
+ clk_cnt_i<1>.T = clk_cnt_i<0>.Q;		"--- [PT=1, FI=1, LVL=1] ---
+ pause<0>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<0>.D = !DONE & ConfProceed.Q & !pause<10>.Q & !pause<15>.Q & !
+    pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !pause<1>.Q & !
+    pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !pause<2>.Q & !pause<5>.Q & !
+    pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !pause<23>.Q & !
+    N_PZ_550 & !N_PZ_557 & N_PZ_559
+      # pause<0>.Q & N_PZ_576
+      # DONE & !pause<0>.Q;		"--- [PT=3, FI=24, LVL=2] ---
+ pause<10>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<10>.T = !pause<10>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !
+    pause<18>.Q & !pause<19>.Q & !pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !
+    pause<23>.Q & !N_PZ_557 & N_PZ_559
+      # ConfProceed.Q & N_PZ_554
+      # ConfProceed.Q & N_PZ_553
+      # ConfProceed.Q & N_PZ_550
+      # ConfProceed.Q & pause<9>.Q
+      # ConfProceed.Q & pause<2>.Q
+      # ConfProceed.Q & pause<1>.Q
+      # !ConfProceed.Q & !pause<10>.Q
+      # ConfProceed.Q & pause<0>.Q
+      # DONE;		"--- [PT=10, FI=21, LVL=2] ---
+ pause<11>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<11>.T = !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !
+    pause<19>.Q & !pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !pause<23>.Q & !
+    N_PZ_557 & N_PZ_559
+      # ConfProceed.Q & N_PZ_553
+      # ConfProceed.Q & N_PZ_550
+      # ConfProceed.Q & pause<9>.Q
+      # ConfProceed.Q & pause<8>.Q
+      # ConfProceed.Q & pause<7>.Q
+      # ConfProceed.Q & pause<2>.Q
+      # ConfProceed.Q & pause<1>.Q
+      # !ConfProceed.Q & !pause<11>.Q
+      # ConfProceed.Q & pause<10>.Q
+      # ConfProceed.Q & pause<0>.Q
+      # DONE;		"--- [PT=12, FI=23, LVL=2] ---
+ pause<12>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ pause<12>.T = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<11>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & N_PZ_557
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & 
+    pause<23>.Q & !N_PZ_550 & !N_PZ_553
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !
+    pause<1>.Q & pause<22>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !
+    pause<1>.Q & pause<21>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !
+    pause<1>.Q & pause<20>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & 
+    pause<19>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & 
+    pause<18>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & 
+    pause<17>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & 
+    pause<16>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & 
+    pause<15>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553
+      # !DONE & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & pause<12>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553
+      # pause<12>.Q & N_PZ_569;		"--- [PT=12, FI=24, LVL=2] ---
+ pause<13>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ pause<13>.T = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & 
+    pause<23>.Q & !N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<1>.Q & 
+    pause<22>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<1>.Q & 
+    pause<21>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<1>.Q & 
+    pause<20>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & pause<19>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & pause<18>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & pause<17>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & pause<16>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & pause<15>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & pause<14>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & !pause<0>.Q & !pause<10>.Q & pause<13>.Q & !pause<1>.Q & !
+    pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_550 & !
+    N_PZ_553 & N_PZ_559
+      # pause<13>.Q & N_PZ_569;		"--- [PT=12, FI=24, LVL=2] ---
+ pause<14>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ pause<14>.T = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<13>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & pause<23>.Q & !N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & !
+    pause<1>.Q & pause<22>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & !
+    pause<1>.Q & pause<21>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & !
+    pause<1>.Q & pause<20>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & 
+    pause<19>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & 
+    pause<18>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & 
+    pause<17>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & 
+    pause<16>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & 
+    pause<15>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # !DONE & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & pause<14>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & N_PZ_559
+      # pause<14>.Q & N_PZ_569;		"--- [PT=11, FI=24, LVL=2] ---
+ pause<15>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ pause<15>.T = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & 
+    pause<23>.Q & !N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<1>.Q & 
+    pause<22>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<1>.Q & 
+    pause<21>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<1>.Q & 
+    pause<20>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & pause<19>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & pause<18>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & pause<17>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & pause<16>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & !pause<0>.Q & !pause<10>.Q & pause<15>.Q & !pause<1>.Q & !
+    pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_550 & !
+    N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # pause<15>.Q & N_PZ_569;		"--- [PT=10, FI=23, LVL=2] ---
+ pause<16>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ pause<16>.T = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<15>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & pause<23>.Q & !N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+    
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & !
+    pause<1>.Q & pause<22>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & !
+    pause<1>.Q & pause<21>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & !
+    pause<1>.Q & pause<20>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & 
+    pause<19>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & 
+    pause<18>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & 
+    pause<17>.Q & !pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & pause<16>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550 & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # pause<16>.Q & N_PZ_569;		"--- [PT=9, FI=23, LVL=2] ---
+ pause<17>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ pause<17>.T = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<15>.Q & !pause<16>.Q & !pause<1>.Q & !pause<2>.Q & !pause<3>.Q & !
+    pause<4>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & pause<23>.Q & !
+    N_PZ_553 & !N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & !
+    pause<16>.Q & !pause<1>.Q & pause<22>.Q & !pause<2>.Q & !pause<3>.Q & !
+    pause<4>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_553 & !
+    N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & !
+    pause<16>.Q & !pause<1>.Q & pause<21>.Q & !pause<2>.Q & !pause<3>.Q & !
+    pause<4>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_553 & !
+    N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & !
+    pause<16>.Q & !pause<1>.Q & pause<20>.Q & !pause<2>.Q & !pause<3>.Q & !
+    pause<4>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_553 & !
+    N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & !
+    pause<16>.Q & pause<19>.Q & !pause<1>.Q & !pause<2>.Q & !pause<3>.Q & !
+    pause<4>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_553 & !
+    N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & !
+    pause<16>.Q & pause<18>.Q & !pause<1>.Q & !pause<2>.Q & !pause<3>.Q & !
+    pause<4>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_553 & !
+    N_PZ_557 & N_PZ_559
+      # !DONE & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & !pause<16>.Q & 
+    pause<17>.Q & !pause<1>.Q & !pause<2>.Q & !pause<3>.Q & !pause<4>.Q & !
+    pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_553 & !N_PZ_557 & N_PZ_559
+    
+      # pause<17>.Q & N_PZ_569;		"--- [PT=8, FI=24, LVL=2] ---
+ pause<18>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ pause<18>.T = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<11>.Q & !pause<12>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<3>.Q & !pause<4>.Q & !pause<5>.Q & !
+    pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & pause<23>.Q & !
+    N_PZ_557
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !
+    pause<12>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<1>.Q & 
+    pause<22>.Q & !pause<2>.Q & !pause<3>.Q & !pause<4>.Q & !pause<5>.Q & !
+    pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_557
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !
+    pause<12>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<1>.Q & 
+    pause<21>.Q & !pause<2>.Q & !pause<3>.Q & !pause<4>.Q & !pause<5>.Q & !
+    pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_557
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !
+    pause<12>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<1>.Q & 
+    pause<20>.Q & !pause<2>.Q & !pause<3>.Q & !pause<4>.Q & !pause<5>.Q & !
+    pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_557
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !
+    pause<12>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & pause<19>.Q & !
+    pause<1>.Q & !pause<2>.Q & !pause<3>.Q & !pause<4>.Q & !pause<5>.Q & !
+    pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_557
+      # !DONE & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !pause<12>.Q & !
+    pause<15>.Q & !pause<16>.Q & !pause<17>.Q & pause<18>.Q & !pause<1>.Q & !
+    pause<2>.Q & !pause<3>.Q & !pause<4>.Q & !pause<5>.Q & !pause<6>.Q & !
+    pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_557
+      # pause<18>.Q & N_PZ_569;		"--- [PT=7, FI=26, LVL=2] ---
+ pause<19>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ pause<19>.T = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<11>.Q & !pause<12>.Q & !pause<13>.Q & !pause<14>.Q & !pause<15>.Q & !
+    pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<1>.Q & !pause<2>.Q & !
+    pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & 
+    pause<23>.Q & !N_PZ_550
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !
+    pause<12>.Q & !pause<13>.Q & !pause<14>.Q & !pause<15>.Q & !pause<16>.Q & !
+    pause<17>.Q & !pause<18>.Q & !pause<1>.Q & pause<22>.Q & !pause<2>.Q & !
+    pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !
+    pause<12>.Q & !pause<13>.Q & !pause<14>.Q & !pause<15>.Q & !pause<16>.Q & !
+    pause<17>.Q & !pause<18>.Q & !pause<1>.Q & pause<21>.Q & !pause<2>.Q & !
+    pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !
+    pause<12>.Q & !pause<13>.Q & !pause<14>.Q & !pause<15>.Q & !pause<16>.Q & !
+    pause<17>.Q & !pause<18>.Q & !pause<1>.Q & pause<20>.Q & !pause<2>.Q & !
+    pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    N_PZ_550
+      # !DONE & !pause<0>.Q & !pause<10>.Q & !pause<11>.Q & !pause<12>.Q & !
+    pause<13>.Q & !pause<14>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !
+    pause<18>.Q & pause<19>.Q & !pause<1>.Q & !pause<2>.Q & !pause<5>.Q & !
+    pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !N_PZ_550
+      # pause<19>.Q & N_PZ_569;		"--- [PT=6, FI=26, LVL=2] ---
+ pause<1>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<1>.D = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !
+    pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !pause<2>.Q & !pause<5>.Q & !
+    pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !pause<23>.Q & !
+    N_PZ_550 & !N_PZ_557 & N_PZ_559
+      # !pause<0>.Q & pause<1>.Q & N_PZ_576
+      # ConfProceed.Q & pause<0>.Q & !pause<1>.Q
+      # DONE & !pause<1>.Q;		"--- [PT=4, FI=24, LVL=2] ---
+ pause<20>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ pause<20>.T = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<13>.Q & !pause<14>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !
+    pause<18>.Q & !pause<19>.Q & !pause<1>.Q & !pause<2>.Q & !pause<3>.Q & !
+    pause<4>.Q & !pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & pause<23>.Q & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & !
+    pause<14>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !
+    pause<19>.Q & !pause<1>.Q & pause<22>.Q & !pause<2>.Q & !pause<3>.Q & !
+    pause<4>.Q & !pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & !
+    pause<14>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !
+    pause<19>.Q & !pause<1>.Q & pause<21>.Q & !pause<2>.Q & !pause<3>.Q & !
+    pause<4>.Q & !pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & N_PZ_559
+      # !DONE & !pause<0>.Q & !pause<10>.Q & !pause<13>.Q & !pause<14>.Q & !
+    pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !
+    pause<1>.Q & pause<20>.Q & !pause<2>.Q & !pause<3>.Q & !pause<4>.Q & !
+    pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & 
+    N_PZ_559
+      # pause<20>.Q & N_PZ_569;		"--- [PT=5, FI=26, LVL=2] ---
+ pause<21>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ pause<21>.T = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !
+    pause<1>.Q & !pause<20>.Q & !pause<2>.Q & !pause<5>.Q & !pause<6>.Q & !
+    pause<7>.Q & !pause<8>.Q & !pause<9>.Q & N_PZ_540 & !N_PZ_550 & !N_PZ_557
+     & N_PZ_559
+      # !DONE & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & !pause<16>.Q & !
+    pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !pause<1>.Q & !pause<20>.Q & 
+    pause<21>.Q & !pause<2>.Q & !pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !
+    pause<8>.Q & !pause<9>.Q & !N_PZ_550 & !N_PZ_557 & N_PZ_559
+      # pause<21>.Q & N_PZ_569;		"--- [PT=3, FI=23, LVL=2] ---
+ pause<22>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+ pause<22>.T = !DONE & ConfProceed.Q & !pause<0>.Q & !pause<10>.Q & !
+    pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !
+    pause<1>.Q & !pause<20>.Q & !pause<21>.Q & !pause<2>.Q & !pause<5>.Q & !
+    pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & N_PZ_540 & !
+    N_PZ_550 & !N_PZ_557 & N_PZ_559
+      # pause<22>.Q & N_PZ_569;		"--- [PT=2, FI=24, LVL=2] ---
+ pause<23>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<23>.D = !DONE & !pause<0>.Q & !pause<10>.Q & !pause<15>.Q & !
+    pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !pause<1>.Q & !
+    pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !pause<2>.Q & !pause<3>.Q & !
+    pause<4>.Q & !pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !
+    pause<9>.Q & !N_PZ_557 & N_PZ_559
+      # N_PZ_569
+      # !pause<23>.Q;		"--- [PT=3, FI=24, LVL=2] ---
+ pause<2>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<2>.D = ConfProceed.Q & !pause<10>.Q & !pause<15>.Q & !pause<16>.Q & !
+    pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !pause<20>.Q & !pause<21>.Q & !
+    pause<22>.Q & !pause<2>.Q & !pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !
+    pause<8>.Q & !pause<9>.Q & !pause<23>.Q & !N_PZ_550 & !N_PZ_557 & N_PZ_559
+    
+      # pause<2>.Q & !N_PZ_547 & N_PZ_576
+      # ConfProceed.Q & !pause<2>.Q & N_PZ_547
+      # DONE & !pause<2>.Q;		"--- [PT=4, FI=23, LVL=2] ---
+ pause<3>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<3>.D = ConfProceed.Q & !pause<10>.Q & !pause<13>.Q & !pause<14>.Q & !
+    pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !
+    pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !pause<3>.Q & !pause<4>.Q & !
+    pause<5>.Q & !pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !
+    pause<23>.Q & N_PZ_559
+      # !pause<0>.Q & !pause<1>.Q & !pause<2>.Q & pause<3>.Q & N_PZ_576
+    
+      # ConfProceed.Q & pause<2>.Q & !pause<3>.Q
+      # ConfProceed.Q & pause<1>.Q & !pause<3>.Q
+      # ConfProceed.Q & pause<0>.Q & !pause<3>.Q
+      # DONE & !pause<3>.Q;		"--- [PT=6, FI=26, LVL=2] ---
+ pause<4>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<4>.D = ConfProceed.Q & !pause<10>.Q & !pause<13>.Q & !pause<14>.Q & !
+    pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !
+    pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !pause<4>.Q & !pause<5>.Q & !
+    pause<6>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !pause<23>.Q & 
+    N_PZ_559
+      # !pause<0>.Q & !pause<1>.Q & !pause<2>.Q & !pause<3>.Q & pause<4>.Q & 
+    N_PZ_576
+      # ConfProceed.Q & pause<3>.Q & !pause<4>.Q
+      # ConfProceed.Q & pause<2>.Q & !pause<4>.Q
+      # ConfProceed.Q & pause<1>.Q & !pause<4>.Q
+      # ConfProceed.Q & pause<0>.Q & !pause<4>.Q
+      # DONE & !pause<4>.Q;		"--- [PT=7, FI=26, LVL=2] ---
+ pause<5>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<5>.D = ConfProceed.Q & !pause<10>.Q & !pause<11>.Q & !pause<12>.Q & !
+    pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !
+    pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !pause<5>.Q & !pause<6>.Q & !
+    pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !pause<23>.Q & !N_PZ_557
+      # !pause<0>.Q & !pause<1>.Q & !pause<2>.Q & pause<5>.Q & !N_PZ_550 & 
+    N_PZ_576
+      # ConfProceed.Q & !pause<5>.Q & N_PZ_550
+      # ConfProceed.Q & pause<2>.Q & !pause<5>.Q
+      # ConfProceed.Q & pause<1>.Q & !pause<5>.Q
+      # ConfProceed.Q & pause<0>.Q & !pause<5>.Q
+      # DONE & !pause<5>.Q;		"--- [PT=7, FI=25, LVL=2] ---
+ pause<6>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<6>.D = ConfProceed.Q & !pause<10>.Q & !pause<11>.Q & !pause<12>.Q & !
+    pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !
+    pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !pause<6>.Q & !pause<7>.Q & !
+    pause<8>.Q & !pause<9>.Q & !pause<23>.Q & !N_PZ_557
+      # !pause<0>.Q & !pause<1>.Q & !pause<2>.Q & !pause<5>.Q & pause<6>.Q & !
+    N_PZ_550 & N_PZ_576
+      # ConfProceed.Q & !pause<6>.Q & N_PZ_550
+      # ConfProceed.Q & pause<5>.Q & !pause<6>.Q
+      # ConfProceed.Q & pause<2>.Q & !pause<6>.Q
+      # ConfProceed.Q & pause<1>.Q & !pause<6>.Q
+      # ConfProceed.Q & pause<0>.Q & !pause<6>.Q
+      # DONE & !pause<6>.Q;		"--- [PT=8, FI=25, LVL=2] ---
+ pause<7>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<7>.D = ConfProceed.Q & !pause<10>.Q & !pause<15>.Q & !pause<16>.Q & !
+    pause<17>.Q & !pause<18>.Q & !pause<19>.Q & !pause<20>.Q & !pause<21>.Q & !
+    pause<22>.Q & !pause<7>.Q & !pause<8>.Q & !pause<9>.Q & !pause<23>.Q & !
+    N_PZ_557 & N_PZ_559
+      # !DONE & ConfProceed.Q & !pause<0>.Q & !pause<1>.Q & !pause<2>.Q & 
+    pause<7>.Q & !N_PZ_550 & !N_PZ_553
+      # ConfProceed.Q & !pause<7>.Q & N_PZ_553
+      # ConfProceed.Q & !pause<7>.Q & N_PZ_550
+      # ConfProceed.Q & pause<2>.Q & !pause<7>.Q
+      # ConfProceed.Q & pause<1>.Q & !pause<7>.Q
+      # ConfProceed.Q & pause<0>.Q & !pause<7>.Q
+      # DONE & !pause<7>.Q;		"--- [PT=8, FI=22, LVL=2] ---
+ pause<8>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<8>.T = !pause<10>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !
+    pause<18>.Q & !pause<19>.Q & !pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !
+    pause<8>.Q & !pause<9>.Q & !pause<23>.Q & !N_PZ_557 & N_PZ_559
+      # ConfProceed.Q & N_PZ_553
+      # ConfProceed.Q & N_PZ_550
+      # !ConfProceed.Q & !pause<8>.Q
+      # ConfProceed.Q & pause<7>.Q
+      # ConfProceed.Q & pause<2>.Q
+      # ConfProceed.Q & pause<1>.Q
+      # ConfProceed.Q & pause<0>.Q
+      # DONE;		"--- [PT=9, FI=22, LVL=2] ---
+ pause<9>.CLK = !N_PZ_539;		"--- [PT=1, FI=1, LVL=2] ---
+! pause<9>.T = !pause<10>.Q & !pause<15>.Q & !pause<16>.Q & !pause<17>.Q & !
+    pause<18>.Q & !pause<19>.Q & !pause<20>.Q & !pause<21>.Q & !pause<22>.Q & !
+    pause<9>.Q & !pause<23>.Q & !N_PZ_557 & N_PZ_559
+      # ConfProceed.Q & N_PZ_554
+      # ConfProceed.Q & N_PZ_553
+      # ConfProceed.Q & N_PZ_550
+      # !ConfProceed.Q & !pause<9>.Q
+      # ConfProceed.Q & pause<2>.Q
+      # ConfProceed.Q & pause<1>.Q
+      # ConfProceed.Q & pause<0>.Q
+      # DONE;		"--- [PT=9, FI=21, LVL=2] ---
+END
