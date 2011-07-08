@@ -1,8 +1,0 @@
-INTSTYLE=impact
-INFILE=D:\Steffi\Projects\CPLD\impact.xsl
-OUTFILE=D:\Steffi\Projects\CPLD\impact.xsl
-FAMILY=Multiple
-PART=Multiple
-WORKINGDIR=D:\Steffi\Projects\CPLD
-LICENSE=iMPACT
-USER_INFO=iMPACT

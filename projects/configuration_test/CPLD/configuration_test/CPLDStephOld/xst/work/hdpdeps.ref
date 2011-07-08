@@ -1,9 +1,0 @@
-V3 3
-FL /home/mgrinda/CPLD/CPLDStephOld/CPLDStephOld/CPLDLoaderSteph_old.vhd 2011/06/28.17:10:34 O.40d
-EN work/CPLDLoaderSteph 1309277444 \
-      FL /home/mgrinda/CPLD/CPLDStephOld/CPLDStephOld/CPLDLoaderSteph_old.vhd \
-      PB ieee/std_logic_1164 1296775758 PB ieee/std_logic_arith 1296775759 \
-      PB ieee/STD_LOGIC_UNSIGNED 1296775760
-AR work/CPLDLoaderSteph/structural 1309277445 \
-      FL /home/mgrinda/CPLD/CPLDStephOld/CPLDStephOld/CPLDLoaderSteph_old.vhd \
-      EN work/CPLDLoaderSteph 1309277444
