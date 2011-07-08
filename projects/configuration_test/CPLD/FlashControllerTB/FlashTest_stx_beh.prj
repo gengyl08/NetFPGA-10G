@@ -1,3 +1,0 @@
-vhdl isim_temp "FlashEmulator.vhd"
-vhdl isim_temp "../../../../lib/hw/std/pcores/nf10_axi_flash_ctrl_v1_00_a/hdl/vhdl/flash_controller.vhd"
-vhdl isim_temp "FlashTest.vhd"

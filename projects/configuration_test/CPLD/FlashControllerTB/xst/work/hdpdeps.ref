@@ -1,8 +1,0 @@
-V3 3
-FL /home/mgrinda/netfpga_10g_dev_WORKING_BOOT/projects/configuration_test/CPLD/FlashControllerTB/FlashEmulator.vhd 2011/07/05.14:41:23 O.40d
-EN work/FlashEmulator 1309882201 \
-      FL /home/mgrinda/netfpga_10g_dev_WORKING_BOOT/projects/configuration_test/CPLD/FlashControllerTB/FlashEmulator.vhd \
-      PB ieee/std_logic_1164 1296775758
-AR work/FlashEmulator/Behavioral 1309882202 \
-      FL /home/mgrinda/netfpga_10g_dev_WORKING_BOOT/projects/configuration_test/CPLD/FlashControllerTB/FlashEmulator.vhd \
-      EN work/FlashEmulator 1309882201
