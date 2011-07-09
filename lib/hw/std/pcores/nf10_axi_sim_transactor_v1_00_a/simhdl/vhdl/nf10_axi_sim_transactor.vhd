@@ -73,6 +73,7 @@ architecture rtl of nf10_axi_sim_transactor is
     signal w_req_ready	                 : std_logic;
 
     signal w_rsp_addr	                 : std_logic_vector(31 downto 0);
+    signal w_rsp_data	                 : std_logic_vector(31 downto 0);
     signal w_rsp_rsp	                 : std_logic_vector( 1 downto 0);
     signal w_rsp_valid	                 : std_logic;
 
@@ -236,22 +237,35 @@ begin
     end process;
 
     logging: process( M_AXI_ACLK )
+	function result_str( res: std_logic_vector(1 downto 0) ) return string is
+	begin
+	    case res is
+		when "00"   => return "OKAY";
+		when "01"   => return "EXOKAY";
+		when "10"   => return "SLVERR";
+		when "11"   => return "DECERR";
+		when others => return "INVALID_RESP";
+	    end case;
+	end function;
+
 	variable l: line;
     begin
 	if rising_edge( M_AXI_ACLK ) then
 	    if w_rsp_valid = '1' then
 		hwrite( l, w_rsp_addr, RIGHT, w_rsp_addr'length/4 );
-		write( l, string'(" <- (data): ") );
-		hwrite( l, w_rsp_rsp, RIGHT, w_rsp_rsp'length/4 );
-		write( l, ht & ht & string'("# ") & integer'image(now / 1 ns) & string'(" ns") );
+		write( l, string'(" <- ") );
+		hwrite( l, w_rsp_data, RIGHT, w_rsp_data'length/4 );
+		write( l, string'(" (" & result_str( w_rsp_rsp ) & ")") &
+		          ht & ht & string'("# ") & integer'image(now / 1 ns) & string'(" ns") );
+		writeline( log, l );
 	    end if;
 	    if r_rsp_valid = '1' then
 		hwrite( l, r_rsp_addr, RIGHT, r_rsp_addr'length/4 );
 		write( l, string'(" -> ") );
 		hwrite( l, r_rsp_data, RIGHT, r_rsp_data'length/4 );
-		write( l, string'(": ") );
-		hwrite( l, r_rsp_rsp, RIGHT, r_rsp_rsp'length/4 );
-		write( l, ht & ht & string'("# ") & integer'image(now / 1 ns) & string'(" ns") );
+		write( l, string'(" (" & result_str( r_rsp_rsp ) & ")") &
+			   ht & ht & string'("# ") & integer'image(now / 1 ns) & string'(" ns") );
+		writeline( log, l );
 	    end if;
 	end if;
     end process;
@@ -268,6 +282,7 @@ begin
 	    w_req_ready	  => w_req_ready,
 
 	    w_rsp_addr	  => w_rsp_addr,
+	    w_rsp_data	  => w_rsp_data,
 	    w_rsp_rsp	  => w_rsp_rsp,
 	    w_rsp_valid	  => w_rsp_valid,
 	    --

@@ -33,6 +33,7 @@ entity transactor_fifos is
 	w_req_ready		 : out std_logic;
 
 	w_rsp_addr		 : out std_logic_vector(31 downto 0);
+	w_rsp_data		 : out std_logic_vector(31 downto 0);
 	w_rsp_rsp		 : out std_logic_vector( 1 downto 0);
 	w_rsp_valid		 : out std_logic;
 	--
@@ -78,7 +79,8 @@ architecture rtl of transactor_fifos is
     signal w_req_we			 : std_logic;
     signal int_w_addr_full		 : std_logic;
     signal int_w_addr_empty		 : std_logic;
-    signal w_rsp_addr_i			 : std_logic_vector(w_rsp_addr'range);
+    signal w_req_addr_data		 : std_logic_vector(w_rsp_addr'length+w_req_data'length-1 downto 0);
+    signal w_rsp_addr_data		 : std_logic_vector(w_rsp_addr'length+w_req_data'length-1 downto 0);
 
     signal axi_w_addr_full		 : std_logic;
     signal axi_w_addr_empty		 : std_logic;
@@ -103,22 +105,23 @@ begin
     w_req_ready <= not int_w_addr_full and not axi_w_addr_full and not w_req_data_strb_full;
     w_req_we	<= not int_w_addr_full and not axi_w_addr_full and not w_req_data_strb_full and w_req_valid;
 
+    w_req_addr_data <= w_req_addr & w_req_data;
     w_req_data_strb <= w_req_strb & w_req_data;
 
     int_w_addr: entity proc_common_v3_00_a.srl_fifo_f
 	generic map (
-	    C_DWIDTH => w_req_addr'length,
+	    C_DWIDTH => w_req_addr_data'length,
 	    C_DEPTH  => 16)
 	port map (
 	    Clk	       => clk,
 	    Reset      => reset,
 
 	    FIFO_Write => w_req_we,
-	    Data_In    => w_req_addr,
+	    Data_In    => w_req_addr_data,
 	    FIFO_Full  => int_w_addr_full,
 
 	    FIFO_Read  => M_AXI_BVALID,
-	    Data_Out   => w_rsp_addr_i,
+	    Data_Out   => w_rsp_addr_data,
 	    FIFO_Empty => int_w_addr_empty,
 	    Addr       => open);
 
@@ -162,7 +165,10 @@ begin
     M_AXI_WSTRB  <= w_axi_data_strb(w_axi_data_strb'high downto w_axi_data_strb'high-M_AXI_WSTRB'length+1);
     M_AXI_WVALID <= not w_req_data_strb_empty;
 
-    w_rsp_addr	 <= w_rsp_addr_i when int_w_addr_empty = '0' else (others => '-');
+    w_rsp_addr	 <= w_rsp_addr_data(w_rsp_addr_data'high downto w_rsp_addr_data'high-w_req_addr'length+1)
+					when int_w_addr_empty = '0' else (others => '-');
+    w_rsp_data	 <= w_rsp_addr_data(w_req_data'length - 1 downto 0)
+					when int_w_addr_empty = '0' else (others => '-');
     w_rsp_rsp    <= M_AXI_BRESP  when M_AXI_BVALID = '1'     else (others => '-');
     w_rsp_valid  <= M_AXI_BVALID;
     M_AXI_BREADY <= '1';
