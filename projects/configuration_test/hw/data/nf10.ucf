@@ -1,10 +1,26 @@
-##-----------------------------------------------------------------------------
-## Project    : OPED
-## File       : nf10.ucf
-## Author     : Stephanie Friederich
-## Date       : 01.04.2011
-## Device     : xc5vtx240t-ff1759-2
-## Project    : Flash controller connected to OPED
+##########################################################################
+##
+##  NETFPGA-10G www.netfpga.org
+##
+##  Module:
+##          nf10.ucf
+##
+##  Description:
+##          Pin assignments and constraints; this is the Flash controller
+##          connected to OPED
+##          xc5vtx240t-ff1759-2 device 
+##                 
+##  Revision history:
+##          01.04.2011 Stephanie Friederich Initial version
+##          08/07/2011 Mark Grindell        Removed Flash Reset and included A23
+##          date author description
+##
+##  Known issues:
+##          
+##
+##  Library: N/A
+##
+########################################################################
 
 
 
@@ -22,7 +38,7 @@ TIMESPEC "TS_PCI0CLK"  = PERIOD "PCI0CLK" 100.00 MHz HIGH 50 % ;
 # Define Device, Package And Speed Grade
 ###############################################################################
 
-CONFIG PART = xc5vtx240t-ff1759-2;
+CONFIG PART = xc5vtx240t-ff1759-3;
 
 
 ###############################################################################
@@ -30,7 +46,7 @@ CONFIG PART = xc5vtx240t-ff1759-2;
 ###############################################################################
 
 NET "nf10_axi_flash_ctrl_0_FPGA_IOL9P_pin"    LOC = "AK20" ;      
-NET "nf10_axi_flash_ctrl_0_FLASH_RST_pin"     LOC = "AK27" ;       
+#NET "nf10_axi_flash_ctrl_0_FLASH_RST_pin"     LOC = "AK27" ;       
 NET "nf10_axi_flash_ctrl_0_FPGA_FOE_pin"      LOC = "AM17" ;      
 NET "nf10_axi_flash_ctrl_0_FPGA_FCS_pin"      LOC = "AL17" ;       
 NET "nf10_axi_flash_ctrl_0_FPGA_FWE_pin"      LOC = "AR27" ;       
@@ -38,7 +54,7 @@ NET "nf10_axi_flash_ctrl_0_FPGA_FWE_pin"      LOC = "AR27" ;
 NET "CPLD_CLK"                                LOC = "AP21" ; 
 NET "reboot"                                  LOC = "AJ18" ;
 
-
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<23>"    LOC = "AK27" ;
 NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<22>"    LOC = "AK28" ;       
 NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<21>"    LOC = "AM27" ;       
 NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<20>"    LOC = "AK18" ;      
@@ -154,8 +170,8 @@ INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.p
 # BlockRAM placement
 #
 
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_retry/generate_sdp.ram_sdp_inst"      LOC = RAMB36_X5Y20 ;
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y19 ;
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y18 ;
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y17 ;
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y16 ;
+#INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_retry/#generate_sdp.ram_sdp_inst"      LOC = RAMB36_X5Y20 ;
+#INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y19 ;
+#INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y18 ;
+#INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y17 ;
+#INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y16 ;
