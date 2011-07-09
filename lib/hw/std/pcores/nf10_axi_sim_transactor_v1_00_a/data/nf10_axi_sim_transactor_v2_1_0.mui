@@ -4,17 +4,26 @@
         <!ENTITY stim_file '
 		<widget id="stim_file">
 		<key>stim_file</key>
-		<label>Name of the file from which AXI4 Lite stimuli
-		should be read.</label>
-		<tip></tip>
+		<label>Stimuli File</label>
+		<tip>Name of the file from which AXI4 Lite stimuli should be read.</tip>
         </widget>
 	'>
         <!ENTITY log_file '
 		<widget id="log_file">
 		<key>log_file</key>
-		<label>Name of the file to which AXI4 Lite transactions
-		should be logged.</label>
-		<tip></tip>
+		<label>Log File</label>
+		<tip>Name of the file to which AXI4 Lite transactions should be logged.</tip>
         </widget>
 	'>
 ]>
+
+<doc>
+        <view id="System">
+                <display>System</display>
+                <group id="files">
+                        <display>Files</display>
+                        <item>&stim_file;</item>
+                        <item>&log_file;</item>
+                </group>
+	</view>
+</doc>

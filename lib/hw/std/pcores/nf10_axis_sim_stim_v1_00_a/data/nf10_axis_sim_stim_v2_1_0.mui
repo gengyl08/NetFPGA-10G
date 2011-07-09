@@ -10,8 +10,7 @@
         <!ENTITY input_file '
 		<widget id="input_file">
 		<key>input_file</key>
-		<label>Name of the input file from which AXI stream data
-		should be read.</label>
+		<label>Name of the input file from which AXI stream data should be read.</label>
 		<tip></tip>
         </widget>
 	'>	
@@ -25,8 +24,7 @@
                         <item>&C_M_AXIS_DATA_WIDTH;</item>
                 </group>
                 <group id="sim_stim">
-                        <display>Name of the input file from which AXI stream
-                        data should be read.</display>
+                        <display>Files</display>
                         <item>&input_file;</item>
                 </group>
 	</view>
