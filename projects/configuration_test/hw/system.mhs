@@ -19,13 +19,13 @@
  PORT nf10_oped_0_PCIE_RXN_pin = nf10_oped_0_PCIE_RXN, DIR = I, VEC = [7:0]
  PORT nf10_oped_0_PCIE_CLKP_pin = nf10_oped_0_PCIE_CLKP, DIR = I, SIGIS = CLK
  PORT nf10_oped_0_PCIE_CLKN_pin = nf10_oped_0_PCIE_CLKN, DIR = I, SIGIS = CLK
- PORT nf10_axi_flash_ctrl_0_FPGA_A_pin = nf10_axi_flash_ctrl_0_FPGA_A, DIR = O, VEC = [22:0]
+ PORT nf10_axi_flash_ctrl_0_FPGA_A_pin = nf10_axi_flash_ctrl_0_FPGA_A, DIR = O, VEC = [23:0]
  PORT nf10_axi_flash_ctrl_0_FPGA_DQ = nf10_axi_flash_ctrl_0_FPGA_DQ, DIR = IO, VEC = [15:0]
  PORT nf10_axi_flash_ctrl_0_FPGA_FOE_pin = nf10_axi_flash_ctrl_0_FPGA_FOE, DIR = O
  PORT nf10_axi_flash_ctrl_0_FPGA_FWE_pin = nf10_axi_flash_ctrl_0_FPGA_FWE, DIR = O
  PORT nf10_axi_flash_ctrl_0_FPGA_FCS_pin = nf10_axi_flash_ctrl_0_FPGA_FCS, DIR = O
  PORT nf10_axi_flash_ctrl_0_FPGA_IOL9P_pin = nf10_axi_flash_ctrl_0_FPGA_IOL9P, DIR = O
- PORT nf10_axi_flash_ctrl_0_FLASH_RST_pin = nf10_axi_flash_ctrl_0_FLASH_RST, DIR = O
+# PORT nf10_axi_flash_ctrl_0_FLASH_RST_pin = nf10_axi_flash_ctrl_0_FLASH_RST, DIR = O
  PORT CPLD_CLK = nf10_axi_flash_ctrl_0_CPLD_CLK, DIR = I, SIGIS = CLK
  PORT reboot = nf10_axi_flash_ctrl_0_reboot, DIR = O
 
@@ -160,7 +160,7 @@ BEGIN nf10_axi_flash_ctrl
  PORT FPGA_FWE = nf10_axi_flash_ctrl_0_FPGA_FWE
  PORT FPGA_FCS = nf10_axi_flash_ctrl_0_FPGA_FCS
  PORT FPGA_IOL9P = nf10_axi_flash_ctrl_0_FPGA_IOL9P
- PORT FLASH_RST = nf10_axi_flash_ctrl_0_FLASH_RST
+# PORT FLASH_RST = nf10_axi_flash_ctrl_0_FLASH_RST
  PORT S_AXI_ACLK = nf10_oped_0_M_AXIS_ACLK
  PORT CPLD_CLK = nf10_axi_flash_ctrl_0_CPLD_CLK
  PORT reboot = nf10_axi_flash_ctrl_0_reboot

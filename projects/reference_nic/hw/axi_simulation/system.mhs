@@ -317,7 +317,7 @@ BEGIN nf10_axis_sim_record
  PORT ACLK = core_clk
 END
 
-BEGIN output_port_lookup
+BEGIN nf10_nic_output_port_lookup
  PARAMETER INSTANCE = output_port_lookup_0
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_AXIS_DATA_WIDTH = 256
