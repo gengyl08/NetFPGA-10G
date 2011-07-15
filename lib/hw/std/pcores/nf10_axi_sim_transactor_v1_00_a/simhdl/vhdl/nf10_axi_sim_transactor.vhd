@@ -209,13 +209,13 @@ begin
 		read_char( l, c );	-- read terminal wait flag
 		if c = '.' then  	-- '.' == wait for result
 		    while (w_pending or r_pending) = '1' loop
+			wait_cycle;
 			if w_rsp_valid = '1' and w_rsp_addr = w_req_addr then
 			    w_pending := '0';
 			end if;
 			if r_rsp_valid = '1' and r_rsp_addr = r_req_addr then
 			    r_pending := '0';
 			end if;
-			wait_cycle;
 		    end loop;
 		elsif c = ',' then  	-- continue immediately
 		else
