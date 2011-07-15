@@ -6,7 +6,9 @@
 --          nf10_axis_gen_check.vhd
 --
 --  Description:
---          Hardware component that generates and checks packets
+--          Hardware component that generates and checks packets.
+--  Currently the generator generates bit-wise shifted pattern. No valid 
+--  packet pattern and/or higher layer structure is programmed.
 --                 
 --  Revision history:
 --          2010/12/1  M.Blott  Initial version
