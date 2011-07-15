@@ -174,7 +174,9 @@ begin
 		-- parse out each component of the stimulus
 		parse_slv( l, w_req_addr, dontcare );
 		w_pending := sl( not dontcare );
+		w_req_valid <= w_pending;
 		read_char( l, c );	-- discard ','
+
 		parse_slv( l, w_req_data, dontcare );
 		if w_pending = '1' then
 		    assert not dontcare
@@ -182,6 +184,7 @@ begin
 			severity warning;
 		end if;
 		read_char( l, c );	-- discard ','
+
 		parse_slv( l, w_req_strb, dontcare );
 		if w_pending = '1' then
 		    assert not dontcare
@@ -189,18 +192,16 @@ begin
 			severity warning;
 		end if;
 		read_char( l, c );	-- discard ','
+
 		parse_slv( l, r_req_addr, dontcare );
 		r_pending := sl( not dontcare );
+		r_req_valid <= r_pending;
+		wait_cycle;
 
-		-- block until needed channels to become available
+		-- block until accepted
 		while ((w_pending and not w_req_ready) or (r_pending and not r_req_ready)) = '1' loop
 		    wait_cycle;
 		end loop;
-
-		-- transmit transactions
-		w_req_valid <= w_pending;
-		r_req_valid <= r_pending;
-		wait_cycle;
 		w_req_valid <= '0';
 		r_req_valid <= '0';
 
