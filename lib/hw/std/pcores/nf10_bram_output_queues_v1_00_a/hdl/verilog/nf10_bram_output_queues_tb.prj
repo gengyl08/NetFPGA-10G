@@ -1,0 +1,29 @@
+------------------------------------------------------------------------
+--
+--  NETFPGA-10G www.netfpga.org
+--
+--  Module:
+--          nf10_bram_output_queues_tb.prj
+--
+--  Description:
+--          Mark Grindell- project file to list the files necessary to compile the 
+--                         nf10_bram_output_queues_tb module
+--
+--
+--  Revision history:
+--          13/07/2011 Mark Grindell First Edition
+--          date author description
+--          date author description
+--
+--  Known issues:
+--          None
+--          
+--
+--  Library: library dependencies
+--
+------------------------------------------------------------------------
+verilog work "fallthrough_small_fifo_v2.v"
+verilog work "nf10_bram_output_queues.v"
+verilog work "small_fifo_v3.v"
+verilog work "nf10_bram_output_queues_tb.v"
+

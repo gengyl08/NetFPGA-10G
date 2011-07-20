@@ -1,0 +1,26 @@
+------------------------------------------------------------------------
+--
+--  NETFPGA-10G www.netfpga.org
+--
+--  Module:
+--          nf10_gen_check_tb.prj
+--
+--  Description:
+--          Mark Grindell- project file to list the files necessary for the 
+--                         nf10_gen_check_tb module
+--
+--
+--  Revision history:
+--          13/07/2011 Mark Grindell First Edition
+--
+--  Known issues:
+--          None
+--          
+--
+--  Library: library dependencies
+--
+------------------------------------------------------------------------
+verilog work "../verilog/axi4_lite_regs.v"
+vhdl    work "nf10_axis_gen_check_tb.vhd"
+vhdl    work "nf10_axis_gen_check.vhd"
+
