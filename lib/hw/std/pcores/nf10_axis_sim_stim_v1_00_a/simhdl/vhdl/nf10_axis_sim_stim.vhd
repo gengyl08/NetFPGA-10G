@@ -23,7 +23,7 @@ use nf10_axis_sim_pkg_v1_00_a.nf10_axis_sim_pkg.all;
 entity nf10_axis_sim_stim is
     generic (
 	C_M_AXIS_DATA_WIDTH : integer := 256;
-	C_USER_WIDTH	    : integer := 128;
+	C_M_AXIS_TUSER_WIDTH: integer := 128;
 	input_file	    : string  := "../../stream_data_in.axi"
 	);
     port (
@@ -33,7 +33,7 @@ entity nf10_axis_sim_stim is
 	-- axi streaming data interface
 	M_AXIS_TDATA  : out std_logic_vector( C_M_AXIS_DATA_WIDTH-1 downto 0 );
 	M_AXIS_TSTRB  : out std_logic_vector( C_M_AXIS_DATA_WIDTH/8-1 downto 0 );
-	M_AXIS_TUSER  : out std_logic_vector( C_USER_WIDTH-1 downto 0 );
+	M_AXIS_TUSER  : out std_logic_vector( C_M_AXIS_TUSER_WIDTH-1 downto 0 );
 	M_AXIS_TVALID : out std_logic;
 	M_AXIS_TREADY : in  std_logic;
 	M_AXIS_TLAST  : out std_logic
