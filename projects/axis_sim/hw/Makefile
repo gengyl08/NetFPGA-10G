@@ -14,7 +14,7 @@
 #          For more information about how Xilinx EDK works, please visit
 #          http://www.xilinx.com/support/documentation/dt_edk.htm
 #          See inline comments for usage
-#                 
+#
 #  Revision history:
 #          2010/12/1 hyzeng: Initial check-in
 #          2011/3/3  hyzeng: ISE 13.1 support
@@ -23,9 +23,29 @@
 
 include system_incl.make
 
-ifeq "$(shell uname -o)" "Cygwin"
-SIM_CMD := $(subst ./, cmd /c , $(SIM_CMD))
+# Cygwin support:  *** You must set $(NF10_CYGWIN) for this to work ***
+#
+#   * EDK 13.x sets $(SHELL) to 'cmd', which breaks cygwin 'make'.  Force back
+#     to /bin/sh.  NB: Until this done, $(shell uname) (for example) won't work,
+#     and there's no other reliable way to detect environment other than with
+#     an explicit environment variable.
+#
+#   * The simulator faults if launched from a bash, so override and simgen such
+#     that the simulator is launched inside an NT shell;
+#
+#   * Whereas earlier versions of EDK simgen produced build scripts *.sh
+#     irrespective of OS - and despite EDK 13.1 documentation to the contrary -
+#     simgen/platgen produce *.cmd under NT EDK 13.x.
+ifdef NF10_CYGWIN
+SHELL       = /bin/sh
+SIM_CMD    := cmd /c $(subst ./, , $(SIM_CMD))
+SYNTH_CMD   = ./synthesis.cmd
+SYSTEM_FUSE = ./system_fuse.cmd
+else
+SYNTH_CMD   = ./synthesis.sh
+SYSTEM_FUSE = sh system_fuse.sh
 endif
+
 
 #################################################################
 # PHONY TARGETS
@@ -81,7 +101,7 @@ init_bram: $(DOWNLOAD_BIT)
 sim: $(DEFAULT_SIM_SCRIPT)
 	cd simulation/behavioral ; \
 	cp ../../nf10/system_tb.v .; \
-	sh system_fuse.sh;
+	$(SYSTEM_FUSE);
 	cd simulation/behavioral ; \
 	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
 
@@ -100,7 +120,7 @@ clean: hwclean simclean
 	rm -f *.log
 	rm -f *.make
 	rm -f system.mss
-	
+
 hwclean: netlistclean bitsclean
 	rm -rf implementation synthesis xst hdl
 	rm -rf xst.srp $(SYSTEM).srp
@@ -115,12 +135,12 @@ netlistclean:
 bitsclean:
 	rm -f $(SYSTEM_BIT)
 	rm -f implementation/$(SYSTEM).ncd
-	rm -f implementation/$(SYSTEM)_bd.bmm 
-	rm -f implementation/$(SYSTEM)_map.ncd 
-	rm -f implementation/download.bit 
+	rm -f implementation/$(SYSTEM)_bd.bmm
+	rm -f implementation/$(SYSTEM)_map.ncd
+	rm -f implementation/download.bit
 	rm -f __xps/$(SYSTEM)_routed
 
-simclean: 
+simclean:
 	rm -rf simulation/behavioral
 	rm -f simgen.log
 	rm -f __xps/ise/_xmsgs/simgen.xmsgs
@@ -151,7 +171,7 @@ $(WRAPPER_NGC_FILES): $(MHSFILE) __xps/platgen.opt \
 $(POSTSYN_NETLIST): $(WRAPPER_NGC_FILES)
 	@echo "Running synthesis..."
 	cp nf10/axi_interconnect.scr ./synthesis/axi_interconnect_memory_mapped_lite_0_wrapper_xst.scr
-	bash -c "cd synthesis; ./synthesis.sh"
+	bash -c "cd synthesis; $(SYNTH_CMD)"
 
 #James: Use multi-core map and par. Parameters in nf10/xflow.opt
 __xps/$(SYSTEM)_routed: $(FPGA_IMP_DEPENDENCY)
@@ -240,6 +260,5 @@ $(TIMING_SIM_SCRIPT): implementation/$(SYSTEM).ncd __xps/simgen.opt \
 dummy:
 	@echo ""
 
-# James: workaround chicken'n'egg problem thanks to David Miller	
-system_incl.make: Makefile
+system_incl.make:
 	@echo exit|xps -nw system.xmp

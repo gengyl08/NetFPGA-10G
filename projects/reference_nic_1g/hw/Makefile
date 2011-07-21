@@ -14,7 +14,7 @@
 #          For more information about how Xilinx EDK works, please visit
 #          http://www.xilinx.com/support/documentation/dt_edk.htm
 #          See inline comments for usage
-#                 
+#
 #  Revision history:
 #          2010/12/1 hyzeng: Initial check-in
 #          2011/3/3  hyzeng: ISE 13.1 support
@@ -23,9 +23,27 @@
 
 include system_incl.make
 
-ifeq "$(shell uname -o)" "Cygwin"
-SIM_CMD := $(subst ./, cmd /c , $(SIM_CMD))
+# Cygwin support:  *** You must set $(NF10_CYGWIN) for this to work ***
+#
+#   * EDK 13.x sets $(SHELL) to 'cmd', which breaks cygwin 'make'.  Force back
+#     to /bin/sh.  NB: Until this done, $(shell uname) (for example) won't work,
+#     and there's no other reliable way to detect environment other than with
+#     an explicit environment variable.
+#
+#   * The simulator faults if launched from a bash, so override and simgen such
+#     that the simulator is launched inside an NT shell;
+#
+#   * Whereas earlier versions of EDK simgen produced build scripts *.sh
+#     irrespective of OS - and despite EDK 13.1 documentation to the contrary -
+#     simgen/platgen produce *.cmd under NT EDK 13.x.
+ifdef NF10_CYGWIN
+SHELL       = /bin/sh
+SIM_CMD    := cmd /c $(subst ./, , $(SIM_CMD))
+SYSTEM_FUSE = ./system_fuse.cmd
+else
+SYSTEM_FUSE = sh system_fuse.sh
 endif
+
 
 NF10_NGC_FILES := implementation/nf10_oped_0_wrapper.ngc \
 				  implementation/axi_interconnect_0_wrapper.ngc
@@ -87,7 +105,7 @@ init_bram: $(DOWNLOAD_BIT)
 sim: $(DEFAULT_SIM_SCRIPT)
 	cd simulation/behavioral ; \
 	cp ../../nf10/system_tb.v .; \
-	sh system_fuse.sh;
+	$(SYSTEM_FUSE);
 	cd simulation/behavioral ; \
 	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
 
@@ -106,7 +124,7 @@ clean: hwclean simclean
 	rm -f *.log
 	rm -f *.make
 	rm -f system.mss
-	
+
 hwclean: netlistclean bitsclean
 	rm -rf implementation synthesis xst hdl
 	rm -rf xst.srp $(SYSTEM).srp
@@ -121,12 +139,12 @@ netlistclean:
 bitsclean:
 	rm -f $(SYSTEM_BIT)
 	rm -f implementation/$(SYSTEM).ncd
-	rm -f implementation/$(SYSTEM)_bd.bmm 
-	rm -f implementation/$(SYSTEM)_map.ncd 
-	rm -f implementation/download.bit 
+	rm -f implementation/$(SYSTEM)_bd.bmm
+	rm -f implementation/$(SYSTEM)_map.ncd
+	rm -f implementation/download.bit
 	rm -f __xps/$(SYSTEM)_routed
 
-simclean: 
+simclean:
 	rm -rf simulation/behavioral
 	rm -rf axi_simulation/simulation/behavioral
 	rm -rf axi_simulation/*.axi
@@ -252,7 +270,7 @@ $(TIMING_SIM_SCRIPT): implementation/$(SYSTEM).ncd __xps/simgen.opt \
 
 dummy:
 	@echo ""
-	
+
 ################## AXI SIMULATION ##################
 
 axi_model: axi_simulation/$(MHSFILE) __xps/simgen.opt \
@@ -266,10 +284,9 @@ axisim: axi_model
 	./axi_simulation/simulation/make_pkts.py ; \
 	cd axi_simulation/simulation/behavioral ; \
 	cp ../../system_tb.v .; \
-	sh system_fuse.sh;
+	$(SYSTEM_FUSE);
 	cd axi_simulation/simulation/behavioral ; \
 	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
 
-# James: workaround chicken'n'egg problem thanks to David Miller	
-system_incl.make: Makefile
+system_incl.make:
 	@echo exit|xps -nw system.xmp
