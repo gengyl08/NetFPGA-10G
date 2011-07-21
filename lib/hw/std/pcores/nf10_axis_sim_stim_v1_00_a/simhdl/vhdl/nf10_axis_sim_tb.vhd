@@ -23,7 +23,7 @@ begin
 	nf10_axis_sim_stim_1: entity work.nf10_axis_sim_stim
 	    generic map (
 		C_M_AXIS_DATA_WIDTH => AXIS_TDATA'length,
-		input_file		=> "test_in.dat")
+		input_file	    => "test_in.dat")
 	    port map (
 		ACLK	  => ACLK,
 		ARESETN	  => ARESETN,

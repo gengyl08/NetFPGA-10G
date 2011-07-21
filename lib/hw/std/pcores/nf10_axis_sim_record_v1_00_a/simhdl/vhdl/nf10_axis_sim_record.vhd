@@ -21,7 +21,7 @@ use ieee.std_logic_textio.all;
 entity nf10_axis_sim_record is
     generic (
 	C_S_AXIS_DATA_WIDTH : integer := 256;
-	C_USER_WIDTH	    : integer := 128;
+	C_S_AXIS_TUSER_WIDTH: integer := 128;
 	output_file	    : string  := "../../stream_data_out.axi"
 	);
     port (
@@ -30,7 +30,7 @@ entity nf10_axis_sim_record is
 	-- axi streaming data interface
 	S_AXIS_TDATA  : in  std_logic_vector( C_S_AXIS_DATA_WIDTH-1 downto 0 );
 	S_AXIS_TSTRB  : in  std_logic_vector( C_S_AXIS_DATA_WIDTH/8-1 downto 0 );
-	S_AXIS_TUSER  : in  std_logic_vector( C_USER_WIDTH-1 downto 0 );
+	S_AXIS_TUSER  : in  std_logic_vector( C_S_AXIS_TUSER_WIDTH-1 downto 0 );
 	S_AXIS_TVALID : in  std_logic;
 	S_AXIS_TREADY : out std_logic;
 	S_AXIS_TLAST  : in  std_logic
