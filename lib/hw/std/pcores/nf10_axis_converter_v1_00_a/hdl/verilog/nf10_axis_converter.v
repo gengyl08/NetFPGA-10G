@@ -298,12 +298,10 @@ module nf10_axis_converter
                     end
 			    end
 			    else begin
-			        if(m_axis_tready) begin
-			           in_fifo_rd_en = 1'b1;
-				        counter_next = counter_plus_1;
-						  m_axis_tdata_prev_next = m_axis_tdata;
-						  m_axis_tstrb_prev_next = m_axis_tstrb;
-        		     end
+			        in_fifo_rd_en = 1'b1;
+				    counter_next = counter_plus_1;
+					m_axis_tdata_prev_next = m_axis_tdata;
+					m_axis_tstrb_prev_next = m_axis_tstrb;
 				 end
 			end
 		end
