@@ -39,7 +39,22 @@
  PORT nf10_oped_0_PCIE_RXP_pin = nf10_oped_0_PCIE_RXP, DIR = I, VEC = [7:0]
  PORT nf10_oped_0_PCIE_TXN_pin = nf10_oped_0_PCIE_TXN, DIR = O, VEC = [7:0]
  PORT nf10_oped_0_PCIE_TXP_pin = nf10_oped_0_PCIE_TXP, DIR = O, VEC = [7:0]
-
+ PORT nf10_1g_interface_1_TXP_0_dummy_pin = nf10_1g_interface_1_TXP_0_dummy, DIR = O
+ PORT nf10_1g_interface_1_TXP_1_dummy_pin = nf10_1g_interface_1_TXP_1_dummy, DIR = O
+ PORT nf10_1g_interface_1_TXN_0_dummy_pin = nf10_1g_interface_1_TXN_0_dummy, DIR = O
+ PORT nf10_1g_interface_1_RXP_0_dummy_pin = nf10_1g_interface_1_RXP_0_dummy, DIR = I
+ PORT nf10_1g_interface_1_RXN_0_dummy_pin = nf10_1g_interface_1_RXN_0_dummy, DIR = I
+ PORT nf10_1g_interface_1_RXP_1_dummy_pin = nf10_1g_interface_1_RXP_1_dummy, DIR = I
+ PORT nf10_1g_interface_1_RXN_1_dummy_pin = nf10_1g_interface_1_RXN_1_dummy, DIR = I
+ PORT nf10_1g_interface_1_TXN_1_dummy_pin = nf10_1g_interface_1_TXN_1_dummy, DIR = O
+ PORT nf10_1g_interface_0_TXN_0_dummy_pin = nf10_1g_interface_0_TXN_0_dummy, DIR = O
+ PORT nf10_1g_interface_0_TXP_1_dummy_pin = nf10_1g_interface_0_TXP_1_dummy, DIR = O
+ PORT nf10_1g_interface_0_TXN_1_dummy_pin = nf10_1g_interface_0_TXN_1_dummy, DIR = O
+ PORT nf10_1g_interface_0_RXP_0_dummy_pin = nf10_1g_interface_0_RXP_0_dummy, DIR = I
+ PORT nf10_1g_interface_0_RXN_0_dummy_pin = nf10_1g_interface_0_RXN_0_dummy, DIR = I
+ PORT nf10_1g_interface_0_RXP_1_dummy_pin = nf10_1g_interface_0_RXP_1_dummy, DIR = I
+ PORT nf10_1g_interface_0_RXN_1_dummy_pin = nf10_1g_interface_0_RXN_1_dummy, DIR = I
+ PORT nf10_1g_interface_0_TXP_0_dummy_pin = nf10_1g_interface_0_TXP_0_dummy, DIR = O
 
 BEGIN axi_interconnect
  PARAMETER INSTANCE = axi_interconnect_0
@@ -185,6 +200,14 @@ BEGIN nf10_1g_interface
  PORT RXN_0 = nf10_1g_interface_0_RXN_0
  PORT RXP_1 = nf10_1g_interface_0_RXP_1
  PORT axi_resetn = Peripheral_aresetn
+ PORT TXN_0_dummy = nf10_1g_interface_0_TXN_0_dummy
+ PORT TXP_1_dummy = nf10_1g_interface_0_TXP_1_dummy
+ PORT TXN_1_dummy = nf10_1g_interface_0_TXN_1_dummy
+ PORT RXP_0_dummy = nf10_1g_interface_0_RXP_0_dummy
+ PORT RXN_0_dummy = nf10_1g_interface_0_RXN_0_dummy
+ PORT RXP_1_dummy = nf10_1g_interface_0_RXP_1_dummy
+ PORT RXN_1_dummy = nf10_1g_interface_0_RXN_1_dummy
+ PORT TXP_0_dummy = nf10_1g_interface_0_TXP_0_dummy
 END
 
 BEGIN nf10_1g_interface
@@ -212,6 +235,14 @@ BEGIN nf10_1g_interface
  PORT RXN_0 = nf10_1g_interface_1_RXN_0
  PORT RXP_1 = nf10_1g_interface_1_RXP_1
  PORT axi_resetn = Peripheral_aresetn
+ PORT TXP_0_dummy = nf10_1g_interface_1_TXP_0_dummy
+ PORT TXP_1_dummy = nf10_1g_interface_1_TXP_1_dummy
+ PORT TXN_0_dummy = nf10_1g_interface_1_TXN_0_dummy
+ PORT RXP_0_dummy = nf10_1g_interface_1_RXP_0_dummy
+ PORT RXN_0_dummy = nf10_1g_interface_1_RXN_0_dummy
+ PORT RXP_1_dummy = nf10_1g_interface_1_RXP_1_dummy
+ PORT RXN_1_dummy = nf10_1g_interface_1_RXN_1_dummy
+ PORT TXN_1_dummy = nf10_1g_interface_1_TXN_1_dummy
 END
 
 BEGIN diff_input_buf

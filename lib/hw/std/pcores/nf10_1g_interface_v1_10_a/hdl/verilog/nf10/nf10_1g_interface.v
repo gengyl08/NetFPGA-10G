@@ -82,7 +82,17 @@ module nf10_1g_interface
     output          TXP_1,
     output          TXN_1,
     input           RXP_1,
-    input           RXN_1
+    input           RXN_1,
+    
+    output          TXP_0_dummy,
+    output          TXN_0_dummy,
+    input           RXP_0_dummy,
+    input           RXN_0_dummy,
+    
+    output          TXP_1_dummy,
+    output          TXN_1_dummy,
+    input           RXP_1_dummy,
+    input           RXN_1_dummy
 );
 
   localparam C_M_AXIS_DATA_WIDTH_INTERNAL = 8;
@@ -392,5 +402,22 @@ module nf10_1g_interface
     .s_axis_tlast		(s_axis_tlast_1),
     .s_axis_tuser		(s_axis_tuser_1)
    );
+   
+    // The following is dummy GTX per AR 33473
+    // http://www.xilinx.com/support/answers/33473.htm
+    dummy_gtx dummy_gtx_0 (
+        .CLK_IN     (gtxclk_0),
+        .TXP		(TXP_0_dummy),
+        .TXN		(TXN_0_dummy),
+        .RXP		(RXP_0_dummy),
+        .RXN		(RXN_0_dummy)
+    );
+    dummy_gtx dummy_gtx_1 (
+        .CLK_IN     (gtxclk_1),
+        .TXP		(TXP_1_dummy),
+        .TXN		(TXN_1_dummy),
+        .RXP		(RXP_1_dummy),
+        .RXN		(RXN_1_dummy)
+    );
     
 endmodule

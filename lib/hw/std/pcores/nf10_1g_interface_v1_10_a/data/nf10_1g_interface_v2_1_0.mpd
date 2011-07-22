@@ -91,14 +91,14 @@ PORT RXN_0 = "", DIR = I, INITIALVAL = GND
 PORT RXP_1 = "", DIR = I, INITIALVAL = VCC 
 PORT RXN_1 = "", DIR = I, INITIALVAL = GND
 
-#PORT TXP_0_dummy = "", DIR = O
-#PORT TXN_0_dummy = "", DIR = O
-#PORT TXP_1_dummy = "", DIR = O
-#PORT TXN_1_dummy = "", DIR = O
+PORT TXP_0_dummy = "", DIR = O
+PORT TXN_0_dummy = "", DIR = O
+PORT TXP_1_dummy = "", DIR = O
+PORT TXN_1_dummy = "", DIR = O
 
-#PORT RXP_0_dummy = "", DIR = I, INITIALVAL = VCC 
-#PORT RXN_0_dummy = "", DIR = I, INITIALVAL = GND
-#PORT RXP_1_dummy = "", DIR = I, INITIALVAL = VCC 
-#PORT RXN_1_dummy = "", DIR = I, INITIALVAL = GND
+PORT RXP_0_dummy = "", DIR = I, INITIALVAL = VCC 
+PORT RXN_0_dummy = "", DIR = I, INITIALVAL = GND
+PORT RXP_1_dummy = "", DIR = I, INITIALVAL = VCC 
+PORT RXN_1_dummy = "", DIR = I, INITIALVAL = GND
 
 END

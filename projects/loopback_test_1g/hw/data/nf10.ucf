@@ -38,10 +38,10 @@ INST nf10_1g_interface_0/nf10_1g_interface_0/gmac/mac_block/GTX_DUAL_1000X_inst_
 INST nf10_1g_interface_1/nf10_1g_interface_1/gmac/mac_block/GTX_DUAL_1000X_inst_0/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X1Y10";
 INST nf10_1g_interface_1/nf10_1g_interface_1/gmac/mac_block/GTX_DUAL_1000X_inst_1/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X0Y11";
 
-#INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_0/gtx_dual_i LOC = "GTX_DUAL_X1Y7";
-#INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X1Y9";
-#INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_0/gtx_dual_i LOC = "GTX_DUAL_X1Y11";
-#INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X0Y10";
+INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_0/gtx_dual_i LOC = "GTX_DUAL_X1Y7";
+INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X1Y9";
+INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_0/gtx_dual_i LOC = "GTX_DUAL_X1Y11";
+INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X0Y10";
 
 # refclk for Port A
 NET "refclk_A_p"  LOC = "V4" ;
