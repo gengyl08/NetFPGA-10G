@@ -273,20 +273,19 @@ dummy:
 
 ################## AXI SIMULATION ##################
 
-axi_model: axi_simulation/$(MHSFILE) __xps/simgen.opt \
-           $(BRAMINIT_ELF_SIM_FILES)
+axi_model: __xps/simgen.opt $(BRAMINIT_ELF_SIM_FILES)
 	@echo "*********************************************"
 	@echo "Creating AXI simulation models..."
 	@echo "*********************************************"
+	cp $(MHSFILE) axi_simulation
+	nf10_sim_autosubst.py -m axi_simulation/$(MHSFILE) -c nf10_oped=core_clk
 	simgen $(SIMGEN_OPTIONS) -m behavioral axi_simulation/$(MHSFILE) -od axi_simulation/ -lp ../
 
 sim: axi_model
-	./axi_simulation/simulation/make_pkts.py ; \
-	cd axi_simulation/simulation/behavioral ; \
-	cp ../../system_tb.v .; \
-	$(SYSTEM_FUSE);
-	cd axi_simulation/simulation/behavioral ; \
-	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
+	axi_simulation/make_pkts.py 
+	cp axi_simulation/system_tb.v axi_simulation/simulation/behavioral
+	cd axi_simulation/simulation/behavioral && $(SYSTEM_FUSE)
+	cd axi_simulation/simulation/behavioral && $(SIM_CMD) -gui -tclbatch system_setup.tcl &
 
 system_incl.make:
 	@echo exit|xps -nw system.xmp
