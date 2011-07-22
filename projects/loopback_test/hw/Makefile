@@ -43,7 +43,7 @@ SYNTH_CMD   = ./synthesis.cmd
 SYSTEM_FUSE = ./system_fuse.cmd
 else
 SYNTH_CMD   = ./synthesis.sh
-SYSTEM_FUSE = sh system_fuse.sh
+SYSTEM_FUSE = ./system_fuse.sh
 endif
 
 
@@ -98,9 +98,14 @@ download: $(DOWNLOAD_BIT) dummy
 init_bram: $(DOWNLOAD_BIT)
 
 #James: Copy the simulation testbench
+
+#Unfortunately, due to a bug in iSim (as of 13.2), Verilog "library in library"
+#function is broken, unlike VHDL. So some libraries need to be put together..
 sim: $(DEFAULT_SIM_SCRIPT)
 	cd simulation/behavioral ; \
 	cp ../../nf10/system_tb.v .; \
+	sed -i 's/verilog nf10_axis_converter_v1_00_a/verilog work/g' system.prj; \
+	sed -i 's/verilog nf10_10g_interface_v1_10_a/verilog work/g' system.prj; \
 	$(SYSTEM_FUSE);
 	cd simulation/behavioral ; \
 	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
