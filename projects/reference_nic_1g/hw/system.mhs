@@ -56,10 +56,11 @@
  PORT nf10_1g_interface_0_RXN_1_dummy_pin = nf10_1g_interface_0_RXN_1_dummy, DIR = I
  PORT nf10_1g_interface_0_TXP_0_dummy_pin = nf10_1g_interface_0_TXP_0_dummy, DIR = O
 
+
 BEGIN axi_interconnect
  PARAMETER INSTANCE = axi_interconnect_0
  PARAMETER HW_VER = 1.02.a
- PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 1
+ PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 0
  PORT INTERCONNECT_ARESETN = connectnetwork_0_reset_reset_0_Reset_2_adhoc
  PORT interconnect_aclk = control_clk
 END
@@ -150,7 +151,6 @@ BEGIN axi_uartlite
  PARAMETER C_ODD_PARITY = 1
  PARAMETER C_BASEADDR = 0x40600000
  PARAMETER C_HIGHADDR = 0x4060ffff
- PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
  BUS_INTERFACE S_AXI = axi_interconnect_0
  PORT TX = RS232_Uart_1_sout
  PORT RX = RS232_Uart_1_sin
@@ -188,7 +188,7 @@ BEGIN nf10_1g_interface
  BUS_INTERFACE S_AXIS_0 = nf10_bram_output_queues_0_M_AXIS_0
  BUS_INTERFACE M_AXIS_1 = nf10_1g_interface_0_M_AXIS_1
  BUS_INTERFACE S_AXIS_1 = nf10_bram_output_queues_0_M_AXIS_1
- PORT axi_aclk = core_clk 
+ PORT axi_aclk = core_clk
  PORT gtxclk_0 = refclk_A
  PORT gtxclk_1 = refclk_B
  PORT RXN_1 = nf10_1g_interface_0_RXN_1
@@ -223,7 +223,7 @@ BEGIN nf10_1g_interface
  BUS_INTERFACE S_AXIS_0 = nf10_bram_output_queues_0_M_AXIS_2
  BUS_INTERFACE M_AXIS_1 = nf10_1g_interface_1_M_AXIS_1
  BUS_INTERFACE S_AXIS_1 = nf10_bram_output_queues_0_M_AXIS_3
- PORT axi_aclk = core_clk 
+ PORT axi_aclk = core_clk
  PORT gtxclk_0 = refclk_C
  PORT gtxclk_1 = refclk_D
  PORT RXN_1 = nf10_1g_interface_1_RXN_1
@@ -283,7 +283,6 @@ BEGIN nf10_mdio
  PARAMETER C_INCLUDE_PHY_CONSTRAINTS = 0
  PARAMETER C_BASEADDR = 0x7a000000
  PARAMETER C_HIGHADDR = 0x7a00ffff
- PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
  BUS_INTERFACE S_AXI = axi_interconnect_0
  PORT S_AXI_ACLK = control_clk
  PORT PHY_MDC = nf10_mdio_0_PHY_MDC
@@ -296,7 +295,6 @@ BEGIN axi_timebase_wdt
  PARAMETER HW_VER = 1.01.a
  PARAMETER C_BASEADDR = 0x41a00000
  PARAMETER C_HIGHADDR = 0x41a0ffff
- PARAMETER C_INTERCONNECT_S_AXI_MASTERS = microblaze_0.M_AXI_DP
  BUS_INTERFACE S_AXI = axi_interconnect_0
  PORT S_AXI_ACLK = control_clk
 END
@@ -304,14 +302,14 @@ END
 BEGIN nf10_input_arbiter
  PARAMETER INSTANCE = nf10_input_arbiter_0
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_AXIS_DATA_WIDTH = 64 
+ PARAMETER C_AXIS_DATA_WIDTH = 64
  BUS_INTERFACE M_AXIS = nf10_input_arbiter_0_M_AXIS
  BUS_INTERFACE S_AXIS_0 = nf10_1g_interface_0_M_AXIS_0
  BUS_INTERFACE S_AXIS_1 = nf10_1g_interface_0_M_AXIS_1
  BUS_INTERFACE S_AXIS_2 = nf10_1g_interface_1_M_AXIS_0
  BUS_INTERFACE S_AXIS_3 = nf10_1g_interface_1_M_AXIS_1
  BUS_INTERFACE S_AXIS_4 = nf10_oped_0_M_AXIS
- PORT axi_aclk = core_clk 
+ PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
 END
 
@@ -325,7 +323,7 @@ BEGIN nf10_bram_output_queues
  BUS_INTERFACE M_AXIS_2 = nf10_bram_output_queues_0_M_AXIS_2
  BUS_INTERFACE M_AXIS_3 = nf10_bram_output_queues_0_M_AXIS_3
  BUS_INTERFACE M_AXIS_4 = nf10_bram_output_queues_0_M_AXIS_4
- PORT axi_aclk = core_clk 
+ PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
 END
 
@@ -339,7 +337,7 @@ BEGIN nf10_oped
  BUS_INTERFACE M_AXI = axi_interconnect_0
  PORT ACLK = core_clk
  PORT ARESETN = Peripheral_aresetn
- PORT ACLK_OPED = nf10_oped_0_aclk_oped 
+ PORT ACLK_OPED = nf10_oped_0_aclk_oped
  PORT PCIE_RSTN = net_vcc
  PORT PCIE_CLKP = nf10_oped_0_PCIE_CLKP
  PORT PCIE_CLKN = nf10_oped_0_PCIE_CLKN
@@ -352,10 +350,10 @@ END
 BEGIN nf10_nic_output_port_lookup
  PARAMETER INSTANCE = nf10_nic_output_port_lookup_0
  PARAMETER HW_VER = 1.00.a
- PARAMETER C_AXIS_DATA_WIDTH = 64 
+ PARAMETER C_AXIS_DATA_WIDTH = 64
  BUS_INTERFACE S_AXIS = nf10_input_arbiter_0_M_AXIS
  BUS_INTERFACE M_AXIS = output_port_lookup_0_M_AXIS
- PORT axi_aclk = core_clk 
+ PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
 END
 
