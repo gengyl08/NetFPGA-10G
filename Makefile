@@ -37,8 +37,8 @@ HW_LIB_DIR_INSTANCES_STD := $(basename $(patsubst ./%,%,$(HW_LIB_DIR_INSTANCES_S
 SW_LIB_DIR_INSTANCES_STD := $(shell cd $(NF10_SW_LIB_DIR_STD) && find . -maxdepth 1 -type d)
 SW_LIB_DIR_INSTANCES_STD := $(basename $(patsubst ./%,%,$(SW_LIB_DIR_INSTANCES_STD)))
 
-cores: xilinx std
-clean: xilinxclean stdclean
+cores: xilinx std scripts
+clean: xilinxclean stdclean scriptsclean
 
 xilinx: check-env
 	for lib in $(HW_LIB_DIR_INSTANCES_XILINX) ; do \
@@ -49,7 +49,8 @@ xilinx: check-env
 	@echo "/////////////////////////////////////////";
 	@echo "//Xilinx EDK cores installed.";
 	@echo "/////////////////////////////////////////";
-	
+
+
 xilinxclean:
 	for lib in $(HW_LIB_DIR_INSTANCES_XILINX) ; do \
 		if test -f $(NF10_HW_LIB_DIR_XILINX)/$$lib/Makefile; \
@@ -75,6 +76,7 @@ std:
 	@echo "//NF10 standard cores installed.";
 	@echo "/////////////////////////////////////////";
 
+
 stdclean:	
 	for lib in $(HW_LIB_DIR_INSTANCES_STD) ; do \
 		if test -f $(NF10_HW_LIB_DIR_STD)/$$lib/Makefile; \
@@ -89,7 +91,16 @@ stdclean:
 	@echo "/////////////////////////////////////////";
 	@echo "//NF10 standard cores cleaned.";
 	@echo "/////////////////////////////////////////";
-	
+
+
+scripts:
+	$(MAKE) -C $(NF10_SCRIPTS_DIR)
+
+
+scriptsclean:
+	$(MAKE) -C $(NF10_SCRIPTS_DIR) clean
+
+
 check-env:
 ifndef XILINX_EDK
     $(error XILINX_EDK is undefined)

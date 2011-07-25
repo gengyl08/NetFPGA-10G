@@ -232,7 +232,7 @@ begin
 	quiescent;
 	write( l, string'("") );
 	writeline( output, l );
-	write( l, string'("End of stimuli.") );
+	write( l, stim_file & string'(": end of stimuli.") );
 	writeline( output, l );
 	wait;
     end process;
