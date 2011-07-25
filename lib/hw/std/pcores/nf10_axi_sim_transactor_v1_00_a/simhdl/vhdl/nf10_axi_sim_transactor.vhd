@@ -232,7 +232,8 @@ begin
 	quiescent;
 	write( l, string'("") );
 	writeline( output, l );
-	write( l, stim_file & string'(": end of stimuli.") );
+	write( l, stim_file & string'(": end of stimuli @ ")  &
+		  integer'image(now / 1 ns) & string'(" ns.") );
 	writeline( output, l );
 	wait;
     end process;
