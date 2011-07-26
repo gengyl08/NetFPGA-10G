@@ -322,6 +322,8 @@ NB: A clock or reset net override not constrained to a specific instance or
     type of pcore (eg -r =my_reset) forces respective net on ALL target
     instances.
 
+NB: if --mhs-out not specified, input MHS file will be substituted in-place.
+
 Current list of default target pcores:
         %s
 """ % '\n\t'.join( DEFAULT_TARGETS )
@@ -330,8 +332,11 @@ Current list of default target pcores:
         '--undo', action='store_true', default=False,
         help='Undo any previous substitution')
     parser.add_option(
-        '-m', '--mhs-file', type='string', metavar='FILE',
+        '-i', '--mhs-in', type='string', metavar='FILE',
         help='Input MHS file')
+    parser.add_option(
+        '-o', '--mhs-out', type='string', metavar='FILE',
+        help='Output MHS file')
     parser.add_option(
         '-r', '--reset', type='string', metavar='[INST|CORE]=NET', dest='resets', default={},
         action='callback', callback=net_override_cb, nargs=1, callback_args=(True,),
@@ -352,13 +357,13 @@ Current list of default target pcores:
         help='Disable default list of target pcores for substitution')
 
     opts, targets = parser.parse_args()
-    if opts.mhs_file is None:
+    if opts.mhs_in is None:
         raise parser.error( 'name of input MHS required' )
     if not opts.no_default_targets:
         targets += DEFAULT_TARGETS
 
     # read and parse MHS file
-    with open( opts.mhs_file ) as mhs_fh:
+    with open( opts.mhs_in ) as mhs_fh:
         mhs = mhstools.parse_mhs( mhs_fh )
 
     # perform (or undo) substitutions
@@ -368,9 +373,11 @@ Current list of default target pcores:
         if not subst_mhs( mhs, targets, opts ):
             return 1
 
-    # rename and write out MHS file
-    os.rename( opts.mhs_file, os.path.splitext(opts.mhs_file)[0] + '.bk' )
-    with open( opts.mhs_file, 'w' ) as mhs_fh:
+    # write out MHS file
+    if opts.mhs_out is None:
+        os.rename( opts.mhs_in, os.path.splitext(opts.mhs_in)[0] + '.bk' )
+        opts.mhs_out = opts.mhs_in
+    with open( opts.mhs_out, 'w' ) as mhs_fh:
         mhstools.write_mhs( mhs_fh, mhs )
 
     return 0
