@@ -471,3 +471,11 @@ BEGIN nf10_axi_flash_ctrl
  PORT reboot = nf10_axi_flash_ctrl_0_reboot
 END
 
+BEGIN nf10_axi_sim_transactor
+ PARAMETER INSTANCE = nf10_axi_sim_transactor_0
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE M_AXI = axi_interconnect_0
+ PORT M_AXI_ARESETN = Peripheral_aresetn
+ PORT M_AXI_ACLK = control_clk
+END
+

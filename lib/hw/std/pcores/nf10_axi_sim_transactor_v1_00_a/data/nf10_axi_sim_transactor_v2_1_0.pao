@@ -20,5 +20,5 @@ lib proc_common_v3_00_a all
 simlib nf10_axis_sim_pkg_v1_00_a all
 
 # Implementation for this pcore
-simlib nf10_axi_sim_transactor_v1_00_a transactor_fifos vhdl
-simlib nf10_axi_sim_transactor_v1_00_a nf10_axi_sim_transactor vhdl
+lib nf10_axi_sim_transactor_v1_00_a transactor_fifos vhdl
+lib nf10_axi_sim_transactor_v1_00_a nf10_axi_sim_transactor vhdl
