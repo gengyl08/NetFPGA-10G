@@ -14,8 +14,6 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
-
--- synthesis translate_off
 use ieee.std_logic_textio.all;
 
 use std.textio.all;
@@ -24,7 +22,6 @@ library nf10_axis_sim_pkg_v1_00_a;
 use nf10_axis_sim_pkg_v1_00_a.nf10_axis_sim_pkg.all;
 
 library nf10_axi_sim_transactor_v1_00_a;
--- synthesis translate_on
 
 entity nf10_axi_sim_transactor is
     generic (
@@ -64,7 +61,6 @@ end;
 
 
 architecture rtl of nf10_axi_sim_transactor is
--- synthesis translate_off
     signal reset			 : std_logic;
 
     file stim: text open  read_mode is stim_file;
@@ -89,9 +85,7 @@ architecture rtl of nf10_axi_sim_transactor is
     signal r_rsp_data	                 : std_logic_vector(31 downto 0);
     signal r_rsp_rsp	                 : std_logic_vector( 1 downto 0);
     signal r_rsp_valid	                 : std_logic;
--- synthesis translate_on
 begin
--- synthesis translate_off
     reset <= not M_AXI_ARESETN;
 
     stimulation: process
@@ -320,5 +314,4 @@ begin
 	    M_AXI_RRESP	  => M_AXI_RRESP,
 	    M_AXI_RVALID  => M_AXI_RVALID,
 	    M_AXI_RREADY  => M_AXI_RREADY);
--- synthesis translate_on
 end;
