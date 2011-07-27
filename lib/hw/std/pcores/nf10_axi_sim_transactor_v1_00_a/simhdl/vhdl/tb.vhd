@@ -1,18 +1,3 @@
--------------------------------------------------------------------------------
--- Title      : 
--- Project    : 
--------------------------------------------------------------------------------
--- File       : tb.vhd
--- Author     : David Miller  <david.miller@cl.cam.ac.uk>
--- Company    : University of Cambridge Computer Laboratory
--- SVN ID     : $Id$
--------------------------------------------------------------------------------
--- DESCRIPTION:
---
--- 
---
--------------------------------------------------------------------------------
-
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_signed.all;

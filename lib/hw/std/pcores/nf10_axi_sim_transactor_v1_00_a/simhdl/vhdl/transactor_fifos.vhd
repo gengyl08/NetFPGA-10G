@@ -5,6 +5,9 @@
 --  Module:
 --	    nf10_axi_sim_transactor.vhd
 --
+--  Author:
+--          David J. Miller
+--
 --  Description:
 --	    AXI4 Lite I/O FIFOs
 --

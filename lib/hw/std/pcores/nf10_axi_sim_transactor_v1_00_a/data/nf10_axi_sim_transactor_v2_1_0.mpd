@@ -5,6 +5,9 @@
 #//  Module:
 #//          nf10_axi_sim_transactor_v2_1_0.mpd
 #//
+#//  Author:
+#//          David J. Miller
+#//
 #//  Description:
 #//          Microprocessor Peripheral Description File for AXI4 Lite
 #//          stimulation.  Transmits AXI4-Lite transactions from data

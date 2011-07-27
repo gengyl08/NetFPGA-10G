@@ -5,6 +5,9 @@
 --  Module:
 --	    nf10_axi_sim_transactor.vhd
 --
+--  Author:
+--          David J. Miller
+--
 --  Description:
 --	    Drives an AXI Stream slave using stimuli from an AXI grammar
 --	    formatted text file.

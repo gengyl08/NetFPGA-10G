@@ -7,6 +7,9 @@
 #  Module:
 #       pcore_utilisation.py
 #
+#  Author:
+#       David J. Miller
+#
 #  Description:
 #       Parses all XST synthesis report files (synthesis/*.srp) for
 #       LUT/FF/etc count, and dumps a table for each pcore, largest-first.

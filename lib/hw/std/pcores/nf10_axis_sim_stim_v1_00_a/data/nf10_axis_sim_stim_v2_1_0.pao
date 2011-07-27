@@ -5,6 +5,9 @@
 #//  Module:
 #//          nf10_axis_sim_stim_v2_1_0.pao
 #//
+#//  Author:
+#//          David J. Miller
+#//
 #//  Description:
 #//          Peripheral Analyze Order File for AXI stream stimulation
 #//          (from disc)

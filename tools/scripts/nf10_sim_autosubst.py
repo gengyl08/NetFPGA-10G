@@ -7,6 +7,9 @@
 #  Module:
 #       nf10_sim_autosubst.py
 #
+#  Author:
+#       David J. Miller
+#
 #  Description:
 #       Automatically substitute specific pcores with instances of the AXI
 #       Stream simulation cores nf10_axis_sim_stim and nf10_axis_sim_record.

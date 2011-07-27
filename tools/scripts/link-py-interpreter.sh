@@ -7,6 +7,9 @@
 #  Module:
 #       link-py-interpreter.sh
 #
+#  Author:
+#       David J. Miller
+#
 #  Description:
 #       Locate and create a link to a suitable python interpreter.
 #

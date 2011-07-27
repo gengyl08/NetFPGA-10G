@@ -5,6 +5,9 @@
 --  Module:
 --	    nf10_axis_sim_record.vhd
 --
+--  Author:
+--          David J. Miller
+--
 --  Description:
 --	    Records traffic received from an AXI Stream master to an
 --	    AXI grammar formatted text file.
