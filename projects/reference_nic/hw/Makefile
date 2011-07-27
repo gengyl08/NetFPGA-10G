@@ -47,6 +47,11 @@ AXISIM_FUSE = sh system_axisim_fuse.sh
 endif
 
 
+# Ensure the scripts directory is in the path
+PATH      := $(PATH):$(dir $(firstword $(MAKEFILE_LIST)))/../../../tools/scripts
+
+
+# Create AXI-SIM version of MHSFILE and SIM_CMD
 AXISIM_MHS = $(patsubst %.mhs, %_axisim.mhs, $(MHSFILE))
 AXISIM_CMD = $(patsubst %_system, %_system_axisim, $(SIM_CMD))
 
