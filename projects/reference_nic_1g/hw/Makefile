@@ -40,9 +40,15 @@ ifdef NF10_CYGWIN
 SHELL       = /bin/sh
 SIM_CMD    := cmd /c $(subst ./, , $(SIM_CMD))
 SYSTEM_FUSE = ./system_fuse.cmd
+AXISIM_FUSE = ./system_axisim_fuse.cmd
 else
 SYSTEM_FUSE = sh system_fuse.sh
+AXISIM_FUSE = sh system_axisim_fuse.sh
 endif
+
+
+AXISIM_MHS = $(patsubst %.mhs, %_axisim.mhs, $(MHSFILE))
+AXISIM_CMD = $(patsubst %_system, %_system_axisim, $(SIM_CMD))
 
 
 NF10_NGC_FILES := implementation/nf10_oped_0_wrapper.ngc \
@@ -102,12 +108,12 @@ download: $(DOWNLOAD_BIT) dummy
 init_bram: $(DOWNLOAD_BIT)
 
 #James: Copy the simulation testbench
-sim: $(DEFAULT_SIM_SCRIPT)
-	cd simulation/behavioral ; \
-	cp ../../nf10/system_tb.v .; \
-	$(SYSTEM_FUSE);
-	cd simulation/behavioral ; \
-	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
+#sim: $(DEFAULT_SIM_SCRIPT)
+#	cd simulation/behavioral ; \
+#	cp ../../nf10/system_tb.v .; \
+#	$(SYSTEM_FUSE);
+#	cd simulation/behavioral ; \
+#	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
 
 simmodel: $(DEFAULT_SIM_SCRIPT)
 
@@ -119,11 +125,13 @@ clean: hwclean simclean
 	rm -f _impact.cmd
 	rm -rf __xps
 	rm -rf blockdiagram
+	rm -rf bootloops
 	rm -rf etc
 	rm -f *.opt
 	rm -f *.log
 	rm -f *.make
 	rm -f system.mss
+	rm -f data/system.ucf
 
 hwclean: netlistclean bitsclean
 	rm -rf implementation synthesis xst hdl
@@ -146,8 +154,7 @@ bitsclean:
 
 simclean:
 	rm -rf simulation/behavioral
-	rm -rf axi_simulation/simulation/behavioral
-	rm -rf axi_simulation/*.axi
+	rm -rf *_{in,out}.axi $(AXISIM_MHS)
 	rm -f simgen.log
 	rm -f __xps/ise/_xmsgs/simgen.xmsgs
 
@@ -273,20 +280,18 @@ dummy:
 
 ################## AXI SIMULATION ##################
 
-axi_model: axi_simulation/$(MHSFILE) __xps/simgen.opt \
-           $(BRAMINIT_ELF_SIM_FILES)
+axi_model: __xps/simgen.opt $(BRAMINIT_ELF_SIM_FILES)
 	@echo "*********************************************"
 	@echo "Creating AXI simulation models..."
 	@echo "*********************************************"
-	simgen $(SIMGEN_OPTIONS) -m behavioral axi_simulation/$(MHSFILE) -od axi_simulation/ -lp ../
+	nf10_sim_autosubst.py -i $(MHSFILE) -o $(AXISIM_MHS) -c nf10_oped=core_clk
+	simgen $(SIMGEN_OPTIONS) -m behavioral $(AXISIM_MHS)
 
-axisim: axi_model
-	./axi_simulation/simulation/make_pkts.py ; \
-	cd axi_simulation/simulation/behavioral ; \
-	cp ../../system_tb.v .; \
-	$(SYSTEM_FUSE);
-	cd axi_simulation/simulation/behavioral ; \
-	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
+sim: axi_model
+	./make_pkts.py
+	cp nf10/system_axisim_tb.v simulation/behavioral
+	cd simulation/behavioral && $(AXISIM_FUSE)
+	cd simulation/behavioral && $(AXISIM_CMD) -gui -tclbatch system_axisim_setup.tcl &
 
 system_incl.make:
 	@echo exit|xps -nw system.xmp

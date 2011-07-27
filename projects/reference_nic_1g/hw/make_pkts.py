@@ -25,7 +25,7 @@ import sys
 
 script_dir = os.path.dirname( sys.argv[0] )
 # Add path *relative to this script's location* of axitools module
-sys.path.append( os.path.join( script_dir, '..','..','..','..','tools','scripts' ) )
+sys.path.append( os.path.join( script_dir, '..','..','..','tools','scripts' ) )
 
 # NB: axitools import must preceed any scapy imports
 import axitools

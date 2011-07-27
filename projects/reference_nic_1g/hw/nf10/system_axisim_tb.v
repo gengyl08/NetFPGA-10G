@@ -3,7 +3,7 @@
 //  NetFPGA-10G http://www.netfpga.org
 //
 //  Module:
-//          system_tb
+//          system_axisim_tb
 //
 //  Description:
 //          System testbench for reference_nic
@@ -24,7 +24,7 @@
 
 // END USER CODE (Do not remove this line)
 
-module system_tb
+module system_axisim_tb
   (
   );
 
@@ -52,7 +52,7 @@ module system_tb
   wire MDIO;
   wire PHY_RST_N;
 
-  system
+  system_axisim
     dut (
       .RESET ( RESET ),
       .RS232_Uart_1_sout ( RS232_Uart_1_sout ),

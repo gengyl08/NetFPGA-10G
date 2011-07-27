@@ -20,8 +20,12 @@
 #                  execution environments (notably Cygwin).
 #
 
+import os
 import sys
-sys.path.append('../../../../tools/scripts/axitools')
+
+script_dir = os.path.dirname( sys.argv[0] )
+# Add path *relative to this script's location* of axitools module
+sys.path.append( os.path.join( script_dir, '..','..','..','tools','scripts' ) )
 
 # NB: axitools import must preceed any scapy imports
 import axitools
@@ -30,18 +34,18 @@ from scapy.layers.all import Ether, IP, TCP
 
 
 pkts=[]
-f0 = open("stream_data_in_0.axi", "w")
-f1 = open("stream_data_in_1.axi", "w")
-f2 = open("stream_data_in_2.axi", "w")
-f3 = open("stream_data_in_3.axi", "w")
-f4 = open("stream_data_in_4.axi", "w")
+f0 = open( os.path.join( script_dir, 'nf10_oped_0_M_AXIS_in.axi'          ), 'w' )
+f1 = open( os.path.join( script_dir, 'nf10_10g_interface_0_M_AXIS_in.axi' ), 'w' )
+f2 = open( os.path.join( script_dir, 'nf10_10g_interface_1_M_AXIS_in.axi' ), 'w' )
+f3 = open( os.path.join( script_dir, 'nf10_10g_interface_2_M_AXIS_in.axi' ), 'w' )
+f4 = open( os.path.join( script_dir, 'nf10_10g_interface_3_M_AXIS_in.axi' ), 'w' )
 
 # A simple TCP/IP packet embedded in an Ethernet II frame
 for i in range(0, 10):
     pkt = (Ether(src='11:22:33:44:55:66', dst='77:88:99:aa:bb:cc')/
            IP(src='192.168.1.1', dst='192.168.1.2')/
            TCP()/
-           "Hello, NetFPGA-10G!")
+           'Hello, NetFPGA-10G!')
     pkt.time = i*(1e-8)
     pkts.append(pkt)
              
