@@ -17,7 +17,7 @@
 #
 #       Run in a project directory after synthesis.  Takes no arguments.  eg:
 #
-#               pcore_utilisation.py |less -S
+#               projects/<project_name>/hw$ pcore_utilisation.py |less -S
 #
 #
 
@@ -94,7 +94,7 @@ def parse_srp( filename ):
                 try:
                     subsect = line[:line.index(':')].strip()
                 except ValueError:
-                    subsect = line
+                    subsect = line.strip()
 
                 try:
                     subsect = SUBSECT[ subsect ]
