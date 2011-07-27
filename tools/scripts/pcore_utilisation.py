@@ -7,6 +7,9 @@
 #  Module:
 #       pcore_utilisation.py
 #
+#  Author:
+#       David J. Miller
+#
 #  Description:
 #       Parses all XST synthesis report files (synthesis/*.srp) for
 #       LUT/FF/etc count, and dumps a table for each pcore, largest-first.
@@ -17,7 +20,7 @@
 #
 #       Run in a project directory after synthesis.  Takes no arguments.  eg:
 #
-#               pcore_utilisation.py |less -S
+#               projects/<project_name>/hw$ pcore_utilisation.py |less -S
 #
 #
 
@@ -94,7 +97,7 @@ def parse_srp( filename ):
                 try:
                     subsect = line[:line.index(':')].strip()
                 except ValueError:
-                    subsect = line
+                    subsect = line.strip()
 
                 try:
                     subsect = SUBSECT[ subsect ]

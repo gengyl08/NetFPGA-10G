@@ -7,6 +7,9 @@
 #  Module:
 #       pcap2axis.py
 #
+#  Author:
+#       David J. Miller
+#
 #  Description:
 #       A command-line tool for translating a pcap trace to an AXI Stream
 #       text file.

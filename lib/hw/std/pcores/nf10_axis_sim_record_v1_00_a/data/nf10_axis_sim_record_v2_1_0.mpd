@@ -5,6 +5,9 @@
 #//  Module:
 #//          nf10_axis_sim_record_v2_1_0.mpd
 #//
+#//  Author:
+#//          David J. Miller
+#//
 #//  Description:
 #//          Microprocessor Peripheral Description File for AXI Stream
 #//          recorder.  Records traffic received from an AXI Stream

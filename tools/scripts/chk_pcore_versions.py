@@ -7,6 +7,9 @@
 #  Module:
 #       chk_pcore_versions.py
 #
+#  Author:
+#       David J. Miller
+#
 #  Description:
 #       Automatically check for duplicate, missing and use of out-of-date
 #       pcores.  No command line arguments required.

@@ -7,6 +7,9 @@
 #  Module:
 #       mkpkts_example.py
 #
+#  Author:
+#       David J. Miller
+#
 #  Description:
 #       An example of how to use scapy to build packets.  The packet in
 #       this example is then output to the console as an AXI Stream

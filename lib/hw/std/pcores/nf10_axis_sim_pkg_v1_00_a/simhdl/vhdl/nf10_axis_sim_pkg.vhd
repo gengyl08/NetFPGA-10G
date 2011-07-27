@@ -5,6 +5,9 @@
 --  Module:
 --	    nf10_axis_sim_pkg.vhd
 --
+--  Author:
+--          David J. Miller
+--
 --  Description:
 --	    Stream simulation I/O support package.
 --

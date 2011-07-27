@@ -5,6 +5,9 @@
 #  Module:
 #       axitools.py
 #
+#  Author:
+#       David J. Miller
+#
 #  Description:
 #       A python module for manipulating AXI grammar formatted text.
 #

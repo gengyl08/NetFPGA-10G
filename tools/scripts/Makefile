@@ -5,6 +5,9 @@
 #  Module:
 #       tools/scripts/Makefile
 #
+#  Author:
+#       David J. Miller
+#
 #  Description:
 #       Prepare environment for in-place execution of python scripts.
 #
