@@ -43,7 +43,7 @@ SYNTH_CMD   = ./synthesis.cmd
 SYSTEM_FUSE = ./system_fuse.cmd
 else
 SYNTH_CMD   = ./synthesis.sh
-SYSTEM_FUSE = ./system_fuse.sh
+SYSTEM_FUSE = sh system_fuse.sh
 endif
 
 
