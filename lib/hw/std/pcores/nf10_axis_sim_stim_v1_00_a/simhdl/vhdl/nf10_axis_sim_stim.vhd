@@ -105,7 +105,7 @@ begin
 		read_char( l, c );	-- discard operator
 		parse_int( l, i );
 		assert now < (1 * 1 ns)
-		    report "ignoring absolute wait for time that has already passed: " & integer'image(i) & " ns"
+		    report input_file & ": ignoring absolute wait for time that has already passed: " & integer'image(i) & " ns"
 		    severity warning;
 		if now < (i * 1 ns) then -- ignore absolute times that have
 					 -- already passed
@@ -129,17 +129,17 @@ begin
 		-- parse out each component of the stimulus
 		parse_slv( l, M_AXIS_TDATA, dontcare );
 		assert not dontcare
-		    report "bad input: nf10_axis_sim_stim doesn't accept 'don't-cares'"
+		    report input_file & ": bad input: nf10_axis_sim_stim doesn't accept 'don't-cares'"
 		    severity failure;
 		read_char( l, c );	-- discard ','
 		parse_slv( l, M_AXIS_TSTRB, dontcare );
 		assert not dontcare
-		    report "bad input: nf10_axis_sim_stim doesn't accept 'don't-cares'"
+		    report input_file & ": bad input: nf10_axis_sim_stim doesn't accept 'don't-cares'"
 		    severity failure;
 		read_char( l, c );	-- discard ','
 		parse_slv( l, M_AXIS_TUSER, dontcare );
 		assert not dontcare
-		    report "bad input: nf10_axis_sim_stim doesn't accept 'don't-cares'"
+		    report input_file & ": bad input: nf10_axis_sim_stim doesn't accept 'don't-cares'"
 		    severity failure;
 		read_char( l, c );	-- read terminal flag for TLAST...
 		if c = '.' then  	-- '.' == end of packet
@@ -148,7 +148,7 @@ begin
 		    M_AXIS_TLAST <= '0';
 		else
 		    assert false
-			report "bad input: expected terminal ',' or '.'"
+			report input_file & ": bad input: expected terminal ',' or '.'"
 			severity failure;
 		end if;
 		wait_cycle;

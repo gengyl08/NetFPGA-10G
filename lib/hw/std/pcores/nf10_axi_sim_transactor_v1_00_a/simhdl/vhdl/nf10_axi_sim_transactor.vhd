@@ -152,7 +152,7 @@ begin
 		read_char( l, c );	-- discard operator
 		parse_int( l, i );
 		assert now < (1 * 1 ns)
-		    report "ignoring absolute wait for time that has already passed: " & integer'image(i) & " ns"
+		    report stim_file & ": ignoring absolute wait for time that has already passed: " & integer'image(i) & " ns"
 		    severity warning;
 		if now < (i * 1 ns) then -- ignore absolute times that have
 					 -- already passed
@@ -180,7 +180,7 @@ begin
 		parse_slv( l, w_req_data, dontcare );
 		if w_pending = '1' then
 		    assert not dontcare
-			report "malformed write request: missing data"
+			report stim_file & ": malformed write request: missing data"
 			severity warning;
 		end if;
 		read_char( l, c );	-- discard ','
@@ -188,7 +188,7 @@ begin
 		parse_slv( l, w_req_strb, dontcare );
 		if w_pending = '1' then
 		    assert not dontcare
-			report "malformed write request: missing byte lane strobe"
+			report stim_file & ": malformed write request: missing byte lane strobe"
 			severity warning;
 		end if;
 		read_char( l, c );	-- discard ','
@@ -220,7 +220,7 @@ begin
 		elsif c = ',' then  	-- continue immediately
 		else
 		    assert false
-			report "bad input: expected terminal ',' or '.'"
+			report stim_file & ": bad input: expected terminal ',' or '.'"
 			severity failure;
 		end if;
 	    end if;
