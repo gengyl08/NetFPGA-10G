@@ -34,11 +34,11 @@ from scapy.layers.all import Ether, IP, TCP
 
 
 pkts=[]
-f0 = open( os.path.join( script_dir, 'nf10_oped_0_M_AXIS_in.axi'           ), 'w' )
-f1 = open( os.path.join( script_dir, 'nf10_1g_interface_0_M_AXIS_0_in.axi' ), 'w' )
-f2 = open( os.path.join( script_dir, 'nf10_1g_interface_0_M_AXIS_1_in.axi' ), 'w' )
-f3 = open( os.path.join( script_dir, 'nf10_1g_interface_1_M_AXIS_0_in.axi' ), 'w' )
-f4 = open( os.path.join( script_dir, 'nf10_1g_interface_1_M_AXIS_1_in.axi' ), 'w' )
+f0 = open( os.path.join( script_dir, 'nf10_oped_0_stim.axi'           ), 'w' )
+f1 = open( os.path.join( script_dir, 'nf10_1g_interface_0_0_stim.axi' ), 'w' )
+f2 = open( os.path.join( script_dir, 'nf10_1g_interface_0_1_stim.axi' ), 'w' )
+f3 = open( os.path.join( script_dir, 'nf10_1g_interface_1_0_stim.axi' ), 'w' )
+f4 = open( os.path.join( script_dir, 'nf10_1g_interface_1_1_stim.axi' ), 'w' )
 
 # A simple TCP/IP packet embedded in an Ethernet II frame
 for i in range(0, 10):
