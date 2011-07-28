@@ -159,7 +159,7 @@ bitsclean:
 
 simclean:
 	rm -rf simulation/behavioral
-	rm -rf *_{in,out}.axi $(AXISIM_MHS)
+	rm -rf *[0-9]_{stim,log}.axi $(AXISIM_MHS)
 	rm -f simgen.log
 	rm -f __xps/ise/_xmsgs/simgen.xmsgs
 
