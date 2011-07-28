@@ -87,16 +87,6 @@
  PORT nf10_oped_0_PCIE_RXP_pin = nf10_oped_0_PCIE_RXP, DIR = I, VEC = [7:0]
  PORT nf10_oped_0_PCIE_TXN_pin = nf10_oped_0_PCIE_TXN, DIR = O, VEC = [7:0]
  PORT nf10_oped_0_PCIE_TXP_pin = nf10_oped_0_PCIE_TXP, DIR = O, VEC = [7:0]
- PORT S_AXI_ACLK = control_clk
- PORT nf10_axi_flash_ctrl_0_FPGA_A_pin = nf10_axi_flash_ctrl_0_FPGA_A, DIR = O, VEC = [23:0]
- PORT nf10_axi_flash_ctrl_0_FPGA_DQ = nf10_axi_flash_ctrl_0_FPGA_DQ, DIR = IO, VEC = [15:0]
- PORT nf10_axi_flash_ctrl_0_FPGA_FOE_pin = nf10_axi_flash_ctrl_0_FPGA_FOE, DIR = O
- PORT nf10_axi_flash_ctrl_0_FPGA_FWE_pin = nf10_axi_flash_ctrl_0_FPGA_FWE, DIR = O
- PORT nf10_axi_flash_ctrl_0_FPGA_FCS_pin = nf10_axi_flash_ctrl_0_FPGA_FCS, DIR = O
- PORT nf10_axi_flash_ctrl_0_FPGA_IOL9P_pin = nf10_axi_flash_ctrl_0_FPGA_IOL9P, DIR = O
-# PORT nf10_axi_flash_ctrl_0_FLASH_RST_pin = nf10_axi_flash_ctrl_0_FLASH_RST, DIR = O
- PORT CPLD_CLK = nf10_axi_flash_ctrl_0_CPLD_CLK, DIR = I, SIGIS = CLK
- PORT reboot = nf10_axi_flash_ctrl_0_reboot, DIR = O
 
 
 BEGIN axi_interconnect
@@ -452,23 +442,6 @@ BEGIN nf10_nic_output_port_lookup
  BUS_INTERFACE M_AXIS = nf10_nic_output_port_lookup_0_M_AXIS
  PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
-END
-
-BEGIN nf10_axi_flash_ctrl
- PARAMETER INSTANCE = nf10_axi_flash_ctrl_0
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_BASEADDR = 0x77600000
- PARAMETER C_HIGHADDR = 0x7760ffff
- BUS_INTERFACE S_AXI = axi_interconnect_0
- PORT S_AXI_ACLK = control_clk
- PORT CPLD_CLK = nf10_axi_flash_ctrl_0_CPLD_CLK
- PORT FPGA_A = nf10_axi_flash_ctrl_0_FPGA_A
- PORT FPGA_DQ = nf10_axi_flash_ctrl_0_FPGA_DQ
- PORT FPGA_FOE = nf10_axi_flash_ctrl_0_FPGA_FOE
- PORT FPGA_FWE = nf10_axi_flash_ctrl_0_FPGA_FWE
- PORT FPGA_FCS = nf10_axi_flash_ctrl_0_FPGA_FCS
- PORT FPGA_IOL9P = nf10_axi_flash_ctrl_0_FPGA_IOL9P
- PORT reboot = nf10_axi_flash_ctrl_0_reboot
 END
 
 BEGIN nf10_axi_sim_transactor

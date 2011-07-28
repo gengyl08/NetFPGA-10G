@@ -61,8 +61,8 @@ module tx_queue
    // Instantiate clock domain crossing FIFO
    FIFO36_72 #(
    	.SIM_MODE("FAST"),
-   	.ALMOST_FULL_OFFSET(9'h080),
-   	.ALMOST_EMPTY_OFFSET(9'h006),
+   	.ALMOST_FULL_OFFSET(9'hA),
+   	.ALMOST_EMPTY_OFFSET(9'hA),
    	.DO_REG(1),
    	.EN_ECC_READ("FALSE"),
    	.EN_ECC_WRITE("FALSE"),

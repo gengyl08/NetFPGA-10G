@@ -34,16 +34,6 @@ NET PHY_RST_N         LOC = AR20   | IOSTANDARD = LVCMOS33  | PULLUP;       # ex
 NET CLK TNM_NET = sys_clk_pin;
 TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100 MHz;
 
-# Experimental: Placement
-#right side
-#INST "nf10_10g_interface_0/nf10_10g_interface_0/*" AREA_GROUP = "pblock_right";
-#INST "nf10_10g_interface_1/nf10_10g_interface_1/*" AREA_GROUP = "pblock_right";
-#INST "nf10_10g_interface_2/nf10_10g_interface_2/*" AREA_GROUP = "pblock_right";
-#AREA_GROUP "pblock_right" RANGE=SLICE_X110Y120:SLICE_X155Y239;
- 
-#INST "nf10_oped_0/nf10_oped_0/*" AREA_GROUP = "pblock_lower";
-#AREA_GROUP "pblock_lower" RANGE=SLICE_X0Y0:SLICE_X155Y119;
-
 # GTX PLACEMENT #########################################################
 # XAUI 0
 INST nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y6;
@@ -224,7 +214,6 @@ TIMESPEC "TS_PCI0CLK"  = PERIOD "PCI0CLK" 100.00 MHz HIGH 50 % ;
 
 
 INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_clk"  DIFF_TERM = "TRUE";
-
 NET  "nf10_oped_0_PCIE_CLKP_pin"       LOC = "AT4"  ;
 NET  "nf10_oped_0_PCIE_CLKN_pin"       LOC = "AT3"  ;
 
@@ -295,61 +284,3 @@ INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_1/Mram_RAM1"  LOC = RAMB36_X3
 INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_1/Mram_RAM2"  LOC = RAMB36_X3Y2 ;
 INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory/Mram_RAM1"    LOC = RAMB36_X3Y1 ;
 INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory/Mram_RAM2"    LOC = RAMB36_X3Y0 ;
-
-###############################################################################
-# Flash signals
-###############################################################################
-NET CPLD_CLK TNM_NET = CPLD_CLK_pin;
-TIMESPEC TS_CPLD_CLK_pin = PERIOD CPLD_CLK_pin 50 MHz;
-
-NET "nf10_axi_flash_ctrl_0_FPGA_IOL9P_pin"    LOC = "AK20" | IOSTANDARD = LVCMOS33 ;      
-#NET "nf10_axi_flash_ctrl_0_FLASH_RST_pin"     LOC = "AK27" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_FOE_pin"      LOC = "AM17" | IOSTANDARD = LVCMOS33 ;        
-NET "nf10_axi_flash_ctrl_0_FPGA_FCS_pin"      LOC = "AL17" | IOSTANDARD = LVCMOS33 ;         
-NET "nf10_axi_flash_ctrl_0_FPGA_FWE_pin"      LOC = "AR27" | IOSTANDARD = LVCMOS33 ;         
-
-NET "CPLD_CLK"                                LOC = "AP21" | IOSTANDARD = LVCMOS33 ;  
-NET "reboot"                                  LOC = "AJ18" | IOSTANDARD = LVCMOS33 ;  
-
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<23>"    LOC = "AK27" | IOSTANDARD = LVCMOS33 ;  
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<22>"    LOC = "AK28" | IOSTANDARD = LVCMOS33 ;         
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<21>"    LOC = "AM27" | IOSTANDARD = LVCMOS33 ;         
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<20>"    LOC = "AK18" | IOSTANDARD = LVCMOS33 ;        
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<19>"    LOC = "AL27" | IOSTANDARD = LVCMOS33 ;        
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<18>"    LOC = "AP27" | IOSTANDARD = LVCMOS33 ;         
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<17>"    LOC = "AR24" | IOSTANDARD = LVCMOS33 ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<16>"    LOC = "AT24" | IOSTANDARD = LVCMOS33  ;     
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<15>"    LOC = "AN21" | IOSTANDARD = LVCMOS33 ;         
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<14>"    LOC = "AM22" | IOSTANDARD = LVCMOS33 ;         
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<13>"    LOC = "AW23" | IOSTANDARD = LVCMOS33 ;     
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<12>"    LOC = "AY23" |  IOSTANDARD = LVCMOS33 ;   
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<11>"    LOC = "AL22" | IOSTANDARD = LVCMOS33 ;        
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<10>"    LOC = "AK22" | IOSTANDARD = LVCMOS33 ;         
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<9>"     LOC = "AN23" | IOSTANDARD = LVCMOS33;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<8>"     LOC = "AP23" | IOSTANDARD = LVCMOS33;     
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<7>"     LOC = "BA20" | IOSTANDARD = LVCMOS33;      
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<6>"     LOC = "AY20" | IOSTANDARD = LVCMOS33;     
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<5>"     LOC = "AR23" | IOSTANDARD = LVCMOS33;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<4>"     LOC = "AT22" | IOSTANDARD = LVCMOS33 ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<3>"     LOC = "AW21" | IOSTANDARD = LVCMOS33;   
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<2>"     LOC = "AW22" | IOSTANDARD = LVCMOS33 ;    
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<1>"     LOC = "AR22" | IOSTANDARD = LVCMOS33;    
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<0>"     LOC = "AP22" | IOSTANDARD = LVCMOS33 ;           
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<15>"       LOC = "AV21" | IOSTANDARD = LVCMOS33;     
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<14>"       LOC = "AU22" | IOSTANDARD = LVCMOS33;      
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<13>"       LOC = "AU21" | IOSTANDARD = LVCMOS33;     
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<12>"       LOC = "AT21" | IOSTANDARD = LVCMOS33;  
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<11>"       LOC = "AV18" | IOSTANDARD = LVCMOS33;       
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<10>"       LOC = "AV19" | IOSTANDARD = LVCMOS33;      
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<9>"        LOC = "AV24" | IOSTANDARD = LVCMOS33;    
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<8>"        LOC = "AU24" | IOSTANDARD = LVCMOS33;     
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<7>"        LOC = "AM18" | IOSTANDARD = LVCMOS33;    
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<6>"        LOC = "AM19" | IOSTANDARD = LVCMOS33;    
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<5>"        LOC = "AP26" | IOSTANDARD = LVCMOS33;    
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<4>"        LOC = "AN26" | IOSTANDARD = LVCMOS33;    
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<3>"        LOC = "AL19" | IOSTANDARD = LVCMOS33;       
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<2>"        LOC = "AK19" | IOSTANDARD = LVCMOS33;     
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<1>"        LOC = "AP25" | IOSTANDARD = LVCMOS33;       
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<0>"        LOC = "AR25" | IOSTANDARD = LVCMOS33; 
-
-
