@@ -150,7 +150,9 @@ def subst_mhs( mhs, targets, opts ):
         # Find any AXI Stream ports, and what they're attached to
         bus_args = mhstools.get_ents_by_kw( ent, 'BUS_INTERFACE' )
         s_axis_nets = [net for cls, net in filter( lambda av: s_axis_re.match( av[0] ), bus_args )]
+        s_axis_nets.sort()
         m_axis_nets = [net for cls, net in filter( lambda av: m_axis_re.match( av[0] ), bus_args )]
+        m_axis_nets.sort()
 
         # Insert stimulator and recorder cores for AXI Stream nets attached to this entity
         if not s_axis_nets and not m_axis_nets:
@@ -158,7 +160,7 @@ def subst_mhs( mhs, targets, opts ):
             return True
         if s_axis_nets:
             print '\tnf10_axis_sim_record instance(s) on AXI Stream master net(s):'
-            for net in s_axis_nets:
+            for netno, net in enumerate(s_axis_nets):
                 # Attempt to infer correct width parameter
                 try:
                     other = mhstools.get_other_inst( mhs, ent, net )
@@ -184,14 +186,15 @@ def subst_mhs( mhs, targets, opts ):
 
                 # Perform substitution
                 inst_name = 'record_%s' % net
-                axi_file  = '%s/%s_out.axi' % (opts.axi_path, net)
+                axi_file  = os.path.join( opts.axi_path, '%s%s_log.axi' % (core_inst,
+                                                  '_%d' % netno if len(m_axis_nets) != 1 else '' ) )
                 insert_recorder( mhs, index+1,
                                  'Replacing core %s (instance %s)' % (core_name, core_inst),
                                  inst_name, RECORDER_VER, axi_file, width, net, clock_net )
                 print '\t\t%s (%s)' % (net, axi_file)
         if m_axis_nets:
             print '\tnf10_axis_sim_stim instance(s) on AXI Stream slave net(s):'
-            for net in m_axis_nets:
+            for netno, net in enumerate(m_axis_nets):
                 # Attempt to infer correct width parameter
                 try:
                     other = mhstools.get_other_inst( mhs, ent, net )
@@ -217,7 +220,8 @@ def subst_mhs( mhs, targets, opts ):
 
                 # Perform substitution
                 inst_name = 'stim_%s' % net
-                axi_file  = '%s/%s_in.axi' % (opts.axi_path, net)
+                axi_file  = os.path.join( opts.axi_path, '%s%s_stim.axi' % (core_inst,
+                                                  '_%d' % netno if len(m_axis_nets) != 1 else '' ) )
                 insert_stimulator( mhs, index+1,
                                    'Replacing core %s (instance %s)' % (core_name, core_inst),
                                    inst_name, STIM_VER, axi_file, width, net, clock_net, reset_net )
