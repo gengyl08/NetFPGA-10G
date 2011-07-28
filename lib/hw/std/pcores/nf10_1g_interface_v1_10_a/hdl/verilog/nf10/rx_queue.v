@@ -62,10 +62,10 @@ module rx_queue
    reg  rx_fifo_rd_en;
    
    // Instantiate clock domain crossing FIFO
-   FIFO18 #(
+   FIFO36 #(
    	.SIM_MODE("FAST"),
-   	.ALMOST_FULL_OFFSET(9'h080),
-   	.ALMOST_EMPTY_OFFSET(9'h080),
+   	.ALMOST_FULL_OFFSET(12'hA),
+   	.ALMOST_EMPTY_OFFSET(12'hA),
    	.DO_REG(1),
    	.EN_SYN("FALSE"),
    	.FIRST_WORD_FALL_THROUGH("TRUE"),
