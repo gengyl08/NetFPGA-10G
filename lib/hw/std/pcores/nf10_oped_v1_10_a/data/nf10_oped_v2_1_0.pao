@@ -30,8 +30,7 @@ lib nf10_oped_v1_10_a oped/mkAXISDWorker4B.v verilog
 
 lib nf10_oped_v1_10_a util/FIFO2.v verilog
 lib nf10_oped_v1_10_a util/arSRLFIFO.v verilog
-#lib nf10_oped_v1_10_a util/arSRLFIFOD.v verilog
-lib nf10_oped_v1_10_a util/arSRLFIFOD_V5.v verilog
+lib nf10_oped_v1_10_a util/arSRLFIFOD.v verilog
 lib nf10_oped_v1_10_a util/BRAM2.v verilog
 lib nf10_oped_v1_10_a util/FIFO1.v verilog
 lib nf10_oped_v1_10_a util/FIFO10.v verilog
