@@ -84,6 +84,12 @@ module nf10_bram_output_queues
    // ------------ Internal Params --------
    
    localparam NUM_QUEUES_WIDTH = log2(NUM_QUEUES);
+   
+   localparam BUFFER_SIZE         = 4096; // Buffer size 4096B
+   localparam BUFFER_SIZE_WIDTH   = log2(BUFFER_SIZE/(C_AXIS_DATA_WIDTH/8));
+
+   localparam MAX_PACKET_SIZE = 1600;
+   localparam BUFFER_THRESHOLD = (BUFFER_SIZE-MAX_PACKET_SIZE)/(C_AXIS_DATA_WIDTH/8);
 
    localparam NUM_STATES = 3;
    localparam IDLE = 0;
@@ -133,14 +139,15 @@ module nf10_bram_output_queues
    genvar i;
    for(i=0; i<NUM_QUEUES; i=i+1) begin: output_queues
       fallthrough_small_fifo
-        #( .WIDTH(C_AXIS_DATA_WIDTH+C_USER_WIDTH+C_AXIS_DATA_WIDTH/8+1),
-           .MAX_DEPTH_BITS(8))
+        #( .WIDTH(C_AXIS_DATA_WIDTH+C_AXIS_DATA_WIDTH/8+1),
+           .MAX_DEPTH_BITS(BUFFER_SIZE_WIDTH),
+           .PROG_FULL_THRESHOLD(BUFFER_THRESHOLD))
       output_fifo
         (// Outputs
          .dout                           ({fifo_out_tlast[i], fifo_out_tstrb[i], fifo_out_tdata[i]}),
          .full                           (),
-         .nearly_full                    (nearly_full_fifo[i]),
-	 	 .prog_full                      (),
+         .nearly_full                    (),
+	 	 .prog_full                      (nearly_full_fifo[i]),
          .empty                          (empty[i]),
          // Inputs
          .din                            ({s_axis_tlast, s_axis_tstrb, s_axis_tdata}),
@@ -166,7 +173,7 @@ module nf10_bram_output_queues
          .reset                          (~axi_resetn),
          .clk                            (axi_aclk));
    
-   always @(metadata_state[i], rd_en[i]) begin
+   always @(metadata_state[i], rd_en[i], fifo_out_tlast[i]) begin
         metadata_rd_en[i] = 1'b0;
         metadata_state_next[i] = metadata_state[i];
       	case(metadata_state[i])
@@ -217,7 +224,7 @@ module nf10_bram_output_queues
         IDLE: begin
            cur_queue_next = oq;
            if(s_axis_tvalid) begin
-              if(~|((nearly_full | metadata_nearly_full_fifo) & oq)) begin // All interesting oqs are NOT _nearly_ full (able to fit in the maximum pacekt).
+              if(~|((nearly_full | metadata_nearly_full) & oq)) begin // All interesting oqs are NOT _nearly_ full (able to fit in the maximum pacekt).
                   state_next = WR_PKT;
                   first_word_next = 1'b1;
               end
