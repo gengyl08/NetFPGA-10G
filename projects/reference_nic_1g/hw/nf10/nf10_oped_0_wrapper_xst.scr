@@ -14,10 +14,11 @@
 #////////////////////////////////////////////////////////////////////////
 run
 -opt_mode speed
--netlist_hierarchy as_optimized
 -opt_level 2
 -p xc5vtx240tff1759-2
 -top nf10_oped_0_wrapper
+-netlist_hierarchy as_optimized
+-keep_hierarchy soft
 -ifmt MIXED
 -ifn nf10_oped_0_wrapper_xst.prj
 -ofn ../implementation/nf10_oped_0_wrapper.ngc
