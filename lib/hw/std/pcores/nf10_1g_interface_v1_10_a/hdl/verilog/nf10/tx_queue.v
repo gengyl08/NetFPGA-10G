@@ -133,14 +133,14 @@ module tx_queue
              SEND_PKT: begin
                  fifo_rd_en = 1'b1;
                  if(eop_mac) begin
-                     state_next = IFG;
+                     state_next = IDLE;
                  end
              end
              
-             IFG: begin
+             /*IFG: begin
                  tx_data_valid = 1'b0;
                  state_next = IDLE;
-             end
+             end*/
          endcase
      end
      
