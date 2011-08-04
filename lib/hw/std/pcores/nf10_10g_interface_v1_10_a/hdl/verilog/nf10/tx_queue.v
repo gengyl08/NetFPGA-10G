@@ -56,7 +56,7 @@ module tx_queue
    reg  eop_axi_delay, tlast_delay;
    
    assign tready = ~fifo_almost_full;
-   assign eop_axi = (tlast);
+   assign eop_axi = tlast;
    
    // Instantiate clock domain crossing FIFO
    FIFO36_72 #(
@@ -189,8 +189,6 @@ module tx_queue
      end
      
      always @(posedge clk) begin
-         eop_axi_delay <= eop_axi;
-         tlast_delay <= tlast;
-         info_fifo_wr_en <= tlast & tvalid;
+         info_fifo_wr_en <= tlast & tvalid & tready;
      end
 endmodule

@@ -46,14 +46,12 @@ module tx_queue
    wire fifo_almost_full;
    wire fifo_empty, info_fifo_empty;
    reg  fifo_rd_en, info_fifo_rd_en;
-   wire tx_data_valid_fifo;
    reg  info_fifo_wr_en;
    
    reg  [2:0] state, state_next;
-   reg  tlast_delay, eop_axi_delay;
    
    assign tready = ~fifo_almost_full;
-   assign eop_axi = tvalid & tlast;
+   assign eop_axi = tlast;
    
    
    // Instantiate clock domain crossing FIFO
@@ -68,7 +66,7 @@ module tx_queue
    	) tx_fifo (
 		.ALMOSTEMPTY(),
 		.ALMOSTFULL(fifo_almost_full),
-		.DO({eop_mac, tx_data_valid_fifo, tx_data}),
+		.DO({eop_mac, tx_data}),
 		.DOP(),
 		.EMPTY(fifo_empty),
 		.FULL(),
@@ -76,13 +74,13 @@ module tx_queue
 		.RDERR(),
 		.WRCOUNT(),
 		.WRERR(),
-		.DI({eop_axi, tvalid, tdata}),
+		.DI({eop_axi, tdata}),
 		.DIP(2'b0),
 		.RDCLK(clk125),
 		.RDEN(fifo_rd_en),
 		.RST(reset),
 		.WRCLK(clk),
-		.WREN((tvalid) & tready)
+		.WREN(tvalid & tready)
    	);
 
    	small_async_fifo 
@@ -92,7 +90,7 @@ module tx_queue
 	) tx_info_fifo
         (
          .wdata(1'b0),
-         .winc(eop_axi),
+         .winc(info_fifo_wr_en),
          .wclk(clk),
          
          .rdata(),
@@ -112,7 +110,7 @@ module tx_queue
          state_next = state;
          fifo_rd_en = 1'b0;
          info_fifo_rd_en = 1'b0;
-         tx_data_valid = tx_data_valid_fifo;
+         tx_data_valid = 1'b0;
          
          case(state)
              IDLE: begin
@@ -124,6 +122,7 @@ module tx_queue
              end
              
              WAIT_FOR_ACK: begin
+                 tx_data_valid = 1'b1;
                  if(tx_ack) begin
                      fifo_rd_en = 1'b1;
                      state_next = SEND_PKT;
@@ -132,6 +131,7 @@ module tx_queue
              
              SEND_PKT: begin
                  fifo_rd_en = 1'b1;
+                 tx_data_valid = 1'b1;
                  if(eop_mac) begin
                      state_next = IDLE;
                  end
@@ -154,8 +154,6 @@ module tx_queue
      end
      
      always @(posedge clk) begin
-         tlast_delay <= tlast;
-         eop_axi_delay <= eop_axi;
-         info_fifo_wr_en <= eop_axi & ~eop_axi_delay; // Only 1 cycle
+         info_fifo_wr_en <= tlast & tready & tvalid; // Only 1 cycle
      end
 endmodule
