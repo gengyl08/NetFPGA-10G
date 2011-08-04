@@ -106,7 +106,7 @@ module nf10_axis_converter
     )
       input_fifo
         (.din           ({s_axis_tlast, s_axis_tstrb, s_axis_tdata}),  // Data in
-         .wr_en         (s_axis_tvalid & ~in_fifo_nearly_full),             // Write enable
+         .wr_en         (s_axis_tvalid & s_axis_tready),             // Write enable
          .rd_en         (in_fifo_rd_en),    // Read the next word
          .dout          ({s_axis_tlast_fifo, s_axis_tstrb_fifo, s_axis_tdata_fifo}),
          .full          (),
