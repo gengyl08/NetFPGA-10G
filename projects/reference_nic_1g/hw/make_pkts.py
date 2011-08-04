@@ -51,7 +51,7 @@ for i in range(0, 10):
              
 # Write out to console
 axitools.axis_dump( pkts, f0, 64, 1e-9 )
-axitools.axis_dump( pkts, f1, 64, 1e-9 )
-axitools.axis_dump( pkts, f2, 64, 1e-9 )
-axitools.axis_dump( pkts, f3, 64, 1e-9 )
-axitools.axis_dump( pkts, f4, 64, 1e-9 )
+axitools.axis_dump( pkts, f1, 64, 1e-9, sport = 0 )
+axitools.axis_dump( pkts, f2, 64, 1e-9, sport = 1 )
+axitools.axis_dump( pkts, f3, 64, 1e-9, sport = 2 )
+axitools.axis_dump( pkts, f4, 64, 1e-9, sport = 3 )
