@@ -34,6 +34,15 @@ NET PHY_RST_N         LOC = AR20   | IOSTANDARD = LVCMOS33  | PULLUP;       # ex
 NET CLK TNM_NET = sys_clk_pin;
 TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100 MHz;
 
+# Timing Ignore constraint on all signals that cross from core_clk domain to nf10_oped_0_aclk_oped domain
+NET "core_clk" TNM_NET = "CORE_CLK";
+NET "control_clk" TNM_NET = "CTRL_CLK";
+NET "nf10_oped_0_aclk_oped" TNM_NET = "OPED_CLK";
+TIMESPEC "TS_OPED_TIG_0" = FROM "CORE_CLK" TO "OPED_CLK" TIG;
+TIMESPEC "TS_OPED_TIG_1" = FROM "OPED_CLK" TO "CORE_CLK" TIG;
+TIMESPEC "TS_OPED_TIG_2" = FROM "CTRL_CLK" TO "OPED_CLK" TIG;
+TIMESPEC "TS_OPED_TIG_3" = FROM "OPED_CLK" TO "CTRL_CLK" TIG;
+
 # GTX PLACEMENT #########################################################
 # XAUI 0
 INST nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y6;
