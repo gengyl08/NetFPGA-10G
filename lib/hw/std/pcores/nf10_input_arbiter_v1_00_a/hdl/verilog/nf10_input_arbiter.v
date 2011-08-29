@@ -16,8 +16,10 @@
 module nf10_input_arbiter
 #(
     // Master AXI Stream Data Width
-    parameter C_AXIS_DATA_WIDTH=256,    
-    parameter C_USER_WIDTH=128,
+    parameter C_M_AXIS_DATA_WIDTH=256,
+    parameter C_S_AXIS_DATA_WIDTH=256,
+    parameter C_M_AXIS_TUSER_WIDTH=128,
+    parameter C_S_AXIS_TUSER_WIDTH=128,
     parameter NUM_QUEUES=5
 )
 (
@@ -27,45 +29,45 @@ module nf10_input_arbiter
     input axi_resetn,
     
     // Master Stream Ports (interface to data path)
-    output [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
-    output [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
-    output [C_USER_WIDTH-1:0] m_axis_tuser,
+    output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
+    output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
+    output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser,
     output m_axis_tvalid,
     input  m_axis_tready,
     output m_axis_tlast,
     
     // Slave Stream Ports (interface to RX queues)
-    input [C_AXIS_DATA_WIDTH - 1:0] s_axis_tdata_0,
-    input [((C_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb_0,
-    input [C_USER_WIDTH-1:0] s_axis_tuser_0,
+    input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_tdata_0,
+    input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb_0,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_tuser_0,
     input  s_axis_tvalid_0,
     output s_axis_tready_0,
     input  s_axis_tlast_0,
 
-    input [C_AXIS_DATA_WIDTH - 1:0] s_axis_tdata_1,
-    input [((C_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb_1,
-    input [C_USER_WIDTH-1:0] s_axis_tuser_1,
+    input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_tdata_1,
+    input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb_1,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_tuser_1,
     input  s_axis_tvalid_1,
     output s_axis_tready_1,
     input  s_axis_tlast_1,
 
-    input [C_AXIS_DATA_WIDTH - 1:0] s_axis_tdata_2,
-    input [((C_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb_2,
-    input [C_USER_WIDTH-1:0] s_axis_tuser_2,
+    input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_tdata_2,
+    input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb_2,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_tuser_2,
     input  s_axis_tvalid_2,
     output s_axis_tready_2,
     input  s_axis_tlast_2,
 
-    input [C_AXIS_DATA_WIDTH - 1:0] s_axis_tdata_3,
-    input [((C_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb_3,
-    input [C_USER_WIDTH-1:0] s_axis_tuser_3,
+    input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_tdata_3,
+    input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb_3,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_tuser_3,
     input  s_axis_tvalid_3,
     output s_axis_tready_3,
     input  s_axis_tlast_3,
 
-    input [C_AXIS_DATA_WIDTH - 1:0] s_axis_tdata_4,
-    input [((C_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb_4,
-    input [C_USER_WIDTH-1:0] s_axis_tuser_4,
+    input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_tdata_4,
+    input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb_4,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_tuser_4,
     input  s_axis_tvalid_4,
     output s_axis_tready_4,
     input  s_axis_tlast_4
@@ -93,14 +95,14 @@ module nf10_input_arbiter
    
    wire [NUM_QUEUES-1:0]               nearly_full;
    wire [NUM_QUEUES-1:0]               empty;
-   wire [C_AXIS_DATA_WIDTH-1:0]        in_tdata      [NUM_QUEUES-1:0];
-   wire [((C_AXIS_DATA_WIDTH/8))-1:0]  in_tstrb      [NUM_QUEUES-1:0];
-   wire [C_USER_WIDTH-1:0]             in_tuser      [NUM_QUEUES-1:0];
+   wire [C_M_AXIS_DATA_WIDTH-1:0]        in_tdata      [NUM_QUEUES-1:0];
+   wire [((C_M_AXIS_DATA_WIDTH/8))-1:0]  in_tstrb      [NUM_QUEUES-1:0];
+   wire [C_M_AXIS_TUSER_WIDTH-1:0]             in_tuser      [NUM_QUEUES-1:0];
    wire [NUM_QUEUES-1:0] 	       in_tvalid;   
    wire [NUM_QUEUES-1:0]               in_tlast;
-   wire [C_USER_WIDTH-1:0]             fifo_out_tuser[NUM_QUEUES-1:0];
-   wire [C_AXIS_DATA_WIDTH-1:0]        fifo_out_tdata[NUM_QUEUES-1:0];
-   wire [((C_AXIS_DATA_WIDTH/8))-1:0]  fifo_out_tstrb[NUM_QUEUES-1:0];
+   wire [C_M_AXIS_TUSER_WIDTH-1:0]             fifo_out_tuser[NUM_QUEUES-1:0];
+   wire [C_M_AXIS_DATA_WIDTH-1:0]        fifo_out_tdata[NUM_QUEUES-1:0];
+   wire [((C_M_AXIS_DATA_WIDTH/8))-1:0]  fifo_out_tstrb[NUM_QUEUES-1:0];
    wire [NUM_QUEUES-1:0] 	       fifo_out_tlast;	       
    wire                                fifo_tvalid;
    wire                                fifo_tlast;
@@ -119,7 +121,7 @@ module nf10_input_arbiter
    genvar i;
    for(i=0; i<NUM_QUEUES; i=i+1) begin: in_arb_queues
       fallthrough_small_fifo
-        #( .WIDTH(C_AXIS_DATA_WIDTH+C_USER_WIDTH+C_AXIS_DATA_WIDTH/8+1),
+        #( .WIDTH(C_M_AXIS_DATA_WIDTH+C_M_AXIS_TUSER_WIDTH+C_M_AXIS_DATA_WIDTH/8+1),
            .MAX_DEPTH_BITS(2))
       in_arb_fifo
         (// Outputs

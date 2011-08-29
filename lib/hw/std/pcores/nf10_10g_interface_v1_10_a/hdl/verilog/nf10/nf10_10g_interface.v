@@ -29,7 +29,8 @@ module nf10_10g_interface
     parameter C_XAUI_REVERSE=0,
     parameter C_XGMAC_CONFIGURATION = {5'b01000, 64'h0583000000000000},
     parameter C_XAUI_CONFIGURATION = 7'b0,
-    parameter C_USER_WIDTH=128,
+    parameter C_M_AXIS_TUSER_WIDTH=128,
+    parameter C_S_AXIS_TUSER_WIDTH=128,
     parameter C_DEFAULT_VALUE_ENABLE = 0,
     parameter C_DEFAULT_SRC_PORT = 0,
     parameter C_DEFAULT_DST_PORT = 0
@@ -46,7 +47,7 @@ module nf10_10g_interface
     // Master Stream Ports
     output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
     output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
-    output [C_USER_WIDTH-1:0] m_axis_tuser, // Dummy AXI TUSER
+    output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser, // Dummy AXI TUSER
     output m_axis_tvalid,
     input  m_axis_tready,
     output m_axis_tlast,
@@ -54,7 +55,7 @@ module nf10_10g_interface
     // Slave Stream Ports
     input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_tdata,
     input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb,
-    input [C_USER_WIDTH-1:0] s_axis_tuser,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_tuser,
     input  s_axis_tvalid,
     output s_axis_tready,
     input  s_axis_tlast,
@@ -102,7 +103,7 @@ module nf10_10g_interface
     // Master Stream Ports
     wire [C_M_AXIS_DATA_WIDTH_INTERNAL - 1:0] m_axis_tdata_internal;
     wire [((C_M_AXIS_DATA_WIDTH_INTERNAL / 8)) - 1:0] m_axis_tstrb_internal;
-    wire [C_USER_WIDTH-1:0] m_axis_tuser_internal; // Dummy AXI TUSER
+    wire [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser_internal; // Dummy AXI TUSER
     wire m_axis_tvalid_internal;
     wire  m_axis_tready_internal;
     wire m_axis_tlast_internal;
@@ -110,7 +111,7 @@ module nf10_10g_interface
     // Slave Stream Ports
     wire [C_S_AXIS_DATA_WIDTH_INTERNAL - 1:0] s_axis_tdata_internal;
     wire [((C_S_AXIS_DATA_WIDTH_INTERNAL / 8)) - 1:0] s_axis_tstrb_internal;
-    wire [C_USER_WIDTH-1:0] s_axis_tuser_internal;
+    wire [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_tuser_internal;
     wire  s_axis_tvalid_internal;
     wire  s_axis_tready_internal;
     wire  s_axis_tlast_internal;
@@ -118,7 +119,7 @@ module nf10_10g_interface
     
   wire reset = ~axi_resetn;  
   
-  assign m_axis_tuser_internal = {(C_USER_WIDTH){1'b0}};
+  assign m_axis_tuser_internal = {(C_M_AXIS_TUSER_WIDTH){1'b0}};
 
   // =============================================================================
   // Module Instantiation

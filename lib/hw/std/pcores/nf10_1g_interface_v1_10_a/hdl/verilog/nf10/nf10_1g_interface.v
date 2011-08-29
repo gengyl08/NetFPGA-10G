@@ -23,7 +23,8 @@ module nf10_1g_interface
     // Master AXI Stream Data Width
     parameter C_M_AXIS_DATA_WIDTH=64,
     parameter C_S_AXIS_DATA_WIDTH=64,
-    parameter C_USER_WIDTH=128,
+    parameter C_M_AXIS_TUSER_WIDTH=128,
+    parameter C_S_AXIS_TUSER_WIDTH=128,
     parameter C_DEFAULT_VALUE_ENABLE_0 = 0,
     parameter C_DEFAULT_SRC_PORT_0 = 0,
     parameter C_DEFAULT_DST_PORT_0 = 0,
@@ -43,7 +44,7 @@ module nf10_1g_interface
     // Master Stream Ports 0
     output [C_M_AXIS_DATA_WIDTH - 1:0] 		m_axis_tdata_0,
     output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] 	m_axis_tstrb_0,
-    output [C_USER_WIDTH-1:0] 			m_axis_tuser_0, 
+    output [C_M_AXIS_TUSER_WIDTH-1:0] 			m_axis_tuser_0, 
     output 					m_axis_tvalid_0,
     input  					m_axis_tready_0,
     output 					m_axis_tlast_0,
@@ -51,7 +52,7 @@ module nf10_1g_interface
     // Slave Stream Ports 0
     input [C_S_AXIS_DATA_WIDTH - 1:0] 		s_axis_tdata_0,
     input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] 	s_axis_tstrb_0,
-    input [C_USER_WIDTH-1:0] 			s_axis_tuser_0,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] 			s_axis_tuser_0,
     input  					s_axis_tvalid_0,
     output 					s_axis_tready_0,
     input  					s_axis_tlast_0,
@@ -59,7 +60,7 @@ module nf10_1g_interface
     // Master Stream Ports 1
     output [C_M_AXIS_DATA_WIDTH - 1:0] 		m_axis_tdata_1,
     output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] 	m_axis_tstrb_1,
-    output [C_USER_WIDTH-1:0] 			m_axis_tuser_1, 
+    output [C_M_AXIS_TUSER_WIDTH-1:0] 			m_axis_tuser_1, 
     output 					m_axis_tvalid_1,
     input  					m_axis_tready_1,
     output 					m_axis_tlast_1,
@@ -68,7 +69,7 @@ module nf10_1g_interface
     // Slave Stream Ports 1
     input [C_S_AXIS_DATA_WIDTH - 1:0] 		s_axis_tdata_1,
     input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] 	s_axis_tstrb_1,
-    input [C_USER_WIDTH-1:0] 			s_axis_tuser_1,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] 			s_axis_tuser_1,
     input  					s_axis_tvalid_1,
     output 					s_axis_tready_1,
     input  					s_axis_tlast_1,
@@ -122,7 +123,7 @@ module nf10_1g_interface
   // Master Stream Ports 0
   wire [C_M_AXIS_DATA_WIDTH_INTERNAL - 1:0] 		m_axis_tdata_internal_0;
   wire [((C_M_AXIS_DATA_WIDTH_INTERNAL / 8)) - 1:0] 	m_axis_tstrb_internal_0;
-  wire [C_USER_WIDTH-1:0] 				m_axis_tuser_internal_0; 
+  wire [C_M_AXIS_TUSER_WIDTH-1:0] 				m_axis_tuser_internal_0; 
   wire 							m_axis_tvalid_internal_0;
   wire  						m_axis_tready_internal_0;
   wire 							m_axis_tlast_internal_0;
@@ -130,7 +131,7 @@ module nf10_1g_interface
   // Slave Stream Ports 0
   wire [C_S_AXIS_DATA_WIDTH_INTERNAL - 1:0] 		s_axis_tdata_internal_0;
   wire [((C_S_AXIS_DATA_WIDTH_INTERNAL / 8)) - 1:0] 	s_axis_tstrb_internal_0;
-  wire [C_USER_WIDTH-1:0] 				s_axis_tuser_internal_0;
+  wire [C_S_AXIS_TUSER_WIDTH-1:0] 				s_axis_tuser_internal_0;
   wire  						s_axis_tvalid_internal_0;
   wire  						s_axis_tready_internal_0;
   wire  						s_axis_tlast_internal_0;
@@ -138,7 +139,7 @@ module nf10_1g_interface
   // Master Stream Ports 1
   wire [C_M_AXIS_DATA_WIDTH_INTERNAL - 1:0] 		m_axis_tdata_internal_1;
   wire [((C_M_AXIS_DATA_WIDTH_INTERNAL / 8)) - 1:0] 	m_axis_tstrb_internal_1;
-  wire [C_USER_WIDTH-1:0] 				m_axis_tuser_internal_1; 
+  wire [C_M_AXIS_TUSER_WIDTH-1:0] 				m_axis_tuser_internal_1; 
   wire 							m_axis_tvalid_internal_1;
   wire  						m_axis_tready_internal_1;
   wire 							m_axis_tlast_internal_1;
@@ -146,7 +147,7 @@ module nf10_1g_interface
   // Slave Stream Ports 1
   wire [C_S_AXIS_DATA_WIDTH_INTERNAL - 1:0] 		s_axis_tdata_internal_1;
   wire [((C_S_AXIS_DATA_WIDTH_INTERNAL / 8)) - 1:0] 	s_axis_tstrb_internal_1;
-  wire [C_USER_WIDTH-1:0] 				s_axis_tuser_internal_1;
+  wire [C_S_AXIS_TUSER_WIDTH-1:0] 				s_axis_tuser_internal_1;
   wire  						s_axis_tvalid_internal_1;
   wire  						s_axis_tready_internal_1;
   wire  						s_axis_tlast_internal_1;

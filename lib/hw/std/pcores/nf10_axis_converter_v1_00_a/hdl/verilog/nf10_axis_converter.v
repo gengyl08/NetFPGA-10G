@@ -20,7 +20,8 @@ module nf10_axis_converter
     parameter C_M_AXIS_DATA_WIDTH=64,
     parameter C_S_AXIS_DATA_WIDTH=256,
     
-    parameter C_USER_WIDTH=128,
+    parameter C_M_AXIS_TUSER_WIDTH=128,
+    parameter C_S_AXIS_TUSER_WIDTH=128,
 
     parameter C_LEN_WIDTH=16,
     parameter C_SPT_WIDTH=8,
@@ -39,7 +40,7 @@ module nf10_axis_converter
     // Master Stream Ports
     output reg [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
     output reg [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
-    output [C_USER_WIDTH-1:0] m_axis_tuser,
+    output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser,
     output reg m_axis_tvalid,
     input  m_axis_tready,
     output reg m_axis_tlast,
@@ -47,7 +48,7 @@ module nf10_axis_converter
     // Slave Stream Ports
     input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_tdata,
     input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb,
-    input [C_USER_WIDTH-1:0] s_axis_tuser,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_tuser,
     input  s_axis_tvalid,
     output reg s_axis_tready,
     input  s_axis_tlast
@@ -206,7 +207,7 @@ module nf10_axis_converter
     end
         
     fallthrough_small_fifo #
-    (.WIDTH(C_USER_WIDTH), 
+    (.WIDTH(C_M_AXIS_TUSER_WIDTH), 
      .MAX_DEPTH_BITS(5))
       info_fifo
         (.din           (s_axis_tuser),  // Data in

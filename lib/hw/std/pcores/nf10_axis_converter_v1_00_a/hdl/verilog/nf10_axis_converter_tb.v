@@ -135,7 +135,9 @@ module testbench();
 
     nf10_axis_converter 
     #(.C_M_AXIS_DATA_WIDTH(256),
-      .C_S_AXIS_DATA_WIDTH(32)
+      .C_S_AXIS_DATA_WIDTH(32),
+      .C_M_AXIS_TUSER_WIDTH(128),
+      .C_S_AXIS_TUSER_WIDTH(128)
      ) dut_0
     (
     // Global Ports

@@ -16,8 +16,10 @@
 module nf10_nic_output_port_lookup
 #(
     //Master AXI Stream Data Width
-    parameter C_AXIS_DATA_WIDTH=256,
-    parameter C_USER_WIDTH=128,
+    parameter C_M_AXIS_DATA_WIDTH=256,
+    parameter C_S_AXIS_DATA_WIDTH=256,
+    parameter C_M_AXIS_TUSER_WIDTH=128,
+    parameter C_S_AXIS_TUSER_WIDTH=128,
     parameter SRC_PORT_POS=16,
     parameter DST_PORT_POS=24
 )
@@ -27,17 +29,17 @@ module nf10_nic_output_port_lookup
     input axi_resetn,
 
     // Master Stream Ports (interface to data path)
-    output [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
-    output [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
-    output reg [C_USER_WIDTH-1:0] m_axis_tuser,
+    output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata,
+    output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb,
+    output reg [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser,
     output m_axis_tvalid,
     input  m_axis_tready,
     output m_axis_tlast,
 
     // Slave Stream Ports (interface to RX queues)
-    input [C_AXIS_DATA_WIDTH - 1:0] s_axis_tdata,
-    input [((C_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb,
-    input [C_USER_WIDTH-1:0] s_axis_tuser,
+    input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_tdata,
+    input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_tuser,
     input  s_axis_tvalid,
     output s_axis_tready,
     input  s_axis_tlast
@@ -58,13 +60,13 @@ module nf10_nic_output_port_lookup
    localparam IN_PACKET     = 1;
 
    //------------- Wires ------------------
-   wire  [C_USER_WIDTH-1:0] tuser_fifo;
+   wire  [C_M_AXIS_TUSER_WIDTH-1:0] tuser_fifo;
    reg 			  state, state_next;     
    
    // ------------ Modules ----------------
    
    fallthrough_small_fifo
-        #( .WIDTH(C_AXIS_DATA_WIDTH+C_USER_WIDTH+C_AXIS_DATA_WIDTH/8+1),
+        #( .WIDTH(C_M_AXIS_DATA_WIDTH+C_M_AXIS_TUSER_WIDTH+C_M_AXIS_DATA_WIDTH/8+1),
            .MAX_DEPTH_BITS(2))
       input_fifo
         (// Outputs

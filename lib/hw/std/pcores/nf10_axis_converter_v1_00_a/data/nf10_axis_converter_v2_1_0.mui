@@ -13,9 +13,9 @@
                 <label>Slave Stream Data Width</label>
         </widget>
         '>
-        <!ENTITY C_USER_WIDTH '
-        <widget id="C_USER_WIDTH">
-                        <key>C_USER_WIDTH</key>
+        <!ENTITY C_M_AXIS_TUSER_WIDTH '
+        <widget id="C_M_AXIS_TUSER_WIDTH">
+                        <key>C_M_AXIS_TUSER_WIDTH</key>
                 <label>TUSER Data Width</label>
         </widget>
         '>
@@ -65,7 +65,7 @@
                         <display>AXI</display>
                         <item>&C_M_AXIS_DATA_WIDTH;</item>
                         <item>&C_S_AXIS_DATA_WIDTH;</item>
-                        <item>&C_USER_WIDTH;</item>
+                        <item>&C_M_AXIS_TUSER_WIDTH;</item>
                         <item>&C_LEN_WIDTH;</item>
                         <item>&C_DPT_WIDTH;</item>
                         <item>&C_SPT_WIDTH;</item>

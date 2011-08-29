@@ -16,8 +16,10 @@
 module nf10_bram_output_queues
 #(
     // Master AXI Stream Data Width
-    parameter C_AXIS_DATA_WIDTH=256,    
-    parameter C_USER_WIDTH=128,
+    parameter C_M_AXIS_DATA_WIDTH=256,
+    parameter C_S_AXIS_DATA_WIDTH=256,
+    parameter C_M_AXIS_TUSER_WIDTH=128,
+    parameter C_S_AXIS_TUSER_WIDTH=128,
     parameter NUM_QUEUES=5
 )
 (
@@ -27,45 +29,45 @@ module nf10_bram_output_queues
     input axi_resetn,
     
     // Slave Stream Ports (interface to data path)
-    input [C_AXIS_DATA_WIDTH - 1:0] s_axis_tdata,
-    input [((C_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb,
-    input [C_USER_WIDTH-1:0] s_axis_tuser,
+    input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_tdata,
+    input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_tuser,
     input s_axis_tvalid,
     output reg s_axis_tready,
     input s_axis_tlast,
     
     // Master Stream Ports (interface to TX queues)
-    output [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_0,
-    output [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_0,
-    output [C_USER_WIDTH-1:0] m_axis_tuser_0,
+    output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_0,
+    output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_0,
+    output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser_0,
     output  m_axis_tvalid_0,
     input m_axis_tready_0,
     output  m_axis_tlast_0,
 
-    output [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_1,
-    output [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_1,
-    output [C_USER_WIDTH-1:0] m_axis_tuser_1,
+    output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_1,
+    output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_1,
+    output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser_1,
     output  m_axis_tvalid_1,
     input m_axis_tready_1,
     output  m_axis_tlast_1,
     
-    output [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_2,
-    output [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_2,
-    output [C_USER_WIDTH-1:0] m_axis_tuser_2,
+    output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_2,
+    output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_2,
+    output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser_2,
     output  m_axis_tvalid_2,
     input m_axis_tready_2,
     output  m_axis_tlast_2,
     
-    output [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_3,
-    output [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_3,
-    output [C_USER_WIDTH-1:0] m_axis_tuser_3,
+    output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_3,
+    output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_3,
+    output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser_3,
     output  m_axis_tvalid_3,
     input m_axis_tready_3,
     output  m_axis_tlast_3,
     
-    output [C_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_4,
-    output [((C_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_4,
-    output [C_USER_WIDTH-1:0] m_axis_tuser_4,
+    output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_4,
+    output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_4,
+    output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser_4,
     output  m_axis_tvalid_4,
     input m_axis_tready_4,
     output  m_axis_tlast_4
@@ -86,10 +88,10 @@ module nf10_bram_output_queues
    localparam NUM_QUEUES_WIDTH = log2(NUM_QUEUES);
    
    localparam BUFFER_SIZE         = 4096; // Buffer size 4096B
-   localparam BUFFER_SIZE_WIDTH   = log2(BUFFER_SIZE/(C_AXIS_DATA_WIDTH/8));
+   localparam BUFFER_SIZE_WIDTH   = log2(BUFFER_SIZE/(C_M_AXIS_DATA_WIDTH/8));
 
    localparam MAX_PACKET_SIZE = 1600;
-   localparam BUFFER_THRESHOLD = (BUFFER_SIZE-MAX_PACKET_SIZE)/(C_AXIS_DATA_WIDTH/8);
+   localparam BUFFER_THRESHOLD = (BUFFER_SIZE-MAX_PACKET_SIZE)/(C_M_AXIS_DATA_WIDTH/8);
 
    localparam NUM_STATES = 3;
    localparam IDLE = 0;
@@ -110,9 +112,9 @@ module nf10_bram_output_queues
    wire [NUM_QUEUES-1:0]               metadata_nearly_full_fifo;
    wire [NUM_QUEUES-1:0]               metadata_empty;
    
-   wire [C_USER_WIDTH-1:0]             fifo_out_tuser[NUM_QUEUES-1:0];
-   wire [C_AXIS_DATA_WIDTH-1:0]        fifo_out_tdata[NUM_QUEUES-1:0];
-   wire [((C_AXIS_DATA_WIDTH/8))-1:0]  fifo_out_tstrb[NUM_QUEUES-1:0];
+   wire [C_M_AXIS_TUSER_WIDTH-1:0]             fifo_out_tuser[NUM_QUEUES-1:0];
+   wire [C_M_AXIS_DATA_WIDTH-1:0]        fifo_out_tdata[NUM_QUEUES-1:0];
+   wire [((C_M_AXIS_DATA_WIDTH/8))-1:0]  fifo_out_tstrb[NUM_QUEUES-1:0];
    wire [NUM_QUEUES-1:0] 	           fifo_out_tlast;	  
         
    wire [NUM_QUEUES-1:0]               rd_en;
@@ -139,7 +141,7 @@ module nf10_bram_output_queues
    genvar i;
    for(i=0; i<NUM_QUEUES; i=i+1) begin: output_queues
       fallthrough_small_fifo
-        #( .WIDTH(C_AXIS_DATA_WIDTH+C_AXIS_DATA_WIDTH/8+1),
+        #( .WIDTH(C_M_AXIS_DATA_WIDTH+C_M_AXIS_DATA_WIDTH/8+1),
            .MAX_DEPTH_BITS(BUFFER_SIZE_WIDTH),
            .PROG_FULL_THRESHOLD(BUFFER_THRESHOLD))
       output_fifo
@@ -157,7 +159,7 @@ module nf10_bram_output_queues
          .clk                            (axi_aclk));
 
       fallthrough_small_fifo
-        #( .WIDTH(C_USER_WIDTH),
+        #( .WIDTH(C_M_AXIS_TUSER_WIDTH),
            .MAX_DEPTH_BITS(2))
       metadata_fifo
         (// Outputs

@@ -135,7 +135,10 @@ module testbench();
   always #2.5  clk = ~clk;      // 200MHz
 
   nf10_input_arbiter
-    #(.C_AXIS_DATA_WIDTH(64)      
+    #(.C_M_AXIS_DATA_WIDTH(64),
+      .C_S_AXIS_DATA_WIDTH(64),
+      .C_M_AXIS_TUSER_WIDTH(128),
+      .C_S_AXIS_TUSER_WIDTH(128)
      ) in_arb
     (
     // Global Ports
