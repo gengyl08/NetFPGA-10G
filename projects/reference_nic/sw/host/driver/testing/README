@@ -1,0 +1,16 @@
+This directory contains scripts and code for testing the driver and
+related software. The tests are organized according to the particular
+FPGA hardware configuration on which they depend. Some tests are meant
+for having the NetFPGA-10G installed but not configured, some for no
+NetFPGA-10G hardware present at all (or powered off), and some are
+totally agnostic to the presence of hardware. The README file within
+each directory will tell you what's expected of the hardware for the
+tests.
+
+Each test within a particular category for FPGA hardware configuration
+may have its own specific requirements for system setup. For instance, a
+particular test for the 10G reference NIC may require that the ethernet
+ports be looped back in a particular arrangement, while another test for
+the same hardware may require a different arrangement. The comments in
+each testing script or program will describe their individual
+requirements.
