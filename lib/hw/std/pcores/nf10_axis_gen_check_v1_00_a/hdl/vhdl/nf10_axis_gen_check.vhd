@@ -30,6 +30,7 @@ generic (
    C_HIGHADDR          : std_logic_vector(31 downto 0) := x"00000002";
    C_M_AXIS_DATA_WIDTH : integer := 64; -- max 256bit supported
    C_S_AXIS_DATA_WIDTH : integer := 64; -- max 256bit supported
+   C_S_AXIS_TUSER_WIDTH  	   : integer := 128;
    C_M_AXIS_TUSER_WIDTH  	   : integer := 128;
    C_GEN_PKT_SIZE      : integer := 16; -- in words;
    C_CHECK_PKT_SIZE    : integer := 16; -- in words;
