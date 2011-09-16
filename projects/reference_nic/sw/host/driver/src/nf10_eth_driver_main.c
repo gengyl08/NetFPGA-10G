@@ -100,7 +100,7 @@ spinlock_t          rx_dma_region_spinlock = SPIN_LOCK_UNLOCKED;
 /* DMA parameters. */
 #define     DMA_BUF_SIZE        2048    /* Size of buffer for each DMA transfer. Property of the hardware. */
 #define     DMA_FPGA_BUFS       4       /* Number of buffers on the FPGA side. Property of the hardware. */
-#define     DMA_CPU_BUFS        4   /* Number of buffers on the CPU side. */
+#define     DMA_CPU_BUFS        32768   /* Number of buffers on the CPU side. */
 #define     MIN_DMA_CPU_BUFS    1       /* Minimum number of buffers on the CPU side. */
 
 /* Total size of a DMA region (1 region for TX, 1 region for RX). */
