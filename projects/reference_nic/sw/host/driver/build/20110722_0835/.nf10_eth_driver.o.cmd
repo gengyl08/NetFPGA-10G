@@ -1,1 +1,0 @@
-cmd_/home/ellitron/netfpga-10g/projects/reference_nic/sw/host/driver/build/20110722_0835/nf10_eth_driver.o := ld -m elf_x86_64   -r -o /home/ellitron/netfpga-10g/projects/reference_nic/sw/host/driver/build/20110722_0835/nf10_eth_driver.o /home/ellitron/netfpga-10g/projects/reference_nic/sw/host/driver/build/20110722_0835/nf10_eth_driver_main.o 

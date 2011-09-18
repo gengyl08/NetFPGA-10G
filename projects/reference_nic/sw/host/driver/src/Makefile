@@ -7,7 +7,12 @@ else
 	DEBFLAGS = -O2
 endif
 
+ifeq ($(DRIVER_GHOST),y)
+	GHOSTFLAGS = -DDRIVER_GHOST 
+endif
+
 EXTRA_CFLAGS	+= $(DEBFLAGS)
+EXTRA_CFLAGS	+= $(GHOSTFLAGS)
 
 KVERSION=$(shell uname -r)
 

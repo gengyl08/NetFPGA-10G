@@ -4,8 +4,10 @@ BIN			= bin
 ROOT		:= $(shell pwd)
 DATE		:= $(shell date +%Y%m%d_%H%M)
 
-DRIVER_DEBUG    = y
+DRIVER_DEBUG    = n
+DRIVER_GHOST	= y
 export DRIVER_DEBUG
+export DRIVER_GHOST
 
 all:
 	cp -r $(SRC)/ $(BUILD)/$(DATE)

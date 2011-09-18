@@ -29,6 +29,8 @@
 #include <net/genetlink.h>
 #include <linux/dma-mapping.h>
 #include <linux/spinlock.h>
+#include <linux/if_ether.h>
+#include <linux/ip.h>
 
 /* Driver specific definitions. */
 #include "nf10_eth_driver.h"
@@ -48,6 +50,9 @@ static void                     nf10_ndo_tx_timeout(struct net_device *netdev);
 static struct net_device_stats* nf10_ndo_get_stats(struct net_device *netdev);
 static int                      nf10_ndo_set_mac_address(struct net_device *netdev, void *addr);
 
+static int                      nf10_ndho_create(struct sk_buff *skb, struct net_device *dev, unsigned short type, const void *daddr, const void *saddr, unsigned len);
+static int                      nf10_ndho_rebuild(struct sk_buff *skb);
+
 static int                      nf10_napi_struct_poll(struct napi_struct *napi, int budget);
 
 static void                     rx_poll_timer_cb(unsigned long arg);
@@ -64,7 +69,7 @@ void                            tx_set_src_iface(uint32_t *opcode, uint32_t src_
 char driver_name[] = "nf10_eth_driver";
 
 /* Driver version. */
-#define NF10_ETH_DRIVER_VERSION     "1.1.9"
+#define NF10_ETH_DRIVER_VERSION     "1.2.3"
 
 /* Number of network devices. */
 #define NUM_NETDEVS 4
@@ -96,7 +101,7 @@ spinlock_t          rx_dma_region_spinlock = SPIN_LOCK_UNLOCKED;
 #define     DMA_BUF_SIZE        2048    /* Size of buffer for each DMA transfer. Property of the hardware. */
 #define     DMA_FPGA_BUFS       4       /* Number of buffers on the FPGA side. Property of the hardware. */
 #define     DMA_CPU_BUFS        32768   /* Number of buffers on the CPU side. */
-#define     MIN_DMA_CPU_BUFS    8       /* Minimum number of buffers on the CPU side. */
+#define     MIN_DMA_CPU_BUFS    1       /* Minimum number of buffers on the CPU side. */
 
 /* Total size of a DMA region (1 region for TX, 1 region for RX). */
 #define     DMA_REGION_SIZE     ((DMA_BUF_SIZE + OCDP_METADATA_SIZE + sizeof(uint32_t)) * (DMA_CPU_BUFS))
@@ -108,7 +113,7 @@ uint32_t dma_region_size;
 #define     RX_POLL_INTERVAL    1
 
 /* Weight used in NAPI for polling. */
-#define     RX_POLL_WEIGHT      16
+#define     RX_POLL_WEIGHT      64
 
 /* Polling timer for received packets. */
 struct timer_list rx_poll_timer = TIMER_INITIALIZER(rx_poll_timer_cb, 0, 0);
@@ -118,11 +123,11 @@ struct napi_struct nf10_napi_struct;
 
 /* Bundle of variables to keep track of a unidirectional DMA stream. */
 struct dma_stream {
-    uint8_t         *buffers;
-    OcdpMetadata    *metadata;
-    uint32_t        *flags;
-    uint32_t        *doorbell;
-    uint32_t        buf_index;
+    uint8_t             *buffers;
+    OcdpMetadata        *metadata;
+    volatile uint32_t   *flags;
+    uint32_t            *doorbell;
+    uint32_t            buf_index;
 };
 
 static const struct net_device_ops nf10_netdev_ops = {
@@ -132,6 +137,11 @@ static const struct net_device_ops nf10_netdev_ops = {
     .ndo_tx_timeout         = nf10_ndo_tx_timeout,
     .ndo_get_stats          = nf10_ndo_get_stats,
     .ndo_set_mac_address    = nf10_ndo_set_mac_address,
+};
+
+static const struct header_ops nf10_netdev_header_ops = {
+    .create                 = nf10_ndho_create,
+    .rebuild                = nf10_ndho_rebuild,
 };
 
 /* OpenCPI */
@@ -697,6 +707,88 @@ int genl_cmd_napi_disable(struct sk_buff *skb, struct genl_info *info)
     return 0;
 }
 
+/* Enable ghosting. */
+int enable_ghosting()
+{
+    /* Allocate RX DMA region using kmalloc (instead of dma_alloc_coherent) since there's no actual
+     * device present (dma_alloc_coherent requires a device argument). */
+    for(dma_cpu_bufs = DMA_CPU_BUFS; dma_cpu_bufs >= MIN_DMA_CPU_BUFS; dma_cpu_bufs /= 2) {
+        dma_region_size = ((DMA_BUF_SIZE + OCDP_METADATA_SIZE + sizeof(uint32_t)) * dma_cpu_bufs);
+        
+        /* Allocate TX DMA region. */
+        rx_dma_reg_va = kmalloc(dma_region_size, GFP_KERNEL | __GFP_NOWARN);
+        if(rx_dma_reg_va == NULL) {
+            PDEBUG("enable_ghosting: failed to alloc RX DMA region of size %d bytes... trying less\n", dma_region_size);
+            /* Try smaller allocation. */
+            continue;
+        }
+
+        /* Memory been allocated successfully. */   
+        break;
+    }
+
+    /* Check that the memory allocations succeeded. */
+    if(rx_dma_reg_va == NULL) {
+        printk(KERN_ERR "nf10_eth_driver: ERROR: enable_ghosting(): failed to allocate DMA regions\n");
+        return -1;        
+    }
+    
+    /* Otherwise set TX region the same at the RX region. */
+    tx_dma_reg_va = rx_dma_reg_va; 
+
+    PDEBUG("enable_ghosting(): successfully allocated the TX and RX DMA regions:\n"
+        "\tTX Region: Virtual address:\t0x%016llx\n"
+        "\tTX Region Size:\t\t\t%d\n"
+        "\tRX Region: Virtual address:\t0x%016llx\n"
+        "\tRX Region Size:\t\t\t%d\n",
+        /* FIXME: typcasting might throw warnings on 32-bit systems... */
+        (uint64_t)tx_dma_reg_va, dma_region_size,
+        (uint64_t)rx_dma_reg_va, dma_region_size);
+
+    /* Setup RX DMA stream. */
+    rx_dma_stream.buffers   = (uint8_t *)rx_dma_reg_va;
+    rx_dma_stream.metadata  = (OcdpMetadata *)(rx_dma_stream.buffers + dma_cpu_bufs * DMA_BUF_SIZE);
+    rx_dma_stream.flags     = (uint32_t *)(rx_dma_stream.metadata + dma_cpu_bufs);
+    rx_dma_stream.buf_index = 0;
+    memset((void*)rx_dma_stream.flags, 0, dma_cpu_bufs * sizeof(uint32_t));
+
+    /* Setup TX DMA stream. In this case it's the same as the RX DMA stream. */
+    tx_dma_stream.buffers   = rx_dma_stream.buffers;
+    tx_dma_stream.metadata  = rx_dma_stream.metadata;
+    tx_dma_stream.flags     = rx_dma_stream.flags;
+    tx_dma_stream.buf_index = 0;
+    /* Do not memset the flags... because we're actually pointing to the RX DMA stream. */
+
+    /* Start the polling timer for receiving packets. */
+    rx_poll_timer.expires = jiffies + RX_POLL_INTERVAL;
+    add_timer(&rx_poll_timer);
+ 
+    PDEBUG("enable_ghosting(): ghosting enabled\n");    
+
+    return 0;
+}
+
+/* Disable ghosting. */
+int disable_ghosting()
+{
+    /* Stop the polling timer for receiving packets. */
+    del_timer(&rx_poll_timer);
+
+    kfree(rx_dma_reg_va);
+    rx_dma_stream.buffers   = NULL;
+    rx_dma_stream.metadata  = NULL;
+    rx_dma_stream.flags     = NULL;
+
+    /* Setup TX DMA stream. In this case it's the same as the RX DMA stream. */
+    tx_dma_stream.buffers   = NULL;
+    tx_dma_stream.metadata  = NULL;
+    tx_dma_stream.flags     = NULL;
+
+    PDEBUG("disable_ghosting(): ghosting disabled\n"); 
+
+    return 0;
+}
+
 /* Operations defined for our Generic Netlink family... */
 
 /* Echo operation genl structure. */
@@ -815,6 +907,128 @@ uint32_t get_iface_from_netdev(struct net_device *netdev)
     return -1;
 }
 
+static netdev_tx_t nf10_ghost_xmit(struct sk_buff *skb, struct net_device *netdev)
+{
+    void            *data;
+    uint32_t        len;
+    int             src_iface;
+    int             dst_iface;
+    uint32_t        opcode;    
+    struct ethhdr   *eth;
+    struct iphdr    *ip;
+    uint32_t        *saddr;
+    uint32_t        *daddr;
+    unsigned long   tx_dma_region_spinlock_flags;
+
+    /* Get data and length. */
+    data = (void*)skb->data;
+    len = skb->len;
+
+    /* Check length against the DMA buffer size. */
+    if(len > DMA_BUF_SIZE) {
+        printk(KERN_ERR "%s: ERROR: nf10_ghost_xmit(): packet length %d greater than buffer size %d\n", driver_name, len, DMA_BUF_SIZE);
+        netdev->stats.tx_dropped++;
+        dev_kfree_skb(skb);
+        /* FIXME: not really sure of the right return value in this case... */
+        return NETDEV_TX_OK;
+    }
+
+    /* Opcode for setting source and destination ports. */
+    opcode = 0;
+    src_iface = get_iface_from_netdev(netdev);
+    if(src_iface < 0) {
+        printk(KERN_ERR "%s: ERROR: nf10_ghost_xmit(): could not determine source interface number from netdev\n", driver_name);
+        netdev->stats.tx_dropped++;
+        dev_kfree_skb(skb);
+        /* FIXME: not really sure of the right return value in this case... */
+        return NETDEV_TX_OK;
+    }
+
+    /* 0->1
+     * 1->0
+     * 2->3
+     * 3->2 */
+    dst_iface = src_iface ^ 1;
+
+    rx_set_dst_iface(&opcode, dst_iface); 
+    
+    /* Do a switcharoo on the packet's IP address. */
+    eth = (struct ethhdr *)((char*)data);
+
+    if(eth->h_proto == htons(ETH_P_IP)) {
+        ip      = (struct iphdr *)(((char*)data) + sizeof(struct ethhdr));
+        saddr   = &(ip->saddr);
+        daddr   = &(ip->daddr);
+        /* Flip the last bit of the 3rd octet of the addresses. */
+        ((uint8_t *)saddr)[2] ^= 1;
+        ((uint8_t *)daddr)[2] ^= 1;
+        /* Fix the checksum. */
+        ip->check = 0;         /* and rebuild the checksum (ip needs it) */
+        ip->check = ip_fast_csum((unsigned char *)ip,ip->ihl);
+    }
+
+    /* DMA the packet to the hardware. */
+
+    /* Start the clock! */
+    netdev->trans_start = jiffies;
+
+    /* First need to acquire lock to access TX DMA region (which is the RX DMA region in disguise). */
+    spin_lock_irqsave(&tx_dma_region_spinlock, tx_dma_region_spinlock_flags);
+
+    if(tx_dma_stream.flags[tx_dma_stream.buf_index] == 1) {
+        /* Release lock (again, actually the RX DMA region lock). */
+        spin_unlock_irqrestore(&tx_dma_region_spinlock, tx_dma_region_spinlock_flags);
+
+        PDEBUG("nf10_ghost_xmit(): TX buffers full (@ buf %d)... dropping packet\n", tx_dma_stream.buf_index);
+        netdev->stats.tx_dropped++;
+        dev_kfree_skb(skb);
+        /* FIXME: not really sure of the right return value in this case... */
+        return NETDEV_TX_OK;
+    }
+
+    mb();
+
+    /* Copy message into buffer. */
+    memcpy((void*)&tx_dma_stream.buffers[tx_dma_stream.buf_index * DMA_BUF_SIZE], data, len);
+
+    /* Fill out metadata. */
+    /* Length. */
+    tx_dma_stream.metadata[tx_dma_stream.buf_index].length = len;
+    /* OpCode. */
+    tx_dma_stream.metadata[tx_dma_stream.buf_index].opCode = opcode;
+
+    /* Memory barrier just in case. Make sure everything above this point 
+     * has occurred before setting the buffer flag. */
+    mb();
+
+    /* Set the buffer flag to full. */
+    tx_dma_stream.flags[tx_dma_stream.buf_index] = 1;
+
+    mb();
+
+    /* Update the buffer index. */
+    if(++tx_dma_stream.buf_index == dma_cpu_bufs)
+        tx_dma_stream.buf_index = 0;
+
+    /* Release the lock, finished with TX DMA region (RX DMA region in disguise). */
+    spin_unlock_irqrestore(&tx_dma_region_spinlock, tx_dma_region_spinlock_flags); 
+
+    PDEBUG("nf10_ghost_xmit(): Packet TX info:\n"
+        "\tMessage length:\t\t%d\n"
+        "\tOpcode:\t\t\t0x%08x\n"
+        "\tUsing buffer number:\t%d\n",
+        skb->len, opcode, tx_dma_stream.buf_index);
+
+    /* Update the statistics. */
+    netdev->stats.tx_packets++;
+    netdev->stats.tx_bytes += len;
+
+    /* FIXME: Do I need to dev_kfree_skb(skb) here? It seems like this is only done on error. */
+    dev_kfree_skb(skb);
+
+    return NETDEV_TX_OK;
+}
+
 static netdev_tx_t nf10_ndo_start_xmit(struct sk_buff *skb, struct net_device *netdev)
 {
     void            *data;
@@ -823,6 +1037,13 @@ static netdev_tx_t nf10_ndo_start_xmit(struct sk_buff *skb, struct net_device *n
     uint32_t        opcode;
     unsigned long   tx_dma_region_spinlock_flags;
 
+#ifdef DRIVER_GHOST
+    /* If the driver is ghosting the hardware then use a special function
+     * for this. */
+    return nf10_ghost_xmit(skb, netdev);
+#endif
+
+    /* Otherwise send the packet to the hardware. */
     PDEBUG("nf10_ndo_start_xmit(): Transmitting packet\n");    
 
     /* Get data and length. */
@@ -912,13 +1133,14 @@ static netdev_tx_t nf10_ndo_start_xmit(struct sk_buff *skb, struct net_device *n
     /* Copy message into buffer. */
     memcpy((void*)&tx_dma_stream.buffers[tx_dma_stream.buf_index * DMA_BUF_SIZE], data, len);
 
-    /* FIXME: Do I need to dev_kfree_skb(skb) here? It seems like this is only done on error. */
-
     /* Fill out metadata. */
     /* Length. */
     tx_dma_stream.metadata[tx_dma_stream.buf_index].length = len;
     /* OpCode. */
     tx_dma_stream.metadata[tx_dma_stream.buf_index].opCode = opcode;
+
+    /* Make sure that the modifications above occur before flag is set. */
+    mb();
 
     /* Set the buffer flag to full. */
     tx_dma_stream.flags[tx_dma_stream.buf_index] = 0;
@@ -946,6 +1168,9 @@ static netdev_tx_t nf10_ndo_start_xmit(struct sk_buff *skb, struct net_device *n
     netdev->stats.tx_packets++;
     netdev->stats.tx_bytes += len;
 
+    /* FIXME: Do I need to dev_kfree_skb(skb) here? It seems like this is only done on error. */
+    dev_kfree_skb(skb);
+
     return NETDEV_TX_OK;
 }
 
@@ -972,6 +1197,34 @@ static int nf10_ndo_set_mac_address(struct net_device *netdev, void *addr)
 
     return 0;
 }
+
+static int nf10_ndho_create(struct sk_buff *skb, struct net_device *dev, unsigned short type, const void *daddr, const void *saddr, unsigned len)
+{
+    struct ethhdr *eth = (struct ethhdr *)skb_push(skb, ETH_HLEN);
+
+    PDEBUG("nf10_ndho_create(): Creating Ethernet header...\n");
+
+    eth->h_proto = htons(type);
+    memcpy(eth->h_source, saddr ? saddr : dev->dev_addr, dev->addr_len);
+    memcpy(eth->h_dest,   daddr ? daddr : dev->dev_addr, dev->addr_len);
+    eth->h_dest[ETH_ALEN-3]   ^= 0x01;   /* dest is us xor 1 */
+
+    return (dev->hard_header_len);
+}
+
+static int nf10_ndho_rebuild(struct sk_buff *skb)
+{
+    struct ethhdr *eth = (struct ethhdr *) skb->data;
+    struct net_device *dev = skb->dev;
+    
+    PDEBUG("nf10_ndho_rebuild(): Rebuilding Ethernet header...\n");
+
+    memcpy(eth->h_source, dev->dev_addr, dev->addr_len);
+    memcpy(eth->h_dest, dev->dev_addr, dev->addr_len);
+    eth->h_dest[ETH_ALEN-3]   ^= 0x01;   /* dest is us xor 1 */
+    return 0;
+}
+
 
 /* Helper functions for getting and setting source and destination
  * ports. The interpretation of opcode depends on the direction the
@@ -1075,9 +1328,13 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
     struct sk_buff  *skb;
     int             buf_index = rx_dma_stream.buf_index;
     int             dst_iface; /* Destination interface. */
+    unsigned long   rx_dma_region_spinlock_flags;
 
     PDEBUG("nf10_napi_struct_poll(): Beginning to slurp up packets with budget %d...\n", budget);
-    
+   
+    /* First need to acquire lock to access the RX DMA region. */
+//    spin_lock_irqsave(&rx_dma_region_spinlock, rx_dma_region_spinlock_flags);
+
     while(n_rx < budget && rx_dma_stream.flags[buf_index] == 1) {
 
         PDEBUG("nf10_napi_struct_poll(): Packet %d RX info:\n"
@@ -1093,11 +1350,15 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
         if(dst_iface < 0) {
             printk(KERN_NOTICE "NOTICE: nf10_napi_struct_poll(): failed to determine destination Ethernet interface from opcode (0x%08x)... dropping the packet\n", rx_dma_stream.metadata[buf_index].opCode);
 
+            mb();
+
             /* Mark the buffer as empty. */
             rx_dma_stream.flags[buf_index] = 0;
 
+#ifndef DRIVER_GHOST
             /* Tell the hardware we emptied the buffer. */
             *rx_dma_stream.doorbell = 1;
+#endif
 
             /* Update the buffer index. */
             if(++rx_dma_stream.buf_index == dma_cpu_bufs)
@@ -1114,11 +1375,15 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
         if(!skb) {
             printk(KERN_NOTICE "NOTICE: nf10_napi_struct_poll(): failed to allocate skb, packet dropped\n");
 
+            mb();
+
             /* Mark the buffer as empty. */
             rx_dma_stream.flags[buf_index] = 0;
 
+#ifndef DRIVER_GHOST
             /* Tell the hardware we emptied the buffer. */
             *rx_dma_stream.doorbell = 1;
+#endif
 
             /* Update the buffer index. */
             if(++rx_dma_stream.buf_index == dma_cpu_bufs)
@@ -1139,39 +1404,62 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
         skb->dev = nf10_netdevs[dst_iface];
         /* FIXME: need to set ip_summed? */
         skb->protocol = eth_type_trans(skb, nf10_netdevs[dst_iface]);
-        
+       
+#ifdef DRIVER_GHOST 
+        /* This is for ghosting mode. */
+        skb->ip_summed = CHECKSUM_UNNECESSARY; /* don't check it */       
+#endif 
+
         netif_receive_skb(skb);
 
+        /* Update statistics. */
+        nf10_netdevs[dst_iface]->stats.rx_packets++;
+        nf10_netdevs[dst_iface]->stats.rx_bytes += rx_dma_stream.metadata[buf_index].length;
+
+        /* Make sure everything has gone through before setting flag. */
+        mb();
+    
         /* Mark the buffer as empty. */
         rx_dma_stream.flags[buf_index] = 0;
 
+#ifndef DRIVER_GHOST
         /* Tell the hardware we emptied the buffer. */
         *rx_dma_stream.doorbell = 1;
+#endif
+
+        mb();
 
         /* Update the buffer index. */
         if(++rx_dma_stream.buf_index == dma_cpu_bufs)
             rx_dma_stream.buf_index = 0;
         
-        /* Update statistics. */
-        nf10_netdevs[dst_iface]->stats.rx_packets++;
-        nf10_netdevs[dst_iface]->stats.rx_bytes += rx_dma_stream.metadata[buf_index].length;
-
         buf_index = rx_dma_stream.buf_index;       
-
+        
         n_rx++;
     }    
-    
+
+//    napi_complete(napi);
+//    rx_poll_timer.expires = jiffies + RX_POLL_INTERVAL;
+//    add_timer(&rx_poll_timer);
+
+//    return 0;
+     
     /* Check if we processed everything. */
     if(rx_dma_stream.flags[buf_index] == 0) {
         PDEBUG("nf10_napi_struct_poll(): Slurped up all the packets there were to slurp!\n");
         napi_complete(napi);
         rx_poll_timer.expires = jiffies + RX_POLL_INTERVAL;
         add_timer(&rx_poll_timer);
+        return 0;
     } else {
         PDEBUG("nf10_napi_struct_poll(): Slurped %d packets but still more left...\n", n_rx);
+        return n_rx;
     }
+
+    /* Release the RX DMA region lock. */
+//    spin_unlock_irqrestore(&rx_dma_region_spinlock, rx_dma_region_spinlock_flags);
     
-    return n_rx;
+//    return n_rx;
 }
 
 /* When the kernel finds a device with a vendor and device ID associated with this driver
@@ -1285,7 +1573,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         return err;
     }
 
-    for(dma_cpu_bufs = DMA_CPU_BUFS; dma_cpu_bufs > MIN_DMA_CPU_BUFS; dma_cpu_bufs /= 2) {
+    for(dma_cpu_bufs = DMA_CPU_BUFS; dma_cpu_bufs >= MIN_DMA_CPU_BUFS; dma_cpu_bufs /= 2) {
         dma_region_size = ((DMA_BUF_SIZE + OCDP_METADATA_SIZE + sizeof(uint32_t)) * dma_cpu_bufs);
         
         /* Allocate TX DMA region. */
@@ -1598,7 +1886,9 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
 static void remove(struct pci_dev *pdev)
 {
     PDEBUG("remove(): entering remove()\n");
-    
+   
+    /* FIXME: Why don't I stop the polling timer here? Right now it's in the _exit function. */
+ 
     dma_free_coherent(&pdev->dev, dma_region_size, rx_dma_reg_va, rx_dma_reg_pa);
     dma_free_coherent(&pdev->dev, dma_region_size, tx_dma_reg_va, tx_dma_reg_pa);
     iounmap(bar0_base_va);
@@ -1640,7 +1930,13 @@ void nf10_netdev_init(struct net_device *netdev)
 
     ether_setup(netdev);
 
-    netdev->netdev_ops = &nf10_netdev_ops;
+    netdev->netdev_ops  = &nf10_netdev_ops;
+
+#ifdef DRIVER_GHOST
+    /* These are for ghosting mode. */
+    netdev->header_ops  = &nf10_netdev_header_ops;
+    netdev->flags       |= IFF_NOARP;
+#endif
 
     netdev->watchdog_timeo = 5 * HZ;
 }
@@ -1761,7 +2057,8 @@ static int __init nf10_eth_driver_init(void)
     /* Enable NAPI. */
     napi_enable(&nf10_napi_struct);
 
-     /* Register the pci_driver. 
+#ifndef DRIVER_GHOST
+    /* Register the pci_driver. 
      * Note: This will succeed even without a card installed in the system. */
     err = pci_register_driver(&nf10_pci_driver);
     if(err != 0) {
@@ -1777,7 +2074,17 @@ static int __init nf10_eth_driver_init(void)
         printk(KERN_WARNING "nf10_eth_driver: WARNING: A NetFPGA-10G device was found but could not be properly initialized... driver may be in an unstable state\n");
 
     printk(KERN_INFO "nf10_eth_driver: NetFPGA-10G Ethernet Driver version %s Loaded.\n", NF10_ETH_DRIVER_VERSION);
-    
+#else
+    err = enable_ghosting();
+    if(err != 0) {
+        printk(KERN_ERR "nf10_eth_driver: ERROR: nf10_eth_driver_init(): failed to enable ghosting mode...\n");
+        return err;
+    } else
+        PDEBUG("nf10_eth_driver_init(): enable ghosting... victory!\n");
+
+    printk(KERN_INFO "nf10_eth_driver: NetFPGA-10G Ethernet Driver version %s Loaded in Hardware Ghosting Mode.\n", NF10_ETH_DRIVER_VERSION);
+#endif
+ 
     return 0;
 }
 
@@ -1809,8 +2116,12 @@ static void __exit nf10_eth_driver_exit(void)
         free_netdev(nf10_netdevs[i]);
     }
 
+#ifndef DRIVER_GHOST
     pci_unregister_driver(&nf10_pci_driver);
-    
+#else
+    disable_ghosting();
+#endif
+
     printk(KERN_INFO "nf10_eth_driver: NetFPGA-10G Ethernet Driver Unloaded.\n");
 }
 
