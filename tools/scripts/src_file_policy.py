@@ -92,6 +92,44 @@ SECTIONS  = [ 'author',
               'library',
               ]
 
+AC        = 'Adam Covington'
+DM        = 'David J. Miller'
+JE        = 'Jonathan Ellithorpe'
+JH        = 'James Hongyi Zeng'
+MB        = 'Michaela Blott'
+SF        = 'Stephanie Friederich'
+SS        = 'Shep Siegel'
+
+AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            MB),
+              ('lib/hw/netwave/pcores/nf10_axis_netwave_gen_check',       MB),
+              ('lib/hw/netwave/pcores/nf10_axis_netwave_l2switch',        MB),
+              ('lib/hw/std/pcores/nf10_10g_interface',                    JH),
+              ('lib/hw/std/pcores/nf10_1g_interface',                     JH),
+              ('lib/hw/std/pcores/nf10_axis_converter',                   JH),
+              ('lib/hw/std/pcores/nf10_axis_gen_check',                   MB),
+              ('lib/hw/std/pcores/nf10_axis_sim_pkg',                     DM),
+              ('lib/hw/std/pcores/nf10_axis_sim_record',                  DM),
+              ('lib/hw/std/pcores/nf10_axis_sim_stim',                    DM),
+              ('lib/hw/std/pcores/nf10_axi_flash_ctrl',                   SF),
+              ('lib/hw/std/pcores/nf10_axi_sim_transactor',               DM),
+              ('lib/hw/std/pcores/nf10_bram_output_queues',               JH),
+              ('lib/hw/std/pcores/nf10_input_arbiter',                    JH),
+              ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           JH),
+              ('lib/hw/std/pcores/nf10_oped',                             SS),
+              ('lib/hw/std/pcores/nf10_sram',                             JH),
+              ('configuration_test',                                      SF),
+              ('configuration_test_no_cdc',                               SF),
+              ('loopback_test',                                           JH),
+              ('loopback_test_1g',                                        JH),
+              ('memory_test',                                             JH),
+              ('netwave',                                                 MB),
+              ('oped_test',                                               SS),
+              ('production_test',                                         MB),
+              ('reference_nic',                                           JH),
+              ('reference_nic_1g',                                        JH),
+              ('stresstest',                                              MB),
+              ]
+
 
 hdr_indent1 = 2
 hdr_indent2 = 8
@@ -239,7 +277,6 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
             return 0
         # `section` is still set to the last section seen.  The epilog, if any,
         # will be appended there.
-        print 'before:', '\nbefore: '.join('%d: %s' % ls for ls in enumerate(header[section]))
         epi_found = False
         epi_start = 0
         i         = 0
@@ -249,7 +286,6 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
                 if not epi_found:
                     epi_start = i
                     epi_found = True
-                    print 'start of epilog at %d' % epi_start
                 j += 1
                 if j == len(hdr_epilog):
                     # Whole of epilog found
@@ -259,13 +295,16 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
                 i += 1
             else:
                 if epi_found:
-                    print 'false start at %d' % i
                     j = 0
                     epi_found = False
                 else:
                     i += 1
-        print 'after:', '\nafter: '.join('%d: %s' % ls for ls in enumerate(header[section]))
-
+        # Try to guess the author based on AUTHORS table, if not already present
+        if 'author' not in header:
+            for f, a in AUTHORS:
+                if rel_filename.startswith( f ):
+                    header['author'] = a
+                    break
         # The presence of tabs in the header indicate that left justification
         # of the comment might be screwed up.
         if tab_in_hdr_seen:
@@ -422,14 +461,26 @@ CAUTION: *no* backup of input is made before it is rewritten.
     forbidden = []
     if file_args:
         count = 0
-        tree  = '.'
+        cwd_elts = os.getcwd().split( os.path.sep )
+        cwd_elts[0] = os.path.sep
+        try:
+            nfroot_idx = cwd_elts.index( 'netfpga-10g-dev' )
+        except ValueError:
+            print '%s: error: working tree %s doesn\'t appear to be a netfpga-10g-dev tree.' % (prog_name, os.getcwd())
+            sys.exit(1)
+        tree = os.path.join( *cwd_elts[:nfroot_idx+1] )
+        subdir = cwd_elts[nfroot_idx+1:]
+        if subdir:
+            subdir = os.path.join( *subdir )
+        else:
+            subdir = ''
         for file in file_args:
             if os.path.isdir( file ):
                 print '%s: %s: is directory' % (prog_name, file)
                 print '%s: recursion into explicit targets not supported' % prog_name
                 continue
             count += replace_header( tree, opts.really, successes, ignored, noheader, failures, warnings, forbidden,
-                            os.path.join( '.', file ) )
+                            os.path.join( tree, subdir, file ) )
     else:
         tree  = os.path.dirname( os.path.dirname( os.path.dirname( os.path.abspath( argv[0] ) ) ) )
         count = replace_all_in_tree( tree, opts.really, successes, ignored, noheader, failures, warnings, forbidden )
