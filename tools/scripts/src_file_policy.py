@@ -309,7 +309,7 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         if 'author' not in header:
             for base, author in AUTHORS:
                 if rel_filename.startswith( base ):
-                    header['author'] = author
+                    header['author'] = [author]
                     break
         # The presence of tabs in the header indicate that left justification
         # of the comment might be screwed up.
