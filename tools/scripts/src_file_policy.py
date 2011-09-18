@@ -117,17 +117,17 @@ AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            MB),
               ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           JH),
               ('lib/hw/std/pcores/nf10_oped',                             SS),
               ('lib/hw/std/pcores/nf10_sram',                             JH),
-              ('configuration_test',                                      SF),
-              ('configuration_test_no_cdc',                               SF),
-              ('loopback_test',                                           JH),
-              ('loopback_test_1g',                                        JH),
-              ('memory_test',                                             JH),
-              ('netwave',                                                 MB),
-              ('oped_test',                                               SS),
-              ('production_test',                                         MB),
-              ('reference_nic',                                           JH),
-              ('reference_nic_1g',                                        JH),
-              ('stresstest',                                              MB),
+              ('projects/configuration_test',                             SF),
+              ('projects/configuration_test_no_cdc',                      SF),
+              ('projects/loopback_test',                                  JH),
+              ('projects/loopback_test_1g',                               JH),
+              ('projects/memory_test',                                    JH),
+              ('projects/netwave',                                        MB),
+              ('projects/oped_test',                                      SS),
+              ('projects/production_test',                                MB),
+              ('projects/reference_nic',                                  JH),
+              ('projects/reference_nic_1g',                               JH),
+              ('projects/stresstest',                                     MB),
               ]
 
 
@@ -307,9 +307,9 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
                 del header[section][-1]
         # Try to guess the author based on AUTHORS table, if not already present
         if 'author' not in header:
-            for f, a in AUTHORS:
-                if rel_filename.startswith( f ):
-                    header['author'] = a
+            for base, author in AUTHORS:
+                if rel_filename.startswith( base ):
+                    header['author'] = author
                     break
         # The presence of tabs in the header indicate that left justification
         # of the comment might be screwed up.
