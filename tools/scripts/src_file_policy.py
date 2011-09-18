@@ -299,6 +299,12 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
                     epi_found = False
                 else:
                     i += 1
+        # Delete any leading or trailing empty lines from each section
+        for section in header:
+            while header[section] and not header[section][0]:
+                del header[section][0]
+            while header[section] and not header[section][-1]:
+                del header[section][-1]
         # Try to guess the author based on AUTHORS table, if not already present
         if 'author' not in header:
             for f, a in AUTHORS:
@@ -372,10 +378,6 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         # Add section data
         for section in ['file', 'library', 'project', 'module', 'author', 'description']:
             if section in header:
-                while header[section] and not header[section][0]:
-                    del header[section][0]
-                while header[section] and not header[section][-1]:
-                    del header[section][-1]
                 text.append( '%s%s%s:' % (cmt_mid, ' '*hdr_indent1, section.capitalize() ) )
                 for sect_info in header[section]:
                     text.append( ('%s%s%s' % (cmt_mid, ' '*hdr_indent2, sect_info )).rstrip() )
