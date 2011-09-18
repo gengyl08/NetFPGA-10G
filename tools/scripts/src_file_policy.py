@@ -99,7 +99,7 @@ hdr_prolog = """\
 
 NetFPGA-10G http://www.netfpga.org
 
-"""
+""".splitlines()
 hdr_epilog = """\
 
 Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
@@ -121,7 +121,7 @@ You should have received a copy of the GNU Lesser General Public
 License along with the NetFPGA source package.  If not, see
 http://www.gnu.org/licenses/.
 
-"""
+""".splitlines()
 
 all_styles = re.compile( '^[%s]+' % ''.join([cs[0] for (cs, _, _, _) in COM_STYLES.values()]) )
 def replace_header( tree, really, successes, ignored, noheader, failures, warnings, forbidden, filename ):
@@ -237,6 +237,35 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         if not nf10g_banner_seen:
             noheader.append( filename )
             return 0
+        # `section` is still set to the last section seen.  The epilog, if any,
+        # will be appended there.
+        print 'before:', '\nbefore: '.join('%d: %s' % ls for ls in enumerate(header[section]))
+        epi_found = False
+        epi_start = 0
+        i         = 0
+        j         = 0
+        while i < len(header[section]):
+            if header[section][i].endswith( hdr_epilog[j] ):
+                if not epi_found:
+                    epi_start = i
+                    epi_found = True
+                    print 'start of epilog at %d' % epi_start
+                j += 1
+                if j == len(hdr_epilog):
+                    # Whole of epilog found
+                    i += 2 # allow for extra trailing empty lines
+                    del header[section][epi_start:i]
+                    break
+                i += 1
+            else:
+                if epi_found:
+                    print 'false start at %d' % i
+                    j = 0
+                    epi_found = False
+                else:
+                    i += 1
+        print 'after:', '\nafter: '.join('%d: %s' % ls for ls in enumerate(header[section]))
+
         # The presence of tabs in the header indicate that left justification
         # of the comment might be screwed up.
         if tab_in_hdr_seen:
@@ -299,7 +328,7 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         cmt_hbar  = cmt_mid.strip()*(80-len(cmt_mid.strip())-len(cmt_mid))
         # Add prolog
         text.append( '%s%s' % (cmt_start, cmt_hbar) )
-        for line in hdr_prolog.splitlines():
+        for line in hdr_prolog:
             text.append( ('%s%s%s' % (cmt_mid, ' '*hdr_indent1, line)).rstrip() )
         # Add section data
         for section in ['file', 'library', 'project', 'module', 'author', 'description']:
@@ -314,7 +343,7 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
                 text.append( cmt_mid )
         # Add epilog
         text.append( '%s%s' % (cmt_mid, cmt_hbar) )
-        for line in hdr_epilog.splitlines():
+        for line in hdr_epilog:
             text.append( ('%s%s%s' % (cmt_mid, ' '*hdr_indent1, line)).rstrip() )
         text.append( cmt_end )
         text.append( '' )
