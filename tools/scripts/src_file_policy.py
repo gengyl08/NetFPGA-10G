@@ -46,10 +46,10 @@ FORBID_LOG  = os.path.expanduser( '~/pol_forbidden.log' )
 
 # TYPE_INFO: a tuple of (comment_str, interp_required, interpreter).
 #       comment_str: tuple of (single, begin, middle, end)
-#                    eg, for C: ('//', '/*', ' *', '*/')
+#                    eg, for C: ('//', '/*', ' *', ' */')
 #       interp_required: None = forbidden, False = optional, True = mandatory
 #       interpreter: if present, should be this value
-COM_STYLES = { 'C'   : ('//', '/*', ' *', '*/'),
+COM_STYLES = { 'C'   : ('//', '/*', ' *', ' */'),
                'sh'  : ('#', None, None, None),
                'vhdl': ('--', None, None, None),
                }
