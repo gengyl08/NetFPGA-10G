@@ -371,7 +371,7 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         cmt_start = cmt_start or cmt_single
         cmt_mid   = cmt_mid   or cmt_single
         cmt_end   = cmt_end   or cmt_single
-        cmt_hbar  = cmt_mid.strip()*(80-len(cmt_mid.strip())-len(cmt_mid))
+        cmt_hbar  = cmt_mid.strip()*(80/len(cmt_mid.strip())-len(cmt_mid))
         # Add prolog
         text.append( '%s%s' % (cmt_start, cmt_hbar) )
         for line in hdr_prolog:
