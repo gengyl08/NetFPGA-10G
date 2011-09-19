@@ -161,7 +161,8 @@ http://www.gnu.org/licenses/.
 
 """.splitlines()
 
-all_styles = re.compile( '^[%s]+' % ''.join([cs[0] for (cs, _, _, _) in COM_STYLES.values()]) )
+all_styles = re.compile( '^[%s]+' % ''.join( x.strip()[0] for x in filter( lambda x: x is not None,
+                                                                           sum( ([s,m] for s, _, m, _ in COM_STYLES.values()), [] ) ) ) )
 def replace_header( tree, really, successes, ignored, noheader, failures, warnings, forbidden, filename ):
     """
     Parse and replace header of a single file, but only if really sure.
