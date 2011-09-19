@@ -100,34 +100,34 @@ MB        = 'Michaela Blott'
 SF        = 'Stephanie Friederich'
 SS        = 'Shep Siegel'
 
-AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            MB),
-              ('lib/hw/netwave/pcores/nf10_axis_netwave_gen_check',       MB),
-              ('lib/hw/netwave/pcores/nf10_axis_netwave_l2switch',        MB),
-              ('lib/hw/std/pcores/nf10_10g_interface',                    JH),
-              ('lib/hw/std/pcores/nf10_1g_interface',                     JH),
-              ('lib/hw/std/pcores/nf10_axis_converter',                   JH),
-              ('lib/hw/std/pcores/nf10_axis_gen_check',                   MB),
-              ('lib/hw/std/pcores/nf10_axis_sim_pkg',                     DM),
-              ('lib/hw/std/pcores/nf10_axis_sim_record',                  DM),
-              ('lib/hw/std/pcores/nf10_axis_sim_stim',                    DM),
-              ('lib/hw/std/pcores/nf10_axi_flash_ctrl',                   SF),
-              ('lib/hw/std/pcores/nf10_axi_sim_transactor',               DM),
-              ('lib/hw/std/pcores/nf10_bram_output_queues',               JH),
-              ('lib/hw/std/pcores/nf10_input_arbiter',                    JH),
-              ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           JH),
-              ('lib/hw/std/pcores/nf10_oped',                             SS),
-              ('lib/hw/std/pcores/nf10_sram',                             JH),
-              ('projects/configuration_test',                             SF),
-              ('projects/configuration_test_no_cdc',                      SF),
-              ('projects/loopback_test',                                  JH),
-              ('projects/loopback_test_1g',                               JH),
-              ('projects/memory_test',                                    JH),
-              ('projects/netwave',                                        MB),
-              ('projects/oped_test',                                      SS),
-              ('projects/production_test',                                MB),
-              ('projects/reference_nic',                                  JH),
-              ('projects/reference_nic_1g',                               JH),
-              ('projects/stresstest',                                     MB),
+AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            [MB]),
+              ('lib/hw/netwave/pcores/nf10_axis_netwave_gen_check',       [MB]),
+              ('lib/hw/netwave/pcores/nf10_axis_netwave_l2switch',        [MB]),
+              ('lib/hw/std/pcores/nf10_10g_interface',                    [JH, DM]),
+              ('lib/hw/std/pcores/nf10_1g_interface',                     [JH]),
+              ('lib/hw/std/pcores/nf10_axis_converter',                   [JH]),
+              ('lib/hw/std/pcores/nf10_axis_gen_check',                   [MB]),
+              ('lib/hw/std/pcores/nf10_axis_sim_pkg',                     [DM]),
+              ('lib/hw/std/pcores/nf10_axis_sim_record',                  [DM]),
+              ('lib/hw/std/pcores/nf10_axis_sim_stim',                    [DM]),
+              ('lib/hw/std/pcores/nf10_axi_flash_ctrl',                   [SF]),
+              ('lib/hw/std/pcores/nf10_axi_sim_transactor',               [DM]),
+              ('lib/hw/std/pcores/nf10_bram_output_queues',               [JH]),
+              ('lib/hw/std/pcores/nf10_input_arbiter',                    [JH]),
+              ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           [JH]),
+              ('lib/hw/std/pcores/nf10_oped',                             [SS]),
+              ('lib/hw/std/pcores/nf10_sram',                             [JH]),
+              ('projects/configuration_test',                             [SF]),
+              ('projects/configuration_test_no_cdc',                      [SF]),
+              ('projects/loopback_test',                                  [JH]),
+              ('projects/loopback_test_1g',                               [JH]),
+              ('projects/memory_test',                                    [JH]),
+              ('projects/netwave',                                        [MB]),
+              ('projects/oped_test',                                      [SS]),
+              ('projects/production_test',                                [MB]),
+              ('projects/reference_nic',                                  [JH]),
+              ('projects/reference_nic_1g',                               [JH]),
+              ('projects/stresstest',                                     [MB]),
               ]
 
 
@@ -310,7 +310,7 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         if 'author' not in header:
             for base, author in AUTHORS:
                 if rel_filename.startswith( base ):
-                    header['author'] = [author]
+                    header['author'] = author
                     break
         # The presence of tabs in the header indicate that left justification
         # of the comment might be screwed up.
@@ -344,9 +344,6 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         # Missing author tag is a critical fail, because we can't guess this.
         if 'author' not in header:
             fail_flags.append( 'no_author' )
-        else:
-             if len(header['author']) != 1:
-                 warn_flags.append( 'multi_author' )
         # Description may be multiline, but needs leading whitespace to be
         # cleaned up.  Absence is a failure, because we can't guess this.
         if 'description' not in header:
