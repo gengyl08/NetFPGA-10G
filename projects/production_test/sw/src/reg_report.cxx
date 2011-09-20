@@ -11,6 +11,8 @@
 //          in the production test design for NetFPGA-10G.
 //
 //  Revision history:
+//          2011/Sep/20 Tom English       : Hide RLDRAM test results;
+//                                          This has become a separate test
 //          2010/11/04 Jonathan Ellithorpe: Initial check-in
 //
 ////////////////////////////////////////////////////////////////////////
@@ -36,7 +38,7 @@ char *stat_reg_names[] = { "HW Version",
 			   "QDRII ok",
 			   "PWR ok",
 			   "CPLD/Flash ok",
-			   "RLDRAMII ok",
+			   "HIDDEN", /* "RLDRAMII ok" */
 			   "10G if 0 link",
 			   "HIDDEN", /* "10G if 0 tx count" */
 			   "HIDDEN", /* "10G if 0 rx count" */
