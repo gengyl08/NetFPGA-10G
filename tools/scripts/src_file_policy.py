@@ -90,6 +90,8 @@ SECTIONS  = [ 'author',
               'revision history',
               'structure',
               'library',
+              'copyright notice',
+              'licence'
               ]
 
 AC        = 'Adam Covington'
@@ -138,12 +140,11 @@ hdr_prolog = """\
 NetFPGA-10G http://www.netfpga.org
 
 """.splitlines()
-hdr_epilog = """\
-
+stanford_copyright = """\
 Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
-                        Junior University
-
-This file is part of the NetFPGA 10G development package.
+                        Junior University""".splitlines()
+stanford_licence = """\
+This file is part of the NetFPGA 10G development base package.
 
 This package is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as
@@ -157,9 +158,7 @@ Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public
 License along with the NetFPGA source package.  If not, see
-http://www.gnu.org/licenses/.
-
-""".splitlines()
+http://www.gnu.org/licenses/.""".splitlines()
 
 all_styles = re.compile( '^[%s]+' % ''.join( x.strip()[0] for x in filter( lambda x: x is not None,
                                                                            sum( ([s,m] for s, _, m, _ in COM_STYLES.values()), [] ) ) ) )
@@ -185,6 +184,23 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
             return all_styles.sub( '', line_strip[len(cmt_mid_strip):] )
         # is not a header comment: flag by returning None
         return None
+
+    def strip_common_leading_whitespace( lines ):
+        """
+        Strips from every line the maximum amount of white space that is common
+        to ALL lines
+        """
+        # Find left-most line in description, and remove that much leading
+        # space from all lines.
+        common_margin = 1000
+        for line in lines:
+            if not line:
+                continue
+            margin = len(line)-len(line.lstrip())
+            if margin < common_margin:
+                common_margin = margin
+        return [line[common_margin:] for line in lines]
+
 
     # Get file type and associated information.  Handle ignored and forbidden
     # (ie, unknown) file types.
@@ -276,30 +292,10 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         if not nf10g_banner_seen:
             noheader.append( filename )
             return 0
-        # `section` is still set to the last section seen.  The epilog, if any,
-        # will be appended there.
-        epi_found = False
-        epi_start = 0
-        i         = 0
-        j         = 0
-        while i < len(header[section]):
-            if header[section][i].endswith( hdr_epilog[j] ):
-                if not epi_found:
-                    epi_start = i
-                    epi_found = True
-                j += 1
-                if j == len(hdr_epilog):
-                    # Whole of epilog found
-                    i += 2 # allow for extra trailing empty lines
-                    del header[section][epi_start:i]
-                    break
-                i += 1
-            else:
-                if epi_found:
-                    j = 0
-                    epi_found = False
-                else:
-                    i += 1
+        if 'copyright notice' not in header:
+            header['copyright notice'] = stanford_copyright
+        if 'licence' not in header:
+            header['licence'] = stanford_licence
         # Delete any leading or trailing empty lines from each section
         for section in header:
             while header[section] and not header[section][0]:
@@ -327,11 +323,15 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         # Delete module section if it's the same as the filename
         if 'module' in header and header['module'][0].find( header['file'][0] ) != -1:
             del header['module']
-        # Delete any leading or trailing whitespace around all sections
-        # (other than description, which needs its leading whitespace)
+        # Delete *all* leading or trailing whitespace in the following sections
         for section in ['library', 'project', 'module', 'author']:
             if section in header:
                 header[section] = [x.strip() for x in header[section]]
+        # Delete *common* leading whitespace in the following sections
+        for section in ['description', 'copyright notice', 'licence']:
+            if section in header:
+                header[section] = strip_common_leading_whitespace( header[section] )
+
 
         #
         # Check header for required data
@@ -348,17 +348,6 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         # cleaned up.  Absence is a failure, because we can't guess this.
         if 'description' not in header:
             fail_flags.append( 'no_desc' )
-        else:
-            # Find left-most line in description, and remove that much leading
-            # space from all lines.
-            common_margin = 1000
-            for line in header['description']:
-                if not line:
-                    continue
-                margin = len(line)-len(line.lstrip())
-                if margin < common_margin:
-                    common_margin = margin
-            header['description'] = [x[common_margin:] for x in header['description']]
 
         #
         # Insert standardised header
@@ -374,18 +363,13 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         for line in hdr_prolog:
             text.append( ('%s%s%s' % (cmt_mid, ' '*hdr_indent1, line)).rstrip() )
         # Add section data
-        for section in ['file', 'library', 'project', 'module', 'author', 'description']:
+        for section in ['file', 'library', 'project', 'module', 'author', 'description',
+                        'copyright notice', 'licence']:
             if section in header:
                 text.append( '%s%s%s:' % (cmt_mid, ' '*hdr_indent1, section.capitalize() ) )
                 for sect_info in header[section]:
                     text.append( ('%s%s%s' % (cmt_mid, ' '*hdr_indent2, sect_info )).rstrip() )
                 text.append( cmt_mid )
-        # Add epilog
-        text.append( '%s%s' % (cmt_mid, cmt_hbar) )
-        for line in hdr_epilog:
-            text.append( ('%s%s%s' % (cmt_mid, ' '*hdr_indent1, line)).rstrip() )
-        text.append( cmt_end )
-        text.append( '' )
         # Rest of file.
         text.append( text_first_line )
         # get rest of source text
