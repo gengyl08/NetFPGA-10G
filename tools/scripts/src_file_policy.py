@@ -370,6 +370,8 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
                 for sect_info in header[section]:
                     text.append( ('%s%s%s' % (cmt_mid, ' '*hdr_indent2, sect_info )).rstrip() )
                 text.append( cmt_mid )
+        text.append( cmt_end )
+        text.append( '' )
         # Rest of file.
         text.append( text_first_line )
         # get rest of source text
