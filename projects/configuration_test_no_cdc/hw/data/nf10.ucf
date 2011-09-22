@@ -1,32 +1,53 @@
-##########################################################################
-##
-##  NETFPGA-10G www.netfpga.org
-##
-##  Module:
-##          nf10.ucf
-##
-##  Description:
-##          Pin assignments and constraints; this is the Flash controller
-##          connected to OPED
-##          xc5vtx240t-ff1759-2 device 
-##                 
-##  Revision history:
-##          01.04.2011 Stephanie Friederich Initial version
-##          08/07/2011 Mark Grindell        Removed Flash Reset and included A23
-##          date author description
-##
-##  Known issues:
-##          
-##
-##  Library: N/A
-##
-########################################################################
-
-
-
-###############################################################################
-# Timing Constraints
-###############################################################################
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10.ucf
+#
+#  Library:
+#        N/A
+#
+#
+#
+#
+#
+#
+#        Timing Constraints
+#
+#  Project:
+#        configuration_test_no_cdc
+#
+#  Author:
+#        Stephanie Friederich
+#
+#  Description:
+#        Pin assignments and constraints; this is the Flash controller
+#        connected to OPED
+#        xc5vtx240t-ff1759-2 device
+#
+#  Copyright notice:
+#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+#                                Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This package is free software: you can redistribute it and/or modify
+#        it under the terms of the GNU Lesser General Public License as
+#        published by the Free Software Foundation, either version 3 of the
+#        License, or (at your option) any later version.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
 
 NET "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_clk_O" PERIOD = 10ns;
 NET "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/gt_refclk_out[0]" TNM_NET = "PCI0CLK";
@@ -45,57 +66,57 @@ CONFIG PART = xc5vtx240t-ff1759-3;
 # Flash signals
 ###############################################################################
 
-NET "nf10_axi_flash_ctrl_0_FPGA_IOL9P_pin"    LOC = "AK20" ;      
-#NET "nf10_axi_flash_ctrl_0_FLASH_RST_pin"     LOC = "AK27" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_FOE_pin"      LOC = "AM17" ;      
-NET "nf10_axi_flash_ctrl_0_FPGA_FCS_pin"      LOC = "AL17" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_FWE_pin"      LOC = "AR27" ;       
+NET "nf10_axi_flash_ctrl_0_FPGA_IOL9P_pin"    LOC = "AK20" ;
+#NET "nf10_axi_flash_ctrl_0_FLASH_RST_pin"     LOC = "AK27" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_FOE_pin"      LOC = "AM17" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_FCS_pin"      LOC = "AL17" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_FWE_pin"      LOC = "AR27" ;
 
-NET "CPLD_CLK"                                LOC = "AP21" ; 
+NET "CPLD_CLK"                                LOC = "AP21" ;
 NET "reboot"                                  LOC = "AJ18" ;
 
 NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<23>"    LOC = "AK27" ;
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<22>"    LOC = "AK28" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<21>"    LOC = "AM27" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<20>"    LOC = "AK18" ;      
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<19>"    LOC = "AL27" ;      
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<18>"    LOC = "AP27" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<17>"    LOC = "AR24" ;     
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<16>"    LOC = "AT24" ;     
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<15>"    LOC = "AN21" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<14>"    LOC = "AM22" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<13>"    LOC = "AW23" ;   
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<12>"    LOC = "AY23" ;   
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<11>"    LOC = "AL22" ;      
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<10>"    LOC = "AK22" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<9>"     LOC = "AN23" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<8>"     LOC = "AP23" ;     
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<7>"     LOC = "BA20" ;      
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<6>"     LOC = "AY20" ;     
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<5>"     LOC = "AR23" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<4>"     LOC = "AT22" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<3>"     LOC = "AW21" ;   
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<2>"     LOC = "AW22" ;    
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<1>"     LOC = "AR22" ;    
-NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<0>"     LOC = "AP22" ;     
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<22>"    LOC = "AK28" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<21>"    LOC = "AM27" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<20>"    LOC = "AK18" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<19>"    LOC = "AL27" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<18>"    LOC = "AP27" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<17>"    LOC = "AR24" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<16>"    LOC = "AT24" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<15>"    LOC = "AN21" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<14>"    LOC = "AM22" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<13>"    LOC = "AW23" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<12>"    LOC = "AY23" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<11>"    LOC = "AL22" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<10>"    LOC = "AK22" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<9>"     LOC = "AN23" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<8>"     LOC = "AP23" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<7>"     LOC = "BA20" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<6>"     LOC = "AY20" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<5>"     LOC = "AR23" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<4>"     LOC = "AT22" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<3>"     LOC = "AW21" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<2>"     LOC = "AW22" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<1>"     LOC = "AR22" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_A_pin<0>"     LOC = "AP22" ;
 
-       
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<15>"       LOC = "AV21" ;     
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<14>"       LOC = "AU22" ;      
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<13>"       LOC = "AU21" ;     
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<12>"       LOC = "AT21" ;  
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<11>"       LOC = "AV18" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<10>"       LOC = "AV19" ;      
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<9>"        LOC = "AV24" ;    
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<8>"        LOC = "AU24" ;     
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<7>"        LOC = "AM18" ;    
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<6>"        LOC = "AM19" ;    
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<5>"        LOC = "AP26" ;    
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<4>"        LOC = "AN26" ;    
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<3>"        LOC = "AL19" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<2>"        LOC = "AK19" ;     
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<1>"        LOC = "AP25" ;       
-NET "nf10_axi_flash_ctrl_0_FPGA_DQ<0>"        LOC = "AR25" ; 
+
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<15>"       LOC = "AV21" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<14>"       LOC = "AU22" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<13>"       LOC = "AU21" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<12>"       LOC = "AT21" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<11>"       LOC = "AV18" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<10>"       LOC = "AV19" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<9>"        LOC = "AV24" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<8>"        LOC = "AU24" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<7>"        LOC = "AM18" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<6>"        LOC = "AM19" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<5>"        LOC = "AP26" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<4>"        LOC = "AN26" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<3>"        LOC = "AL19" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<2>"        LOC = "AK19" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<1>"        LOC = "AP25" ;
+NET "nf10_axi_flash_ctrl_0_FPGA_DQ<0>"        LOC = "AR25" ;
 
 
 

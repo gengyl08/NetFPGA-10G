@@ -1,17 +1,44 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  Module:
-//          system_axisim_tb
-//
-//  Description:
-//          System testbench for reference_nic
-//                 
-//  Revision history:
-//          2011/5/17 hyzeng: Initial check-in
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        system_axisim_tb.v
+ *
+ *  Project:
+ *        reference_nic
+ *
+ *  Module:
+ *        system_axisim_tb
+ *
+ *  Author:
+ *        James Hongyi Zeng
+ *
+ *  Description:
+ *        System testbench for reference_nic
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
 
 `timescale 1 ns / 1ps
 
@@ -33,7 +60,7 @@ module system_axisim_tb
   // User: Put your signals here. Code in this
   //       section will not be overwritten.
   integer             i;
-  
+
   // END USER CODE (Do not remove this line)
 
   reg RESET;
@@ -76,23 +103,23 @@ module system_axisim_tb
 
   // User: Put your stimulus here. Code in this
   //       section will not be overwritten.
-  
+
   // Part 1: Wire connection
 
   // Part 2: Reset
   initial begin
       RS232_Uart_1_sin = 1'b0;
       CLK   = 1'b0;
-      
+
       refclk_A_p = 1'b0;
       refclk_A_n = 1'b1;
       refclk_B_p = 1'b0;
       refclk_B_n = 1'b1;
       refclk_C_p = 1'b0;
-      refclk_C_n = 1'b1;      
+      refclk_C_n = 1'b1;
       refclk_D_p = 1'b0;
       refclk_D_n = 1'b1;
-              
+
       $display("[%t] : System Reset Asserted...", $realtime);
       RESET = 1'b0;
       for (i = 0; i < 50; i = i + 1) begin
@@ -101,7 +128,7 @@ module system_axisim_tb
       $display("[%t] : System Reset De-asserted...", $realtime);
       RESET = 1'b1;
   end
-  
+
   // Part 3: Clock
   always #5  CLK = ~CLK;      // 100MHz
   always #3.2 refclk_A_p = ~refclk_A_p; // 156.25MHz

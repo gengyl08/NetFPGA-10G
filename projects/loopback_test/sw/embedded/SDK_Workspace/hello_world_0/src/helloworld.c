@@ -1,23 +1,46 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  Module:
-//          helloworld.c
-//
-//  Description:
-//          Example C file to initialize AEL2005 in 10G mode through 
-//          MDIO and dump PHY chip status.
-//
-//          Currently only 10GBASE-SR and Direct Attach are supported.
-//          This firmware will detect port mode according to SFF-8472.
-//          The default mode is Direct Attach.
-//
-//  Revision history:
-//          2010/11/28 hyzeng: Initial check-in
-//          2010/12/17 hyzeng: Added AXI4-Stream packet generator/checker
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        helloworld.c
+ *
+ *  Project:
+ *        loopback_test
+ *
+ *  Author:
+ *        James Hongyi Zeng
+ *
+ *  Description:
+ *        Example C file to initialize AEL2005 in 10G mode through
+ *        MDIO and dump PHY chip status.
+ *
+ *        Currently only 10GBASE-SR and Direct Attach are supported.
+ *        This firmware will detect port mode according to SFF-8472.
+ *        The default mode is Direct Attach.
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
 
 #include <stdio.h>
 #include "platform.h"
@@ -25,7 +48,7 @@
 #include "xemaclite.h"
 #include "xemaclite_l.h"
 
-////////////////////////////////////////////////////////////////////////                 
+////////////////////////////////////////////////////////////////////////
 //Our experiment shows that the Direct Attach EDC also applies
 //to 10GBASE-SR modules. To save the BRAM resource and minimize
 //the program size, both 10GBASE-SR and Direct Attach use the
@@ -49,7 +72,7 @@ int main (void) {
 
    ConfigPtr = XEmacLite_LookupConfig(EMAC_DEVICE_ID);
    XEmacLite_CfgInitialize(EmacLiteInstPtr, ConfigPtr, ConfigPtr->BaseAddress);
-   
+
    // Hold AXI4-Stream Packet Generator/Checker
    Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x3, 0x1);
    Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x3, 0x1);
@@ -57,21 +80,21 @@ int main (void) {
    char s;
    int port, dev;
    unsigned int value;
-   
+
 #if AEL2005_SR
    char port_mode_new[4] = {-1,-1,-1,-1};
    char port_mode[4] = {-1,-1,-1,-1};
 #endif
 
    goto INIT;
-  
+
    while(1){
        print("==NetFPGA-10G==\r\n");
        print("i : Initialize AEL2005\r\n");
        print("s : Dump status\r\n");
        print("t : Run AXI4-Stream Gen/Check\r\n");
        print("r : Stop AXI4-Stream Gen/Check\r\n");
-       
+
        s = inbyte();
        if(s == 'i'){
 INIT:      for(port = 0; port < 4; port ++){
@@ -105,7 +128,7 @@ INIT:      for(port = 0; port < 4; port ++){
     		   if(port_mode_new[port] != port_mode[port]){
     		       xil_printf("Port %d Detected new mode %x\r\n", port, port_mode_new[port]);
                    test_initialize(EmacLiteInstPtr, dev, port_mode_new[port]);
-                   port_mode[port] = port_mode_new[port];                   
+                   port_mode[port] = port_mode_new[port];
                }
 #else
                test_initialize(EmacLiteInstPtr, dev, MODE_TWINAX);
@@ -203,7 +226,7 @@ int ael2005_sleep (int ms){
 int ael2005_initialize(XEmacLite *InstancePtr, u32 dev, int mode){
 
         int size, i;
-        
+
         print("AEL2005 Initialization Start..\r\n");
         // Step 1
         print("Step 1..\r\n");

@@ -1,18 +1,45 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  Module:
-//          nf10_nic_output_port_lookup
-//
-//  Description:
-//          Hardwire the hardware interfaces to CPU and vice versa
-//                 
-//  Revision history:
-//          2011/5/13 gac1: Initial check-in
-//          2011/6/2 hyzeng: Move state machine to output
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        nf10_nic_output_port_lookup.v
+ *
+ *  Library:
+ *        hw/std/pcores/nf10_nic_output_port_lookup_v1_00_a
+ *
+ *  Module:
+ *        nf10_nic_output_port_lookup
+ *
+ *  Author:
+ *        Adam Covington
+ *
+ *  Description:
+ *        Hardwire the hardware interfaces to CPU and vice versa
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
+
 module nf10_nic_output_port_lookup
 #(
     //Master AXI Stream Data Width
@@ -61,10 +88,10 @@ module nf10_nic_output_port_lookup
 
    //------------- Wires ------------------
    wire  [C_M_AXIS_TUSER_WIDTH-1:0] tuser_fifo;
-   reg 			  state, state_next;     
-   
+   reg 			  state, state_next;
+
    // ------------ Modules ----------------
-   
+
    fallthrough_small_fifo
         #( .WIDTH(C_M_AXIS_DATA_WIDTH+C_M_AXIS_TUSER_WIDTH+C_M_AXIS_DATA_WIDTH/8+1),
            .MAX_DEPTH_BITS(2))
@@ -81,15 +108,15 @@ module nf10_nic_output_port_lookup
          .rd_en                          (in_fifo_rd_en),
          .reset                          (~axi_resetn),
          .clk                            (axi_aclk));
-   
+
    // ------------- Logic ----------------
 
    assign s_axis_tready = !in_fifo_nearly_full;
 
    // packet is from the cpu if it is on an odd numbered port
-   assign pkt_is_from_cpu = m_axis_tuser[SRC_PORT_POS+1] || 
-			    m_axis_tuser[SRC_PORT_POS+3] || 
-			    m_axis_tuser[SRC_PORT_POS+5] || 
+   assign pkt_is_from_cpu = m_axis_tuser[SRC_PORT_POS+1] ||
+			    m_axis_tuser[SRC_PORT_POS+3] ||
+			    m_axis_tuser[SRC_PORT_POS+5] ||
 			    m_axis_tuser[SRC_PORT_POS+7];
 
    // modify the dst port in tuser
@@ -104,7 +131,7 @@ module nf10_nic_output_port_lookup
 	      	m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = 8'b1;
 	      end // Default: Send to MAC 0
 	      else if(pkt_is_from_cpu) begin
-		 m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = {1'b0, 
+		 m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = {1'b0,
 			tuser_fifo[SRC_PORT_POS+7:SRC_PORT_POS+1]};
 	      end
 	      else begin
@@ -114,7 +141,7 @@ module nf10_nic_output_port_lookup
 	      if(m_axis_tready) begin
 			    state_next = IN_PACKET;
 			end
-	   end	   
+	   end
 	end // case: MODULE_HEADER
 
 	IN_PACKET: begin
@@ -122,7 +149,7 @@ module nf10_nic_output_port_lookup
 	      state_next = MODULE_HEADER;
 	   end
 	end
-      endcase // case (state)      
+      endcase // case (state)
    end // always @ (*)
 
    always @(posedge axi_aclk) begin
@@ -133,9 +160,9 @@ module nf10_nic_output_port_lookup
 	 state <= state_next;
       end
    end
-  
+
    // Handle output
    assign in_fifo_rd_en = m_axis_tready && !in_fifo_empty;
    assign m_axis_tvalid = !in_fifo_empty;
 
-endmodule // output_port_lookup   
+endmodule // output_port_lookup

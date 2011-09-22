@@ -1,22 +1,45 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  Module:
-//          helloworld.c
-//
-//  Description:
-//          Example C file to initialize AEL2005 to 1G mode through 
-//          MDIO and dump PHY chip status
-//
-//          Currently SGMII is supported. The PHY type (1000BASE-T
-//          or 1000BASE-X) depends on the SFP module plugged in.
-//                 
-//  Revision history:
-//          2010/11/28 hyzeng: Initial check-in
-//          2010/12/17 hyzeng: Added AXI4-Stream packet generator/checker
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        helloworld.c
+ *
+ *  Project:
+ *        reference_nic_1g
+ *
+ *  Author:
+ *        James Hongyi Zeng
+ *
+ *  Description:
+ *        Example C file to initialize AEL2005 to 1G mode through
+ *        MDIO and dump PHY chip status
+ *
+ *        Currently SGMII is supported. The PHY type (1000BASE-T
+ *        or 1000BASE-X) depends on the SFP module plugged in.
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
 
 #include <stdio.h>
 #include "platform.h"
@@ -78,7 +101,7 @@ int main (void) {
 
    ConfigPtr = XEmacLite_LookupConfig(EMAC_DEVICE_ID);
    XEmacLite_CfgInitialize(EmacLiteInstPtr, ConfigPtr, ConfigPtr->BaseAddress);
-   
+
    // Hold AXI4-Stream Packet Generator/Checker
    //Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_0_BASEADDR+0x3, 0x1);
    //Xil_Out32(XPAR_NF10_AXIS_GEN_CHECK_1_BASEADDR+0x3, 0x1);
@@ -91,10 +114,10 @@ int main (void) {
    while(1){
        print("==NetFPGA-10G==\r\n");
        print("i : Initialize AEL2005\r\n");
-      
+
        s = inbyte();
        if(s == 'i')
-INIT:      test_initialize(EmacLiteInstPtr);       
+INIT:      test_initialize(EmacLiteInstPtr);
        else
            continue;
    }

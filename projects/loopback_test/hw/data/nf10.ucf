@@ -1,19 +1,40 @@
-#////////////////////////////////////////////////////////////////////////
-#//
-#//  NetFPGA-10G http://www.netfpga.org
-#//
-#//  Module:
-#//          nf10.ucf
-#//
-#//  Description:
-#//          UCF for loopback_test
-#//                 
-#//  Revision history:
-#//          2010/12/20 hyzeng: Initial check-in
-#//
-#////////////////////////////////////////////////////////////////////////
+################################################################################
 #
-# pin constraints
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10.ucf
+#
+#  Project:
+#        loopback_test
+#
+#  Author:
+#        James Hongyi Zeng
+#
+#  Description:
+#        UCF for loopback_test
+#
+#  Copyright notice:
+#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+#                                Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This package is free software: you can redistribute it and/or modify
+#        it under the terms of the GNU Lesser General Public License as
+#        published by the Free Software Foundation, either version 3 of the
+#        License, or (at your option) any later version.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
 #
 
 NET RESET             LOC = AL24  |  IOSTANDARD=LVCMOS33  | PULLUP | TIG;
@@ -129,7 +150,7 @@ INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_contr
 TIMESPEC "TS_mac3_xgmac_ifg_false_paths_thru_1" = FROM "mac3_xgmac_ifg_false_paths_src_1" THRU "mac3_xgmac_ifg_false_paths_thru_1" THRU "mac3_xgmac_ifg_false_paths_thru_2" TO "mac3_xgmac_ifg_false_paths_dst_1" TIG;
 
 #######################################################
-# Flow control clock crossing timing constraint 
+# Flow control clock crossing timing constraint
 # MAC 0
 INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac0_flow_grp";
 INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac0_flow_grp";

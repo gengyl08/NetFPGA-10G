@@ -1,20 +1,42 @@
-#////////////////////////////////////////////////////////////////////////
-#//
-#//  NetFPGA-10G http://www.netfpga.org
-#//
-#//  Module:
-#//          nf10_10g_interface_v2_1_0.pao
-#//
-#//  Description:
-#//          Peripheral Analyze Order File
-#//                 
-#//  Revision history:
-#//          2010/11/28 hyzeng: Initial check-in
-#//          2011/5/26  hyzeng: Included AXIS converter
-#//          2011/6/13 ericklo: Separate Stanford and Xilinx verilog
-#//          2011/6/27 ericklo: Rename stanford dir to nf10
-#//
-#////////////////////////////////////////////////////////////////////////
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_10g_interface_v2_1_0.pao
+#
+#  Library:
+#        hw/std/pcores/nf10_10g_interface_v1_10_a
+#
+#  Author:
+#        James Hongyi Zeng
+#
+#  Description:
+#        Peripheral Analyze Order File
+#
+#  Copyright notice:
+#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+#                                Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This package is free software: you can redistribute it and/or modify
+#        it under the terms of the GNU Lesser General Public License as
+#        published by the Free Software Foundation, either version 3 of the
+#        License, or (at your option) any later version.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
 lib nf10_axis_converter_v1_00_a all
 lib nf10_10g_interface_v1_10_a xilinx/rocketio_wrapper.v verilog
 lib nf10_10g_interface_v1_10_a xilinx/rocketio_wrapper_tile.v verilog

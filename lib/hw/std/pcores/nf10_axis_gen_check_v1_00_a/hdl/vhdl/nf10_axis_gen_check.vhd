@@ -1,23 +1,43 @@
-------------------------------------------------------------------------
+------------------------------------------------------------------------------
 --
 --  NetFPGA-10G http://www.netfpga.org
 --
---  Module:
---          nf10_axis_gen_check.vhd
+--  File:
+--        nf10_axis_gen_check.vhd
+--
+--  Library:
+--        hw/std/pcores/nf10_axis_gen_check_v1_00_a
+--
+--  Author:
+--        Michaela Blott
 --
 --  Description:
---          Hardware component that generates and checks packets.
---  Currently the generator generates bit-wise shifted pattern. No valid 
---  packet pattern and/or higher layer structure is programmed.
---                 
---  Revision history:
---          2010/12/1  M.Blott  Initial version
---          2010/12/15 hyzeng   Fixed last signal, AXI4-Lite
---          2010/12/21 M.Blott  fixed reset issue
---			2011/4/15  hyzeng	Update with TUSER
+--                Hardware component that generates and checks packets.
+--        Currently the generator generates bit-wise shifted pattern. No valid
+--        packet pattern and/or higher layer structure is programmed.
 --
-------------------------------------------------------------------------
-
+--  Copyright notice:
+--        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+--                                Junior University
+--
+--  Licence:
+--        This file is part of the NetFPGA 10G development base package.
+--
+--        This package is free software: you can redistribute it and/or modify
+--        it under the terms of the GNU Lesser General Public License as
+--        published by the Free Software Foundation, either version 3 of the
+--        License, or (at your option) any later version.
+--
+--        This package is distributed in the hope that it will be useful, but
+--        WITHOUT ANY WARRANTY; without even the implied warranty of
+--        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--        Lesser General Public License for more details.
+--
+--        You should have received a copy of the GNU Lesser General Public
+--        License along with the NetFPGA source package.  If not, see
+--        http://www.gnu.org/licenses/.
+--
+--
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -73,7 +93,7 @@ port (
    S_AXI_RDATA        : out std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
    S_AXI_RRESP        : out std_logic_vector(1 downto 0);
    S_AXI_RVALID       : out std_logic;
-   S_AXI_RREADY       : in  std_logic	
+   S_AXI_RREADY       : in  std_logic
 );
 end entity;
 
@@ -112,12 +132,12 @@ port (
    RDATA        : out std_logic_vector(DATA_WIDTH-1 downto 0);
    RRESP        : out std_logic_vector(1 downto 0);
    RVALID       : out std_logic;
-   RREADY       : in  std_logic	
+   RREADY       : in  std_logic
 );
 end component;
-   
-                              
-   -- ROM should be inferred as BRAM during XST  
+
+
+   -- ROM should be inferred as BRAM during XST
    constant CHECK_IDLE           : std_logic_vector(1 downto 0) := "00";
    constant CHECK_FINISH         : std_logic_vector(1 downto 0) := "01";
    constant CHECK_COMPARE        : std_logic_vector(1 downto 0) := "11";
@@ -126,7 +146,7 @@ end component;
    constant GEN_PKT              : std_logic_vector(1 downto 0) := "00";
    constant GEN_IFG              : std_logic_vector(1 downto 0) := "01";
    constant GEN_FINISH           : std_logic_vector(1 downto 0) := "11";
-	
+
    signal gen_word_num       : std_logic_vector(15 downto 0);
    signal gen_state          : std_logic_vector(1  downto 0);
    signal check_state        : std_logic_vector(1  downto 0);
@@ -135,30 +155,30 @@ end component;
    signal rx_count           : std_logic_vector(31 downto 0);
    signal err_count          : std_logic_vector(31 downto 0);
    signal count_reset        : std_logic;
-   signal ok                 : std_logic;	
+   signal ok                 : std_logic;
    signal pkt_tx_buf         : std_logic_vector(C_M_AXIS_DATA_WIDTH-1 downto 0);
    signal pkt_rx_buf         : std_logic_vector(C_S_AXIS_DATA_WIDTH-1 downto 0);
    signal seed               : std_logic_vector(255 downto 0);
-	
+
 begin
 
    seed <= x"CAFEBEEFCAFEBEEFCAFEBEEFCAFEBEEFCAFEBEEFCAFEBEEFCAFEBEEFCAFEBEEF";
 
    regs : axi4_lite_regs
-     generic map 
+     generic map
         (
-        ADDR_WIDTH       => C_S_AXI_ADDR_WIDTH,  
-        DATA_WIDTH       => C_S_AXI_DATA_WIDTH                     
+        ADDR_WIDTH       => C_S_AXI_ADDR_WIDTH,
+        DATA_WIDTH       => C_S_AXI_DATA_WIDTH
         )
-     
-     port map 
+
+     port map
         (
         tx_count  => tx_count,
         rx_count  => rx_count,
         err_count => err_count,
         count_reset => count_reset,
         AXIS_ACLK => ACLK,
-           
+
         ACLK => S_AXI_ACLK,
         ARESETN => S_AXI_ARESETN,
         AWADDR => S_AXI_AWADDR,
@@ -192,7 +212,7 @@ begin
       tx_count <= (others => '0');
       gen_state <= GEN_IFG; -- initiate to between frames
    elsif (ACLK = '1' and ACLK'event) then
-      if gen_state = GEN_PKT then 
+      if gen_state = GEN_PKT then
 		 M_AXIS_TSTRB <= (others => '1');
          M_AXIS_TVALID <= '1';
          if (M_AXIS_TREADY='1') then
@@ -200,13 +220,13 @@ begin
             if (gen_word_num = C_GEN_PKT_SIZE - 1) then
                 M_AXIS_TSTRB <= (others => '0');
          		M_AXIS_TVALID <= '0';
-         		tx_count <= tx_count + 1;	
+         		tx_count <= tx_count + 1;
          		gen_state <= GEN_IFG;
             else
                 pkt_tx_buf <= pkt_tx_buf(0) & pkt_tx_buf(C_M_AXIS_DATA_WIDTH -1 downto 1);
                 M_AXIS_TDATA <= pkt_tx_buf(0) & pkt_tx_buf(C_M_AXIS_DATA_WIDTH -1 downto 1);
             end if;
-         end if;	
+         end if;
       elsif gen_state = GEN_IFG then
          M_AXIS_TSTRB <= (others => '0');
          M_AXIS_TVALID <= '0';
@@ -220,13 +240,13 @@ begin
           		    gen_state <= GEN_FINISH;
       			 end if;
              end if;
-         end if;	      		
+         end if;
       elsif gen_state = GEN_FINISH then
          M_AXIS_TSTRB <= (others => '1');
-         M_AXIS_TVALID <= '1';			
+         M_AXIS_TVALID <= '1';
          M_AXIS_TDATA <= seed(C_M_AXIS_DATA_WIDTH -1 downto 0);
          pkt_tx_buf <= seed(C_M_AXIS_DATA_WIDTH -1 downto 0);
-         gen_word_num <= (others => '0');	
+         gen_word_num <= (others => '0');
          gen_state <= GEN_PKT;
       end if;
    end if;
@@ -253,15 +273,15 @@ begin
       elsif check_state = CHECK_COMPARE then
 		 -- checking the packet
          -- check packet size and last
-         if (S_AXIS_TVALID = '1') then	
+         if (S_AXIS_TVALID = '1') then
              pkt_rx_buf <= pkt_rx_buf(0) & pkt_rx_buf(C_S_AXIS_DATA_WIDTH -1 downto 1);
              check_word_num <= check_word_num + 1;
-             
+
              if( S_AXIS_TDATA = pkt_rx_buf ) then
                  ok <= ok;
              else
                  ok <= '0';
-             end if;		     
+             end if;
 		     if (check_word_num = C_CHECK_PKT_SIZE -2) then
 		          if (S_AXIS_TLAST='1') then
 		              check_state <= CHECK_FINISH; -- finish up
@@ -270,7 +290,7 @@ begin
 		              check_state <= CHECK_WAIT_LAST; -- Wait for last
 		          end if;
              end if;
-		 end if;	
+		 end if;
       elsif check_state = CHECK_FINISH then
          -- finish up
          if (ok='1') then
@@ -278,18 +298,18 @@ begin
 		 else
 			err_count <= err_count + 1;
 		 end if;
-		 check_state <= CHECK_IDLE; 
+		 check_state <= CHECK_IDLE;
 		 ok <='1';
       elsif check_state = CHECK_WAIT_LAST then
          -- Wait for last
 	     if (S_AXIS_TLAST='1' and S_AXIS_TVALID = '1') then
-		    check_state <= CHECK_FINISH; 
+		    check_state <= CHECK_FINISH;
 		 end if;
       end if;
-      
+
       if(count_reset = '1') then -- Don't touch check state machine..
-          rx_count <= (others => '0');	
-          err_count <= (others => '0');	
+          rx_count <= (others => '0');
+          err_count <= (others => '0');
       end if;
    end if;
 end process;

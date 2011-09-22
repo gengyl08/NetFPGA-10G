@@ -1,18 +1,46 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  Module:
-//          nf10_bram_output_queues
-//
-//  Description:
-//          BRAM Output queues
-//          Outputs have a parameterizable width
-//                 
-//  Revision history:
-//          2011/5/10 hyzeng: Initial check-in
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        nf10_bram_output_queues.v
+ *
+ *  Library:
+ *        hw/std/pcores/nf10_bram_output_queues_v1_00_a
+ *
+ *  Module:
+ *        nf10_bram_output_queues
+ *
+ *  Author:
+ *        James Hongyi Zeng
+ *
+ *  Description:
+ *        BRAM Output queues
+ *        Outputs have a parameterizable width
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
+
 module nf10_bram_output_queues
 #(
     // Master AXI Stream Data Width
@@ -27,7 +55,7 @@ module nf10_bram_output_queues
     // Global Ports
     input axi_aclk,
     input axi_resetn,
-    
+
     // Slave Stream Ports (interface to data path)
     input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_tdata,
     input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_tstrb,
@@ -35,7 +63,7 @@ module nf10_bram_output_queues
     input s_axis_tvalid,
     output reg s_axis_tready,
     input s_axis_tlast,
-    
+
     // Master Stream Ports (interface to TX queues)
     output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_0,
     output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_0,
@@ -50,21 +78,21 @@ module nf10_bram_output_queues
     output  m_axis_tvalid_1,
     input m_axis_tready_1,
     output  m_axis_tlast_1,
-    
+
     output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_2,
     output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_2,
     output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser_2,
     output  m_axis_tvalid_2,
     input m_axis_tready_2,
     output  m_axis_tlast_2,
-    
+
     output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_3,
     output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_3,
     output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser_3,
     output  m_axis_tvalid_3,
     input m_axis_tready_3,
     output  m_axis_tlast_3,
-    
+
     output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_tdata_4,
     output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_tstrb_4,
     output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser_4,
@@ -84,9 +112,9 @@ module nf10_bram_output_queues
    endfunction // log2
 
    // ------------ Internal Params --------
-   
+
    localparam NUM_QUEUES_WIDTH = log2(NUM_QUEUES);
-   
+
    localparam BUFFER_SIZE         = 4096; // Buffer size 4096B
    localparam BUFFER_SIZE_WIDTH   = log2(BUFFER_SIZE/(C_M_AXIS_DATA_WIDTH/8));
 
@@ -97,29 +125,29 @@ module nf10_bram_output_queues
    localparam IDLE = 0;
    localparam WR_PKT = 1;
    localparam DROP = 2;
-   
+
    localparam NUM_METADATA_STATES = 2;
    localparam WAIT_HEADER = 0;
    localparam WAIT_EOP = 1;
 
    // ------------- Regs/ wires -----------
-   
+
    reg [NUM_QUEUES-1:0]                nearly_full;
    wire [NUM_QUEUES-1:0]               nearly_full_fifo;
    wire [NUM_QUEUES-1:0]               empty;
-   
+
    reg [NUM_QUEUES-1:0]                metadata_nearly_full;
    wire [NUM_QUEUES-1:0]               metadata_nearly_full_fifo;
    wire [NUM_QUEUES-1:0]               metadata_empty;
-   
+
    wire [C_M_AXIS_TUSER_WIDTH-1:0]             fifo_out_tuser[NUM_QUEUES-1:0];
    wire [C_M_AXIS_DATA_WIDTH-1:0]        fifo_out_tdata[NUM_QUEUES-1:0];
    wire [((C_M_AXIS_DATA_WIDTH/8))-1:0]  fifo_out_tstrb[NUM_QUEUES-1:0];
-   wire [NUM_QUEUES-1:0] 	           fifo_out_tlast;	  
-        
+   wire [NUM_QUEUES-1:0] 	           fifo_out_tlast;
+
    wire [NUM_QUEUES-1:0]               rd_en;
    reg [NUM_QUEUES-1:0]                wr_en;
-   
+
    reg [NUM_QUEUES-1:0]                metadata_rd_en;
    reg [NUM_QUEUES-1:0]                metadata_wr_en;
 
@@ -129,10 +157,10 @@ module nf10_bram_output_queues
 
    reg [NUM_STATES-1:0]                state;
    reg [NUM_STATES-1:0]                state_next;
-   
+
    reg [NUM_METADATA_STATES-1:0]       metadata_state[NUM_QUEUES-1:0];
    reg [NUM_METADATA_STATES-1:0]       metadata_state_next[NUM_QUEUES-1:0];
-   
+
    reg								   first_word, first_word_next;
 
    // ------------ Modules -------------
@@ -174,7 +202,7 @@ module nf10_bram_output_queues
          .rd_en                          (metadata_rd_en[i]),
          .reset                          (~axi_resetn),
          .clk                            (axi_aclk));
-   
+
    always @(metadata_state[i], rd_en[i], fifo_out_tlast[i]) begin
         metadata_rd_en[i] = 1'b0;
         metadata_state_next[i] = metadata_state[i];
@@ -192,7 +220,7 @@ module nf10_bram_output_queues
       		end
         endcase
       end
-      
+
       always @(posedge axi_aclk) begin
       	if(~axi_resetn) begin
          	metadata_state[i] <= WAIT_HEADER;
@@ -201,20 +229,20 @@ module nf10_bram_output_queues
          	metadata_state[i] <= metadata_state_next[i];
       	end
       end
-   end 
+   end
    endgenerate
-   
+
    // Per NetFPGA-10G AXI Spec
    localparam DST_POS = 24;
-   assign oq = s_axis_tuser[DST_POS] | 
-   			   (s_axis_tuser[DST_POS + 2] << 1) | 
-   			   (s_axis_tuser[DST_POS + 4] << 2) | 
-   			   (s_axis_tuser[DST_POS + 6] << 3) | 
+   assign oq = s_axis_tuser[DST_POS] |
+   			   (s_axis_tuser[DST_POS + 2] << 1) |
+   			   (s_axis_tuser[DST_POS + 4] << 2) |
+   			   (s_axis_tuser[DST_POS + 6] << 3) |
    			   ((s_axis_tuser[DST_POS + 1] | s_axis_tuser[DST_POS + 3] | s_axis_tuser[DST_POS + 5] | s_axis_tuser[DST_POS + 7]) << 4);
-   
+
    always @(*) begin
       state_next     = state;
-      cur_queue_next = cur_queue;      
+      cur_queue_next = cur_queue;
       wr_en          = 0;
       metadata_wr_en = 0;
       s_axis_tready  = 0;
@@ -247,10 +275,10 @@ module nf10_bram_output_queues
 				end
 				if(s_axis_tlast) begin
 					state_next = IDLE;
-				end           	
+				end
            end
         end // case: WR_PKT
-        
+
         DROP: begin
            s_axis_tready = 1;
            if(s_axis_tvalid & s_axis_tlast) begin
@@ -260,54 +288,54 @@ module nf10_bram_output_queues
 
       endcase // case(state)
    end // always @ (*)
-   
+
 
 
    always @(posedge axi_aclk) begin
       if(~axi_resetn) begin
          state <= IDLE;
-         cur_queue <= 0; 
+         cur_queue <= 0;
          first_word <= 0;
       end
       else begin
          state <= state_next;
-         cur_queue <= cur_queue_next; 
+         cur_queue <= cur_queue_next;
          first_word <= first_word_next;
       end
-      
+
       nearly_full <= nearly_full_fifo;
       metadata_nearly_full <= metadata_nearly_full_fifo;
    end
-   
-   
+
+
    assign m_axis_tdata_0	 = fifo_out_tdata[0];
    assign m_axis_tstrb_0	 = fifo_out_tstrb[0];
    assign m_axis_tuser_0	 = fifo_out_tuser[0];
    assign m_axis_tlast_0	 = fifo_out_tlast[0];
    assign m_axis_tvalid_0	 = ~empty[0];
    assign rd_en[0]			 = m_axis_tready_0 & ~empty[0];
-   
+
    assign m_axis_tdata_1	 = fifo_out_tdata[1];
    assign m_axis_tstrb_1	 = fifo_out_tstrb[1];
    assign m_axis_tuser_1	 = fifo_out_tuser[1];
    assign m_axis_tlast_1	 = fifo_out_tlast[1];
    assign m_axis_tvalid_1	 = ~empty[1];
    assign rd_en[1]			 = m_axis_tready_1 & ~empty[1];
-   
+
    assign m_axis_tdata_2	 = fifo_out_tdata[2];
    assign m_axis_tstrb_2	 = fifo_out_tstrb[2];
    assign m_axis_tuser_2	 = fifo_out_tuser[2];
    assign m_axis_tlast_2	 = fifo_out_tlast[2];
    assign m_axis_tvalid_2	 = ~empty[2];
    assign rd_en[2]			 = m_axis_tready_2 & ~empty[2];
-   
+
    assign m_axis_tdata_3	 = fifo_out_tdata[3];
    assign m_axis_tstrb_3	 = fifo_out_tstrb[3];
    assign m_axis_tuser_3	 = fifo_out_tuser[3];
    assign m_axis_tlast_3	 = fifo_out_tlast[3];
    assign m_axis_tvalid_3	 = ~empty[3];
    assign rd_en[3]			 = m_axis_tready_3 & ~empty[3];
-   
+
    assign m_axis_tdata_4	 = fifo_out_tdata[4];
    assign m_axis_tstrb_4	 = fifo_out_tstrb[4];
    assign m_axis_tuser_4	 = fifo_out_tuser[4];

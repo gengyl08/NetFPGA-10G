@@ -1,31 +1,50 @@
-------------------------------------------------------------------------
+------------------------------------------------------------------------------
 --
---  NETFPGA-10G www.netfpga.org
+--  NetFPGA-10G http://www.netfpga.org
+--
+--  File:
+--        nf10_axi_flash_ctrl.vhd
+--
+--  Library:
+--        ieee
+--        proc_common_v3_00_a
+--        nf10_axi_flash_ctrl_v1_00_a
+--        axi_lite_ipif_v1_00_a
+--
+--  Project:
+--        configuration_test_no_cdc
 --
 --  Module:
---          axi_flash - Behavioral
+--        axi_flash - Behavioral
+--
+--  Author:
+--        Stephanie Friederich
 --
 --  Description:
---          Connects the flash controller to the PCIe axi_lite interface
---                 
---  Revision history:
---          01/11/2010 Stephanie Friederich Initial Revision
---          08/07/2011 Mark Grindell        Added an extra address line to the CPLD
---                                          supporting an extra FLASH device; got rid
---                                          of the apparently unnecessary reset line 
---                                          to the FLASH.
+--        Connects the flash controller to the PCIe axi_lite interface
 --
---  Known issues:
---          None
+--  Copyright notice:
+--        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+--                                Junior University
 --
---  Library: ieee
---           proc_common_v3_00_a
---           nf10_axi_flash_ctrl_v1_00_a
---           axi_lite_ipif_v1_00_a
+--  Licence:
+--        This file is part of the NetFPGA 10G development base package.
 --
-------------------------------------------------------------------------
-
-
+--        This package is free software: you can redistribute it and/or modify
+--        it under the terms of the GNU Lesser General Public License as
+--        published by the Free Software Foundation, either version 3 of the
+--        License, or (at your option) any later version.
+--
+--        This package is distributed in the hope that it will be useful, but
+--        WITHOUT ANY WARRANTY; without even the implied warranty of
+--        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--        Lesser General Public License for more details.
+--
+--        You should have received a copy of the GNU Lesser General Public
+--        License along with the NetFPGA source package.  If not, see
+--        http://www.gnu.org/licenses/.
+--
+--
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -111,19 +130,19 @@ entity nf10_axi_flash_ctrl is
       S_AXI_RVALID          : out std_logic;
       S_AXI_RREADY          : in  std_logic;
 	  -- Flash signals
-      FPGA_A			    : out std_logic_vector(23 downto 0); 
+      FPGA_A			    : out std_logic_vector(23 downto 0);
       FPGA_FOE		        : out std_logic;
       FPGA_FWE		        : out std_logic;
       FPGA_FCS		        : out std_logic;
       FPGA_IOL9P		    : out std_logic;
---      FLASH_RST		        : out std_logic;  
+--      FLASH_RST		        : out std_logic;
       FPGA_DQ_I             : in std_logic_vector(15 downto 0);
       FPGA_DQ_O             : out std_logic_vector(15 downto 0);
       FPGA_DQ_T             : out std_logic_vector(15 downto 0));
 
-	   
-  
-	   
+
+
+
 end nf10_axi_flash_ctrl;
 
 -------------------------------------------------------------------------------
@@ -173,17 +192,17 @@ architecture rtl of nf10_axi_flash_ctrl is
     signal bus2ip_cs     : std_logic_vector(((C_ARD_ADDR_RANGE_ARRAY'LENGTH)/2)-1 downto 0);
     signal bus2ip_rdce   : std_logic_vector(calc_num_ce(C_ARD_NUM_CE_ARRAY)-1 downto 0);
     signal bus2ip_wrce   : std_logic_vector(calc_num_ce(C_ARD_NUM_CE_ARRAY)-1 downto 0);
-    signal FLASH_RST     : std_logic; 				   
-						   
-						   
+    signal FLASH_RST     : std_logic;
+
+
 component flash_reg is
 	generic (C_IPIF_ABUS_WIDTH   : integer := 32;
 	         C_IPIF_DBUS_WIDTH   : integer := 32);
     Port (CPLD_CLK            : in std_logic;
 	  reboot              : out std_logic;
-	  CLK		      : in std_logic;		
+	  CLK		      : in std_logic;
 	  -- Flash signals
-	  FPGA_A	      : out std_logic_vector(23 downto 0); 
+	  FPGA_A	      : out std_logic_vector(23 downto 0);
 	  --FPGA_DQ	      : inout std_logic_vector (15 downto 0);
 	  FPGA_DQ_I           : in std_logic_vector(15 downto 0);
           FPGA_DQ_O           : out std_logic_vector(15 downto 0);
@@ -263,7 +282,7 @@ begin
         Bus2IP_RdCE    => bus2ip_rdce,
         Bus2IP_WrCE    => bus2ip_wrce
        );
-	
+
 	flash_top_level	:	flash_reg
     generic map(C_IPIF_ABUS_WIDTH => C_S_AXI_ADDR_WIDTH,
                 C_IPIF_DBUS_WIDTH => C_S_AXI_DATA_WIDTH)
@@ -294,5 +313,5 @@ begin
                 IP2Bus_Error    =>  IP2Bus_Error);
 
 
-	
+
 end rtl;

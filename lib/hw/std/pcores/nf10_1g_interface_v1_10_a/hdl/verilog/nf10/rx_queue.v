@@ -1,17 +1,44 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  Module:
-//          rx_queue
-//
-//  Description:
-//          AXI-MAC converter: RX side
-//                 
-//  Revision history:
-//          2010/11/28 hyzeng: Initial check-in
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        rx_queue.v
+ *
+ *  Library:
+ *        hw/std/pcores/nf10_1g_interface_v1_10_a
+ *
+ *  Module:
+ *        rx_queue
+ *
+ *  Author:
+ *        Adam Covington
+ *
+ *  Description:
+ *        AXI-MAC converter: RX side
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
 
 module rx_queue
 #(
@@ -24,12 +51,12 @@ module rx_queue
    output reg tvalid,
    output reg tlast,
    input  tready,
-        
+
    output reg err_tvalid,
-       
+
    input clk,
    input reset,
-       
+
    // MAC side
    input [7:0] rx_data,
    input rx_data_valid,
@@ -41,26 +68,26 @@ module rx_queue
    localparam IDLE = 0;
    localparam WAIT_FOR_EOP = 1;
    localparam DROP = 2;
-   
+
    localparam ERR_IDLE = 0;
    localparam ERR_WAIT = 1;
    localparam ERR_BUBBLE = 2;
-   
+
    wire fifo_almost_full;
    wire fifo_empty;
    reg  fifo_wr_en;
-     
+
    wire info_fifo_empty;
    reg  info_fifo_rd_en;
    wire rx_bad_frame_fifo;
-   
+
    reg  [2:0] state, state_next;
    reg  [2:0] err_state, err_state_next;
-   
+
    wire [AXI_DATA_WIDTH-1:0]  tdata_delay;
    wire [AXI_DATA_WIDTH/8-1:0]  tstrb_delay;
    reg  rx_fifo_rd_en;
-   
+
    // Instantiate clock domain crossing FIFO
    FIFO36 #(
    	.SIM_MODE("FAST"),
@@ -87,11 +114,11 @@ module rx_queue
 		.RDEN(rx_fifo_rd_en),
 		.RST(reset),
 		.WRCLK(clk125),
-		.WREN(fifo_wr_en) 
+		.WREN(fifo_wr_en)
    	);
 
-   	
-   	small_async_fifo 
+
+   	small_async_fifo
    	#(
    	  .DSIZE (1),
       .ASIZE (9)
@@ -100,11 +127,11 @@ module rx_queue
          .wdata(rx_bad_frame),
          .winc(rx_good_frame|rx_bad_frame),
          .wclk(clk125),
-         
+
          .rdata(rx_bad_frame_fifo),
          .rinc(info_fifo_rd_en),
          .rclk(clk),
-         
+
          .rempty(info_fifo_empty),
          .r_almost_empty(),
          .wfull(),
@@ -112,21 +139,21 @@ module rx_queue
 	     .rrst_n(~reset),
          .wrst_n(~reset)
          );
-     
+
      always @(posedge clk) begin
          if(rx_fifo_rd_en) begin
              tdata <= tdata_delay;
              tstrb <= tstrb_delay;
          end
      end
-              
+
      always @* begin
          state_next = state;
          fifo_wr_en = 1'b0;
-         
+
          case(state)
              IDLE: begin
-                 if(rx_data_valid) begin                    
+                 if(rx_data_valid) begin
                      if(~fifo_almost_full) begin
                          fifo_wr_en = 1'b1;
                          state_next = WAIT_FOR_EOP;
@@ -136,14 +163,14 @@ module rx_queue
                      end
                  end
              end
-             
+
              WAIT_FOR_EOP: begin
                  fifo_wr_en = 1'b1;
-                 if(~rx_data_valid) begin                     
+                 if(~rx_data_valid) begin
                      state_next = IDLE;
                  end
              end
-             
+
              DROP: begin
                  if(~rx_data_valid) begin
                      state_next = IDLE;
@@ -153,16 +180,16 @@ module rx_queue
      end
 
 
-   
+
      always @* begin
          info_fifo_rd_en = 0;
          err_state_next = err_state;
          err_tvalid = 0;
-                           
+
          rx_fifo_rd_en = 0;
          tlast = 0;
          tvalid = 0;
-         
+
          case(err_state)
              ERR_IDLE: begin
                  tvalid = (~fifo_empty);
@@ -193,7 +220,7 @@ module rx_queue
              end
          endcase
      end
-     
+
      always @(posedge clk125 or posedge reset) begin
          if(reset) begin
              state <= IDLE;

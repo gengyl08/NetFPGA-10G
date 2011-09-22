@@ -1,25 +1,48 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NETFPGA-10G www.netfpga.org
-//
-//  Module:
-//          write_bitstream_py.c
-//
-//  Description:
-//          For the Flash Controller Project. Write a specified .bit file
-//          to the (B) flash. 
-//                 
-//  Revision history:
-//          15/04/2011 friederich    Initial revision
-//          08/07/2011 Mark Grindell Added this header
-//          12/08/2011 Mark Grindell Removed bias of 111, uses new driver.
-//
-//  Known issues:
-//
-//  Library: stdio.h, stdlib.h, string.h
-//
-////////////////////////////////////////////////////////////////////////
-
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        write_2nd_bitstream_py.c
+ *
+ *  Library:
+ *        stdio.h, stdlib.h, string.h
+ *
+ *  Project:
+ *        configuration_test
+ *
+ *  Module:
+ *        write_bitstream_py.c
+ *
+ *  Author:
+ *        Stephanie Friederich
+ *
+ *  Description:
+ *        For the Flash Controller Project. Write a specified .bit file
+ *        to the (B) flash.
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
 
 #include <netlink/netlink.h>
 #include "nf10_reg_lib.h"
@@ -46,7 +69,7 @@ int main (int argc, char **argv)
   // 15 Banks with each containing 8 Blocks, 15*8=120
   printf ("Unlock and Erase all blocks ... \n");
   for(i=0; i < 120 ;i++)
-  { 
+  {
     block_adr = i * 65536 + 0x800000;
     nf10_reg_wr (0x08, block_adr++);     // Block_Unlock(block_adr);
     nf10_reg_wr (0x00, 0x0c);
@@ -66,9 +89,9 @@ int main (int argc, char **argv)
   pBitstream = fopen(*ap, "r");
   if (pBitstream== NULL)
     printf ("Can't open Bitstream '%s' \n", *ap);
-  
+
   // obtain bitstream size
-  fseek (pBitstream , 0, SEEK_END);  
+  fseek (pBitstream , 0, SEEK_END);
   lSize = ftell(pBitstream);
   rewind (pBitstream);
 
@@ -77,8 +100,8 @@ int main (int argc, char **argv)
   fread(buffer, lSize, 1, pBitstream);
   fclose(pBitstream);
 
-  for(i = 0; i < lSize; i = i + 2)  
-  { 
+  for(i = 0; i < lSize; i = i + 2)
+  {
     byte1 = buffer[i];
     byte2 = buffer[i+1];
     if (i == 0)

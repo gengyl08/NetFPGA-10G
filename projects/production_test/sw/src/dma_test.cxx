@@ -1,19 +1,44 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  File:   dma_test.cxx
-//
-//  Description:
-//          This program is a modified work from code originally written
-//          by Jim Kulp and Shepard Siegel at Atomic Rules. The program
-//          now tests and profiles the OpenCPI based DMA engine in the 
-//          production test design for NetFPGA-10G.
-//
-//  Revision history:
-//          2010/11/04 Jonathan Ellithorpe: Initial check-in
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        dma_test.cxx
+ *
+ *  Project:
+ *        production_test
+ *
+ *  Author:
+ *        Michaela Blott
+ *
+ *  Description:
+ *        This program is a modified work from code originally written
+ *        by Jim Kulp and Shepard Siegel at Atomic Rules. The program
+ *        now tests and profiles the OpenCPI based DMA engine in the
+ *        production test design for NetFPGA-10G.
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -274,7 +299,7 @@ static void
 fill_buffer(void* buf, uint32_t size) {
   static uint32_t counter = 0x0;
   uint32_t i;
-  
+
   for( i = 0; i < (size/sizeof(uint32_t)); i++ )
     ((uint32_t*)buf)[i] = counter++;
 }
@@ -301,7 +326,7 @@ doRead(void *args) {
   time(&gen_timeout_start);
 
   do {
-    /* If we've exceeded runTime + timeOut and still haven't received a 
+    /* If we've exceeded runTime + timeOut and still haven't received a
      * zero length buffer, then terminate */
     time(&gen_timeout_end);
     if( (uint32_t)(gen_timeout_end-gen_timeout_start) > runTime + timeOut ) {
@@ -345,7 +370,7 @@ doRead(void *args) {
 
   } while (nwrite != 0);
 
-  
+
 
   return 0;
 }
@@ -361,7 +386,7 @@ doWrite(void *args) {
   void *buf = malloc(s->bufSize);
   time_t end;
   time_t buffer_timeout_start;  /* Buffer timeout, for waiting on a buffer to be free to fill. */
- 
+
   /* Initialize our part of the testStats structure. */
   tStats.num_tx_bufs = 0;
   tStats.num_tx_bytes = 0;
@@ -390,7 +415,7 @@ doWrite(void *args) {
 
       tStats.num_tx_bufs++;
       tStats.num_tx_bytes += s->metadata[bufIdx].length;
-    } 
+    }
     /* Otherwise, send an empty buffer. Reader uses empty buffer as exit signal. */
     else {
       s->metadata[bufIdx].length = 0;

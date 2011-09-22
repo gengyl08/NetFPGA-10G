@@ -1,31 +1,48 @@
-------------------------------------------------------------------------
+------------------------------------------------------------------------------
 --
---  NETFPGA-10G www.netfpga.org
+--  NetFPGA-10G http://www.netfpga.org
 --
---  Module:
---          FlashEmulator.vhd
+--  File:
+--        FlashEmulator.vhd
+--
+--  Library:
+--        only need ieee.std_logic_1164 and ieee.std_logic_arith.
+--
+--  Project:
+--        configuration_test_no_cdc
+--
+--  Author:
+--        Stephanie Friederich
 --
 --  Description:
---          Emulates some of the functions of the XCF128XFTG64C Platform flash.
---          We model only 4096 words of flash (otherwise emulation and initialisation
---          would take too long by far. The address space, 12 bits, is taken as being 
---          eight bits at the top end, and four bits at the other. The other ten
---          bits in the supplied address address data are reckoned as zeros.
---                 
---  Revision history:
---          08/07/2011date Mark Grindell First Edition
---          date author description
---          date author description
+--        Emulates some of the functions of the XCF128XFTG64C Platform flash.
+--        We model only 4096 words of flash (otherwise emulation and initialisation
+--        would take too long by far. The address space, 12 bits, is taken as being
+--        eight bits at the top end, and four bits at the other. The other ten
+--        bits in the supplied address address data are reckoned as zeros.
 --
---  Known issues:
---          This emulation does not include ANY timing information, nor does it cover
---          any functions beyond read electronic signature, read and write in single
---          byte synchronous mode.
+--  Copyright notice:
+--        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+--                                Junior University
 --
---  Library: only need ieee.std_logic_1164 and ieee.std_logic_arith.
+--  Licence:
+--        This file is part of the NetFPGA 10G development base package.
 --
-------------------------------------------------------------------------
-
+--        This package is free software: you can redistribute it and/or modify
+--        it under the terms of the GNU Lesser General Public License as
+--        published by the Free Software Foundation, either version 3 of the
+--        License, or (at your option) any later version.
+--
+--        This package is distributed in the hope that it will be useful, but
+--        WITHOUT ANY WARRANTY; without even the implied warranty of
+--        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--        Lesser General Public License for more details.
+--
+--        You should have received a copy of the GNU Lesser General Public
+--        License along with the NetFPGA source package.  If not, see
+--        http://www.gnu.org/licenses/.
+--
+--
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -68,7 +85,7 @@ signal StatusRegister  : std_logic_vector (7 downto 0);
 
 constant ActualElectronicSignature : std_logic_vector (15 downto 0) := x"0009";
 constant CPLD_CLK_period           : time := 10 ns;
-   
+
 constant BlockLockConfirm  : std_logic_vector (7 downto 0) := x"01";
 constant SetConfRegConfirm : std_logic_vector (7 downto 0) := x"03";
 constant AltProgramSetup   : std_logic_vector (7 downto 0) := x"10";
@@ -116,10 +133,10 @@ type StimulusTyp is (StimulusBlockLockConfirm,
 type ReadbackStatusTyp is (ReadData, ReadStatus);
 signal ReadBackStatus : ReadBackStatusTyp;
 
-type state_type is (Ready, 
+type state_type is (Ready,
                     ElectronicSignatureState0,
-                    WriteState0, WriteState1, WriteState2, 
-                    BlankCheck0, 
+                    WriteState0, WriteState1, WriteState2,
+                    BlankCheck0,
                     ReadState0, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23, s24, s25, s26, s27);
 signal current_state : state_type;
 signal next_state 	 : state_type;
@@ -143,7 +160,7 @@ begin
     return true;
   else
     return false;
-  end if;    
+  end if;
 end;
 
 function conv_natural (a : std_logic) return natural is
@@ -160,20 +177,20 @@ function address_is_protected (a : std_logic_vector (23 downto 0);
                                BlockLocks : BlockLocksTyp) return boolean is
   variable page : natural;
 begin
-  page := 256 * conv_natural (a(22)) + 
-          128 * conv_natural (a(21)) + 
-           64 * conv_natural (a(20)) + 
-           32 * conv_natural (a(19)) + 
-           16 * conv_natural (a(18)) + 
-            8 * conv_natural (a(17)) +   
-            4 * conv_natural (a(16)) +  
-            2 * conv_natural (a(15)) +  
-            1 * conv_natural (a(14)); 
+  page := 256 * conv_natural (a(22)) +
+          128 * conv_natural (a(21)) +
+           64 * conv_natural (a(20)) +
+           32 * conv_natural (a(19)) +
+           16 * conv_natural (a(18)) +
+            8 * conv_natural (a(17)) +
+            4 * conv_natural (a(16)) +
+            2 * conv_natural (a(15)) +
+            1 * conv_natural (a(14));
 
-  if page >= 4              -- The object of this calculation is as follows; the 
-  then                      -- The first 4 pages ae 64kbits in length; all those 
+  if page >= 4              -- The object of this calculation is as follows; the
+  then                      -- The first 4 pages ae 64kbits in length; all those
     page := 3 + (page / 4); -- following are 256kbits, four times larger.
-  end if;  
+  end if;
   return BlockLocks (page) = '1';
 end;
 
@@ -192,13 +209,13 @@ begin
                       natural (512) * conv_natural (a (20)) +
                       natural (1024) * conv_natural (a (21)) +
                       natural (2048) * conv_natural (a (22));
-                        
+
     if (L = '0') and (E = '0')
     then
       address <= A;
       address_defined <= '1';
     end if;
-    
+
     if (K'event and K = '1')
     then
       if (G = '0') and (E = '0')
@@ -219,7 +236,7 @@ begin
       else
         DQ <= (others => 'Z');
       end if;
-      
+
       if (G = '1') and (E = '0') and (W = '0')
       then
         if (address_defined = '1') or (L = '0')
@@ -250,11 +267,11 @@ begin
       end if;
     end if;
   end process;
-    
+
   process (k) is
   begin
     case current_state is
-      when Ready => 
+      when Ready =>
         case Stimulus is
           when StimulusProgramSetup =>
             next_state <= WriteState0;
@@ -272,7 +289,7 @@ begin
           next_state <= ready;
    --       next_state <= WriteState1;
           report "Got to the first state"
-          severity note;      
+          severity note;
           if address_is_protected (A, BlockLocks)
           then
             StatusRegister (1) <= '1';
@@ -281,22 +298,22 @@ begin
             memory (actual_address) <= DQ;
           end if;
         end if;
-      when ReadState0 => 
+      when ReadState0 =>
         report "Got to the first read state"
         severity note;
         DataRegister <= memory (actual_address);
         ReadBackStatus <= ReadData;
         next_State <= ready;
 
-      when WriteState2 => 
-      
+      when WriteState2 =>
+
       when ElectronicSignatureState0 =>
        next_state <= ready;
-       
+
       when BlankCheck0 =>
-        
+
       when others =>
-        
+
     end case;
     if (K'event and K = '1')
     then

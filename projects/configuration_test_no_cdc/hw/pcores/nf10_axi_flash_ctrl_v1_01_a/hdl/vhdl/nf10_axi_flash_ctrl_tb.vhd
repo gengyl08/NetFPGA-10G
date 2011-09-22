@@ -1,44 +1,67 @@
-------------------------------------------------------------------------
+------------------------------------------------------------------------------
 --
---  NETFPGA-10G www.netfpga.org
+--  NetFPGA-10G http://www.netfpga.org
+--
+--  File:
+--        nf10_axi_flash_ctrl_tb.vhd
+--
+--  Library:
+--        library dependencies
+--
+--  Project:
+--        configuration_test_no_cdc
 --
 --  Module:
---          Flashtest.vhd
+--        Flashtest.vhd
+--
+--  Author:
+--        Stephanie Friederich
 --
 --  Description:
---          This is a testbench to test the state machine that is in the 
---          FPGA, driving the Platform flash XCF128XFTG64C control signals and address
---          and data buses. Three commands are suported, Read Electronic Signature, 
---          Read Flash, and Write to Flash. The testbench includes no real timing 
---          information and just checks out the basic functionality.
+--        This is a testbench to test the state machine that is in the
+--        FPGA, driving the Platform flash XCF128XFTG64C control signals and address
+--        and data buses. Three commands are suported, Read Electronic Signature,
+--        Read Flash, and Write to Flash. The testbench includes no real timing
+--        information and just checks out the basic functionality.
 --
---  Revision history:
---          08/07/2011 Mark Grindell First Edition
+--  Copyright notice:
+--        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+--                                Junior University
 --
---  Known issues:
---          The state progression is not robust; it's just a walkthrough at the moment.
---          the foundations are there, you can build rather more if you wish.
+--  Licence:
+--        This file is part of the NetFPGA 10G development base package.
 --
---  Library: library dependencies
+--        This package is free software: you can redistribute it and/or modify
+--        it under the terms of the GNU Lesser General Public License as
+--        published by the Free Software Foundation, either version 3 of the
+--        License, or (at your option) any later version.
 --
-------------------------------------------------------------------------
-
+--        This package is distributed in the hope that it will be useful, but
+--        WITHOUT ANY WARRANTY; without even the implied warranty of
+--        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--        Lesser General Public License for more details.
+--
+--        You should have received a copy of the GNU Lesser General Public
+--        License along with the NetFPGA source package.  If not, see
+--        http://www.gnu.org/licenses/.
+--
+--
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 use ieee.std_logic_arith.all;
- 
+
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --USE ieee.numeric_std.ALL;
- 
+
 ENTITY testbench IS
 END testbench;
- 
-ARCHITECTURE behavior OF testbench IS 
- 
+
+ARCHITECTURE behavior OF testbench IS
+
     -- Component Declaration for the Unit Under Test (UUT)
- 
+
   COMPONENT flash_controller
     PORT (CPLD_CLK : IN  std_logic;
           reboot : OUT  std_logic;
@@ -74,7 +97,7 @@ ARCHITECTURE behavior OF testbench IS
           L  : in    STD_LOGIC;
           RW : in    STD_LOGIC);
   end component;
-  
+
    --Inputs
    signal CPLD_CLK      : std_logic := '0';
    signal Data_in       : std_logic_vector(15 downto 0) := (others => '0');
@@ -109,7 +132,7 @@ ARCHITECTURE behavior OF testbench IS
    -- Clock period definitions
    constant CPLD_CLK_period : time := 10 ns;
    constant clk_period : time := 10 ns;
- 
+
    constant ReadElectronicSignature : std_logic_vector (3 downto 0) := "0001";
    constant ReadStatusRegister      : std_logic_vector (3 downto 0) := "1010";
    constant ClearStatusRegister     : std_logic_vector (3 downto 0) := "1011";
@@ -122,7 +145,7 @@ ARCHITECTURE behavior OF testbench IS
    constant ResetRebootRegister     : std_logic_vector (3 downto 0) := "1000";
    constant Reset                   : std_logic_vector (3 downto 0) := "1111";
    constant Idle                    : std_logic_vector (3 downto 0) := "0000";
-   
+
 subtype FourBits is std_logic_vector (3 downto 0);
 subtype EightBits is std_logic_vector (7 downto 0);
 
@@ -175,9 +198,9 @@ begin
   return HexCharacter (v (7 downto 4)) & HexCharacter (v (3 downto 0));
 end;
 
-  
+
 BEGIN
- 
+
 	-- Instantiate the Unit Under Test (UUT)
    uut: flash_controller PORT MAP (CPLD_CLK      => CPLD_CLK,
                                    reboot        => reboot,
@@ -200,7 +223,7 @@ BEGIN
                                    data_register => data_register,
                                    hw_wr_ack     => hw_wr_ack,
                                    execute       => execute);
- 
+
   flash : FlashEmulator Port map (A  => A,
                                   DQ => Data_DQ,
                                   E  => E_N,
@@ -221,7 +244,7 @@ BEGIN
 		CPLD_CLK <= '1';
 		wait for CPLD_CLK_period/2;
    end process;
- 
+
    clk_process :process
    begin
 		clk <= '0';
@@ -229,7 +252,7 @@ BEGIN
 		clk <= '1';
 		wait for clk_period/2;
    end process;
- 
+
    DataDQ_process :process
    begin
      if G_N = '1'
@@ -238,21 +261,21 @@ BEGIN
      else
        Data_DQ <= (others => 'Z');
      end if;
-     
+
      if G_N = '0'
      then
        Data_in <= Data_DQ;
      end if;
 		 wait for clk_period/2;
    end process;
- 
+
 
    -- Stimulus process
    stim_proc: process
       variable ReportString : string (1 to 200);
-    begin		
+    begin
       -- hold reset state for 100 ns.
-      wait for 100 ns;	
+      wait for 100 ns;
 
       wait for CPLD_CLK_period*10;
 
@@ -264,13 +287,13 @@ BEGIN
       while execute = '1' loop
         wait for 10 ns;
       end loop;
-      
-      ReportString := "Electronic signature is 0x" & 
+
+      ReportString := "Electronic signature is 0x" &
                         HexString (data_register (15 downto 8)) &
                         HexString (data_register (7 downto 0));
-                        
+
       report ReportString
-      severity note;      
+      severity note;
 
       command <= WriteData;
       address <= x"ABCDEF";
@@ -281,17 +304,17 @@ BEGIN
       while execute = '1' loop
         wait for 10 ns;
       end loop;
-      
-      ReportString := "Written 0x" & 
+
+      ReportString := "Written 0x" &
                         HexString (data (15 downto 8)) &
                         HexString (data (7 downto 0)) &
                       " to address 0x" &
                         HexCharacter (address (19 downto 16)) &
                         HexString (address (15 downto 8)) &
                         HexString (address (7 downto 0));
-                        
+
       report ReportString
-      severity note;      
+      severity note;
 
       command <= WriteData;
       address <= x"ABCDF0";
@@ -302,17 +325,17 @@ BEGIN
       while execute = '1' loop
         wait for 10 ns;
       end loop;
-      
-      ReportString := "Written 0x" & 
+
+      ReportString := "Written 0x" &
                         HexString (data (15 downto 8)) &
                         HexString (data (7 downto 0)) &
                       " to address 0x" &
                         HexCharacter (address (19 downto 16)) &
                         HexString (address (15 downto 8)) &
                         HexString (address (7 downto 0));
-                        
+
       report ReportString
-      severity note;      
+      severity note;
 
       command <= SingleReadData;
       address <= x"ABCDEF";
@@ -322,17 +345,17 @@ BEGIN
       while execute = '1' loop
         wait for 10 ns;
       end loop;
-      
-      ReportString := "Read0x" & 
+
+      ReportString := "Read0x" &
                         HexString (data_register (15 downto 8)) &
                         HexString (data_register (7 downto 0)) &
                       " from address 0x" &
                         HexCharacter (address (19 downto 16)) &
                         HexString (address (15 downto 8)) &
                         HexString (address (7 downto 0)) & "  ";
-                        
+
       report ReportString
-      severity note;      
+      severity note;
 
       command <= SingleReadData;
       address <= x"ABCDF0";
@@ -342,17 +365,17 @@ BEGIN
       while execute = '1' loop
         wait for 10 ns;
       end loop;
-      
-      ReportString := "Read0x" & 
+
+      ReportString := "Read0x" &
                         HexString (data_register (15 downto 8)) &
                         HexString (data_register (7 downto 0)) &
                       " from address 0x" &
                         HexCharacter (address (19 downto 16)) &
                         HexString (address (15 downto 8)) &
                         HexString (address (7 downto 0)) & "  ";
-                        
+
       report ReportString
-      severity note;      
+      severity note;
 
       wait;
    end process;

@@ -1,19 +1,41 @@
-#////////////////////////////////////////////////////////////////////////
-#//
-#//  NetFPGA-10G http://www.netfpga.org
-#//
-#//  Module:
-#//          nf10_oped_v2_1_0.mpd
-#//
-#//  Description:
-#//          Microprocessor Peripheral Description File
-#//                 
-#//  Revision history:
-#//          2011/01/14 mblott: Initial check-in
-#//          2011/03/10 sfriederich: Major rewrite  
-#//			 2011/05/16 hyzeng: Clean-up AXI4Lite-Master
-#//
-#////////////////////////////////////////////////////////////////////////
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_oped_v2_1_0.mpd
+#
+#  Library:
+#        hw/std/pcores/nf10_oped_v1_10_a
+#
+#  Author:
+#        James Hongyi Zeng
+#
+#  Description:
+#        Microprocessor Peripheral Description File
+#
+#  Copyright notice:
+#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+#                                Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This package is free software: you can redistribute it and/or modify
+#        it under the terms of the GNU Lesser General Public License as
+#        published by the Free Software Foundation, either version 3 of the
+#        License, or (at your option) any later version.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
 
 BEGIN nf10_oped
 
@@ -77,7 +99,7 @@ PORT S_AXIS_DAT_TREADY = TREADY, DIR = O, BUS = S_AXIS
 PORT S_AXIS_DAT_TLAST = TLAST, DIR = I, BUS = S_AXIS
 PORT S_AXIS_DAT_TUSER = TUSER, DIR = I, VEC = [C_S_AXIS_DAT_USER_WIDTH-1:0], BUS = S_AXIS
 
-# Master AXI Light 
+# Master AXI Light
 PORT M_AXI_AWADDR = AWADDR, DIR = O, VEC = [31:0], ENDIAN = LITTLE, BUS = M_AXI
 PORT M_AXI_AWVALID = AWVALID, DIR = O, BUS = M_AXI
 PORT M_AXI_AWREADY = AWREADY, DIR = I, BUS = M_AXI
@@ -100,10 +122,10 @@ PORT M_AXI_RREADY = RREADY, DIR = O, BUS = M_AXI
 PORT PCIE_CLKP = "", DIR = I, SIGIS = CLK
 PORT PCIE_CLKN = "", DIR = I, SIGIS = CLK
 PORT PCIE_RSTN = "", DIR = I, SIGIS = RST
-PORT PCIE_RXP = "", DIR = I, VEC = [7:0] 
-PORT PCIE_RXN = "", DIR = I, VEC = [7:0] 
+PORT PCIE_RXP = "", DIR = I, VEC = [7:0]
+PORT PCIE_RXN = "", DIR = I, VEC = [7:0]
 PORT PCIE_TXP = "", DIR = O, VEC = [7:0]
-PORT PCIE_TXN = "", DIR = O, VEC = [7:0] 
+PORT PCIE_TXN = "", DIR = O, VEC = [7:0]
 
 PORT DEBUG = "", DIR = O, VEC = [31:0]
 

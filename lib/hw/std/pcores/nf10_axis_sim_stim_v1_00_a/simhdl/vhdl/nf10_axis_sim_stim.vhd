@@ -1,19 +1,42 @@
-------------------------------------------------------------------------
+------------------------------------------------------------------------------
 --
 --  NetFPGA-10G http://www.netfpga.org
 --
---  Module:
---          nf10_axis_sim_stim.vhd
+--  File:
+--        nf10_axis_sim_stim.vhd
+--
+--  Library:
+--        hw/std/pcores/nf10_axis_sim_stim_v1_00_a
 --
 --  Author:
---          David J. Miller
+--        David J. Miller
 --
 --  Description:
---          Drives an AXI Stream slave using stimuli from an AXI grammar
---          formatted text file.
+--        Drives an AXI Stream slave using stimuli from an AXI grammar
+--        formatted text file.
 --
-------------------------------------------------------------------------
-
+--  Copyright notice:
+--        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+--                                Junior University
+--
+--  Licence:
+--        This file is part of the NetFPGA 10G development base package.
+--
+--        This package is free software: you can redistribute it and/or modify
+--        it under the terms of the GNU Lesser General Public License as
+--        published by the Free Software Foundation, either version 3 of the
+--        License, or (at your option) any later version.
+--
+--        This package is distributed in the hope that it will be useful, but
+--        WITHOUT ANY WARRANTY; without even the implied warranty of
+--        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--        Lesser General Public License for more details.
+--
+--        You should have received a copy of the GNU Lesser General Public
+--        License along with the NetFPGA source package.  If not, see
+--        http://www.gnu.org/licenses/.
+--
+--
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;

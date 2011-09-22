@@ -1,36 +1,63 @@
-#////////////////////////////////////////////////////////////////////////
-#//
-#//  NetFPGA-10G http://www.netfpga.org
-#//
-#//  Module:
-#//          TCL script for 10G interface
-#//
-#//  Description:
-#//          Generate NGC based on XCO
-#//                 
-#//  Revision history:
-#//          2010/11/28 hyzeng: Initial check-in
-#//
-#////////////////////////////////////////////////////////////////////////
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_10g_interface_v2_1_0.tcl
+#
+#  Library:
+#        hw/std/pcores/nf10_10g_interface_v1_10_a
+#
+#  Module:
+#        TCL script for 10G interface
+#
+#  Author:
+#        James Hongyi Zeng
+#
+#  Description:
+#        Generate NGC based on XCO
+#
+#  Copyright notice:
+#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+#                                Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This package is free software: you can redistribute it and/or modify
+#        it under the terms of the GNU Lesser General Public License as
+#        published by the Free Software Foundation, either version 3 of the
+#        License, or (at your option) any later version.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
 
 proc core_generate { handle } {
 
     puts "nf10_10g_interface: Core generation of XAUI and 10G MAC"
-    puts [pwd]    
+    puts [pwd]
     set pcore_dir  [xget_hw_pcore_dir $handle]
-        
+
     set xgmac_xco \
       [file normalize \
-            [file join $pcore_dir ".." xco xgmac.xco]] 
+            [file join $pcore_dir ".." xco xgmac.xco]]
     set xaui_xco \
       [file normalize \
-            [file join $pcore_dir ".." xco xaui.xco]] 
-           
+            [file join $pcore_dir ".." xco xaui.xco]]
+
     puts $xgmac_xco
-    puts $xaui_xco  
-    
+    puts $xaui_xco
+
     cd implementation
-    
+
     if { [file exist xgmac.ngc] } {
         cd ".."
         return true
@@ -39,12 +66,12 @@ proc core_generate { handle } {
         file copy -force $xaui_xco .
     }
 
-#    Superceded by Overall Makefile    
+#    Superceded by Overall Makefile
 #    execpipe "coregen -b xgmac.xco"
 #    execpipe "coregen -b xaui.xco"
-    
+
     cd ".."
-    
+
     return true
 }
 

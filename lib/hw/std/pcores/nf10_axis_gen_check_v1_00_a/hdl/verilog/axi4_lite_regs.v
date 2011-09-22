@@ -1,18 +1,41 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  Module:
-//          axi4_lite_regs.v
-//
-//  Description:
-//          AXI4-Lite for registers
-//                 
-//  Revision history:
-//          2010/12/15 hyzeng   Initial check-in
-//          2010/12/21 M.Blott  Fixed CDC
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        axi4_lite_regs.v
+ *
+ *  Library:
+ *        hw/std/pcores/nf10_axis_gen_check_v1_00_a
+ *
+ *  Author:
+ *        Michaela Blott
+ *
+ *  Description:
+ *        AXI4-Lite for registers
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
 
 module axi4_lite_regs
 #(
@@ -23,29 +46,29 @@ module axi4_lite_regs
 (
    input  ACLK,
    input  ARESETN,
-   
+
    input  [ADDR_WIDTH-1: 0] AWADDR,
    input  AWVALID,
    output reg AWREADY,
-   
+
    input  [DATA_WIDTH-1: 0]   WDATA,
    input  [DATA_WIDTH/8-1: 0] WSTRB,
    input  WVALID,
    output reg WREADY,
-   
+
    output reg [1:0] BRESP,
    output reg BVALID,
    input  BREADY,
-   
+
    input  [ADDR_WIDTH-1: 0] ARADDR,
    input  ARVALID,
    output reg ARREADY,
-   
-   output reg [DATA_WIDTH-1: 0] RDATA,   
+
+   output reg [DATA_WIDTH-1: 0] RDATA,
    output reg [1:0] RRESP,
    output reg RVALID,
    input  RREADY,
-   
+
    input  [31:0] tx_count,
    input  [31:0] rx_count,
    input  [31:0] err_count,
@@ -55,7 +78,7 @@ module axi4_lite_regs
 
     localparam AXI_RESP_OK = 2'b00;
     localparam AXI_RESP_SLVERR = 2'b10;
-    
+
     localparam WRITE_IDLE = 0;
     localparam WRITE_RESPONSE = 1;
     localparam WRITE_DATA = 2;
@@ -63,7 +86,7 @@ module axi4_lite_regs
     localparam READ_IDLE = 0;
     localparam READ_RESPONSE = 1;
     localparam READ_WAIT = 2;
-    
+
     localparam REG_TX_COUNT = 2'h0;
     localparam REG_RX_COUNT = 2'h1;
     localparam REG_ERR_COUNT = 2'h2;
@@ -78,7 +101,7 @@ module axi4_lite_regs
     // synthesis attribute ASYNC_REG of rx_count_r is "TRUE";
     // synthesis attribute ASYNC_REG of err_count_r is "TRUE";
     // synthesis attribute ASYNC_REG of count_reset_r_2 is "TRUE";
-    
+
     reg [1:0] write_state, write_state_next;
     reg [1:0] read_state, read_state_next;
     reg [ADDR_WIDTH-1:0] read_addr, read_addr_next;
@@ -88,14 +111,14 @@ module axi4_lite_regs
     localparam WAIT_COUNT = 2;
 
     always @(*) begin
-        read_state_next = read_state;   
+        read_state_next = read_state;
         ARREADY = 1'b1;
         read_addr_next = read_addr;
         counter_next = counter;
-        RDATA = 0; 
+        RDATA = 0;
         RRESP = AXI_RESP_OK;
         RVALID = 1'b0;
-        
+
         case(read_state)
             READ_IDLE: begin
                 counter_next = 0;
@@ -104,18 +127,18 @@ module axi4_lite_regs
                     read_state_next = READ_WAIT;
                 end
             end
-            
+
             READ_WAIT: begin
                 counter_next = counter + 1;
                 ARREADY = 1'b0;
                 if(counter == WAIT_COUNT)
                     read_state_next = READ_RESPONSE;
             end
-            
+
             READ_RESPONSE: begin
                 RVALID = 1'b1;
                 ARREADY = 1'b0;
-                
+
                 if(read_addr[1:0] == REG_TX_COUNT) begin
                     RDATA = tx_count_r_2;
                 end
@@ -134,16 +157,16 @@ module axi4_lite_regs
             end
         endcase
     end
-    
+
     always @(*) begin
         write_state_next = write_state;
         write_addr_next = write_addr;
         count_reset_control_next = count_reset_control;
         AWREADY = 1'b1;
         WREADY = 1'b0;
-        BVALID = 1'b0;  
+        BVALID = 1'b0;
         BRESP_next = BRESP;
-              
+
         case(write_state)
             WRITE_IDLE: begin
                 write_addr_next = AWADDR;
@@ -168,7 +191,7 @@ module axi4_lite_regs
             WRITE_RESPONSE: begin
                 AWREADY = 1'b0;
                 BVALID = 1'b1;
-                if(BREADY) begin                    
+                if(BREADY) begin
                     write_state_next = WRITE_IDLE;
                 end
             end
@@ -192,19 +215,19 @@ module axi4_lite_regs
             BRESP <= BRESP_next;
             count_reset_control <= count_reset_control_next;
         end
-        
+
         rx_count_r_2 <= rx_count_r;
         tx_count_r_2 <= tx_count_r;
         err_count_r_2 <= err_count_r;
         count_reset_r <= count_reset_control;
-        
+
         rx_count_r <= rx_count;
         tx_count_r <= tx_count;
         err_count_r <= err_count;
-        
+
         counter <= counter_next;
     end
-    
+
     always @(AXIS_ACLK) begin
         count_reset <= count_reset_r_2;
         count_reset_r_2 <= count_reset_r;

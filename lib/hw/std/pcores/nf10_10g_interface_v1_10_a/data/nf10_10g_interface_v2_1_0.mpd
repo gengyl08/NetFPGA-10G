@@ -1,17 +1,41 @@
-#////////////////////////////////////////////////////////////////////////
-#//
-#//  NetFPGA-10G http://www.netfpga.org
-#//
-#//  Module:
-#//          nf10_10g_interface_v2_1_0.mpd
-#//
-#//  Description:
-#//          Microprocessor Peripheral Description File
-#//                 
-#//  Revision history:
-#//          2011/5/26 hyzeng: Initial check-in
-#//
-#////////////////////////////////////////////////////////////////////////
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_10g_interface_v2_1_0.mpd
+#
+#  Library:
+#        hw/std/pcores/nf10_10g_interface_v1_10_a
+#
+#  Author:
+#        James Hongyi Zeng
+#
+#  Description:
+#        Microprocessor Peripheral Description File
+#
+#  Copyright notice:
+#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+#                                Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This package is free software: you can redistribute it and/or modify
+#        it under the terms of the GNU Lesser General Public License as
+#        published by the Free Software Foundation, either version 3 of the
+#        License, or (at your option) any later version.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
 
 BEGIN nf10_10g_interface
 
@@ -76,13 +100,13 @@ PORT xaui_tx_l2_n = "", DIR = O
 PORT xaui_tx_l3_p = "", DIR = O
 PORT xaui_tx_l3_n = "", DIR = O
 
-PORT xaui_rx_l0_p = "", DIR = I, INITIALVAL = VCC 
+PORT xaui_rx_l0_p = "", DIR = I, INITIALVAL = VCC
 PORT xaui_rx_l0_n = "", DIR = I, INITIALVAL = GND
-PORT xaui_rx_l1_p = "", DIR = I, INITIALVAL = VCC 
+PORT xaui_rx_l1_p = "", DIR = I, INITIALVAL = VCC
 PORT xaui_rx_l1_n = "", DIR = I, INITIALVAL = GND
-PORT xaui_rx_l2_p = "", DIR = I, INITIALVAL = VCC 
+PORT xaui_rx_l2_p = "", DIR = I, INITIALVAL = VCC
 PORT xaui_rx_l2_n = "", DIR = I, INITIALVAL = GND
-PORT xaui_rx_l3_p = "", DIR = I, INITIALVAL = VCC 
+PORT xaui_rx_l3_p = "", DIR = I, INITIALVAL = VCC
 PORT xaui_rx_l3_n = "", DIR = I, INITIALVAL = GND
 
 END

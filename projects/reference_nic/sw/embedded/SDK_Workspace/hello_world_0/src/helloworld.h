@@ -1,28 +1,53 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  Module:
-//          helloworld.h
-//
-//  Description:
-//          Example header file to initialize AEL2005 in 10G mode through 
-//          MDIO and dump PHY chip status.
-//
-//          Currently only 10GBASE-SR and Direct Attach are supported.
-//          This firmware will detect port mode according to SFF-8472.
-//          The default mode is Direct Attach.
-//                 
-//          Our experiment shows that the Direct Attach EDC also applies
-//          to 10GBASE-SR modules. To save the BRAM resource and minimize
-//          the program size, both 10GBASE-SR and Direct Attach use the
-//          same EDC code. If you have problems getting 10GBASE-SR running
-//          please enable 10GBASE-SR EDC by setting AEL2005_SR marco to 1.
-//
-//  Revision history:
-//          2010/11/28 hyzeng: Initial check-in
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        helloworld.h
+ *
+ *  Project:
+ *        reference_nic
+ *
+ *  Author:
+ *        James Hongyi Zeng
+ *
+ *  Description:
+ *        Example header file to initialize AEL2005 in 10G mode through
+ *        MDIO and dump PHY chip status.
+ *
+ *        Currently only 10GBASE-SR and Direct Attach are supported.
+ *        This firmware will detect port mode according to SFF-8472.
+ *        The default mode is Direct Attach.
+ *
+ *        Our experiment shows that the Direct Attach EDC also applies
+ *        to 10GBASE-SR modules. To save the BRAM resource and minimize
+ *        the program size, both 10GBASE-SR and Direct Attach use the
+ *        same EDC code. If you have problems getting 10GBASE-SR running
+ *        please enable 10GBASE-SR EDC by setting AEL2005_SR marco to 1.
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
+
 enum {
 	AEL_I2C_CTRL        = 0xc30a,
 	AEL_I2C_DATA        = 0xc30b,
@@ -431,7 +456,7 @@ const u16 twinax_edc[] = {
 		0xcd6d, 0
                 };
 
-#if AEL2005_SR                
+#if AEL2005_SR
 // main SR EDC program
 const u16 sr_edc[] = {
         0xc003, 0x181,

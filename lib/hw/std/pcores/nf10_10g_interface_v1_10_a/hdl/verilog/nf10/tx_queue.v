@@ -1,17 +1,44 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  Module:
-//          tx_queue
-//
-//  Description:
-//          AXI-MAC converter: TX side
-//                 
-//  Revision history:
-//          2010/11/28 hyzeng: Initial check-in
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        tx_queue.v
+ *
+ *  Library:
+ *        hw/std/pcores/nf10_10g_interface_v1_10_a
+ *
+ *  Module:
+ *        tx_queue
+ *
+ *  Author:
+ *        James Hongyi Zeng
+ *
+ *  Description:
+ *        AXI-MAC converter: TX side
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
 
 module tx_queue
 #(
@@ -24,10 +51,10 @@ module tx_queue
    input tvalid,
    input tlast,
    output tready,
-       
+
    input clk,
    input reset,
-       
+
    // MAC side
    output [63:0] tx_data,
    output reg [ 7:0] tx_data_valid,
@@ -40,7 +67,7 @@ module tx_queue
    localparam WAIT_FOR_ACK = 1;
    localparam SEND_PKT = 2;
    localparam IFG  = 3;
-   
+
    wire [3:0] tx_data_valid_encoded;
    reg  [7:0] tx_data_valid_decoded;
    reg  [3:0] tstrb_encoded;
@@ -51,13 +78,13 @@ module tx_queue
    wire fifo_empty, info_fifo_empty;
    reg  fifo_rd_en, info_fifo_rd_en;
    reg  info_fifo_wr_en;
-   
+
    reg  [2:0] state, state_next;
    reg  eop_axi_delay, tlast_delay;
-   
+
    assign tready = ~fifo_almost_full;
    assign eop_axi = tlast;
-   
+
    // Instantiate clock domain crossing FIFO
    FIFO36_72 #(
    	.SIM_MODE("FAST"),
@@ -91,7 +118,7 @@ module tx_queue
 		.WREN(tvalid & tready)
    	);
 
-   	small_async_fifo 
+   	small_async_fifo
    	#(
    	  .DSIZE (1),
       .ASIZE (9),
@@ -101,11 +128,11 @@ module tx_queue
          .wdata(1'b0),
          .winc(info_fifo_wr_en), //Only 1 cycle per packet!
          .wclk(clk),
-         
+
          .rdata(),
          .rinc(info_fifo_rd_en),
          .rclk(clk156),
-         
+
          .rempty(info_fifo_empty),
          .r_almost_empty(),
          .wfull(),
@@ -113,7 +140,7 @@ module tx_queue
 	     .rrst_n(~reset),
          .wrst_n(~reset)
          );
-         
+
      // Encoder to map 8bit strobe to 4 bit
      always @* begin
          case (tx_data_valid_encoded)
@@ -127,7 +154,7 @@ module tx_queue
              4'h7: tx_data_valid_decoded = 8'hFF;
              default: tx_data_valid_decoded = 8'h0;
          endcase
-         
+
          case (tstrb)
              8'h1: tstrb_encoded = 4'h0;
              8'h3: tstrb_encoded = 4'h1;
@@ -140,14 +167,14 @@ module tx_queue
              default: tstrb_encoded = 4'h8;
          endcase
      end
-         
+
      always @* begin
          state_next = state;
          fifo_rd_en = 1'b0;
          info_fifo_rd_en = 1'b0;
          tx_start   = 1'b0;
          tx_data_valid = tx_data_valid_decoded;
-         
+
          case(state)
              IDLE: begin
                  tx_data_valid = 8'b0;
@@ -157,28 +184,28 @@ module tx_queue
                      state_next = WAIT_FOR_ACK;
                  end
              end
-             
+
              WAIT_FOR_ACK: begin
                  if(tx_ack) begin
                      fifo_rd_en = 1'b1;
                      state_next = SEND_PKT;
                  end
              end
-             
+
              SEND_PKT: begin
                  fifo_rd_en = 1'b1;
                  if(eop_mac) begin
                      state_next = IDLE;
                  end
              end
-             
+
              IFG: begin
                  state_next = IDLE;
                  tx_data_valid = 8'b0;
              end
          endcase
      end
-     
+
      always @(posedge clk156) begin
          if(reset) begin
              state <= IDLE;
@@ -187,7 +214,7 @@ module tx_queue
              state <= state_next;
          end
      end
-     
+
      always @(posedge clk) begin
          info_fifo_wr_en <= tlast & tvalid & tready;
      end

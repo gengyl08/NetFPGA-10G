@@ -1,26 +1,48 @@
 #!/usr/bin/env python-nf
 
-###########################################################################
+################################################################################
 #
-#  NETFPGA10G www.netfpga.org
+#  NetFPGA-10G http://www.netfpga.org
 #
-#  Module:
-#       mkpkts_example.py
+#  File:
+#        mkpkts_example.py
 #
 #  Author:
-#       David J. Miller
+#        David J. Miller
 #
 #  Description:
-#       An example of how to use scapy to build packets.  The packet in
-#       this example is then output to the console as an AXI Stream
-#       transaction file.
+#        An example of how to use scapy to build packets.  The packet in
+#        this example is then output to the console as an AXI Stream
+#        transaction file.
 #
-#       Important: For the sake of portability (especially for Cygwin
-#                  environments), specify all addresses.
+#        Important: For the sake of portability (especially for Cygwin
+#                   environments), specify all addresses.
 #
-#                  Scapy will attempt to retrieve any missing information
-#                  from the operating system, which may fail in some
-#                  execution environments (notably Cygwin).
+#                   Scapy will attempt to retrieve any missing information
+#                   from the operating system, which may fail in some
+#                   execution environments (notably Cygwin).
+#
+#  Copyright notice:
+#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+#                                Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This package is free software: you can redistribute it and/or modify
+#        it under the terms of the GNU Lesser General Public License as
+#        published by the Free Software Foundation, either version 3 of the
+#        License, or (at your option) any later version.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
 #
 
 import os

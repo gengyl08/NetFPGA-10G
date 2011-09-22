@@ -1,32 +1,50 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NETFPGA-10G www.netfpga.org
-//
-//  Module:
-//          write_fast.c
-//
-//  Description:
-//          For the Flash Controller Project. Writes the specified .bit file
-//          to the (B) flash; uses a fast method that only writes the initial 
-//          address then writes sucessive data bytes, using the address register
-//          auto-increment in the FPGA.
-//                 
-//  Revision history:
-//          15/04/2011 friederich    Initial revision
-//          08/07/2011 Mark Grindell Now uses a fast method of reading the flash,
-//                                   where the starting address is supplied once
-//                                   and, taking advantage of new features in the
-//                                   FPGA, just reads sucessive bytes.
-//          12/08/2011 Mark Grindell Removed bias of 111
-//
-//  Known issues:
-//          None
-//
-//  Library: stdio.h, stdlib.h, string.h
-//
-////////////////////////////////////////////////////////////////////////
-
-
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        write_2nd_bitstream.c
+ *
+ *  Library:
+ *        stdio.h, stdlib.h, string.h
+ *
+ *  Project:
+ *        configuration_test
+ *
+ *  Module:
+ *        write_fast.c
+ *
+ *  Author:
+ *        Stephanie Friederich
+ *
+ *  Description:
+ *        For the Flash Controller Project. Writes the specified .bit file
+ *        to the (B) flash; uses a fast method that only writes the initial
+ *        address then writes sucessive data bytes, using the address register
+ *        auto-increment in the FPGA.
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
 
 #include "flash_func.c"
 #include <stdio.h>
@@ -52,7 +70,7 @@ int main (int argc, char **argv)
   // 15 Banks with each containing 8 Blocks, 15*8=120
   printf ("Unlock and Erase all blocks ... \n");
   for(i=0; i < 120 ;i++)
-  { 
+  {
     block_adr = i * 65536 + 0x800000;
     Block_Unlock(block_adr);
     Read_el_signature(block_adr);
@@ -69,9 +87,9 @@ int main (int argc, char **argv)
 
   pBitstream = fopen(*ap, "r");
   if (pBitstream== NULL) {printf ("Can't open Bitstream '%s' \n", *ap);}
-  
+
   // obtain bitstream size
-  fseek (pBitstream , 0, SEEK_END);  
+  fseek (pBitstream , 0, SEEK_END);
   lSize = ftell(pBitstream);
   rewind (pBitstream);
 
@@ -80,8 +98,8 @@ int main (int argc, char **argv)
   fread(buffer, lSize, 1, pBitstream);
   fclose(pBitstream);
 
-  for(i=0; i < lSize; i=i+2)  
-  { 
+  for(i=0; i < lSize; i=i+2)
+  {
     byte1 = buffer[i];
     byte2 = buffer[i+1];
     if (i == 0)

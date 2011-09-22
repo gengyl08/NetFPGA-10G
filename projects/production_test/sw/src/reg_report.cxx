@@ -1,21 +1,44 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  File:   reg_report.cxx
-//
-//  Description:
-//          This program is a modified work from code originally written
-//          by Jim Kulp and Shepard Siegel at Atomic Rules. The program
-//          now reads various registers via the OpenCPI based DMA engine
-//          in the production test design for NetFPGA-10G.
-//
-//  Revision history:
-//          2011/Sep/20 Tom English       : Hide RLDRAM test results;
-//                                          This has become a separate test
-//          2010/11/04 Jonathan Ellithorpe: Initial check-in
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        reg_report.cxx
+ *
+ *  Project:
+ *        production_test
+ *
+ *  Author:
+ *        Michaela Blott
+ *
+ *  Description:
+ *        This program is a modified work from code originally written
+ *        by Jim Kulp and Shepard Siegel at Atomic Rules. The program
+ *        now reads various registers via the OpenCPI based DMA engine
+ *        in the production test design for NetFPGA-10G.
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
 
 #include <fcntl.h>
 #include <assert.h>
@@ -102,7 +125,7 @@ int main(int argc, char *argv[])
         else {
           printf("FAIL\n");
 	  printf("===================================\n");
-	  printf("Detected Unsupported Board Revision\n"); 
+	  printf("Detected Unsupported Board Revision\n");
 	  printf("===================================");
 	}
       } else if ( stat_reg_names[i] == "CLOCK ok" ) {
@@ -190,8 +213,8 @@ int main(int argc, char *argv[])
 	  printf("PASS");
 	else
 	  printf("FAIL");
-      } 
-      
+      }
+
       printf("\n");
     }
   }

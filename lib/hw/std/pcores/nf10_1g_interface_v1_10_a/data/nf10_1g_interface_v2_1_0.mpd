@@ -1,17 +1,41 @@
-#////////////////////////////////////////////////////////////////////////
-#//
-#//  NetFPGA-10G http://www.netfpga.org
-#//
-#//  Module:
-#//          nf10_1g_interface_v2_1_0.mpd
-#//
-#//  Description:
-#//          Microprocessor Peripheral Description File
-#//                 
-#//  Revision history:
-#//          2010/12/8 hyzeng: Initial check-in
-#//
-#////////////////////////////////////////////////////////////////////////
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_1g_interface_v2_1_0.mpd
+#
+#  Library:
+#        hw/std/pcores/nf10_1g_interface_v1_10_a
+#
+#  Author:
+#        Adam Covington
+#
+#  Description:
+#        Microprocessor Peripheral Description File
+#
+#  Copyright notice:
+#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+#                                Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This package is free software: you can redistribute it and/or modify
+#        it under the terms of the GNU Lesser General Public License as
+#        published by the Free Software Foundation, either version 3 of the
+#        License, or (at your option) any later version.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
 
 BEGIN nf10_1g_interface
 
@@ -87,9 +111,9 @@ PORT TXN_0 = "", DIR = O
 PORT TXP_1 = "", DIR = O
 PORT TXN_1 = "", DIR = O
 
-PORT RXP_0 = "", DIR = I, INITIALVAL = VCC 
+PORT RXP_0 = "", DIR = I, INITIALVAL = VCC
 PORT RXN_0 = "", DIR = I, INITIALVAL = GND
-PORT RXP_1 = "", DIR = I, INITIALVAL = VCC 
+PORT RXP_1 = "", DIR = I, INITIALVAL = VCC
 PORT RXN_1 = "", DIR = I, INITIALVAL = GND
 
 PORT TXP_0_dummy = "", DIR = O
@@ -97,9 +121,9 @@ PORT TXN_0_dummy = "", DIR = O
 PORT TXP_1_dummy = "", DIR = O
 PORT TXN_1_dummy = "", DIR = O
 
-PORT RXP_0_dummy = "", DIR = I, INITIALVAL = VCC 
+PORT RXP_0_dummy = "", DIR = I, INITIALVAL = VCC
 PORT RXN_0_dummy = "", DIR = I, INITIALVAL = GND
-PORT RXP_1_dummy = "", DIR = I, INITIALVAL = VCC 
+PORT RXP_1_dummy = "", DIR = I, INITIALVAL = VCC
 PORT RXN_1_dummy = "", DIR = I, INITIALVAL = GND
 
 END

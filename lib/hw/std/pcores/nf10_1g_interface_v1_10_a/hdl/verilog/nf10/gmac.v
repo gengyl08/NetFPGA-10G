@@ -1,17 +1,45 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NetFPGA-10G http://www.netfpga.org
-//
-//  Module:
-//          gmac
-//
-//  Description:
-//          MAC and DCM
-//                 
-//  Revision history:
-//          2010/12/8 hyzeng: Initial check-in
-//
-////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        gmac.v
+ *
+ *  Library:
+ *        hw/std/pcores/nf10_1g_interface_v1_10_a
+ *
+ *  Module:
+ *        gmac
+ *
+ *  Author:
+ *        Adam Covington
+ *
+ *  Description:
+ *        MAC and DCM
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
+
 `timescale 1ns / 1ps
 
 module gmac
@@ -32,7 +60,7 @@ module gmac
     input           RXN_0,
     input           [4:0] PHYAD_0,
     output          RESETDONE_0,
-    
+
     // 1000BASE-X PCS/PMA Interface - EMAC1
     output          TXP_1,
     output          TXN_1,
@@ -41,33 +69,33 @@ module gmac
     input           [4:0] PHYAD_1,
     output          RESETDONE_1,
 
-    // 1000BASE-X PCS/PMA MGT Clock buffer inputs 
+    // 1000BASE-X PCS/PMA MGT Clock buffer inputs
     input			gtxclk_0,
     input			gtxclk_1,
-    input           GTRESET, 
+    input           GTRESET,
 
    //Client Interface
    input  [7 : 0]  tx_data_0,
    input  	   	   tx_data_valid_0,
    output          tx_ack_0,
- 
+
    output [7 : 0]  rx_data_0,
    output 	   	   rx_data_valid_0,
    output          rx_good_frame_0,
    output          rx_bad_frame_0,
-   
+
    //Client Interface
    input  [7 : 0]  tx_data_1,
    input  	   	   tx_data_valid_1,
    output          tx_ack_1,
- 
+
    output [7 : 0]  rx_data_1,
    output 	   	   rx_data_valid_1,
    output          rx_good_frame_1,
    output          rx_bad_frame_1
   );
 
-    
+
     // Transceiver output clock (REFCLKOUT at 125MHz)
     wire            clk125_o;
     wire            clk125_dcm;
@@ -76,7 +104,7 @@ module gmac
     wire            clk62_5_pre_bufg;
     wire            clk125_fb, clk125_fb_bufg;
 
-    // 125MHz from DCM is routed through a BUFG and 
+    // 125MHz from DCM is routed through a BUFG and
     // input to the MAC wrappers.
     // This clock can be shared between multiple MAC instances.
     BUFG bufg_clk125 (.I(clk125_o), .O(clk125_dcm));// GTX-PLL-DCM
@@ -111,7 +139,7 @@ module gmac
     // 125MHz clock input from BUFG
     .CLK125                              (clk125),
     .CLK62_5							 (clk62_5),
-    
+
     // 1000BASE-X PCS/PMA Interface - EMAC1
     .TXP_0                               (TXP_0),
     .TXN_0                               (TXN_0),
@@ -159,7 +187,7 @@ module gmac
     .RXN_1                               (RXN_1),
     .PHYAD_1                             (PHYAD_1),
     .RESETDONE_1                         (RESETDONE_1),
-    
+
     // Client Receiver Interface - EMAC1
     .EMAC1CLIENTRXD                      (rx_data_1),
     .EMAC1CLIENTRXDVLD                   (rx_data_valid_1),
@@ -191,10 +219,10 @@ module gmac
     .EMAC1CLIENTSYNCACQSTATUS            (),
     .EMAC1ANINTERRUPT                    (),
 
-    // 1000BASE-X PCS/PMA MGT Clock buffer inputs 
-    .CLK_DS_0                            (gtxclk_0), 
-    .CLK_DS_1                            (gtxclk_1), 
-    .GTRESET                             (GTRESET), 
+    // 1000BASE-X PCS/PMA MGT Clock buffer inputs
+    .CLK_DS_0                            (gtxclk_0),
+    .CLK_DS_1                            (gtxclk_1),
+    .GTRESET                             (GTRESET),
 
     // Asynchronous Reset Input
     .RESET                               (RESET));

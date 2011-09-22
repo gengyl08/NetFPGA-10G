@@ -1,16 +1,41 @@
-------------------------------------------------------------------------
+------------------------------------------------------------------------------
 --
---  NetFPGA-10G www.netfpga.org
+--  NetFPGA-10G http://www.netfpga.org
 --
---  Module:
---          nf10_axis_gen_check_tb.vhd
+--  File:
+--        nf10_axis_gen_check_tb.vhd
+--
+--  Library:
+--        hw/std/pcores/nf10_axis_gen_check_v1_00_a
+--
+--  Author:
+--        Michaela Blott
 --
 --  Description:
---          Simple testbed for axis generator/checker
---                 
---  Revision history:
---          Dec 2010 M.Blott initial version
-------------------------------------------------------------------------
+--        Simple testbed for axis generator/checker
+--
+--  Copyright notice:
+--        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+--                                Junior University
+--
+--  Licence:
+--        This file is part of the NetFPGA 10G development base package.
+--
+--        This package is free software: you can redistribute it and/or modify
+--        it under the terms of the GNU Lesser General Public License as
+--        published by the Free Software Foundation, either version 3 of the
+--        License, or (at your option) any later version.
+--
+--        This package is distributed in the hope that it will be useful, but
+--        WITHOUT ANY WARRANTY; without even the implied warranty of
+--        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--        Lesser General Public License for more details.
+--
+--        You should have received a copy of the GNU Lesser General Public
+--        License along with the NetFPGA source package.  If not, see
+--        http://www.gnu.org/licenses/.
+--
+--
 
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL ;
@@ -21,10 +46,10 @@ USE IEEE.STD_LOGIC_TEXTIO.all;
 LIBRARY STD;
 USE STD.TEXTIO.ALL;
 
-entity testbed is 
+entity testbed is
 end testbed;
 
-architecture rtl of testbed is 					
+architecture rtl of testbed is
 
 component nf10_axis_gen_check
 port(
@@ -40,7 +65,7 @@ port(
    S_AXIS_TVALID      : in  std_logic;
    S_AXIS_TREADY      : out std_logic;
    S_AXIS_TLAST       : in  std_logic;
-	    
+
    -- axi lite control/status interface
    S_AXI_ACLK         : in  std_logic;
    S_AXI_ARESETN      : in  std_logic;
@@ -60,7 +85,7 @@ port(
    S_AXI_RDATA        : out std_logic_vector(32-1 downto 0);
    S_AXI_RRESP        : out std_logic_vector(1 downto 0);
    S_AXI_RVALID       : out std_logic;
-   S_AXI_RREADY       : in  std_logic			
+   S_AXI_RREADY       : in  std_logic
 );
 end component ;
 
@@ -74,9 +99,9 @@ signal  tlast   : std_logic;
 
 begin
 
-gen_check_u : nf10_axis_gen_check 
-port map 
-(	
+gen_check_u : nf10_axis_gen_check
+port map
+(
    ACLK            => aclk,
    ARESETN         => aresetn,
    M_AXIS_TDATA    => tdata,
@@ -88,7 +113,7 @@ port map
    S_AXIS_TSTRB    => tstrb,
    S_AXIS_TVALID   => tvalid,
    S_AXIS_TREADY   => tready,
-   S_AXIS_TLAST    => tlast,		    
+   S_AXIS_TLAST    => tlast,
    S_AXI_ACLK      => aclk,
    S_AXI_ARESETN   => aresetn,
    S_AXI_AWADDR    => (others => '0'),
@@ -127,5 +152,5 @@ begin
 end process;
 
 
-end rtl;    
+end rtl;
 
