@@ -1,37 +1,21 @@
-/*******************************************************************************
- *
- *  NetFPGA-10G http://www.netfpga.org
- *
- *  File:
- *        nf10_eth_driver_main.c
- *
- *  Project:
- *        reference_nic
- *
- *  Author:
- *        James Hongyi Zeng
- *
- *  Copyright notice:
- *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
- *                                Junior University
- *
- *  Licence:
- *        This file is part of the NetFPGA 10G development base package.
- *
- *        This package is free software: you can redistribute it and/or modify
- *        it under the terms of the GNU Lesser General Public License as
- *        published by the Free Software Foundation, either version 3 of the
- *        License, or (at your option) any later version.
- *
- *        This package is distributed in the hope that it will be useful, but
- *        WITHOUT ANY WARRANTY; without even the implied warranty of
- *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *        Lesser General Public License for more details.
- *
- *        You should have received a copy of the GNU Lesser General Public
- *        License along with the NetFPGA source package.  If not, see
- *        http://www.gnu.org/licenses/.
- *
+/* NetFPGA-10G http://www.netfpga.org
+ * 
+ * NetFPGA-10G Reference NIC Ethernet Driver
+ * 
+ * Revision history:
+ *  2011/07/05 Jonathan Ellithorpe: "Let there be driver,"
+ *                                  and there was driver,
+ *                                  and it was good, for it separated 
+ *                                  the hardware from the software.
+ */
+
+/* FIXME: Make function comment headers that of standard linux style. */
+/* FIXME: Make naming conistent (nf10_pci_driver, probe, remove vs. nf10_netdev_ops... nf10_ prefix?? */
+/* FIXME: Generally need to make sure that I free the skb_reply data structures... which I'm not doing a very good job of doing right now. */
+
+/* Documentation resources:
+ * kernel/Documentation/DMA-API-HOWTO.txt
+ * kernel/Documentation/PCI/pci.txt
  */
 
 #include <linux/init.h>
@@ -82,10 +66,13 @@ uint32_t                        tx_get_src_iface(uint32_t opcode);
 void                            tx_set_dst_iface(uint32_t *opcode, uint32_t dst_iface);
 void                            tx_set_src_iface(uint32_t *opcode, uint32_t src_iface);
 
+int                             enable_ghosting(void);
+int                             disable_ghosting(void);
+
 char driver_name[] = "nf10_eth_driver";
 
 /* Driver version. */
-#define NF10_ETH_DRIVER_VERSION     "1.2.3"
+#define NF10_ETH_DRIVER_VERSION     "1.3.2"
 
 /* Number of network devices. */
 #define NUM_NETDEVS 4
@@ -142,7 +129,7 @@ struct dma_stream {
     uint8_t             *buffers;
     OcdpMetadata        *metadata;
     volatile uint32_t   *flags;
-    uint32_t            *doorbell;
+    volatile uint32_t   *doorbell;
     uint32_t            buf_index;
 };
 
@@ -187,9 +174,9 @@ uint32_t    hw_state = 0;
  * and the value is a policy for that attribute type. The policy simply states
  * the type of data that attributes of that type are allowed to contain
  * (32-bit integer, null terminated string, etc.). Part of the definition of a
- * netlink operation is which policy array it uses. Then, when the generic
+ * netlink operation is which policy array it uses. Then, when the generic 
  * netlink subsystem of the kernel receives a new netlink message for this
- * family, it first observes the operation, then uses the policy array
+ * family, it first observes the operation, then uses the policy array 
  * associated with the operation to check each of the attributes in the message
  * of the operation. Note that, for each attribute, specifying a policy is
  * optional (although highly encouraged, even when attributes are structures or
@@ -201,7 +188,7 @@ static struct nla_policy nf10_genl_policy[NF10_GENL_A_MAX + 1] = {
 /* Define our own generic netlink family for the nf10_eth_driver. */
 static struct genl_family nf10_genl_family = {
     .id         = GENL_ID_GENERATE,         /* Tells the Generic Netlink controller to choose a channel
-                                             * number for us when we register the family. This channel
+                                             * number for us when we register the family. This channel 
                                              * number is then placed in the 'type' field of each
                                              * packet's nlmsghdr. */
     .hdrsize    = 0,                        /* Using 0 because there's no family specific header. */
@@ -214,7 +201,7 @@ static struct genl_family nf10_genl_family = {
 
 /* Functions of operations defined for our Generic Netlink family... */
 
-/* A simple Echo command.
+/* A simple Echo command. 
  * Application sends us a message and we send it back to the application. */
 int genl_cmd_echo(struct sk_buff *skb, struct genl_info *info)
 {
@@ -238,7 +225,7 @@ int genl_cmd_echo(struct sk_buff *skb, struct genl_info *info)
             return 0;
         } else
             printk(KERN_INFO "nf10_eth_driver: genl_cmd_echo(): received: %s\n", msg);
-    }
+    } 
     else {
         printk(KERN_WARNING "nf10_eth_driver: genl_cmd_echo(): no msg attribute in generic netlink command\n");
         return 0;
@@ -279,22 +266,22 @@ int genl_cmd_echo(struct sk_buff *skb, struct genl_info *info)
     return 0;
 }
 
-/* DMA TX command.
+/* DMA TX command. 
  * Application sends us a message to transmit to the device over DMA. */
 int genl_cmd_dma_tx(struct sk_buff *skb, struct genl_info *info)
 {
-    struct nlattr   *na_msg, *na_opcode;
+    struct nlattr   *na_msg, *na_opcode;    
     void*           msg_data;
     size_t          msg_len;
 
-    /* FIXME: it's possible to call this function even when there's no hardware, need to check that
-     * the right data structures have actually been initialized and so on... */
-
+    /* FIXME: it's possible to call this function even when there's no hardware, need to check that 
+     * the right data structures have actually been initialized and so on... */ 
+    
     if(info == NULL) {
         printk(KERN_WARNING "%s: genl_cmd_dma_tx(): info arg is NULL\n", driver_name);
         return -EINVAL;
     }
-
+    
     /* Receive the message to transmit. */
     na_msg = info->attrs[NF10_GENL_A_MSG];
     if(na_msg) {
@@ -332,12 +319,12 @@ int genl_cmd_dma_tx(struct sk_buff *skb, struct genl_info *info)
     msg_len = (nla_len(na_msg) > DMA_BUF_SIZE) ? DMA_BUF_SIZE : nla_len(na_msg);
 
     /* Copy message into buffer. */
-    memcpy((void*)&tx_dma_stream.buffers[tx_dma_stream.buf_index * DMA_BUF_SIZE], msg_data, msg_len);
-
+    memcpy((void*)&tx_dma_stream.buffers[tx_dma_stream.buf_index * DMA_BUF_SIZE], msg_data, msg_len);    
+    
     /* Fill out metadata. */
     tx_dma_stream.metadata[tx_dma_stream.buf_index].length = msg_len;
     tx_dma_stream.metadata[tx_dma_stream.buf_index].opCode = *(uint32_t*)nla_data(na_opcode);
-
+    
     /* Set the buffer flag to full. */
     tx_dma_stream.flags[tx_dma_stream.buf_index] = 0;
 
@@ -345,7 +332,7 @@ int genl_cmd_dma_tx(struct sk_buff *skb, struct genl_info *info)
         "\tReceived msg length:\t%d\n"
         "\tReceived opcode:\t0x%08x\n"
         "\tUsing buffer number:\t%d\n",
-        nla_len(na_msg), *(uint32_t*)nla_data(na_opcode), tx_dma_stream.buf_index);
+        nla_len(na_msg), *(uint32_t*)nla_data(na_opcode), tx_dma_stream.buf_index);    
 
     /* Tell hardware we filled a buffer. */
     *tx_dma_stream.doorbell = 1;
@@ -357,7 +344,7 @@ int genl_cmd_dma_tx(struct sk_buff *skb, struct genl_info *info)
     return 0;
 }
 
-/* DMA RX command.
+/* DMA RX command. 
  * Receive data over DMA and send back to the application. */
 int genl_cmd_dma_rx(struct sk_buff *skb, struct genl_info *info)
 {
@@ -370,7 +357,7 @@ int genl_cmd_dma_rx(struct sk_buff *skb, struct genl_info *info)
         printk(KERN_WARNING "%s: genl_cmd_dma_rx(): info arg is NULL\n", driver_name);
         return -EINVAL;
     }
-
+    
     /* Prepare a reply. */
     skb_reply = genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
     if(skb_reply == NULL) {
@@ -388,9 +375,9 @@ int genl_cmd_dma_rx(struct sk_buff *skb, struct genl_info *info)
     /* Check if buffer has something for us. */
     if(rx_dma_stream.flags[rx_dma_stream.buf_index] == 1) {
         /* Add DMA buffer attribute. */
-        err = nla_put(  skb_reply,
-                        NF10_GENL_A_DMA_BUF,
-                        rx_dma_stream.metadata[rx_dma_stream.buf_index].length,
+        err = nla_put(  skb_reply, 
+                        NF10_GENL_A_DMA_BUF, 
+                        rx_dma_stream.metadata[rx_dma_stream.buf_index].length, 
                         (void*)&rx_dma_stream.buffers[rx_dma_stream.buf_index * DMA_BUF_SIZE]);
         if(err != 0) {
             printk(KERN_WARNING "%s: genl_cmd_dma_rx(): couldn't add DMA buffer attribute to generic netlink msg\n", driver_name);
@@ -410,14 +397,14 @@ int genl_cmd_dma_rx(struct sk_buff *skb, struct genl_info *info)
 
         /* Mark the buffer as empty. */
         rx_dma_stream.flags[rx_dma_stream.buf_index] = 0;
-
+    
         PDEBUG("genl_cmd_dma_rx(): DMA RX operation info:\n"
             "\tBytes of data received:\t%d\n"
             "\tOpcode received:\t0x%08x\n"
             "\tFrom buffer number:\t%d\n",
-            rx_dma_stream.metadata[rx_dma_stream.buf_index].length,
+            rx_dma_stream.metadata[rx_dma_stream.buf_index].length, 
             rx_dma_stream.metadata[rx_dma_stream.buf_index].opCode,
-            rx_dma_stream.buf_index);
+            rx_dma_stream.buf_index);    
 
         /* Tell the hardware we emptied the buffer. */
         *rx_dma_stream.doorbell = 1;
@@ -438,7 +425,7 @@ int genl_cmd_dma_rx(struct sk_buff *skb, struct genl_info *info)
         /* FIXME: do we need to free allocated data structures here? */
         return err;
     }
-
+    
     return 0;
 }
 
@@ -446,18 +433,18 @@ int genl_cmd_dma_rx(struct sk_buff *skb, struct genl_info *info)
  * Application sends us an address to read and we send back the value at that address. */
 int genl_cmd_reg_rd(struct sk_buff *skb, struct genl_info *info)
 {
-    struct nlattr   *na;
+    struct nlattr   *na;    
     struct sk_buff  *skb_reply;
     void            *msg_reply;
     int             err = 0;
     uint32_t        reg_addr;
     uint32_t        reg_addr_page;
     uint32_t        reg_addr_offset;
-    uint32_t        reg_val;
+    uint32_t        reg_val;    
 
-    /* FIXME: it's possible to call this function even when there's no hardware, need to check that
-     * the right data structures have actually been initialized and so on... */
-
+    /* FIXME: it's possible to call this function even when there's no hardware, need to check that 
+     * the right data structures have actually been initialized and so on... */ 
+    
     if(info == NULL) {
         printk(KERN_WARNING "%s: genl_cmd_reg_rd(): info arg is NULL\n", driver_name);
         return -EINVAL;
@@ -476,7 +463,7 @@ int genl_cmd_reg_rd(struct sk_buff *skb, struct genl_info *info)
         /* FIXME: need to free data structures! */
         return 0; /* FIXME: What's the proper error code for this? */
     }
-
+    
     /* Get the address to read. */
     na = info->attrs[NF10_GENL_A_ADDR32];
     if(na) {
@@ -505,7 +492,7 @@ int genl_cmd_reg_rd(struct sk_buff *skb, struct genl_info *info)
 
     /* Set page register. */
     nf10_ctrl->pageWindow = reg_addr_page;
-
+    
     /* Make sure the page register is written before we read from the register space. */
     mb();
 
@@ -516,13 +503,13 @@ int genl_cmd_reg_rd(struct sk_buff *skb, struct genl_info *info)
         "\tRegister page:\t\t0x%08x\n"
         "\tRegister offset:\t0x%08x\n"
         "\tRegister value:\t\t0x%08x\n",
-        reg_addr_page,
+        reg_addr_page, 
         reg_addr_offset,
         reg_val);
 
     /* Put the reg value in the reply. */
-    err = nla_put_u32(  skb_reply,
-                        NF10_GENL_A_REGVAL32,
+    err = nla_put_u32(  skb_reply, 
+                        NF10_GENL_A_REGVAL32, 
                         reg_val);
     if(err != 0) {
         printk(KERN_WARNING "%s: genl_cmd_reg_rd(): couldn't add register value to generic netlink msg\n", driver_name);
@@ -531,7 +518,7 @@ int genl_cmd_reg_rd(struct sk_buff *skb, struct genl_info *info)
 
 /* This is where we send back an errno to report back the status of the operation. */
 send_error:
-
+    
     err = nla_put_u32(  skb_reply,
                         NF10_GENL_A_ERRNO,
                         err);
@@ -539,7 +526,7 @@ send_error:
         printk(KERN_WARNING "%s: genl_cmd_reg_rd(): couldn't add errno attribute to generic netlink msg\n", driver_name);
         /* FIXME: We need to free the allocated data structures! */
         return err;
-    }
+    }    
 
     genlmsg_end(skb_reply, msg_reply);
 
@@ -548,7 +535,7 @@ send_error:
         printk(KERN_WARNING "%s: genl_cmd_reg_rd(): couldn't send back reply\n", driver_name);
         /* FIXME: do we need to free allocated data structures here? */
         return err;
-    }
+    }    
 
     return 0;
 }
@@ -557,16 +544,16 @@ send_error:
  * Application sends us an address and data to write. */
 int genl_cmd_reg_wr(struct sk_buff *skb, struct genl_info *info)
 {
-    struct nlattr   *na_addr, *na_val;
+    struct nlattr   *na_addr, *na_val;    
     struct sk_buff  *skb_reply;
-    void            *msg_reply;
+    void            *msg_reply;    
     uint32_t        reg_addr, reg_val;
     uint32_t        reg_addr_page, reg_addr_offset;
     int             err = 0;
 
-    /* FIXME: it's possible to call this function even when there's no hardware, need to check that
-     * the right data structures have actually been initialized and so on... */
-
+    /* FIXME: it's possible to call this function even when there's no hardware, need to check that 
+     * the right data structures have actually been initialized and so on... */ 
+    
     if(info == NULL) {
         printk(KERN_WARNING "%s: genl_cmd_reg_wr(): info arg is NULL\n", driver_name);
         return -EINVAL;
@@ -585,7 +572,7 @@ int genl_cmd_reg_wr(struct sk_buff *skb, struct genl_info *info)
         /* FIXME: need to free data structures! */
         return 0; /* FIXME: What's the proper error code for this? */
     }
-
+     
     /* Receive the address to write to. */
     na_addr = info->attrs[NF10_GENL_A_ADDR32];
     if(na_addr) {
@@ -625,13 +612,13 @@ int genl_cmd_reg_wr(struct sk_buff *skb, struct genl_info *info)
         err = -1;
         goto send_error;
     }
-
+    
     /* Get value to write. */
     reg_val = *(uint32_t*)nla_data(na_val);
 
     /* Set page register. */
     nf10_ctrl->pageWindow = reg_addr_page;
-
+    
     /* Make sure the page register is written before we write to the register space. */
     mb();
 
@@ -642,13 +629,13 @@ int genl_cmd_reg_wr(struct sk_buff *skb, struct genl_info *info)
         "\tRegister page:\t\t0x%08x\n"
         "\tRegister offset:\t0x%08x\n"
         "\tRegister value:\t\t0x%08x\n",
-        reg_addr_page,
+        reg_addr_page, 
         reg_addr_offset,
-        reg_val);
+        reg_val);    
 
 /* This is where we send back an errno to report back the status of the operation. */
 send_error:
-
+    
     err = nla_put_u32(  skb_reply,
                         NF10_GENL_A_ERRNO,
                         err);
@@ -656,7 +643,7 @@ send_error:
         printk(KERN_WARNING "%s: genl_cmd_reg_wr(): couldn't add errno attribute to generic netlink msg\n", driver_name);
         /* FIXME: We need to free the allocated data structures! */
         return err;
-    }
+    }    
 
     genlmsg_end(skb_reply, msg_reply);
 
@@ -693,7 +680,7 @@ int genl_cmd_napi_enable(struct sk_buff *skb, struct genl_info *info)
      * anything mission critical, so in this particular situation I
      * think this is fine. */
     //napi_enable(&nf10_napi_struct);
-
+    
     /* Set the polling timer for receiving packets. */
     rx_poll_timer.expires = jiffies + RX_POLL_INTERVAL;
 
@@ -701,9 +688,9 @@ int genl_cmd_napi_enable(struct sk_buff *skb, struct genl_info *info)
     del_timer(&rx_poll_timer);
 
     /* Start. */
-    add_timer(&rx_poll_timer);
+    add_timer(&rx_poll_timer); 
 
-    PDEBUG("genl_cmd_napi_enable(): NAPI polling enabled\n");
+    PDEBUG("genl_cmd_napi_enable(): NAPI polling enabled\n");    
 
     return 0;
 }
@@ -716,9 +703,9 @@ int genl_cmd_napi_disable(struct sk_buff *skb, struct genl_info *info)
     //napi_disable(&nf10_napi_struct);
 
     /* Stop the polling timer for receiving packets. */
-    del_timer(&rx_poll_timer);
+    del_timer(&rx_poll_timer); 
 
-    PDEBUG("genl_cmd_napi_disable(): NAPI polling disabled\n");
+    PDEBUG("genl_cmd_napi_disable(): NAPI polling disabled\n");    
 
     return 0;
 }
@@ -730,7 +717,7 @@ int enable_ghosting()
      * device present (dma_alloc_coherent requires a device argument). */
     for(dma_cpu_bufs = DMA_CPU_BUFS; dma_cpu_bufs >= MIN_DMA_CPU_BUFS; dma_cpu_bufs /= 2) {
         dma_region_size = ((DMA_BUF_SIZE + OCDP_METADATA_SIZE + sizeof(uint32_t)) * dma_cpu_bufs);
-
+        
         /* Allocate TX DMA region. */
         rx_dma_reg_va = kmalloc(dma_region_size, GFP_KERNEL | __GFP_NOWARN);
         if(rx_dma_reg_va == NULL) {
@@ -739,18 +726,18 @@ int enable_ghosting()
             continue;
         }
 
-        /* Memory been allocated successfully. */
+        /* Memory been allocated successfully. */   
         break;
     }
 
     /* Check that the memory allocations succeeded. */
     if(rx_dma_reg_va == NULL) {
         printk(KERN_ERR "nf10_eth_driver: ERROR: enable_ghosting(): failed to allocate DMA regions\n");
-        return -1;
+        return -1;        
     }
-
+    
     /* Otherwise set TX region the same at the RX region. */
-    tx_dma_reg_va = rx_dma_reg_va;
+    tx_dma_reg_va = rx_dma_reg_va; 
 
     PDEBUG("enable_ghosting(): successfully allocated the TX and RX DMA regions:\n"
         "\tTX Region: Virtual address:\t0x%016llx\n"
@@ -778,8 +765,8 @@ int enable_ghosting()
     /* Start the polling timer for receiving packets. */
     rx_poll_timer.expires = jiffies + RX_POLL_INTERVAL;
     add_timer(&rx_poll_timer);
-
-    PDEBUG("enable_ghosting(): ghosting enabled\n");
+ 
+    PDEBUG("enable_ghosting(): ghosting enabled\n");    
 
     return 0;
 }
@@ -800,7 +787,7 @@ int disable_ghosting()
     tx_dma_stream.metadata  = NULL;
     tx_dma_stream.flags     = NULL;
 
-    PDEBUG("disable_ghosting(): ghosting disabled\n");
+    PDEBUG("disable_ghosting(): ghosting disabled\n"); 
 
     return 0;
 }
@@ -885,15 +872,15 @@ static struct pci_device_id id_table[] = {
     { PCI_DEVICE(PCI_VENDOR_ID_NF10, PCI_DEVICE_ID_NF10_REF_NIC), }, /* NetFPGA-10G Reference NIC. */
     { 0, }
 };
-/* Creates a symbol used by depmod to tell the kernel that these devices
- * are associated with this driver module. This is communicated via the
+/* Creates a symbol used by depmod to tell the kernel that these devices 
+ * are associated with this driver module. This is communicated via the 
  * /lib/modules/KVERSION/modules.pcimap file, written to by depmod. */
 MODULE_DEVICE_TABLE(pci, id_table);
 
 /* Define our net_device operations here. */
 static int nf10_ndo_open(struct net_device *netdev)
 {
-    PDEBUG("nf10_ndo_open(): Opening net device\n");
+    PDEBUG("nf10_ndo_open(): Opening net device\n");    
 
     /* Tell the kernel we're ready for transmitting packets. */
     netif_start_queue(netdev);
@@ -903,7 +890,7 @@ static int nf10_ndo_open(struct net_device *netdev)
 
 static int nf10_ndo_stop(struct net_device *netdev)
 {
-    PDEBUG("nf10_ndo_stop(): Closing net device\n");
+    PDEBUG("nf10_ndo_stop(): Closing net device\n");    
 
     /* Tell the kernel we can't transmit anymore. */
     netif_stop_queue(netdev);
@@ -929,7 +916,7 @@ static netdev_tx_t nf10_ghost_xmit(struct sk_buff *skb, struct net_device *netde
     uint32_t        len;
     int             src_iface;
     int             dst_iface;
-    uint32_t        opcode;
+    uint32_t        opcode;    
     struct ethhdr   *eth;
     struct iphdr    *ip;
     uint32_t        *saddr;
@@ -966,8 +953,8 @@ static netdev_tx_t nf10_ghost_xmit(struct sk_buff *skb, struct net_device *netde
      * 3->2 */
     dst_iface = src_iface ^ 1;
 
-    rx_set_dst_iface(&opcode, dst_iface);
-
+    rx_set_dst_iface(&opcode, dst_iface); 
+    
     /* Do a switcharoo on the packet's IP address. */
     eth = (struct ethhdr *)((char*)data);
 
@@ -1013,7 +1000,7 @@ static netdev_tx_t nf10_ghost_xmit(struct sk_buff *skb, struct net_device *netde
     /* OpCode. */
     tx_dma_stream.metadata[tx_dma_stream.buf_index].opCode = opcode;
 
-    /* Memory barrier just in case. Make sure everything above this point
+    /* Memory barrier just in case. Make sure everything above this point 
      * has occurred before setting the buffer flag. */
     mb();
 
@@ -1027,7 +1014,7 @@ static netdev_tx_t nf10_ghost_xmit(struct sk_buff *skb, struct net_device *netde
         tx_dma_stream.buf_index = 0;
 
     /* Release the lock, finished with TX DMA region (RX DMA region in disguise). */
-    spin_unlock_irqrestore(&tx_dma_region_spinlock, tx_dma_region_spinlock_flags);
+    spin_unlock_irqrestore(&tx_dma_region_spinlock, tx_dma_region_spinlock_flags); 
 
     PDEBUG("nf10_ghost_xmit(): Packet TX info:\n"
         "\tMessage length:\t\t%d\n"
@@ -1052,6 +1039,13 @@ static netdev_tx_t nf10_ndo_start_xmit(struct sk_buff *skb, struct net_device *n
     int             iface;
     uint32_t        opcode;
     unsigned long   tx_dma_region_spinlock_flags;
+#ifdef DRIVER_LOOPB
+    /* Specially used for flipping IP address bits for loopback. */
+    struct ethhdr   *eth;
+    struct iphdr    *ip;
+    uint32_t        *saddr;
+    uint32_t        *daddr;
+#endif
 
 #ifdef DRIVER_GHOST
     /* If the driver is ghosting the hardware then use a special function
@@ -1060,7 +1054,7 @@ static netdev_tx_t nf10_ndo_start_xmit(struct sk_buff *skb, struct net_device *n
 #endif
 
     /* Otherwise send the packet to the hardware. */
-    PDEBUG("nf10_ndo_start_xmit(): Transmitting packet\n");
+    PDEBUG("nf10_ndo_start_xmit(): Transmitting packet\n");    
 
     /* Get data and length. */
     data = (void*)skb->data;
@@ -1087,12 +1081,12 @@ static netdev_tx_t nf10_ndo_start_xmit(struct sk_buff *skb, struct net_device *n
     /* Check that the hardware is actually there and working. */
     if(!((hw_state & HW_FOUND) && (hw_state & HW_INIT))) {
         printk(KERN_WARNING "%s: WARNING: nf10_ndo_start_xmit(): trying to send packet but hardware was not found or was not initialized properly... dropping\n", driver_name);
-        netdev->stats.tx_dropped++;
+        netdev->stats.tx_dropped++; 
         dev_kfree_skb(skb);
         /* FIXME: not really sure of the right return value in this case... */
         return NETDEV_TX_OK;
     }
-
+    
     /* Opcode for setting source and destination ports. */
     opcode = 0;
     iface = get_iface_from_netdev(netdev);
@@ -1103,15 +1097,32 @@ static netdev_tx_t nf10_ndo_start_xmit(struct sk_buff *skb, struct net_device *n
         /* FIXME: not really sure of the right return value in this case... */
         return NETDEV_TX_OK;
     }
-    tx_set_src_iface(&opcode, iface);
+    tx_set_src_iface(&opcode, iface); 
+
+#ifdef DRIVER_LOOPB
+    /* Do a switcharoo on the packet's IP address. */
+    eth = (struct ethhdr *)((char*)data);
+
+    if(eth->h_proto == htons(ETH_P_IP)) {
+        ip      = (struct iphdr *)(((char*)data) + sizeof(struct ethhdr));
+        saddr   = &(ip->saddr);
+        daddr   = &(ip->daddr);
+        /* Flip the last bit of the 3rd octet of the addresses. */
+        ((uint8_t *)saddr)[2] ^= 1;
+        ((uint8_t *)daddr)[2] ^= 1;
+        /* Fix the checksum. */
+        ip->check = 0;         /* and rebuild the checksum (ip needs it) */
+        ip->check = ip_fast_csum((unsigned char *)ip,ip->ihl);
+    }
+#endif
 
     /* DMA the packet to the hardware. */
 
-    /* Start the clock! */
-    netdev->trans_start = jiffies;
-
     /* First need to acquire lock to access the TX DMA region. */
     spin_lock_irqsave(&tx_dma_region_spinlock, tx_dma_region_spinlock_flags);
+
+    /* Start the clock! */
+    netdev->trans_start = jiffies;
 
     /* FIXME: For now we'll just drop packets when the buffer is full.
      * An alternative would be to stash the skb, call netif_stop_queue, set
@@ -1121,7 +1132,7 @@ static netdev_tx_t nf10_ndo_start_xmit(struct sk_buff *skb, struct net_device *n
      * by setting the timer again. If this continues and a timeout event
      * occurs, probably the hardware is locked up. Would need to consider
      * carefully what is the right thing to do in that case. Maybe stop the
-     * timer and enter a failure mode.
+     * timer and enter a failure mode. 
      *
      * This general solution however may be quite tricky because there
      * are NUM_NETDEVS network devices potentially transmitting. This
@@ -1161,15 +1172,8 @@ static netdev_tx_t nf10_ndo_start_xmit(struct sk_buff *skb, struct net_device *n
     /* Set the buffer flag to full. */
     tx_dma_stream.flags[tx_dma_stream.buf_index] = 0;
 
-    /* Update the buffer index. */
-    if(++tx_dma_stream.buf_index == dma_cpu_bufs)
-        tx_dma_stream.buf_index = 0;
-
-    /* Release the lock, finished with TX DMA region. */
-    spin_unlock_irqrestore(&tx_dma_region_spinlock, tx_dma_region_spinlock_flags);
-
     /* Make sure all the writes have been done before ringing the doorbell. */
-    wmb();
+    mb();
 
     /* Tell hardware we filled a buffer. */
     *tx_dma_stream.doorbell = 1;
@@ -1179,6 +1183,13 @@ static netdev_tx_t nf10_ndo_start_xmit(struct sk_buff *skb, struct net_device *n
         "\tOpcode:\t\t\t0x%08x\n"
         "\tUsing buffer number:\t%d\n",
         skb->len, opcode, tx_dma_stream.buf_index);
+
+    /* Update the buffer index. */
+    if(++tx_dma_stream.buf_index == dma_cpu_bufs)
+        tx_dma_stream.buf_index = 0;
+
+    /* Release the lock, finished with TX DMA region. */
+    spin_unlock_irqrestore(&tx_dma_region_spinlock, tx_dma_region_spinlock_flags); 
 
     /* Update the statistics. */
     netdev->stats.tx_packets++;
@@ -1197,19 +1208,19 @@ static void nf10_ndo_tx_timeout(struct net_device *netdev)
 
 static struct net_device_stats* nf10_ndo_get_stats(struct net_device *netdev)
 {
-    PDEBUG("nf10_ndo_get_stats(): Getting the stats\n");
-
+    PDEBUG("nf10_ndo_get_stats(): Getting the stats\n");    
+    
     return &netdev->stats;
 }
 
 static int nf10_ndo_set_mac_address(struct net_device *netdev, void *addr)
-{
+{ 
     struct sockaddr *saddr = addr;
-
+    
     if(!is_valid_ether_addr(saddr->sa_data))
         return -EADDRNOTAVAIL;
 
-    memcpy(netdev->dev_addr, saddr->sa_data, netdev->addr_len);
+    memcpy(netdev->dev_addr, saddr->sa_data, netdev->addr_len);    
 
     return 0;
 }
@@ -1232,7 +1243,7 @@ static int nf10_ndho_rebuild(struct sk_buff *skb)
 {
     struct ethhdr *eth = (struct ethhdr *) skb->data;
     struct net_device *dev = skb->dev;
-
+    
     PDEBUG("nf10_ndho_rebuild(): Rebuilding Ethernet header...\n");
 
     memcpy(eth->h_source, dev->dev_addr, dev->addr_len);
@@ -1299,7 +1310,7 @@ void rx_set_src_iface(uint32_t *opcode, uint32_t src_iface)
     else if(src_iface == 2)
         *opcode |= OPCODE_MAC2;
     else if(src_iface == 3)
-        *opcode |= OPCODE_MAC3;
+        *opcode |= OPCODE_MAC3; 
 }
 
 uint32_t tx_get_dst_iface(uint32_t opcode)
@@ -1326,7 +1337,7 @@ void tx_set_src_iface(uint32_t *opcode, uint32_t src_iface)
 static void rx_poll_timer_cb(unsigned long arg)
 {
     //PDEBUG("rx_poll_timer_fn(): Timer fired\n");
-
+    
     /* Check for received packets. */
     if(rx_dma_stream.flags[rx_dma_stream.buf_index] == 1) {
         /* Schedule a poll. */
@@ -1344,10 +1355,10 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
     struct sk_buff  *skb;
     int             buf_index = rx_dma_stream.buf_index;
     int             dst_iface; /* Destination interface. */
-    unsigned long   rx_dma_region_spinlock_flags;
+//    unsigned long   rx_dma_region_spinlock_flags;
 
     PDEBUG("nf10_napi_struct_poll(): Beginning to slurp up packets with budget %d...\n", budget);
-
+   
     /* First need to acquire lock to access the RX DMA region. */
 //    spin_lock_irqsave(&rx_dma_region_spinlock, rx_dma_region_spinlock_flags);
 
@@ -1358,7 +1369,7 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
             "\tMessage opCode:\t\t0x%08x\n"
             "\tFrom buffer number:\t%d\n",
             n_rx,
-            rx_dma_stream.metadata[buf_index].length,
+            rx_dma_stream.metadata[buf_index].length, 
             rx_dma_stream.metadata[buf_index].opCode,
             buf_index);
 
@@ -1371,6 +1382,8 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
             /* Mark the buffer as empty. */
             rx_dma_stream.flags[buf_index] = 0;
 
+            mb();
+
 #ifndef DRIVER_GHOST
             /* Tell the hardware we emptied the buffer. */
             *rx_dma_stream.doorbell = 1;
@@ -1380,9 +1393,9 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
             if(++rx_dma_stream.buf_index == dma_cpu_bufs)
                 rx_dma_stream.buf_index = 0;
 
-            buf_index = rx_dma_stream.buf_index;
+            buf_index = rx_dma_stream.buf_index;   
 
-            continue;
+            continue; 
         }
 
         /* FIXME: Do I need to allocate any more room than this? Don't
@@ -1405,10 +1418,10 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
             if(++rx_dma_stream.buf_index == dma_cpu_bufs)
                 rx_dma_stream.buf_index = 0;
 
-            buf_index = rx_dma_stream.buf_index;
+            buf_index = rx_dma_stream.buf_index;   
 
             /* Update statistics. */
-            nf10_netdevs[dst_iface]->stats.rx_dropped++;
+            nf10_netdevs[dst_iface]->stats.rx_dropped++; 
 
             continue;
         }
@@ -1416,15 +1429,15 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
         memcpy( skb_put(skb, rx_dma_stream.metadata[buf_index].length),
                 (void*)&rx_dma_stream.buffers[buf_index * DMA_BUF_SIZE],
                 rx_dma_stream.metadata[buf_index].length);
-
+        
         skb->dev = nf10_netdevs[dst_iface];
         /* FIXME: need to set ip_summed? */
         skb->protocol = eth_type_trans(skb, nf10_netdevs[dst_iface]);
-
-#ifdef DRIVER_GHOST
+       
+#if defined(DRIVER_GHOST) || defined(DRIVER_LOOPB) 
         /* This is for ghosting mode. */
-        skb->ip_summed = CHECKSUM_UNNECESSARY; /* don't check it */
-#endif
+        skb->ip_summed = CHECKSUM_UNNECESSARY; /* don't check it */       
+#endif 
 
         netif_receive_skb(skb);
 
@@ -1434,7 +1447,7 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
 
         /* Make sure everything has gone through before setting flag. */
         mb();
-
+    
         /* Mark the buffer as empty. */
         rx_dma_stream.flags[buf_index] = 0;
 
@@ -1448,18 +1461,18 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
         /* Update the buffer index. */
         if(++rx_dma_stream.buf_index == dma_cpu_bufs)
             rx_dma_stream.buf_index = 0;
-
-        buf_index = rx_dma_stream.buf_index;
-
+        
+        buf_index = rx_dma_stream.buf_index;       
+        
         n_rx++;
-    }
+    }    
 
 //    napi_complete(napi);
 //    rx_poll_timer.expires = jiffies + RX_POLL_INTERVAL;
 //    add_timer(&rx_poll_timer);
 
 //    return 0;
-
+     
     /* Check if we processed everything. */
     if(rx_dma_stream.flags[buf_index] == 0) {
         PDEBUG("nf10_napi_struct_poll(): Slurped up all the packets there were to slurp!\n");
@@ -1474,16 +1487,16 @@ static int nf10_napi_struct_poll(struct napi_struct *napi, int budget)
 
     /* Release the RX DMA region lock. */
 //    spin_unlock_irqrestore(&rx_dma_region_spinlock, rx_dma_region_spinlock_flags);
-
+    
 //    return n_rx;
 }
 
 /* When the kernel finds a device with a vendor and device ID associated with this driver
- * it will invoke this function. The job of this function is really to initialize the
+ * it will invoke this function. The job of this function is really to initialize the 
  * device that the kernel has already found for us... so the name 'probe' is a bit of a
  * misnomer. */
 static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
-{
+{    
     /* OpenCPI */
     OccpSpace           *occp;
     OcdpProperties      *dp0_props;
@@ -1491,7 +1504,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
     uint32_t            *sma0_props;
     uint32_t            *sma1_props;
     uint32_t            *bias_props;
-    OccpWorkerRegisters
+    OccpWorkerRegisters 
                         *dp0_regs,
                         *dp1_regs,
                         *sma0_regs,
@@ -1499,8 +1512,8 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
                         *bias_regs;
 
     int err;
-
-    printk(KERN_INFO "nf10_eth_driver: Found NetFPGA-10G device with vendor_id: 0x%4x, device_id: 0x%4x\n", id->vendor, id->device);
+    
+    printk(KERN_INFO "nf10_eth_driver: Found NetFPGA-10G device with vendor_id: 0x%4x, device_id: 0x%4x\n", id->vendor, id->device);    
 
     /* The hardware has been found. */
     hw_state |= HW_FOUND;
@@ -1511,24 +1524,24 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
      *     - allocate an IRQ (if BIOS did not) */
     err = pci_enable_device(pdev);
     if(err) {
-        PDEBUG("probe(): pci_enable_device failed with error code: %d\n", err);
+        PDEBUG("probe(): pci_enable_device failed with error code: %d\n", err);    
         return err;
     }
 
-    /* Enable DMA functionality for the device.
+    /* Enable DMA functionality for the device. 
      * pci_set_master() does this by (ref. PCI/pci.txt kernel doc) setting the bus master bit
-     * in the PCI_COMMAND register. pci_clear_master() will disable DMA by clearing the bit.
+     * in the PCI_COMMAND register. pci_clear_master() will disable DMA by clearing the bit. 
      * This function also sets the latency timer value if necessary. */
     pci_set_master(pdev);
 
     /* Mark BAR0 MMIO region as reserved by this driver. */
-    err = pci_request_region(pdev, BAR_0, driver_name);
+    err = pci_request_region(pdev, BAR_0, driver_name); 
     if(err) {
         printk(KERN_ERR "%s: ERROR: probe(): could not reserve BAR0 memory-mapped I/O region\n", driver_name);
         pci_disable_device(pdev);
         return err;
     }
-
+    
     /* Remap BAR0 MMIO region into our address space. */
     bar0_base_va = pci_ioremap_bar(pdev, BAR_0);
     if(bar0_base_va == NULL) {
@@ -1538,7 +1551,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         /* FIXME: is this the right error code? */
         return -ENOMEM;
     }
-
+    
     /* Take note of the size. */
     bar0_size = pci_resource_len(pdev, BAR_0);
 
@@ -1547,8 +1560,8 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         printk(KERN_ERR "%s: ERROR: probe(): expected BAR0 memory-mapped I/O region to be at least %lu bytes in size, but it is only %d bytes\n", driver_name, sizeof(OccpSpace), bar0_size);
         iounmap(bar0_base_va);
         pci_release_region(pdev, BAR_0);
-        pci_disable_device(pdev);
-        return -1;
+        pci_disable_device(pdev);    
+        return -1;    
     }
 
     PDEBUG("probe(): successfully mapped BAR0 MMIO region:\n"
@@ -1560,7 +1573,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
 
     /* Negotiate with the kernel where we can allocate DMA-capable memory regions.
      * We do this with a call to dma_set_mask. Through this function we inform
-     * the kernel of what physical memory addresses our device is capable of
+     * the kernel of what physical memory addresses our device is capable of 
      * addressing via DMA. Through the function's return value, the kernel
      * informs us of whether or not this machine's DMA controller is capable of
      * supporting our request. A return value of 0 completes the "handshake" and
@@ -1571,13 +1584,13 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         printk(KERN_ERR "%s: ERROR: probe(): this machine's DMA controller does not support the DMA address limitations of this device\n", driver_name);
         iounmap(bar0_base_va);
         pci_release_region(pdev, BAR_0);
-        pci_disable_device(pdev);
+        pci_disable_device(pdev);    
         return err;
     }
 
     /* Since future DMA memory allocations will be coherent regions with the CPU
      * cache, we must additionally call dma_set_coherent_mask, which performs the
-     * same negotiation process. It is guaranteed to work for a region equal to
+     * same negotiation process. It is guaranteed to work for a region equal to 
      * or smaller than that which we agreed upon with dma_set_mask... but we check
      * its return value just in case. */
     err = dma_set_coherent_mask(&pdev->dev, DMA_BIT_MASK(32));
@@ -1585,15 +1598,15 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         printk(KERN_ERR "%s: ERROR: probe(): this machine's DMA controller does not support the coherent DMA address limitations of this device\n", driver_name);
         iounmap(bar0_base_va);
         pci_release_region(pdev, BAR_0);
-        pci_disable_device(pdev);
+        pci_disable_device(pdev);    
         return err;
     }
 
     for(dma_cpu_bufs = DMA_CPU_BUFS; dma_cpu_bufs >= MIN_DMA_CPU_BUFS; dma_cpu_bufs /= 2) {
         dma_region_size = ((DMA_BUF_SIZE + OCDP_METADATA_SIZE + sizeof(uint32_t)) * dma_cpu_bufs);
-
+        
         /* Allocate TX DMA region. */
-        /* Using __GFP_NOWARN flag because otherwise the kernel printk warns us when
+        /* Using __GFP_NOWARN flag because otherwise the kernel printk warns us when 
          * the allocation fails, which is unnecessary since we print our own msg. */
         tx_dma_reg_va = dma_alloc_coherent(&pdev->dev, dma_region_size, &tx_dma_reg_pa, GFP_KERNEL | __GFP_NOWARN);
         if(tx_dma_reg_va == NULL) {
@@ -1612,9 +1625,9 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
             continue;
         }
 
-        /* Both memory regions have been allocated successfully. */
+        /* Both memory regions have been allocated successfully. */   
         break;
-
+ 
         /* FIXME: Should I zero the memory? */
         /* FIXME: Insert a check to make sure that the memory regions really are in the lower
          * 32-bits of the address space. */
@@ -1625,10 +1638,10 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         printk(KERN_ERR "nf10_eth_driver: ERROR: probe(): failed to allocate DMA regions\n");
         iounmap(bar0_base_va);
         pci_release_region(pdev, BAR_0);
-        pci_disable_device(pdev);
-        return err;
+        pci_disable_device(pdev);    
+        return err;        
     }
-
+    
     PDEBUG("probe(): successfully allocated the TX and RX DMA regions:\n"
         "\tTX Region: Virtual address:\t0x%016llx\n"
         "\tTX Region: Physical address:\t0x%016llx\n"
@@ -1651,7 +1664,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
     sma0_props  = (uint32_t *)occp->config[WORKER_SMA0];
     sma1_props  = (uint32_t *)occp->config[WORKER_SMA1];
     bias_props  = (uint32_t *)occp->config[WORKER_BIAS];
-
+    
     dp0_regs    = &occp->worker[WORKER_DP0].control,
     dp1_regs    = &occp->worker[WORKER_DP1].control,
     sma0_regs   = &occp->worker[WORKER_SMA0].control,
@@ -1661,13 +1674,13 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
     /* For NF10 register access and control.
      * Please forgive my blatant violation of naming consistency. Props and regs
      * just don't make sense for this particular context. */
-    /* Note: nf10_regs is a pointer to a 1MB register region. It is used in conjunction
-     * with a 12-bit page register in nf10_ctrl to access up to 4GB of registers. See
+    /* Note: nf10_regs is a pointer to a 1MB register region. It is used in conjunction 
+     * with a 12-bit page register in nf10_ctrl to access up to 4GB of registers. See 
      * genl_cmd_reg_rd and genl_cmd_reg_wr to see how to use these to read and write
      * registers in an NF10 design in a 32-bit register address space. */
     nf10_regs   = (uint32_t *)occp->config[WORKER_NF10];
     nf10_ctrl   = &occp->worker[WORKER_NF10].control;
-
+ 
     /* Reset workers. */
 
     /* Assert reset. */
@@ -1675,20 +1688,20 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
     dp1_regs->control   = OCCP_LOG_TIMEOUT;
     sma0_regs->control  = OCCP_LOG_TIMEOUT;
     sma1_regs->control  = OCCP_LOG_TIMEOUT;
-    bias_regs->control  = OCCP_LOG_TIMEOUT;
+    bias_regs->control  = OCCP_LOG_TIMEOUT;    
     nf10_ctrl->control  = OCCP_LOG_TIMEOUT;
 
     /* Write memory barrier. */
     wmb();
 
     /* Take out of reset. */
-    dp0_regs->control   = OCCP_CONTROL_ENABLE | OCCP_LOG_TIMEOUT;
+    dp0_regs->control   = OCCP_CONTROL_ENABLE | OCCP_LOG_TIMEOUT;    
     dp1_regs->control   = OCCP_CONTROL_ENABLE | OCCP_LOG_TIMEOUT;
     sma0_regs->control  = OCCP_CONTROL_ENABLE | OCCP_LOG_TIMEOUT;
-    sma1_regs->control  = OCCP_CONTROL_ENABLE | OCCP_LOG_TIMEOUT;
+    sma1_regs->control  = OCCP_CONTROL_ENABLE | OCCP_LOG_TIMEOUT;    
     bias_regs->control  = OCCP_CONTROL_ENABLE | OCCP_LOG_TIMEOUT;
-    nf10_ctrl->control  = OCCP_CONTROL_ENABLE | OCCP_LOG_TIMEOUT;
-
+    nf10_ctrl->control  = OCCP_CONTROL_ENABLE | OCCP_LOG_TIMEOUT;   
+    
     /* Read/Write memory barrier. */
     mb();
 
@@ -1700,7 +1713,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         printk(KERN_ERR "%s: ERROR: probe(): OpenCPI worker initialization failure for DP0 worker\n", driver_name);
         err = -1;
     }
-
+    
     if(dp1_regs->initialize != OCCP_SUCCESS_RESULT) {
         printk(KERN_ERR "%s: ERROR: probe(): OpenCPI worker initialization failure for DP1 worker\n", driver_name);
         err = -1;
@@ -1720,7 +1733,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         printk(KERN_ERR "%s: ERROR: probe(): OpenCPI worker initialization failure for BIAS worker\n", driver_name);
         err = -1;
     }
-
+    
     if(nf10_ctrl->initialize != OCCP_SUCCESS_RESULT) {
         printk(KERN_ERR "%s: ERROR: probe(): OpenCPI worker initialization failure for NF10 worker\n", driver_name);
         err = -1;
@@ -1731,7 +1744,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         dma_free_coherent(&pdev->dev, dma_region_size, tx_dma_reg_va, tx_dma_reg_pa);
         iounmap(bar0_base_va);
         pci_release_region(pdev, BAR_0);
-        pci_disable_device(pdev);
+        pci_disable_device(pdev);    
         return err;
     }
 
@@ -1745,8 +1758,8 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
 
     tx_dma_stream.buffers    = (uint8_t *)tx_dma_reg_va;
     tx_dma_stream.metadata    = (OcdpMetadata *)(tx_dma_stream.buffers + dma_cpu_bufs * DMA_BUF_SIZE);
-    tx_dma_stream.flags    = (uint32_t *)(tx_dma_stream.metadata + dma_cpu_bufs);
-    tx_dma_stream.doorbell    = &dp0_props->nRemoteDone;
+    tx_dma_stream.flags    = (volatile uint32_t *)(tx_dma_stream.metadata + dma_cpu_bufs);
+    tx_dma_stream.doorbell    = (volatile uint32_t *)&dp0_props->nRemoteDone; 
     tx_dma_stream.buf_index    = 0;
     memset((void*)tx_dma_stream.flags, 1, dma_cpu_bufs * sizeof(uint32_t));
 
@@ -1767,8 +1780,8 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
 
     rx_dma_stream.buffers    = (uint8_t *)rx_dma_reg_va;
     rx_dma_stream.metadata    = (OcdpMetadata *)(rx_dma_stream.buffers + dma_cpu_bufs * DMA_BUF_SIZE);
-    rx_dma_stream.flags    = (uint32_t *)(rx_dma_stream.metadata + dma_cpu_bufs);
-    rx_dma_stream.doorbell    = &dp1_props->nRemoteDone;
+    rx_dma_stream.flags    = (volatile uint32_t *)(rx_dma_stream.metadata + dma_cpu_bufs);
+    rx_dma_stream.doorbell    = (volatile uint32_t *)&dp1_props->nRemoteDone; 
     rx_dma_stream.buf_index    = 0;
     memset((void*)rx_dma_stream.flags, 0, dma_cpu_bufs * sizeof(uint32_t));
 
@@ -1786,7 +1799,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
     dp1_props->remoteFlagBase    = (uint32_t)rx_dma_reg_pa + (DMA_BUF_SIZE + sizeof(OcdpMetadata)) * dma_cpu_bufs;
     dp1_props->remoteFlagPitch    = sizeof(uint32_t);
     dp1_props->control        = OCDP_CONTROL(OCDP_CONTROL_PRODUCER, OCDP_ACTIVE_MESSAGE);
-
+    
     mb();
 
     PDEBUG("probe(): configured dataplane OCPI workers:\n"
@@ -1853,7 +1866,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         printk(KERN_ERR "%s: ERROR: probe(): OpenCPI worker start failure for DP0\n", driver_name);
         err = -1;
     }
-
+    
     if(dp1_regs->start != OCCP_SUCCESS_RESULT) {
         printk(KERN_ERR "%s: ERROR: probe(): OpenCPI worker start failure for DP1\n", driver_name);
         err = -1;
@@ -1873,7 +1886,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         printk(KERN_ERR "%s: ERROR: probe(): OpenCPI worker start failure for bias worker\n", driver_name);
         err = -1;
     }
-
+    
     if(nf10_ctrl->start != OCCP_SUCCESS_RESULT) {
         printk(KERN_ERR "%s: ERROR: probe(): OpenCPI worker start failure for nf10 worker\n", driver_name);
         err = -1;
@@ -1884,17 +1897,17 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
         dma_free_coherent(&pdev->dev, dma_region_size, tx_dma_reg_va, tx_dma_reg_pa);
         iounmap(bar0_base_va);
         pci_release_region(pdev, BAR_0);
-        pci_disable_device(pdev);
+        pci_disable_device(pdev);    
         return err;
     }
-
+  
     /* Hardware has been successfully initialized. */
     hw_state |= HW_INIT;
-
+ 
     /* Start the polling timer for receiving packets. */
     rx_poll_timer.expires = jiffies + RX_POLL_INTERVAL;
     add_timer(&rx_poll_timer);
-
+ 
     return err;
 }
 
@@ -1902,14 +1915,14 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
 static void remove(struct pci_dev *pdev)
 {
     PDEBUG("remove(): entering remove()\n");
-
+   
     /* FIXME: Why don't I stop the polling timer here? Right now it's in the _exit function. */
-
+ 
     dma_free_coherent(&pdev->dev, dma_region_size, rx_dma_reg_va, rx_dma_reg_pa);
     dma_free_coherent(&pdev->dev, dma_region_size, tx_dma_reg_va, tx_dma_reg_pa);
     iounmap(bar0_base_va);
     pci_release_region(pdev, BAR_0);
-    pci_disable_device(pdev);
+    pci_disable_device(pdev);    
 }
 
 static struct pci_driver nf10_pci_driver = {
@@ -1924,31 +1937,31 @@ int read_proc(char *buf, char **start, off_t offset, int count, int *eof, void *
 {
     unsigned int c;
     int i;
-
+    
     c = sprintf(buf, "NetFPGA-10G Ethernet Driver\n-----------------------------\n");
-    c += sprintf(&buf[c], "TX Flags:\n");
+    c += sprintf(&buf[c], "TX Flags:\n");    
 
     for(i=0; i<dma_cpu_bufs; i++)
-        c += sprintf(&buf[c], "\t%d:\t0x%08x\n", i, tx_dma_stream.flags[i]);
+        c += sprintf(&buf[c], "\t%d: %d\n", i, tx_dma_stream.flags[i]);
 
     c += sprintf(&buf[c], "RX Flags:\n");
-
+    
     for(i=0; i<dma_cpu_bufs; i++)
-        c += sprintf(&buf[c], "\t%d:\t0x%08x\n", i, rx_dma_stream.flags[i]);
+        c += sprintf(&buf[c], "\t%d: %d\n", i, rx_dma_stream.flags[i]);    
 
     *eof = 1;
-    return c;
+    return c; 
 }
 
 void nf10_netdev_init(struct net_device *netdev)
 {
-    PDEBUG("nf10_netdev_init(): Initializing nf10_netdev\n");
+    PDEBUG("nf10_netdev_init(): Initializing nf10_netdev\n");    
 
     ether_setup(netdev);
 
     netdev->netdev_ops  = &nf10_netdev_ops;
 
-#ifdef DRIVER_GHOST
+#if defined(DRIVER_GHOST) || defined(DRIVER_LOOPB)
     /* These are for ghosting mode. */
     netdev->header_ops  = &nf10_netdev_header_ops;
     netdev->flags       |= IFF_NOARP;
@@ -1962,7 +1975,7 @@ static int __init nf10_eth_driver_init(void)
 {
     uint32_t    mac_addr_len;
     int         err;
-    int         i;
+    int         i;    
 
     PDEBUG("nf10_eth_driver_init(): loading ethernet driver\n");
 
@@ -1971,8 +1984,8 @@ static int __init nf10_eth_driver_init(void)
         nf10_netdevs[i] = alloc_netdev(0, "nf%d", nf10_netdev_init);
         if(nf10_netdevs[i] == NULL) {
             printk(KERN_ERR "nf10_eth_driver: ERROR: nf10_eth_driver_init(): failed to allocate net_device %d... unloading driver\n", i);
-
-            for(i = i-1; i >= 0; i--)
+            
+            for(i = i-1; i >= 0; i--) 
                 free_netdev(nf10_netdevs[i]);
 
             pci_unregister_driver(&nf10_pci_driver);
@@ -1981,7 +1994,7 @@ static int __init nf10_eth_driver_init(void)
     }
 
     PDEBUG("nf10_eth_driver_init(): allocating netdevs... victory!\n");
-
+    
     mac_addr_len = nf10_netdevs[0]->addr_len;
     char mac_addr[mac_addr_len+1];
 
@@ -1991,11 +2004,11 @@ static int __init nf10_eth_driver_init(void)
         snprintf(&mac_addr[1], mac_addr_len, "NF%d", i);
         memcpy(nf10_netdevs[i]->dev_addr, mac_addr, mac_addr_len);
     }
-
+    
     PDEBUG("nf10_eth_driver_init(): setting netdev MAC addresses... victory!\n");
 
     /* Add NAPI structure to the device. */
-    /* Since we have NUM_NETDEVS net_devices, we just use the 1st one for implementing polling. */
+    /* Since we have NUM_NETDEVS net_devices, we just use the 1st one for implementing polling. */ 
     netif_napi_add(nf10_netdevs[0], &nf10_napi_struct, nf10_napi_struct_poll, RX_POLL_WEIGHT);
 
     PDEBUG("nf10_eth_driver_init(): adding napi struct... victory!\n");
@@ -2005,12 +2018,12 @@ static int __init nf10_eth_driver_init(void)
         err = register_netdev(nf10_netdevs[i]);
         if(err != 0) {
             printk(KERN_ERR "nf10_eth_driver: ERROR: nf10_eth_driver_init(): failed to register net_device %d... unloading driver\n", i);
-
+            
             for(i = i-1; i >= 0; i--)
                 unregister_netdev(nf10_netdevs[i]);
-
+            
             netif_napi_del(&nf10_napi_struct);
-
+            
             for(i = 0; i < NUM_NETDEVS; i++);
                 free_netdev(nf10_netdevs[i]);
 
@@ -2025,13 +2038,13 @@ static int __init nf10_eth_driver_init(void)
     err = genl_register_family(&nf10_genl_family);
     if(err != 0) {
         printk(KERN_ERR "nf10_eth_driver: ERROR: nf10_eth_driver_init(): GENL family registration failed... unloading driver\n");
-
+       
         for(i = 0; i < NUM_NETDEVS; i++) {
             unregister_netdev(nf10_netdevs[i]);
-        }
+        } 
 
         netif_napi_del(&nf10_napi_struct);
-
+     
         for(i = 0; i < NUM_NETDEVS; i++) {
             free_netdev(nf10_netdevs[i]);
         }
@@ -2052,10 +2065,10 @@ static int __init nf10_eth_driver_init(void)
 
             for(i = 0; i < NUM_NETDEVS; i++) {
                 unregister_netdev(nf10_netdevs[i]);
-            }
+            } 
 
             netif_napi_del(&nf10_napi_struct);
-
+     
             for(i = 0; i < NUM_NETDEVS; i++) {
                 free_netdev(nf10_netdevs[i]);
             }
@@ -2074,7 +2087,7 @@ static int __init nf10_eth_driver_init(void)
     napi_enable(&nf10_napi_struct);
 
 #ifndef DRIVER_GHOST
-    /* Register the pci_driver.
+    /* Register the pci_driver. 
      * Note: This will succeed even without a card installed in the system. */
     err = pci_register_driver(&nf10_pci_driver);
     if(err != 0) {
@@ -2089,7 +2102,12 @@ static int __init nf10_eth_driver_init(void)
     else if(!(hw_state & HW_INIT))
         printk(KERN_WARNING "nf10_eth_driver: WARNING: A NetFPGA-10G device was found but could not be properly initialized... driver may be in an unstable state\n");
 
-    printk(KERN_INFO "nf10_eth_driver: NetFPGA-10G Ethernet Driver version %s Loaded.\n", NF10_ETH_DRIVER_VERSION);
+#ifdef DRIVER_LOOPB
+    printk(KERN_INFO "nf10_eth_driver: NetFPGA-10G Ethernet Driver version %s Loaded in Hardware Loopback Mode.\n", NF10_ETH_DRIVER_VERSION);
+#else
+    printk(KERN_INFO "nf10_eth_driver: NetFPGA-10G Ethernet Driver version %s Loaded.\n", NF10_ETH_DRIVER_VERSION)    
+#endif
+
 #else
     err = enable_ghosting();
     if(err != 0) {
@@ -2100,7 +2118,7 @@ static int __init nf10_eth_driver_init(void)
 
     printk(KERN_INFO "nf10_eth_driver: NetFPGA-10G Ethernet Driver version %s Loaded in Hardware Ghosting Mode.\n", NF10_ETH_DRIVER_VERSION);
 #endif
-
+ 
     return 0;
 }
 
@@ -2115,7 +2133,7 @@ static void __exit nf10_eth_driver_exit(void)
 
     /* Stop the polling timer for receiving packets. */
     del_timer(&rx_poll_timer);
-
+    
     remove_proc_entry("driver/nf10_eth_driver", NULL);
 
     err = genl_unregister_family(&nf10_genl_family);
@@ -2124,10 +2142,10 @@ static void __exit nf10_eth_driver_exit(void)
 
     for(i = 0; i < NUM_NETDEVS; i++) {
         unregister_netdev(nf10_netdevs[i]);
-    }
+    } 
 
     netif_napi_del(&nf10_napi_struct);
-
+    
     for(i = 0; i < NUM_NETDEVS; i++) {
         free_netdev(nf10_netdevs[i]);
     }
