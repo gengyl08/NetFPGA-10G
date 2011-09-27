@@ -156,7 +156,7 @@ def print_project_pcore_version_report( projects_dir, pcores ):
 
     print '3.  Project pcore use report: written to %s' % PCORE_MANIFEST
     with open( os.path.expanduser( PCORE_MANIFEST ), 'w' ) as f:
-        print >>f, '\n'.join( '%s,%s' % (project, pcore) for pcore in cores_used[project] for project in cores_used )
+        print >>f, '\n'.join( '%s,%s' % (project, pcore) for project in cores_used for pcore in cores_used[project] )
 
 
 def main():
