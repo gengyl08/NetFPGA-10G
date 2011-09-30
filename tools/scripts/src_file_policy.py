@@ -183,7 +183,7 @@ http://www.gnu.org/licenses/.""".splitlines()
 
 all_styles = re.compile( '^[%s]+' % ''.join( x.strip()[0] for x in filter( lambda x: x is not None,
                                                                            sum( ([s,m] for s, _, m, _ in COM_STYLES.values()), [] ) ) ) )
-def replace_file( base_pkg, rel_filename, really, successes, ignored, noheader, failures, warnings, forbidden ):
+def replace_header( tree, really, successes, ignored, noheader, failures, warnings, forbidden, filename ):
     """
     Parse and replace header of a single file, but only if really sure.
     """
@@ -225,10 +225,11 @@ def replace_file( base_pkg, rel_filename, really, successes, ignored, noheader, 
 
     # Get file type and associated information.  Handle ignored and forbidden
     # (ie, unknown) file types.
-    extn = os.path.splitext( rel_filename )[1]
+    rel_filename = filename[len(tree)+1:]
+    extn = os.path.splitext( filename )[1]
     if not extn:
         # No extension, so use whole filename
-        extn = os.path.basename( rel_filename )
+        extn = os.path.basename( filename )
     if extn in IGNORE:
         ignored.setdefault( extn, [] ).append( rel_filename )
         return 0
@@ -246,7 +247,7 @@ def replace_file( base_pkg, rel_filename, really, successes, ignored, noheader, 
     section = ''
     nf10g_banner_seen = False
     tab_in_hdr_seen   = False
-    with open( os.path.join( base_pkg, rel_filename ) as f:
+    with open( filename ) as f:
         # Get interpreter (which must be 1st line of file), if any, and check
         # against policy requirements
         try:
@@ -310,7 +311,7 @@ def replace_file( base_pkg, rel_filename, really, successes, ignored, noheader, 
         # altogether, in which case 'author' will also be missing.  Either way
         # it should be left alone.
         if not nf10g_banner_seen:
-            noheader.append( rel_filename )
+            noheader.append( filename )
             return 0
         if 'copyright notice' not in header:
             header['copyright notice'] = stanford_copyright
@@ -333,7 +334,7 @@ def replace_file( base_pkg, rel_filename, really, successes, ignored, noheader, 
         if tab_in_hdr_seen:
             warn_flags.append( 'tab_in_hdr' )
         # Set filename appropriately
-        header['file'] = [os.path.basename( rel_filename )]
+        header['file'] = [os.path.basename( filename )]
         # Set section project or library, based on file path
         rel_elts = rel_filename.split( os.path.sep )
         if rel_elts[0] == 'projects':
@@ -406,7 +407,7 @@ def replace_file( base_pkg, rel_filename, really, successes, ignored, noheader, 
         successes.setdefault( extn, [] ).append( rel_filename )
     # Write file back out, if not dry-run
     if really:
-        with open( os.path.join( base_pkg, filename ), 'w' ) as f:
+        with open( filename, 'w' ) as f:
             f.writelines( '%s\n' % line for line in text )
     return 1
 
@@ -425,7 +426,7 @@ def replace_all_in_tree( tree, really, successes, ignored, noheader, failures, w
             pass
 
         for file in files:
-            count += replace_file( base_pkg, really, successes, ignored, noheader, failures, warnings, forbidden,
+            count += replace_header( tree, really, successes, ignored, noheader, failures, warnings, forbidden,
                             os.path.join( root, file ) )
     return count
 
@@ -485,7 +486,7 @@ CAUTION: *no* backup of input is made before it is rewritten.
                 print '%s: %s: is directory' % (prog_name, file)
                 print '%s: recursion into explicit targets not supported' % prog_name
                 continue
-            count += replace_file( tree, opts.really, successes, ignored, noheader, failures, warnings, forbidden,
+            count += replace_header( tree, opts.really, successes, ignored, noheader, failures, warnings, forbidden,
                             os.path.join( tree, subdir, file ) )
     else:
         tree  = os.path.dirname( os.path.dirname( os.path.dirname( os.path.abspath( argv[0] ) ) ) )
@@ -556,7 +557,3 @@ Wrote out logs:
 prog_name = os.path.basename( sys.argv[0] )
 if __name__ == '__main__':
     main( sys.argv )
-
-
-    rel_filename = filename[len(base_pkg)+1:]
-    
