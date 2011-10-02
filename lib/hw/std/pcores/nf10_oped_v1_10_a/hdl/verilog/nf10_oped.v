@@ -30,10 +30,10 @@
 module nf10_oped # 
 
   ( // OPED accepts the MPD-named paramater specifications...
-  parameter                              C_M_AXIS_DAT_DATA_WIDTH = 32,
-  parameter                              C_S_AXIS_DAT_DATA_WIDTH = 32,
-  parameter                              C_M_AXIS_DAT_TUSER_WIDTH = 128,
-  parameter                              C_S_AXIS_DAT_TUSER_WIDTH = 128,
+  parameter                              C_M_AXIS_DATA_WIDTH = 32,
+  parameter                              C_S_AXIS_DATA_WIDTH = 32,
+  parameter                              C_M_AXIS_TUSER_WIDTH = 128,
+  parameter                              C_S_AXIS_TUSER_WIDTH = 128,
     parameter C_DEFAULT_VALUE_ENABLE = 0,
     parameter C_DEFAULT_SRC_PORT = 0,
     parameter C_DEFAULT_DST_PORT = 0)
@@ -72,16 +72,16 @@ module nf10_oped #
   input                                  M_AXI_RVALID,
   output                                 M_AXI_RREADY,
 
-  output [C_M_AXIS_DAT_DATA_WIDTH-1:0]   M_AXIS_DAT_TDATA,    // AXI4-Stream (Ingress from PCIe) Master-Producer...
-  output [C_M_AXIS_DAT_DATA_WIDTH/8-1:0] M_AXIS_DAT_TSTRB,
-  output [C_M_AXIS_DAT_TUSER_WIDTH-1:0]   M_AXIS_DAT_TUSER, 
+  output [C_M_AXIS_DATA_WIDTH-1:0]   M_AXIS_DAT_TDATA,    // AXI4-Stream (Ingress from PCIe) Master-Producer...
+  output [C_M_AXIS_DATA_WIDTH/8-1:0] M_AXIS_DAT_TSTRB,
+  output [C_M_AXIS_TUSER_WIDTH-1:0]   M_AXIS_DAT_TUSER, 
   output                                 M_AXIS_DAT_TLAST,
   output                                 M_AXIS_DAT_TVALID,
   input                                  M_AXIS_DAT_TREADY,
 
-  input  [C_S_AXIS_DAT_DATA_WIDTH-1:0]   S_AXIS_DAT_TDATA,    // AXI4-Stream (Egress to PCIe) Slave-Consumer...
-  input  [C_S_AXIS_DAT_DATA_WIDTH/8-1:0] S_AXIS_DAT_TSTRB,
-  input  [C_S_AXIS_DAT_TUSER_WIDTH-1:0]   S_AXIS_DAT_TUSER, 
+  input  [C_S_AXIS_DATA_WIDTH-1:0]   S_AXIS_DAT_TDATA,    // AXI4-Stream (Egress to PCIe) Slave-Consumer...
+  input  [C_S_AXIS_DATA_WIDTH/8-1:0] S_AXIS_DAT_TSTRB,
+  input  [C_S_AXIS_TUSER_WIDTH-1:0]   S_AXIS_DAT_TUSER, 
   input                                  S_AXIS_DAT_TLAST,
   input                                  S_AXIS_DAT_TVALID,
   output                                 S_AXIS_DAT_TREADY,
@@ -97,43 +97,43 @@ module nf10_oped #
 // This adaptation layer may be removed at a later date when it is clear it is not needed
 //
 
-  localparam                              C_M_AXIS_DAT_DATA_WIDTH_OPED = 32;
-  localparam                              C_S_AXIS_DAT_DATA_WIDTH_OPED = 32;
-  localparam                              C_M_AXIS_DAT_TUSER_WIDTH_OPED = 128;
-  localparam                              C_S_AXIS_DAT_TUSER_WIDTH_OPED = 128;
+  localparam                              C_M_AXIS_DATA_WIDTH_OPED = 32;
+  localparam                              C_S_AXIS_DATA_WIDTH_OPED = 32;
+  localparam                              C_M_AXIS_TUSER_WIDTH_OPED = 128;
+  localparam                              C_S_AXIS_TUSER_WIDTH_OPED = 128;
 
 // Compile time check for expected paramaters...
 initial begin
-  if (C_M_AXIS_DAT_DATA_WIDTH_OPED != 32)  begin $display("Unsupported M_AXIS_DAT DATA width"); $finish; end
-  if (C_S_AXIS_DAT_DATA_WIDTH_OPED != 32)  begin $display("Unsupported S_AXIS_DAT DATA width"); $finish; end
-  if (C_M_AXIS_DAT_TUSER_WIDTH_OPED != 128) begin $display("Unsupported M_AXIS_DAT USER width"); $finish; end
-  if (C_S_AXIS_DAT_TUSER_WIDTH_OPED != 128) begin $display("Unsupported S_AXIS_DAT USER width"); $finish; end
+  if (C_M_AXIS_DATA_WIDTH_OPED != 32)  begin $display("Unsupported M_AXIS_DAT DATA width"); $finish; end
+  if (C_S_AXIS_DATA_WIDTH_OPED != 32)  begin $display("Unsupported S_AXIS_DAT DATA width"); $finish; end
+  if (C_M_AXIS_TUSER_WIDTH_OPED != 128) begin $display("Unsupported M_AXIS_DAT USER width"); $finish; end
+  if (C_S_AXIS_TUSER_WIDTH_OPED != 128) begin $display("Unsupported S_AXIS_DAT USER width"); $finish; end
 end
 
-  wire [C_M_AXIS_DAT_DATA_WIDTH_OPED-1:0]   M_AXIS_DAT_TDATA_OPED;    // AXI4-Stream (Ingress from PCIe) Master-Producer...
-  wire [C_M_AXIS_DAT_DATA_WIDTH_OPED/8-1:0] M_AXIS_DAT_TSTRB_OPED;
-  wire [C_M_AXIS_DAT_TUSER_WIDTH_OPED-1:0]   M_AXIS_DAT_TUSER_OPED; 
+  wire [C_M_AXIS_DATA_WIDTH_OPED-1:0]   M_AXIS_DAT_TDATA_OPED;    // AXI4-Stream (Ingress from PCIe) Master-Producer...
+  wire [C_M_AXIS_DATA_WIDTH_OPED/8-1:0] M_AXIS_DAT_TSTRB_OPED;
+  wire [C_M_AXIS_TUSER_WIDTH_OPED-1:0]   M_AXIS_DAT_TUSER_OPED; 
   wire                                 M_AXIS_DAT_TLAST_OPED;
   wire                                 M_AXIS_DAT_TVALID_OPED;
   wire                                 M_AXIS_DAT_TREADY_OPED;
 
-  wire  [C_S_AXIS_DAT_DATA_WIDTH_OPED-1:0]   S_AXIS_DAT_TDATA_OPED;    // AXI4-Stream (Egress to PCIe) Slave-Consumer...
-  wire  [C_S_AXIS_DAT_DATA_WIDTH_OPED/8-1:0] S_AXIS_DAT_TSTRB_OPED;
-  wire  [C_S_AXIS_DAT_TUSER_WIDTH_OPED-1:0]   S_AXIS_DAT_TUSER_OPED; 
+  wire  [C_S_AXIS_DATA_WIDTH_OPED-1:0]   S_AXIS_DAT_TDATA_OPED;    // AXI4-Stream (Egress to PCIe) Slave-Consumer...
+  wire  [C_S_AXIS_DATA_WIDTH_OPED/8-1:0] S_AXIS_DAT_TSTRB_OPED;
+  wire  [C_S_AXIS_TUSER_WIDTH_OPED-1:0]   S_AXIS_DAT_TUSER_OPED; 
   wire                                  S_AXIS_DAT_TLAST_OPED;
   wire                                  S_AXIS_DAT_TVALID_OPED;
   wire                                  S_AXIS_DAT_TREADY_OPED;
 
-  wire [C_M_AXIS_DAT_DATA_WIDTH-1:0]   M_AXIS_DAT_TDATA_FIFO;
-  wire [C_M_AXIS_DAT_DATA_WIDTH/8-1:0] M_AXIS_DAT_TSTRB_FIFO;
-  wire [C_M_AXIS_DAT_TUSER_WIDTH-1:0]   M_AXIS_DAT_TUSER_FIFO; 
+  wire [C_M_AXIS_DATA_WIDTH-1:0]   M_AXIS_DAT_TDATA_FIFO;
+  wire [C_M_AXIS_DATA_WIDTH/8-1:0] M_AXIS_DAT_TSTRB_FIFO;
+  wire [C_M_AXIS_TUSER_WIDTH-1:0]   M_AXIS_DAT_TUSER_FIFO; 
   wire                                 M_AXIS_DAT_TLAST_FIFO;
   wire                                 M_AXIS_DAT_TVALID_FIFO;
   wire                                 M_AXIS_DAT_TREADY_FIFO;
 
-  wire  [C_S_AXIS_DAT_DATA_WIDTH-1:0]   S_AXIS_DAT_TDATA_FIFO;
-  wire  [C_S_AXIS_DAT_DATA_WIDTH/8-1:0] S_AXIS_DAT_TSTRB_FIFO;
-  wire  [C_S_AXIS_DAT_TUSER_WIDTH-1:0]   S_AXIS_DAT_TUSER_FIFO; 
+  wire  [C_S_AXIS_DATA_WIDTH-1:0]   S_AXIS_DAT_TDATA_FIFO;
+  wire  [C_S_AXIS_DATA_WIDTH/8-1:0] S_AXIS_DAT_TSTRB_FIFO;
+  wire  [C_S_AXIS_TUSER_WIDTH-1:0]   S_AXIS_DAT_TUSER_FIFO; 
   wire                                  S_AXIS_DAT_TLAST_FIFO;
   wire                                  S_AXIS_DAT_TVALID_FIFO;
   wire                                  S_AXIS_DAT_TREADY_FIFO;
@@ -189,8 +189,8 @@ end
 );
 
     nf10_axis_converter 
-    #(.C_M_AXIS_DATA_WIDTH(C_M_AXIS_DAT_DATA_WIDTH),
-      .C_S_AXIS_DATA_WIDTH(C_M_AXIS_DAT_DATA_WIDTH_OPED),
+    #(.C_M_AXIS_DATA_WIDTH(C_M_AXIS_DATA_WIDTH),
+      .C_S_AXIS_DATA_WIDTH(C_M_AXIS_DATA_WIDTH_OPED),
       .C_DEFAULT_VALUE_ENABLE(C_DEFAULT_VALUE_ENABLE),
       .C_DEFAULT_SRC_PORT(C_DEFAULT_SRC_PORT),
       .C_DEFAULT_DST_PORT(C_DEFAULT_DST_PORT)
@@ -218,8 +218,8 @@ end
    );
 
     nf10_axis_converter 
-    #(.C_M_AXIS_DATA_WIDTH(C_S_AXIS_DAT_DATA_WIDTH_OPED),
-      .C_S_AXIS_DATA_WIDTH(C_S_AXIS_DAT_DATA_WIDTH)
+    #(.C_M_AXIS_DATA_WIDTH(C_S_AXIS_DATA_WIDTH_OPED),
+      .C_S_AXIS_DATA_WIDTH(C_S_AXIS_DATA_WIDTH)
      ) converter_slave
     (
     // Global Ports
@@ -244,8 +244,8 @@ end
    );
    
     axisFIFO 
-    #(.C_AXIS_DATA_WIDTH(C_S_AXIS_DAT_DATA_WIDTH),
-      .C_AXIS_USER_WIDTH(C_S_AXIS_DAT_TUSER_WIDTH)
+    #(.C_AXIS_DATA_WIDTH(C_S_AXIS_DATA_WIDTH),
+      .C_AXIS_USER_WIDTH(C_S_AXIS_TUSER_WIDTH)
      ) fifo_slave
     (    
     // Master Stream Ports
@@ -269,8 +269,8 @@ end
    );
 
     axisFIFO 
-    #(.C_AXIS_DATA_WIDTH(C_M_AXIS_DAT_DATA_WIDTH),
-      .C_AXIS_USER_WIDTH(C_M_AXIS_DAT_TUSER_WIDTH)
+    #(.C_AXIS_DATA_WIDTH(C_M_AXIS_DATA_WIDTH),
+      .C_AXIS_USER_WIDTH(C_M_AXIS_TUSER_WIDTH)
      ) fifo_master
     (    
     // Master Stream Ports
