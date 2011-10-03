@@ -51,6 +51,8 @@
 #
 #
 
+from __future__ import with_statement
+
 import os
 import sys
 
@@ -65,25 +67,28 @@ from scapy.layers.all import Ether, IP, TCP
 
 
 pkts=[]
-f0 = open( os.path.join( script_dir, 'nf10_oped_0_stim.axi'          ), 'w' )
-f1 = open( os.path.join( script_dir, 'nf10_10g_interface_0_stim.axi' ), 'w' )
-f2 = open( os.path.join( script_dir, 'nf10_10g_interface_1_stim.axi' ), 'w' )
-f3 = open( os.path.join( script_dir, 'nf10_10g_interface_2_stim.axi' ), 'w' )
-f4 = open( os.path.join( script_dir, 'nf10_10g_interface_3_stim.axi' ), 'w' )
-
 # A simple TCP/IP packet embedded in an Ethernet II frame
-for i in range(0, 10):
+for i in range(8):
     pkt = (Ether(src='11:22:33:44:55:66', dst='77:88:99:aa:bb:cc')/
            IP(src='192.168.1.1', dst='192.168.1.2')/
            TCP()/
            'Hello, NetFPGA-10G!')
-    pkt.time = i*(1e-8)
+    pkt.time        = i*(1e-8)
+    # Set source network interface for oped stream
+    pkt.tuser_sport = 1 << (i%4*2 + 1) # PCI ports are odd-numbered
     pkts.append(pkt)
 
-
-# Write out to console
-axitools.axis_dump( pkts, f0, 256, 1e-9 )
-axitools.axis_dump( pkts, f1, 256, 1e-9, sport = 0 )
-axitools.axis_dump( pkts, f2, 256, 1e-9, sport = 1 )
-axitools.axis_dump( pkts, f3, 256, 1e-9, sport = 2 )
-axitools.axis_dump( pkts, f4, 256, 1e-9, sport = 3 )
+# PCI interface
+with open( os.path.join( script_dir, 'nf10_oped_0_stim.axi' ), 'w' ) as f:
+    axitools.axis_dump( pkts, f, 256, 1e-9 )
+with open( os.path.join( script_dir, 'nf10_oped_0_expected.axi' ), 'w' ) as f:
+    axitools.axis_dump( pkts*4, f, 256, 1e-9 )
+# 10g interfaces
+for i in range(4):
+    # replace source port
+    for pkt in pkts:
+        pkt.tuser_sport = 1 << (i*2) # physical ports are even-numbered
+    with open( os.path.join( script_dir, 'nf10_10g_interface_%d_stim.axi' % i ), 'w' ) as f:
+        axitools.axis_dump( pkts, f, 256, 1e-9 )
+    with open( os.path.join( script_dir, 'nf10_10g_interface_%d_expected.axi' % i ), 'w' ) as f:
+        axitools.axis_dump( pkts[0:2], f, 256, 1e-9 )

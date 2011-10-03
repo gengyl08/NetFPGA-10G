@@ -318,7 +318,8 @@ sim: axi_model
 	./make_pkts.py
 	cp nf10/system_axisim_tb.v simulation/behavioral
 	cd simulation/behavioral && $(AXISIM_FUSE)
-	cd simulation/behavioral && $(AXISIM_CMD) -gui -tclbatch system_axisim_setup.tcl &
+	cd simulation/behavioral && $(AXISIM_CMD) -gui -tclbatch system_axisim_setup.tcl
+	nf10_sim_reconcile_axi_logs.py
 
 system_incl.make:
 	@echo exit|xps -nw system.xmp
