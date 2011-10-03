@@ -39,8 +39,8 @@ import sys
 
 # under cygwin, there is no hardware support - so suppress hardware initialisation
 if sys.platform.startswith('cygwin'):
-        import scapy.config
-        scapy.config.conf.iface = ''
+    import scapy.config
+    scapy.config.conf.iface = ''
 
 from scapy.layers.all import Ether
 
@@ -58,12 +58,19 @@ class BadAXIDataException( Exception ):
         return '%s: %d: bad AXI data: %s' % (self.filename, self.lineno, self.msg)
 
 
-def axis_dump( packets, f, bus_width, period,
-               sport = None, dport = None, tuser_width = 128 ):
+def axis_dump( packets, f, bus_width, period, tuser_width = 128 ):
     """
     Dumps the list of packets to an AXI Stream-grammar formatted text file.
-    Optionally set SPORT/DPORT fields in TUSER.
+    Attribute .tuser (array of 128-bit integers) will supply TUSER if present,
+    and .tuser_sport and .tuser_dport, if present, will be applied (overriding)
+    any .tuser.
     """
+    def tuser_mask( partial_mask ):
+        """
+        Returns a full, tuser-width mask from partial_mask
+        """
+        return int( ('%x' % partial_mask).rjust( tuser_width/4, 'f' ), 16 )
+
     if bus_width % 8 != 0:
         print "bus_width must be a multiple of 8!"
         return
@@ -79,6 +86,25 @@ def axis_dump( packets, f, bus_width, period,
             if (int(packet.time * 1e9)-last_ts) > 0 :
                 f.write( '+ %d\n' % (int(packet.time * 1e9)-last_ts) )
         last_ts = int(packet.time * 1e9)
+
+        # Set up TUSER
+        if hasattr( packet, 'tuser' ):
+            if type(packet.tuser) == list and type(packet.tuser[0]) == int:
+                tuser = packet.tuser
+            elif type(packet.tuser) == int:
+                tuser = [packet.tuser]
+            elif type(packet.tuser) == str:
+                tuser = [int(packet.tuser, 16)]
+            else:
+                raise TypeError( 'bad tuser data (not an array of ints)' )
+        else:
+            tuser = [0]
+        # Override length, sport, dport fields as appropriate
+        tuser[0] = (tuser[0] & tuser_mask(0xffffff0000) ) | len(packet)
+        if hasattr( packet, 'tuser_sport' ):
+            tuser[0] = (tuser[0] & tuser_mask(0xffff00ffff) ) | (packet.tuser_sport << 16)
+        if hasattr( packet, 'tuser_dport' ):
+            tuser[0] = (tuser[0] & tuser_mask(0xff00ffffff) ) | (packet.tuser_dport << 24)
 
         # Turn into a list of bytes
         packet = [ord(x) for x in str(packet)]
@@ -98,20 +124,12 @@ def axis_dump( packets, f, bus_width, period,
             else:
                 terminal = ','
 
-            tuser = [0] * (tuser_width/8)
-            if i == 0:
-                if dport is not None:
-                    tuser[3] = dport
-                if sport is not None:
-                    tuser[2] = sport
-                tuser[1] = len(packet) >> 8
-                tuser[0] = len(packet) & 0xff
-                tuser.reverse()                        # Make index 0 LSB
-
+            # Add TUSER pad to guarantee something is there to pop
+            tuser.append(0)
             f.write( '%s, %s, %s%s\n' % (
                     ''.join( '%02x' % x for x in word ),                # TDATA
                     ('%x' % (strb_mask >> padding)).zfill(bus_width/4), # TSTRB
-                    ''.join( '%02x' % x for x in tuser ),               # TUSER
+                    ('%x' % tuser.pop(0)).zfill(tuser_width/4),         # TUSER
                     terminal ) )                                        # TLAST
 
             # one clock tick
@@ -119,10 +137,15 @@ def axis_dump( packets, f, bus_width, period,
         f.write( '\n' )
 
 
-def axis_load( f, bus_width, period ):
+def axis_load( f, period ):
     """
     Loads packets from an AXI Stream-grammar formatted text file as a list of
-    Scapy packet instances.
+    Scapy packet instances.  The following extra attributes are added to each
+    instance:
+        .tuser          raw contents of TUSER, stored as array of 128-bit ints
+        .tuser_len      packet length (from TUSER)
+        .tuser_sport    source port (one-hot, from TUSER)
+        .tuser_dport    dest port (one-hot, from TUSER)
     """
     def as_bytes(x):
         """
@@ -130,12 +153,10 @@ def axis_load( f, bus_width, period ):
         """
         return [int(x[i:i+2],16) for i in range(0,len(x),2)]
 
-    if bus_width % 8 != 0:
-        print "bus_width must be a multiple of 8!"
-        return
-
+    bus_width = None
     time = 0
     pkt_data = []
+    tuser = []
     pkts = []
     for lno, line in enumerate(f):
         lno += 1
@@ -169,21 +190,28 @@ def axis_load( f, bus_width, period ):
 
             # handle start of packet
             if not pkt_data:
-                tuser = as_bytes( line[2] ) # store TUSER (only valid on first cycle)
-                tuser.reverse()
                 SoP_time = time
-            # accumulate packet data
+            if bus_width is None:
+                bus_width = len(line[0]) * 4
+                if math.log(bus_width,2) - int(math.log(bus_width,2)) != 0:
+                    print '%s: data bus not a power of two in width' % f.name
+            # accumulate packet and TUSER data
             pkt_data += reversed( as_bytes( line[0].zfill( bus_width/4 ) ) )
+            tuser.append( int( line[2], 16 ) )
             # handle end of packet
             if terminal == '.':
                 valid_bytes = int( math.log( int(line[1], 16)+1, 2 ) )
                 if valid_bytes < bus_width/8: # trim off any padding
                     del pkt_data[valid_bytes-bus_width/8:]
                 pkts.append( Ether( ''.join( [chr(x) for x in pkt_data] ) ) )
-                pkts[-1].time = SoP_time
+                pkts[-1].time        =  SoP_time
+                pkts[-1].tuser       =  tuser
+                pkts[-1].tuser_len   =  tuser[0] & 0xffff
+                pkts[-1].tuser_sport = (tuser[0] >> 16) & 0xff
+                pkts[-1].tuser_dport = (tuser[0] >> 24) & 0xff
                 pkt_data = []
-                meta_len = tuser[1] << 8 | tuser[0]
-                if len(pkts[-1]) != meta_len:
+                tuser    = []
+                if len(pkts[-1]) != pkts[-1].tuser_len:
                     print '%s: %d: #%d: warning: meta length (%d) disagrees with actual length (%d)' % (f.name, lno, len(pkts), meta_len, len(pkts[-1]))
             time += period
     return pkts
