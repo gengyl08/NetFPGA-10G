@@ -1,0 +1,203 @@
+
+# ##############################################################################
+# Created by Base System Builder Wizard for Xilinx EDK 12.3 Build EDK_MS3.70d
+# Wed Oct 13 08:18:57 2010
+# Target Board:  xilinx.com ml605 Rev 1.0
+# Family:    virtex6
+# Device:    xc6vlx240t
+# Package:   ff1156
+# Speed Grade:  -1
+# ##############################################################################
+ PARAMETER VERSION = 2.1.0
+
+
+ PORT RESET = RESET, DIR = I, SIGIS = RST, RST_POLARITY = 0
+ PORT nf10_oped_0_PCIE_TXP_pin = nf10_oped_0_PCIE_TXP, DIR = O, VEC = [7:0]
+ PORT nf10_oped_0_PCIE_TXN_pin = nf10_oped_0_PCIE_TXN, DIR = O, VEC = [7:0]
+ PORT nf10_oped_0_PCIE_RXP_pin = nf10_oped_0_PCIE_RXP, DIR = I, VEC = [7:0]
+ PORT nf10_oped_0_PCIE_RXN_pin = nf10_oped_0_PCIE_RXN, DIR = I, VEC = [7:0]
+ PORT nf10_oped_0_PCIE_CLKP_pin = nf10_oped_0_PCIE_CLKP, DIR = I, SIGIS = CLK
+ PORT nf10_oped_0_PCIE_CLKN_pin = nf10_oped_0_PCIE_CLKN, DIR = I, SIGIS = CLK
+ PORT CLK = dcm_clk_s, DIR = I, SIGIS = CLK, CLK_FREQ = 100000000
+ PORT axi_emc_0_Mem_A_pin = axi_emc_0_Mem_A, DIR = O, VEC = [23:0]
+ PORT axi_emc_0_Mem_CEN_pin = axi_emc_0_Mem_CEN, DIR = O, VEC = [0:0]
+ PORT axi_emc_0_Mem_OEN_pin = axi_emc_0_Mem_OEN, DIR = O, VEC = [0:0]
+ PORT axi_emc_0_Mem_WEN_pin = axi_emc_0_Mem_WEN, DIR = O
+ PORT axi_emc_0_Mem_DQ_pin = axi_emc_0_Mem_DQ, DIR = IO, VEC = [31:0]
+ PORT axi_cfg_fpga_0_GPIO_IO_pin = axi_cfg_fpga_0_GPIO_IO, DIR = IO, VEC = [0:0]
+
+
+BEGIN proc_sys_reset
+ PARAMETER INSTANCE = reset_0
+ PARAMETER HW_VER = 3.00.a
+ PARAMETER C_EXT_RESET_HIGH = 0
+ PORT Ext_Reset_In = RESET
+ PORT MB_Reset = microblaze_0_Reset_reset_0_Reset_0_adhoc
+ PORT Slowest_sync_clk = clk_50_0000MHzMMCM0
+ PORT BUS_STRUCT_RESET = sys_bus_reset
+ PORT Dcm_locked = dcm_locked
+ PORT Peripheral_aresetn = reset_0_Peripheral_aresetn
+ PORT Interconnect_aresetn = reset_0_Interconnect_aresetn
+END
+
+BEGIN nf10_oped
+ PARAMETER INSTANCE = nf10_oped_0
+ PARAMETER HW_VER = 1.10.a
+ BUS_INTERFACE M_AXI = axi_interconnect_0
+ BUS_INTERFACE M_AXIS = nf10_oped_0_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_oped_0_M_AXIS
+ PORT PCIE_TXP = nf10_oped_0_PCIE_TXP
+ PORT PCIE_TXN = nf10_oped_0_PCIE_TXN
+ PORT PCIE_RXP = nf10_oped_0_PCIE_RXP
+ PORT PCIE_RXN = nf10_oped_0_PCIE_RXN
+ PORT PCIE_CLKP = nf10_oped_0_PCIE_CLKP
+ PORT PCIE_CLKN = nf10_oped_0_PCIE_CLKN
+ PORT PCIE_RSTN = RESET
+ PORT ACLK = clk_100_0000MHz
+ PORT ACLK_OPED = nf10_oped_0_ACLK
+ PORT ARESETN = reset_0_Peripheral_aresetn
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = microblaze_0_ilmb
+ PARAMETER HW_VER = 1.00.a
+ PORT SYS_RST = sys_bus_reset
+ PORT LMB_CLK = clk_100_0000MHz
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_i_bram_ctrl
+ PARAMETER HW_VER = 2.10.b
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x00003fff
+ BUS_INTERFACE SLMB = microblaze_0_ilmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_i_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = microblaze_0_dlmb
+ PARAMETER HW_VER = 1.00.a
+ PORT SYS_RST = sys_bus_reset
+ PORT LMB_CLK = clk_100_0000MHz
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_d_bram_ctrl
+ PARAMETER HW_VER = 2.10.b
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x00003fff
+ BUS_INTERFACE SLMB = microblaze_0_dlmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_d_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = microblaze_0_bram_block
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTA = microblaze_0_i_bram_ctrl_2_microblaze_0_bram_block
+ BUS_INTERFACE PORTB = microblaze_0_d_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN microblaze
+ PARAMETER INSTANCE = microblaze_0
+ PARAMETER HW_VER = 8.00.b
+ PARAMETER C_INTERCONNECT = 2
+ PARAMETER C_USE_BARREL = 1
+ PARAMETER C_USE_FPU = 0
+ PARAMETER C_DEBUG_ENABLED = 0
+ PARAMETER C_ICACHE_BASEADDR = 0X00000000
+ PARAMETER C_ICACHE_HIGHADDR = 0X3FFFFFFF
+ PARAMETER C_USE_ICACHE = 0
+ PARAMETER C_ICACHE_ALWAYS_USED = 0
+ PARAMETER C_DCACHE_BASEADDR = 0X00000000
+ PARAMETER C_DCACHE_HIGHADDR = 0X3FFFFFFF
+ PARAMETER C_USE_DCACHE = 0
+ PARAMETER C_DCACHE_ALWAYS_USED = 0
+ PARAMETER C_INTERCONNECT_M_AXI_DC_AW_REGISTER = 0
+ PARAMETER C_INTERCONNECT_M_AXI_DC_W_REGISTER = 0
+ PARAMETER C_USE_HW_MUL = 0
+ BUS_INTERFACE DLMB = microblaze_0_dlmb
+ BUS_INTERFACE ILMB = microblaze_0_ilmb
+ BUS_INTERFACE M_AXI_DP = axi_interconnect_0
+ PORT MB_RESET = microblaze_0_Reset_reset_0_Reset_0_adhoc
+END
+
+BEGIN clock_generator
+ PARAMETER INSTANCE = clock_generator_0
+ PARAMETER HW_VER = 4.00.a
+ PARAMETER C_CLKIN_FREQ = 100000000
+ PARAMETER C_CLKOUT0_FREQ = 50000000
+ PARAMETER C_CLKOUT0_GROUP = NONE
+ PARAMETER C_EXT_RESET_HIGH = 0
+ PARAMETER C_CLKOUT1_FREQ = 100000000
+ PARAMETER C_CLKOUT2_FREQ = 100000000
+ PORT CLKIN = dcm_clk_s
+ PORT CLKOUT0 = clk_50_0000MHzMMCM0
+ PORT RST = RESET
+ PORT LOCKED = dcm_locked
+ PORT CLKOUT1 = clk_100_0000MHz
+END
+
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = axi_interconnect_0
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 0
+ PORT INTERCONNECT_ACLK = clk_100_0000MHz
+ PORT INTERCONNECT_ARESETN = reset_0_Interconnect_aresetn
+END
+
+BEGIN axi_emc
+ PARAMETER INSTANCE = axi_emc_0
+ PARAMETER HW_VER = 1.01.a
+ PARAMETER C_NUM_BANKS_MEM = 1
+ PARAMETER C_MEM0_WIDTH = 32
+ PARAMETER C_INCLUDE_DATAWIDTH_MATCHING_0 = 0
+ PARAMETER C_MEM0_TYPE = 2
+ PARAMETER C_TCEDV_PS_MEM_0 = 130000
+ PARAMETER C_TAVDV_PS_MEM_0 = 130000
+ PARAMETER C_THZCE_PS_MEM_0 = 35000
+ PARAMETER C_TWC_PS_MEM_0 = 13000
+ PARAMETER C_TWP_PS_MEM_0 = 70000
+ PARAMETER C_TLZWE_PS_MEM_0 = 35000
+ PARAMETER C_MAX_MEM_WIDTH = 32
+ PARAMETER C_S_AXI_MEM_PROTOCOL = axi4lite
+ PARAMETER C_S_AXI_MEM_ID_WIDTH = 1
+ PARAMETER C_S_AXI_MEM0_BASEADDR = 0x80000000
+ PARAMETER C_S_AXI_MEM0_HIGHADDR = 0x83FFFFFF
+ BUS_INTERFACE S_AXI_MEM = axi_interconnect_0
+ PORT S_AXI_ACLK = clk_100_0000MHz
+ PORT RdClk = clk_100_0000MHz
+ PORT Mem_WEN = axi_emc_0_Mem_WEN
+ PORT Mem_OEN = axi_emc_0_Mem_OEN
+ PORT Mem_CEN = axi_emc_0_Mem_CEN
+ PORT Mem_DQ = axi_emc_0_Mem_DQ
+ PORT Mem_A = 0b000000 & axi_emc_0_Mem_A & 0b00
+END
+
+BEGIN chipscope_icon
+ PARAMETER INSTANCE = chipscope_icon_0
+ PARAMETER HW_VER = 1.04.a
+ PORT control0 = chipscope_icon_0_control0
+END
+
+BEGIN chipscope_axi_monitor
+ PARAMETER INSTANCE = chipscope_axi_monitor_0
+ PARAMETER HW_VER = 1.01.a
+ PARAMETER C_NUM_DATA_SAMPLES = 1024
+ PARAMETER C_MAX_SEQUENCER_LEVELS = 2
+ BUS_INTERFACE MON_AXI = axi_emc_0.S_AXI_MEM
+ PORT CHIPSCOPE_ICON_CONTROL = chipscope_icon_0_control0
+END
+
+BEGIN axi_gpio
+ PARAMETER INSTANCE = axi_cfg_fpga_0
+ PARAMETER HW_VER = 1.01.a
+ PARAMETER C_GPIO_WIDTH = 1
+ PARAMETER C_DOUT_DEFAULT = 0xFFFFFFFF
+ PARAMETER C_TRI_DEFAULT = 0x00000000
+ PARAMETER C_BASEADDR = 0x40000000
+ PARAMETER C_HIGHADDR = 0x40000FFF
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT S_AXI_ACLK = clk_100_0000MHz
+ PORT GPIO_IO = axi_cfg_fpga_0_GPIO_IO
+END
+
