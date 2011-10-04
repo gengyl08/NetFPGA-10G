@@ -5,6 +5,9 @@
  * Description:
  *  Set of definitions for the NF10 register access library.
  *
+ * Author:
+ *	Jonathan Ellithorpe
+ *
  * Revision history: 
  *  2011/07/06 Jonathan Ellithorpe: Created.
  */

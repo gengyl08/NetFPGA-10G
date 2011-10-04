@@ -7,6 +7,9 @@
  *  These definitions are used in setting up generic netlink connections
  *  between userspace software and the linux kernel driver.
  *
+ * Author:
+ *	Jonathan Ellithorpe
+ *
  * Revision history: 
  *  2011/07/06 Jonathan Ellithorpe: Created.
  */

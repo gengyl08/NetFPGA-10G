@@ -5,6 +5,9 @@
  * Description:
  *  Set of definitions for the NF10 reference NIC driver.
  * 
+ * Author:
+ *	Jonathan Ellithorpe
+ *
  * Revision history:
  *  2011/07/07 Jonathan Ellithorpe: Created.
  */

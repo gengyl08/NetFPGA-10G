@@ -15,6 +15,9 @@
  *  functions. You must install this library into your system before
  *  compiling (http://www.infradead.org/~tgr/libnl/).
  *
+ * Author:
+ *	Jonathan Ellithorpe
+ *
  * Revision history: 
  *  2011/07/06 Jonathan Ellithorpe: "Let there be a register access
  *                                  library..."

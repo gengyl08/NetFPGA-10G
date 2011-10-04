@@ -2,6 +2,9 @@
  * 
  * NetFPGA-10G Reference NIC Ethernet Driver
  * 
+ * Author:
+ *	Jonathan Ellithorpe
+ *
  * Revision history:
  *  2011/07/05 Jonathan Ellithorpe: "Let there be driver,"
  *                                  and there was driver,
