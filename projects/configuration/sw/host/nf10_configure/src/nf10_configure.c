@@ -3,10 +3,10 @@
 //  NETFPGA-10G www.netfpga.org
 //
 //  Module:
-//          nf10_flash_prog.c
+//          nf10_configure.c
 //
 //  Description:
-//          For the Flash Controller Project.
+//          For the Flash Controller Project / FPGA configuration.
 //                 
 //  Revision history:
 //          28/9/2011 shahbaz    Initial revision
@@ -90,9 +90,9 @@ int main (int argc, char **argv)
 	else
 	{
 		printf("\
-Usage: nf10_flash_prog -b BIT_FILE... -f <FLASH>\r\n\
-   or: nf10_flash_prog -b BIT_FILE... -f b -i\r\n\
-   or: nf10_flash_prog -i\r\n\
+Usage: nf10_configure -b BIT_FILE... -f <FLASH>\r\n\
+   or: nf10_configure -b BIT_FILE... -f b -i\r\n\
+   or: nf10_configure -i\r\n\
 Write BIT_FILE into the target FLASH and re-initialize the FPGA.\r\n\
 \r\n\
 Arguments:\r\n\

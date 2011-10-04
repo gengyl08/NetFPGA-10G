@@ -1,9 +1,9 @@
 
-all:	nf10_flash_prog
+all:	nf10_configure
 
-nf10_flash_prog:
-	gcc -lnl -lnl-genl -lnf10reg nf10_flash_prog.c nf10_flash_lib.c -o nf10_flash_prog
+nf10_configure:
+	gcc -lnl -lnl-genl -lnf10reg nf10_configure.c nf10_flash_lib.c -o nf10_configure
 
 clean:
-	rm -rf nf10_flash_prog
+	rm -rf nf10_configure
 
