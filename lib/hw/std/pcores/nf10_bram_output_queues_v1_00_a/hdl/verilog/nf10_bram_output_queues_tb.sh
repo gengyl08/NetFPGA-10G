@@ -43,4 +43,4 @@
 #
 
 fuse -incremental -prj nf10_bram_output_queues_tb.prj -o nf10_bram_output_queues_tb.exe testbench
-nf10_bram_output_queues_tb.exe -tclbatch nf10_bram_output_queues_tb.tcl
+./nf10_bram_output_queues_tb.exe -tclbatch nf10_bram_output_queues_tb.tcl

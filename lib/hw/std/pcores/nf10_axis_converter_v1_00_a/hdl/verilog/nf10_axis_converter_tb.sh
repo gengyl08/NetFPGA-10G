@@ -42,6 +42,6 @@
 #
 #
 
-fuse -incremental -prj nf10_axis_converter_v1_00_a.prj -o nf10_axis_converter_v1_00_a.exe work.testbench
+fuse -incremental -prj nf10_axis_converter_tb.prj -o nf10_axis_converter_tb.exe work.testbench
 
-nf10_axis_converter_v1_00_a.exe -tclbatch nf10_axis_converter_v1_00_a.tcl
+./nf10_axis_converter_tb.exe -tclbatch nf10_axis_converter_tb.tcl

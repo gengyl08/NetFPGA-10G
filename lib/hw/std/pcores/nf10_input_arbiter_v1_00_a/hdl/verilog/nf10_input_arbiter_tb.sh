@@ -43,4 +43,4 @@
 #
 
 fuse -incremental -prj nf10_input_arbiter_tb.prj -o nf10_input_arbiter_tb.exe testbench
-nf10_input_arbiter_tb.exe -tclbatch nf10_input_arbiter_tb.tcl
+./nf10_input_arbiter_tb.exe -tclbatch nf10_input_arbiter_tb.tcl
