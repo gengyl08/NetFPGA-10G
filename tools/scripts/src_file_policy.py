@@ -185,7 +185,7 @@ http://www.gnu.org/licenses/.""".splitlines()
 
 all_styles = re.compile( '^[%s]+' % ''.join( x.strip()[0] for x in filter( lambda x: x is not None,
                                                                            sum( ([s,m] for s, _, m, _ in COM_STYLES.values()), [] ) ) ) )
-def replace_header( tree, really, successes, ignored, noheader, failures, warnings, forbidden, filename ):
+def replace_header( opts, tree, successes, ignored, noheader, failures, warnings, forbidden, filename ):
     """
     Parse and replace header of a single file, but only if really sure.
     """
@@ -326,9 +326,9 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         if not nf10g_banner_seen:
             noheader.append( filename )
             return 0
-        if 'copyright notice' not in header:
+        if opts.force_copyright or 'copyright notice' not in header:
             header['copyright notice'] = stanford_copyright
-        if 'licence' not in header:
+        if opts.force_licence or 'licence' not in header:
             header['licence'] = stanford_licence
         # Delete any leading or trailing empty lines from each section
         for section in header:
@@ -419,13 +419,13 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
     else:
         successes.setdefault( extn, [] ).append( rel_filename )
     # Write file back out, if not dry-run
-    if really:
+    if opts.really:
         with open( filename, 'w' ) as f:
             f.writelines( '%s\n' % line for line in text )
     return 1
 
 
-def replace_all_in_tree( tree, really, successes, ignored, noheader, failures, warnings, forbidden ):
+def replace_all_in_tree( opts, tree, successes, ignored, noheader, failures, warnings, forbidden ):
     """
     Walk entire tree, replacing headers in all files found (but only if)
     really sure.
@@ -439,7 +439,7 @@ def replace_all_in_tree( tree, really, successes, ignored, noheader, failures, w
             pass
 
         for file in files:
-            count += replace_header( tree, really, successes, ignored, noheader, failures, warnings, forbidden,
+            count += replace_header( opts, tree, successes, ignored, noheader, failures, warnings, forbidden,
                             os.path.join( root, file ) )
     return count
 
@@ -468,6 +468,12 @@ CAUTION: *no* backup of input is made before it is rewritten.
     parser.add_option(
         '--really', action='store_true', default=False,
         help='Really write out changes.  Otherwise dry-run.')
+    parser.add_option(
+        '--force-licence', action='store_true', default=False,
+        help='Force rewrite of *every* NetFPGA 10G header licence.')
+    parser.add_option(
+        '--force-copyright', action='store_true', default=False,
+        help='Force rewrite of *every* NetFPGA 10G header copyright notice.')
 
 
     # Parse & check options
@@ -499,11 +505,11 @@ CAUTION: *no* backup of input is made before it is rewritten.
                 print '%s: %s: is directory' % (prog_name, file)
                 print '%s: recursion into explicit targets not supported' % prog_name
                 continue
-            count += replace_header( tree, opts.really, successes, ignored, noheader, failures, warnings, forbidden,
+            count += replace_header( opts, tree, successes, ignored, noheader, failures, warnings, forbidden,
                             os.path.join( tree, subdir, file ) )
     else:
         tree  = os.path.dirname( os.path.dirname( os.path.dirname( os.path.abspath( argv[0] ) ) ) )
-        count = replace_all_in_tree( tree, opts.really, successes, ignored, noheader, failures, warnings, forbidden )
+        count = replace_all_in_tree( opts, tree, successes, ignored, noheader, failures, warnings, forbidden )
 
     # Write logs
     log_header = """\
