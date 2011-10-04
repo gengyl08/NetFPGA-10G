@@ -162,7 +162,7 @@ module testbench();
 
   always #2.5  clk = ~clk;      // 200MHz
 
-  output_port_lookup
+  nf10_nic_output_port_lookup
     #(.C_M_AXIS_DATA_WIDTH(64),
       .C_S_AXIS_DATA_WIDTH(64),
       .C_M_AXIS_TUSER_WIDTH(128),
