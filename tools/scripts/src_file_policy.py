@@ -120,6 +120,7 @@ DM        = 'David J. Miller'
 JE        = 'Jonathan Ellithorpe'
 JH        = 'James Hongyi Zeng'
 MB        = 'Michaela Blott'
+MS        = 'Muhammad Shahbaz'
 SF        = 'Stephanie Friederich'
 SS        = 'Shep Siegel'
 
@@ -140,6 +141,7 @@ AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            [MB]),
               ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           [AC]),
               ('lib/hw/std/pcores/nf10_oped',                             [JH]),
               ('lib/hw/std/pcores/nf10_sram',                             [JH]),
+              ('projects/configuration',                                  [MS]),
               ('projects/configuration_test',                             [SF]),
               ('projects/configuration_test_no_cdc',                      [SF]),
               ('projects/loopback_test',                                  [JH]),
