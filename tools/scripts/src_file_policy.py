@@ -120,6 +120,7 @@ DM        = 'David J. Miller'
 JE        = 'Jonathan Ellithorpe'
 JH        = 'James Hongyi Zeng'
 MB        = 'Michaela Blott'
+MS        = 'Muhammad Shahbaz'
 SF        = 'Stephanie Friederich'
 SS        = 'Shep Siegel'
 
@@ -140,6 +141,7 @@ AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            [MB]),
               ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           [AC]),
               ('lib/hw/std/pcores/nf10_oped',                             [JH]),
               ('lib/hw/std/pcores/nf10_sram',                             [JH]),
+              ('projects/configuration',                                  [MS]),
               ('projects/configuration_test',                             [SF]),
               ('projects/configuration_test_no_cdc',                      [SF]),
               ('projects/loopback_test',                                  [JH]),
@@ -245,6 +247,7 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
     warn_flags = []
     text = []
     section = ''
+    blk_cmt_end_seen  = False
     nf10g_banner_seen = False
     tab_in_hdr_seen   = False
     with open( filename ) as f:
@@ -281,7 +284,17 @@ def replace_header( tree, really, successes, ignored, noheader, failures, warnin
         # Parse existing header, if any
         for line in f:
             cmt_line = get_hdr_line( line )
-            if cmt_line is None: # then end of header
+            if not line.strip():
+                # An empty line (no code, and no comment) after the nf10g
+                # banner has been seen indicates the end of the header block
+                # comment.
+                if nf10g_banner_seen:
+                    blk_cmt_end_seen = True
+            elif blk_cmt_end_seen or cmt_line is None: # and also non-empty line
+                # The first non-empty line after the end of the header block
+                # comment, whether code or comment, indicates the end of header
+                # processing.  A comment line of None (indicating code)
+                # likewise indicates the end of the header.
                 text_first_line = line.rstrip()
                 break
             # else must be header line: look for header information.
