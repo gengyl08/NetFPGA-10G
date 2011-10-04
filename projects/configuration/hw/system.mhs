@@ -173,21 +173,6 @@ BEGIN axi_emc
  PORT Mem_A = 0b000000 & axi_emc_0_Mem_A & 0b00
 END
 
-BEGIN chipscope_icon
- PARAMETER INSTANCE = chipscope_icon_0
- PARAMETER HW_VER = 1.04.a
- PORT control0 = chipscope_icon_0_control0
-END
-
-BEGIN chipscope_axi_monitor
- PARAMETER INSTANCE = chipscope_axi_monitor_0
- PARAMETER HW_VER = 1.01.a
- PARAMETER C_NUM_DATA_SAMPLES = 1024
- PARAMETER C_MAX_SEQUENCER_LEVELS = 2
- BUS_INTERFACE MON_AXI = axi_emc_0.S_AXI_MEM
- PORT CHIPSCOPE_ICON_CONTROL = chipscope_icon_0_control0
-END
-
 BEGIN axi_gpio
  PARAMETER INSTANCE = axi_cfg_fpga_0
  PARAMETER HW_VER = 1.01.a
