@@ -62,6 +62,7 @@ port(
    M_AXIS_TLAST       : out std_logic;
    S_AXIS_TDATA       : in  std_logic_vector (63 downto 0);
    S_AXIS_TSTRB       : in  std_logic_vector (7 downto 0);
+   S_AXIS_TUSER       : in  std_logic_vector (127 downto 0);
    S_AXIS_TVALID      : in  std_logic;
    S_AXIS_TREADY      : out std_logic;
    S_AXIS_TLAST       : in  std_logic;
@@ -111,6 +112,7 @@ port map
    M_AXIS_TLAST    => tlast,
    S_AXIS_TDATA    => tdata,
    S_AXIS_TSTRB    => tstrb,
+   S_AXIS_TUSER	   => x"00000000000000000000000000000000",
    S_AXIS_TVALID   => tvalid,
    S_AXIS_TREADY   => tready,
    S_AXIS_TLAST    => tlast,
