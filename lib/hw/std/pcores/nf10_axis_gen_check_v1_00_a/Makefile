@@ -12,7 +12,7 @@
 #        Michaela Blott
 #
 #  Description:
-#        Unit test makefile. 
+#        Unit test makefile.
 #
 #  Copyright notice:
 #        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford

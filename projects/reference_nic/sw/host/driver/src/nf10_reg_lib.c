@@ -1,26 +1,50 @@
-/* NetFPGA-10G http://www.netfpga.org
- * 
- * NetFPGA-10G Register Access Library
+/*******************************************************************************
  *
- * Description: 
- *  A library of functions for reading and writing registers in the
- *  hardware. These functions read and write registers by invoking
- *  register access functions in the linux driver over a generic netlink
- *  interface. Therefore, the driver must be loaded in the kernel for
- *  these functions to work. Please refer to the wiki for detailed
- *  documentation.
+ *  NetFPGA-10G http://www.netfpga.org
  *
- * Notes:
- *  This library makes use of the libnl-3.0 library for generic netlink
- *  functions. You must install this library into your system before
- *  compiling (http://www.infradead.org/~tgr/libnl/).
+ *  File:
+ *        nf10_reg_lib.c
  *
- * Author:
- *	Jonathan Ellithorpe
+ *  Project:
+ *        reference_nic
  *
- * Revision history: 
- *  2011/07/06 Jonathan Ellithorpe: "Let there be a register access
- *                                  library..."
+ *  Author:
+ *        Jonathan Ellithorpe
+ *
+ *  Description:
+ *         A library of functions for reading and writing registers in the
+ *         hardware. These functions read and write registers by invoking
+ *         register access functions in the linux driver over a generic netlink
+ *         interface. Therefore, the driver must be loaded in the kernel for
+ *         these functions to work. Please refer to the wiki for detailed
+ *         documentation.
+ *
+ *        Notes:
+ *         This library makes use of the libnl-3.0 library for generic netlink
+ *         functions. You must install this library into your system before
+ *         compiling (http://www.infradead.org/~tgr/libnl/).
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
  */
 
 /* Header files provided by libnl (probably in /usr/local/include). */
@@ -107,17 +131,17 @@ static int nf10_reg_rd_recv_msg_cb(struct nl_msg *msg, void *arg)
     if(na_regval && nla_data(na_regval)) {
         *val_ptr = *(uint32_t*)nla_data(na_regval);
         return 0;
-    } else 
+    } else
         return -NLE_NOATTR;
 }
 
 int nf10_reg_rd(uint32_t addr, uint32_t *val_ptr)
 {
     struct nl_msg   *msg;
-    int             err;   
+    int             err;
 
     err = driver_connect();
-    if(err) 
+    if(err)
         return err;
 
     msg = nlmsg_alloc();
@@ -145,10 +169,10 @@ int nf10_reg_rd(uint32_t addr, uint32_t *val_ptr)
     nlmsg_free(msg);
 
     nl_socket_modify_cb(nf10_genl_sock, NL_CB_VALID, NL_CB_CUSTOM, nf10_reg_rd_recv_msg_cb, (void*)val_ptr);
-    
+
     err = nl_recvmsgs_default(nf10_genl_sock);
 
-    driver_disconnect();    
+    driver_disconnect();
 
     return err;
 }
@@ -178,7 +202,7 @@ static int nf10_reg_wr_recv_ack_cb(struct nl_msg *msg, void *arg)
 int nf10_reg_wr(uint32_t addr, uint32_t val)
 {
     struct nl_msg   *msg;
-    int             err;    
+    int             err;
 
     err = driver_connect();
     if(err)
@@ -212,12 +236,12 @@ int nf10_reg_wr(uint32_t addr, uint32_t val)
     nl_socket_modify_cb(nf10_genl_sock, NL_CB_ACK, NL_CB_CUSTOM, nf10_reg_wr_recv_ack_cb, NULL);
 
     /* FIXME: this function will return even if there's no ACK in the buffer. I.E. it doesn't
-     * seem to wait for the ACK to be received... Ideally we'd have the behavior that getting an 
+     * seem to wait for the ACK to be received... Ideally we'd have the behavior that getting an
      * ACK tells us everything is OK, otherwise we time out on waiting for an ACK and tell this
      * to the user. */
     err = nl_recvmsgs_default(nf10_genl_sock);
 
-    driver_disconnect();    
+    driver_disconnect();
 
     return err;
 }

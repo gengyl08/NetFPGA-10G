@@ -1,22 +1,44 @@
-////////////////////////////////////////////////////////////////////////
-//
-//  NETFPGA-10G www.netfpga.org
-//
-//  Module:
-//          nf10_configure.c
-//
-//  Description:
-//          For the Flash Controller Project / FPGA configuration.
-//                 
-//  Revision history:
-//          28/9/2011 shahbaz    Initial revision
-//
-//  Known issues:
-//
-//  Library: stdio.h, stdlib.h, string.h ctype.h
-//
-////////////////////////////////////////////////////////////////////////
-
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        nf10_configure.c
+ *
+ *  Library:
+ *        stdio.h, stdlib.h, string.h ctype.h
+ *
+ *  Project:
+ *        configuration
+ *
+ *  Author:
+ *        Muhammad Shahbaz
+ *
+ *  Description:
+ *        For the Flash Controller Project / FPGA configuration.
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+ *                                Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This package is free software: you can redistribute it and/or modify
+ *        it under the terms of the GNU Lesser General Public License as
+ *        published by the Free Software Foundation, either version 3 of the
+ *        License, or (at your option) any later version.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
 
 #include <netlink/netlink.h>
 #include "nf10_reg_lib.h"
@@ -33,11 +55,11 @@ int main (int argc, char **argv)
 	char *bit_file = NULL;
 	char *flash_id = NULL;
 	int init_fpga = 0;
-	int c;     	
+	int c;
 	int index;
 
 	opterr = 0;
-	
+
 	if (argc > 1)
 	{
 		while ((c = getopt (argc, argv, "b:f:i")) != -1)
@@ -67,7 +89,7 @@ int main (int argc, char **argv)
 		}
 
 		//printf("bit_file=%s, flash_id=%s, init_fpga=%x\r\n", bit_file, flash_id, init_fpga);
-	     
+
 	 	// Writing into flash
 		if (bit_file != NULL)
 		{
@@ -76,14 +98,14 @@ int main (int argc, char **argv)
 			else
 				fprintf (stderr, "Target flash not specified.\nUse -f <flash id> option e.g. -f b.\r\n", optopt);
 		}
-		
+
 		// Reconfig FPGA from flash B (active low)
 		if (init_fpga == 1)
 		{
 			nf10_reg_wr(CFG_BASE_ADDR, 0x0);
 			printf ("FPGA re-initialized with flash 'b' bitstream.\r\n");
 		}
-	     
+
 	       	for (index = optind; index < argc; index++)
 			printf ("Non-option argument %s\n", argv[index]);
 	}
@@ -101,6 +123,6 @@ Arguments:\r\n\
 -i		Flag to re-initialize the FPGA from flash b\r\n\
 ");
 	}
-      	
+
 	return 0;
 }
