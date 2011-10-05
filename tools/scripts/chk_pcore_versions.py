@@ -44,8 +44,8 @@ import sys
 
 
 # Define location of HW library and projects, relative to location of this script
-hw_lib_dir   = os.path.join( os.path.dirname(sys.argv[0]), '..', '..', 'lib', 'hw' )
-projects_dir = os.path.join( os.path.dirname(sys.argv[0]), '..', '..', 'projects' )
+hw_lib_dir   = os.path.join( os.path.dirname(__file__), '..', '..', 'lib', 'hw' )
+projects_dir = os.path.join( os.path.dirname(__file__), '..', '..', 'projects' )
 PCORE_MANIFEST = '~/pcore_manifest.log'
 
 def scan_pcores( hw_library ):
@@ -73,26 +73,27 @@ def scan_pcores( hw_library ):
     return pcores
 
 
-def print_duplicate_pcores( pcores ):
+def scan_projects( projects_dir ):
     """
-    Print duplicate pcores (those (of a given version) found in more than one
-    location).
+    Generator function that walks projects directory and, for each project,
+    yields a tuple: (project_path, mhs)
     """
-    print '1.  Duplicate pcore report:'
-    dupes = 0
-    for pcore in pcores:
-        for ver, locs in pcores[pcore].iteritems():
-            if len(locs) != 1:
-                print '\t%-40s%-10s%s' % (pcore, ver, ', '.join( pcores[pcore][ver] ))
-                dupes += 1
-    if dupes:
-        print '\tTotal dupes: %d' % dupes
-    else:
-        print '\t(no dupes found)'
-    print
+    for root, dirs, files in os.walk( projects_dir ):
+        project = root[len(projects_dir)+1:]
+        # Get MHS file name, if any.  There must be either exactly zero or one
+        # MHS file per project directory.
+        mhs_files = filter( lambda x: x.endswith( '.mhs' ), files )
+        if len( mhs_files ) == 0:
+            continue
+        if len( mhs_files ) > 1:
+            raise RuntimeError( (project, 'ambiguous (more than one) MHS files' ) )
+        # Parse and return MHS entities
+        with open( os.path.join( root, mhs_files[0] ) ) as mhs_fh:
+            mhs = mhstools.parse_mhs( mhs_fh )
+        yield (project, mhs)
 
 
-def resolve_pcores( mhs, pcores ):
+def resolve_project_pcores( mhs, pcores ):
     """
     Checks the instantiated version of each pcore used against the list of all
     known pcores, and reports any that are not up-to-date or missing
@@ -112,12 +113,13 @@ def resolve_pcores( mhs, pcores ):
             errors.append( '%-40s%s not found' % (pcore, ver) )
             ent.path = None
             continue
+        # record the path to the resolved library pcore
+        ent.path = os.path.join( 'lib', 'hw', pcores[pcore][ver][0],
+                                 '%s_v%s' % (pcore, ver.replace( '.', '_' )) )
         # check that the nominated version is the latest.  The latest will be
         # the last of the sorted list of versions.
         # XXX: this simple text-sort probably won't work with major versions
         #      > 9.
-        ent.path = os.path.join( 'lib', 'hw', pcores[pcore][ver][0],
-                                 '%s_v%s' % (pcore, ver.replace( '.', '_' )) )
         latest = sorted(pcores[pcore])[-1]
         if ver != latest:
             errors.append( '%-40s%s < %s' % (pcore, ver, latest) )
@@ -125,34 +127,49 @@ def resolve_pcores( mhs, pcores ):
     return errors
 
 
+def pcore_paths( mhs ):
+    """
+    Returns the set of paths of library pcores instantiated in `mhs`.
+    NB: `mhs` must first have been resolved with `resolve_project_pcores()`.
+    """
+    return set( ent.path for ent in mhstools.instances(mhs) if ent.path is not None )
+
+
+def print_duplicate_pcores( pcores ):
+    """
+    Print duplicate pcores (those (of a given version) found in more than one
+    location).
+    """
+    print '1.  Duplicate pcore report:'
+    dupes = 0
+    for pcore in pcores:
+        for ver, locs in pcores[pcore].iteritems():
+            if len(locs) != 1:
+                print '\t%-40s%-10s%s' % (pcore, ver, ', '.join( pcores[pcore][ver] ))
+                dupes += 1
+    if dupes:
+        print '\tTotal dupes: %d' % dupes
+    else:
+        print '\t(no dupes found)'
+    print
+
+
 def print_project_pcore_version_report( projects_dir, pcores ):
     """
-     Finds project directories (those containing exactly one MHS file), parses
-    the MHS file, and checks versions.
+    Scan all projects, resolve pcore instances, and print reports: missing pcores, out-of-date pcores;
+    Also writes out list of pcores used.
     """
-    # Scan projects
+    # Collect data
     errors = {}
     cores_used = {}
-    for root, dirs, files in os.walk( projects_dir ):
-        project = root[len(projects_dir)+1:]
-        mhs_files = filter( lambda x: x.endswith( '.mhs' ), files )
-        if len( mhs_files ) == 0:
-            continue
-        if len( mhs_files ) > 1:
-            print '%s: project %s contains more than one MHS file!  Aborting.' % (prog_name, project)
-            sys.exit(1)
-
-        with open( os.path.join( root, mhs_files[0] ) ) as mhs_fh:
-            mhs = mhstools.parse_mhs( mhs_fh )
-        errors[project] = resolve_pcores( mhs, pcores )
-        cores_used[project] = [ent.path for ent in mhstools.instances(mhs) if ent.path is not None]
-
-    # Print results
+    for project, mhs in scan_projects( projects_dir ):
+        errors[project]     = resolve_project_pcores( mhs, pcores )
+        cores_used[project] = pcore_paths( mhs )
+    # Print reports
     print '2.  Project missing and out-of-date pcore report:'
     for project, errors in errors.iteritems():
         if errors:
                 print "\tProject '%s':\n\t\t%s\n" % (project, '\n\t\t'.join(errors) )
-
     print '3.  Project pcore use report: written to %s' % PCORE_MANIFEST
     with open( os.path.expanduser( PCORE_MANIFEST ), 'w' ) as f:
         print >>f, '\n'.join( '%s,%s' % (project, pcore) for project in cores_used for pcore in cores_used[project] )
