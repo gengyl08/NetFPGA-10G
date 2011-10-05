@@ -9,7 +9,7 @@
 #        configuration
 #
 #  Author:
-#        James Hongyi Zeng
+#        Muhammad Shahbaz
 #
 #  Description:
 #        make all : Make BRAM initialized bitfile to bitfiles/
@@ -41,14 +41,12 @@
 
 SYSTEM = system
 HW = hw
-SW = sw/embedded/
 
 all:
-	$(MAKE) -C $(HW) exporttosdk
-	$(MAKE) -C $(SW)
+	$(MAKE) -C $(HW) init_bram
 	mkdir -p bitfiles
-	cp $(SW)/result/download.bit bitfiles/
+	cp $(HW)/implementation/download.bit bitfiles/
 
 clean:
 	$(MAKE) -C $(HW) clean
-	$(MAKE) -C $(SW) clean
+	rm -rf bitfiles
