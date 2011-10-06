@@ -61,7 +61,9 @@ TAR_PREFIX   = 'netfpga'
 #               nominated treeish.
 TARBALL_NAME = 'netfpga-10g-%s.tar.gz'
 
-# STATIC_PATHLIST: paths to include in the tarball.
+# STATIC_PATHLIST: paths to include in the tarball.  The simulation pcores have
+#                  to be explicitly included because nothing normally
+#                  references them.
 STATIC_PATHLIST = ['LGPL-2.1.txt',
                    'NOTICE',
                    'README',
@@ -74,6 +76,10 @@ STATIC_PATHLIST = ['LGPL-2.1.txt',
                    'projects/production_test/sw', 
                    'projects/production_test/bitfiles', 
                    'lib/sw',
+                   'lib/hw/std/pcores/nf10_axi_sim_transactor_v1_00_a',
+                   'lib/hw/std/pcores/nf10_axis_sim_pkg_v1_00_a',
+                   'lib/hw/std/pcores/nf10_axis_sim_record_v1_00_a',
+                   'lib/hw/std/pcores/nf10_axis_sim_stim_v1_00_a',
                    ]
 
 
