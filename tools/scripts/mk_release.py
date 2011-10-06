@@ -63,7 +63,7 @@ TARBALL_NAME = 'netfpga-10g-%s.tar.gz'
 
 # STATIC_PATHLIST: paths to include in the tarball.
 STATIC_PATHLIST = ['LGPL-2.1.txt',
-                   'NOTICES',
+                   'NOTICE',
                    'README',
                    'Makefile',
                    'projects/loopback_test',
