@@ -1,0 +1,12 @@
+NetFPGA 10G Base Package
+Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
+                        Junior University
+
+The base package includes software and firmware (VHDL and Verilog)
+developed by the Leyland Stanford Junior University and other
+institutions.  This code is licensed under the GNU Lesser General
+Public Licence version 2.1, a copy of which is included.
+
+Other software packages, separately licensed, are also included,
+persuant to the terms of the licence under which they are distributed.
+Please refer to the licence belonging to those packages.
