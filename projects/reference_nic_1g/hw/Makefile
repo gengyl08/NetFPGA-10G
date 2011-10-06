@@ -179,8 +179,8 @@ bitsclean:
 	rm -f __xps/$(SYSTEM)_routed
 
 simclean:
-	rm -rf simulation/behavioral
-	rm -rf *[0-9]_{stim,log}.axi $(AXISIM_MHS)
+	rm -rf simulation
+	rm -rf *[0-9]_{stim,expected,log}.axi $(AXISIM_MHS)
 	rm -f simgen.log
 	rm -f __xps/ise/_xmsgs/simgen.xmsgs
 
@@ -314,6 +314,13 @@ axi_model: __xps/simgen.opt $(BRAMINIT_ELF_SIM_FILES)
 	simgen $(SIMGEN_OPTIONS) -m behavioral $(AXISIM_MHS)
 
 sim: axi_model
+	./make_pkts.py
+	cp nf10/system_axisim_tb.v simulation/behavioral
+	cd simulation/behavioral && $(AXISIM_FUSE)
+	cd simulation/behavioral && $(AXISIM_CMD) -tclbatch ../../nf10/noninteractive_sim.tcl
+	nf10_sim_reconcile_axi_logs.py
+
+simgui: axi_model
 	./make_pkts.py
 	cp nf10/system_axisim_tb.v simulation/behavioral
 	cd simulation/behavioral && $(AXISIM_FUSE)
