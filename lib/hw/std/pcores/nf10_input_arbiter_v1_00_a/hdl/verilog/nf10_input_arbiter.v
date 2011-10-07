@@ -117,6 +117,9 @@ module nf10_input_arbiter
    parameter NUM_STATES = 1;
    parameter IDLE = 0;
    parameter WR_PKT = 1;
+   
+   localparam MAX_PKT_SIZE = 2000; // In bytes
+   localparam IN_FIFO_DEPTH_BIT = log2(MAX_PKT_SIZE/(C_M_AXIS_DATA_WIDTH / 8));
 
    // ------------- Regs/ wires -----------
 
@@ -149,7 +152,7 @@ module nf10_input_arbiter
    for(i=0; i<NUM_QUEUES; i=i+1) begin: in_arb_queues
       fallthrough_small_fifo
         #( .WIDTH(C_M_AXIS_DATA_WIDTH+C_M_AXIS_TUSER_WIDTH+C_M_AXIS_DATA_WIDTH/8+1),
-           .MAX_DEPTH_BITS(2))
+           .MAX_DEPTH_BITS(IN_FIFO_DEPTH_BIT))
       in_arb_fifo
         (// Outputs
          .dout                           ({fifo_out_tlast[i], fifo_out_tuser[i], fifo_out_tstrb[i], fifo_out_tdata[i]}),
