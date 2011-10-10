@@ -49,13 +49,11 @@ def reconcile_axi( log_pkts, exp_pkts ):
     """
     Reconcile list of logged AXI packets with list of expected packets.
     """
-    if len(log_pkts) != len(exp_pkts):
-        print '\tExpected %d packets, got %d' % (len(exp_pkts), len(log_pkts))
     if log_pkts == exp_pkts:
-        print '\tPASS'
+        print '\tPASS (%d packets expected, %d packets received)' % (len(exp_pkts), len(log_pkts))
         return False
     else:
-        print '\tFAIL'
+        print '\tFAIL (%d packets expected, %d packets received)' % (len(exp_pkts), len(log_pkts))
         return True
 
 
