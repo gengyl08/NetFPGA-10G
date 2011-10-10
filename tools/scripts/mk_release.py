@@ -49,6 +49,7 @@
 from __future__ import with_statement
 
 import chk_pcore_versions as chk_pcores
+import mhstools
 import os
 import subprocess
 import sys
@@ -115,8 +116,10 @@ where <treeish> is a valid git branch or tag (eg release_1.1.0).""" % (prog_name
         # prepend 'project' to match against STATIC_PATHLIST.
         if os.path.join( 'projects', os.path.dirname( project ) ) not in STATIC_PATHLIST:
             continue
-        chk_pcores.resolve_project_pcores( mhs, pcores_avail )
-        pcores_needed = pcores_needed.union( chk_pcores.pcore_paths( mhs ) )
+        for inst in mhstools.instances(mhs):
+            paths, errors = chk_pcores.resolve_pcore( pcores_avail, inst.core_name(),
+                                                      mhstools.get_parameter( inst, 'HW_VER' ) )
+            pcores_needed = pcores_needed.union( paths )
     pathlist = STATIC_PATHLIST + list( pcores_needed )
 
     # Create tarball

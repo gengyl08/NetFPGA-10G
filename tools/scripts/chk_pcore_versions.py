@@ -48,27 +48,63 @@ hw_lib_dir   = os.path.join( os.path.dirname(__file__), '..', '..', 'lib', 'hw' 
 projects_dir = os.path.join( os.path.dirname(__file__), '..', '..', 'projects' )
 PCORE_MANIFEST = '~/pcore_manifest.log'
 
+def split_pcore_name( pcore_dirname ):
+    """
+    Split pcore directory name (eg 'my_cool_pcore_v1_23_c') into (pcore_name,
+    version_number) (ie, the leading 'v' is stripped).
+    """
+    # each directory is of the form my_cool_pcore_v1_23_c
+    ver_elts = pcore_dirname.rsplit('_', 3)
+    # Catch invalid pcore directory names
+    if len(ver_elts) != 4:
+        raise RuntimeError( '%s: bad pcore name %s' % (prog_name, pcore_dirname) )
+    pcore_name = ver_elts[0]
+    ver        = '.'.join(ver_elts[1:])
+    ver        = ver[1:] # strip leading 'v'
+    return (pcore_name, ver)
+
+
+def get_pcore_deps( pcore_path ):
+    """
+    Scan the given pcore for any dependencies outside of that pcore.
+    """
+    pcore_dirname = os.path.basename( pcore_path )
+    pao_filename  = '%s_v2_1_0.pao' % split_pcore_name( pcore_dirname )[0]
+    pao_filepath  = os.path.join( pcore_path, 'data', pao_filename )
+    if not os.path.isfile( pao_filepath ):
+        return []
+    deps = set()
+    with open( pao_filepath ) as f:
+        for line in f:
+            line = line.strip()
+            try:
+                line = line[:line.index('#')].strip()
+            except ValueError:
+                pass
+            if line:
+                elts = line.split()
+                if elts[1] != pcore_dirname:
+                    deps.add( split_pcore_name( elts[1] ) )
+    return deps
+
+
 def scan_pcores( hw_library ):
     """
-    Returns a dict (indexed by pcore name) of dicts (indexed by version) of
-    lists of core locations, built from the pcores found under `hw_library`.
+    Scans all pcores and returns dicts all_pcores[pcore_name][pcore_version] =
+    [(core_location, [pcore_dependencies])], where core_locations are the
+    directories holding pcores (eg std/pcores), and pcore_dependencies are
+    (pcore_name, pcore_version), built from the pcores found under
+    `hw_library`.
     """
     pcores = {}
     for root, dirs, files in os.walk( hw_library ):
         if os.path.basename(root) == 'pcores':
             # keep locations tidy: only path components below hw_library
-            root = root[len(hw_library)+1:]
+            rel_root = root[len(hw_library)+1:]
             for dir in dirs:
-                # each directory is of the form 'my_cool_pcore_v1_23_c'
-                ver_elts = dir.rsplit('_', 3)
-                # exclude non-pcore directories, or at least, those that don't fit
-                if len(ver_elts) != 4:
-                    print '%s: bad pcore name %s' % (prog_name, dir)
-                    continue
-                pcore = ver_elts[0]
-                # reassemble version, without leading 'v'
-                ver   = '.'.join( ver_elts[1:] )[1:]
-                pcores.setdefault( pcore, {} ).setdefault( ver, [] ).append( root )
+                pcore, ver = split_pcore_name( dir )
+                deps       = get_pcore_deps( os.path.join( root, dir ) )
+                pcores.setdefault( pcore, {} ).setdefault( ver, [] ).append( (rel_root, deps) )
             del dirs[:]
     return pcores
 
@@ -93,46 +129,56 @@ def scan_projects( projects_dir ):
         yield (project, mhs)
 
 
-def resolve_project_pcores( mhs, pcores ):
+def resolve_pcore( all_pcores, pcore, ver ):
     """
-    Checks the instantiated version of each pcore used against the list of all
-    known pcores, and reports any that are not up-to-date or missing
+    Resolves the nominated pcore and version against the list of all known
+    pcores, returning the resolved path of it and any dependent pcores, along
+    with a list of any missing, ambiguous or out-of-date pcores found during
+    resolution.
     """
-    errors = []
-    for ent in mhstools.instances(mhs):
-        pcore = ent.core_name()
-        ver   = mhstools.get_parameter( ent, 'HW_VER' )
-
-        # check that any versions are present
-        if pcore not in pcores:
-            errors.append( '%-40sno versions found' % (pcore) )
-            ent.path = None
-            continue
-        # check that the nominated version is present
-        if ver not in pcores[pcore]:
-            errors.append( '%-40s%s not found' % (pcore, ver) )
-            ent.path = None
-            continue
-        # record the path to the resolved library pcore
-        ent.path = os.path.join( 'lib', 'hw', pcores[pcore][ver][0],
-                                 '%s_v%s' % (pcore, ver.replace( '.', '_' )) )
-        # check that the nominated version is the latest.  The latest will be
-        # the last of the sorted list of versions.
-        # XXX: this simple text-sort probably won't work with major versions
-        #      > 9.
-        latest = sorted(pcores[pcore])[-1]
-        if ver != latest:
-            errors.append( '%-40s%s < %s' % (pcore, ver, latest) )
-            continue
-    return errors
-
-
-def pcore_paths( mhs ):
-    """
-    Returns the set of paths of library pcores instantiated in `mhs`.
-    NB: `mhs` must first have been resolved with `resolve_project_pcores()`.
-    """
-    return set( ent.path for ent in mhstools.instances(mhs) if ent.path is not None )
+    all_paths  = []
+    all_errors = []
+    # check whether any versions are present
+    if pcore not in all_pcores:
+        all_errors.append( '%-40sno versions found' % (pcore) )
+        return ( all_paths, all_errors )
+    # check that the nominated version is present
+    if ver not in all_pcores[pcore]:
+        all_errors.append( '%-40s%s not found' % (pcore, ver) )
+        return ( all_paths, all_errors )
+    # get location(s) and dependencies of this pcore/version
+    loc_deps = all_pcores[pcore][ver]
+    if len(loc_deps) != 1:
+        # more than one location of this pcore and version: try to disambiguate
+        all_errors.append( '%-40s%-10sambiguous locations: %s' % (pcore, ver,
+                                                                  ', '.join(x[0] for x in loc_deps)) )
+        # try to find the one in 'std', as that's probably the right one to use
+        loc_deps_in_std = filter( lambda x: x[0].find('std') != -1, loc_deps )
+        if len(loc_deps_in_std) == 1:
+            loc_deps = loc_deps_in_std[0]
+        if len(loc_deps_in_std) == 0:
+            all_errors.append( '%-40s%-10sno candidate in "std"' % (pcore, ver) )
+        if len(loc_deps_in_std) >  1:
+            all_errors.append( '%-40s%-10smore than one "std"??' % (pcore, ver) )
+    # we've narrowed it down to one possibility, or otherwise can't work out
+    # which is the right one.  In either case, we can only use the first entry
+    # in the list.
+    loc, deps = loc_deps[0]
+    # Resolve any dependencies of this pcore
+    for dep in deps:
+        paths, errors = resolve_pcore( all_pcores, *dep )
+        all_paths  += paths
+        all_errors += errors
+    # check that the nominated version is the latest.  The latest will be
+    # the last of the sorted list of versions.
+    # XXX: this simple text-sort probably won't work with major versions
+    #      > 9.
+    latest = sorted(all_pcores[pcore])[-1]
+    if ver != latest:
+        all_errors.append( '%-40s%s < %s' % (pcore, ver, latest) )
+    # Return the paths and errors for this and dependent pcores
+    all_paths.append( os.path.join( 'lib', 'hw', loc, '%s_v%s' % (pcore, ver.replace( '.', '_' )) ) )
+    return (all_paths, all_errors)
 
 
 def print_duplicate_pcores( pcores ):
@@ -143,9 +189,9 @@ def print_duplicate_pcores( pcores ):
     print '1.  Duplicate pcore report:'
     dupes = 0
     for pcore in pcores:
-        for ver, locs in pcores[pcore].iteritems():
-            if len(locs) != 1:
-                print '\t%-40s%-10s%s' % (pcore, ver, ', '.join( pcores[pcore][ver] ))
+        for ver, loc_deps in pcores[pcore].iteritems():
+            if len(loc_deps) != 1:
+                print '\t%-40s%-10s%s' % (pcore, ver, ', '.join( x[0] for x in loc_deps ))
                 dupes += 1
     if dupes:
         print '\tTotal dupes: %d' % dupes
@@ -163,8 +209,11 @@ def print_project_pcore_version_report( projects_dir, pcores ):
     errors = {}
     cores_used = {}
     for project, mhs in scan_projects( projects_dir ):
-        errors[project]     = resolve_project_pcores( mhs, pcores )
-        cores_used[project] = pcore_paths( mhs )
+        for inst in mhstools.instances(mhs):
+            inst.paths, inst.errors = resolve_pcore( pcores, inst.core_name(),
+                                                     mhstools.get_parameter( inst, 'HW_VER' ) )
+        cores_used[project] = set( sum( (inst.paths  for inst in mhstools.instances(mhs)), [] ) )
+        errors[project]     =      sum( (inst.errors for inst in mhstools.instances(mhs)), [] )
     # Print reports
     print '2.  Project missing and out-of-date pcore report:'
     for project, errors in errors.iteritems():
