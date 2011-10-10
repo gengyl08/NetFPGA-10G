@@ -130,17 +130,17 @@ static int nf10_reg_rd_recv_msg_cb(struct nl_msg *msg, void *arg)
     if(na_regval && nla_data(na_regval)) {
         *val_ptr = *(uint32_t*)nla_data(na_regval);
         return 0;
-    } else
+    } else 
         return -NLE_NOATTR;
 }
 
 int nf10_reg_rd(uint32_t addr, uint32_t *val_ptr)
 {
     struct nl_msg   *msg;
-    int             err;
+    int             err;   
 
     err = driver_connect();
-    if(err)
+    if(err) 
         return err;
 
     msg = nlmsg_alloc();
@@ -168,10 +168,10 @@ int nf10_reg_rd(uint32_t addr, uint32_t *val_ptr)
     nlmsg_free(msg);
 
     nl_socket_modify_cb(nf10_genl_sock, NL_CB_VALID, NL_CB_CUSTOM, nf10_reg_rd_recv_msg_cb, (void*)val_ptr);
-
+    
     err = nl_recvmsgs_default(nf10_genl_sock);
 
-    driver_disconnect();
+    driver_disconnect();    
 
     return err;
 }
@@ -201,7 +201,7 @@ static int nf10_reg_wr_recv_ack_cb(struct nl_msg *msg, void *arg)
 int nf10_reg_wr(uint32_t addr, uint32_t val)
 {
     struct nl_msg   *msg;
-    int             err;
+    int             err;    
 
     err = driver_connect();
     if(err)
@@ -235,12 +235,12 @@ int nf10_reg_wr(uint32_t addr, uint32_t val)
     nl_socket_modify_cb(nf10_genl_sock, NL_CB_ACK, NL_CB_CUSTOM, nf10_reg_wr_recv_ack_cb, NULL);
 
     /* FIXME: this function will return even if there's no ACK in the buffer. I.E. it doesn't
-     * seem to wait for the ACK to be received... Ideally we'd have the behavior that getting an
+     * seem to wait for the ACK to be received... Ideally we'd have the behavior that getting an 
      * ACK tells us everything is OK, otherwise we time out on waiting for an ACK and tell this
      * to the user. */
     err = nl_recvmsgs_default(nf10_genl_sock);
 
-    driver_disconnect();
+    driver_disconnect();    
 
     return err;
 }

@@ -76,6 +76,7 @@ module rx_queue
 
    wire info_fifo_empty;
    reg  info_fifo_rd_en;
+   reg  info_fifo_wr_en;
    wire rx_bad_frame_fifo;
 
    reg  rx_fifo_rd_en;
@@ -90,7 +91,7 @@ module rx_queue
    // Instantiate clock domain crossing FIFO
    FIFO36_72 #(
    	.SIM_MODE("FAST"),
-   	.ALMOST_FULL_OFFSET(9'hA),
+   	.ALMOST_FULL_OFFSET(9'd300), // > Ethernet MAX length / 6 = 1516Byte/6 = 252
    	.ALMOST_EMPTY_OFFSET(9'hA),
    	.DO_REG(1),
    	.EN_ECC_READ("FALSE"),
@@ -127,7 +128,7 @@ module rx_queue
 	) rx_info_fifo
         (
          .wdata(rx_bad_frame),
-         .winc(rx_good_frame|rx_bad_frame),
+         .winc(info_fifo_wr_en),
          .wclk(clk156),
 
          .rdata(rx_bad_frame_fifo),
@@ -152,10 +153,12 @@ module rx_queue
      always @* begin
          state_next = state;
          fifo_wr_en = 1'b0;
+         info_fifo_wr_en = 1'b0;
 
          case(state)
              IDLE: begin
                  if(rx_data_valid == 8'hFF) begin
+                     info_fifo_wr_en = 1'b1;
                      if(~fifo_almost_full) begin
                          fifo_wr_en = 1'b1;
                          state_next = WAIT_FOR_EOP;

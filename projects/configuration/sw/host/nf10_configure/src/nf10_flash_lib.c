@@ -60,7 +60,7 @@ void Flash_Prog(char* bin_file, char flash_id)
 
 	Clr_Status_Reg(base_addr);
 
-	printf("Bitsteam: %s\r\n", bin_file);
+	printf("Bitstream: %s\r\n", bin_file);
 	printf("Manufacturer ID: %x\r\n\r\n", Rd_Elec_Sig(base_addr));
 
 	Clr_Status_Reg(base_addr);
