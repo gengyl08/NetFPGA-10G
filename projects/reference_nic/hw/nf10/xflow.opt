@@ -62,9 +62,9 @@ Program map
 -mt 4;                   # James: Use 4 cores if possible
 -o <design>_map.ncd;     # Output Mapped ncd file
 -w;			 # Overwrite output files.
--pr b;                   # Pack internal FF/latches into IOBs
+#-pr b;                  # Pack internal FF/latches into IOBs
 #-fp <design>.mfp;       # Floorplan file
--ol high;
+#-ol high;
 -timing;
 -detail;
 <inputdir><design>.ngd;  # Input NGD file
@@ -93,7 +93,7 @@ END Program post_map_trce
 Program par
 -mt 4;                       # James: Use 4 cores if possible
 -w;                 # Overwrite existing placed and routed ncd
--ol high;              # Overall effort level
+#-ol high;              # Overall effort level
 <inputdir><design>_map.ncd;  # Input mapped NCD file
 <design>.ncd;                # Output placed and routed NCD
 <inputdir><design>.pcf;      # Input physical constraints file
