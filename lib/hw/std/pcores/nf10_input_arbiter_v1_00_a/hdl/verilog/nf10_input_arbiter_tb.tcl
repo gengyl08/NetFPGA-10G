@@ -39,7 +39,7 @@
 
 run 440 ns
 if {[test /testbench/in_arb/m_axis_tlast 1] & [test /testbench/in_arb/m_axis_tvalid 1] & [test /testbench/in_arb/m_axis_tdata(63:0) 1f1f1f1f1f1f1f1f -radix hex]} {
-  run 810 ns
+  run 788 ns
   if {[test /testbench/in_arb/s_axis_tlast_3 1] & [test /testbench/in_arb/s_axis_tvalid_3 1] & [test /testbench/in_arb/s_axis_tdata_3(63:0) 1f1f1f1f1f1f1f1f -radix hex]} {
     puts "Test Passed"
   } else {
