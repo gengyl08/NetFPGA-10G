@@ -37,4 +37,9 @@
 #
 
 unittest:
-	cd hdl/verilog; ./nf10_bram_output_queues_tb.sh
+	hdl/verilog/nf10_bram_output_queues_tb.sh
+
+clean:
+	rm -rf hdl/verilog/unittest_build
+
+.PHONY: unittest clean

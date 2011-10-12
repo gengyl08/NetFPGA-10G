@@ -37,4 +37,9 @@
 #
 
 unittest:
-	cd hdl/vhdl; ./nf10_axis_gen_check_tb.sh
+	hdl/vhdl/nf10_axis_gen_check_tb.sh
+
+clean:
+	rm -rf hdl/vhdl/unittest_build
+
+.PHONY: unittest clean

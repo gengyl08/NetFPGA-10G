@@ -37,4 +37,9 @@
 #
 
 unittest:
-	cd hdl/verilog; ./nf10_axis_converter_tb.sh
+	hdl/verilog/nf10_axis_converter_tb.sh
+
+clean:
+	rm -rf hdl/verilog/unittest_build
+
+.PHONY: unittest clean
