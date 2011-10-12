@@ -7,7 +7,7 @@ DATE		:= $(shell date +%Y%m%d_%H%M)
 # NOTE: Do not enable both GHOST and LOOPB at the same time.
 DRIVER_DEBUG    = n
 DRIVER_GHOST	= n
-DRIVER_LOOPB	= y
+DRIVER_LOOPB	= n
 export DRIVER_DEBUG
 export DRIVER_GHOST
 export DRIVER_LOOPB
