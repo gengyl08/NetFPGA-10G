@@ -36,6 +36,8 @@
 #
 #
 
+install:
+
 unittest:
 	hdl/verilog/nf10_nic_output_port_lookup_tb.sh
 

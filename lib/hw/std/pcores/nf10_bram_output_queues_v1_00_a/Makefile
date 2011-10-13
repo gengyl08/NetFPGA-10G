@@ -36,6 +36,8 @@
 #
 #
 
+install:
+
 unittest:
 	hdl/verilog/nf10_bram_output_queues_tb.sh
 

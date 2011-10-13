@@ -36,6 +36,8 @@
 #
 #
 
+install:
+
 unittest:
 	hdl/vhdl/nf10_axis_gen_check_tb.sh
 
