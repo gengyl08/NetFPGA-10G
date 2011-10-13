@@ -65,7 +65,7 @@ TARBALL_NAME = 'netfpga-10g-%s.tar.gz'
 # STATIC_PATHLIST: paths to include in the tarball.  The simulation pcores have
 #                  to be explicitly included because nothing normally
 #                  references them.
-STATIC_PATHLIST = ['LGPL-2.1.txt',
+STATIC_PATHLIST = ['LGPL-2.1',
                    'NOTICE',
                    'README',
                    'Makefile',
