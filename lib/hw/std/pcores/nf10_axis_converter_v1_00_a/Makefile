@@ -36,6 +36,8 @@
 #
 #
 
+install:
+
 unittest:
 	hdl/verilog/nf10_axis_converter_tb.sh
 

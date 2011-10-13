@@ -36,6 +36,8 @@
 #
 #
 
+install:
+
 unittest:
 	hdl/verilog/nf10_input_arbiter_tb.sh
 
