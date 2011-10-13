@@ -1,16 +1,22 @@
-NetFPGA 10G Base Package
+NetFPGA 10G Development Base Package
 Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
                         Junior University
 
 The base package includes software and firmware (VHDL and Verilog)
 developed by the Leyland Stanford Junior University and other
-institutions (please see acknowledgements).  This code is licensed 
-under the GNU Lesser General Public Licence version 2.1, a copy of 
+institutions (please see acknowledgements).  This code is licensed
+under the GNU Lesser General Public Licence version 2.1, a copy of
 which is included.
 
-Other software packages, separately licensed, are also included,
-pursuant to the terms of the licence under which they are distributed.
-Please refer to the licence belonging to those packages.
+The following packages, separately licensed, are the copyright of
+their respective owners and are included pursuant to the terms of
+the licence under which they are distributed.  Please refer to the
+licence belonging to those packages.
+
+ * OpenCPI and portions of Oped are the copyright of Atomic Rules LLC.
+
+ * libnl is the copyright of Thomas Graf et al. under a mixture of
+LGPL 2.1 and GPL 3.0.  See individual files for copyright and licence.
 
 
 Acknowledgements:
