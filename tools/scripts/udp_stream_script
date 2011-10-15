@@ -28,7 +28,7 @@ NETHOME=/usr/local/bin
 PORT=""
 
 # The test length in seconds
-TEST_TIME=60
+TEST_TIME=10
 
 # How accurate we want the estimate of performance: 
 #      maximum and minimum test iterations (-i)
