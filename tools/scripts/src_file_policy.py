@@ -56,13 +56,13 @@ import sys
 import string
 import time
 
-# Log names
-SUCCESS_LOG = os.path.expanduser( '~/pol_success.log' )
-IGNORED_LOG = os.path.expanduser( '~/pol_ignored.log' )
-NOHDR_LOG   = os.path.expanduser( '~/pol_no_header.log' )
-WARN_LOG    = os.path.expanduser( '~/pol_warning.log' )
-FAIL_LOG    = os.path.expanduser( '~/pol_failure.log' )
-FORBID_LOG  = os.path.expanduser( '~/pol_forbidden.log' )
+# Log names (relative to base_pkg)
+SUCCESS_LOG = '../pol_success.log'
+IGNORED_LOG = '../pol_ignored.log'
+NOHDR_LOG   = '../pol_no_header.log'
+WARN_LOG    = '../pol_warning.log'
+FAIL_LOG    = '../pol_failure.log'
+FORBID_LOG  = '../pol_forbidden.log'
 
 # TYPE_INFO: a tuple of (comment_str, interp_required, interpreter).
 #       comment_str: tuple of (single, begin, middle, end)
@@ -527,27 +527,27 @@ CAUTION: *no* backup of input is made before it is rewritten.
 # date: %s
 """
     time_now = time.asctime()
-    with open( SUCCESS_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, SUCCESS_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name, 'files successfully processed, without warnings',
                                  base_pkg, time_now ) )
         log.writelines( ['%s\n' % f for f in sorted( sum(successes.itervalues(), []) )] or '# (none)\n' )
-    with open( IGNORED_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, IGNORED_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name,
                                  'files ignored by policy', base_pkg, time_now ) )
         log.writelines( ['%s, %s\n' % (e, f) for e, f in sorted((e,f) for e,l in ignored.iteritems() for f in l )] or '# (none)\n' )
-    with open( NOHDR_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, NOHDR_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name, 'files missing NetFPGA header',
                                  base_pkg, time_now ) )
         log.writelines( ['%s\n' % f for f in sorted( noheader )] or '# (none)\n' )
-    with open( WARN_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, WARN_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name, 'files successfully processed, but with warnings',
                                  base_pkg, time_now ) )
         log.writelines( ['%s; %s\n' % (', '.join(w), f) for f, w in sorted( warnings )] or '# (none)\n' )
-    with open( FAIL_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, FAIL_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name, 'files with policy failures',
                                  base_pkg, time_now ) )
         log.writelines( ['%s; %s\n' % (', '.join(w), f) for f, w in sorted( failures )] or '# (none)\n' )
-    with open( FORBID_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, FORBID_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name, 'files forbidden (or/and unknown)',
                                  base_pkg, time_now ) )
         log.writelines( ['%s\n' % f for f in sorted( forbidden )] or '# (none)\n' )
@@ -578,7 +578,8 @@ Wrote out logs:
        len( warnings ),
        len( failures ),
        len( forbidden ),
-       '\n\t'.join([SUCCESS_LOG, IGNORED_LOG, NOHDR_LOG, WARN_LOG, FAIL_LOG, FORBID_LOG]),
+       '\n\t'.join(os.path.abspath(os.path.join( base_pkg, x ))
+                   for x in [SUCCESS_LOG, IGNORED_LOG, NOHDR_LOG, WARN_LOG, FAIL_LOG, FORBID_LOG]),
        )
 
 
