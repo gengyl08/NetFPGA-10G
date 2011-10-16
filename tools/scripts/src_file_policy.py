@@ -183,7 +183,7 @@ http://www.gnu.org/licenses/.""".splitlines()
 
 all_styles = re.compile( '^[%s]+' % ''.join( x.strip()[0] for x in filter( lambda x: x is not None,
                                                                            sum( ([s,m] for s, _, m, _ in COM_STYLES.values()), [] ) ) ) )
-def replace_header( opts, tree, successes, ignored, noheader, failures, warnings, forbidden, filename ):
+def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, failures, warnings, forbidden ):
     """
     Parse and replace header of a single file, but only if really sure.
     """
@@ -225,11 +225,10 @@ def replace_header( opts, tree, successes, ignored, noheader, failures, warnings
 
     # Get file type and associated information.  Handle ignored and forbidden
     # (ie, unknown) file types.
-    rel_filename = filename[len(tree)+1:]
-    extn = os.path.splitext( filename )[1]
+    extn = os.path.splitext( rel_filename )[1]
     if not extn:
         # No extension, so use whole filename
-        extn = os.path.basename( filename )
+        extn = os.path.basename( rel_filename )
     if extn in IGNORE:
         ignored.setdefault( extn, [] ).append( rel_filename )
         return 0
@@ -248,7 +247,7 @@ def replace_header( opts, tree, successes, ignored, noheader, failures, warnings
     blk_cmt_end_seen  = False
     nf10g_banner_seen = False
     tab_in_hdr_seen   = False
-    with open( filename ) as f:
+    with open( os.path.join( base_pkg, rel_filename ) ) as f:
         # Get interpreter (which must be 1st line of file), if any, and check
         # against policy requirements
         try:
@@ -322,7 +321,7 @@ def replace_header( opts, tree, successes, ignored, noheader, failures, warnings
         # altogether, in which case 'author' will also be missing.  Either way
         # it should be left alone.
         if not nf10g_banner_seen:
-            noheader.append( filename )
+            noheader.append( rel_filename )
             return 0
         if opts.force_copyright or 'copyright notice' not in header:
             header['copyright notice'] = stanford_copyright
@@ -345,7 +344,7 @@ def replace_header( opts, tree, successes, ignored, noheader, failures, warnings
         if tab_in_hdr_seen:
             warn_flags.append( 'tab_in_hdr' )
         # Set filename appropriately
-        header['file'] = [os.path.basename( filename )]
+        header['file'] = [os.path.basename( rel_filename )]
         # Set section project or library, based on file path
         rel_elts = rel_filename.split( os.path.sep )
         if rel_elts[0] == 'projects':
@@ -418,28 +417,35 @@ def replace_header( opts, tree, successes, ignored, noheader, failures, warnings
         successes.setdefault( extn, [] ).append( rel_filename )
     # Write file back out, if not dry-run
     if opts.really:
-        with open( filename, 'w' ) as f:
+        with open( os.path.join( base_pkg, rel_filename ), 'w' ) as f:
             f.writelines( '%s\n' % line for line in text )
     return 1
 
 
-def replace_all_in_tree( opts, tree, successes, ignored, noheader, failures, warnings, forbidden ):
+def get_base_pkg( path ):
     """
-    Walk entire tree, replacing headers in all files found (but only if)
-    really sure.
+    Attempts to split the given path into base_pkg (path of the NetFPGA base
+    package) and subdir (any residual path) by first looking for
+    'netfpga-10g-dev', then 'netfpga'.
     """
-    count = 0
-    for root, dirs, files in os.walk(tree):
-        # Don't recurse into the .git directory
+    elts = path.split( os.path.sep )
+    elts[0] = os.path.sep
+    for root in ['netfpga-10g-dev', 'netfpga']:
         try:
-            del dirs[dirs.index( '.git' )]
+            nfroot_idx = elts.index( root )
         except ValueError:
             pass
-
-        for file in files:
-            count += replace_header( opts, tree, successes, ignored, noheader, failures, warnings, forbidden,
-                            os.path.join( root, file ) )
-    return count
+        else:
+            break
+    else:
+        raise ValueError( 'no NetFPGA base package found in %s' % path )
+    base_pkg = os.path.join( *elts[:nfroot_idx+1] )
+    subdir = elts[nfroot_idx+1:]
+    if subdir:
+        subdir = os.path.join( *subdir )
+    else:
+        subdir = ''
+    return (base_pkg, subdir)
 
 
 def main( argv ):
@@ -483,31 +489,36 @@ CAUTION: *no* backup of input is made before it is rewritten.
     failures  = []
     warnings  = []
     forbidden = []
-    if file_args:
-        count = 0
-        cwd_elts = os.getcwd().split( os.path.sep )
-        cwd_elts[0] = os.path.sep
+    count     = 0
+    if not file_args:
+        # No files/directories specified, so attempt to work out which tree to
+        # work on.  First try to find a tree in the current wd.
         try:
-            nfroot_idx = cwd_elts.index( 'netfpga-10g-dev' )
+            base_pkg, _ = get_base_pkg( os.getcwd() )
         except ValueError:
-            print '%s: error: working tree %s doesn\'t appear to be a netfpga-10g-dev tree.' % (prog_name, os.getcwd())
-            sys.exit(1)
-        tree = os.path.join( *cwd_elts[:nfroot_idx+1] )
-        subdir = cwd_elts[nfroot_idx+1:]
-        if subdir:
-            subdir = os.path.join( *subdir )
+            # None found, so use package this script is a part of
+            base_pkg = os.path.dirname( os.path.dirname( os.path.dirname(__file__ ) ) )
+        file_args = [base_pkg]
+    # Process list of targets
+    for file in file_args:
+        base_pkg, tail = get_base_pkg( os.path.abspath( file ) )
+        file = os.path.join( base_pkg, tail )
+        if os.path.isdir( file ):
+            for root, dirs, files in os.walk( file ):
+                # Don't recurse into the .git directory
+                try:
+                    del dirs[dirs.index( '.git' )]
+                except ValueError:
+                    pass
+
+                for file in files:
+                    rel_filename = os.path.join( root, file )[len(base_pkg)+1:]
+                    count += replace_header( opts, base_pkg, rel_filename,
+                                             successes, ignored, noheader, failures, warnings, forbidden )
         else:
-            subdir = ''
-        for file in file_args:
-            if os.path.isdir( file ):
-                print '%s: %s: is directory' % (prog_name, file)
-                print '%s: recursion into explicit targets not supported' % prog_name
-                continue
-            count += replace_header( opts, tree, successes, ignored, noheader, failures, warnings, forbidden,
-                            os.path.join( tree, subdir, file ) )
-    else:
-        tree  = os.path.dirname( os.path.dirname( os.path.dirname( os.path.abspath( argv[0] ) ) ) )
-        count = replace_all_in_tree( opts, tree, successes, ignored, noheader, failures, warnings, forbidden )
+            rel_filename = file[len(base_pkg)+1:]
+            count += replace_header( opts, base_pkg, rel_filename,
+                                     successes, ignored, noheader, failures, warnings, forbidden )
 
     # Write logs
     log_header = """\
@@ -518,27 +529,27 @@ CAUTION: *no* backup of input is made before it is rewritten.
     time_now = time.asctime()
     with open( SUCCESS_LOG, 'w' ) as log:
         log.write( log_header % (prog_name, 'files successfully processed, without warnings',
-                                 tree, time_now ) )
+                                 base_pkg, time_now ) )
         log.writelines( ['%s\n' % f for f in sorted( sum(successes.itervalues(), []) )] or '# (none)\n' )
     with open( IGNORED_LOG, 'w' ) as log:
         log.write( log_header % (prog_name,
-                                 'files ignored by policy', tree, time_now ) )
+                                 'files ignored by policy', base_pkg, time_now ) )
         log.writelines( ['%s, %s\n' % (e, f) for e, f in sorted((e,f) for e,l in ignored.iteritems() for f in l )] or '# (none)\n' )
     with open( NOHDR_LOG, 'w' ) as log:
         log.write( log_header % (prog_name, 'files missing NetFPGA header',
-                                 tree, time_now ) )
+                                 base_pkg, time_now ) )
         log.writelines( ['%s\n' % f for f in sorted( noheader )] or '# (none)\n' )
     with open( WARN_LOG, 'w' ) as log:
         log.write( log_header % (prog_name, 'files successfully processed, but with warnings',
-                                 tree, time_now ) )
+                                 base_pkg, time_now ) )
         log.writelines( ['%s; %s\n' % (', '.join(w), f) for f, w in sorted( warnings )] or '# (none)\n' )
     with open( FAIL_LOG, 'w' ) as log:
         log.write( log_header % (prog_name, 'files with policy failures',
-                                 tree, time_now ) )
+                                 base_pkg, time_now ) )
         log.writelines( ['%s; %s\n' % (', '.join(w), f) for f, w in sorted( failures )] or '# (none)\n' )
     with open( FORBID_LOG, 'w' ) as log:
         log.write( log_header % (prog_name, 'files forbidden (or/and unknown)',
-                                 tree, time_now ) )
+                                 base_pkg, time_now ) )
         log.writelines( ['%s\n' % f for f in sorted( forbidden )] or '# (none)\n' )
 
     # Report to console
@@ -560,9 +571,9 @@ Forbidden files (those either unexpected, or shouldn't be present): %s
 Wrote out logs:
 \t%s
 """ % (prog_name, opts.really and '*REALLY*' or 'NOT', count,
-       tree,
-       '\n\t'.join(['%-20s%4s' % (k, len(v)) for k, v in sorted( successes.iteritems())]) or '(none)',
-       '\n\t'.join(['%-20s%4s' % (k, len(v)) for k, v in sorted(   ignored.iteritems())]) or '(none)',
+       base_pkg,
+       '\n\t'.join(['%-20s%4s' % (k, len(v)) for k, v in sorted(successes.iteritems())]) or '(none)',
+       '\n\t'.join(['%-20s%4s' % (k, len(v)) for k, v in sorted(  ignored.iteritems())]) or '(none)',
        len( noheader ),
        len( warnings ),
        len( failures ),
