@@ -336,7 +336,7 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
             while header[section] and not header[section][-1]:
                 del header[section][-1]
         # Try to guess the author based on AUTHORS table, if not already present
-        if 'author' not in header:
+        if opts.force_author or 'author' not in header:
             for base, author in AUTHORS:
                 if rel_filename.startswith( base ):
                     header['author'] = author
@@ -461,7 +461,7 @@ def main( argv ):
 
     # Configure parser
     parser = optparse.OptionParser(
-        usage  = '%prog [-h|--help] [--really] [file [...]]',
+        usage  = '%prog [-h|--help] [options] [file [...]]',
         version= '1.0',
         epilog = """\
 If no files are specified, walk the entire development tree containing
@@ -475,6 +475,9 @@ CAUTION: *no* backup of input is made before it is rewritten.
         '--really', action='store_true', default=False,
         help='Really write out changes.  Otherwise dry-run.')
     parser.add_option(
+        '--force-author', action='store_true', default=False,
+        help='Force rewrite of *every* NetFPGA 10G Author section.')
+    parser.add_option(
         '--force-licence', action='store_true', default=False,
         help='Force rewrite of *every* NetFPGA 10G header licence.')
     parser.add_option(
@@ -484,6 +487,8 @@ CAUTION: *no* backup of input is made before it is rewritten.
 
     # Parse & check options
     opts, file_args = parser.parse_args()
+    if (opts.force_author or opts.force_licence or opts.force_copyright) and not file_args:
+        parser.error( '--force flags require explicit list of targets' )
 
     successes = {}
     ignored   = {}
