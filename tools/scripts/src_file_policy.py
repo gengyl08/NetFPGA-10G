@@ -111,7 +111,8 @@ SECTIONS  = [ 'author',
               'structure',
               'library',
               'copyright notice',
-              'licence'
+              'licence',
+              'original header',
               ]
 
 hdr_indent1 = 2
@@ -248,6 +249,7 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
 
     # Analyse file
     header            = {}
+    original_header   = []
     fail_flags        = []
     warn_flags        = []
     text              = []
@@ -324,17 +326,23 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
                     cmt_line = elts[1]
             # Anything else is section data
             header.setdefault( section, [] ).append( cmt_line )
+            # Put verbatim copy of original header under 'original header'
+            original_header.append( cmt_line )
 
         #
         # Clean up collected data
         #
 
-        # No NetFPGA banner means either the header was mangled, or missing
-        # altogether, in which case 'author' will also be missing.  Either way
-        # it should be left alone.
         if not nf10g_banner_seen:
-            noheader.append( rel_filename )
-            return 0
+            if opts.force_header:
+                # Forcing headers when absent: Preserve original header.
+                header['original header'] = original_header
+            else:
+                # No NetFPGA banner means either the header was mangled, or
+                # missing altogether (and --force-header not specified) so bail
+                # on this file.
+                noheader.append( rel_filename )
+                return 0
         # Look up authors, copyrights and licence by relative path
         for base, authors, copyrights, licence in AUTHORS:
             if rel_filename.startswith( base ):
@@ -376,7 +384,7 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
             if section in header:
                 header[section] = [x.strip() for x in header[section]]
         # Delete *common* leading whitespace in the following sections
-        for section in ['description', 'copyright notice', 'licence']:
+        for section in ['description', 'copyright notice', 'licence', 'original header']:
             if section in header:
                 header[section] = strip_common_leading_whitespace( header[section] )
 
@@ -411,7 +419,7 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
             text.append( ('%s%s%s' % (cmt_mid, ' '*hdr_indent1, line)).rstrip() )
         # Add section data
         for section in ['file', 'library', 'project', 'module', 'author', 'description',
-                        'copyright notice', 'licence']:
+                        'copyright notice', 'licence', 'original header']:
             if section in header:
                 text.append( '%s%s%s:' % (cmt_mid, ' '*hdr_indent1, section.capitalize() ) )
                 for sect_info in header[section]:
@@ -488,6 +496,9 @@ CAUTION: *no* backup of input is made before it is rewritten.
     parser.add_option(
         '--really', action='store_true', default=False,
         help='Really write out changes.  Otherwise dry-run.')
+    parser.add_option(
+        '--force-header', action='store_true', default=False,
+        help='Force write of new NetFPGA 10G header, where none was present before.')
     parser.add_option(
         '--force-author', action='store_true', default=False,
         help='Force rewrite of *every* NetFPGA 10G Author section.')
