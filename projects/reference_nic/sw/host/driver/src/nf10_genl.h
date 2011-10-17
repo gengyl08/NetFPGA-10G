@@ -17,8 +17,8 @@
  *        between userspace software and the linux kernel driver.
  *
  *  Copyright notice:
- *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
- *                                Junior University
+ *        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+ *                                 Junior University
  *
  *  Licence:
  *        This file is part of the NetFPGA 10G development base package.
@@ -50,11 +50,11 @@ enum {
     NF10_GENL_A_UNSPEC,
     NF10_GENL_A_MSG,
     NF10_GENL_A_DMA_BUF,
-    NF10_GENL_A_ADDR32,    
+    NF10_GENL_A_ADDR32,
     NF10_GENL_A_REGVAL32,
     NF10_GENL_A_OPCODE,
     NF10_GENL_A_ERRNO,
-    
+
     __NF10_GENL_A_MAX,
 };
 

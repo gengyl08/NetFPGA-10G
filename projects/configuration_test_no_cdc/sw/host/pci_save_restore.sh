@@ -11,7 +11,7 @@
 #        configuration_test_no_cdc
 #
 #  Author:
-#        David J. Miller
+#        Muhammad Shahbaz
 #
 #  Description:
 #        Save and restore PCI configuration data.  Permits hot loading
@@ -24,8 +24,7 @@
 #        the logical PCI bus ID.  Use lspci -d 10ee: to identify bus IDs.
 #
 #  Copyright notice:
-#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
-#                                Junior University
+#        Copyright (C) 2010, 2011 University of Cambridge
 #
 #  Licence:
 #        This file is part of the NetFPGA 10G development base package.

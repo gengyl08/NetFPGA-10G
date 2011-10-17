@@ -19,8 +19,8 @@
  *        Inputs have a parameterizable width
  *
  *  Copyright notice:
- *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
- *                                Junior University
+ *        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+ *                                 Junior University
  *
  *  Licence:
  *        This file is part of the NetFPGA 10G development base package.
@@ -117,7 +117,7 @@ module nf10_input_arbiter
    parameter NUM_STATES = 1;
    parameter IDLE = 0;
    parameter WR_PKT = 1;
-   
+
    localparam MAX_PKT_SIZE = 2000; // In bytes
    localparam IN_FIFO_DEPTH_BIT = log2(MAX_PKT_SIZE/(C_M_AXIS_DATA_WIDTH / 8));
 

@@ -18,8 +18,7 @@
 --        AXI4 Lite I/O FIFOs
 --
 --  Copyright notice:
---        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
---                                Junior University
+--        Copyright (C) 2010, 2011 David J. Miller
 --
 --  Licence:
 --        This file is part of the NetFPGA 10G development base package.
