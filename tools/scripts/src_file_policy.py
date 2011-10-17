@@ -114,49 +114,6 @@ SECTIONS  = [ 'author',
               'licence'
               ]
 
-AC        = 'Adam Covington'
-DM        = 'David J. Miller'
-JE        = 'Jonathan Ellithorpe'
-JH        = 'James Hongyi Zeng'
-MB        = 'Michaela Blott'
-MS        = 'Muhammad Shahbaz'
-SF        = 'Stephanie Friederich'
-SS        = 'Shep Siegel'
-
-AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            [MB]),
-              ('lib/hw/netwave/pcores/nf10_axis_netwave_gen_check',       [MB]),
-              ('lib/hw/netwave/pcores/nf10_axis_netwave_l2switch',        [MB]),
-              ('lib/hw/std/pcores/nf10_10g_interface',                    [JH]),
-              ('lib/hw/std/pcores/nf10_1g_interface',                     [AC]),
-              ('lib/hw/std/pcores/nf10_axis_converter',                   [JH]),
-              ('lib/hw/std/pcores/nf10_axis_gen_check',                   [MB]),
-              ('lib/hw/std/pcores/nf10_axis_sim_pkg',                     [DM]),
-              ('lib/hw/std/pcores/nf10_axis_sim_record',                  [DM]),
-              ('lib/hw/std/pcores/nf10_axis_sim_stim',                    [DM]),
-              ('lib/hw/std/pcores/nf10_axi_flash_ctrl',                   [SF]),
-              ('lib/hw/std/pcores/nf10_axi_sim_transactor',               [DM]),
-              ('lib/hw/std/pcores/nf10_bram_output_queues',               [JH]),
-              ('lib/hw/std/pcores/nf10_input_arbiter',                    [AC]),
-              ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           [AC]),
-              ('lib/hw/std/pcores/nf10_oped',                             [JH]),
-              ('lib/hw/std/pcores/nf10_sram',                             [JH]),
-              ('projects/configuration',                                  [MS]),
-              ('projects/configuration_test',                             [SF]),
-              ('projects/configuration_test_no_cdc',                      [SF]),
-              ('projects/loopback_test',                                  [JH]),
-              ('projects/loopback_test_1g',                               [JH]),
-              ('projects/memory_test',                                    [JH]),
-              ('projects/netwave',                                        [MB]),
-              ('projects/oped_test',                                      [JH]),
-              ('projects/production_test',                                [MB]),
-              ('projects/reference_nic/sw/host',                          [JE]),
-              ('projects/reference_nic',                                  [JH]),
-              ('projects/reference_nic_1g/sw/host',                       [JE]),
-              ('projects/reference_nic_1g',                               [AC]),
-              ('projects/stresstest',                                     [MB]),
-              ]
-
-
 hdr_indent1 = 2
 hdr_indent2 = 8
 hdr_prolog = """\
@@ -164,9 +121,15 @@ hdr_prolog = """\
 NetFPGA-10G http://www.netfpga.org
 
 """.splitlines()
+cambridge_copyright = """\
+Copyright (C) 2010,2011 University of Cambridge""".splitlines()
+DM_copyright = """\
+Copyright (C) 2010,2011 David J. Miller""".splitlines()
 stanford_copyright = """\
 Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
                         Junior University""".splitlines()
+xilinx_copyright = """\
+Copyright (C) 2010,2011 Xilinx, Inc.""".splitlines()
 stanford_licence = """\
 This file is part of the NetFPGA 10G development base package.
 
@@ -182,6 +145,49 @@ Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public
 License along with the NetFPGA source package.  If not, see
 http://www.gnu.org/licenses/.""".splitlines()
+
+AC        = 'Adam Covington'
+DM        = 'David J. Miller'
+JE        = 'Jonathan Ellithorpe'
+JH        = 'James Hongyi Zeng'
+MB        = 'Michaela Blott'
+MS        = 'Muhammad Shahbaz'
+SF        = 'Stephanie Friederich'
+SS        = 'Shep Siegel'
+
+AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            [MB],    xilinx_copyright, stanford_licence),
+              ('lib/hw/netwave/pcores/nf10_axis_netwave_gen_check',       [MB],    xilinx_copyright, stanford_licence),
+              ('lib/hw/netwave/pcores/nf10_axis_netwave_l2switch',        [MB],    xilinx_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_10g_interface',                    [JH],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_1g_interface',                     [AC],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axis_converter',                   [JH],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axis_gen_check',                   [MB],    xilinx_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axis_sim_pkg',                     [DM],        DM_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axis_sim_record',                  [DM],        DM_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axis_sim_stim',                    [DM],        DM_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axi_flash_ctrl',                   [SF],    xilinx_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axi_sim_transactor',               [DM],        DM_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_bram_output_queues',               [JH],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_input_arbiter',                    [AC],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           [AC],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_oped',                             [JH],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_sram',                             [JH],  stanford_copyright, stanford_licence),
+              ('projects/configuration',                                  [MS], cambridge_copyright, stanford_licence),
+              ('projects/configuration_test',                             [SF],    xilinx_copyright, stanford_licence),
+              ('projects/configuration_test_no_cdc',                      [SF],    xilinx_copyright, stanford_licence),
+              ('projects/loopback_test',                                  [JH],  stanford_copyright, stanford_licence),
+              ('projects/loopback_test_1g',                               [JH],  stanford_copyright, stanford_licence),
+              ('projects/memory_test',                                    [JH],  stanford_copyright, stanford_licence),
+              ('projects/netwave',                                        [MB],    xilinx_copyright, stanford_licence),
+              ('projects/oped_test',                                      [JH],  stanford_copyright, stanford_licence),
+              ('projects/production_test',                                [MB],    xilinx_copyright, stanford_licence),
+              ('projects/reference_nic/sw/host',                          [JE],  stanford_copyright, stanford_licence),
+              ('projects/reference_nic',                                  [JH],  stanford_copyright, stanford_licence),
+              ('projects/reference_nic_1g/sw/host',                       [JE],  stanford_copyright, stanford_licence),
+              ('projects/reference_nic_1g',                               [AC],  stanford_copyright, stanford_licence),
+              ('projects/stresstest',                                     [MB],    xilinx_copyright, stanford_licence),
+              ]
+
 
 all_styles = re.compile( '^[%s]+' % ''.join( x.strip()[0] for x in filter( lambda x: x is not None,
                                                                            sum( ([s,m] for s, _, m, _ in COM_STYLES.values()), [] ) ) ) )
@@ -241,17 +247,19 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
     cmt_mid_strip = cmt_mid and cmt_mid.strip() # might have leading spaces
 
     # Analyse file
-    header = {}
-    fail_flags = []
-    warn_flags = []
-    text = []
-    section = ''
+    header            = {}
+    fail_flags        = []
+    warn_flags        = []
+    text              = []
+    section           = ''
     blk_cmt_end_seen  = False
     nf10g_banner_seen = False
     tab_in_hdr_seen   = False
     with open( os.path.join( base_pkg, rel_filename ) ) as f:
+        #
         # Get interpreter (which must be 1st line of file), if any, and check
         # against policy requirements
+        #
         try:
             line_strip = f.next().strip()
         except StopIteration:
@@ -280,7 +288,9 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
         else: # not an interpreter hack line
             f.seek( 0 )
 
+        #
         # Parse existing header, if any
+        #
         for line in f:
             cmt_line = get_hdr_line( line )
             if not line.strip():
@@ -325,22 +335,21 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
         if not nf10g_banner_seen:
             noheader.append( rel_filename )
             return 0
-        if opts.force_copyright or 'copyright notice' not in header:
-            header['copyright notice'] = stanford_copyright
-        if opts.force_licence or 'licence' not in header:
-            header['licence'] = stanford_licence
-        # Delete any leading or trailing empty lines from each section
-        for section in header:
-            while header[section] and not header[section][0]:
-                del header[section][0]
-            while header[section] and not header[section][-1]:
-                del header[section][-1]
-        # Try to guess the author based on AUTHORS table, if not already present
-        if opts.force_author or 'author' not in header:
-            for base, author in AUTHORS:
-                if rel_filename.startswith( base ):
-                    header['author'] = author
-                    break
+        # Look up authors, copyrights and licence by relative path
+        for base, authors, copyrights, licence in AUTHORS:
+            if rel_filename.startswith( base ):
+                break
+        else: # None found
+            authors    = None
+            copyrights = stanford_copyright
+            licence    = stanford_licence
+        # Check author, copyright and licence sections
+        if authors    is not None and (opts.force_author    or 'author'           not in header):
+            header['author'] = authors
+        if copyrights is not None and (opts.force_copyright or 'copyright notice' not in header):
+            header['copyright notice'] = copyrights
+        if licence    is not None and (opts.force_licence   or 'licence'          not in header):
+            header['licence'] = licence
         # The presence of tabs in the header indicate that left justification
         # of the comment might be screwed up.
         if tab_in_hdr_seen:
@@ -353,6 +362,12 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
             header['project'] = [rel_elts[1]]
         if rel_elts[0] == 'lib':
             header['library'] = [os.path.join( *rel_elts[1:5] )]
+        # Delete any leading or trailing empty lines from each section
+        for section in header:
+            while header[section] and not header[section][0]:
+                del header[section][0]
+            while header[section] and not header[section][-1]:
+                del header[section][-1]
         # Delete module section if it's the same as the filename
         if 'module' in header and header['module'][0].find( header['file'][0] ) != -1:
             del header['module']
@@ -364,7 +379,6 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
         for section in ['description', 'copyright notice', 'licence']:
             if section in header:
                 header[section] = strip_common_leading_whitespace( header[section] )
-
 
         #
         # Check header for required data
