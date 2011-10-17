@@ -115,6 +115,9 @@ SECTIONS  = [ 'author',
               'original header',
               ]
 
+#
+# Header banner
+#
 hdr_indent1 = 2
 hdr_indent2 = 8
 hdr_prolog = """\
@@ -122,20 +125,46 @@ hdr_prolog = """\
 NetFPGA-10G http://www.netfpga.org
 
 """.splitlines()
+#
+# Copyright statements
+#
 cambridge_copyright = """\
 Copyright (C) 2010, 2011 University of Cambridge""".splitlines()
 DM_copyright = """\
 Copyright (C) 2010, 2011 David J. Miller""".splitlines()
+oped_copyright = """\
+Portions copyright (C) 2010, 2011 Atomic Rules LLC
+Portions copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+                                  Junior University""".splitlines()
 stanford_copyright = """\
 Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
                          Junior University""".splitlines()
 xilinx_copyright = """\
 Copyright (C) 2010, 2011 Xilinx, Inc.""".splitlines()
-stanford_licence = """\
+#
+# Licences
+#
+lgpl21_licence = """\
 This file is part of the NetFPGA 10G development base package.
 
 This file is free code: you can redistribute it and/or modify it under
 the terms of the GNU Lesser General Public License version 2.1 as
+published by the Free Software Foundation.
+
+This package is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with the NetFPGA source package.  If not, see
+http://www.gnu.org/licenses/.""".splitlines()
+
+lgpl30_licence = """\
+This file is part of the NetFPGA 10G development base package.
+
+This file is free code: you can redistribute it and/or modify it under
+the terms of the GNU Lesser General Public License version 3.0 as
 published by the Free Software Foundation.
 
 This package is distributed in the hope that it will be useful, but
@@ -156,37 +185,38 @@ MS        = 'Muhammad Shahbaz'
 SF        = 'Stephanie Friederich'
 SS        = 'Shep Siegel'
 
-AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            [MB],    xilinx_copyright, stanford_licence),
-              ('lib/hw/netwave/pcores/nf10_axis_netwave_gen_check',       [MB],    xilinx_copyright, stanford_licence),
-              ('lib/hw/netwave/pcores/nf10_axis_netwave_l2switch',        [MB],    xilinx_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_10g_interface',                    [JH],  stanford_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_1g_interface',                     [AC],  stanford_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_axis_converter',                   [JH],  stanford_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_axis_gen_check',                   [MB],    xilinx_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_axis_sim_pkg',                     [DM],        DM_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_axis_sim_record',                  [DM],        DM_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_axis_sim_stim',                    [DM],        DM_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_axi_flash_ctrl',                   [SF],    xilinx_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_axi_sim_transactor',               [DM],        DM_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_bram_output_queues',               [JH],  stanford_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_input_arbiter',                    [AC],  stanford_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           [AC],  stanford_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_oped',                             [JH],  stanford_copyright, stanford_licence),
-              ('lib/hw/std/pcores/nf10_sram',                             [JH],  stanford_copyright, stanford_licence),
-              ('projects/configuration',                                  [MS], cambridge_copyright, stanford_licence),
-              ('projects/configuration_test',                             [SF],    xilinx_copyright, stanford_licence),
-              ('projects/configuration_test_no_cdc',                      [SF],    xilinx_copyright, stanford_licence),
-              ('projects/loopback_test',                                  [JH],  stanford_copyright, stanford_licence),
-              ('projects/loopback_test_1g',                               [JH],  stanford_copyright, stanford_licence),
-              ('projects/memory_test',                                    [JH],  stanford_copyright, stanford_licence),
-              ('projects/netwave',                                        [MB],    xilinx_copyright, stanford_licence),
-              ('projects/oped_test',                                      [JH],  stanford_copyright, stanford_licence),
-              ('projects/production_test',                                [MB],    xilinx_copyright, stanford_licence),
-              ('projects/reference_nic/sw/host',                          [JE],  stanford_copyright, stanford_licence),
-              ('projects/reference_nic',                                  [JH],  stanford_copyright, stanford_licence),
-              ('projects/reference_nic_1g/sw/host',                       [JE],  stanford_copyright, stanford_licence),
-              ('projects/reference_nic_1g',                               [AC],  stanford_copyright, stanford_licence),
-              ('projects/stresstest',                                     [MB],    xilinx_copyright, stanford_licence),
+AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            [MB],    xilinx_copyright, lgpl21_licence),
+              ('lib/hw/netwave/pcores/nf10_axis_netwave_gen_check',       [MB],    xilinx_copyright, lgpl21_licence),
+              ('lib/hw/netwave/pcores/nf10_axis_netwave_l2switch',        [MB],    xilinx_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_10g_interface',                    [JH],  stanford_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_1g_interface',                     [AC],  stanford_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_axis_converter',                   [JH],  stanford_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_axis_gen_check',                   [MB],    xilinx_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_axis_sim_pkg',                     [DM],        DM_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_axis_sim_record',                  [DM],        DM_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_axis_sim_stim',                    [DM],        DM_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_axi_flash_ctrl',                   [SF],    xilinx_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_axi_sim_transactor',               [DM],        DM_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_bram_output_queues',               [JH],  stanford_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_input_arbiter',                    [AC],  stanford_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           [AC],  stanford_copyright, lgpl21_licence),
+              ('lib/hw/std/pcores/nf10_oped',                             [SS,
+                                                                           JH],      oped_copyright, lgpl30_licence),
+              ('lib/hw/std/pcores/nf10_sram',                             [JH],  stanford_copyright, lgpl21_licence),
+              ('projects/configuration',                                  [MS], cambridge_copyright, lgpl21_licence),
+              ('projects/configuration_test',                             [SF],    xilinx_copyright, lgpl21_licence),
+              ('projects/configuration_test_no_cdc',                      [SF],    xilinx_copyright, lgpl21_licence),
+              ('projects/loopback_test',                                  [JH],  stanford_copyright, lgpl21_licence),
+              ('projects/loopback_test_1g',                               [JH],  stanford_copyright, lgpl21_licence),
+              ('projects/memory_test',                                    [JH],  stanford_copyright, lgpl21_licence),
+              ('projects/netwave',                                        [MB],    xilinx_copyright, lgpl21_licence),
+              ('projects/oped_test',                                      [JH],  stanford_copyright, lgpl21_licence),
+              ('projects/production_test',                                [MB],    xilinx_copyright, lgpl21_licence),
+              ('projects/reference_nic/sw/host',                          [JE],  stanford_copyright, lgpl21_licence),
+              ('projects/reference_nic',                                  [JH],  stanford_copyright, lgpl21_licence),
+              ('projects/reference_nic_1g/sw/host',                       [JE],  stanford_copyright, lgpl21_licence),
+              ('projects/reference_nic_1g',                               [AC],  stanford_copyright, lgpl21_licence),
+              ('projects/stresstest',                                     [MB],    xilinx_copyright, lgpl21_licence),
               ]
 
 
@@ -350,7 +380,7 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
         else: # None found
             authors    = None
             copyrights = stanford_copyright
-            licence    = stanford_licence
+            licence    = lgpl21_licence
         # Check author, copyright and licence sections
         if authors    is not None and (opts.force_author    or 'author'           not in header):
             header['author'] = authors
