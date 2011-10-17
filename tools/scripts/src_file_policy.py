@@ -26,8 +26,8 @@
 #              - EOL is Unix style (ie, not \r\n)
 #
 #  Copyright notice:
-#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
-#                                Junior University
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
 #
 #  Licence:
 #        This file is part of the NetFPGA 10G development base package.
@@ -56,13 +56,13 @@ import sys
 import string
 import time
 
-# Log names
-SUCCESS_LOG = os.path.expanduser( '~/pol_success.log' )
-IGNORED_LOG = os.path.expanduser( '~/pol_ignored.log' )
-NOHDR_LOG   = os.path.expanduser( '~/pol_no_header.log' )
-WARN_LOG    = os.path.expanduser( '~/pol_warning.log' )
-FAIL_LOG    = os.path.expanduser( '~/pol_failure.log' )
-FORBID_LOG  = os.path.expanduser( '~/pol_forbidden.log' )
+# Log names (relative to base_pkg)
+SUCCESS_LOG = '../pol_success.log'
+IGNORED_LOG = '../pol_ignored.log'
+NOHDR_LOG   = '../pol_no_header.log'
+WARN_LOG    = '../pol_warning.log'
+FAIL_LOG    = '../pol_failure.log'
+FORBID_LOG  = '../pol_forbidden.log'
 
 # TYPE_INFO: a tuple of (comment_str, interp_required, interpreter).
 #       comment_str: tuple of (single, begin, middle, end)
@@ -114,47 +114,6 @@ SECTIONS  = [ 'author',
               'licence'
               ]
 
-AC        = 'Adam Covington'
-DM        = 'David J. Miller'
-JE        = 'Jonathan Ellithorpe'
-JH        = 'James Hongyi Zeng'
-MB        = 'Michaela Blott'
-MS        = 'Muhammad Shahbaz'
-SF        = 'Stephanie Friederich'
-SS        = 'Shep Siegel'
-
-AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            [MB]),
-              ('lib/hw/netwave/pcores/nf10_axis_netwave_gen_check',       [MB]),
-              ('lib/hw/netwave/pcores/nf10_axis_netwave_l2switch',        [MB]),
-              ('lib/hw/std/pcores/nf10_10g_interface',                    [JH]),
-              ('lib/hw/std/pcores/nf10_1g_interface',                     [AC]),
-              ('lib/hw/std/pcores/nf10_axis_converter',                   [JH]),
-              ('lib/hw/std/pcores/nf10_axis_gen_check',                   [MB]),
-              ('lib/hw/std/pcores/nf10_axis_sim_pkg',                     [DM]),
-              ('lib/hw/std/pcores/nf10_axis_sim_record',                  [DM]),
-              ('lib/hw/std/pcores/nf10_axis_sim_stim',                    [DM]),
-              ('lib/hw/std/pcores/nf10_axi_flash_ctrl',                   [SF]),
-              ('lib/hw/std/pcores/nf10_axi_sim_transactor',               [DM]),
-              ('lib/hw/std/pcores/nf10_bram_output_queues',               [JH]),
-              ('lib/hw/std/pcores/nf10_input_arbiter',                    [AC]),
-              ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           [AC]),
-              ('lib/hw/std/pcores/nf10_oped',                             [JH]),
-              ('lib/hw/std/pcores/nf10_sram',                             [JH]),
-              ('projects/configuration',                                  [MS]),
-              ('projects/configuration_test',                             [SF]),
-              ('projects/configuration_test_no_cdc',                      [SF]),
-              ('projects/loopback_test',                                  [JH]),
-              ('projects/loopback_test_1g',                               [JH]),
-              ('projects/memory_test',                                    [JH]),
-              ('projects/netwave',                                        [MB]),
-              ('projects/oped_test',                                      [JH]),
-              ('projects/production_test',                                [MB]),
-              ('projects/reference_nic',                                  [JH]),
-              ('projects/reference_nic_1g',                               [AC]),
-              ('projects/stresstest',                                     [MB]),
-              ]
-
-
 hdr_indent1 = 2
 hdr_indent2 = 8
 hdr_prolog = """\
@@ -162,9 +121,15 @@ hdr_prolog = """\
 NetFPGA-10G http://www.netfpga.org
 
 """.splitlines()
+cambridge_copyright = """\
+Copyright (C) 2010, 2011 University of Cambridge""".splitlines()
+DM_copyright = """\
+Copyright (C) 2010, 2011 David J. Miller""".splitlines()
 stanford_copyright = """\
-Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
-                        Junior University""".splitlines()
+Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+                         Junior University""".splitlines()
+xilinx_copyright = """\
+Copyright (C) 2010, 2011 Xilinx, Inc.""".splitlines()
 stanford_licence = """\
 This file is part of the NetFPGA 10G development base package.
 
@@ -181,9 +146,52 @@ You should have received a copy of the GNU Lesser General Public
 License along with the NetFPGA source package.  If not, see
 http://www.gnu.org/licenses/.""".splitlines()
 
+AC        = 'Adam Covington'
+DM        = 'David J. Miller'
+JE        = 'Jonathan Ellithorpe'
+JH        = 'James Hongyi Zeng'
+MB        = 'Michaela Blott'
+MS        = 'Muhammad Shahbaz'
+SF        = 'Stephanie Friederich'
+SS        = 'Shep Siegel'
+
+AUTHORS   = [ ('lib/hw/netwave/pcores/nf10_axis_netwave_core',            [MB],    xilinx_copyright, stanford_licence),
+              ('lib/hw/netwave/pcores/nf10_axis_netwave_gen_check',       [MB],    xilinx_copyright, stanford_licence),
+              ('lib/hw/netwave/pcores/nf10_axis_netwave_l2switch',        [MB],    xilinx_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_10g_interface',                    [JH],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_1g_interface',                     [AC],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axis_converter',                   [JH],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axis_gen_check',                   [MB],    xilinx_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axis_sim_pkg',                     [DM],        DM_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axis_sim_record',                  [DM],        DM_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axis_sim_stim',                    [DM],        DM_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axi_flash_ctrl',                   [SF],    xilinx_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_axi_sim_transactor',               [DM],        DM_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_bram_output_queues',               [JH],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_input_arbiter',                    [AC],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_nic_output_port_lookup',           [AC],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_oped',                             [JH],  stanford_copyright, stanford_licence),
+              ('lib/hw/std/pcores/nf10_sram',                             [JH],  stanford_copyright, stanford_licence),
+              ('projects/configuration',                                  [MS], cambridge_copyright, stanford_licence),
+              ('projects/configuration_test',                             [SF],    xilinx_copyright, stanford_licence),
+              ('projects/configuration_test_no_cdc',                      [SF],    xilinx_copyright, stanford_licence),
+              ('projects/loopback_test',                                  [JH],  stanford_copyright, stanford_licence),
+              ('projects/loopback_test_1g',                               [JH],  stanford_copyright, stanford_licence),
+              ('projects/memory_test',                                    [JH],  stanford_copyright, stanford_licence),
+              ('projects/netwave',                                        [MB],    xilinx_copyright, stanford_licence),
+              ('projects/oped_test',                                      [JH],  stanford_copyright, stanford_licence),
+              ('projects/production_test',                                [MB],    xilinx_copyright, stanford_licence),
+              ('projects/reference_nic/sw/host',                          [JE],  stanford_copyright, stanford_licence),
+              ('projects/reference_nic',                                  [JH],  stanford_copyright, stanford_licence),
+              ('projects/reference_nic_1g/sw/host',                       [JE],  stanford_copyright, stanford_licence),
+              ('projects/reference_nic_1g',                               [AC],  stanford_copyright, stanford_licence),
+              ('projects/stresstest',                                     [MB],    xilinx_copyright, stanford_licence),
+              ]
+
+
 all_styles = re.compile( '^[%s]+' % ''.join( x.strip()[0] for x in filter( lambda x: x is not None,
                                                                            sum( ([s,m] for s, _, m, _ in COM_STYLES.values()), [] ) ) ) )
-def replace_header( opts, tree, successes, ignored, noheader, failures, warnings, forbidden, filename ):
+def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, failures, warnings, forbidden ):
     """
     Parse and replace header of a single file, but only if really sure.
     """
@@ -225,11 +233,10 @@ def replace_header( opts, tree, successes, ignored, noheader, failures, warnings
 
     # Get file type and associated information.  Handle ignored and forbidden
     # (ie, unknown) file types.
-    rel_filename = filename[len(tree)+1:]
-    extn = os.path.splitext( filename )[1]
+    extn = os.path.splitext( rel_filename )[1]
     if not extn:
         # No extension, so use whole filename
-        extn = os.path.basename( filename )
+        extn = os.path.basename( rel_filename )
     if extn in IGNORE:
         ignored.setdefault( extn, [] ).append( rel_filename )
         return 0
@@ -240,17 +247,19 @@ def replace_header( opts, tree, successes, ignored, noheader, failures, warnings
     cmt_mid_strip = cmt_mid and cmt_mid.strip() # might have leading spaces
 
     # Analyse file
-    header = {}
-    fail_flags = []
-    warn_flags = []
-    text = []
-    section = ''
+    header            = {}
+    fail_flags        = []
+    warn_flags        = []
+    text              = []
+    section           = ''
     blk_cmt_end_seen  = False
     nf10g_banner_seen = False
     tab_in_hdr_seen   = False
-    with open( filename ) as f:
+    with open( os.path.join( base_pkg, rel_filename ) ) as f:
+        #
         # Get interpreter (which must be 1st line of file), if any, and check
         # against policy requirements
+        #
         try:
             line_strip = f.next().strip()
         except StopIteration:
@@ -279,7 +288,9 @@ def replace_header( opts, tree, successes, ignored, noheader, failures, warnings
         else: # not an interpreter hack line
             f.seek( 0 )
 
+        #
         # Parse existing header, if any
+        #
         for line in f:
             cmt_line = get_hdr_line( line )
             if not line.strip():
@@ -322,36 +333,41 @@ def replace_header( opts, tree, successes, ignored, noheader, failures, warnings
         # altogether, in which case 'author' will also be missing.  Either way
         # it should be left alone.
         if not nf10g_banner_seen:
-            noheader.append( filename )
+            noheader.append( rel_filename )
             return 0
-        if opts.force_copyright or 'copyright notice' not in header:
-            header['copyright notice'] = stanford_copyright
-        if opts.force_licence or 'licence' not in header:
-            header['licence'] = stanford_licence
-        # Delete any leading or trailing empty lines from each section
-        for section in header:
-            while header[section] and not header[section][0]:
-                del header[section][0]
-            while header[section] and not header[section][-1]:
-                del header[section][-1]
-        # Try to guess the author based on AUTHORS table, if not already present
-        if 'author' not in header:
-            for base, author in AUTHORS:
-                if rel_filename.startswith( base ):
-                    header['author'] = author
-                    break
+        # Look up authors, copyrights and licence by relative path
+        for base, authors, copyrights, licence in AUTHORS:
+            if rel_filename.startswith( base ):
+                break
+        else: # None found
+            authors    = None
+            copyrights = stanford_copyright
+            licence    = stanford_licence
+        # Check author, copyright and licence sections
+        if authors    is not None and (opts.force_author    or 'author'           not in header):
+            header['author'] = authors
+        if copyrights is not None and (opts.force_copyright or 'copyright notice' not in header):
+            header['copyright notice'] = copyrights
+        if licence    is not None and (opts.force_licence   or 'licence'          not in header):
+            header['licence'] = licence
         # The presence of tabs in the header indicate that left justification
         # of the comment might be screwed up.
         if tab_in_hdr_seen:
             warn_flags.append( 'tab_in_hdr' )
         # Set filename appropriately
-        header['file'] = [os.path.basename( filename )]
+        header['file'] = [os.path.basename( rel_filename )]
         # Set section project or library, based on file path
         rel_elts = rel_filename.split( os.path.sep )
         if rel_elts[0] == 'projects':
             header['project'] = [rel_elts[1]]
         if rel_elts[0] == 'lib':
             header['library'] = [os.path.join( *rel_elts[1:5] )]
+        # Delete any leading or trailing empty lines from each section
+        for section in header:
+            while header[section] and not header[section][0]:
+                del header[section][0]
+            while header[section] and not header[section][-1]:
+                del header[section][-1]
         # Delete module section if it's the same as the filename
         if 'module' in header and header['module'][0].find( header['file'][0] ) != -1:
             del header['module']
@@ -363,7 +379,6 @@ def replace_header( opts, tree, successes, ignored, noheader, failures, warnings
         for section in ['description', 'copyright notice', 'licence']:
             if section in header:
                 header[section] = strip_common_leading_whitespace( header[section] )
-
 
         #
         # Check header for required data
@@ -418,28 +433,35 @@ def replace_header( opts, tree, successes, ignored, noheader, failures, warnings
         successes.setdefault( extn, [] ).append( rel_filename )
     # Write file back out, if not dry-run
     if opts.really:
-        with open( filename, 'w' ) as f:
+        with open( os.path.join( base_pkg, rel_filename ), 'w' ) as f:
             f.writelines( '%s\n' % line for line in text )
     return 1
 
 
-def replace_all_in_tree( opts, tree, successes, ignored, noheader, failures, warnings, forbidden ):
+def get_base_pkg( path ):
     """
-    Walk entire tree, replacing headers in all files found (but only if)
-    really sure.
+    Attempts to split the given path into base_pkg (path of the NetFPGA base
+    package) and subdir (any residual path) by first looking for
+    'netfpga-10g-dev', then 'netfpga'.
     """
-    count = 0
-    for root, dirs, files in os.walk(tree):
-        # Don't recurse into the .git directory
+    elts = path.split( os.path.sep )
+    elts[0] = os.path.sep
+    for root in ['netfpga-10g-dev', 'netfpga']:
         try:
-            del dirs[dirs.index( '.git' )]
+            nfroot_idx = elts.index( root )
         except ValueError:
             pass
-
-        for file in files:
-            count += replace_header( opts, tree, successes, ignored, noheader, failures, warnings, forbidden,
-                            os.path.join( root, file ) )
-    return count
+        else:
+            break
+    else:
+        raise ValueError( 'no NetFPGA base package found in %s' % path )
+    base_pkg = os.path.join( *elts[:nfroot_idx+1] )
+    subdir = elts[nfroot_idx+1:]
+    if subdir:
+        subdir = os.path.join( *subdir )
+    else:
+        subdir = ''
+    return (base_pkg, subdir)
 
 
 def main( argv ):
@@ -453,7 +475,7 @@ def main( argv ):
 
     # Configure parser
     parser = optparse.OptionParser(
-        usage  = '%prog [-h|--help] [--really] [file [...]]',
+        usage  = '%prog [-h|--help] [options] [file [...]]',
         version= '1.0',
         epilog = """\
 If no files are specified, walk the entire development tree containing
@@ -467,6 +489,9 @@ CAUTION: *no* backup of input is made before it is rewritten.
         '--really', action='store_true', default=False,
         help='Really write out changes.  Otherwise dry-run.')
     parser.add_option(
+        '--force-author', action='store_true', default=False,
+        help='Force rewrite of *every* NetFPGA 10G Author section.')
+    parser.add_option(
         '--force-licence', action='store_true', default=False,
         help='Force rewrite of *every* NetFPGA 10G header licence.')
     parser.add_option(
@@ -476,6 +501,8 @@ CAUTION: *no* backup of input is made before it is rewritten.
 
     # Parse & check options
     opts, file_args = parser.parse_args()
+    if (opts.force_author or opts.force_licence or opts.force_copyright) and not file_args:
+        parser.error( '--force flags require explicit list of targets' )
 
     successes = {}
     ignored   = {}
@@ -483,31 +510,36 @@ CAUTION: *no* backup of input is made before it is rewritten.
     failures  = []
     warnings  = []
     forbidden = []
-    if file_args:
-        count = 0
-        cwd_elts = os.getcwd().split( os.path.sep )
-        cwd_elts[0] = os.path.sep
+    count     = 0
+    if not file_args:
+        # No files/directories specified, so attempt to work out which tree to
+        # work on.  First try to find a tree in the current wd.
         try:
-            nfroot_idx = cwd_elts.index( 'netfpga-10g-dev' )
+            base_pkg, _ = get_base_pkg( os.getcwd() )
         except ValueError:
-            print '%s: error: working tree %s doesn\'t appear to be a netfpga-10g-dev tree.' % (prog_name, os.getcwd())
-            sys.exit(1)
-        tree = os.path.join( *cwd_elts[:nfroot_idx+1] )
-        subdir = cwd_elts[nfroot_idx+1:]
-        if subdir:
-            subdir = os.path.join( *subdir )
+            # None found, so use package this script is a part of
+            base_pkg = os.path.dirname( os.path.dirname( os.path.dirname(__file__ ) ) )
+        file_args = [base_pkg]
+    # Process list of targets
+    for file in file_args:
+        base_pkg, tail = get_base_pkg( os.path.abspath( file ) )
+        file = os.path.join( base_pkg, tail )
+        if os.path.isdir( file ):
+            for root, dirs, files in os.walk( file ):
+                # Don't recurse into the .git directory
+                try:
+                    del dirs[dirs.index( '.git' )]
+                except ValueError:
+                    pass
+
+                for file in files:
+                    rel_filename = os.path.join( root, file )[len(base_pkg)+1:]
+                    count += replace_header( opts, base_pkg, rel_filename,
+                                             successes, ignored, noheader, failures, warnings, forbidden )
         else:
-            subdir = ''
-        for file in file_args:
-            if os.path.isdir( file ):
-                print '%s: %s: is directory' % (prog_name, file)
-                print '%s: recursion into explicit targets not supported' % prog_name
-                continue
-            count += replace_header( opts, tree, successes, ignored, noheader, failures, warnings, forbidden,
-                            os.path.join( tree, subdir, file ) )
-    else:
-        tree  = os.path.dirname( os.path.dirname( os.path.dirname( os.path.abspath( argv[0] ) ) ) )
-        count = replace_all_in_tree( opts, tree, successes, ignored, noheader, failures, warnings, forbidden )
+            rel_filename = file[len(base_pkg)+1:]
+            count += replace_header( opts, base_pkg, rel_filename,
+                                     successes, ignored, noheader, failures, warnings, forbidden )
 
     # Write logs
     log_header = """\
@@ -516,29 +548,29 @@ CAUTION: *no* backup of input is made before it is rewritten.
 # date: %s
 """
     time_now = time.asctime()
-    with open( SUCCESS_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, SUCCESS_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name, 'files successfully processed, without warnings',
-                                 tree, time_now ) )
+                                 base_pkg, time_now ) )
         log.writelines( ['%s\n' % f for f in sorted( sum(successes.itervalues(), []) )] or '# (none)\n' )
-    with open( IGNORED_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, IGNORED_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name,
-                                 'files ignored by policy', tree, time_now ) )
+                                 'files ignored by policy', base_pkg, time_now ) )
         log.writelines( ['%s, %s\n' % (e, f) for e, f in sorted((e,f) for e,l in ignored.iteritems() for f in l )] or '# (none)\n' )
-    with open( NOHDR_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, NOHDR_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name, 'files missing NetFPGA header',
-                                 tree, time_now ) )
+                                 base_pkg, time_now ) )
         log.writelines( ['%s\n' % f for f in sorted( noheader )] or '# (none)\n' )
-    with open( WARN_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, WARN_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name, 'files successfully processed, but with warnings',
-                                 tree, time_now ) )
+                                 base_pkg, time_now ) )
         log.writelines( ['%s; %s\n' % (', '.join(w), f) for f, w in sorted( warnings )] or '# (none)\n' )
-    with open( FAIL_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, FAIL_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name, 'files with policy failures',
-                                 tree, time_now ) )
+                                 base_pkg, time_now ) )
         log.writelines( ['%s; %s\n' % (', '.join(w), f) for f, w in sorted( failures )] or '# (none)\n' )
-    with open( FORBID_LOG, 'w' ) as log:
+    with open( os.path.join( base_pkg, FORBID_LOG ), 'w' ) as log:
         log.write( log_header % (prog_name, 'files forbidden (or/and unknown)',
-                                 tree, time_now ) )
+                                 base_pkg, time_now ) )
         log.writelines( ['%s\n' % f for f in sorted( forbidden )] or '# (none)\n' )
 
     # Report to console
@@ -560,14 +592,15 @@ Forbidden files (those either unexpected, or shouldn't be present): %s
 Wrote out logs:
 \t%s
 """ % (prog_name, opts.really and '*REALLY*' or 'NOT', count,
-       tree,
-       '\n\t'.join(['%-20s%4s' % (k, len(v)) for k, v in sorted( successes.iteritems())]) or '(none)',
-       '\n\t'.join(['%-20s%4s' % (k, len(v)) for k, v in sorted(   ignored.iteritems())]) or '(none)',
+       base_pkg,
+       '\n\t'.join(['%-20s%4s' % (k, len(v)) for k, v in sorted(successes.iteritems())]) or '(none)',
+       '\n\t'.join(['%-20s%4s' % (k, len(v)) for k, v in sorted(  ignored.iteritems())]) or '(none)',
        len( noheader ),
        len( warnings ),
        len( failures ),
        len( forbidden ),
-       '\n\t'.join([SUCCESS_LOG, IGNORED_LOG, NOHDR_LOG, WARN_LOG, FAIL_LOG, FORBID_LOG]),
+       '\n\t'.join(os.path.abspath(os.path.join( base_pkg, x ))
+                   for x in [SUCCESS_LOG, IGNORED_LOG, NOHDR_LOG, WARN_LOG, FAIL_LOG, FORBID_LOG]),
        )
 
 

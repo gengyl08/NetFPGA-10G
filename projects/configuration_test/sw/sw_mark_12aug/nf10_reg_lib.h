@@ -9,14 +9,13 @@
  *        configuration_test
  *
  *  Author:
- *        Stephanie Friederich
+ *        Muhammad Shahbaz
  *
  *  Description:
  *        Set of definitions for the NF10 register access library.
  *
  *  Copyright notice:
- *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
- *                                Junior University
+ *        Copyright (C) 2010, 2011 University of Cambridge
  *
  *  Licence:
  *        This file is part of the NetFPGA 10G development base package.

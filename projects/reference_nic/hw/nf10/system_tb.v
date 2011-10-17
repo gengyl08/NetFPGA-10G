@@ -18,8 +18,8 @@
  *        System testbench for loopback_test
  *
  *  Copyright notice:
- *        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
- *                                Junior University
+ *        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+ *                                 Junior University
  *
  *  Licence:
  *        This file is part of the NetFPGA 10G development base package.

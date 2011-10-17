@@ -25,8 +25,8 @@
 #            working directory.
 #
 #  Copyright notice:
-#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
-#                                Junior University
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
 #
 #  Licence:
 #        This file is part of the NetFPGA 10G development base package.
@@ -70,12 +70,13 @@ STATIC_PATHLIST = ['LGPL-2.1',
                    'README',
                    'Makefile',
                    'tools',
+                   'projects/configuration',
                    'projects/loopback_test',
                    'projects/loopback_test_1g',
                    'projects/reference_nic',
-                   'projects/reference_nic_1g', 
-                   'projects/production_test/sw', 
-                   'projects/production_test/bitfiles', 
+                   'projects/reference_nic_1g',
+                   'projects/production_test/sw',
+                   'projects/production_test/bitfiles',
                    'lib/sw',
                    'lib/hw/std/pcores/nf10_axi_sim_transactor_v1_00_a',
                    'lib/hw/std/pcores/nf10_axis_sim_pkg_v1_00_a',

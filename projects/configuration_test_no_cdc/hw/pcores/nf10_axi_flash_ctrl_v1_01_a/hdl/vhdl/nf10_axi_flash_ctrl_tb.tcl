@@ -15,15 +15,14 @@
 #        nf10_axis_converter_v1_00_a.tcl
 #
 #  Author:
-#        Stephanie Friederich
+#        Muhammad Shahbaz
 #
 #  Description:
 #        Mark Grindell- A test bench to verify basic operation of the
 #                       nf10_axis_converter_v1_00_a module
 #
 #  Copyright notice:
-#        Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
-#                                Junior University
+#        Copyright (C) 2010, 2011 University of Cambridge
 #
 #  Licence:
 #        This file is part of the NetFPGA 10G development base package.
