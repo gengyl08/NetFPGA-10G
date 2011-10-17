@@ -122,14 +122,14 @@ NetFPGA-10G http://www.netfpga.org
 
 """.splitlines()
 cambridge_copyright = """\
-Copyright (C) 2010,2011 University of Cambridge""".splitlines()
+Copyright (C) 2010, 2011 University of Cambridge""".splitlines()
 DM_copyright = """\
-Copyright (C) 2010,2011 David J. Miller""".splitlines()
+Copyright (C) 2010, 2011 David J. Miller""".splitlines()
 stanford_copyright = """\
-Copyright (C) 2010,2011 The Board of Trustees of The Leland Stanford
-                        Junior University""".splitlines()
+Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+                         Junior University""".splitlines()
 xilinx_copyright = """\
-Copyright (C) 2010,2011 Xilinx, Inc.""".splitlines()
+Copyright (C) 2010, 2011 Xilinx, Inc.""".splitlines()
 stanford_licence = """\
 This file is part of the NetFPGA 10G development base package.
 
