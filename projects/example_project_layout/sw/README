@@ -1,1 +1,0 @@
-The sw/ directory can contain a set of folders that each house their respective software projects that are associated with this netfpga hardware design. The driver/ folder is an example of that. Alternatively, a user may only have a single software project or a few intertwined projects, in which case they may simply prefer to organize their project(s) with sw/ as the root.
