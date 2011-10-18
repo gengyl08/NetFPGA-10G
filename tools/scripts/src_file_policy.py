@@ -74,6 +74,7 @@ COM_STYLES = { 'C'   : ('//', '/*', ' *', ' */'),
                'vhdl': ('--', None, None, None),
                }
 TYPE_INFO = { '.axi'    : (COM_STYLES['sh'],   None, ''),
+              '.bsv'    : (COM_STYLES['C'],    None, ''),
               '.c'      : (COM_STYLES['C'],    None, ''),
               '.cpp'    : (COM_STYLES['C'],    None, ''),
               '.cxx'    : (COM_STYLES['C'],    None, ''),
@@ -87,6 +88,7 @@ TYPE_INFO = { '.axi'    : (COM_STYLES['sh'],   None, ''),
               '.sh'     : (COM_STYLES['sh'],   True,  'bash'),
               '.scr'    : (COM_STYLES['sh'],   None, ''),
               '.tcl'    : (COM_STYLES['sh'],   None, ''),
+              '.txt'    : (COM_STYLES['sh'],   None, ''),
               '.ucf'    : (COM_STYLES['sh'],   None, ''),
               '.xcf'    : (COM_STYLES['sh'],   None, ''),
               '.xco'    : (COM_STYLES['sh'],   None, ''),
@@ -95,10 +97,17 @@ TYPE_INFO = { '.axi'    : (COM_STYLES['sh'],   None, ''),
               }
 # Extensions to ignore
 IGNORE    = [ '.bbd', '.bit', '.bmp', '.cdc', '.cdf', '.cip', '.cproject',
-              '.diff', '.do', '.dtd', '.docx', '.edn', '.gise', '.gitignore',
-              '.jed', '.jpg', '.mhs', '.mui', '.ngc', '.pdf', '.png', '.prod_test_cfg',
-              '.script', '.xml', '.xmp',
-              'LICENSE', 'python-nf' ]
+              '.diff', '.do', '.doc', '.docx', '.dtd', '.edn', '.gise', '.gitignore',
+              '.jed', '.jpg', '.mhs', '.mui', '.ngc', '.pdf', '.png', '.prj',
+               '.prod_test_cfg', '.script', '.xml', '.xmp', '.xise',
+              '.0', '.1', '.2', '.3', '.4', '.5', '.6', '.7', '.8', '.9',
+              'NOTICE', 'LICENSE', 'COPYING', 'python-nf', ]
+
+IGNORE_PATH = [ 'archive',
+                'lib/hw/xilinx',
+                'projects/reference_nic/sw/host/driver/lib/libnl-3.0',
+                'projects/stresstest',
+                ]
 
 SECTIONS  = [ 'author',
               'description',
@@ -262,6 +271,10 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
         return [line[common_margin:] for line in lines]
 
 
+    # Ignore ignored paths
+    for path in IGNORE_PATH:
+        if rel_filename.startswith( path ):
+            return 0
     # Get file type and associated information.  Handle ignored and forbidden
     # (ie, unknown) file types.
     extn = os.path.splitext( rel_filename )[1]
