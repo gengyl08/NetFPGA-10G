@@ -336,6 +336,7 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
         #
         # Parse existing header, if any
         #
+        text_first_line = ''
         for line in f:
             cmt_line = get_hdr_line( line )
             if not line.strip():
