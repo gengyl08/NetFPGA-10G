@@ -423,6 +423,9 @@ def replace_header( opts, base_pkg, rel_filename, successes, ignored, noheader, 
         # Delete module section if it's the same as the filename
         if 'module' in header and header['module'][0].find( header['file'][0] ) != -1:
             del header['module']
+        # Delete 'original header' if empty
+        if 'original header' in header and not header['original header']:
+            del header['original header']
         # Delete *all* leading or trailing whitespace in the following sections
         for section in ['library', 'project', 'module', 'author']:
             if section in header:
