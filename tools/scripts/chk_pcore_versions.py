@@ -43,10 +43,38 @@ import os
 import sys
 
 
-# Define location of HW library and projects, relative to location of this script
-hw_lib_dir   = os.path.join( os.path.dirname(__file__), '..', '..', 'lib', 'hw' )
-projects_dir = os.path.join( os.path.dirname(__file__), '..', '..', 'projects' )
+# Define location of HW library and projects, relative to the path of the base
+# package
+hw_lib_dir   = os.path.join( 'lib', 'hw' )
+projects_dir = os.path.join( 'projects' )
+
 PCORE_MANIFEST = '~/pcore_manifest.log'
+
+def get_base_pkg( path ):
+    """
+    Attempts to split the given path into base_pkg (path of the NetFPGA base
+    package) and subdir (any residual path) by first looking for
+    'netfpga-10g-dev', then 'netfpga'.
+    """
+    elts = path.split( os.path.sep )
+    elts[0] = os.path.sep
+    for root in ['netfpga-10g-dev', 'netfpga']:
+        try:
+            nfroot_idx = elts.index( root )
+        except ValueError:
+            pass
+        else:
+            break
+    else:
+        raise ValueError( 'no NetFPGA base package found in %s' % path )
+    base_pkg = os.path.join( *elts[:nfroot_idx+1] )
+    subdir = elts[nfroot_idx+1:]
+    if subdir:
+        subdir = os.path.join( *subdir )
+    else:
+        subdir = ''
+    return (base_pkg, subdir)
+
 
 def split_pcore_name( pcore_dirname ):
     """
@@ -225,9 +253,17 @@ def print_project_pcore_version_report( projects_dir, pcores ):
 
 
 def main():
-    pcores = scan_pcores( hw_lib_dir )
+    # Determine base package
+    try:
+        # First try from cwd
+        base_pkg, _ = get_base_pkg( os.getcwd() )
+    except ValueError:
+        # None found, so use package this script is a part of
+        base_pkg = os.path.dirname( os.path.dirname( os.path.dirname( __file__ ) ) )
+    # Add base path to hw_lib_dir and projects_dir
+    pcores = scan_pcores( os.path.join( base_pkg, hw_lib_dir ) )
     print_duplicate_pcores( pcores )
-    print_project_pcore_version_report( projects_dir, pcores )
+    print_project_pcore_version_report( os.path.join( base_pkg, projects_dir ), pcores )
 
 
 prog_name = os.path.basename(sys.argv[0])

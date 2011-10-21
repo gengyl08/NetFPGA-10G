@@ -27,9 +27,15 @@
 #
 #
 
-Welcome to the NetFPGA-10G code base. For documentation on its
-content and use, as well as general information on the
-NetFPGA-10G platform, please visit the documentation wiki here:
+Welcome to the NetFPGA-10G base package.
+
+Before using this code, please check the release notes at:
+
+http://netfpga10g.pbworks.com/Release+Notes
+
+For documentation on its content and use, as well as general
+information on the NetFPGA-10G platform, please visit the
+documentation wiki:
 
 http://netfpga10g.pbworks.com/NetFPGA-10G+Platform+Documentation
 
@@ -37,5 +43,9 @@ The wiki additionally contains a useful "Getting Started Guide"
 for new users, which can be found here:
 
 http://netfpga10g.pbworks.com/Getting-Started-Guide
+
+Alpha programme members, please visit
+
+http://netfpga.org/foswiki/bin/view/NetFPGA/TenGig/NetFPGA10gAlphaProgram
 
 Have fun!
