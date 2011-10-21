@@ -85,9 +85,6 @@ STATIC_PATHLIST = ['LGPL-2.1',
                    ]
 
 
-# Root of repo (this repo) on which to operate
-root = os.path.abspath( os.path.join( os.path.dirname(__file__), '..', '..' ) )
-
 def main(argv):
     # Get treeish
     if len(argv) != 2:
@@ -97,6 +94,15 @@ usage: %s <treeish>
 where <treeish> is a valid git branch or tag (eg release_1.1.0).""" % (prog_name)
         sys.exit(1)
     treeish = argv[1]
+
+    # Determine root of repo (this repo) on which to operate
+    try:
+        # First try from cwd
+        root, _ = chk_pcores.get_base_pkg( os.getcwd() )
+    except ValueError:
+        # None found, so use package this script is a part of
+        root = os.path.abspath( os.path.join( os.path.dirname(__file__), '..', '..' ) )
+    # Add base path to hw_lib_dir and projects_dir
 
     # Prepare tree
     print '+ cd %s' % root
