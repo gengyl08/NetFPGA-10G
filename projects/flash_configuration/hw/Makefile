@@ -140,12 +140,6 @@ init_bram: $(DOWNLOAD_BIT)
 #	cd simulation/behavioral ; \
 #	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
 
-sim: $(DEFAULT_SIM_SCRIPT)
-	cd simulation/behavioral ; \
-	sh system_fuse.sh;
-	cd simulation/behavioral ; \
-	$(SIM_CMD) -gui -tclbatch system_setup.tcl &
-
 simmodel: $(DEFAULT_SIM_SCRIPT)
 
 behavioral_model: $(BEHAVIORAL_SIM_SCRIPT)
@@ -319,11 +313,10 @@ axi_model: __xps/simgen.opt $(BRAMINIT_ELF_SIM_FILES)
 	nf10_sim_autosubst.py -i $(MHSFILE) -o $(AXISIM_MHS) -c nf10_oped=core_clk
 	simgen $(SIMGEN_OPTIONS) -m behavioral $(AXISIM_MHS)
 
-#sim: axi_model
-#	./make_pkts.py
-#	cp nf10/system_axisim_tb.v simulation/behavioral
-#	cd simulation/behavioral && $(AXISIM_FUSE)
-#	cd simulation/behavioral && $(AXISIM_CMD) -gui -tclbatch system_axisim_setup.tcl &
+sim: axi_model
+	cp nf10/system_axisim_tb.v simulation/behavioral
+	cd simulation/behavioral && $(AXISIM_FUSE)
+	cd simulation/behavioral && $(AXISIM_CMD) -gui -tclbatch system_axisim_setup.tcl
 
 system_incl.make:
 	@echo exit|xps -nw system.xmp
