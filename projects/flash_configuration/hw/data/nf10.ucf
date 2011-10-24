@@ -1,10 +1,40 @@
-##-----------------------------------------------------------------------------
-## Project    : OPED
-## File       : nf10.ucf
-## Author     : Stephanie Friederich
-## Date       : 21.02.2011
-## Device     : xc5vtx240t-ff1759-1
-## Project    : V5-Block Plus for PCI Express
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10.ucf
+#
+#  Project:
+#        loopback_test_1g
+#
+#  Author:
+#        Muhammad Shahbaz
+#
+#  Description:
+#        UCF for loopback_test_1g
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
 
 NET RESET             LOC = AL24  |  IOSTANDARD=LVCMOS33  | PULLUP | TIG;
 NET CLK               LOC = AN25  |  IOSTANDARD=LVCMOS33;
@@ -20,24 +50,16 @@ TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100 MHz;
 # Timing Constraints
 ###############################################################################
 
-
-
 # Timing Constraints...
 NET "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_clk_O" PERIOD = 10ns;
 NET "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/gt_refclk_out[0]" TNM_NET = "PCI0CLK";
 TIMESPEC "TS_PCI0CLK"  = PERIOD "PCI0CLK" 100.00 MHz HIGH 50 % ;
-
-
-
-
 
 ###############################################################################
 # Define Device, Package And Speed Grade
 ###############################################################################
 
 CONFIG PART = xc5vtx240t-ff1759-2;
-
-
 
 ###############################################################################
 # Pinout and Related I/O Constraints
@@ -56,7 +78,6 @@ CONFIG PART = xc5vtx240t-ff1759-2;
 
 #NET  "nf10_oped_0_PCIE_RSTN_pin"     LOC = "AL24" | IOSTANDARD = LVCMOS25 | PULLUP | NODELAY ;
 
-
 #
 # SYS clock 250 MHz (input) signal. The nf10_oped_0_PCIE_CLKP_pin and nf10_oped_0_PCIE_CLKN_pin
 # signals are the PCI Express reference clock. Virtex-5 GTX
@@ -68,12 +89,10 @@ CONFIG PART = xc5vtx240t-ff1759-2;
 # (UG198) for guidelines regarding clock resource selection.
 #
 
-
 INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_clk"  DIFF_TERM = "TRUE";
 
 NET  "nf10_oped_0_PCIE_CLKP_pin"       LOC = "AT4"  ;
 NET  "nf10_oped_0_PCIE_CLKN_pin"       LOC = "AT3"  ;
-
 
 #
 # Transceiver instance placement.  This constraint selects the
@@ -101,7 +120,6 @@ INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.p
 # GTX_DUAL_X1Y10
 # GTX_DUAL_X1Y11
 
-
 ###############################################################################
 # Physical Constraints
 ###############################################################################
@@ -117,13 +135,17 @@ INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_m
 INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y16 ;
 
 ###############################################################################
-# Flash signals
+# FPGA Reprog signal to CPLD
 ###############################################################################
 
-NET "axi_cfg_fpga_0_GPIO_IO_pin<0>" LOC = "AK17"  |  IOSTANDARD=LVCMOS33 | PULLUP; 
+NET "axi_cfg_fpga_0_GPIO_IO_pin<0>" 	LOC = "AK17"  |  IOSTANDARD=LVCMOS33 | PULLUP; 
 
-NET "axi_emc_0_Mem_OEN_pin<0>"      LOC = "AM17"  |  IOSTANDARD=LVCMOS33 ;      
-NET "axi_emc_0_Mem_CEN_pin<0>"      LOC = "AL17"  |  IOSTANDARD=LVCMOS33 ;       
+###############################################################################
+# Flash constraints
+###############################################################################
+
+NET "axi_emc_0_Mem_OEN_pin<0>"      	LOC = "AM17"  |  IOSTANDARD=LVCMOS33 ;      
+NET "axi_emc_0_Mem_CEN_pin<0>"      	LOC = "AL17"  |  IOSTANDARD=LVCMOS33 ;       
 NET "axi_emc_0_Mem_WEN_pin"       	LOC = "AR27"  |  IOSTANDARD=LVCMOS33 ;       
 
 NET "axi_emc_0_Mem_A_pin<23>"    	LOC = "AJ18"  |  IOSTANDARD=LVCMOS33 ;
@@ -137,7 +159,7 @@ NET "axi_emc_0_Mem_A_pin<16>"    	LOC = "AT24"  |  IOSTANDARD=LVCMOS33 ;
 NET "axi_emc_0_Mem_A_pin<15>"    	LOC = "AN21"  |  IOSTANDARD=LVCMOS33 ;       
 NET "axi_emc_0_Mem_A_pin<14>"    	LOC = "AM22"  |  IOSTANDARD=LVCMOS33 ;       
 NET "axi_emc_0_Mem_A_pin<13>"    	LOC = "AW23"  |  IOSTANDARD=LVCMOS33 ;   
-NET "axi_emc_0_Mem_A_pin<12>"   		LOC = "AY23"  |  IOSTANDARD=LVCMOS33 ;   
+NET "axi_emc_0_Mem_A_pin<12>"   	LOC = "AY23"  |  IOSTANDARD=LVCMOS33 ;   
 NET "axi_emc_0_Mem_A_pin<11>"    	LOC = "AL22"  |  IOSTANDARD=LVCMOS33 ;      
 NET "axi_emc_0_Mem_A_pin<10>"    	LOC = "AK22"  |  IOSTANDARD=LVCMOS33 ;       
 NET "axi_emc_0_Mem_A_pin<9>"     	LOC = "AN23"  |  IOSTANDARD=LVCMOS33 ;       
@@ -156,7 +178,7 @@ NET "axi_emc_0_Mem_A_pin<0>"     	LOC = "AP22"  |  IOSTANDARD=LVCMOS33 ;
 #NET "axi_emc_0_Mem_DQ_pin<13>"     	LOC = "AU21"  |  IOSTANDARD=LVCMOS33 ;     
 #NET "axi_emc_0_Mem_DQ_pin<12>"     	LOC = "AT21"  |  IOSTANDARD=LVCMOS33 ;  
 #NET "axi_emc_0_Mem_DQ_pin<11>"     	LOC = "AV18"  |  IOSTANDARD=LVCMOS33 ;       
-#NET "axi_emc_0_Mem_DQ_pin<10>"    		LOC = "AV19"  |  IOSTANDARD=LVCMOS33 ;      
+#NET "axi_emc_0_Mem_DQ_pin<10>"    	LOC = "AV19"  |  IOSTANDARD=LVCMOS33 ;      
 #NET "axi_emc_0_Mem_DQ_pin<9>"      	LOC = "AV24"  |  IOSTANDARD=LVCMOS33 ;    
 #NET "axi_emc_0_Mem_DQ_pin<8>"      	LOC = "AU24"  |  IOSTANDARD=LVCMOS33 ;     
 NET "axi_emc_0_Mem_DQ_pin<7>"      	LOC = "AM18"  |  IOSTANDARD=LVCMOS33 ;    

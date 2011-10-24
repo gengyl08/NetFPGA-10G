@@ -1,13 +1,4 @@
 
-# ##############################################################################
-# Created by Base System Builder Wizard for Xilinx EDK 12.3 Build EDK_MS3.70d
-# Wed Oct 13 08:18:57 2010
-# Target Board:  xilinx.com ml605 Rev 1.0
-# Family:    virtex6
-# Device:    xc6vlx240t
-# Package:   ff1156
-# Speed Grade:  -1
-# ##############################################################################
  PARAMETER VERSION = 2.1.0
 
 
