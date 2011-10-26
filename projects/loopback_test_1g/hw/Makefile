@@ -215,13 +215,14 @@ __xps/$(SYSTEM)_routed: $(FPGA_IMP_DEPENDENCY)
 	touch __xps/$(SYSTEM)_routed
 	@echo "+++testFinished:build.implementation"
 
-$(SYSTEM_BIT): __xps/$(SYSTEM)_routed $(BITGEN_UT_FILE)
+#Shahbaz: Use configuration clock. Parameters in nf10/bitgen.ut
+$(SYSTEM_BIT): __xps/$(SYSTEM)_routed nf10/bitgen.ut
 	@echo "+++testStarted:build.bitgen"
 	xilperl $(XILINX_EDK_DIR)/data/fpga_impl/observe_par.pl $(OBSERVE_PAR_OPTIONS) implementation/$(SYSTEM).par
 	@echo "*********************************************"
 	@echo "Running Bitgen.."
 	@echo "*********************************************"
-	@cp -f $(BITGEN_UT_FILE) implementation/bitgen.ut
+	@cp -f nf10/bitgen.ut implementation/bitgen.ut
 	cd implementation ; bitgen -w -f bitgen.ut $(SYSTEM) ; cd ..
 	@echo "+++testFinished:build.bitgen"
 

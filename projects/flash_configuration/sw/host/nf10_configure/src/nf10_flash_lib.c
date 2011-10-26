@@ -48,24 +48,48 @@
 
 void Flash_Prog(char* bin_file, char flash_id)
 {
+	FILE *file;
 	unsigned int addr;
 	unsigned int base_addr;
+	unsigned int elec_sig = 0;
 	int i;
 
+	//Open bin_file
+	file = fopen(bin_file, "rb");
+	if (!file)
+	{
+		fprintf(stderr, "Unable to open file %s.\r\n", bin_file);
+		return;
+	}
+
+	//Select flash
 	if (flash_id == 'a' || flash_id == 'A')
 		base_addr = XFL_CONFIG_BASE_ADDR_A;
 	else if (flash_id == 'b' || flash_id == 'B')
 		base_addr = XFL_CONFIG_BASE_ADDR_B;
+	else
+	{
+		fprintf(stderr, "Invalid target flash '%c'!\r\n", flash_id);
+		return;
+	}
 
 	Clr_Status_Reg(base_addr);
 
-	printf("Bitstream: %s\r\n", bin_file);
-	printf("Manufacturer ID: %x\r\n\r\n", Rd_Elec_Sig(base_addr));
+	printf("Flash image: %s\r\n", bin_file);
+
+	elec_sig = Rd_Elec_Sig(base_addr);
+	printf("Manufacturer ID: %x\r\n", elec_sig);
+
+	if (elec_sig != 0x49)
+	{
+		fprintf(stderr, "Invalid electronic signature! Please verify that the CPLD is configured properly.\r\n");
+		return;
+	}
 
 	Clr_Status_Reg(base_addr);
 
 	printf("Programming flash '%c'.\r\n", flash_id);
-	printf("Started", flash_id);
+	printf("[", flash_id);
 
 	for (i = 0; i < XFL_CONFIG_TOTAL_BLKS; i++)
 	{
@@ -77,25 +101,16 @@ void Flash_Prog(char* bin_file, char flash_id)
 
 	Clr_Status_Reg(base_addr);
 
-	Flash_Wr_Binfile_B(base_addr, bin_file);
+	Flash_Wr_Binfile_B(base_addr, file);
 
-	printf("Finished\r\n", flash_id);
+	printf("]\r\n", flash_id);
 }
 
-void Flash_Wr_Binfile_B(unsigned int base_addr, char* bin_file)
+void Flash_Wr_Binfile_B(unsigned int base_addr, FILE* file)
 {
-	FILE *file;
 	char *buffer;
 	unsigned long fileLen;
 	int i;
-
-	//Open binfile
-	file = fopen(bin_file, "rb");
-	if (!file)
-	{
-		fprintf(stderr, "Unable to open file %s\r\n", bin_file);
-		return;
-	}
 
 	//Get file length
 	fseek(file, 0, SEEK_END);
@@ -120,7 +135,7 @@ void Flash_Wr_Binfile_B(unsigned int base_addr, char* bin_file)
 	{
 		if (Wr_Data_B((base_addr + i), buffer[i]) != 0)
 		{
-			printf("Writing bin_file failed!\r\n");
+			printf("Writing flash image failed!\r\n");
 			return;
 		}
 

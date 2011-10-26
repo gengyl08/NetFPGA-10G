@@ -101,7 +101,7 @@ int main (int argc, char **argv)
 		if (init_fpga == 1)
 		{
 			nf10_reg_wr(CFG_BASE_ADDR, 0x0);
-			printf ("FPGA re-initialized with flash 'b' bitstream.\r\n");
+			printf ("FPGA re-initialized with flash 'b' image.\r\n");
 		}
 
 	       	for (index = optind; index < argc; index++)
@@ -110,15 +110,15 @@ int main (int argc, char **argv)
 	else
 	{
 		printf("\
-Usage: nf10_configure -b BIT_FILE... -f <FLASH>\r\n\
-   or: nf10_configure -b BIT_FILE... -f b -i\r\n\
+Usage: nf10_configure -b image... -f <FLASH>\r\n\
+   or: nf10_configure -b image... -f b -i\r\n\
    or: nf10_configure -i\r\n\
-Write BIT_FILE into the target FLASH and re-initialize the FPGA.\r\n\
+Write image into the target FLASH and re-initialize the FPGA.\r\n\
 \r\n\
 Arguments:\r\n\
--b		Specify bit file (*.bin)\r\n\
+-b		Specify flash image (*.bin)\r\n\
 -f		Target flash (a or b)\r\n\
--i		Flag to re-initialize the FPGA from flash b\r\n\
+-i		Re-initialize FPGA from flash b\r\n\
 ");
 	}
 

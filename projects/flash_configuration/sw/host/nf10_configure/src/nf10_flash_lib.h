@@ -69,7 +69,7 @@ enum {
   Function prototypes
  *************************************************************/
 void Flash_Prog(char* bin_file, char flash_id);
-void Flash_Wr_Binfile_B(unsigned int base_addr, char* bin_file);
+void Flash_Wr_Binfile_B(unsigned int base_addr, FILE* file);
 void Unlock_Single_Block(unsigned int addr);
 unsigned int Erase_Single_Block(unsigned int addr);
 void Lock_Single_Block(unsigned int addr);
