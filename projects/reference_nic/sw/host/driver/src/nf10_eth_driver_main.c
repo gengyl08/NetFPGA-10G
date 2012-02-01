@@ -121,8 +121,8 @@ struct dma_stream   tx_dma_stream;  /* To device. */
 struct dma_stream   rx_dma_stream;  /* From device. */
 
 /* Need a locking mechanism to control concurrent access to each DMA region. */
-spinlock_t          tx_dma_region_spinlock = SPIN_LOCK_UNLOCKED;
-spinlock_t          rx_dma_region_spinlock = SPIN_LOCK_UNLOCKED;
+static DEFINE_SPINLOCK(tx_dma_region_spinlock);
+static DEFINE_SPINLOCK(rx_dma_region_spinlock);
 
 /* DMA parameters. */
 #define     DMA_BUF_SIZE        2048    /* Size of buffer for each DMA transfer. Property of the hardware. */
