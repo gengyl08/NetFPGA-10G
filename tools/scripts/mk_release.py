@@ -9,6 +9,7 @@
 #
 #  Author:
 #        David J. Miller
+#        Matthew P. Grosvenor
 #
 #  Description:
 #        Make a release tarball from the nominated git treeish (branch, tag or
@@ -68,6 +69,7 @@ TARBALL_NAME = 'netfpga-10g-%s.tar.gz'
 STATIC_PATHLIST = ['LGPL-2.1',
                    'NOTICE',
                    'README',
+                   'RELEASE_NOTES',
                    'Makefile',
                    'tools/bin',
                    'tools/scripts',
