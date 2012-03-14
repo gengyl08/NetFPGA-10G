@@ -31,21 +31,17 @@ Welcome to the NetFPGA-10G base package.
 
 Before using this code, please check the release notes at:
 
-http://netfpga10g.pbworks.com/Release+Notes
+https://github.com/NetFPGA-10G/NetFPGA-10G-live/wiki/Release-Notes
 
 For documentation on its content and use, as well as general
 information on the NetFPGA-10G platform, please visit the
 documentation wiki:
 
-http://netfpga10g.pbworks.com/NetFPGA-10G+Platform+Documentation
+https://github.com/NetFPGA-10G/NetFPGA-10G-live/wiki/NetFPGA-10G-Platform-Documentation
 
 The wiki additionally contains a useful "Getting Started Guide"
 for new users, which can be found here:
 
-http://netfpga10g.pbworks.com/Getting-Started-Guide
-
-Alpha programme members, please visit
-
-http://netfpga.org/foswiki/bin/view/NetFPGA/TenGig/NetFPGA10gAlphaProgram
+https://github.com/NetFPGA-10G/NetFPGA-10G-live/wiki/Getting-Started-Guide
 
 Have fun!
