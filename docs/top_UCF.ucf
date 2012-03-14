@@ -1,0 +1,914 @@
+############################################################################
+##  File name :       HTG-V5TXT-PCIE_top.ucf
+## 
+##  Details :     Constraints file
+##                    FPGA family:       virtex5
+##                    FPGA:              xc5vtx240t-ff1759
+##                    Speedgrade:        -2
+##
+############################################################################
+
+###############################################################################
+CONFIG PART = xc5vtx240tff1759-2;
+
+###############################################################################
+#DCI_CASCADING
+#Syntax : CONFIG DCI_CASCADE = "<master> <slave1> <slave2> ..";
+###############################################################################
+CONFIG DCI_CASCADE = "5 3 1 7";
+CONFIG DCI_CASCADE = "12 24 28 30 26 14";
+CONFIG DCI_CASCADE = "11 27 23 13 25 29";
+
+################################################################################
+# QDRII A INTERFACE ON SCHEMATIC
+################################################################################
+
+# TIMING
+NET "u_qdrii_infrastructure/sysclk_in" TNM_NET = "SYS_CLK";
+TIMESPEC "TS_SYSCLK_P" = PERIOD "SYS_CLK" 3.33 ns HIGH 50 %;
+
+NET "u_qdrii_infrastructure/clk200_in" TNM_NET = "CLK_200";
+TIMESPEC "TS_CLK200_P" = PERIOD "CLK_200" 5.0 ns HIGH 50 %;
+
+# IO STANDARDDS
+NET  "c0_qdr_d[*]"                              IOSTANDARD = HSTL_I_18;
+NET  "c0_qdr_q[*]"                              IOSTANDARD = HSTL_I_DCI_18;
+NET  "c0_qdr_sa[*]"                             IOSTANDARD = HSTL_I_18;
+NET  "c0_qdr_w_n"                               IOSTANDARD = HSTL_I_18;
+NET  "c0_qdr_r_n"                               IOSTANDARD = HSTL_I_18;
+NET  "c0_qdr_dll_off_n"                         IOSTANDARD = HSTL_I_18;
+NET  "c0_qdr_bw_n[*]"                           IOSTANDARD = HSTL_I_18;
+NET  "c0_masterbank_sel_pin[*]"                 IOSTANDARD = HSTL_I_DCI_18;
+NET  "c0_qdr_cq[*]"                             IOSTANDARD = HSTL_I_DCI_18;
+NET  "c0_qdr_cq_n[*]"                           IOSTANDARD = HSTL_I_DCI_18;
+NET  "c0_qdr_k[*]"                              IOSTANDARD = HSTL_I_18;
+NET  "c0_qdr_k_n[*]"                            IOSTANDARD = HSTL_I_18;
+NET  "c0_qdr_c[*]"                              IOSTANDARD = HSTL_I_18;
+NET  "c0_qdr_c_n[*]"                            IOSTANDARD = HSTL_I_18;
+
+#SAVE attributes to reserve the pins
+NET  "c0_qdr_cq_n[*]"                           S;
+NET  "c0_masterbank_sel_pin[*]"                 S;
+
+# PINOUT
+NET  "c0_qdr_d[0]"                              LOC = "Y29" ;          #Bank 11
+NET  "c0_qdr_d[1]"                              LOC = "Y30" ;          #Bank 11
+NET  "c0_qdr_d[2]"                              LOC = "W31" ;          #Bank 11
+NET  "c0_qdr_d[3]"                              LOC = "W30" ;          #Bank 11
+NET  "c0_qdr_d[4]"                              LOC = "AA31" ;         #Bank 11
+NET  "c0_qdr_d[5]"                              LOC = "AA30" ;         #Bank 11
+NET  "c0_qdr_d[6]"                              LOC = "Y35" ;          #Bank 11
+NET  "c0_qdr_d[7]"                              LOC = "AA35" ;         #Bank 11
+NET  "c0_qdr_d[8]"                              LOC = "U33" ;          #Bank 11
+NET  "c0_qdr_d[9]"                              LOC = "AB36" ;         #Bank 11
+NET  "c0_qdr_d[10]"                             LOC = "AC36" ;         #Bank 11
+NET  "c0_qdr_d[11]"                             LOC = "V33" ;          #Bank 11
+NET  "c0_qdr_d[12]"                             LOC = "U32" ;          #Bank 11
+NET  "c0_qdr_d[13]"                             LOC = "AA34" ;         #Bank 11
+NET  "c0_qdr_d[14]"                             LOC = "AB34" ;         #Bank 11
+NET  "c0_qdr_d[15]"                             LOC = "V31" ;          #Bank 11
+NET  "c0_qdr_d[16]"                             LOC = "U31" ;          #Bank 11
+NET  "c0_qdr_d[17]"                             LOC = "AB31" ;         #Bank 11
+NET  "c0_qdr_d[18]"                             LOC = "AB32" ;         #Bank 11
+NET  "c0_qdr_d[19]"                             LOC = "W36" ;          #Bank 11
+NET  "c0_qdr_d[20]"                             LOC = "W35" ;          #Bank 11
+NET  "c0_qdr_d[21]"                             LOC = "Y37" ;          #Bank 11
+NET  "c0_qdr_d[22]"                             LOC = "AA37" ;         #Bank 11
+NET  "c0_qdr_d[23]"                             LOC = "V36" ;          #Bank 11
+NET  "c0_qdr_d[24]"                             LOC = "W37" ;          #Bank 11
+NET  "c0_qdr_d[25]"                             LOC = "AA36" ;         #Bank 11
+NET  "c0_qdr_d[26]"                             LOC = "W32" ;          #Bank 11
+NET  "c0_qdr_d[27]"                             LOC = "W33" ;          #Bank 11
+NET  "c0_qdr_d[28]"                             LOC = "AA32" ;         #Bank 11
+NET  "c0_qdr_d[29]"                             LOC = "Y32" ;          #Bank 11
+NET  "c0_qdr_d[30]"                             LOC = "V34" ;          #Bank 11
+NET  "c0_qdr_d[31]"                             LOC = "V35" ;          #Bank 11
+NET  "c0_qdr_d[32]"                             LOC = "Y34" ;          #Bank 11
+NET  "c0_qdr_d[33]"                             LOC = "Y33" ;          #Bank 11
+NET  "c0_qdr_d[34]"                             LOC = "T37" ;          #Bank 11
+NET  "c0_qdr_d[35]"                             LOC = "U37" ;          #Bank 11
+# BANK 27 ASSIGNED TO HAVE ALL READ DATA TOGETHER WITH CQ, CQ_N, DCI CASCADE IS USED =>SO F31,G31 ARE IOS
+NET  "c0_qdr_q[0]"                              LOC = "K30" ;          #Bank 27
+NET  "c0_qdr_q[1]"                              LOC = "L30" ;          #Bank 27
+NET  "c0_qdr_q[2]"                              LOC = "H30" ;          #Bank 27
+NET  "c0_qdr_q[3]"                              LOC = "J30" ;          #Bank 27
+NET  "c0_qdr_q[4]"                              LOC = "L32" ;          #Bank 27
+NET  "c0_qdr_q[5]"                              LOC = "M33" ;          #Bank 27
+NET  "c0_qdr_q[6]"                              LOC = "F31" ;          #Bank 27
+NET  "c0_qdr_q[7]"                              LOC = "G31" ;          #Bank 27
+NET  "c0_qdr_q[8]"                              LOC = "M32" ;          #Bank 27
+NET  "c0_qdr_q[9]"                              LOC = "M31" ;          #Bank 27
+NET  "c0_qdr_q[10]"                             LOC = "F30" ;          #Bank 27
+NET  "c0_qdr_q[11]"                             LOC = "N30" ;          #Bank 27
+NET  "c0_qdr_q[12]"                             LOC = "N31" ;          #Bank 27
+NET  "c0_qdr_q[13]"                             LOC = "F29" ;          #Bank 27
+NET  "c0_qdr_q[14]"                             LOC = "E29" ;          #Bank 27
+NET  "c0_qdr_q[15]"                             LOC = "P32" ;          #Bank 27
+NET  "c0_qdr_q[16]"                             LOC = "P31" ;          #Bank 27
+NET  "c0_qdr_q[17]"                             LOC = "H29" ;          #Bank 27
+NET  "c0_qdr_q[18]"                             LOC = "G29" ;          #Bank 27
+NET  "c0_qdr_q[19]"                             LOC = "R30" ;          #Bank 27
+NET  "c0_qdr_q[20]"                             LOC = "P30" ;          #Bank 27
+NET  "c0_qdr_q[21]"                             LOC = "H33" ;          #Bank 27
+NET  "c0_qdr_q[22]"                             LOC = "J32" ;          #Bank 27
+NET  "c0_qdr_q[23]"                             LOC = "G36" ;          #Bank 27
+NET  "c0_qdr_q[24]"                             LOC = "F35" ;          #Bank 27
+NET  "c0_qdr_q[25]"                             LOC = "G34" ;          #Bank 27
+NET  "c0_qdr_q[26]"                             LOC = "F34" ;          #Bank 27
+NET  "c0_qdr_q[27]"                             LOC = "E36" ;          #Bank 27
+NET  "c0_qdr_q[28]"                             LOC = "F32" ;          #Bank 27
+NET  "c0_qdr_q[29]"                             LOC = "G32" ;          #Bank 27
+NET  "c0_qdr_q[30]"                             LOC = "F37" ;          #Bank 27
+NET  "c0_qdr_q[31]"                             LOC = "E37" ;          #Bank 27
+NET  "c0_qdr_q[32]"                             LOC = "J31" ;          #Bank 27
+NET  "c0_qdr_q[33]"                             LOC = "H31" ;          #Bank 27
+NET  "c0_qdr_q[34]"                             LOC = "K32" ;          #Bank 27
+NET  "c0_qdr_cq[0]"                             LOC = "L31" ;          #Bank 27
+NET  "c0_qdr_q[35]"                             LOC = "L29" ;          #Bank 27
+NET  "c0_qdr_cq_n[0]"                           LOC = "K29" ;          #Bank 27
+# BANK 23 NEW ASSIGNED TO HOLD ALL ADR, CTL, CLKS
+NET  "c0_qdr_sa[0]"                             LOC = "H34" ;          #Bank 23
+NET  "c0_qdr_sa[1]"                             LOC = "J33" ;          #Bank 23
+NET  "c0_qdr_sa[2]"                             LOC = "M36" ;          #Bank 23
+NET  "c0_qdr_sa[3]"                             LOC = "N36" ;          #Bank 23
+NET  "c0_qdr_sa[4]"                             LOC = "N33" ;          #Bank 23
+NET  "c0_qdr_sa[5]"                             LOC = "P33" ;          #Bank 23
+NET  "c0_qdr_sa[6]"                             LOC = "R32" ;          #Bank 23
+NET  "c0_qdr_sa[7]"                             LOC = "R33" ;          #Bank 23
+NET  "c0_qdr_sa[8]"                             LOC = "N34" ;          #Bank 23
+NET  "c0_qdr_sa[9]"                             LOC = "J35" ;          #Bank 23
+NET  "c0_qdr_sa[10]"                            LOC = "J36" ;          #Bank 23
+NET  "c0_qdr_sa[11]"                            LOC = "L37" ;          #Bank 23
+NET  "c0_qdr_sa[12]"                            LOC = "M37" ;          #Bank 23
+NET  "c0_qdr_sa[13]"                            LOC = "K38" ;          #Bank 23
+NET  "c0_qdr_sa[14]"                            LOC = "K37" ;          #Bank 23
+NET  "c0_qdr_sa[15]"                            LOC = "T32" ;          #Bank 23
+NET  "c0_qdr_sa[16]"                            LOC = "T31" ;          #Bank 23
+NET  "c0_qdr_sa[17]"                            LOC = "K35" ;          #Bank 23
+NET  "c0_qdr_sa[18]"                            LOC = "L34" ;          #Bank 23
+NET  "c0_qdr_bw_n[0]"                           LOC = "P37" ;          #Bank 23
+NET  "c0_qdr_w_n"                               LOC = "P38" ;          #Bank 23
+NET  "c0_qdr_bw_n[1]"                           LOC = "R38" ;          #Bank 23
+NET  "c0_qdr_r_n"                               LOC = "G37" ;          #Bank 23
+NET  "c0_qdr_bw_n[2]"                           LOC = "P36" ;          #Bank 23
+# SINCE NO DATA READ SIGNAL ON BANK23, DUMMY MASTERSEL PIN MUST BE ALLOCATED
+NET  "c0_masterbank_sel_pin[0]"                    LOC = "R35" ;          #Bank 23
+NET  "c0_qdr_k_n[0]"                            LOC = "K33" ;          #Bank 23
+NET  "c0_qdr_k[0]"                              LOC = "K34" ;          #Bank 23
+NET  "c0_qdr_c_n[0]"                            LOC = "N35" ;          #Bank 23
+NET  "c0_qdr_c[0]"                              LOC = "P35" ;          #Bank 23
+NET  "c0_qdr_bw_n[3]"                           LOC = "J38" ;          #Bank 23
+NET  "c0_qdr_dll_off_n"                         LOC = "J37" ;          #Bank 23 #HWIRED ON BOARD
+
+################################################################################
+# QDRII C INTERFACE ON SCHEMATIC
+################################################################################
+
+# TIMING
+# clock shared with QDRII A interface
+
+# I/O STANDARDS
+NET  "c1_qdr_d[*]"                              IOSTANDARD = HSTL_I_18;
+NET  "c1_qdr_q[*]"                              IOSTANDARD = HSTL_I_DCI_18;
+NET  "c1_qdr_sa[*]"                             IOSTANDARD = HSTL_I_18;
+NET  "c1_qdr_w_n"                               IOSTANDARD = HSTL_I_18;
+NET  "c1_qdr_r_n"                               IOSTANDARD = HSTL_I_18;
+NET  "c1_qdr_dll_off_n"                         IOSTANDARD = HSTL_I_18;
+NET  "c1_qdr_bw_n[*]"                           IOSTANDARD = HSTL_I_18;
+NET  "c1_masterbank_sel_pin[*]"                 IOSTANDARD = HSTL_I_DCI_18;
+NET  "c1_qdr_cq[*]"                             IOSTANDARD = HSTL_I_DCI_18;
+NET  "c1_qdr_cq_n[*]"                           IOSTANDARD = HSTL_I_DCI_18;
+NET  "c1_qdr_k[*]"                              IOSTANDARD = HSTL_I_18;
+NET  "c1_qdr_k_n[*]"                            IOSTANDARD = HSTL_I_18;
+NET  "c1_qdr_c[*]"                              IOSTANDARD = HSTL_I_18;
+NET  "c1_qdr_c_n[*]"                            IOSTANDARD = HSTL_I_18;
+
+#SAVE attributes to reserve the pins
+NET  "c1_qdr_cq_n[*]"                           S;
+NET  "c1_masterbank_sel_pin[*]"                 S;
+
+# PINOUT
+# BANK 12 AS IS ON SCHEMATIC R1.1
+NET  "c1_qdr_d[0]"                              LOC = "P5" ;           #Bank 12
+NET  "c1_qdr_d[1]"                              LOC = "R5" ;           #Bank 12
+NET  "c1_qdr_d[2]"                              LOC = "AA10" ;         #Bank 12
+NET  "c1_qdr_d[3]"                              LOC = "AA11" ;         #Bank 12
+NET  "c1_qdr_d[4]"                              LOC = "T7" ;           #Bank 12
+NET  "c1_qdr_d[5]"                              LOC = "U7" ;           #Bank 12
+NET  "c1_qdr_d[6]"                              LOC = "W10" ;          #Bank 12
+NET  "c1_qdr_d[7]"                              LOC = "W11" ;          #Bank 12
+NET  "c1_qdr_d[8]"                              LOC = "AC9" ;          #Bank 12
+NET  "c1_qdr_d[9]"                              LOC = "V9" ;           #Bank 12
+NET  "c1_qdr_d[10]"                             LOC = "V8" ;           #Bank 12
+NET  "c1_qdr_d[11]"                             LOC = "AC10" ;         #Bank 12
+NET  "c1_qdr_d[12]"                             LOC = "AD11" ;         #Bank 12
+NET  "c1_qdr_d[13]"                             LOC = "P7" ;           #Bank 12
+NET  "c1_qdr_d[14]"                             LOC = "R7" ;           #Bank 12
+NET  "c1_qdr_d[15]"                             LOC = "AB11" ;         #Bank 12
+NET  "c1_qdr_d[16]"                             LOC = "AC11" ;         #Bank 12
+NET  "c1_qdr_d[17]"                             LOC = "N6" ;           #Bank 12
+NET  "c1_qdr_d[18]"                             LOC = "P6" ;           #Bank 12
+NET  "c1_qdr_d[19]"                             LOC = "Y8" ;           #Bank 12
+NET  "c1_qdr_d[20]"                             LOC = "Y7" ;           #Bank 12
+NET  "c1_qdr_d[21]"                             LOC = "T5" ;           #Bank 12
+NET  "c1_qdr_d[22]"                             LOC = "T6" ;           #Bank 12
+NET  "c1_qdr_d[23]"                             LOC = "Y10" ;          #Bank 12
+NET  "c1_qdr_d[24]"                             LOC = "AA9" ;          #Bank 12
+NET  "c1_qdr_d[25]"                             LOC = "V6" ;           #Bank 12
+NET  "c1_qdr_d[26]"                             LOC = "AA6" ;          #Bank 12
+NET  "c1_qdr_d[27]"                             LOC = "AA7" ;          #Bank 12
+NET  "c1_qdr_d[28]"                             LOC = "Y9" ;           #Bank 12
+NET  "c1_qdr_d[29]"                             LOC = "W8" ;           #Bank 12
+NET  "c1_qdr_d[30]"                             LOC = "AC6" ;          #Bank 12
+NET  "c1_qdr_d[31]"                             LOC = "AB6" ;          #Bank 12
+NET  "c1_qdr_d[32]"                             LOC = "W6" ;           #Bank 12
+NET  "c1_qdr_d[33]"                             LOC = "W7" ;           #Bank 12
+NET  "c1_qdr_d[34]"                             LOC = "AB7" ;          #Bank 12
+NET  "c1_qdr_d[35]"                             LOC = "AB8" ;          #Bank 12
+# BANK 28 IS NEW ASSIGNED TO KEEP ALL DQS IN ONE BANK TOGETHER WITH CQ/CQ_N, DCI CASCADE => M13,N13 ARE IOS
+NET  "c1_qdr_q[0]"                              LOC = "F9" ;           #Bank 28
+NET  "c1_qdr_q[1]"                              LOC = "F10" ;          #Bank 28
+NET  "c1_qdr_q[2]"                              LOC = "L11" ;          #Bank 28
+NET  "c1_qdr_q[3]"                              LOC = "L10" ;          #Bank 28
+NET  "c1_qdr_q[4]"                              LOC = "F12" ;          #Bank 28
+NET  "c1_qdr_q[5]"                              LOC = "G12" ;          #Bank 28
+NET  "c1_qdr_q[6]"                              LOC = "M13" ;          #Bank 28
+NET  "c1_qdr_q[7]"                              LOC = "N13" ;          #Bank 28
+NET  "c1_qdr_q[8]"                              LOC = "G13" ;          #Bank 28
+NET  "c1_qdr_q[9]"                              LOC = "H13" ;          #Bank 28
+NET  "c1_qdr_q[10]"                             LOC = "M11" ;          #Bank 28
+NET  "c1_qdr_q[11]"                             LOC = "F14" ;          #Bank 28
+NET  "c1_qdr_q[12]"                             LOC = "E14" ;          #Bank 28
+NET  "c1_qdr_q[13]"                             LOC = "N11" ;          #Bank 28
+NET  "c1_qdr_q[14]"                             LOC = "P11" ;          #Bank 28
+NET  "c1_qdr_q[15]"                             LOC = "G14" ;          #Bank 28
+NET  "c1_qdr_q[16]"                             LOC = "F15" ;          #Bank 28
+NET  "c1_qdr_q[17]"                             LOC = "R12" ;          #Bank 28
+NET  "c1_qdr_q[18]"                             LOC = "P12" ;          #Bank 28
+NET  "c1_qdr_q[19]"                             LOC = "H15" ;          #Bank 28
+NET  "c1_qdr_q[20]"                             LOC = "H14" ;          #Bank 28
+NET  "c1_qdr_q[21]"                             LOC = "H10" ;          #Bank 28
+NET  "c1_qdr_q[22]"                             LOC = "J11" ;          #Bank 28
+NET  "c1_qdr_q[23]"                             LOC = "F11" ;          #Bank 28
+NET  "c1_qdr_q[24]"                             LOC = "G11" ;          #Bank 28
+NET  "c1_qdr_q[25]"                             LOC = "H9" ;           #Bank 28
+NET  "c1_qdr_q[26]"                             LOC = "G9" ;           #Bank 28
+NET  "c1_qdr_q[27]"                             LOC = "E12" ;          #Bank 28
+NET  "c1_qdr_q[28]"                             LOC = "K10" ;          #Bank 28
+NET  "c1_qdr_q[29]"                             LOC = "J10" ;          #Bank 28
+NET  "c1_qdr_q[30]"                             LOC = "J13" ;          #Bank 28
+NET  "c1_qdr_q[31]"                             LOC = "K14" ;          #Bank 28
+NET  "c1_qdr_q[32]"                             LOC = "K12" ;          #Bank 28
+NET  "c1_qdr_q[33]"                             LOC = "K13" ;          #Bank 28
+NET  "c1_qdr_q[34]"                             LOC = "J12" ;          #Bank 28
+NET  "c1_qdr_cq[0]"                             LOC = "H11" ;          #Bank 28
+NET  "c1_qdr_q[35]"                             LOC = "M12" ;          #Bank 28
+NET  "c1_qdr_cq_n[0]"                           LOC = "L12" ;          #Bank 28
+# BANK 24 NEW ASSIGNED TO HOLD ALL ADR, CTL, CLKS
+NET  "c1_qdr_sa[0]"                             LOC = "U12" ;          #Bank 24
+NET  "c1_qdr_sa[1]"                             LOC = "V11" ;          #Bank 24
+NET  "c1_qdr_sa[2]"                             LOC = "R10" ;          #Bank 24
+NET  "c1_qdr_sa[3]"                             LOC = "P10" ;          #Bank 24
+NET  "c1_qdr_sa[4]"                             LOC = "P8" ;           #Bank 24
+NET  "c1_qdr_sa[5]"                             LOC = "R9" ;           #Bank 24
+NET  "c1_qdr_sa[6]"                             LOC = "T10" ;          #Bank 24
+NET  "c1_qdr_sa[7]"                             LOC = "T11" ;          #Bank 24
+NET  "c1_qdr_sa[8]"                             LOC = "J6" ;           #Bank 24
+NET  "c1_qdr_sa[9]"                             LOC = "N8" ;           #Bank 24
+NET  "c1_qdr_sa[10]"                            LOC = "M8" ;           #Bank 24
+NET  "c1_qdr_sa[11]"                            LOC = "M9" ;           #Bank 24
+NET  "c1_qdr_sa[12]"                            LOC = "N9" ;           #Bank 24
+NET  "c1_qdr_sa[13]"                            LOC = "M6" ;           #Bank 24
+NET  "c1_qdr_sa[14]"                            LOC = "M7" ;           #Bank 24
+NET  "c1_qdr_sa[15]"                            LOC = "K8" ;           #Bank 24
+NET  "c1_qdr_sa[16]"                            LOC = "J7" ;           #Bank 24
+NET  "c1_qdr_sa[17]"                            LOC = "L7" ;           #Bank 24
+NET  "c1_qdr_sa[18]"                            LOC = "K7" ;           #Bank 24
+NET  "c1_qdr_bw_n[0]"                           LOC = "G8" ;           #Bank 24
+NET  "c1_qdr_w_n"                               LOC = "G7" ;           #Bank 24
+NET  "c1_qdr_bw_n[1]"                           LOC = "U11" ;          #Bank 24
+NET  "c1_qdr_r_n"                               LOC = "V10" ;          #Bank 24
+NET  "c1_qdr_bw_n[2]"                           LOC = "E8" ;           #Bank 24
+NET  "c1_qdr_k_n[0]"                            LOC = "L6" ;           #Bank 24
+NET  "c1_qdr_k[0]"                              LOC = "F6" ;           #Bank 24
+NET  "c1_qdr_c_n[0]"                            LOC = "G6" ;           #Bank 24
+NET  "c1_qdr_c[0]"                              LOC = "U8" ;           #Bank 24
+NET  "c1_qdr_bw_n[3]"                           LOC = "U9" ;           #Bank 24
+NET  "c1_qdr_dll_off_n"                         LOC = "H5" ;           #Bank 24 #HWIRED ON BOARD
+# SINCE NO DATA READ SIGNAL ON BANK23, DUMMY MASTERSEL PIN MUST BE ALLOCATED
+NET  "c1_masterbank_sel_pin[1]"                 LOC = "R8" ;           #Bank 24
+
+########################################################################
+# QDRII B INTERFACE ON SCHEMATIC
+########################################################################
+
+# TIMING
+# clock shared with QDRII A interface
+
+# I/O STANDARDS
+NET  "c2_qdr_d[*]"                              IOSTANDARD = HSTL_I_18;
+NET  "c2_qdr_q[*]"                              IOSTANDARD = HSTL_I_DCI_18;
+NET  "c2_qdr_sa[*]"                             IOSTANDARD = HSTL_I_18;
+NET  "c2_qdr_w_n"                               IOSTANDARD = HSTL_I_18;
+NET  "c2_qdr_r_n"                               IOSTANDARD = HSTL_I_18;
+NET  "c2_qdr_dll_off_n"                         IOSTANDARD = HSTL_I_18;
+NET  "c2_qdr_bw_n[*]"                           IOSTANDARD = HSTL_I_18;
+NET  "c2_masterbank_sel_pin[*]"                 IOSTANDARD = HSTL_I_DCI_18;
+NET  "c2_qdr_cq[*]"                             IOSTANDARD = HSTL_I_DCI_18;
+NET  "c2_qdr_cq_n[*]"                           IOSTANDARD = HSTL_I_DCI_18;
+NET  "c2_qdr_k[*]"                              IOSTANDARD = HSTL_I_18;
+NET  "c2_qdr_k_n[*]"                            IOSTANDARD = HSTL_I_18;
+NET  "c2_qdr_c[*]"                              IOSTANDARD = HSTL_I_18;
+NET  "c2_qdr_c_n[*]"                            IOSTANDARD = HSTL_I_18;
+
+#SAVE attributes to reserve the pins
+NET  "c2_qdr_cq_n[*]"                           S;
+NET  "c2_masterbank_sel_pin[*]"                 S;
+
+# PINOUT
+
+# BANK 3 AND BANK 1 NEW ASSIGNED TO HOLD ALL WRITE DATA
+NET  "c2_qdr_d[0]"                              LOC = "M19" ;          #Bank 3
+NET  "c2_qdr_d[1]"                              LOC = "L19" ;          #Bank 3
+NET  "c2_qdr_d[2]"                              LOC = "M24" ;          #Bank 3
+NET  "c2_qdr_d[3]"                              LOC = "N24" ;          #Bank 3
+NET  "c2_qdr_d[4]"                              LOC = "J16" ;          #Bank 3
+NET  "c2_qdr_d[5]"                              LOC = "J15" ;          #Bank 3
+NET  "c2_qdr_d[6]"                              LOC = "L25" ;          #Bank 3
+NET  "c2_qdr_d[7]"                              LOC = "M26" ;          #Bank 3
+NET  "c2_qdr_d[8]"                              LOC = "K15" ;          #Bank 3
+NET  "c2_qdr_d[9]"                              LOC = "L15" ;          #Bank 3
+NET  "c2_qdr_d[10]"                             LOC = "L27" ;          #Bank 3
+NET  "c2_qdr_d[11]"                             LOC = "L26" ;          #Bank 3
+NET  "c2_qdr_d[12]"                             LOC = "M18" ;          #Bank 3
+NET  "c2_qdr_d[13]"                             LOC = "M17" ;          #Bank 3
+NET  "c2_qdr_d[14]"                             LOC = "K28" ;          #Bank 3
+NET  "c2_qdr_d[15]"                             LOC = "K27" ;          #Bank 3
+NET  "c2_qdr_d[16]"                             LOC = "L17" ;          #Bank 3
+NET  "c2_qdr_d[17]"                             LOC = "L16" ;          #Bank 3
+NET  "c2_qdr_d[18]"                             LOC = "M27" ;          #Bank 3
+NET  "c2_qdr_d[19]"                             LOC = "M28" ;          #Bank 3
+NET  "c2_qdr_d[20]"                             LOC = "P25" ;          #Bank 1
+NET  "c2_qdr_d[21]"                             LOC = "P26" ;          #Bank 1
+NET  "c2_qdr_d[22]"                             LOC = "P18" ;          #Bank 1
+NET  "c2_qdr_d[23]"                             LOC = "N19" ;          #Bank 1
+NET  "c2_qdr_d[24]"                             LOC = "N25" ;          #Bank 1
+NET  "c2_qdr_d[25]"                             LOC = "N26" ;          #Bank 1
+NET  "c2_qdr_d[26]"                             LOC = "P17" ;          #Bank 1
+NET  "c2_qdr_d[27]"                             LOC = "N18" ;          #Bank 1
+NET  "c2_qdr_d[28]"                             LOC = "N28" ;          #Bank 1
+NET  "c2_qdr_d[29]"                             LOC = "M14" ;          #Bank 1
+NET  "c2_qdr_d[30]"                             LOC = "L14" ;          #Bank 1
+NET  "c2_qdr_d[31]"                             LOC = "N29" ;          #Bank 1
+NET  "c2_qdr_d[32]"                             LOC = "M29" ;          #Bank 1
+NET  "c2_qdr_d[33]"                             LOC = "N16" ;          #Bank 1
+NET  "c2_qdr_d[34]"                             LOC = "M16" ;          #Bank 1
+NET  "c2_qdr_d[35]"                             LOC = "R27" ;          #Bank 1
+# BANK 7 IS NEW ASSIGNED TO KEEP ALL DQS IN ONE BANK TOGETHER WITH CQ/CQ_N, DCI CASCADE => C20,D20 ARE IOS
+NET  "c2_qdr_q[0]"                              LOC = "J21" ;          #Bank 7
+NET  "c2_qdr_q[1]"                              LOC = "J22" ;          #Bank 7
+NET  "c2_qdr_q[2]"                              LOC = "H21" ;          #Bank 7
+NET  "c2_qdr_q[3]"                              LOC = "J20" ;          #Bank 7
+NET  "c2_qdr_q[4]"                              LOC = "A22" ;          #Bank 7
+NET  "c2_qdr_q[5]"                              LOC = "B21" ;          #Bank 7
+NET  "c2_qdr_q[6]"                              LOC = "C20" ;          #Bank 7
+NET  "c2_qdr_q[7]"                              LOC = "D20" ;          #Bank 7
+NET  "c2_qdr_q[8]"                              LOC = "F24" ;          #Bank 7
+NET  "c2_qdr_q[9]"                              LOC = "G23" ;          #Bank 7
+NET  "c2_qdr_q[10]"                             LOC = "A20" ;          #Bank 7
+NET  "c2_qdr_q[11]"                             LOC = "N23" ;          #Bank 7
+NET  "c2_qdr_q[12]"                             LOC = "M23" ;          #Bank 7
+NET  "c2_qdr_q[13]"                             LOC = "K20" ;          #Bank 7
+NET  "c2_qdr_q[14]"                             LOC = "L20" ;          #Bank 7
+NET  "c2_qdr_q[15]"                             LOC = "E23" ;          #Bank 7
+NET  "c2_qdr_q[16]"                             LOC = "E24" ;          #Bank 7
+NET  "c2_qdr_q[17]"                             LOC = "P22" ;          #Bank 7
+NET  "c2_qdr_q[18]"                             LOC = "P21" ;          #Bank 7
+NET  "c2_qdr_q[19]"                             LOC = "E25" ;          #Bank 7
+NET  "c2_qdr_q[20]"                             LOC = "F25" ;          #Bank 7
+NET  "c2_qdr_q[21]"                             LOC = "M21" ;          #Bank 7
+NET  "c2_qdr_q[22]"                             LOC = "N21" ;          #Bank 7
+NET  "c2_qdr_q[23]"                             LOC = "L22" ;          #Bank 7
+NET  "c2_qdr_q[24]"                             LOC = "M22" ;          #Bank 7
+NET  "c2_qdr_q[25]"                             LOC = "E22" ;          #Bank 7
+NET  "c2_qdr_q[26]"                             LOC = "D23" ;          #Bank 7
+NET  "c2_qdr_q[27]"                             LOC = "D22" ;          #Bank 7
+NET  "c2_qdr_q[28]"                             LOC = "G22" ;          #Bank 7
+NET  "c2_qdr_q[29]"                             LOC = "F22" ;          #Bank 7
+NET  "c2_qdr_q[30]"                             LOC = "D21" ;          #Bank 7
+NET  "c2_qdr_q[31]"                             LOC = "C21" ;          #Bank 7
+NET  "c2_qdr_q[32]"                             LOC = "L21" ;          #Bank 7
+NET  "c2_qdr_q[33]"                             LOC = "K22" ;          #Bank 7
+NET  "c2_qdr_q[34]"                             LOC = "B23" ;          #Bank 7
+NET  "c2_qdr_cq[0]"                             LOC = "B22" ;          #Bank 7
+NET  "c2_qdr_q[35]"                             LOC = "G21" ;          #Bank 7
+NET  "c2_qdr_cq_n[0]"                           LOC = "F21" ;          #Bank 7
+#BANK 5 NEW ASSIGNED TO HOLD ALL ADR/ CTL / CLKS
+NET  "c2_qdr_sa[0]"                             LOC = "J23" ;          #Bank 5
+NET  "c2_qdr_sa[1]"                             LOC = "K23" ;          #Bank 5
+NET  "c2_qdr_sa[2]"                             LOC = "K19" ;          #Bank 5
+NET  "c2_qdr_sa[3]"                             LOC = "K18" ;          #Bank 5
+NET  "c2_qdr_sa[4]"                             LOC = "J25" ;          #Bank 5
+NET  "c2_qdr_sa[5]"                             LOC = "K25" ;          #Bank 5
+NET  "c2_qdr_sa[6]"                             LOC = "F27" ;          #Bank 5
+NET  "c2_qdr_sa[7]"                             LOC = "G27" ;          #Bank 5
+NET  "c2_qdr_sa[8]"                             LOC = "E19" ;          #Bank 5
+NET  "c2_qdr_sa[9]"                             LOC = "H26" ;          #Bank 5
+NET  "c2_qdr_sa[10]"                            LOC = "J26" ;          #Bank 5
+NET  "c2_qdr_sa[11]"                            LOC = "F16" ;          #Bank 5
+NET  "c2_qdr_sa[12]"                            LOC = "F17" ;          #Bank 5
+NET  "c2_qdr_sa[13]"                            LOC = "G28" ;          #Bank 5
+NET  "c2_qdr_sa[14]"                            LOC = "H28" ;          #Bank 5
+NET  "c2_qdr_sa[15]"                            LOC = "G16" ;          #Bank 5
+NET  "c2_qdr_sa[16]"                            LOC = "H16" ;          #Bank 5
+NET  "c2_qdr_sa[17]"                            LOC = "J27" ;          #Bank 5
+NET  "c2_qdr_sa[18]"                            LOC = "J28" ;          #Bank 5
+NET  "c2_qdr_bw_n[0]"                           LOC = "F20" ;          #Bank 5
+NET  "c2_qdr_w_n"                               LOC = "E20" ;          #Bank 5
+NET  "c2_qdr_bw_n[1]"                           LOC = "L24" ;          #Bank 5
+NET  "c2_qdr_r_n"                               LOC = "K24" ;          #Bank 5
+NET  "c2_qdr_bw_n[2]"                           LOC = "H19" ;          #Bank 5
+NET  "c2_qdr_k_n[0]"                            LOC = "H23" ;          #Bank 5
+NET  "c2_qdr_k[0]"                              LOC = "G19" ;          #Bank 5
+NET  "c2_qdr_c_n[0]"                            LOC = "F19" ;          #Bank 5
+NET  "c2_qdr_c[0]"                              LOC = "H25" ;          #Bank 5
+NET  "c2_qdr_bw_n[3]"                           LOC = "G24" ;          #Bank 5
+NET  "c2_qdr_dll_off_n"                         LOC = "G17" ;          #Bank 5 #HWIRED ON BOARD
+# SINCE NO DATA READ SIGNAL ON BANK23, DUMMY MASTERSEL PIN MUST BE ALLOCATED
+NET  "c2_masterbank_sel_pin[2]"                 LOC = "F26" ;          #Bank 5
+
+################################################################################
+# XAUI INTERFACES
+################################################################################
+
+# TIMING
+NET "*txoutclk*" TNM_NET="clk156_top";
+# Clock rate below is the 10-Gigabit Ethernet speed;
+TIMESPEC "TS_clk156_top" = PERIOD "clk156_top" 156.25 MHz;
+
+NET "dclk" TNM_NET=DCLK_CLK;
+TIMESPEC TS_DCLK_CLK = PERIOD DCLK_CLK 50 MHz;
+
+# RocketIO Transceiver Placement
+# Where possible, RocketIO Transceivers should be adjacent to allow timing
+# constraints to be met easily.
+# RECCLK
+NET *xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+TIMESPEC TS_clk156_rec = PERIOD clk156_rec 156.25MHz;
+
+# PINOUT
+# refclk for XAUI A & B & C
+NET "refclk_ABC_p"  LOC = "C4" ;
+NET "refclk_ABC_n"  LOC = "C3" ;
+# refclk for XAUI D
+NET "refclk_D_p"  LOC = "D27" ;
+NET "refclk_D_n"  LOC = "C27" ;
+
+# GTX PLACEMENT
+# PINOUT IS IMPLICIT ONCE GTX'S ARE ASSIGNED
+# XAUI A
+INST nf10_core/mac_groups[0].nf10_xaui_mac_grp/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/gtx_dual_i LOC=GTX_DUAL_X1Y10;
+INST nf10_core/mac_groups[0].nf10_xaui_mac_grp/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/gtx_dual_i LOC=GTX_DUAL_X1Y11;
+# XAUI B
+INST nf10_core/mac_groups[1].nf10_xaui_mac_grp/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/gtx_dual_i LOC=GTX_DUAL_X1Y8;
+INST nf10_core/mac_groups[1].nf10_xaui_mac_grp/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/gtx_dual_i LOC=GTX_DUAL_X1Y9;
+# XAUI C
+INST nf10_core/mac_groups[2].nf10_xaui_mac_grp/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/gtx_dual_i LOC=GTX_DUAL_X1Y6;
+INST nf10_core/mac_groups[2].nf10_xaui_mac_grp/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/gtx_dual_i LOC=GTX_DUAL_X1Y7;
+# XAUI D
+INST nf10_core/mac_groups[3].nf10_xaui_mac_grp/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/gtx_dual_i LOC=GTX_DUAL_X0Y10;
+INST nf10_core/mac_groups[3].nf10_xaui_mac_grp/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/gtx_dual_i LOC=GTX_DUAL_X0Y11;
+
+
+################################################################################
+# PCIE INTERFACES
+################################################################################
+
+# PINOUT
+# SYS clock 250 MHz (input) signal. The sys_clk_p and sys_clk_n
+# signals are the PCI Express reference clock. Virtex-5 GTX
+# Transceiver architecture requires the use of a dedicated clock
+# resources (FPGA input pins) associated with each GTX Transceiver Tile.
+# To use these pins an IBUFDS primitive (refclk_ibuf) is
+# instantiated in user's design.
+NET  "sys_clk_p"       LOC = "AT4"  ;
+NET  "sys_clk_n"       LOC = "AT3"  ;
+INST "refclk_ibuf"     DIFF_TERM = "TRUE" ;
+
+# GTX PLACEMENT
+# PINOUT IS IMPLICIT ONCE GTX'S ARE ASSIGNED
+# PCIe Lanes 0, 1
+INST "ep/BU2/U0/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[0].GT_i" LOC = GTX_DUAL_X1Y5;
+# PCIe Lanes 2, 3
+INST "ep/BU2/U0/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[2].GT_i" LOC = GTX_DUAL_X1Y4;
+# PCIe Lanes 4, 5
+INST "ep/BU2/U0/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[4].GT_i" LOC = GTX_DUAL_X1Y3;
+# PCIe Lanes 6, 7
+INST "ep/BU2/U0/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[6].GT_i" LOC = GTX_DUAL_X1Y2;
+
+# Physical Constraints
+# BlockRAM placement - copied from coregen UCF
+INST "ep/BU2/U0/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_retry/generate_sdp.ram_sdp_inst"      LOC = RAMB36_X5Y20 ;
+INST "ep/BU2/U0/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y19 ;
+INST "ep/BU2/U0/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y18 ;
+INST "ep/BU2/U0/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y17 ;
+INST "ep/BU2/U0/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y16 ;
+
+################################################################################
+# EXPANSION SLOT - REALLY DEPENDS WHAT WE USE FOR TESTING HERE ??? IBERT ???
+################################################################################
+
+# PINOUT
+# refclk for SAMTEC 0,1,2,3,4,5,6,7
+#NET "refclk_exp0_7_p"  LOC = "C39" ;  #sm_clk0_p/n
+#NET "refclk_exp0_7_n"  LOC = "C40" ;
+# GTX assignment, actual pinout is implicit
+#INST "*/gtx_dual_i" LOC = GTX_DUAL_X0Y9;   #BANK 123
+#INST "*/gtx_dual_i" LOC = GTX_DUAL_X0Y8;   #BANK 119
+#INST "*/gtx_dual_i" LOC = GTX_DUAL_X0Y7;   #BANK 115
+#INST "*/gtx_dual_i" LOC = GTX_DUAL_X0Y6;   #BANK 111
+# refclk for SAMTEC 8,9,...,15
+#NET "refclk_exp8_15_p"  LOC = "AD39" ;  #sm_clk1_p/n
+#NET "refclk_exp8_15_n"  LOC = "AD40" ;
+# GTX assignment, actual pinout is implicit
+#INST "*/gtx_dual_i" LOC = GTX_DUAL_X0Y5;   #BANK 113
+#INST "*/gtx_dual_i" LOC = GTX_DUAL_X0Y4;   #BANK 117
+#INST "*/gtx_dual_i" LOC = GTX_DUAL_X0Y3;   #BANK 121
+#INST "*/gtx_dual_i" LOC = GTX_DUAL_X0Y2;   #BANK 125
+# refclk for SAMTEC 16,...,19
+#NET "refclk_exp16_19_p"  LOC = "AW34" ;  #sm_clk1_p/n
+#NET "refclk_exp16_19_n"  LOC = "AY34" ;
+# GTX assignment, actual pinout is implicit
+#INST "*/gtx_dual_i" LOC = GTX_DUAL_X0Y1;   #BANK 129
+#INST "*/gtx_dual_i" LOC = GTX_DUAL_X0Y0;   #BANK 133
+
+################################################################################
+# RLDRAMII INTERFACE  C/D
+# BANKS 14,26,30
+################################################################################
+
+# PINOUT
+# bank 14
+NET 	 "CD_RLD2_A<0>"     LOC = 	 "AM5" ;
+NET 	 "CD_RLD2_A<1>"     LOC = 	 "AM7" ;
+NET 	 "CD_RLD2_A<2>"     LOC = 	 "AM6" ;
+NET 	 "CD_RLD2_A<3>"     LOC = 	 "AD6" ;
+NET 	 "CD_RLD2_A<4>"     LOC = 	 "AD7" ;
+NET 	 "CD_RLD2_A<5>"     LOC = 	 "AG11" ;
+NET 	 "CD_RLD2_A<6>"     LOC = 	 "AF11" ;
+NET 	 "CD_RLD2_A<7>"     LOC = 	 "AF7" ;
+NET 	 "CD_RLD2_A<8>"     LOC = 	 "AE8" ;
+NET 	 "CD_RLD2_A<9>"     LOC = 	 "AH11" ;
+NET 	 "CD_RLD2_A<10>"    LOC = 	 "AF6" ;
+NET 	 "CD_RLD2_A<11>"    LOC = 	 "AF5" ;
+NET 	 "CD_RLD2_A<12>"    LOC = 	 "AL9" ;
+NET 	 "CD_RLD2_A<13>"    LOC = 	 "AK9" ;
+NET 	 "CD_RLD2_A<14>"    LOC = 	 "AH5" ;
+NET 	 "CD_RLD2_A<15>"    LOC = 	 "AG6" ;
+NET 	 "CD_RLD2_A<16>"    LOC = 	 "AG9" ;
+NET 	 "CD_RLD2_A<17>"    LOC = 	 "AF10" ;
+NET 	 "CD_RLD2_A<18>"    LOC = 	 "AH6" ;
+NET 	 "CD_RLD2_A<19>"    LOC = 	 "AG7" ;
+NET 	 "CD_RLD2_BA<0>"    LOC = 	 "AE10" ;
+NET 	 "CD_RLD2_BA<1>"    LOC = 	 "AD10" ;
+NET 	 "CD_RLD2_BA<2>"    LOC = 	 "AN5" ;
+NET      "CD_RLD2_WE_N"     LOC = 	 "AF12" ;
+NET      "CD_RLD2_REF_N"    LOC = 	 "AG12" ;
+NET      "CD_RLD2_CS_N"     LOC = 	 "AK7" ;
+NET      "CD_RLD2_CK_N[0]"  LOC = 	 "AH8" ;
+NET      "CD_RLD2_CK_P[0]"  LOC = 	 "AG8" ;
+NET      "CD_RLD2_CK_N[1]"  LOC = 	 "AL7" ;
+NET      "CD_RLD2_CK_P[1]"  LOC = 	 "AK8" ;
+NET      "CD_RLD2_DK_P[0]"  LOC =        "AF9" ;
+NET      "CD_RLD2_DK_N[0]"  LOC =        "AE9" ;
+NET      "CD_RLD2_DK_P[1]"  LOC =        "AP5" ;
+NET      "CD_RLD2_DK_N[1]"  LOC =        "AP6" ;
+NET      "CD_RLD2_DK_P[2]"  LOC =        "AH9" ;
+NET      "CD_RLD2_DK_N[2]"  LOC =        "AJ8" ;
+NET      "CD_RLD2_DK_P[3]"  LOC =        "AJ6" ;
+NET      "CD_RLD2_DK_N[3]"  LOC =        "AJ7" ;
+# bank 30
+NET      "CD_RLD2_QVLD[0]"  LOC =        "AT14" ;
+NET 	 "CD_RLD2_DQ<0>"    LOC = 	 "AR18" ;
+NET 	 "CD_RLD2_DQ<1>"    LOC = 	 "AR19" ;
+NET 	 "CD_RLD2_QK_N<0>"  LOC = 	 "AN15" ;
+NET 	 "CD_RLD2_QK_P<0>"  LOC = 	 "AN14" ;
+NET 	 "CD_RLD2_QK_N<1>"  LOC = 	 "AP17" ;
+NET 	 "CD_RLD2_QK_P<1>"  LOC = 	 "AN16" ;
+NET 	 "CD_RLD2_DQ<2>"    LOC = 	 "AU16" ;
+NET 	 "CD_RLD2_DQ<3>"    LOC = 	 "AT16" ;
+NET 	 "CD_RLD2_DQ<4>"    LOC = 	 "AP15" ;
+NET 	 "CD_RLD2_DQ<5>"    LOC = 	 "AP16" ;
+NET 	 "CD_RLD2_DQ<6>"    LOC = 	 "AR15" ;
+NET 	 "CD_RLD2_DQ<7>"    LOC = 	 "AL14" ;
+NET 	 "CD_RLD2_DQ<8>"    LOC = 	 "AM14" ;
+NET 	 "CD_RLD2_DQ<9>"    LOC = 	 "AT15" ;
+NET 	 "CD_RLD2_DQ<10>"   LOC = 	 "AU14" ;
+NET 	 "CD_RLD2_DQ<11>"   LOC = 	 "AV13" ;
+NET 	 "CD_RLD2_DQ<12>"   LOC = 	 "AU12" ;
+NET 	 "CD_RLD2_DQ<13>"   LOC = 	 "AL15" ;
+NET 	 "CD_RLD2_DQ<14>"   LOC = 	 "AK15" ;
+NET 	 "CD_RLD2_DQ<15>"   LOC = 	 "AH15" ;
+NET 	 "CD_RLD2_DQ<16>"   LOC = 	 "AJ15" ;
+NET 	 "CD_RLD2_DQ<17>"   LOC = 	 "AP18" ;
+NET 	 "CD_RLD2_DQ<18>"   LOC = 	 "AN18" ;
+NET 	 "CD_RLD2_DQ<19>"   LOC = 	 "AG13" ;
+NET 	 "CD_RLD2_DQ<20>"   LOC = 	 "AH14" ;
+NET 	 "CD_RLD2_DQ<21>"   LOC = 	 "AL16" ;
+NET 	 "CD_RLD2_DQ<22>"   LOC = 	 "AJ13" ;
+NET 	 "CD_RLD2_DQ<23>"   LOC = 	 "AH13" ;
+NET 	 "CD_RLD2_DQ<24>"   LOC = 	 "AU17" ;
+NET 	 "CD_RLD2_DQ<25>"   LOC = 	 "AU18" ;
+NET 	 "CD_RLD2_DQ<26>"   LOC = 	 "AK14" ;
+NET 	 "CD_RLD2_DQ<27>"   LOC = 	 "AK13" ;
+NET 	 "CD_RLD2_DQ<28>"   LOC = 	 "AR17" ;
+NET 	 "CD_RLD2_DQ<29>"   LOC = 	 "AT17" ;
+NET 	 "CD_RLD2_DQ<30>"   LOC = 	 "AR13" ;
+NET 	 "CD_RLD2_DQ<31>"   LOC = 	 "AT12" ;
+NET      "CD_RLD2_CS1_B"    LOC =        "AU13" ; # CONNECT THIS INTERNALLY TO CD_RLD2_CS_N
+# BANK 26
+NET      "CD_RLD2_QVLD[1]"  LOC =   "AT10" ;
+NET 	 "CD_RLD2_DQ<32>"   LOC = 	 "AR9" ;
+NET 	 "CD_RLD2_DQ<33>"   LOC = 	 "AR8" ;
+NET 	 "CD_RLD2_QK_N<2>"  LOC = 	 "AL12" ;
+NET 	 "CD_RLD2_QK_P<2>"  LOC = 	 "AM12" ;
+NET 	 "CD_RLD2_QK_N<3>"  LOC = 	 "AV7" ;
+NET 	 "CD_RLD2_QK_P<3>"  LOC = 	 "AU8" ;
+NET 	 "CD_RLD2_DQ<34>"   LOC = 	 "AT6" ;
+NET 	 "CD_RLD2_DQ<35>"   LOC = 	 "AU6" ;
+NET 	 "CD_RLD2_DQ<36>"   LOC = 	 "AU11" ;
+NET 	 "CD_RLD2_DQ<37>"   LOC = 	 "AN8" ;
+NET 	 "CD_RLD2_DQ<38>"   LOC = 	 "AP8" ;
+NET 	 "CD_RLD2_DQ<39>"   LOC = 	 "AR12" ;
+NET 	 "CD_RLD2_DQ<40>"   LOC = 	 "AP13" ;
+NET 	 "CD_RLD2_DQ<41>"   LOC = 	 "AM8" ;
+NET 	 "CD_RLD2_DQ<42>"   LOC = 	 "AM9" ;
+NET 	 "CD_RLD2_DQ<43>"   LOC = 	 "AN13" ;
+NET 	 "CD_RLD2_DQ<44>"   LOC = 	 "AM13" ;
+NET 	 "CD_RLD2_DQ<45>"   LOC = 	 "AP7" ;
+NET 	 "CD_RLD2_DQ<46>"   LOC = 	 "AR6" ;
+NET 	 "CD_RLD2_DQ<47>"   LOC = 	 "AT9" ;
+NET 	 "CD_RLD2_DQ<48>"   LOC = 	 "AR10" ;
+NET 	 "CD_RLD2_DQ<49>"   LOC = 	 "AK10" ;
+NET 	 "CD_RLD2_DQ<50>"   LOC = 	 "AL10" ;
+NET 	 "CD_RLD2_DQ<51>"   LOC = 	 "AN11" ;
+NET 	 "CD_RLD2_DQ<52>"   LOC = 	 "AP10" ;
+NET 	 "CD_RLD2_DQ<53>"   LOC = 	 "AJ10" ;
+NET 	 "CD_RLD2_DQ<54>"   LOC = 	 "AP12" ;
+NET 	 "CD_RLD2_DQ<55>"   LOC = 	 "AP11" ;
+NET 	 "CD_RLD2_DQ<56>"   LOC = 	 "AN10" ;
+NET 	 "CD_RLD2_DQ<57>"   LOC = 	 "AN9" ;
+NET 	 "CD_RLD2_DQ<58>"   LOC = 	 "AL11" ;
+NET 	 "CD_RLD2_DQ<59>"   LOC = 	 "AM11" ;
+NET 	 "CD_RLD2_DQ<60>"   LOC = 	 "AT7" ;
+NET 	 "CD_RLD2_DQ<61>"   LOC = 	 "AR7" ;
+NET 	 "CD_RLD2_DQ<62>"   LOC = 	 "AK12" ;
+NET 	 "CD_RLD2_DQ<63>"   LOC = 	 "AJ12" ;
+
+# I/O STANDARDS
+NET  "CD_RLD2_DQ[*]"                                    IOSTANDARD = HSTL_II_DCI_18;
+NET  "CD_RLD2_QK_P[*]"                                  IOSTANDARD = DIFF_HSTL_II_DCI_18;
+NET  "CD_RLD2_QK_N[*]"                                  IOSTANDARD = DIFF_HSTL_II_DCI_18;
+NET  "CD_RLD2_A[*]"                                     IOSTANDARD = HSTL_I_18;
+NET  "CD_RLD2_BA[*]"                                    IOSTANDARD = HSTL_I_18;
+NET  "CD_RLD2_WE_N"                                     IOSTANDARD = HSTL_I_18;
+NET  "CD_RLD2_REF_N"                                    IOSTANDARD = HSTL_I_18;
+NET  "CD_RLD2_CS_N"                                     IOSTANDARD = HSTL_I_18;
+NET  "CD_RLD2_CS1_B"                                    IOSTANDARD = HSTL_I_18;
+NET  "CD_RLD2_QVLD[*]"                                  IOSTANDARD = HSTL_I_18;
+NET  "CD_RLD2_DK_P[*]"                                  IOSTANDARD = DIFF_HSTL_II_18;
+NET  "CD_RLD2_DK_N[*]"                                  IOSTANDARD = DIFF_HSTL_II_18;
+NET  "CD_RLD2_CK_P[*]"                                  IOSTANDARD = DIFF_HSTL_I_18;
+
+################################################################################
+# RLDRAMII INTERFACE  A/B
+# BANKS 13, 25, 29
+################################################################################
+
+# PINOUT
+# bank 13
+NET 	 "AB_RLD2_A<0>"     LOC = 	 "AJ36" ;
+NET 	 "AB_RLD2_A<1>"     LOC = 	 "AG37" ;
+NET 	 "AB_RLD2_A<2>"     LOC = 	 "AG36" ;
+NET 	 "AB_RLD2_A<3>"     LOC = 	 "AG31" ;
+NET 	 "AB_RLD2_A<4>"     LOC = 	 "AG32" ;
+NET 	 "AB_RLD2_A<5>"     LOC = 	 "AC33" ;
+NET 	 "AB_RLD2_A<6>"     LOC = 	 "AB33" ;
+NET 	 "AB_RLD2_A<7>"     LOC = 	 "AG33" ;
+NET 	 "AB_RLD2_A<8>"     LOC = 	 "AG34" ;
+NET 	 "AB_RLD2_A<9>"     LOC = 	 "AD37" ;
+NET 	 "AB_RLD2_A<10>"    LOC = 	 "AF31" ;
+NET 	 "AB_RLD2_A<11>"    LOC = 	 "AF32" ;
+NET 	 "AB_RLD2_A<12>"    LOC = 	 "AE35" ;
+NET 	 "AB_RLD2_A<13>"    LOC = 	 "AD35" ;
+NET 	 "AB_RLD2_A<14>"    LOC = 	 "AL36" ;
+NET 	 "AB_RLD2_A<15>"    LOC = 	 "AL37" ;
+NET 	 "AB_RLD2_A<16>"    LOC = 	 "AC30" ;
+NET 	 "AB_RLD2_A<17>"    LOC = 	 "AC31" ;
+NET 	 "AB_RLD2_A<18>"    LOC = 	 "AN38" ;
+NET 	 "AB_RLD2_A<19>"    LOC = 	 "AM38" ;
+NET 	 "AB_RLD2_BA<0>"    LOC = 	 "AF35" ;
+NET 	 "AB_RLD2_BA<1>"    LOC = 	 "AF36" ;
+NET 	 "AB_RLD2_BA<2>"    LOC = 	 "AH36" ;
+NET      "AB_RLD2_WE_N"     LOC = 	 "AC34" ;
+NET      "AB_RLD2_REF_N"    LOC = 	 "AC35" ;
+NET      "AB_RLD2_CS_N"     LOC = 	 "AK37" ;
+NET      "AB_RLD2_CK_N[0]"  LOC = 	 "AE34" ;
+NET      "AB_RLD2_CK_P[0]"  LOC = 	 "AF34" ;
+NET      "AB_RLD2_CK_N[1]"  LOC = 	 "AE37" ;
+NET      "AB_RLD2_CK_P[1]"  LOC = 	 "AF37" ;
+NET      "AB_RLD2_DK_P[0]"  LOC =        "AD31" ;
+NET      "AB_RLD2_DK_N[0]"  LOC =        "AD30" ;
+NET      "AB_RLD2_DK_P[1]"  LOC =        "AD32" ;
+NET      "AB_RLD2_DK_N[1]"  LOC =        "AD33" ;
+NET      "AB_RLD2_DK_P[2]"  LOC =        "AH38" ;
+NET      "AB_RLD2_DK_N[2]"  LOC =        "AG38" ;
+NET      "AB_RLD2_DK_P[3]"  LOC =        "AE33" ;
+NET      "AB_RLD2_DK_N[3]"  LOC =        "AE32" ;
+# bank 29
+NET      "AB_RLD2_QVLD[0]"  LOC =        "AP30" ;
+NET 	 "AB_RLD2_DQ<0>"    LOC = 	 "AH29" ;
+NET 	 "AB_RLD2_DQ<1>"    LOC = 	 "AH30" ;
+NET 	 "AB_RLD2_QK_N<0>"  LOC = 	 "AR29" ;
+NET 	 "AB_RLD2_QK_P<0>"  LOC = 	 "AR28" ;
+NET 	 "AB_RLD2_QK_N<1>"  LOC = 	 "AU33" ;
+NET 	 "AB_RLD2_QK_P<1>"  LOC = 	 "AU32" ;
+NET 	 "AB_RLD2_DQ<2>"    LOC = 	 "AT32" ;
+NET 	 "AB_RLD2_DQ<3>"    LOC = 	 "AR32" ;
+NET 	 "AB_RLD2_DQ<4>"    LOC = 	 "AT29" ;
+NET 	 "AB_RLD2_DQ<5>"    LOC = 	 "AN30" ;
+NET 	 "AB_RLD2_DQ<6>"    LOC = 	 "AM29" ;
+NET 	 "AB_RLD2_DQ<7>"    LOC = 	 "AV30" ;
+NET 	 "AB_RLD2_DQ<8>"    LOC = 	 "AU29" ;
+NET 	 "AB_RLD2_DQ<9>"    LOC = 	 "AL30" ;
+NET 	 "AB_RLD2_DQ<10>"   LOC = 	 "AL29" ;
+NET 	 "AB_RLD2_DQ<11>"   LOC = 	 "AU31" ;
+NET 	 "AB_RLD2_DQ<12>"   LOC = 	 "AV31" ;
+NET 	 "AB_RLD2_DQ<13>"   LOC = 	 "AT31" ;
+NET 	 "AB_RLD2_DQ<14>"   LOC = 	 "AT30" ;
+NET 	 "AB_RLD2_DQ<15>"   LOC = 	 "AP28" ;
+NET 	 "AB_RLD2_DQ<16>"   LOC = 	 "AN28" ;
+NET 	 "AB_RLD2_DQ<17>"   LOC = 	 "AJ30" ;
+NET 	 "AB_RLD2_DQ<18>"   LOC = 	 "AH31" ;
+NET 	 "AB_RLD2_DQ<19>"   LOC = 	 "AT25" ;
+NET 	 "AB_RLD2_DQ<20>"   LOC = 	 "AT26" ;
+NET 	 "AB_RLD2_DQ<21>"   LOC = 	 "AK29" ;
+NET 	 "AB_RLD2_DQ<22>"   LOC = 	 "AV25" ;
+NET 	 "AB_RLD2_DQ<23>"   LOC = 	 "AV26" ;
+NET 	 "AB_RLD2_DQ<24>"   LOC = 	 "AT34" ;
+NET 	 "AB_RLD2_DQ<25>"   LOC = 	 "AU34" ;
+NET 	 "AB_RLD2_DQ<26>"   LOC = 	 "AT27" ;
+NET 	 "AB_RLD2_DQ<27>"   LOC = 	 "AU27" ;
+NET 	 "AB_RLD2_DQ<28>"   LOC = 	 "AR33" ;
+NET 	 "AB_RLD2_DQ<29>"   LOC = 	 "AR34" ;
+NET 	 "AB_RLD2_DQ<30>"   LOC = 	 "AN29" ;
+NET 	 "AB_RLD2_DQ<31>"   LOC = 	 "AM28" ;
+NET      "AB_RLD2_CS1_B"    LOC =        "AR30" ; # CONNECT THIS INTERNALLY TO AB_RLD2_CS_N
+# BANK 25
+NET      "AB_RLD2_QVLD[1]"  LOC =        "AJ35" ;
+NET 	 "AB_RLD2_DQ<32>"   LOC = 	 "AK34" ;
+NET 	 "AB_RLD2_DQ<33>"   LOC = 	 "AJ33" ;
+NET 	 "AB_RLD2_QK_N<2>"  LOC = 	 "AH33" ;
+NET 	 "AB_RLD2_QK_P<2>"  LOC = 	 "AH34" ;
+NET 	 "AB_RLD2_QK_N<3>"  LOC = 	 "AP33" ;
+NET 	 "AB_RLD2_QK_P<3>"  LOC = 	 "AP32" ;
+NET 	 "AB_RLD2_DQ<34>"   LOC = 	 "AK33" ;
+NET 	 "AB_RLD2_DQ<35>"   LOC = 	 "AK32" ;
+NET 	 "AB_RLD2_DQ<36>"   LOC = 	 "AP37" ;
+NET 	 "AB_RLD2_DQ<37>"   LOC = 	 "AP31" ;
+NET 	 "AB_RLD2_DQ<38>"   LOC = 	 "AN31" ;
+NET 	 "AB_RLD2_DQ<39>"   LOC = 	 "AN35" ;
+NET 	 "AB_RLD2_DQ<40>"   LOC = 	 "AN36" ;
+NET 	 "AB_RLD2_DQ<41>"   LOC = 	 "AM32" ;
+NET 	 "AB_RLD2_DQ<42>"   LOC = 	 "AM31" ;
+NET 	 "AB_RLD2_DQ<43>"   LOC = 	 "AM36" ;
+NET 	 "AB_RLD2_DQ<44>"   LOC = 	 "AL35" ;
+NET 	 "AB_RLD2_DQ<45>"   LOC = 	 "AL32" ;
+NET 	 "AB_RLD2_DQ<46>"   LOC = 	 "AL31" ;
+NET 	 "AB_RLD2_DQ<47>"   LOC = 	 "AU37" ;
+NET 	 "AB_RLD2_DQ<48>"   LOC = 	 "AT36" ;
+NET 	 "AB_RLD2_DQ<49>"   LOC = 	 "AU36" ;
+NET 	 "AB_RLD2_DQ<50>"   LOC = 	 "AV36" ;
+NET 	 "AB_RLD2_DQ<51>"   LOC = 	 "AJ32" ;
+NET 	 "AB_RLD2_DQ<52>"   LOC = 	 "AJ31" ;
+NET 	 "AB_RLD2_DQ<53>"   LOC = 	 "AR35" ;
+NET 	 "AB_RLD2_DQ<54>"   LOC = 	 "AR37" ;
+NET 	 "AB_RLD2_DQ<55>"   LOC = 	 "AT37" ;
+NET 	 "AB_RLD2_DQ<56>"   LOC = 	 "AN34" ;
+NET 	 "AB_RLD2_DQ<57>"   LOC = 	 "AM34" ;
+NET 	 "AB_RLD2_DQ<58>"   LOC = 	 "AP35" ;
+NET 	 "AB_RLD2_DQ<59>"   LOC = 	 "AP36" ;
+NET 	 "AB_RLD2_DQ<60>"   LOC = 	 "AM33" ;
+NET 	 "AB_RLD2_DQ<61>"   LOC = 	 "AN33" ;
+NET 	 "AB_RLD2_DQ<62>"   LOC = 	 "AK35" ;
+NET 	 "AB_RLD2_DQ<63>"   LOC = 	 "AL34" ;
+
+# I/O STANDARDS
+NET  "AB_RLD2_DQ[*]"                                    IOSTANDARD = HSTL_II_DCI_18;
+NET  "AB_RLD2_QK_P[*]"                                  IOSTANDARD = DIFF_HSTL_II_DCI_18;
+NET  "AB_RLD2_QK_N[*]"                                  IOSTANDARD = DIFF_HSTL_II_DCI_18;
+NET  "AB_RLD2_A[*]"                                     IOSTANDARD = HSTL_I_18;
+NET  "AB_RLD2_BA[*]"                                    IOSTANDARD = HSTL_I_18;
+NET  "AB_RLD2_WE_N"                                     IOSTANDARD = HSTL_I_18;
+NET  "AB_RLD2_REF_N"                                    IOSTANDARD = HSTL_I_18;
+NET  "AB_RLD2_CS_N"                                     IOSTANDARD = HSTL_I_18;
+NET  "AB_RLD2_CS1_B"                                    IOSTANDARD = HSTL_I_18;
+NET  "AB_RLD2_QVLD[*]"                                  IOSTANDARD = HSTL_I_18;
+NET  "AB_RLD2_DK_P[*]"                                  IOSTANDARD = DIFF_HSTL_II_18;
+NET  "AB_RLD2_DK_N[*]"                                  IOSTANDARD = DIFF_HSTL_II_18;
+NET  "AB_RLD2_CK_P[*]"                                  IOSTANDARD = DIFF_HSTL_I_18;
+
+################################################################################
+# MISC
+# BANKS 4,2,6
+################################################################################
+
+# PINOUT
+# BANK 4
+NET "FPGA_SPRCK_N"      LOC = "AM26" ;       # CONFIGURABLE CLK FROM X2
+NET "FPGA_SPRCK_P"      LOC = "AL26" ;       # CONFIGURABLE CLK FROM X2
+NET "USR_OSC_CLK2"      LOC = "AL25" | IOSTANDARD = LVCMOS33;       # SOCKETABLE CLK X4
+NET "USR_OSC_CLK1"      LOC = "AN20" | IOSTANDARD = LVCMOS33;       # SOCKETABLE CLK X3
+NET "USR_25MHZ"         LOC = "AJ25" | IOSTANDARD = LVCMOS33;       # 25MHZ CLOCK
+NET "USR_100MHZ"        LOC = "AN25" | IOSTANDARD = LVCMOS33;       # 100MHZ CLOCK
+NET "FPGA_PRSNT_B"      LOC = "AT20" | IOSTANDARD = LVCMOS33;       # PCIE SIGNAL - PRESENCE DETECT SIGNAL, CHECK BUT I THINK IT'S OK TO LEAVE X
+NET "RST_B"             LOC = "AR20" | IOSTANDARD = LVCMOS33;       # RESET SIGNAL TO THE AEL2005 DEVICES
+NET "LED01"             LOC = "AK25" | IOSTANDARD = LVCMOS33;       # CAN BE USED FOR DEBUG
+NET "LED02"             LOC = "AM24" | IOSTANDARD = LVCMOS33;       # CAN BE USED FOR DEBUG
+NET "LED03"             LOC = "AP20" | IOSTANDARD = LVCMOS33;       # CAN BE USED FOR DEBUG
+#NET "PROM_RELOAD_Z"     LOC = "AP21" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+NET "PB01"              LOC = "AL24" | IOSTANDARD = LVCMOS33;       # PUSH BUTTON SIGNAL, CAN BE USED FOR RST OR DEBUG FOR EXAMPLE
+NET "PB02"              LOC = "AN19" | IOSTANDARD = LVCMOS33;       # PUSH BUTTON SIGNAL, CAN BE USED FOR RST OR DEBUG FOR EXAMPLE
+NET "FPGA_WAKE_B"       LOC = "AK24" | IOSTANDARD = LVCMOS33;       # PCIE SIGNAL WAKE, CHECK BUT I THINK IT'S OK TO LEAVE X
+NET "MDC"               LOC = "AK23" | IOSTANDARD = LVCMOS33;       # AEL2005 MDIO I/F
+NET "MDIO"              LOC = "AL20" | IOSTANDARD = LVCMOS33;       # AEL2005 MDIO I/F
+NET "IO_L9P_CC_GC4"    LOC = "AK20" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F     - drive high
+
+#BANK 2
+#NET "FPGA_RS0"          LOC = "AK17" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_RS1"          LOC = "AJ17" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "NEW_PROG_REQST_Z"  LOC = "AK27" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A22"          LOC = "AK28" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A23"          LOC = "AJ18" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A20"          LOC = "AK18" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A21"          LOC = "AM27" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A19"          LOC = "AL27" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+NET "FPGA_FOE_B"        LOC = "AM17" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F     - drive high
+NET "FPGA_FCS_B"        LOC = "AL17" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F     - drive high
+#NET "FPGA_A18"          LOC = "AP27" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+NET "FPGA_FWE_B"        LOC = "AR27" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F     - drive high
+#NET "FPGA_DQ6"          LOC = "AM19" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ7"          LOC = "AM18" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ4"          LOC = "AN26" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ5"          LOC = "AP26" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ2"          LOC = "AK19" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ3"          LOC = "AL19" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ0"          LOC = "AR25" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ1"          LOC = "AP25" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+
+#BANK 6
+#NET "FPGA_A16"          LOC = "AT24" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A17"          LOC = "AR24" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A14"          LOC = "AM22" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A15"          LOC = "AN21" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A12"          LOC = "AY23" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A13"          LOC = "AW23" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A10"          LOC = "AK22" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A11"          LOC = "AL22" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A8"           LOC = "AP23" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A9"           LOC = "AN23" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A6"           LOC = "AY20" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A7"           LOC = "BA20" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A4"           LOC = "AT22" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A5"           LOC = "AR23" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A2"           LOC = "AW22" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A3"           LOC = "AW21" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A0"           LOC = "AP22" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_A1"           LOC = "AR22" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ14"         LOC = "AU22" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ15"         LOC = "AV21" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ12"         LOC = "AT21" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ13"         LOC = "AU21" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ10"         LOC = "AV19" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ12"         LOC = "AV18" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ8"          LOC = "AU24" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "FPGA_DQ9"          LOC = "AV24" | IOSTANDARD = LVCMOS33;       # CPLD: OUR CONFIG I/F
+#NET "RS232_T1N"         LOC = "BB21" | IOSTANDARD = LVCMOS33;       # RS232 I/F  - FOR DEBUG
+#NET "RS232_T2N"         LOC = "BA22" | IOSTANDARD = LVCMOS33;       # RS232 I/F  - FOR DEBUG
+#NET "RS232_R1OUT"       LOC = "BB23" | IOSTANDARD = LVCMOS33;       # RS232 I/F  - FOR DEBUG
+#NET "RS232_R2OUT"       LOC = "BB22" | IOSTANDARD = LVCMOS33;       # RS232 I/F  - FOR DEBUG
+#NET "MICTOR10"          LOC = "AY22" | IOSTANDARD = LVCMOS33;       # MICTOR HEADER - FOR DEBUG
+#NET "MICTOR9"           LOC = "BA21" | IOSTANDARD = LVCMOS33;       # MICTOR HEADER - FOR DEBUG
+#NET "MICTOR8"           LOC = "AU23" | IOSTANDARD = LVCMOS33;       # MICTOR HEADER - FOR DEBUG
+#NET "MICTOR7"           LOC = "AV23" | IOSTANDARD = LVCMOS33;       # MICTOR HEADER - FOR DEBUG
+#NET "MICTOR6"           LOC = "AU19" | IOSTANDARD = LVCMOS33;       # MICTOR HEADER - FOR DEBUG
+#NET "MICTOR5"           LOC = "AT19" | IOSTANDARD = LVCMOS33;       # MICTOR HEADER - FOR DEBUG
+#NET "MICTOR4"           LOC = "AN24" | IOSTANDARD = LVCMOS33;       # MICTOR HEADER - FOR DEBUG
+#NET "MICTOR3"           LOC = "AM23" | IOSTANDARD = LVCMOS33;       # MICTOR HEADER - FOR DEBUG
+#NET "MICTOR2"           LOC = "AW20" | IOSTANDARD = LVCMOS33;       # MICTOR HEADER - FOR DEBUG
+#NET "MICTOR1"           LOC = "AV20" | IOSTANDARD = LVCMOS33;       # MICTOR HEADER - FOR DEBUG
+
+
+
+
+
