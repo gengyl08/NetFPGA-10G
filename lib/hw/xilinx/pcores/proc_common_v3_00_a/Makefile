@@ -45,5 +45,5 @@ install:
 	false | cp -ri $(XILINX_HW_LIB_DIR)/$(HW_LIB_INSTANCE)/* . > /dev/null 2>&1
 
 clean:
-	rm -rf doc hdl
-	rm -f data/*.mui
+	rm -rf doc hdl data
+	
