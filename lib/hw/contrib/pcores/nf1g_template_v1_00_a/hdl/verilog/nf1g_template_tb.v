@@ -43,6 +43,8 @@
 module testbench();
 
   reg clk, reset;
+  
+  integer i;
 
   initial begin
       clk   = 1'b0;
