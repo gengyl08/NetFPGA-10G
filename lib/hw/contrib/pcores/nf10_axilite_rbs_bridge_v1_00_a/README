@@ -1,0 +1,17 @@
+Wish list:
+
+1. Add tcl code for ring size selection
+2. Add TIG constraint for the clock as an internal UCF
+
+
+
+Changes Made:
+
+1. Added/Modified following parameters:
+
+C_RBS_RING_SIZE - to determine the number of modules in the RBS pipeline to setup the 'timeout' budget accordinly.
+C_RBS_SRC_ID - to specify Master ID on RBS pipeline
+C_S_AXI_MIN_SIZE - made it generic with respect to address space
+
+2. Removed the converter state machine and added a combinational circuit for IPIF to core conversion
+

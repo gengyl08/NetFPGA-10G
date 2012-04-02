@@ -1,0 +1,34 @@
+------------------------------------------------------------------------
+--
+--  NETFPGA-10G www.netfpga.org
+--
+--  Module:
+--          nf10_axis_pbs_bridge_v1_00_a.prj
+--
+--  Description:
+--          Gianni Anitchi, Muhammad Shahbaz - project file to list the files necessary to compile the 
+--                                             nf10_axis_pbs_bridge_v1_00_a module
+--
+--
+--  Revision history:
+--          
+--
+--  Known issues:
+--          None
+--          
+--
+--  Library: library dependencies
+--
+------------------------------------------------------------------------
+vhdl	proc_common_v3_00_a "../../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/proc_common_pkg.vhd"
+vhdl    proc_common_v3_00_a "../../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/family_support.vhd"
+vhdl    proc_common_v3_00_a "../../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/ipif_pkg.vhd"
+vhdl	proc_common_v3_00_a "../../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pselect_f.vhd"
+vhdl    proc_common_v3_00_a "../../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/counter_f.vhd"
+verilog nf10_proc_common_v1_00_a "../../../../../std/pcores/nf10_proc_common_v1_00_a/hdl/verilog/fallthrough_small_fifo_v2.v"
+verilog nf10_proc_common_v1_00_a "../../../../../std/pcores/nf10_proc_common_v1_00_a/hdl/verilog/small_fifo_v3.v"
+verilog nf10_axis_converter_v1_00_a "../../../../../std/pcores/nf10_axis_converter_v1_00_a/hdl/verilog/nf10_axis_converter.v"
+verilog work "nf10_axis_pbs_bridge.v"
+verilog work "axis_pbs_bridge.v"
+verilog work "pbs_axis_bridge.v"
+verilog work "nf10_axis_pbs_bridge_tb.v"
