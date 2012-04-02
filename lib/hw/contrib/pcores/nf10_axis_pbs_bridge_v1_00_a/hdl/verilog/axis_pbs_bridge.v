@@ -106,7 +106,7 @@ module axis_pbs_bridge
     reg [C_AXIS_DATA_WIDTH/8-1:0]    ctrl_next;
 
     /* Decode the source port */
-    assign encoded_src_prt = fifo_user[C_AXIS_SRC_PORT_POS+7:C_AXIS_SRC_PORT_POS];
+    assign encoded_src_prt = fifo_user[C_AXIS_SRC_PORT_POS+NUM_QUEUES-1:C_AXIS_SRC_PORT_POS];
 
   
     // Todo - Make this generic
@@ -199,7 +199,7 @@ module axis_pbs_bridge
 	   if (!fifo_empty && pbs_rdy) begin
               wr_next = 1;
               ctrl_next = C_PBS_IOQ_STAGE_NUM;
-	      data_next={{8'b0, fifo_user[C_AXIS_DST_PORT_POS+7:C_AXIS_DST_PORT_POS]}, wrd_len, {8'b0, decoded_src_prt}, fifo_user[15:0]};
+	      data_next={{8'b0, fifo_user[C_AXIS_DST_PORT_POS+7:C_AXIS_DST_PORT_POS]}, wrd_len, {{(16-NUM_QUEUES_WIDTH){1'b0}}, decoded_src_prt}, fifo_user[15:0]};
 	      nxt_state = SEND_PACKET;
 	   end
 	end

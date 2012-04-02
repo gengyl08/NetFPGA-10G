@@ -44,6 +44,7 @@ module pbs_axis_bridge
     parameter C_AXIS_DATA_WIDTH = 64,
     parameter C_AXIS_USER_WIDTH = 128,
     parameter NUM_QUEUES = 8,
+	parameter NUM_QUEUES_WIDTH = log2(NUM_QUEUES),
     parameter C_PBS_SRC_PORT_POS = 16,
     parameter C_PBS_DST_PORT_POS = 48,
     parameter C_PBS_IOQ_STAGE_NUM = 'hFF
@@ -67,6 +68,16 @@ module pbs_axis_bridge
     input pbs_wr,
     output pbs_rdy
 );
+
+   function integer log2;
+      input integer number;
+      begin
+         log2=0;
+         while(2**log2<number) begin
+            log2=log2+1;
+         end
+      end
+    endfunction // log2
 
    localparam MODULE_HEADER    = 1; 
    localparam SEND_PACKET      = 2;
@@ -116,7 +127,7 @@ module pbs_axis_bridge
     /* Encode the source port */
     always @(*) begin
        encoded_src_prt = {NUM_QUEUES{1'b0}};
-       encoded_src_prt[fifo_data[C_PBS_SRC_PORT_POS+NUM_QUEUES-1:C_PBS_SRC_PORT_POS]] = 1'b1;
+       encoded_src_prt[fifo_data[C_PBS_SRC_PORT_POS+NUM_QUEUES_WIDTH-1:C_PBS_SRC_PORT_POS]] = 1'b1;
     end
 
     /* Generate tdata and tstrb */
