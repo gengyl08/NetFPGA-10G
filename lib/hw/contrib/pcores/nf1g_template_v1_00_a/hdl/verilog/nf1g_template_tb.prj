@@ -1,0 +1,25 @@
+------------------------------------------------------------------------
+--
+--  NETFPGA-10G www.netfpga.org
+--
+--  Module:
+--          nf1g_template_v1_00_a.prj
+--
+--  Description:
+--          e.g. Muhammad Shahbaz -- NetFPGA-1G temlate for 1G to 10G port 
+--                                           
+--
+--
+--  Revision history:
+--          
+--
+--  Known issues:
+--          None
+--          
+--
+--  Library: library dependencies
+--
+------------------------------------------------------------------------
+
+verilog work "nf1g_template.v"
+verilog work "nf1g_template_tb.v"
