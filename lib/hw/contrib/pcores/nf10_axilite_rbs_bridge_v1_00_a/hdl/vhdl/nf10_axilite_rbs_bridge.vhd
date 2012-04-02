@@ -61,7 +61,7 @@ use axi_lite_ipif_v1_01_a.axi_lite_ipif;
 --   C_HIGHADDR                   -- AXI4LITE slave: high address
 --   C_FAMILY                     -- Target FPGA family
 --   C_RBS_SRC_WIDTH              -- RBS source bus width
---   C_RBS_RING_SIZE              -- RBS ring size i.e. number of attached modules on the RBS side + 1
+--   C_RBS_RING_SIZE              -- RBS ring size i.e. number of attached modules on the RBS side
 --   C_RBS_SRC_ID                 -- RBS source ID
 
 -- Definition of Ports:
@@ -158,7 +158,7 @@ architecture rtl of nf10_axilite_rbs_bridge is
 										      0 => 4
 										    );
   constant C_USE_WSTRB			  : integer				:= 0;
-  constant C_DPHASE_TIMEOUT		  : integer				:= C_RBS_RING_SIZE; 
+  constant C_DPHASE_TIMEOUT		  : integer				:= C_RBS_RING_SIZE+1; 
 
 ------------------------------------------
 -- Signals declarations
