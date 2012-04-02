@@ -39,7 +39,7 @@
 install:
 
 unittest:
-	hdl/verilog/nf1g_template.sh
+	hdl/verilog/nf1g_template_tb.sh
 
 clean:
 	rm -rf hdl/verilog/unittest_build
