@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  *
  *  NetFPGA-10G http://www.netfpga.org
@@ -102,14 +101,14 @@ module nf1g_nic_port
        // --- Register interface
        .reg_req_in (S_RBS_REQ),
        .reg_ack_in (S_RBS_ACK),
-       .reg_rd_wr_L_in (S_RBS_WR_L),
+       .reg_rd_wr_L_in (S_RBS_RD_WR_L),
        .reg_addr_in (S_RBS_ADDR),
        .reg_data_in (S_RBS_DATA),
        .reg_src_in (S_RBS_SRC),
 
        .reg_req_out (M_RBS_REQ),
        .reg_ack_out (M_RBS_ACK),
-       .reg_rd_wr_L_out (M_RBS_WR_L),
+       .reg_rd_wr_L_out (M_RBS_RD_WR_L),
        .reg_addr_out (M_RBS_ADDR),
        .reg_data_out (M_RBS_DATA),
        .reg_src_out (M_RBS_SRC),
