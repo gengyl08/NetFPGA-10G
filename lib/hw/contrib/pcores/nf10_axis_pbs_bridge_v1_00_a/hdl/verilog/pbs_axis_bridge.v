@@ -223,7 +223,7 @@ module pbs_axis_bridge
 	 axis_tdata  <= {C_AXIS_DATA_WIDTH{1'b0}};
 	 axis_tvalid <= 0;
          axis_tlast  <= 0;
-	 axis_tuser  <= {C_AXIS_USER_WIDTH{0}};
+	 axis_tuser  <= {C_AXIS_USER_WIDTH{1'b0}};
 	 axis_tstrb  <= {(C_AXIS_DATA_WIDTH/8){1'b0}};
       end
       else begin
