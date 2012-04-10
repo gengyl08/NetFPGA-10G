@@ -1,0 +1,95 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf1g_switch_port_v2_1_0.mpd
+#
+#  Library:
+#        hw/contrib/pcores/nf1g_switch_port_v1_10_a
+#
+#  Author:
+#        Muhammad Shahbaz, Gianni Antichi
+#
+#  Description:
+#        Microprocessor Peripheral Description File
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+BEGIN nf1g_switch_port
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = TRUE
+OPTION HDL = MIXED
+OPTION USAGE_LEVEL = BASE_USER
+OPTION IP_GROUP = NetFPGA-1G Ports:MICROBLAZE
+OPTION DESC = NetFPGA-1G Switch port
+OPTION LONG_DESC = NetFPGA-1G Switch port 
+OPTION STYLE = MIX
+OPTION RUN_NGCBUILD = TRUE
+
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_PBS, BUS_STD = PBS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_PBS, BUS_STD = PBS, BUS_TYPE = TARGET
+BUS_INTERFACE BUS = M_RBS, BUS_STD = RBS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_RBS, BUS_STD = RBS, BUS_TYPE = TARGET
+
+
+## PBS Parameters
+PARAMETER C_S_PBS_DATA_WIDTH = 64, DT = integer, RANGE = (64,32), BUS = S_PBS
+PARAMETER C_M_PBS_DATA_WIDTH = 64, DT = integer, RANGE = (64,32), BUS = M_PBS
+
+## RBS Parameters
+PARAMETER C_RBS_ADDR_WIDTH = 32, DT = integer, BUS = S_RBS:M_RBS, ASSIGNMENT = CONSTANT
+PARAMETER C_RBS_DATA_WIDTH = 32, DT = integer, BUS = S_RBS:M_RBS, ASSIGNMENT = CONSTANT
+PARAMETER C_RBS_SRC_WIDTH = 2, DT = integer, BUS = S_RBS:M_RBS
+
+## Ports
+PORT CLK = "", DIR = I, SIGIS = CLK, BUS = S_PBS:M_PBS:S_RBS:M_RBS
+PORT RESET = "", DIR = I, SIGIS = RST
+
+PORT S_PBS_DATA = DATA, DIR = I, VEC = [C_S_PBS_DATA_WIDTH-1:0], BUS = S_PBS
+PORT S_PBS_CTRL = CTRL, DIR = I, VEC = [(C_S_PBS_DATA_WIDTH/8)-1:0], BUS = S_PBS
+PORT S_PBS_WR = WR, DIR = I, BUS = S_PBS
+PORT S_PBS_RDY = RDY, DIR = O, BUS = S_PBS
+PORT M_PBS_DATA = DATA, DIR = O, VEC = [C_M_PBS_DATA_WIDTH-1:0], BUS = M_PBS 
+PORT M_PBS_CTRL = CTRL, DIR = O, VEC = [(C_M_PBS_DATA_WIDTH/8)-1:0], BUS = M_PBS
+PORT M_PBS_WR = WR, DIR = O, BUS = M_PBS
+PORT M_PBS_RDY = RDY, DIR = I, BUS = M_PBS
+
+PORT S_RBS_REQ = REQ, DIR=I, BUS=S_RBS
+PORT S_RBS_ACK = ACK, DIR=I, BUS=S_RBS
+PORT S_RBS_RD_WR_L = RD_WR_L, DIR=I, BUS=S_RBS
+PORT S_RBS_ADDR = ADDR, DIR=I, VEC=[(C_RBS_ADDR_WIDTH-2)-1:0], BUS=S_RBS
+PORT S_RBS_DATA = DATA, DIR=I, VEC=[C_RBS_DATA_WIDTH-1:0], BUS=S_RBS
+PORT S_RBS_SRC = SRC, DIR=I, VEC=[C_RBS_SRC_WIDTH-1:0], BUS=S_RBS
+PORT M_RBS_REQ = REQ, DIR=O, BUS=M_RBS
+PORT M_RBS_ACK = ACK, DIR=O, BUS=M_RBS
+PORT M_RBS_RD_WR_L = RD_WR_L, DIR=O, BUS=M_RBS
+PORT M_RBS_ADDR = ADDR, DIR=O, VEC=[(C_RBS_ADDR_WIDTH-2)-1:0], BUS=M_RBS
+PORT M_RBS_DATA = DATA, DIR=O, VEC=[C_RBS_DATA_WIDTH-1:0], BUS=M_RBS
+PORT M_RBS_SRC = SRC, DIR=O, VEC=[C_RBS_SRC_WIDTH-1:0], BUS=M_RBS
+
+END
