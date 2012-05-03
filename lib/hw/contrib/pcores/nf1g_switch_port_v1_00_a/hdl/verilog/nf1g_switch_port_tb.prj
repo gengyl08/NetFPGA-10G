@@ -1,0 +1,52 @@
+-----------------------------------------------------------------------
+--
+--  NETFPGA-10G www.netfpga.org
+--
+--  Module:
+--          nf1g_switch_port_v1_00_a.prj
+--
+--  Description:
+--          Gianni Anitchi, Muhammad Shahbaz -- NetFPGA-1G Switch port
+--
+--
+--
+--  Revision history:
+--
+--
+--  Known issues:
+--          None
+--
+--
+--  Library: library dependencies
+--
+------------------------------------------------------------------------
+
+vhdl    ieee "/opt/Xilinx/13.2/ISE_DS/ISE/vhdl/src/ieee/std_logic_1164.vhd"
+vhdl    ieee "/opt/Xilinx/13.2/ISE_DS/ISE/vhdl/src/ieee/std_logic_arith.vhd"
+vhdl    ieee "/opt/Xilinx/13.2/ISE_DS/ISE/vhdl/src/ieee/std_logic_unsigned.vhd"
+vhdl    ieee "/opt/Xilinx/13.2/ISE_DS/ISE/vhdl/src/ieee/numeric_std.vhd"
+vhdl    ieee "/opt/Xilinx/13.2/ISE_DS/ISE/vhdl/src/ieee/std_logic_misc.vhd"
+vhdl	proc_common_v3_00_a "/opt/Xilinx/13.2/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/proc_common_v3_00_a/hdl/vhdl/proc_common_pkg.vhd"
+vhdl    proc_common_v3_00_a "/opt/Xilinx/13.2/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/proc_common_v3_00_a/hdl/vhdl/family_support.vhd"
+vhdl    proc_common_v3_00_a "/opt/Xilinx/13.2/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/proc_common_v3_00_a/hdl/vhdl/ipif_pkg.vhd"
+vhdl	proc_common_v3_00_a "/opt/Xilinx/13.2/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/proc_common_v3_00_a/hdl/vhdl/pselect_f.vhd"
+vhdl    proc_common_v3_00_a "/opt/Xilinx/13.2/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/proc_common_v3_00_a/hdl/vhdl/counter_f.vhd"
+vhdl    axi_lite_ipif_v1_01_a "/opt/Xilinx/13.2/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/slave_attachment.vhd"
+vhdl    axi_lite_ipif_v1_01_a "/opt/Xilinx/13.2/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/address_decoder.vhd"
+vhdl    axi_lite_ipif_v1_01_a "/opt/Xilinx/13.2/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/axi_lite_ipif.vhd"
+verilog nf10_proc_common_v1_00_a     "../../../../../std/pcores/nf10_proc_common_v1_00_a/hdl/verilog/fallthrough_small_fifo_v2.v"
+verilog nf10_proc_common_v1_00_a     "../../../../../std/pcores/nf10_proc_common_v1_00_a/hdl/verilog/small_fifo_v3.v"
+verilog nf10_axis_converter_v1_00_a  "../../../../../std/pcores/nf10_axis_converter_v1_00_a/hdl/verilog/nf10_axis_converter.v"
+verilog nf10_axis_pbs_bridge_v1_00_a "../../../../../contrib/pcores/nf10_axis_pbs_bridge_v1_00_a/hdl/verilog/axis_pbs_bridge.v"
+verilog nf10_axis_pbs_bridge_v1_00_a "../../../../../contrib/pcores/nf10_axis_pbs_bridge_v1_00_a/hdl/verilog/pbs_axis_bridge.v"
+verilog nf10_axis_pbs_bridge_v1_00_a "../../../../../contrib/pcores/nf10_axis_pbs_bridge_v1_00_a/hdl/verilog/nf10_axis_pbs_bridge.v"
+verilog work "output_port_lookup.v"
+verilog work "nf1g_switch_port.v"
+verilog work "ethernet_parser.v"
+verilog work "mac_cam_lut.v"
+verilog work "cam.v"
+verilog work "op_lut_regs.v"
+verilog nf10_axilite_rbs_bridge_v1_00_a "../../../../../contrib/pcores/nf10_axilite_rbs_bridge_v1_00_a/hdl/verilog/ipif_rbs_bridge.v"
+verilog nf10_axilite_rbs_bridge_v1_00_a "../../../../../contrib/pcores/nf10_axilite_rbs_bridge_v1_00_a/hdl/verilog/udp_reg_master.v"
+vhdl    nf10_axilite_rbs_bridge_v1_00_a "../../../../../contrib/pcores/nf10_axilite_rbs_bridge_v1_00_a/hdl/vhdl/nf10_axilite_rbs_bridge.vhd"
+verilog work "nf1g_switch_port_tb.v"

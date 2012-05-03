@@ -1,0 +1,34 @@
+------------------------------------------------------------------------
+--
+--  NETFPGA-10G www.netfpga.org
+--
+--  Module:
+--          nf10_axilite_rbs_bridge_v1_00_a.prj
+--
+--  Description:
+--          Muhammad Shahbaz, Gianni Anitchi - project file to list the files necessary to compile the 
+--                                             nf10_axilite_rbs_bridge_v1_00_a module
+--
+--
+--  Revision history:
+--          
+--
+--  Known issues:
+--          None
+--          
+--
+--  Library: library dependencies
+--
+------------------------------------------------------------------------
+verilog work "./verilog/ipif_rbs_bridge.v"
+verilog work "./verilog/udp_reg_master.v"
+vhdl work "./vhdl/nf10_axilite_rbs_bridge.vhd"
+verilog work "./verilog/nf10_axilite_rbs_bridge_tb.v"
+vhdl	proc_common_v3_00_a "../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/proc_common_pkg.vhd"
+vhdl    proc_common_v3_00_a "../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/family_support.vhd"
+vhdl    proc_common_v3_00_a "../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/ipif_pkg.vhd"
+vhdl	proc_common_v3_00_a "../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pselect_f.vhd"
+vhdl    proc_common_v3_00_a "../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/counter_f.vhd"
+vhdl    axi_lite_ipif_v1_01_a "../../../../xilinx/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/slave_attachment.vhd"
+vhdl    axi_lite_ipif_v1_01_a "../../../../xilinx/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/address_decoder.vhd"
+vhdl    axi_lite_ipif_v1_01_a "../../../../xilinx/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/axi_lite_ipif.vhd"

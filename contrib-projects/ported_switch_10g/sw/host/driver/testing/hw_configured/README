@@ -1,0 +1,2 @@
+These tests expect that the card is installed, powered on, and properly
+configured with a 10G reference NIC bitfile.

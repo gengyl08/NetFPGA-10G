@@ -1,0 +1,32 @@
+------------------------------------------------------------------------
+--
+--  NETFPGA-10G www.netfpga.org
+--
+--  Module:
+--          nf1g_nic_port_v1_00_a.prj
+--
+--  Description:
+--          Gianni Anitchi, Muhammad Shahbaz -- NetFPGA-1G NIC port
+--                                           
+--
+--
+--  Revision history:
+--          
+--
+--  Known issues:
+--          None
+--          
+--
+--  Library: library dependencies
+--
+------------------------------------------------------------------------
+
+verilog nf10_axis_pbs_bridge_v1_00_a "../../../../../contrib/pcores/nf10_axis_pbs_bridge_v1_00_a/hdl/verilog/axis_pbs_bridge.v"
+verilog nf10_axis_pbs_bridge_v1_00_a "../../../../../contrib/pcores/nf10_axis_pbs_bridge_v1_00_a/hdl/verilog/pbs_axis_bridge.v"
+verilog nf10_axis_pbs_bridge_v1_00_a "../../../../../contrib/pcores/nf10_axis_pbs_bridge_v1_00_a/hdl/verilog/nf10_axis_pbs_bridge.v"
+verilog nf10_proc_common_v1_00_a     "../../../../../std/pcores/nf10_proc_common_v1_00_a/hdl/verilog/fallthrough_small_fifo_v2.v"
+verilog nf10_proc_common_v1_00_a     "../../../../../std/pcores/nf10_proc_common_v1_00_a/hdl/verilog/small_fifo_v3.v"
+verilog nf10_axis_converter_v1_00_a  "../../../../../std/pcores/nf10_axis_converter_v1_00_a/hdl/verilog/nf10_axis_converter.v"
+verilog work "output_port_lookup.v"
+verilog work "nf1g_nic_port.v"
+verilog work "nf1g_nic_port_tb.v"
