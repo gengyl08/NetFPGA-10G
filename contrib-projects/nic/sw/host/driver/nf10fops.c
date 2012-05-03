@@ -44,6 +44,7 @@
 #include <linux/cdev.h>
 #include <linux/pci.h>
 #include <linux/sockios.h>
+#include <linux/module.h>
 #include <asm/uaccess.h>
 #include <asm/tsc.h>
 #include <linux/interrupt.h>
@@ -53,7 +54,7 @@ static dev_t devno;
 static struct class *dev_class;
 
 static int axi_wr_cnt = 0;
-spinlock_t axi_lock = SPIN_LOCK_UNLOCKED;
+static DEFINE_SPINLOCK(axi_lock);
 
 static struct file_operations nf10_fops={
     .owner = THIS_MODULE,
