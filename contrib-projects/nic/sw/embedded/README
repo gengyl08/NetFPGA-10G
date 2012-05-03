@@ -1,0 +1,52 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        README
+#
+#  Project:
+#        nic
+#
+#  Author:
+#        Mario Flajslik
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+"How to build the embedded software?" You may ask. There are two ways.
+
+Method 1: GUI flow
+1. Export the platform specific files from XPS (HW) project by clicking Project -> Export to SDK
+   Use "Export only"
+2. Open Xilinx SDK, select the workspace at SDK_Workspace
+3. In the Xilinx SDK GUI, click Xilinx Tools -> Repository and point the local/global repository to netfpga-10g/lib/sw/
+4. Import all projects under SDK_Workspace into your workspace by clicking File -> Import -> General -> Existing projects
+   do this for hw, bsp, and hello_world_0
+
+That's it!
+Now you can build your project with standard Eclipse IDE :)
+
+Method 2: CLI flow
+0. Before doing anything, please add the following directory into your $PATH
+   $(XILINX_EDK)/gnu/microblaze/{Your OS}/bin/
+1. Type "make" and find download.bit at result/
