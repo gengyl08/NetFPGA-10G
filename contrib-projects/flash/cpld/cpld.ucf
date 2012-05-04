@@ -1,0 +1,177 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        cpld.ucf
+#
+#  Project:
+#        flash_configuration
+#
+#  Author:
+#        Muhammad Shahbaz
+#
+#  Description:
+#        User constraint file
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 University of Cambridge
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+NET "CPLD_CLK_100MHz"  				LOC = "P55";
+NET "CPLD_CLK_100MHz" TNM_NET = "TNM_CPLD_CLK_100MHz";
+TIMESPEC TS_CPLD_CLK_100MHz = PERIOD "TNM_CPLD_CLK_100MHz" 10000 ps;
+OFFSET = OUT 2 ns AFTER CPLD_CLK_100MHz;
+
+#NET "PERST_B" 					LOC = "P84";
+
+NET "FPGA_CCLK"  				LOC = "P88";
+NET "FPGA_DONE"  				LOC = "P87";
+NET "FPGA_INIT_B"  				LOC = "P89";
+NET "FPGA_PROG_B"				LOC = "P90";
+NET "FPGA_PROG_REQ_B"  				LOC = "P197" | PULLUP;
+NET "FPGA_WE_B"     				LOC = "P142";
+NET "FPGA_OE_B"     				LOC = "P143";
+NET "FPGA_CS_B"     				LOC = "P144";
+
+NET "FPGA_DQ<0>"  				LOC = "P160";
+NET "FPGA_DQ<1>"  				LOC = "P161";
+NET "FPGA_DQ<2>"  				LOC = "P162";
+NET "FPGA_DQ<3>"  				LOC = "P163";
+NET "FPGA_DQ<4>"  				LOC = "P164";
+NET "FPGA_DQ<5>"  				LOC = "P165";
+NET "FPGA_DQ<6>"  				LOC = "P166";
+NET "FPGA_DQ<7>"  				LOC = "P167";
+#NET "FPGA_DQ<8>"  				LOC = "P168";
+#NET "FPGA_DQ<9>"  				LOC = "P169";
+#NET "FPGA_DQ<10>"  				LOC = "P170";
+#NET "FPGA_DQ<11>"  				LOC = "P171";
+#NET "FPGA_DQ<12>"  				LOC = "P146";
+#NET "FPGA_DQ<13>"  				LOC = "P147";
+#NET "FPGA_DQ<14>"  				LOC = "P148";
+#NET "FPGA_DQ<15>"  				LOC = "P149";
+
+NET "FPGA_A<0>"  				LOC = "P150";
+NET "FPGA_A<1>"  				LOC = "P151";
+NET "FPGA_A<2>"  				LOC = "P152";
+NET "FPGA_A<3>"  				LOC = "P153";
+NET "FPGA_A<4>"  				LOC = "P154";
+NET "FPGA_A<5>"  				LOC = "P155";
+NET "FPGA_A<6>"  				LOC = "P158";
+NET "FPGA_A<7>"  				LOC = "P159";
+NET "FPGA_A<8>"  				LOC = "P173";
+NET "FPGA_A<9>"  				LOC = "P174";
+NET "FPGA_A<10>"  				LOC = "P175";
+NET "FPGA_A<11>"  				LOC = "P178";
+NET "FPGA_A<12>"  				LOC = "P179";
+NET "FPGA_A<13>"  				LOC = "P180";
+NET "FPGA_A<14>"  				LOC = "P182";
+NET "FPGA_A<15>"  				LOC = "P183";
+NET "FPGA_A<16>"  				LOC = "P184";
+NET "FPGA_A<17>"  				LOC = "P134";
+NET "FPGA_A<18>"  				LOC = "P135";
+NET "FPGA_A<19>"  				LOC = "P136";
+NET "FPGA_A<20>"  				LOC = "P137";
+NET "FPGA_A<21>"  				LOC = "P138";
+NET "FPGA_A<22>"  				LOC = "P139";
+NET "FPGA_A<23>"  				LOC = "P140";
+
+NET "FLASH_A<0>"  				LOC = "P39";
+NET "FLASH_A<1>"  				LOC = "P40";
+NET "FLASH_A<2>"  				LOC = "P41";
+NET "FLASH_A<3>"  				LOC = "P43";
+NET "FLASH_A<4>"  				LOC = "P45";
+NET "FLASH_A<5>"  				LOC = "P47";
+NET "FLASH_A<6>"  				LOC = "P48";
+NET "FLASH_A<7>"  				LOC = "P49";
+NET "FLASH_A<8>"  				LOC = "P50";
+NET "FLASH_A<9>"  				LOC = "P51";
+NET "FLASH_A<10>"  				LOC = "P54";
+NET "FLASH_A<11>"  				LOC = "P56";
+NET "FLASH_A<12>"  				LOC = "P57";
+NET "FLASH_A<13>"  				LOC = "P58";
+NET "FLASH_A<14>"  				LOC = "P60";
+NET "FLASH_A<15>"  				LOC = "P61";
+NET "FLASH_A<16>"  				LOC = "P62";
+NET "FLASH_A<17>"  				LOC = "P63";
+NET "FLASH_A<18>"  				LOC = "P27";
+NET "FLASH_A<19>"  				LOC = "P28";
+NET "FLASH_A<20>"  				LOC = "P29";
+NET "FLASH_A<21>"  				LOC = "P30";
+NET "FLASH_A<22>"  				LOC = "P31";
+NET "FLASH_A<23>"  				LOC = "P32";
+
+NET "FLASH_A_DQ<0>"  				LOC = "P101";
+NET "FLASH_A_DQ<1>"  				LOC = "P102";
+NET "FLASH_A_DQ<2>"  				LOC = "P103";
+NET "FLASH_A_DQ<3>"  				LOC = "P106";
+NET "FLASH_A_DQ<4>"  				LOC = "P118";
+NET "FLASH_A_DQ<5>"  				LOC = "P119";
+NET "FLASH_A_DQ<6>"  				LOC = "P120";
+NET "FLASH_A_DQ<7>"  				LOC = "P121";
+#NET "FLASH_A_DQ<8>"  				LOC = "P122";
+#NET "FLASH_A_DQ<9>"  				LOC = "P123";
+#NET "FLASH_A_DQ<10>"  				LOC = "P125";
+#NET "FLASH_A_DQ<11>"  				LOC = "P126";
+#NET "FLASH_A_DQ<12>"  				LOC = "P127";
+#NET "FLASH_A_DQ<13>"  				LOC = "P128";
+#NET "FLASH_A_DQ<14>"  				LOC = "P131";
+#NET "FLASH_A_DQ<15>"  				LOC = "P77";
+
+NET "FLASH_A_E_B"  				LOC = "P34";
+NET "FLASH_A_G_B"  				LOC = "P35";
+NET "FLASH_A_RP_B" 				LOC = "P37";
+NET "FLASH_A_WP_B" 				LOC = "P64";
+NET "FLASH_A_W_B"  				LOC = "P65";
+NET "FLASH_A_L_B"  				LOC = "P66";
+NET "FLASH_A_K"    				LOC = "P36";
+NET "FLASH_A_RW"   				LOC = "P67";
+
+NET "FLASH_B_DQ<0>"  				LOC = "P107";
+NET "FLASH_B_DQ<1>"  				LOC = "P108";
+NET "FLASH_B_DQ<2>"  				LOC = "P109";
+NET "FLASH_B_DQ<3>"  				LOC = "P110";
+NET "FLASH_B_DQ<4>"  				LOC = "P111";
+NET "FLASH_B_DQ<5>"  				LOC = "P112";
+NET "FLASH_B_DQ<6>"  				LOC = "P113";
+NET "FLASH_B_DQ<7>"  				LOC = "P114";
+#NET "FLASH_B_DQ<8>"  				LOC = "P115";
+#NET "FLASH_B_DQ<9>"  				LOC = "P116";
+#NET "FLASH_B_DQ<10>"  				LOC = "P117";
+#NET "FLASH_B_DQ<11>"  				LOC = "P91";
+#NET "FLASH_B_DQ<12>"  				LOC = "P95";
+#NET "FLASH_B_DQ<13>"  				LOC = "P97";
+#NET "FLASH_B_DQ<14>"  				LOC = "P99";
+#NET "FLASH_B_DQ<15>"  				LOC = "P100";
+
+NET "FLASH_B_E_B"  				LOC = "P69";
+NET "FLASH_B_G_B"  				LOC = "P70";
+NET "FLASH_B_RP_B" 				LOC = "P72";
+NET "FLASH_B_WP_B" 				LOC = "P73";
+NET "FLASH_B_W_B"  				LOC = "P74";
+NET "FLASH_B_L_B"  				LOC = "P75";
+NET "FLASH_B_K"    				LOC = "P71";
+NET "FLASH_B_RW"   				LOC = "P76";
+
+NET "LED<0>"     				LOC = "P78";
+NET "LED<1>"     				LOC = "P80";
+NET "LED<2>"     				LOC = "P82";
+NET "LED<3>"     				LOC = "P83";
+
