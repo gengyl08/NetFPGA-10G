@@ -229,11 +229,13 @@ module nf10_input_arbiter
 
         /* cycle between input queues until one is not empty */
         IDLE: begin
-           if(!empty[cur_queue] && m_axis_tready) begin
-              state_next = WR_PKT;
-              rd_en[cur_queue] = 1;
+           if(!empty[cur_queue]) begin
+              if(m_axis_tready) begin
+                 state_next = WR_PKT;
+                 rd_en[cur_queue] = 1;
+              end
            end
-           if(empty[cur_queue] && m_axis_tready) begin
+           else begin
               cur_queue_next = cur_queue_plus1;
            end
         end
