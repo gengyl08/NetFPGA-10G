@@ -1,9 +1,71 @@
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        nf10priv.c
+ *
+ *  Project:
+ *        nic
+ *
+ *  Author:
+ *        Mario Flajslik
+ *
+ *  Description:
+ *        These functions control the card tx/rx operation. 
+ *        nf10priv_xmit -- gets called for every transmitted packet
+ *                         (on any nf interface)
+ *        work_handler  -- gets called when the interrupt handler puts work
+ *                         on the queue
+ *        nf10priv_send_rx_dsc -- allocates and sends a receive descriptor
+ *                                to the nic
+ *
+ *        There also exists a LOOPBACK_MODE (enabled by defining constant
+ *        LOOPBACK_MODE) that allows the driver to be tested on a single
+ *        machine. This mode, at receive, flips the last bit in the second
+ *        to last octet of the source and destination IP addresses. (e.g.
+ *        address 192.168.2.1 is converted to 192.168.3.1 and vice versa).
+ *
+ *        An example configuration that has been tested with loopback between 
+ *        interfaces 0 and 3 (must add static ARP entries, because ARPs
+ *        aren't fixed by the LOOPBACK_MODE):
+ *            ifconfig nf0 192.168.2.11;
+ *            ifconfig nf3 192.168.3.12;
+ *            arp -s 192.168.2.12 00:4E:46:31:30:03;
+ *            arp -s 192.168.3.11 00:4E:46:31:30:00;
+ *
+ *            "ping 192.168.2.12" -- should now work with packets going over
+ *                                   the wire.
+ *
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+ *                                 Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This file is free code: you can redistribute it and/or modify it under
+ *        the terms of the GNU Lesser General Public License version 2.1 as
+ *        published by the Free Software Foundation.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
+
 #include "nf10priv.h"
 #include <linux/spinlock.h>
 #include <linux/pci.h>
 
-#include <linux/netdevice.h>   /* struct device, and other headers */
-#include <linux/etherdevice.h> /* eth_type_trans */
+#include <linux/netdevice.h>
+#include <linux/etherdevice.h>
 #include <linux/if_ether.h>
 #include <net/ip.h>
 #include <net/tcp.h>

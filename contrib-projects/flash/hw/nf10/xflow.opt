@@ -6,10 +6,10 @@
 #        xflow.opt
 #
 #  Project:
-#        reference_nic
+#        nic
 #
 #  Author:
-#        James Hongyi Zeng
+#        Mario Flajslik
 #
 #  Description:
 #        Xflow option file that utilizes multi-core CPU

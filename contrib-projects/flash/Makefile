@@ -6,7 +6,7 @@
 #        Makefile
 #
 #  Project:
-#        flash_configuration
+#        flash
 #
 #  Author:
 #        Muhammad Shahbaz
@@ -49,4 +49,3 @@ all:
 
 clean:
 	$(MAKE) -C $(HW) clean
-	

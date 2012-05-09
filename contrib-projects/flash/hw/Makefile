@@ -6,10 +6,10 @@
 #        Makefile
 #
 #  Project:
-#        reference_nic
+#        nic
 #
 #  Author:
-#        James Hongyi Zeng
+#        Mario Flajslik
 #
 #  Description:
 #        This file is based on the standard Xilinx XPS Makefile

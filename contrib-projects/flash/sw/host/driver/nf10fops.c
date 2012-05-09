@@ -1,9 +1,50 @@
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        nf10fops.c
+ *
+ *  Project:
+ *        nic
+ *
+ *  Author:
+ *        Mario Flajslik
+ *
+ *  Description:
+ *        This code creates a /dev/nf10 file that can be used to read/write
+ *        AXI registers through ioctl calls. See sw/host/apps/rdaxi.c for
+ *        an example of that.
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+ *                                 Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This file is free code: you can redistribute it and/or modify it under
+ *        the terms of the GNU Lesser General Public License version 2.1 as
+ *        published by the Free Software Foundation.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
+
 #include "nf10fops.h"
 #include <linux/device.h>
 #include <linux/fs.h>
 #include <linux/cdev.h>
 #include <linux/pci.h>
 #include <linux/sockios.h>
+#include <linux/module.h>
 #include <asm/uaccess.h>
 #include <asm/tsc.h>
 #include <linux/interrupt.h>
@@ -13,7 +54,7 @@ static dev_t devno;
 static struct class *dev_class;
 
 static int axi_wr_cnt = 0;
-spinlock_t axi_lock = SPIN_LOCK_UNLOCKED;
+static DEFINE_SPINLOCK(axi_lock);
 
 static struct file_operations nf10_fops={
     .owner = THIS_MODULE,

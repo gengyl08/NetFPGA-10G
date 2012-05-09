@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2012-05-04T09:10:02</DateModified>
+  <DateModified>2011-10-03T23:34:54</DateModified>
   <ModuleName>cpld</ModuleName>
   <SummaryTimeStamp>2011-10-03T18:51:24</SummaryTimeStamp>
-  <SavedFilePath>/root/ms2035/mariof/NetFPGA-10G-live/contrib-projects/flash/cpld/iseconfig/cpld.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/root/ms2035/mariof/NetFPGA-10G-live/contrib-projects/flash/cpld/</ImplementationReportsDirectory>
+  <SavedFilePath>/home/shahbaz/Personal/office/cambridge/nf10/mshahbaz-netfpga-10g-dev/projects/flash_test/cpld/iseconfig/cpld.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/shahbaz/Personal/office/cambridge/nf10/mshahbaz-netfpga-10g-dev/projects/flash_test/cpld/</ImplementationReportsDirectory>
   <DateInitialized>2011-09-28T00:55:08</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

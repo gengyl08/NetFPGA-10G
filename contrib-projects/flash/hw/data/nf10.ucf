@@ -9,9 +9,7 @@
 #        flash
 #
 #  Author:
-#        James Hongyi Zeng
-#
-#	 Muhammad Shahbaz
+#        Muhammad Shahbaz
 #
 #  Description:
 #        UCF
@@ -118,54 +116,54 @@ INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u
 # FPGA Reprog signal to CPLD
 ###############################################################################
 
-NET "axi_cfg_fpga_0_GPIO_IO_pin<0>" 	LOC = "AK17"  |  IOSTANDARD=LVCMOS33 | PULLUP;
+NET "axi_cfg_fpga_0_GPIO_IO_pin<0>" 	LOC = "AK17"  |  IOSTANDARD=LVCMOS33 | PULLUP; 
 
 ###############################################################################
 # Flash constraints
 ###############################################################################
 
-NET "axi_emc_0_Mem_OEN_pin<0>"      	LOC = "AM17"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_CEN_pin<0>"      	LOC = "AL17"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_WEN_pin"       	LOC = "AR27"  |  IOSTANDARD=LVCMOS33 ;
+NET "axi_emc_0_Mem_OEN_pin<0>"      	LOC = "AM17"  |  IOSTANDARD=LVCMOS33 ;      
+NET "axi_emc_0_Mem_CEN_pin<0>"      	LOC = "AL17"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_WEN_pin"       	LOC = "AR27"  |  IOSTANDARD=LVCMOS33 ;       
 
 NET "axi_emc_0_Mem_A_pin<23>"    	LOC = "AJ18"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<22>"    	LOC = "AK28"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<21>"    	LOC = "AM27"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<20>"    	LOC = "AK18"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<19>"    	LOC = "AL27"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<18>"    	LOC = "AP27"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<17>"    	LOC = "AR24"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<16>"    	LOC = "AT24"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<15>"    	LOC = "AN21"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<14>"    	LOC = "AM22"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<13>"    	LOC = "AW23"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<12>"   	LOC = "AY23"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<11>"    	LOC = "AL22"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<10>"    	LOC = "AK22"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<9>"     	LOC = "AN23"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<8>"     	LOC = "AP23"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<7>"     	LOC = "BA20"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<6>"     	LOC = "AY20"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<5>"     	LOC = "AR23"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<4>"     	LOC = "AT22"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<3>"     	LOC = "AW21"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<2>"     	LOC = "AW22"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<1>"     	LOC = "AR22"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_A_pin<0>"     	LOC = "AP22"  |  IOSTANDARD=LVCMOS33 ;
+NET "axi_emc_0_Mem_A_pin<22>"    	LOC = "AK28"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_A_pin<21>"    	LOC = "AM27"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_A_pin<20>"    	LOC = "AK18"  |  IOSTANDARD=LVCMOS33 ;      
+NET "axi_emc_0_Mem_A_pin<19>"    	LOC = "AL27"  |  IOSTANDARD=LVCMOS33 ;      
+NET "axi_emc_0_Mem_A_pin<18>"    	LOC = "AP27"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_A_pin<17>"    	LOC = "AR24"  |  IOSTANDARD=LVCMOS33 ;     
+NET "axi_emc_0_Mem_A_pin<16>"    	LOC = "AT24"  |  IOSTANDARD=LVCMOS33 ;     
+NET "axi_emc_0_Mem_A_pin<15>"    	LOC = "AN21"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_A_pin<14>"    	LOC = "AM22"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_A_pin<13>"    	LOC = "AW23"  |  IOSTANDARD=LVCMOS33 ;   
+NET "axi_emc_0_Mem_A_pin<12>"   	LOC = "AY23"  |  IOSTANDARD=LVCMOS33 ;   
+NET "axi_emc_0_Mem_A_pin<11>"    	LOC = "AL22"  |  IOSTANDARD=LVCMOS33 ;      
+NET "axi_emc_0_Mem_A_pin<10>"    	LOC = "AK22"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_A_pin<9>"     	LOC = "AN23"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_A_pin<8>"     	LOC = "AP23"  |  IOSTANDARD=LVCMOS33 ;     
+NET "axi_emc_0_Mem_A_pin<7>"     	LOC = "BA20"  |  IOSTANDARD=LVCMOS33 ;      
+NET "axi_emc_0_Mem_A_pin<6>"     	LOC = "AY20"  |  IOSTANDARD=LVCMOS33 ;     
+NET "axi_emc_0_Mem_A_pin<5>"     	LOC = "AR23"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_A_pin<4>"     	LOC = "AT22"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_A_pin<3>"     	LOC = "AW21"  |  IOSTANDARD=LVCMOS33 ;   
+NET "axi_emc_0_Mem_A_pin<2>"     	LOC = "AW22"  |  IOSTANDARD=LVCMOS33 ;    
+NET "axi_emc_0_Mem_A_pin<1>"     	LOC = "AR22"  |  IOSTANDARD=LVCMOS33 ;    
+NET "axi_emc_0_Mem_A_pin<0>"     	LOC = "AP22"  |  IOSTANDARD=LVCMOS33 ;     
 
-#NET "axi_emc_0_Mem_DQ_pin<15>"     	LOC = "AV21"  |  IOSTANDARD=LVCMOS33 ;
-#NET "axi_emc_0_Mem_DQ_pin<14>"     	LOC = "AU22"  |  IOSTANDARD=LVCMOS33 ;
-#NET "axi_emc_0_Mem_DQ_pin<13>"     	LOC = "AU21"  |  IOSTANDARD=LVCMOS33 ;
-#NET "axi_emc_0_Mem_DQ_pin<12>"     	LOC = "AT21"  |  IOSTANDARD=LVCMOS33 ;
-#NET "axi_emc_0_Mem_DQ_pin<11>"     	LOC = "AV18"  |  IOSTANDARD=LVCMOS33 ;
-#NET "axi_emc_0_Mem_DQ_pin<10>"    	LOC = "AV19"  |  IOSTANDARD=LVCMOS33 ;
-#NET "axi_emc_0_Mem_DQ_pin<9>"      	LOC = "AV24"  |  IOSTANDARD=LVCMOS33 ;
-#NET "axi_emc_0_Mem_DQ_pin<8>"      	LOC = "AU24"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_DQ_pin<7>"      	LOC = "AM18"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_DQ_pin<6>"      	LOC = "AM19"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_DQ_pin<5>"      	LOC = "AP26"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_DQ_pin<4>"      	LOC = "AN26"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_DQ_pin<3>"      	LOC = "AL19"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_DQ_pin<2>"      	LOC = "AK19"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_DQ_pin<1>"      	LOC = "AP25"  |  IOSTANDARD=LVCMOS33 ;
-NET "axi_emc_0_Mem_DQ_pin<0>"      	LOC = "AR25"  |  IOSTANDARD=LVCMOS33 ;
+#NET "axi_emc_0_Mem_DQ_pin<15>"     	LOC = "AV21"  |  IOSTANDARD=LVCMOS33 ;     
+#NET "axi_emc_0_Mem_DQ_pin<14>"     	LOC = "AU22"  |  IOSTANDARD=LVCMOS33 ;      
+#NET "axi_emc_0_Mem_DQ_pin<13>"     	LOC = "AU21"  |  IOSTANDARD=LVCMOS33 ;     
+#NET "axi_emc_0_Mem_DQ_pin<12>"     	LOC = "AT21"  |  IOSTANDARD=LVCMOS33 ;  
+#NET "axi_emc_0_Mem_DQ_pin<11>"     	LOC = "AV18"  |  IOSTANDARD=LVCMOS33 ;       
+#NET "axi_emc_0_Mem_DQ_pin<10>"    	LOC = "AV19"  |  IOSTANDARD=LVCMOS33 ;      
+#NET "axi_emc_0_Mem_DQ_pin<9>"      	LOC = "AV24"  |  IOSTANDARD=LVCMOS33 ;    
+#NET "axi_emc_0_Mem_DQ_pin<8>"      	LOC = "AU24"  |  IOSTANDARD=LVCMOS33 ;     
+NET "axi_emc_0_Mem_DQ_pin<7>"      	LOC = "AM18"  |  IOSTANDARD=LVCMOS33 ;    
+NET "axi_emc_0_Mem_DQ_pin<6>"      	LOC = "AM19"  |  IOSTANDARD=LVCMOS33 ;    
+NET "axi_emc_0_Mem_DQ_pin<5>"      	LOC = "AP26"  |  IOSTANDARD=LVCMOS33 ;    
+NET "axi_emc_0_Mem_DQ_pin<4>"      	LOC = "AN26"  |  IOSTANDARD=LVCMOS33 ;    
+NET "axi_emc_0_Mem_DQ_pin<3>"      	LOC = "AL19"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_DQ_pin<2>"      	LOC = "AK19"  |  IOSTANDARD=LVCMOS33 ;     
+NET "axi_emc_0_Mem_DQ_pin<1>"      	LOC = "AP25"  |  IOSTANDARD=LVCMOS33 ;       
+NET "axi_emc_0_Mem_DQ_pin<0>"      	LOC = "AR25"  |  IOSTANDARD=LVCMOS33 ; 

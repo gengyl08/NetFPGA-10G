@@ -6,7 +6,7 @@
  *        cpld.v
  *
  *  Project:
- *        flash_configuration
+ *        configuration
  *
  *  Author:
  *        Muhammad Shahbaz

@@ -1,3 +1,65 @@
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        stats.c
+ *
+ *  Project:
+ *        nic
+ *
+ *  Author:
+ *        Mario Flajslik
+ *
+ *  Description:
+ *        Example C application that shows how to read stats off of the NetFPGA
+ *        card. All counters are 32 bit wide (64bit counters created some timing
+ *        closure issues), even though 8 bytes of address space are reserved 
+ *        for each counter. Lower 128 counters are reserved, and the reset are
+ *        listed here. (For more details look at DMA SystemVerilog source code
+ *        file stats.v)
+ *
+ *        128+ 1: pcie rx number of 8-byte words
+ *        128+ 2: pcie rx number of writes
+ *        128+ 3: pcie rx number of reads
+ *        128+ 4: pcie rx number of completions
+ *        128+ 5: pcie rx number of errors
+ *        128+ 8: pcie tx number of 8-byte words
+ *        128+ 9: pcie tx number of writes
+ *        128+10: pcie tx number of reads
+ *        128+11: pcie tx number of completions
+ *        128+12: pcie tx number of errors                 
+ *        128+17: mac tx number of 8-byte words
+ *        128+18: mac tx number of packets
+ *        128+21: mac rx number of 8-byte words
+ *        128+22: mac rx number of packets
+ *        128+23: mac rx number of errors
+ *
+ *        NOTE: reading the stats is a PCIe event and that itself will affect
+ *              the pcie stats
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+ *                                 Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This file is free code: you can redistribute it and/or modify it under
+ *        the terms of the GNU Lesser General Public License version 2.1 as
+ *        published by the Free Software Foundation.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
+
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <stdio.h>

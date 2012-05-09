@@ -40,7 +40,7 @@
  PORT pcie_top_0_pci_exp_7_rxn_pin = pcie_top_0_pci_exp_7_rxn, DIR = I
  PORT pcie_top_0_pci_exp_7_rxp_pin = pcie_top_0_pci_exp_7_rxp, DIR = I
  PORT pcie_top_0_pci_exp_0_txn_pin = pcie_top_0_pci_exp_0_txn, DIR = O
- PORT axi_emc_0_Mem_A_pin = axi_emc_0_Mem_A, DIR = O, VEC = [24:0]
+ PORT axi_emc_0_Mem_A_pin = axi_emc_0_Mem_A, DIR = O, VEC = [23:0]
  PORT axi_emc_0_Mem_CEN_pin = axi_emc_0_Mem_CEN, DIR = O, VEC = [0:0]
  PORT axi_emc_0_Mem_OEN_pin = axi_emc_0_Mem_OEN, DIR = O, VEC = [0:0]
  PORT axi_emc_0_Mem_WEN_pin = axi_emc_0_Mem_WEN, DIR = O

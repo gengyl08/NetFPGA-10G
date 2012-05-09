@@ -1,3 +1,43 @@
+/*******************************************************************************
+ *
+ *  NetFPGA-10G http://www.netfpga.org
+ *
+ *  File:
+ *        nf10iface.c
+ *
+ *  Project:
+ *        nic
+ *
+ *  Author:
+ *        Mario Flajslik
+ *
+ *  Description:
+ *        This code creates and handles Ethernet interfaces presented to linux
+ *        as nf0-nf3. Both interrupt handles (int_handler) and transmit
+ *        function (nf10i_tx) delegate their work to functions in nf10priv.c
+ *
+ *  Copyright notice:
+ *        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+ *                                 Junior University
+ *
+ *  Licence:
+ *        This file is part of the NetFPGA 10G development base package.
+ *
+ *        This file is free code: you can redistribute it and/or modify it under
+ *        the terms of the GNU Lesser General Public License version 2.1 as
+ *        published by the Free Software Foundation.
+ *
+ *        This package is distributed in the hope that it will be useful, but
+ *        WITHOUT ANY WARRANTY; without even the implied warranty of
+ *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *        Lesser General Public License for more details.
+ *
+ *        You should have received a copy of the GNU Lesser General Public
+ *        License along with the NetFPGA source package.  If not, see
+ *        http://www.gnu.org/licenses/.
+ *
+ */
+
 #include "nf10iface.h"
 #include "nf10driver.h"
 #include "nf10priv.h"
@@ -5,8 +45,8 @@
 #include <linux/interrupt.h>
 #include <linux/pci.h>
 
-#include <linux/netdevice.h>   /* struct device, and other headers */
-#include <linux/etherdevice.h> /* eth_type_trans */
+#include <linux/netdevice.h>
+#include <linux/etherdevice.h>
 #include <linux/if_ether.h>
 
 
