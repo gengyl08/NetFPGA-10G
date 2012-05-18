@@ -134,6 +134,32 @@ INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_m
 INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y17 ;
 INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y16 ;
 
+# Place DP0 buffers at bottom of column X2...
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_3/Mram_RAM1"  LOC = RAMB36_X2Y7 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_3/Mram_RAM2"  LOC = RAMB36_X2Y6 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_2/Mram_RAM1"  LOC = RAMB36_X2Y5 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_2/Mram_RAM2"  LOC = RAMB36_X2Y4 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_1/Mram_RAM1"  LOC = RAMB36_X2Y3 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_1/Mram_RAM2"  LOC = RAMB36_X2Y2 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory/Mram_RAM1"    LOC = RAMB36_X2Y1 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory/Mram_RAM2"    LOC = RAMB36_X2Y0 ;
+
+# Place W2 Buffers just over DP0
+INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM4" LOC = RAMB36_X2Y11 ;
+INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM3" LOC = RAMB36_X2Y10 ;
+INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM2" LOC = RAMB36_X2Y9  ;
+INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM1" LOC = RAMB36_X2Y8  ;
+
+# Place DP1 buffers at bottom of column X3...
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_3/Mram_RAM1"  LOC = RAMB36_X3Y7 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_3/Mram_RAM2"  LOC = RAMB36_X3Y6 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_2/Mram_RAM1"  LOC = RAMB36_X3Y5 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_2/Mram_RAM2"  LOC = RAMB36_X3Y4 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_1/Mram_RAM1"  LOC = RAMB36_X3Y3 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_1/Mram_RAM2"  LOC = RAMB36_X3Y2 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory/Mram_RAM1"    LOC = RAMB36_X3Y1 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory/Mram_RAM2"    LOC = RAMB36_X3Y0 ;
+
 ###############################################################################
 # FPGA Reprog signal to CPLD
 ###############################################################################
