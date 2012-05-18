@@ -137,13 +137,13 @@ int nf10priv_xmit(struct nf10_card *card, struct sk_buff *skb, int port){
     dsc_index = dsc_addr / 64;
     
     // figure out ports
-    if(port == 3)
+    if(port == 0)
         port_decoded = 0x0102;
-    else if(port == 2)
-        port_decoded = 0x0408;
     else if(port == 1)
+        port_decoded = 0x0408;
+    else if(port == 2)
         port_decoded = 0x1020;
-    else if(port == 0)
+    else if(port == 3)
         port_decoded = 0x4080;
 
     // fix address for alignment issues
@@ -263,13 +263,13 @@ void work_handler(struct work_struct *w){
             port_encoded = (rx_int >> 16) & 0xffff;
             
             if(port_encoded & 0x0200)
-                port = 3;
-            else if(port_encoded & 0x0800)
-                port = 2;
-            else if(port_encoded & 0x2000)
-                port = 1;
-            else if(port_encoded & 0x8000)
                 port = 0;
+            else if(port_encoded & 0x0800)
+                port = 1;
+            else if(port_encoded & 0x2000)
+                port = 2;
+            else if(port_encoded & 0x8000)
+                port = 3;
             else 
                 port = -1;
 
