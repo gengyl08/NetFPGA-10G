@@ -36,4 +36,4 @@
 #
 #
 
-simlib nf10_axis_sim_record_v1_00_a nf10_axis_sim_record vhdl
+simlib nf10_axis_sim_record_v1_00_a nf10_axis_sim_record verilog
