@@ -48,4 +48,4 @@ all:
 
 clean:
 	$(MAKE) -C $(HW) clean
-	rm -rf bitfiles
+	$(MAKE) -C $(SW) clean
