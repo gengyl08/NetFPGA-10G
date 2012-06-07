@@ -1,0 +1,134 @@
+##############################################################################
+## Filename:          /home/sdamico/netfpga-10g-dev/projects/axi_sram/hw/edk_user_repository/MyProcessorIPLib/pcores/nf10_sram_fifo_v1_00_a/data/nf10_sram_fifo_v2_1_0.mpd
+## Description:       Microprocessor Peripheral Description
+## Date:              Wed Jan 11 20:04:02 2012 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+BEGIN nf10_sram_fifo
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = TRUE
+OPTION HDL = MIXED
+OPTION STYLE = MIX
+IO_INTERFACE IO_IF = memory_0
+IO_INTERFACE IO_IF = memory_1
+IO_INTERFACE IO_IF = memory_2
+IO_INTERFACE IO_IF = debug
+
+## Bus Interfaces
+BUS_INTERFACE BUS=m_axis_0, BUS_STD=AXIS, BUS_TYPE=INITIATOR
+BUS_INTERFACE BUS=s_axis_0, BUS_STD=AXIS, BUS_TYPE=TARGET
+BUS_INTERFACE BUS=m_axis_1, BUS_STD=AXIS, BUS_TYPE=INITIATOR
+BUS_INTERFACE BUS=s_axis_1, BUS_STD=AXIS, BUS_TYPE=TARGET
+BUS_INTERFACE BUS=m_axis_2, BUS_STD=AXIS, BUS_TYPE=INITIATOR
+BUS_INTERFACE BUS=s_axis_2, BUS_STD=AXIS, BUS_TYPE=TARGET
+BUS_INTERFACE BUS=m_axis_3, BUS_STD=AXIS, BUS_TYPE=INITIATOR
+BUS_INTERFACE BUS=s_axis_3, BUS_STD=AXIS, BUS_TYPE=TARGET
+## Parameters
+PARAMETER C_S_AXIS_PROTOCOL = GENERIC, DT = string, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = s_axis_3:s_axis_2:s_axis_1:s_axis_0
+PARAMETER C_S_AXIS_tdata_WIDTH = 64, DT = integer, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = s_axis_3:s_axis_2:s_axis_1:s_axis_0
+PARAMETER C_M_AXIS_PROTOCOL = GENERIC, DT = string, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = m_axis_3:m_axis_2:m_axis_1:m_axis_0
+PARAMETER C_M_AXIS_tdata_WIDTH = 64, DT = integer, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = m_axis_3:m_axis_2:m_axis_1:m_axis_0
+## Peripheral ports
+PORT aclk = "", DIR=I, ASSIGNMENT = REQUIRE, SIGIS=CLK, BUS=m_axis_3:s_axis_3:m_axis_2:s_axis_2:m_axis_1:s_axis_1:m_axis_0:s_axis_0
+PORT memclk = "", DIR = I, ASSIGNMENT = REQUIRE, SIGIS = CLK
+PORT memclk_200 = "", DIR = I, ASSIGNMENT = REQUIRE, SIGIS = CLK
+PORT memclk_270 = "", DIR = I, ASSIGNMENT = REQUIRE, SIGIS = CLK
+
+PORT qdr_d_0 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_0, VEC = [36-1:0]
+PORT qdr_q_0 = "", DIR = I, ASSIGNMENT = REQUIRE,  IO_IF = memory_0, VEC = [36-1:0]
+PORT qdr_sa_0 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_0, VEC = [19-1:0]
+PORT qdr_w_n_0 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_0
+PORT qdr_r_n_0 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_0
+PORT qdr_bw_n_0 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_0, VEC = [4-1:0]
+PORT qdr_dll_off_n_0 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_0
+PORT qdr_cq_0 = "", DIR = I, ASSIGNMENT = REQUIRE,  IO_IF = memory_0,  VEC = [0:0]
+PORT qdr_cq_n_0 = "", DIR = I, ASSIGNMENT = REQUIRE,  IO_IF = memory_0,  VEC = [0:0]
+PORT qdr_c_n_0 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_0,  VEC = [0:0]
+PORT qdr_k_n_0 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_0,  VEC = [0:0]
+PORT qdr_c_0 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_0,  VEC = [0:0]
+PORT qdr_k_0 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_0,  VEC = [0:0]
+
+PORT qdr_d_1 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_1, VEC = [36-1:0]
+PORT qdr_q_1 = "", DIR = I, ASSIGNMENT = REQUIRE,  IO_IF = memory_1, VEC = [36-1:0]
+PORT qdr_sa_1 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_1, VEC = [19-1:0]
+PORT qdr_w_n_1 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_1
+PORT qdr_r_n_1 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_1
+PORT qdr_bw_n_1 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_1, VEC = [4-1:0]
+PORT qdr_dll_off_n_1 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_1
+PORT qdr_cq_1 = "", DIR = I, ASSIGNMENT = REQUIRE,  IO_IF = memory_1,  VEC = [0:0]
+PORT qdr_cq_n_1 = "", DIR = I, ASSIGNMENT = REQUIRE,  IO_IF = memory_1,  VEC = [0:0]
+PORT qdr_c_n_1 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_1,  VEC = [0:0]
+PORT qdr_k_n_1 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_1,  VEC = [0:0]
+PORT qdr_c_1 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_1,  VEC = [0:0]
+PORT qdr_k_1 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_1,  VEC = [0:0]
+
+PORT qdr_d_2 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_2, VEC = [36-1:0]
+PORT qdr_q_2 = "", DIR = I, ASSIGNMENT = REQUIRE,  IO_IF = memory_2, VEC = [36-1:0]
+PORT qdr_sa_2 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_2, VEC = [19-1:0]
+PORT qdr_w_n_2 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_2
+PORT qdr_r_n_2 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_2
+PORT qdr_bw_n_2 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_2, VEC = [4-1:0]
+PORT qdr_dll_off_n_2 = "", DIR = O, ASSIGNMENT = REQUIRE, IO_IF = memory_2
+PORT qdr_cq_2 = "", DIR = I, ASSIGNMENT = REQUIRE,  IO_IF = memory_2,  VEC = [0:0]
+PORT qdr_cq_n_2 = "", DIR = I, ASSIGNMENT = REQUIRE,  IO_IF = memory_2,  VEC = [0:0]
+PORT qdr_c_n_2 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_2,  VEC = [0:0]
+PORT qdr_k_n_2 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_2,  VEC = [0:0]
+PORT qdr_c_2 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_2,  VEC = [0:0]
+PORT qdr_k_2 = "", DIR = O, ASSIGNMENT = REQUIRE,  IO_IF = memory_2,  VEC = [0:0]
+
+PORT masterbank_sel_pin = "", DIR = I, ASSIGNMENT = REQUIRE,  IO_IF = memory_0,  VEC = [2:0]
+
+PORT aresetn = "", DIR=I, ASSIGNMENT = REQUIRE, DIR = I, SIGIS = RST
+
+PORT s_axis_0_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=O, BUS=s_axis_0
+PORT s_axis_0_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[63:0], BUS=s_axis_0
+PORT s_axis_0_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_0
+PORT s_axis_0_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_0
+PORT m_axis_0_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_0
+PORT m_axis_0_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[63:0], BUS=m_axis_0
+PORT m_axis_0_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_0
+PORT m_axis_0_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=I, BUS=m_axis_0
+PORT m_axis_0_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[7:0], BUS=m_axis_0
+
+PORT s_axis_1_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=O, BUS=s_axis_1
+PORT s_axis_1_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[63:0], BUS=s_axis_1
+PORT s_axis_1_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_1
+PORT s_axis_1_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_1
+PORT m_axis_1_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_1
+PORT m_axis_1_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[63:0], BUS=m_axis_1
+PORT m_axis_1_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_1
+PORT m_axis_1_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=I, BUS=m_axis_1
+PORT m_axis_1_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[7:0], BUS=m_axis_1
+
+PORT s_axis_2_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=O, BUS=s_axis_2
+PORT s_axis_2_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[63:0], BUS=s_axis_2
+PORT s_axis_2_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_2
+PORT s_axis_2_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_2
+PORT m_axis_2_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_2
+PORT m_axis_2_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[63:0], BUS=m_axis_2
+PORT m_axis_2_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_2
+PORT m_axis_2_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=I, BUS=m_axis_2
+PORT m_axis_2_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[7:0], BUS=m_axis_2
+
+PORT s_axis_3_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=O, BUS=s_axis_3
+PORT s_axis_3_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[63:0], BUS=s_axis_3
+PORT s_axis_3_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_3
+PORT s_axis_3_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_3
+PORT m_axis_3_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_3
+PORT m_axis_3_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[63:0], BUS=m_axis_3
+PORT m_axis_3_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_3
+PORT m_axis_3_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=I, BUS=m_axis_3
+PORT m_axis_3_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[7:0], BUS=m_axis_3
+
+PORT locked = "", DIR = I, ASSIGNMENT = REQUIRE
+
+PORT debug_mem_controller_dout = "", DIR = O, IO_IF = debug,  VEC = [215:0]
+PORT debug_mem_controller_dout_addr = "", DIR = O,  IO_IF = debug,  VEC = [18:0]
+PORT debug_mem_controller_dout_ready = "", DIR = O,  IO_IF = debug,  VEC = [0:0]
+PORT debug_calibration = "", DIR = O,  IO_IF = debug,  VEC = [2:0]
+PORT mem_dbg = "", DIR = O, IO_IF = debug, VEC = [63:0]
+PORT fifo_dbg = "", DIR = O, IO_IF = debug, VEC = [63:0]
+
+END
