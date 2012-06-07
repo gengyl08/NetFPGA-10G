@@ -1,0 +1,5 @@
+#
+#Wed Dec 15 20:22:20 PST 2010
+PROCESSOR=microblaze_0
+REPOSITORIES=-lp /hpn/home/hyzeng/netfpga-10g/lib/sw
+HWSPEC=../hw/system.xml

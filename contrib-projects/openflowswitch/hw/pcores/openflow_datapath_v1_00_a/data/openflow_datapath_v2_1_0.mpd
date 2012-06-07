@@ -1,0 +1,171 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        openflow_datapath_v2_1_0.mpd
+#
+#  Project:
+#        openflowswitch
+#
+#  Description:
+#        Microprocessor Peripheral Description File
+#
+#  Author:
+#        Tatsuya Yabe
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011, 2012 The Board of Trustees of The Leland
+#                                 Stanford Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+BEGIN openflow_datapath
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = TRUE
+OPTION HDL = MIXED
+OPTION USAGE_LEVEL = BASE_USER
+OPTION RUN_NGCBUILD = TRUE
+OPTION STYLE = MIX
+OPTION IP_GROUP = Communication High-Speed:MICROBLAZE
+OPTION DESC = NetFPGA-10G OpenFlow Datapath
+OPTION LONG_DESC = NetFPGA-10G OpenFlow Datapath
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXIS_0, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = M_AXIS_1, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = M_AXIS_2, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = M_AXIS_3, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = M_AXIS_4, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_AXIS_0, BUS_STD = AXIS, BUS_TYPE = TARGET
+BUS_INTERFACE BUS = S_AXIS_1, BUS_STD = AXIS, BUS_TYPE = TARGET
+BUS_INTERFACE BUS = S_AXIS_2, BUS_STD = AXIS, BUS_TYPE = TARGET
+BUS_INTERFACE BUS = S_AXIS_3, BUS_STD = AXIS, BUS_TYPE = TARGET
+BUS_INTERFACE BUS = S_AXIS_4, BUS_STD = AXIS, BUS_TYPE = TARGET
+BUS_INTERFACE BUS = S_AXI, BUS_STD = AXI, BUS_TYPE = SLAVE
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (64), BUS = M_AXIS_0:M_AXIS_1:M_AXIS_2:M_AXIS_3:M_AXIS_4:S_AXIS_0:S_AXIS_1:S_AXIS_2:S_AXIS_3:S_AXIS_4
+PARAMETER C_AXIS_TUSER_WIDTH = 128, DT = INTEGER, RANGE = (128), BUS = M_AXIS_0:M_AXIS_1:M_AXIS_2:M_AXIS_3:M_AXIS_4:S_AXIS_0:S_AXIS_1:S_AXIS_2:S_AXIS_3:S_AXIS_4
+PARAMETER C_AXIS_LEN_DATA_WIDTH = 16, DT = INTEGER, RANGE = (16), BUS = M_AXIS_0:M_AXIS_1:M_AXIS_2:M_AXIS_3:M_AXIS_4:S_AXIS_0:S_AXIS_1:S_AXIS_2:S_AXIS_3:S_AXIS_4
+PARAMETER C_AXIS_SPT_DATA_WIDTH = 8, DT = INTEGER, RANGE = (8), BUS = M_AXIS_0:M_AXIS_1:M_AXIS_2:M_AXIS_3:M_AXIS_4:S_AXIS_0:S_AXIS_1:S_AXIS_2:S_AXIS_3:S_AXIS_4
+PARAMETER C_AXIS_DPT_DATA_WIDTH = 8, DT = INTEGER, RANGE = (8), BUS = M_AXIS_0:M_AXIS_1:M_AXIS_2:M_AXIS_3:M_AXIS_4:S_AXIS_0:S_AXIS_1:S_AXIS_2:S_AXIS_3:S_AXIS_4
+PARAMETER C_S_AXI_ADDR_WIDTH = 32, DT = INTEGER, BUS = S_AXI, ASSIGNMENT = CONSTANT
+PARAMETER C_S_AXI_DATA_WIDTH = 32, DT = INTEGER, BUS = S_AXI, ASSIGNMENT = CONSTANT
+PARAMETER C_S_AXI_BASEADDR = 0xFFFFFFFF, BUS = S_AXI, ADDRESS = BASE, PAIR = C_S_AXI_HIGHADDR, DT = STD_LOGIC_VECTOR, ADDR_TYPE = MEMORY, CACHEABLE = TRUE, MIN_SIZE = 0x1000
+PARAMETER C_S_AXI_HIGHADDR = 0x00000000, BUS = S_AXI, ADDRESS = HIGH, PAIR = C_S_AXI_BASEADDR, DT = STD_LOGIC_VECTOR, ADDR_TYPE = MEMORY, CACHEABLE = TRUE, MIN_SIZE = 0x1000
+PARAMETER C_S_AXI_PROTOCOL = AXI4LITE, BUS = S_AXI, DT = STRING, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+
+
+## Ports
+PORT asclk = "", DIR = I, SIGIS = CLK, BUS = M_AXIS_0:M_AXIS_1:M_AXIS_2:M_AXIS_3:M_AXIS_4:S_AXIS_0:S_AXIS_1:S_AXIS_2:S_AXIS_3:S_AXIS_4
+PORT aclk = ACLK, DIR = I, SIGIS = CLK, BUS = S_AXI, ASSIGNMENT = REQUIRE
+PORT aresetn = "", DIR = I, SIGIS = RST
+
+PORT m_axis_tdata_0 = TDATA, DIR = O, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_0, ENDIAN = LITTLE
+PORT m_axis_tstrb_0 = TSTRB, DIR = O, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_0, ENDIAN = LITTLE
+PORT m_axis_tuser_0 = TUSER, DIR = O, VEC = [C_AXIS_TUSER_WIDTH-1:0], BUS = M_AXIS_0, ENDIAN = LITTLE
+PORT m_axis_tvalid_0 = TVALID, DIR = O, BUS = M_AXIS_0
+PORT m_axis_tready_0 = TREADY, DIR = I, BUS = M_AXIS_0
+PORT m_axis_tlast_0 = TLAST, DIR = O, BUS = M_AXIS_0
+
+PORT m_axis_tdata_1 = TDATA, DIR = O, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_1, ENDIAN = LITTLE
+PORT m_axis_tstrb_1 = TSTRB, DIR = O, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_1, ENDIAN = LITTLE
+PORT m_axis_tuser_1 = TUSER, DIR = O, VEC = [C_AXIS_TUSER_WIDTH-1:0], BUS = M_AXIS_1, ENDIAN = LITTLE
+PORT m_axis_tvalid_1 = TVALID, DIR = O, BUS = M_AXIS_1
+PORT m_axis_tready_1 = TREADY, DIR = I, BUS = M_AXIS_1
+PORT m_axis_tlast_1 = TLAST, DIR = O, BUS = M_AXIS_1
+
+PORT m_axis_tdata_2 = TDATA, DIR = O, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_2, ENDIAN = LITTLE
+PORT m_axis_tstrb_2 = TSTRB, DIR = O, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_2, ENDIAN = LITTLE
+PORT m_axis_tuser_2 = TUSER, DIR = O, VEC = [C_AXIS_TUSER_WIDTH-1:0], BUS = M_AXIS_2, ENDIAN = LITTLE
+PORT m_axis_tvalid_2 = TVALID, DIR = O, BUS = M_AXIS_2
+PORT m_axis_tready_2 = TREADY, DIR = I, BUS = M_AXIS_2
+PORT m_axis_tlast_2 = TLAST, DIR = O, BUS = M_AXIS_2
+
+PORT m_axis_tdata_3 = TDATA, DIR = O, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_3, ENDIAN = LITTLE
+PORT m_axis_tstrb_3 = TSTRB, DIR = O, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_3, ENDIAN = LITTLE
+PORT m_axis_tuser_3 = TUSER, DIR = O, VEC = [C_AXIS_TUSER_WIDTH-1:0], BUS = M_AXIS_3, ENDIAN = LITTLE
+PORT m_axis_tvalid_3 = TVALID, DIR = O, BUS = M_AXIS_3
+PORT m_axis_tready_3 = TREADY, DIR = I, BUS = M_AXIS_3
+PORT m_axis_tlast_3 = TLAST, DIR = O, BUS = M_AXIS_3
+
+PORT m_axis_tdata_4 = TDATA, DIR = O, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_4, ENDIAN = LITTLE
+PORT m_axis_tstrb_4 = TSTRB, DIR = O, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_4, ENDIAN = LITTLE
+PORT m_axis_tuser_4 = TUSER, DIR = O, VEC = [C_AXIS_TUSER_WIDTH-1:0], BUS = M_AXIS_4, ENDIAN = LITTLE
+PORT m_axis_tvalid_4 = TVALID, DIR = O, BUS = M_AXIS_4
+PORT m_axis_tready_4 = TREADY, DIR = I, BUS = M_AXIS_4
+PORT m_axis_tlast_4 = TLAST, DIR = O, BUS = M_AXIS_4
+
+PORT s_axis_tdata_0 = TDATA, DIR = I, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS_0, ENDIAN = LITTLE
+PORT s_axis_tstrb_0 = TSTRB, DIR = I, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS_0, ENDIAN = LITTLE
+PORT s_axis_tuser_0 = TUSER, DIR = I, VEC = [C_AXIS_TUSER_WIDTH-1:0], BUS = S_AXIS_0, ENDIAN = LITTLE
+PORT s_axis_tvalid_0 = TVALID, DIR = I, BUS = S_AXIS_0
+PORT s_axis_tready_0 = TREADY, DIR = O, BUS = S_AXIS_0
+PORT s_axis_tlast_0 = TLAST, DIR = I, BUS = S_AXIS_0
+
+PORT s_axis_tdata_1 = TDATA, DIR = I, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS_1, ENDIAN = LITTLE
+PORT s_axis_tstrb_1 = TSTRB, DIR = I, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS_1, ENDIAN = LITTLE
+PORT s_axis_tuser_1 = TUSER, DIR = I, VEC = [C_AXIS_TUSER_WIDTH-1:0], BUS = S_AXIS_1, ENDIAN = LITTLE
+PORT s_axis_tvalid_1 = TVALID, DIR = I, BUS = S_AXIS_1
+PORT s_axis_tready_1 = TREADY, DIR = O, BUS = S_AXIS_1
+PORT s_axis_tlast_1 = TLAST, DIR = I, BUS = S_AXIS_1
+
+PORT s_axis_tdata_2 = TDATA, DIR = I, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS_2, ENDIAN = LITTLE
+PORT s_axis_tstrb_2 = TSTRB, DIR = I, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS_2, ENDIAN = LITTLE
+PORT s_axis_tuser_2 = TUSER, DIR = I, VEC = [C_AXIS_TUSER_WIDTH-1:0], BUS = S_AXIS_2, ENDIAN = LITTLE
+PORT s_axis_tvalid_2 = TVALID, DIR = I, BUS = S_AXIS_2
+PORT s_axis_tready_2 = TREADY, DIR = O, BUS = S_AXIS_2
+PORT s_axis_tlast_2 = TLAST, DIR = I, BUS = S_AXIS_2
+
+PORT s_axis_tdata_3 = TDATA, DIR = I, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS_3, ENDIAN = LITTLE
+PORT s_axis_tstrb_3 = TSTRB, DIR = I, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS_3, ENDIAN = LITTLE
+PORT s_axis_tuser_3 = TUSER, DIR = I, VEC = [C_AXIS_TUSER_WIDTH-1:0], BUS = S_AXIS_3, ENDIAN = LITTLE
+PORT s_axis_tvalid_3 = TVALID, DIR = I, BUS = S_AXIS_3
+PORT s_axis_tready_3 = TREADY, DIR = O, BUS = S_AXIS_3
+PORT s_axis_tlast_3 = TLAST, DIR = I, BUS = S_AXIS_3
+
+PORT s_axis_tdata_4 = TDATA, DIR = I, VEC = [C_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS_4, ENDIAN = LITTLE
+PORT s_axis_tstrb_4 = TSTRB, DIR = I, VEC = [(C_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS_4, ENDIAN = LITTLE
+PORT s_axis_tuser_4 = TUSER, DIR = I, VEC = [C_AXIS_TUSER_WIDTH-1:0], BUS = S_AXIS_4, ENDIAN = LITTLE
+PORT s_axis_tvalid_4 = TVALID, DIR = I, BUS = S_AXIS_4
+PORT s_axis_tready_4 = TREADY, DIR = O, BUS = S_AXIS_4
+PORT s_axis_tlast_4 = TLAST, DIR = I, BUS = S_AXIS_4
+
+PORT awaddr = AWADDR, DIR = I, VEC = [C_S_AXI_ADDR_WIDTH-1:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT awvalid = AWVALID, DIR = I, BUS = S_AXI
+PORT awready = AWREADY, DIR = O, BUS = S_AXI
+PORT wdata = WDATA, DIR = I, VEC = [C_S_AXI_DATA_WIDTH-1:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT wstrb = WSTRB, DIR = I, VEC = [(C_S_AXI_DATA_WIDTH/8)-1:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT wvalid = WVALID, DIR = I, BUS = S_AXI
+PORT wready = WREADY, DIR = O, BUS = S_AXI
+PORT bresp = BRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT bvalid = BVALID, DIR = O, BUS = S_AXI
+PORT bready = BREADY, DIR = I, BUS = S_AXI
+PORT araddr = ARADDR, DIR = I, VEC = [C_S_AXI_ADDR_WIDTH-1:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT arvalid = ARVALID, DIR = I, BUS = S_AXI
+PORT arready = ARREADY, DIR = O, BUS = S_AXI
+PORT rdata = RDATA, DIR = O, VEC = [C_S_AXI_DATA_WIDTH-1:0], ENDIAN = LITTLE, BUS = S_AXI
+PORT rresp = RRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT rvalid = RVALID, DIR = O, BUS = S_AXI
+PORT rready = RREADY, DIR = I, BUS = S_AXI
+
+END

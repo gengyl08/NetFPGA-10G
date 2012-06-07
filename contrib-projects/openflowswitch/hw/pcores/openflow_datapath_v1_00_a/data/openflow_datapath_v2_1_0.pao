@@ -1,0 +1,61 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        openflow_datapath_v2_1_0.pao
+#
+#  Project:
+#        openflowswitch
+#
+#  Description:
+#        Peripheral Analyze Order File
+#
+#  Author:
+#        Tatsuya Yabe
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011, 2012 The Board of Trustees of The Leland
+#                                 Stanford Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+lib openflow_datapath_v1_00_a openflow_datapath.v verilog
+lib openflow_datapath_v1_00_a pkt_preprocessor.v verilog
+lib openflow_datapath_v1_00_a header_parser.v verilog
+lib openflow_datapath_v1_00_a lu_entry_composer.v verilog
+
+lib openflow_datapath_v1_00_a host_inf.v verilog
+lib openflow_datapath_v1_00_a s_counter.v verilog
+lib openflow_datapath_v1_00_a flow_table_controller.v verilog
+lib openflow_datapath_v1_00_a header_hash.v verilog
+lib openflow_datapath_v1_00_a crc_func_0_d256.v verilog
+lib openflow_datapath_v1_00_a crc_func_1_d256.v verilog
+lib openflow_datapath_v1_00_a openflow_cam.v verilog
+lib openflow_datapath_v1_00_a action_processor.v verilog
+
+lib openflow_datapath_v1_00_a fallthrough_small_fifo_v2.v verilog
+lib openflow_datapath_v1_00_a small_fifo_v3.v verilog
+
+lib openflow_datapath_v1_00_a dp_bram_1024x256.v verilog
+lib openflow_datapath_v1_00_a dp_bram_1024x384.v verilog
+lib openflow_datapath_v1_00_a dp_bram_32x384.v verilog
+lib openflow_datapath_v1_00_a dp_bram_1024x64.v verilog
+lib openflow_datapath_v1_00_a dp_bram_32x64.v verilog
+lib openflow_datapath_v1_00_a cam.v verilog
