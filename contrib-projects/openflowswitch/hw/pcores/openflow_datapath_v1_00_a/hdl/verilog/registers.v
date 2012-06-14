@@ -93,6 +93,7 @@
 //--- Bitmap position for OPENFLOW_NF2_ACTION_FLAG
 
 `define NF2_OFPAT_OUTPUT        16'h0001
+`define NF2_OFPAT_PUSH_VLAN     16'h1000  //Used for ADD_VLAN IN 1.0
 `define NF2_OFPAT_SET_VLAN_VID  16'h0002
 `define NF2_OFPAT_SET_VLAN_PCP  16'h0004
 `define NF2_OFPAT_POP_VLAN      16'h0008  //STRIP_VLAN IN 1.0
@@ -105,7 +106,6 @@
 `define NF2_OFPAT_SET_TP_DST    16'h0400
 // 1.1
 `define NF2_OFPAT_SET_NW_ECN    16'h0800
-`define NF2_OFPAT_PUSH_VLAN     16'h1000
 `define NF2_OFPAT_SET_NW_TTL    16'h2000
 `define NF2_OFPAT_DEC_NW_TTL    16'h4000
 
@@ -136,11 +136,16 @@
 `define DL_PARSE_CNT_2_REG      8'h0b
 `define DL_PARSE_CNT_3_REG      8'h0c
 `define DL_PARSE_CNT_4_REG      8'h0d
-`define MPLS_PARSE_CNT_0_REG    8'h0e
-`define MPLS_PARSE_CNT_1_REG    8'h0f
-`define MPLS_PARSE_CNT_2_REG    8'h10
-`define MPLS_PARSE_CNT_3_REG    8'h11
-`define MPLS_PARSE_CNT_4_REG    8'h12
+`define ACT_NUM_PROC_DONE_0_REG 8'h0e
+`define ACT_NUM_PROC_DONE_1_REG 8'h0f
+`define ACT_NUM_PROC_DONE_2_REG 8'h10
+`define ACT_NUM_PROC_DONE_3_REG 8'h11
+`define ACT_NUM_PROC_DONE_4_REG 8'h12
+//`define MPLS_PARSE_CNT_0_REG    8'h0e
+//`define MPLS_PARSE_CNT_1_REG    8'h0f
+//`define MPLS_PARSE_CNT_2_REG    8'h10
+//`define MPLS_PARSE_CNT_3_REG    8'h11
+//`define MPLS_PARSE_CNT_4_REG    8'h12
 `define ARP_PARSE_CNT_0_REG     8'h13
 `define ARP_PARSE_CNT_1_REG     8'h14
 `define ARP_PARSE_CNT_2_REG     8'h15

@@ -66,7 +66,7 @@ Program map
 #-fp <design>.mfp;       # Floorplan file
 -ol high;
 -timing;
--t 3;
+-t 42;
 -detail;
 <inputdir><design>.ngd;  # Input NGD file
 <inputdir><design>.pcf;  # Physical constraints file

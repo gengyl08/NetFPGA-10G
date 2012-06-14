@@ -895,35 +895,53 @@ module host_inf
                      rdata = acc_rdy;
                   end
                   `DL_PARSE_CNT_0_REG: begin
-                     rdata = act_num_pkts_processed_0;
+                     rdata = dl_parse_cnt_0_int;
                   end
                   `DL_PARSE_CNT_1_REG: begin
-                     rdata = act_num_pkts_processed_1;
+                     rdata = dl_parse_cnt_1_int;
                   end
                   `DL_PARSE_CNT_2_REG: begin
-                     rdata = act_num_pkts_processed_2;
+                     rdata = dl_parse_cnt_2_int;
                   end
                   `DL_PARSE_CNT_3_REG: begin
-                     rdata = act_num_pkts_processed_3;
+                     rdata = dl_parse_cnt_3_int;
                   end
                   `DL_PARSE_CNT_4_REG: begin
+                     rdata = dl_parse_cnt_4_int;
+                  end
+                  `ACT_NUM_PROC_DONE_0_REG: begin
+                     rdata = act_num_pkts_processed_0;
+                  end
+                  `ACT_NUM_PROC_DONE_1_REG: begin
+                     rdata = act_num_pkts_processed_1;
+                  end
+                  `ACT_NUM_PROC_DONE_2_REG: begin
+                     rdata = act_num_pkts_processed_2;
+                  end
+                  `ACT_NUM_PROC_DONE_3_REG: begin
+                     rdata = act_num_pkts_processed_3;
+                  end
+                  `ACT_NUM_PROC_DONE_4_REG: begin
                      rdata = act_num_pkts_processed_4;
                   end
-                  `MPLS_PARSE_CNT_0_REG: begin
-                     rdata = mpls_parse_cnt_0_int;
-                  end
-                  `MPLS_PARSE_CNT_1_REG: begin
-                     rdata = mpls_parse_cnt_1_int;
-                  end
-                  `MPLS_PARSE_CNT_2_REG: begin
-                     rdata = mpls_parse_cnt_2_int;
-                  end
-                  `MPLS_PARSE_CNT_3_REG: begin
-                     rdata = mpls_parse_cnt_3_int;
-                  end
-                  `MPLS_PARSE_CNT_4_REG: begin
-                     rdata = mpls_parse_cnt_4_int;
-                  end
+                  //`MPLS_PARSE_CNT_0_REG: begin
+                  //   rdata = mpls_parse_cnt_0_int;
+                  //end
+                  //`MPLS_PARSE_CNT_1_REG: begin
+                  //   rdata = mpls_parse_cnt_1_int;
+                  //end
+                  //`MPLS_PARSE_CNT_2_REG: begin
+                  //   rdata = mpls_parse_cnt_2_int;
+                  //end
+                  //`MPLS_PARSE_CNT_3_REG: begin
+                  //   rdata = mpls_parse_cnt_3_int;
+                  //end
+                  //`MPLS_PARSE_CNT_4_REG: begin
+                  //  rdata = mpls_parse_cnt_4_int;
+                  //end
+                  //`MPLS_PARSE_CNT_0_REG: begin
+                  //   rdata = mpls_parse_cnt_0_int;
+                  //end
                   `ARP_PARSE_CNT_0_REG: begin
                      rdata = arp_parse_cnt_0_int;
                   end
