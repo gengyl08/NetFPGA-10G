@@ -1,0 +1,8 @@
+*.bit
+*.log
+hw/implementation/
+hw/synthesis/
+hw/axi_simulation/simulation/
+hw/pcores/openflow_datapath_v1_00_a/netlist/*
+hw/pcores/openflow_datapath_v1_00_a/hdl/verilog/cam.v
+hw/pcores/openflow_datapath_v1_00_a/hdl/verilog/dp_bram_*.v
