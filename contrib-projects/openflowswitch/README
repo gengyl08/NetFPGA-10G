@@ -37,11 +37,8 @@ A typical NetFPGA-10G project is organized as hardware part (hw)
 and software part (sw, including embedded software and host
 software).
 
-To build the project, simply use "make". The result bitfile is 
-under bitfiles/
+To build the project, visit the following wiki and get information about it.
 
-For more information about this project, please visit
-
-http://netfpga10g.pbworks.com/Projects
+https://github.com/NetFPGA/NetFPGA-10G-live/wiki/Projects
 
 and select the correspondent project.
