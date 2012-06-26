@@ -50,13 +50,17 @@ module AxiToFifo
                     // Range: >= 1.
   parameter integer TID_WIDTH          = 4, 
                     // Width of AXI data bus in bytes
-  parameter integer TDATA_WIDTH        = 32,
+  parameter integer TDATA_WIDTH        = 8,
                     // Width of TUSER in bits
   parameter integer TUSER_WIDTH        = 128,
 
   parameter integer TDEST_WIDTH        = 4,
-  parameter integer NUM_QUEUES         = 4,
-  parameter integer QUEUE_ID_WIDTH     = 2
+  parameter integer NUM_QUEUES         = 5,
+  parameter integer QUEUE_ID_WIDTH     = 3,
+  parameter integer MEM_ADDR_WIDTH     = 19,
+  parameter integer MEM_NUM_WORDS      = 524288,
+  parameter integer QUEUE_SIZE         = MEM_NUM_WORDS/4,
+  parameter integer MEM_WORD_BYTES_LOG2= 3
 )
 (
     input                           clk,
@@ -76,17 +80,23 @@ module AxiToFifo
     output                          rempty,
     output                          r_almost_empty,
     output                          dout_valid,
-    output [((8*TDATA_WIDTH+TUSER_WIDTH+1)-1):0]  dout,
+    output [((8*TDATA_WIDTH+1+4)-1):0]  dout,
     input                           cal_done,
+    input                           output_inc,
     output reg [31:0] input_fifo_cnt
 );
 
 wire wfull, w_almost_full;
 reg winc;
-reg [(TDEST_WIDTH+TID_WIDTH-1):0] last_tid_tdest;
-reg [(TDEST_WIDTH+TID_WIDTH-1):0] next_last_tid_tdest;
 reg [(QUEUE_ID_WIDTH-1):0]        latched_queue_id;
 reg [(QUEUE_ID_WIDTH-1):0]        next_latched_queue_id;
+reg [(MEM_ADDR_WIDTH-1):0]        mem_usage;
+reg [(MEM_ADDR_WIDTH-1):0]        next_mem_usage;
+reg mem_full;
+reg next_packet_start;
+reg packet_start;
+reg next_allow_packet;
+reg allow_packet;
 reg next_dout_valid;
 reg rinc_prev;
 reg [31:0] next_input_fifo_cnt;
@@ -95,15 +105,15 @@ always @(posedge clk)
 begin
     if(reset)
     begin
-        last_tid_tdest <= 0; //{((TDEST_WIDTH+TID_WIDTH){1'b0}};
-        latched_queue_id <= 0; //{((QUEUE_ID_WIDTH){1'b0}};
-        
+        mem_usage <= QUEUE_SIZE-1;
+        packet_start <= 1'b1;
+        allow_packet <= 1'b0;
     end
     else
     begin 
-        last_tid_tdest <= next_last_tid_tdest;
-        latched_queue_id <= next_latched_queue_id;
-        
+        mem_usage <= next_mem_usage;
+        packet_start <= next_packet_start;  
+        allow_packet <= next_allow_packet; 
     end
 end
 
@@ -134,26 +144,45 @@ always @(*)
 begin
     tready = 1'b0;
     winc = 1'b0;
-    next_last_tid_tdest = last_tid_tdest;
-    next_latched_queue_id = latched_queue_id;
+    
+    next_packet_start = packet_start;
     next_input_fifo_cnt = input_fifo_cnt;
+    next_allow_packet = allow_packet;
+
     if(~wfull && cal_done)
     begin
         tready = 1'b1;
         if(tvalid)
         begin
             next_input_fifo_cnt = input_fifo_cnt+1;
-            
-            winc = 1'b1;
-        end
-        // TODO: dubiously necessary stuff below
-        // We're on a new packet boundary - check tuser bits for destination queue
-        if(last_tid_tdest != {tid, tdest})
-        begin
-            next_last_tid_tdest = {tid, tdest};
-            next_latched_queue_id = tuser[1:0];
-        end
+
+            if(allow_packet)
+                winc = 1'b1;
+
+            if(tlast)
+                next_packet_start = 1'b1;
+            else
+                next_packet_start = 1'b0;
+            if(packet_start)
+            begin
+                // Round up by 1 for safety (thus the > rather than >=)
+                if(mem_usage > (tuser[15:MEM_WORD_BYTES_LOG2]))
+                begin
+                    winc = 1'b1;
+                    next_allow_packet = 1'b1;
+                end
+                else
+                    next_allow_packet = 1'b0;
+            end
+        end        
     end
+
+    if(winc && ~output_inc)
+        next_mem_usage = mem_usage-1;
+    else if(~winc && output_inc)
+        next_mem_usage = mem_usage+1;
+    else
+        next_mem_usage = mem_usage;
 end
 
 /*always @(*)
@@ -164,8 +193,7 @@ begin
 end*/
 
 //small_async_fifo #(.DSIZE(8*TDATA_WIDTH + TUSER_WIDTH + 1),.ASIZE(5),.ALMOST_FULL_SIZE(30),.ALMOST_EMPTY_SIZE(1)) fifo(wfull,w_almost_full,{tdata, tuser, tlast},winc,clk,~reset,dout,rempty,r_almost_empty,rinc,memclk,~memreset);
-
-async_fifo fifo(reset, clk, memclk, {tdata, tuser, tlast}, winc, rinc, dout, wfull, w_almost_full,rempty,r_almost_empty,dout_valid);
+async_fifo fifo(reset, clk, memclk, {3'b0, tuser[27:24], tdata, tlast}, winc, rinc, dout, wfull, w_almost_full,rempty,r_almost_empty,dout_valid);
 
 
 endmodule

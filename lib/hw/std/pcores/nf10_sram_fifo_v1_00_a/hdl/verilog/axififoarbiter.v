@@ -51,8 +51,8 @@ module AxiFifoArbiter
   parameter integer TDATA_WIDTH        = 32,
   // Width of TUSER in bits
   parameter integer TUSER_WIDTH        = 128,
-  parameter integer NUM_QUEUES         = 4,
-  parameter integer QUEUE_ID_WIDTH     = 2
+  parameter integer NUM_QUEUES         = 5,
+  parameter integer QUEUE_ID_WIDTH     = 3
 )
 (
     input                           clk,
@@ -63,16 +63,16 @@ module AxiFifoArbiter
     input  [NUM_QUEUES-1:0]         empty,
     input                           write_burst,
     input  [NUM_QUEUES-1:0]         din_valid,
-    input  [(NUM_QUEUES*(8*TDATA_WIDTH+TUSER_WIDTH+1)-1):0]  din,
+    input  [(NUM_QUEUES*(8*TDATA_WIDTH+1+4)-1):0]  din,
     input [NUM_QUEUES-1:0]         mem_queue_full,
     output reg [QUEUE_ID_WIDTH-1:0] queue_id,
-    output reg [((8*TDATA_WIDTH+TUSER_WIDTH+1)-1):0]  dout,
+    output reg [((8*TDATA_WIDTH+1+4)-1):0]  dout,
     output reg                      dout_valid
 );
 
     reg [QUEUE_ID_WIDTH-1:0] next_queue_id_1;
     reg [QUEUE_ID_WIDTH-1:0] next_queue_id_2;
-    reg [((8*TDATA_WIDTH+TUSER_WIDTH+1)-1):0] next_dout;
+    reg [((8*TDATA_WIDTH+1)-1):0] next_dout;
     reg next_dout_valid;
     //reg [NUM_QUEUES-1:0] prev_empty;
     reg [NUM_QUEUES-1:0] prev_inc;
@@ -80,11 +80,11 @@ module AxiFifoArbiter
     begin
         if(reset)
         begin
-            {queue_id, next_queue_id_1} <= {2'b00, 2'b00};
+            {queue_id, next_queue_id_1} <= {3'b00, 3'b00};
             //prev_queue_id <= {(QUEUE_ID_WIDTH){1'b0}};
             //prev_empty <= {(NUM_QUEUES){1'b1}};
             prev_inc <= {(NUM_QUEUES){1'b0}};
-            dout <= {(8*TDATA_WIDTH+TUSER_WIDTH+1){1'b0}};
+            dout <= {(8*TDATA_WIDTH+1+4){1'b0}};
             dout_valid <= 1'b0;
         end
         else
@@ -100,77 +100,113 @@ module AxiFifoArbiter
 
     always @(*)
     begin
-        inc = 4'b0;
+        inc = 5'b0;
         next_queue_id_2 = next_queue_id_1;
 
         if(write_burst || (~prev_inc[next_queue_id_1] && empty[next_queue_id_1]))
 	begin
-            if(next_queue_id_1 == 2'd0)
+            if(next_queue_id_1 == 3'd0)
             begin
-	    if(~empty[1] && ~mem_queue_full[1])
-	    begin
-               next_queue_id_2 = 2'd1;
-	    end
-	    else if(~empty[2] && ~mem_queue_full[2])
-	    begin
-	        next_queue_id_2 = 2'd2;
-	    end
-	    else if(~empty[3] && ~mem_queue_full[3])
-	    begin
-                next_queue_id_2 = 2'd3;
-	    end
+                if(~empty[1] && ~mem_queue_full[1])
+	        begin
+                    next_queue_id_2 = 3'd1;
+	        end
+                else if(~empty[2] && ~mem_queue_full[2])
+	        begin
+                   next_queue_id_2 = 3'd2;
+	        end
+                else if(~empty[3] && ~mem_queue_full[3])
+	        begin
+	            next_queue_id_2 = 3'd3;
+	        end
+	        else if(~empty[4] && ~mem_queue_full[4])
+	        begin
+                    next_queue_id_2 = 3'd4;
+	        end
             end
 
-if(next_queue_id_1 == 2'd1)
+            if(next_queue_id_1 == 3'd1)
             begin
-	   
-            if(~empty[2] && ~mem_queue_full[2])
-	    begin
-               next_queue_id_2 = 2'd2;
-	    end
-	    else if(~empty[3] && ~mem_queue_full[3])
-	    begin
-	        next_queue_id_2 = 2'd3;
-	    end
-	    else if(~empty[0] && ~mem_queue_full[0])
-	    begin
-                next_queue_id_2 = 2'd0;
-	    end
+                if(~empty[2] && ~mem_queue_full[2])
+	        begin
+                   next_queue_id_2 = 3'd2;
+	        end
+                else if(~empty[3] && ~mem_queue_full[3])
+	        begin
+	            next_queue_id_2 = 3'd3;
+	        end
+	        else if(~empty[4] && ~mem_queue_full[4])
+	        begin
+                    next_queue_id_2 = 3'd4;
+	        end
+                else if(~empty[0] && ~mem_queue_full[0])
+	        begin
+                    next_queue_id_2 = 3'd0;
+	        end
             end
 
-if(next_queue_id_1 == 2'd2)
+
+            if(next_queue_id_1 == 3'd2)
             begin
-	    if(~empty[3] && ~mem_queue_full[3])
-	    begin
-               next_queue_id_2 = 2'd3;
-	    end
-            else if(~empty[0] && ~mem_queue_full[0])
-	    begin
-               next_queue_id_2 = 2'd0;
-	    end
-	    else if(~empty[1] && ~mem_queue_full[1])
-	    begin
-	        next_queue_id_2 = 2'd1;
-	    end
-	    
+                if(~empty[3] && ~mem_queue_full[3])
+	        begin
+                   next_queue_id_2 = 3'd3;
+	        end
+	        else if(~empty[4] && ~mem_queue_full[4])
+	        begin
+                    next_queue_id_2 = 3'd4;
+	        end
+                else if(~empty[0] && ~mem_queue_full[0])
+	        begin
+                    next_queue_id_2 = 3'd0;
+	        end
+	        else if(~empty[1] && ~mem_queue_full[1])
+	        begin
+	            next_queue_id_2 = 3'd1;
+	        end
             end
 
-if(next_queue_id_1 == 2'd3)
+
+            if(next_queue_id_1 == 3'd3)
             begin
-	    if(~empty[0] && ~mem_queue_full[0])
-	    begin
-               next_queue_id_2 = 2'd0;
-	    end
-            else if(~empty[1] && ~mem_queue_full[1])
-	    begin
-               next_queue_id_2 = 2'd1;
-	    end
-	    else if(~empty[2] && ~mem_queue_full[2])
-	    begin
-	        next_queue_id_2 = 2'd2;
-	    end
-	    
+                if(~empty[4] && ~mem_queue_full[4])
+	        begin
+                   next_queue_id_2 = 3'd4;
+	        end
+	        else if(~empty[0] && ~mem_queue_full[0])
+	        begin
+                    next_queue_id_2 = 3'd0;
+	        end
+                else if(~empty[1] && ~mem_queue_full[1])
+	        begin
+                    next_queue_id_2 = 3'd1;
+	        end
+	        else if(~empty[2] && ~mem_queue_full[2])
+	        begin
+	            next_queue_id_2 = 3'd2;
+	        end
             end
+
+            if(next_queue_id_1 == 3'd4)
+            begin
+	        if(~empty[0] && ~mem_queue_full[0])
+	        begin
+                    next_queue_id_2 = 3'd0;
+	        end
+                else if(~empty[1] && ~mem_queue_full[1])
+	        begin
+                    next_queue_id_2 = 3'd1;
+	        end
+	        else if(~empty[2] && ~mem_queue_full[2])
+	        begin
+	            next_queue_id_2 = 3'd2;
+	        end
+                else if(~empty[3] && ~mem_queue_full[3])
+	        begin
+	            next_queue_id_2 = 3'd3;
+	        end
+            end
+
         end
 
         // TODO: is this appropriate, or do we want to inc on the current queue ID
@@ -184,13 +220,16 @@ if(next_queue_id_1 == 2'd3)
         
         case(next_queue_id_1)
             0:
-                next_dout = din[((8*TDATA_WIDTH+TUSER_WIDTH+1)*(1)-1):((8*TDATA_WIDTH+TUSER_WIDTH+1)*0)];
+                next_dout = din[((8*TDATA_WIDTH+1+4)*(1)-1):((8*TDATA_WIDTH+1+4)*0)];
             1:
-                next_dout = din[((8*TDATA_WIDTH+TUSER_WIDTH+1)*(2)-1):((8*TDATA_WIDTH+TUSER_WIDTH+1)*1)];
+                next_dout = din[((8*TDATA_WIDTH+1+4)*(2)-1):((8*TDATA_WIDTH+1+4)*1)];
             2:
-                next_dout = din[((8*TDATA_WIDTH+TUSER_WIDTH+1)*(3)-1):((8*TDATA_WIDTH+TUSER_WIDTH+1)*2)];
+                next_dout = din[((8*TDATA_WIDTH+1+4)*(3)-1):((8*TDATA_WIDTH+1+4)*2)];
             3:
-                next_dout = din[((8*TDATA_WIDTH+TUSER_WIDTH+1)*(4)-1):((8*TDATA_WIDTH+TUSER_WIDTH+1)*3)];
+                next_dout = din[((8*TDATA_WIDTH+1+4)*(4)-1):((8*TDATA_WIDTH+1+4)*3)];
+            4:
+                next_dout = din[((8*TDATA_WIDTH+1+4)*(5)-1):((8*TDATA_WIDTH+1+4)*4)];
+
         endcase
         
     end

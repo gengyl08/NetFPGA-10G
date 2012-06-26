@@ -170,7 +170,7 @@ output prog_full;
     .C_IMPLEMENTATION_TYPE_WRCH(1),
     .C_INIT_WR_PNTR_VAL(0),
     .C_INTERFACE_TYPE(0),
-    .C_MEMORY_TYPE(1),
+    .C_MEMORY_TYPE(2),
     .C_MIF_FILE_NAME("BlankString"),
     .C_MSGON_VAL(1),
     .C_OPTIMIZATION_MODE(0),

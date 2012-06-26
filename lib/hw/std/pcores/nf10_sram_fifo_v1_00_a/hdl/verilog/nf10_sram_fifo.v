@@ -49,9 +49,9 @@ module nf10_sram_fifo
   // Width of AXI data bus in bytes
   parameter integer TDATA_WIDTH        = 8,
   // Width of TUSER in bits
-  parameter integer TUSER_WIDTH        = 4,
-  parameter integer NUM_QUEUES         = 4,
-  parameter integer QUEUE_ID_WIDTH     = 2,
+  parameter integer TUSER_WIDTH        = 128,
+  parameter integer NUM_QUEUES         = 5,
+  parameter integer QUEUE_ID_WIDTH     = 3,
   parameter integer NUM_MEM_CHIPS      = 3,
   parameter integer NUM_MEM_INPUTS     = 6,
   parameter integer MEM_WIDTH          = 36,
@@ -64,8 +64,8 @@ module nf10_sram_fifo
   parameter integer NUM_MEMORY_CHIPS   = 3,
   parameter integer C_S_AXIS_DATA_WIDTH = TDATA_WIDTH*8,
   parameter integer C_M_AXIS_DATA_WIDTH = TDATA_WIDTH*8,
-  parameter integer C_S_AXIS_TUSER_WIDTH = 128, //TUSER_WIDTH,
-  parameter integer C_M_AXIS_TUSER_WIDTH = 128, //TUSER_WIDTH,
+  parameter integer C_S_AXIS_TUSER_WIDTH = TUSER_WIDTH,
+  parameter integer C_M_AXIS_TUSER_WIDTH = TUSER_WIDTH,
   parameter integer MASTERBANK_PIN_WIDTH = 3
 )
 (
@@ -104,6 +104,13 @@ module nf10_sram_fifo
     output s_axis_3_tready,
     input  s_axis_3_tlast,
 
+    input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_4_tdata,
+    input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_4_tstrb,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_4_tuser,
+    input  s_axis_4_tvalid,
+    output s_axis_4_tready,
+    input  s_axis_4_tlast,
+
     // Master (output) Stream Ports
     output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_0_tdata,
     output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_0_tstrb,
@@ -132,6 +139,13 @@ module nf10_sram_fifo
     output m_axis_3_tvalid,
     input  m_axis_3_tready,
     output m_axis_3_tlast,
+
+    output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_4_tdata,
+    output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_4_tstrb,
+    output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_4_tuser,
+    output m_axis_4_tvalid,
+    input  m_axis_4_tready,
+    output m_axis_4_tlast,
 
     // memory interface
     input [(MEM_WIDTH)-1:0]  qdr_q_0,
@@ -193,28 +207,28 @@ module nf10_sram_fifo
     wire clk = aclk;
     wire reset = ~aresetn;
     // Assign signals to array of signals to allow for use of generate statements later on
-    wire [(NUM_QUEUES-1):0]        tvalid_in = {s_axis_3_tvalid, s_axis_2_tvalid, s_axis_1_tvalid, s_axis_0_tvalid};
+    wire [(NUM_QUEUES-1):0]        tvalid_in = {s_axis_4_tvalid, s_axis_3_tvalid, s_axis_2_tvalid, s_axis_1_tvalid, s_axis_0_tvalid};
     wire [(NUM_QUEUES-1):0]       tready_in;
-    assign {s_axis_3_tready, s_axis_2_tready, s_axis_1_tready, s_axis_0_tready} = tready_in;
-    wire [((8*TDATA_WIDTH*NUM_QUEUES) - 1):0] tdata_in = {s_axis_3_tdata, s_axis_2_tdata, s_axis_1_tdata, s_axis_0_tdata};
-    wire [(NUM_QUEUES-1):0]        tlast_in = {s_axis_3_tlast, s_axis_2_tlast, s_axis_1_tlast, s_axis_0_tlast};
+    assign {s_axis_4_tready, s_axis_3_tready, s_axis_2_tready, s_axis_1_tready, s_axis_0_tready} = tready_in;
+    wire [((8*TDATA_WIDTH*NUM_QUEUES) - 1):0] tdata_in = {s_axis_4_tdata, s_axis_3_tdata, s_axis_2_tdata, s_axis_1_tdata, s_axis_0_tdata};
+    wire [(NUM_QUEUES-1):0]        tlast_in = {s_axis_4_tlast, s_axis_3_tlast, s_axis_2_tlast, s_axis_1_tlast, s_axis_0_tlast};
     wire [(TID_WIDTH*NUM_QUEUES-1):0]         tid_in;
     wire [(TDEST_WIDTH*NUM_QUEUES-1):0]       tdest_in;
-    wire [(TUSER_WIDTH*NUM_QUEUES-1):0]       tuser_in = {s_axis_3_tuser, s_axis_2_tuser, s_axis_1_tuser, s_axis_0_tuser};
+    wire [(TUSER_WIDTH*NUM_QUEUES-1):0]       tuser_in = {s_axis_4_tuser, s_axis_3_tuser, s_axis_2_tuser, s_axis_1_tuser, s_axis_0_tuser};
 
     wire [(NUM_QUEUES-1):0]         tvalid_out;
-    assign {m_axis_3_tvalid, m_axis_2_tvalid, m_axis_1_tvalid, m_axis_0_tvalid} = tvalid_out;
-    wire [(NUM_QUEUES-1):0]     tready_out = {m_axis_3_tready, m_axis_2_tready, m_axis_1_tready, m_axis_0_tready};
+    assign {m_axis_4_tvalid, m_axis_3_tvalid, m_axis_2_tvalid, m_axis_1_tvalid, m_axis_0_tvalid} = tvalid_out;
+    wire [(NUM_QUEUES-1):0]     tready_out = {m_axis_4_tready, m_axis_3_tready, m_axis_2_tready, m_axis_1_tready, m_axis_0_tready};
     wire [((8*TDATA_WIDTH*NUM_QUEUES) - 1):0] tdata_out;
-    assign {m_axis_3_tdata, m_axis_2_tdata, m_axis_1_tdata, m_axis_0_tdata} = tdata_out;
+    assign {m_axis_4_tdata, m_axis_3_tdata, m_axis_2_tdata, m_axis_1_tdata, m_axis_0_tdata} = tdata_out;
     wire [(NUM_QUEUES-1):0]                   tlast_out;
-    assign {m_axis_3_tlast, m_axis_2_tlast, m_axis_1_tlast, m_axis_0_tlast} = tlast_out;
+    assign {m_axis_4_tlast, m_axis_3_tlast, m_axis_2_tlast, m_axis_1_tlast, m_axis_0_tlast} = tlast_out;
     //wire [((TDATA_WIDTH*NUM_QUEUES) - 1):0] tstrb_out;
-    assign {m_axis_3_tstrb, m_axis_2_tstrb, m_axis_1_tstrb, m_axis_0_tstrb} = {(TDATA_WIDTH*NUM_QUEUES){1'b1}}; //tstrb_out;
+    assign {m_axis_4_tstrb, m_axis_3_tstrb, m_axis_2_tstrb, m_axis_1_tstrb, m_axis_0_tstrb} = {(TDATA_WIDTH*NUM_QUEUES){1'b1}}; //tstrb_out;
     wire [(TID_WIDTH*NUM_QUEUES-1):0]         tid_out;
     wire [(TDEST_WIDTH*NUM_QUEUES-1):0]       tdest_out;
     wire [(TUSER_WIDTH*NUM_QUEUES-1):0]       tuser_out;
-    assign {m_axis_3_tuser, m_axis_2_tuser, m_axis_1_tuser, m_axis_0_tuser} = tuser_out;
+    assign {m_axis_4_tuser, m_axis_3_tuser, m_axis_2_tuser, m_axis_1_tuser, m_axis_0_tuser} = tuser_out;
 
     wire [NUM_MEM_CHIPS*(MEM_WIDTH)-1:0]  qdr_q = {qdr_q_2,qdr_q_1,qdr_q_0};
     wire [NUM_MEM_CHIPS*MEM_CQ_WIDTH-1:0]    qdr_cq = {qdr_cq_2,qdr_cq_1,qdr_cq_0};
@@ -270,15 +284,15 @@ module nf10_sram_fifo
     wire [(NUM_QUEUES-1):0] rempty_in;
     wire [(NUM_QUEUES-1):0] r_almost_empty_in;
     wire [(NUM_QUEUES-1):0] dout_valid_in;
-    wire [((NUM_QUEUES*(TDATA_WIDTH*8+TUSER_WIDTH+1))-1):0] dout_in;
+    wire [((NUM_QUEUES*(TDATA_WIDTH*8+1+4))-1):0] dout_in;
     wire [(NUM_QUEUES-1):0] din_valid_out;
-    wire [((NUM_QUEUES*(TDATA_WIDTH*8+TUSER_WIDTH+1))-1):0] din_out;
+    wire [((NUM_QUEUES*(TDATA_WIDTH*8+1+4))-1):0] din_out;
     wire [(NUM_QUEUES-1):0] w_almost_full_out;
     wire [(NUM_QUEUES-1):0] wfull_out;
     wire [(NUM_QUEUES-1):0] winc_out;
 
-    wire [((TDATA_WIDTH*8+TUSER_WIDTH+1)-1):0] mem_din;
-    wire [((TDATA_WIDTH*8+TUSER_WIDTH+1)-1):0] mem_dout;
+    wire [((TDATA_WIDTH*8+4+1)-1):0] mem_din;
+    wire [((TDATA_WIDTH*8+4+1)-1):0] mem_dout;
 
     wire mem_dout_valid;
     wire mem_din_valid;
@@ -307,13 +321,14 @@ module nf10_sram_fifo
     wire [2:0] mem_controller_read_ready;
     wire [2:0] mem_controller_write_ready;
 
-    wire [127:0] input_fifo_cnt;
-    wire [127:0] output_fifo_cnt;
+    wire [(NUM_QUEUES*32-1):0] input_fifo_cnt;
+    wire [(NUM_QUEUES*32-1):0] output_fifo_cnt;
     wire [31:0] before_mem_cnt;
     wire [31:0] after_mem_cnt;
-    assign mem_dbg = 0;
-    //assign mem_dbg = {mem_queue_id_write, mem_queue_id_read, mem_wfull, mem_rempty};//{after_mem_cnt, before_mem_cnt};
-    assign fifo_dbg = {output_fifo_cnt[31:0], input_fifo_cnt[31:0]};
+    wire [NUM_QUEUES-1:0] output_inc;
+    //assign mem_dbg = {mem_queue_id_write, mem_queue_id_read, mem_wfull, mem_rempty};//
+    assign mem_dbg = {after_mem_cnt, before_mem_cnt};
+    assign fifo_dbg = {output_fifo_cnt[127:96], input_fifo_cnt[127:96]};
    // assign debug_mem_controller_dout = mem_controller_din;
    // assign debug_mem_controller_dout_addr = mem_controller_din_addr;
    // assign debug_mem_controller_dout_ready = mem_controller_din_ready;
@@ -344,8 +359,9 @@ module nf10_sram_fifo
                           .rempty(rempty_in[i]),
                           .r_almost_empty(r_almost_empty_in[i]),
                           .dout_valid(dout_valid_in[i]),
-                          .dout(dout_in[((i+1)*(8*TDATA_WIDTH+TUSER_WIDTH+1)-1):(i*(8*TDATA_WIDTH+TUSER_WIDTH+1))]), 
+                          .dout(dout_in[((i+1)*(8*TDATA_WIDTH+1+4)-1):(i*(8*TDATA_WIDTH+1+4))]), 
                           .cal_done(&cal_done),
+                          .output_inc(output_inc[i]),
                           .input_fifo_cnt(input_fifo_cnt[(32*i+31):(32*i)])
                           );
 
@@ -370,10 +386,11 @@ module nf10_sram_fifo
                           .memclk(memclk),
                           .memreset(memreset),
                           .din_valid(din_valid_out[i]),
-                          .din(din_out[(((i+1)*(8*TDATA_WIDTH+TUSER_WIDTH+1))-1):(i*(8*TDATA_WIDTH+TUSER_WIDTH+1))]),
+                          .din(din_out[(((i+1)*(8*TDATA_WIDTH+1+4))-1):(i*(8*TDATA_WIDTH+1+4))]),
                           .w_almost_full(w_almost_full_out[i]),
                           .wfull(wfull_out[i]), 
                           .cal_done(&cal_done),
+                          .rinc(output_inc[i]),
                           .output_fifo_cnt(output_fifo_cnt[(32*i+31):(32*i)])
 
                           );
