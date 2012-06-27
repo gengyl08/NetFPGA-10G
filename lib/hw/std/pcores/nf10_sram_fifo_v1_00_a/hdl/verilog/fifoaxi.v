@@ -50,7 +50,7 @@ module FifoToAxi
                     // Range: >= 1.
   parameter integer TID_WIDTH          = 4, 
                     // Width of AXI data bus in bytes
-  parameter integer TDATA_WIDTH        = 8,
+  parameter integer TDATA_WIDTH        = 32,
                     // Width of TUSER in bits
   parameter integer TUSER_WIDTH        = 64,
 
@@ -73,7 +73,7 @@ module FifoToAxi
     input                            memclk,
     input                            memreset,
     input                            din_valid,
-    input [((8*TDATA_WIDTH+1+4)-1):0]    din,
+    input [((8*TDATA_WIDTH+1)-1):0]    din,
     output                           w_almost_full,
     output                           wfull,
     input                            cal_done,
@@ -126,11 +126,9 @@ begin
     end
 end
 
-assign tuser[TUSER_WIDTH-1:28] = 0;
-assign tuser[23:0] = 0;
-wire [2:0] dummy;
-async_fifo fifo(reset, memclk, clk, din, din_valid, rinc, {dummy, tuser[27:24], tdata, tlast}, wfull, ,rempty,r_almost_empty,rvalid, w_almost_full);
-//small_async_fifo #(.DSIZE(8*TDATA_WIDTH+1),.ASIZE(5),.ALMOST_FULL_SIZE(16),.ALMOST_EMPTY_SIZE(2)) fifo(wfull,w_almost_full,din,din_valid,memclk,~memreset,{tdata,tlast},rempty,r_almost_empty,rinc,clk,~reset);
+assign tuser = 0;
+
+async_fifo fifo(reset, memclk, clk, din, din_valid, rinc, {tdata,tlast}, wfull, ,rempty,r_almost_empty,rvalid, w_almost_full);
 
 
 endmodule

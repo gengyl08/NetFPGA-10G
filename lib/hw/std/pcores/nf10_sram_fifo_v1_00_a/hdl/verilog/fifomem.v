@@ -51,14 +51,14 @@ module FifoMem
   // Width of AXI data bus in bytes
   parameter integer TDATA_WIDTH        = 32,
   parameter integer TUSER_WIDTH        = 128,
-  parameter integer NUM_QUEUES         = 5,
-  parameter integer QUEUE_ID_WIDTH     = 3,
+  parameter integer NUM_QUEUES         = 4,
+  parameter integer QUEUE_ID_WIDTH     = 2,
   parameter integer NUM_MEM_INPUTS     = 6,
   parameter integer NUM_MEM_CHIPS      = 3,
   parameter integer MEM_WIDTH          = 36,
   parameter integer MEM_ADDR_WIDTH     = 19,
   parameter integer MEM_NUM_WORDS      = 524288,
-  parameter integer QUEUE_SIZE         = MEM_NUM_WORDS/NUM_QUEUES
+  parameter integer QUEUE_SIZE         = MEM_NUM_WORDS/4
 )
 (
     input                          clk,
@@ -66,14 +66,14 @@ module FifoMem
     input  [(QUEUE_ID_WIDTH-1):0]   read_queue_id,
     output reg [(QUEUE_ID_WIDTH-1):0]  read_data_queue_id,
     input                          read_data_ready,
-    output reg [((8*TDATA_WIDTH+4+1)-1):0]  read_data,
+    output reg [((8*TDATA_WIDTH+TUSER_WIDTH+1)-1):0]  read_data,
     output                         read_data_valid,
     output reg [(NUM_QUEUES-1):0]  read_empty,
     output reg                     read_burst_state,
 
 
     input [(QUEUE_ID_WIDTH-1):0]   write_queue_id,
-    input [((8*TDATA_WIDTH+4+1)-1):0]  write_data,
+    input [((8*TDATA_WIDTH+TUSER_WIDTH+1)-1):0]  write_data,
     input                          write_data_valid,
     output reg [(NUM_QUEUES-1):0]  write_full,
     output reg                     next_write_burst_state,
@@ -138,8 +138,8 @@ begin
         dout <= {(MEM_WIDTH*NUM_MEM_INPUTS){1'b0}};
         dout_addr <= {(MEM_ADDR_WIDTH){1'b0}};
         dout_burst_ready <= 1'b0;
-        read_empty <= {(NUM_QUEUES){1'b1}};
-        write_full <= {(NUM_QUEUES){1'b0}};
+        //read_empty <= {(NUM_QUEUES){1'b1}};
+        //write_full <= {(NUM_QUEUES){1'b0}};
         din_addr <= {(MEM_ADDR_WIDTH){1'b0}};
         din_ready <= 1'b0;
         before_mem_cnt <= 32'b0;
@@ -157,8 +157,8 @@ begin
         dout <= next_dout;
         dout_addr <= next_dout_addr;
         dout_burst_ready <= next_dout_burst_ready;
-        read_empty <= next_read_empty;
-        write_full <= next_write_full;
+        //read_empty <= next_read_empty;
+        //write_full <= next_write_full;
         din_addr <= next_din_addr;
         din_ready <= next_din_ready;
         before_mem_cnt <= next_before_mem_cnt;
@@ -175,8 +175,8 @@ generate
         begin
             if(reset)
             begin
-                read_addr[i] <= ({(MEM_ADDR_WIDTH){1'b0}}+(QUEUE_SIZE)*i);
-                write_addr[i] <= ({(MEM_ADDR_WIDTH){1'b0}}+(QUEUE_SIZE)*i);
+                read_addr[i] <= ({(MEM_ADDR_WIDTH){1'b0}}+(MEM_NUM_WORDS>>2)*i);
+                write_addr[i] <= ({(MEM_ADDR_WIDTH){1'b0}}+(MEM_NUM_WORDS>>2)*i);
                 num_used[i] <= {(MEM_ADDR_WIDTH-2){1'b0}};
             end
             else
@@ -235,12 +235,12 @@ begin
     dout_ready = 1'b0;
     next_dout_addr = {(MEM_ADDR_WIDTH){1'b0}};
     next_din_addr = {(MEM_ADDR_WIDTH){1'b0}};
-    read_data = din_merged[((8*TDATA_WIDTH+1+4)-1):0];
-    read_data_queue_id = din_merged[((8*TDATA_WIDTH+1+4+QUEUE_ID_WIDTH)-1):(8*TDATA_WIDTH+1+4)];
-    next_dout[((8*TDATA_WIDTH+1+4)-1):0] = write_data;
-    next_dout[((8*TDATA_WIDTH+1+4+QUEUE_ID_WIDTH)-1):(8*TDATA_WIDTH+1+4)] = write_queue_id;
-    next_dout[8*TDATA_WIDTH+1+4+QUEUE_ID_WIDTH] = write_data_valid;
-    read_mem_word_valid = din_merged[8*TDATA_WIDTH+1+4+QUEUE_ID_WIDTH];
+    read_data = din_merged[((8*TDATA_WIDTH+TUSER_WIDTH+1)-1):0];
+    read_data_queue_id = din_merged[((8*TDATA_WIDTH+TUSER_WIDTH+1+QUEUE_ID_WIDTH)-1):(8*TDATA_WIDTH+TUSER_WIDTH+1)];
+    next_dout[((8*TDATA_WIDTH+TUSER_WIDTH+1)-1):0] = write_data;
+    next_dout[((8*TDATA_WIDTH+TUSER_WIDTH+1+QUEUE_ID_WIDTH)-1):(8*TDATA_WIDTH+TUSER_WIDTH+1)] = write_queue_id;
+    next_dout[8*TDATA_WIDTH+TUSER_WIDTH+1+QUEUE_ID_WIDTH] = write_data_valid;
+    read_mem_word_valid = din_merged[8*TDATA_WIDTH+TUSER_WIDTH+1+QUEUE_ID_WIDTH];
 
     next_read_data_valid = 1'b0;
     
@@ -248,8 +248,6 @@ begin
     next_num_used[1] = num_used[1];
     next_num_used[2] = num_used[2];
     next_num_used[3] = num_used[3];
-    next_num_used[4] = num_used[4];
-
     
     //if((MAX - num_used[write_queue_id]) > tuser[write_queue_id][SIZE_END:SIZE_START]) allow write;   
 
@@ -257,23 +255,20 @@ begin
       // 1 queue should not saturate though
     if(read_data_ready && (read_burst_state == 0) /*&& ~read_empty*/)
     begin
-        if(read_queue_id == 3'd0)
+        if(read_queue_id == 2'd0)
         begin
             next_din_addr = read_addr[0];
             next_read_addr[1] = read_addr[1];
             next_read_addr[2] = read_addr[2];
             next_read_addr[3] = read_addr[3];
-            next_read_addr[4] = read_addr[4];
             if(!read_empty[0])
             begin
                 next_din_ready = 1'b1;            
                 next_read_data_valid = 1'b1; 
 
-                if(read_addr[0] == (QUEUE_SIZE*1-1))
-                    next_read_addr[0] = QUEUE_SIZE*0;
-                else
-                    next_read_addr[0] = read_addr[0]+19'b1;
 
+                next_read_addr[0][MEM_ADDR_WIDTH-1:MEM_ADDR_WIDTH-QUEUE_ID_WIDTH] = 2'd0;
+                next_read_addr[0][MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1:0] = read_addr[0][(MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1):0]+17'b1;
                 if(read_burst_state == BURST_STATE_OFF)
                     next_read_burst_state = BURST_STATE_HALFWAY;
             end
@@ -282,23 +277,20 @@ begin
                 next_read_addr[0] = read_addr[0];
             end
         end
-            else if(read_queue_id == 3'd1)
+            else if(read_queue_id == 2'd1)
             begin
                 next_din_addr = read_addr[1];
                 next_read_addr[0] = read_addr[0];
                 next_read_addr[2] = read_addr[2];
                 next_read_addr[3] = read_addr[3];
-                next_read_addr[4] = read_addr[4];
                 if(!read_empty[1])
                 begin
                     next_din_ready = 1'b1;            
                     next_read_data_valid = 1'b1;
 
-                    if(read_addr[1] == (QUEUE_SIZE*2-1))
-                        next_read_addr[1] = QUEUE_SIZE*1;
-                    else
-                        next_read_addr[1] = read_addr[1]+19'b1;
 
+                    next_read_addr[1][MEM_ADDR_WIDTH-1:MEM_ADDR_WIDTH-QUEUE_ID_WIDTH] = 2'd1;
+                    next_read_addr[1][MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1:0] = read_addr[1][(MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1):0]+17'b1;
                     if(read_burst_state == BURST_STATE_OFF)
                         next_read_burst_state = BURST_STATE_HALFWAY;
                 end
@@ -307,24 +299,21 @@ begin
                     next_read_addr[1] = read_addr[1];
                 end
             end
-            else if(read_queue_id == 3'd2)
+            else if(read_queue_id == 2'd2)
             begin
                 next_din_addr = read_addr[2];
                 next_read_addr[0] = read_addr[0];
                 next_read_addr[1] = read_addr[1];
                 next_read_addr[3] = read_addr[3];
-                next_read_addr[4] = read_addr[4];
 
                 if(!read_empty[2])
                 begin
                     next_din_ready = 1'b1;            
                     next_read_data_valid = 1'b1;
 
-                    if(read_addr[2] == (QUEUE_SIZE*3-1))
-                        next_read_addr[2] = QUEUE_SIZE*2;
-                    else
-                        next_read_addr[2] = read_addr[2]+19'b1;
 
+                    next_read_addr[2][MEM_ADDR_WIDTH-1:MEM_ADDR_WIDTH-QUEUE_ID_WIDTH] = 2'd2;
+                    next_read_addr[2][MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1:0] = read_addr[2][(MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1):0]+17'b1;
                     if(read_burst_state == BURST_STATE_OFF)
                         next_read_burst_state = BURST_STATE_HALFWAY;
                 end   
@@ -333,68 +322,36 @@ begin
                     next_read_addr[2] = read_addr[2];
                 end
             end
-            else if(read_queue_id == 3'd3)
+            else if(read_queue_id == 2'd3)
             begin
                 next_din_addr = read_addr[3];
                 next_read_addr[0] = read_addr[0];
                 next_read_addr[1] = read_addr[1];
                 next_read_addr[2] = read_addr[2];
-                next_read_addr[4] = read_addr[4];
-
                 if(!read_empty[3])
                 begin
                     next_din_ready = 1'b1;            
                     next_read_data_valid = 1'b1;
 
-                    if(read_addr[3] == (QUEUE_SIZE*4-1))
-                        next_read_addr[3] = QUEUE_SIZE*3;
-                    else
-                        next_read_addr[3] = read_addr[3]+19'b1;
 
+                    next_read_addr[3][MEM_ADDR_WIDTH-1:MEM_ADDR_WIDTH-QUEUE_ID_WIDTH] = 2'd3;
+                    next_read_addr[3][MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1:0] = read_addr[3][(MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1):0]+17'b1;
                     if(read_burst_state == BURST_STATE_OFF)
                         next_read_burst_state = BURST_STATE_HALFWAY;
+                    end
+                    else
+                    begin
+                        next_read_addr[3] = read_addr[3];
+                    end
                 end
-                else
-                begin
-                    next_read_addr[3] = read_addr[3];
-                end
-                
             end
-            else if(read_queue_id == 3'd4)
+            else
             begin
-                next_din_addr = read_addr[4];
                 next_read_addr[0] = read_addr[0];
                 next_read_addr[1] = read_addr[1];
                 next_read_addr[2] = read_addr[2];
                 next_read_addr[3] = read_addr[3];
-
-                if(!read_empty[4])
-                begin
-                    next_din_ready = 1'b1;            
-                    next_read_data_valid = 1'b1;
-
-                    if(read_addr[4] == (QUEUE_SIZE*5-1))
-                        next_read_addr[4] = QUEUE_SIZE*4;
-                    else
-                        next_read_addr[4] = read_addr[4]+19'b1;
-
-                    if(read_burst_state == BURST_STATE_OFF)
-                        next_read_burst_state = BURST_STATE_HALFWAY;
-                end
-                else
-                begin
-                    next_read_addr[4] = read_addr[4];
-                end
             end
-        end
-        else
-        begin
-            next_read_addr[0] = read_addr[0];
-            next_read_addr[1] = read_addr[1];
-            next_read_addr[2] = read_addr[2];
-            next_read_addr[3] = read_addr[3];
-            next_read_addr[4] = read_addr[4];
-        end
 
     if(write_data_valid && (~write_burst_state) /* && ~write_full*/)
     begin
@@ -404,16 +361,12 @@ begin
         	next_write_addr[1] = write_addr[1];
     		next_write_addr[2] = write_addr[2];
    	 		next_write_addr[3] = write_addr[3];
-   	 		next_write_addr[4] = write_addr[4];
-
 
         	if(!write_full[0])
         	begin
-                    if(write_addr[0] == (QUEUE_SIZE*1-1))
-                        next_write_addr[0] = QUEUE_SIZE*0;
-                    else
-                        next_write_addr[0] = write_addr[0]+19'b1;
-
+            	next_write_addr[0][MEM_ADDR_WIDTH-1:MEM_ADDR_WIDTH-QUEUE_ID_WIDTH] = 2'd0;
+            
+            	next_write_addr[0][MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1:0] = write_addr[0][(MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1):0]+17'b1;
             	dout_ready = 1'b1;
             	
                     if(write_burst_state == BURST_STATE_OFF)
@@ -431,16 +384,11 @@ begin
         	next_write_addr[0] = write_addr[0];
     		next_write_addr[2] = write_addr[2];
     		next_write_addr[3] = write_addr[3];
-    		next_write_addr[4] = write_addr[4];
-
         	if(!write_full[1])
         	begin
-                    if(write_addr[1] == (QUEUE_SIZE*2-1))
-                        next_write_addr[1] = QUEUE_SIZE*1;
-                    else
-                        next_write_addr[1] = write_addr[1]+19'b1;
-
+            	next_write_addr[1][MEM_ADDR_WIDTH-1:MEM_ADDR_WIDTH-QUEUE_ID_WIDTH] = 2'd1;
             
+            	next_write_addr[1][MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1:0] = write_addr[1][(MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1):0]+17'b1;
             	dout_ready = 1'b1;
             	if(write_burst_state == BURST_STATE_OFF)
                 	next_write_burst_state = BURST_STATE_HALFWAY;
@@ -457,15 +405,12 @@ begin
         	next_write_addr[0] = write_addr[0];
     		next_write_addr[1] = write_addr[1];
     		next_write_addr[3] = write_addr[3];
-    		next_write_addr[4] = write_addr[4];
 
         	if(!write_full[2])
         	begin
-                    if(write_addr[2] == (QUEUE_SIZE*3-1))
-                        next_write_addr[2] = QUEUE_SIZE*2;
-                    else
-                        next_write_addr[2] = write_addr[2]+19'b1;
-
+            	next_write_addr[2][MEM_ADDR_WIDTH-1:MEM_ADDR_WIDTH-QUEUE_ID_WIDTH] = 2'd2;
+            
+            	next_write_addr[2][MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1:0] = write_addr[2][(MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1):0]+17'b1;
             	dout_ready = 1'b1;
             	if(write_burst_state == BURST_STATE_OFF)
                 	next_write_burst_state = BURST_STATE_HALFWAY;
@@ -482,17 +427,11 @@ begin
         	next_write_addr[0] = write_addr[0];
     		next_write_addr[1] = write_addr[1];
     		next_write_addr[2] = write_addr[2];
-    		next_write_addr[4] = write_addr[4];
-
         	if(!write_full[3])
         	begin
-            	    if(write_addr[3] == (QUEUE_SIZE*4-1))
-                        next_write_addr[3] = QUEUE_SIZE*3;
-                    else
-                        next_write_addr[3] = write_addr[3]+19'b1;
-
-
-                dout_ready = 1'b1;
+            	next_write_addr[3][MEM_ADDR_WIDTH-1:MEM_ADDR_WIDTH-QUEUE_ID_WIDTH] = 2'd3;
+            	next_write_addr[3][MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1:0] = write_addr[3][(MEM_ADDR_WIDTH-QUEUE_ID_WIDTH-1):0]+17'b1;
+            	dout_ready = 1'b1;
             	if(write_burst_state == BURST_STATE_OFF)
                 	next_write_burst_state = BURST_STATE_HALFWAY;
         	end
@@ -502,32 +441,6 @@ begin
         	end
 
         end
-	else if(write_queue_id == 2'd4)
-        begin
-        	next_dout_addr = write_addr[4];
-        	next_write_addr[0] = write_addr[0];
-    		next_write_addr[1] = write_addr[1];
-    		next_write_addr[2] = write_addr[2];
-    		next_write_addr[3] = write_addr[3];
-
-        	if(!write_full[4])
-        	begin
-                    if(write_addr[4] == (QUEUE_SIZE*5-1))
-                        next_write_addr[4] = QUEUE_SIZE*4;
-                    else
-                        next_write_addr[4] = write_addr[4]+19'b1;
-
-            	    dout_ready = 1'b1;
-            	    if(write_burst_state == BURST_STATE_OFF)
-                	next_write_burst_state = BURST_STATE_HALFWAY;
-        	end
-        	else
-        	begin
-        	    next_write_addr[4] = write_addr[4];
-        	end
-
-        end
-
     end
     else
     begin
@@ -535,8 +448,6 @@ begin
     	next_write_addr[1] = write_addr[1];
     	next_write_addr[2] = write_addr[2];
         next_write_addr[3] = write_addr[3];
-        next_write_addr[4] = write_addr[4];
-
     end
     
     rw_same_queue = read_queue_id == write_queue_id;
@@ -551,7 +462,7 @@ begin
 
     next_dout_burst_ready = /*~write_burst_state &&*/ dout_ready;
 
-   /* if(after_mem_cnt_inc)
+    if(after_mem_cnt_inc)
        next_after_mem_cnt = after_mem_cnt + 1;
     else
        next_after_mem_cnt = after_mem_cnt;
@@ -569,7 +480,7 @@ begin
         next_before_mem_cnt = before_mem_cnt + 1;
     else
         next_before_mem_cnt = before_mem_cnt;
-*/
+
 end
 
 //assign debug = {write_burst_state, read_burst_state, num_used[0], write_addr[0], read_addr[0]};
@@ -579,9 +490,9 @@ generate
     begin : emptyfull
         always @(num_used[i])
         begin
-            next_read_empty[i] = next_num_used[i]==0;
+            read_empty[i] = num_used[i]==0;
             // TODO: fix full logic later
-            next_write_full[i] = (next_num_used[i])>=((QUEUE_SIZE)-5);
+            write_full[i] = (num_used[i])>=((QUEUE_SIZE)-5);
         end
     end
 endgenerate

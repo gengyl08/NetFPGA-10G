@@ -50,13 +50,13 @@ module AxiToFifo
                     // Range: >= 1.
   parameter integer TID_WIDTH          = 4, 
                     // Width of AXI data bus in bytes
-  parameter integer TDATA_WIDTH        = 8,
+  parameter integer TDATA_WIDTH        = 32,
                     // Width of TUSER in bits
   parameter integer TUSER_WIDTH        = 128,
 
   parameter integer TDEST_WIDTH        = 4,
-  parameter integer NUM_QUEUES         = 5,
-  parameter integer QUEUE_ID_WIDTH     = 3,
+  parameter integer NUM_QUEUES         = 4,
+  parameter integer QUEUE_ID_WIDTH     = 2,
   parameter integer MEM_ADDR_WIDTH     = 19,
   parameter integer MEM_NUM_WORDS      = 524288,
   parameter integer QUEUE_SIZE         = MEM_NUM_WORDS/4,
@@ -80,7 +80,7 @@ module AxiToFifo
     output                          rempty,
     output                          r_almost_empty,
     output                          dout_valid,
-    output [((8*TDATA_WIDTH+1+4)-1):0]  dout,
+    output [((8*TDATA_WIDTH+1)-1):0]  dout,
     input                           cal_done,
     input                           output_inc,
     output reg [31:0] input_fifo_cnt
@@ -193,7 +193,8 @@ begin
 end*/
 
 //small_async_fifo #(.DSIZE(8*TDATA_WIDTH + TUSER_WIDTH + 1),.ASIZE(5),.ALMOST_FULL_SIZE(30),.ALMOST_EMPTY_SIZE(1)) fifo(wfull,w_almost_full,{tdata, tuser, tlast},winc,clk,~reset,dout,rempty,r_almost_empty,rinc,memclk,~memreset);
-async_fifo fifo(reset, clk, memclk, {3'b0, tuser[27:24], tdata, tlast}, winc, rinc, dout, wfull, w_almost_full,rempty,r_almost_empty,dout_valid);
+
+async_fifo fifo(reset, clk, memclk, {tdata, tlast}, winc, rinc, dout, wfull, w_almost_full,rempty,r_almost_empty,dout_valid);
 
 
 endmodule

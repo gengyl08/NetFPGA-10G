@@ -521,7 +521,7 @@ BEGIN dma
  BUS_INTERFACE M_AXI = axi_interconnect_0
  BUS_INTERFACE M_AXIS = dma_0_M_AXIS
  BUS_INTERFACE S_AXI = axi_interconnect_0
- BUS_INTERFACE S_AXIS = nf10_sram_fifo_0_m_axis_4
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_4
  PORT reset_n = Peripheral_aresetn
  PORT M_AXIS_ACLK = core_clk
  PORT S_AXIS_ACLK = core_clk
@@ -574,8 +574,6 @@ BEGIN nf10_sram_fifo
  BUS_INTERFACE s_axis_1 = nf10_bram_output_queues_0_M_AXIS_1
  BUS_INTERFACE s_axis_2 = nf10_bram_output_queues_0_M_AXIS_2
  BUS_INTERFACE s_axis_3 = nf10_bram_output_queues_0_M_AXIS_3
- BUS_INTERFACE s_axis_4 = nf10_bram_output_queues_0_M_AXIS_4
- BUS_INTERFACE m_axis_4 = nf10_sram_fifo_0_m_axis_4
  PORT memclk = mem_clk
  PORT memclk_200 = mem_clk_200
  PORT memclk_270 = mem_clk_270

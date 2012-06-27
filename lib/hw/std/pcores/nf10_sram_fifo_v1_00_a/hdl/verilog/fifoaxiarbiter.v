@@ -49,9 +49,9 @@ module FifoAxiArbiter
   // Width of AXI data bus in bytes
   parameter integer TDATA_WIDTH        = 32,
   // Width of TUSER in bits
-  parameter integer TUSER_WIDTH        = 128,
-  parameter integer NUM_QUEUES         = 5,
-  parameter integer QUEUE_ID_WIDTH     = 3
+  parameter integer TUSER_WIDTH        = 64,
+  parameter integer NUM_QUEUES         = 4,
+  parameter integer QUEUE_ID_WIDTH     = 2
 )
 (
     input                           clk,
@@ -62,11 +62,11 @@ module FifoAxiArbiter
     input [NUM_QUEUES-1:0]          full,
     input                           read_burst,
     input                           din_valid,
-    input  [((8*TDATA_WIDTH+1+4)-1):0]  din,
+    input  [((8*TDATA_WIDTH+1)-1):0]  din,
     input [QUEUE_ID_WIDTH-1:0]          din_queue_id,
     input  [NUM_QUEUES-1:0]         mem_queue_empty,
     output reg [QUEUE_ID_WIDTH-1:0] queue_id,
-    output reg [((NUM_QUEUES*(8*TDATA_WIDTH+1+4))-1):0]  dout,
+    output reg [((NUM_QUEUES*(8*TDATA_WIDTH+1))-1):0]  dout,
     output reg [NUM_QUEUES-1:0]     dout_valid
 );
 
@@ -76,7 +76,7 @@ module FifoAxiArbiter
     reg [NUM_QUEUES-1:0] inc;
     wire [NUM_QUEUES-1:0] queues_ready;
     wire [NUM_QUEUES-1:0] queue_in_use;
-    reg [(((8*TDATA_WIDTH+1+4))-1):0] prev_din;
+    reg [(((8*TDATA_WIDTH+1))-1):0] prev_din;
     reg [NUM_QUEUES-1:0] next_dout_valid;
     reg [QUEUE_ID_WIDTH-1:0] prev_din_queue_id;
 
@@ -87,7 +87,7 @@ module FifoAxiArbiter
             queue_id <= {2'b00, 2'b00};
             prev_mem_queue_empty <= {(NUM_QUEUES){1'b1}};
             prev_inc <= {(NUM_QUEUES){1'b0}};
-            prev_din <= {((8*TDATA_WIDTH+1+4)){1'b0}};
+            prev_din <= {((8*TDATA_WIDTH+1)){1'b0}};
             dout_valid <= {(NUM_QUEUES){1'b0}};
             prev_din_queue_id <= {(QUEUE_ID_WIDTH){1'b0}};
         end
@@ -106,120 +106,78 @@ module FifoAxiArbiter
     assign queue_in_use = 1 << queue_id;
     always @(*)
     begin
-        inc = 5'b0;
-        burst_inc = 5'b0;
-        next_dout_valid = 5'b0;
-        dout = {(NUM_QUEUES*(8*TDATA_WIDTH+4+1)){1'b0}};
+        inc = 4'b0;
+        burst_inc = 4'b0;
+        next_dout_valid = 4'b0;
+        dout = {(NUM_QUEUES*(8*TDATA_WIDTH+1)){1'b0}};
         //next_inc = 4'b0;
         next_queue_id = queue_id;
 	
         if(read_burst || (~prev_inc[queue_id] && (mem_queue_empty[queue_id] || full[queue_id])))
         begin
-            if(queue_id == 3'd0)
+            if(queue_id == 2'd0)
             begin
             if(~mem_queue_empty[1] && ~full[1])
             begin
-                next_queue_id = 3'd1;
+                next_queue_id = 2'd1;
             end
             else if(~mem_queue_empty[2] && ~full[2])
             begin
-                next_queue_id = 3'd2;
+                next_queue_id = 2'd2;
             end
             else if(~mem_queue_empty[3] && ~full[3])
             begin
-                next_queue_id = 3'd3;
+                next_queue_id = 2'd3;
             end
-            else if(~mem_queue_empty[4] && ~full[4])
-            begin
-                next_queue_id = 3'd4;
             end
-
-            end
-
-            else if(queue_id == 3'd1)
+            else if(queue_id == 2'd1)
             begin
       
             if(~mem_queue_empty[2] && ~full[2])
             begin
-                next_queue_id = 3'd2;
+                next_queue_id = 2'd2;
             end
             else if(~mem_queue_empty[3] && ~full[3])
             begin
-                next_queue_id = 3'd3;
-            end
-            else if(~mem_queue_empty[4] && ~full[4])
-            begin
-                next_queue_id = 3'd4;
+                next_queue_id = 2'd3;
             end
             else if(~mem_queue_empty[0] && ~full[0])
             begin
-                next_queue_id = 3'd0;
+                next_queue_id = 2'd0;
             end
-
             end
-            else if(queue_id == 3'd2)
+            else if(queue_id == 2'd2)
             begin
       
             if(~mem_queue_empty[3] && ~full[3])
             begin
-                next_queue_id = 3'd3;
-            end
-            else if(~mem_queue_empty[4] && ~full[4])
-            begin
-                next_queue_id = 3'd4;
+                next_queue_id = 2'd3;
             end
             else if(~mem_queue_empty[0] && ~full[0])
             begin
-                next_queue_id = 3'd0;
+                next_queue_id = 2'd0;
             end
             else if(~mem_queue_empty[1] && ~full[1])
             begin
-                next_queue_id = 3'd1;
+                next_queue_id = 2'd1;
             end
             end
-
-            else if(queue_id == 3'd3)
+            else if(queue_id == 2'd3)
             begin
-      if(~mem_queue_empty[4] && ~full[4])
-            begin
-                next_queue_id = 3'd4;
-            end
-
-            else if(~mem_queue_empty[0] && ~full[0])
-            begin
-                next_queue_id = 3'd0;
-            end
-            else if(~mem_queue_empty[1] && ~full[1])
-            begin
-                next_queue_id = 3'd1;
-            end
-            else if(~mem_queue_empty[2] && ~full[2])
-            begin
-                next_queue_id = 3'd2;
-            end
-            end
-
-            if(queue_id == 3'd4)
-            begin
+      
             if(~mem_queue_empty[0] && ~full[0])
             begin
-                next_queue_id = 3'd0;
+                next_queue_id = 2'd0;
             end
-            if(~mem_queue_empty[1] && ~full[1])
+            else if(~mem_queue_empty[1] && ~full[1])
             begin
-                next_queue_id = 3'd1;
+                next_queue_id = 2'd1;
             end
             else if(~mem_queue_empty[2] && ~full[2])
             begin
-                next_queue_id = 3'd2;
+                next_queue_id = 2'd2;
             end
-            else if(~mem_queue_empty[3] && ~full[3])
-            begin
-                next_queue_id = 3'd3;
             end
-            
-            end
-
         end
 
         inc[queue_id] = (~mem_queue_empty[queue_id] && ~full[queue_id]);
@@ -230,16 +188,13 @@ module FifoAxiArbiter
         
         case(prev_din_queue_id)
             0:
-                dout[((8*TDATA_WIDTH+1+4)*(1)-1):((8*TDATA_WIDTH+1+4)*0)] = prev_din;
+                dout[((8*TDATA_WIDTH+1)*(1)-1):((8*TDATA_WIDTH+1)*0)] = prev_din;
             1:
-                dout[((8*TDATA_WIDTH+1+4)*(2)-1):((8*TDATA_WIDTH+1+4)*1)] = prev_din;
+                dout[((8*TDATA_WIDTH+1)*(2)-1):((8*TDATA_WIDTH+1)*1)] = prev_din;
             2:
-                dout[((8*TDATA_WIDTH+1+4)*(3)-1):((8*TDATA_WIDTH+1+4)*2)] = prev_din;
+                dout[((8*TDATA_WIDTH+1)*(3)-1):((8*TDATA_WIDTH+1)*2)] = prev_din;
             3:
-                dout[((8*TDATA_WIDTH+1+4)*(4)-1):((8*TDATA_WIDTH+1+4)*3)] = prev_din;
-            4:
-                dout[((8*TDATA_WIDTH+1+4)*(5)-1):((8*TDATA_WIDTH+1+4)*4)] = prev_din;
-
+                dout[((8*TDATA_WIDTH+1)*(4)-1):((8*TDATA_WIDTH+1)*3)] = prev_din;
         endcase
         
     end
