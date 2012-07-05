@@ -1,0 +1,11 @@
+
+NET "nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/clocking_i/clkout0" TNM_NET = "CLKOUT0" ;
+TIMESPEC "TS_CLKOUT0" = PERIOD "CLKOUT0" 263 MHz HIGH 50 % ;
+
+NET "nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/clocking_i/clkout1" TNM_NET = "CLKOUT1" ;
+TIMESPEC "TS_CLKOUT1" = PERIOD "CLKOUT1" 150 MHz HIGH 50 % ;
+
+#NET "nf10_oped_0/oped/pciw_pci0_pcie_ep/trn_clk" TNM_NET = "TRNCLK";
+#TIMESPEC "TS_TRNCLK"  = PERIOD "TRNCLK" 125.00 MHz HIGH 50 % ;
+
+#INST "nf10_oped_0/oped/appW2/respF_memory/*" ram_style = block ;
