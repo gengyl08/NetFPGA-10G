@@ -55,10 +55,10 @@ module async_fifo(
 input rst;
 input wr_clk;
 input rd_clk;
-input [71 : 0] din;
+input [199 : 0] din;
 input wr_en;
 input rd_en;
-output [71 : 0] dout;
+output [199 : 0] dout;
 output full;
 output almost_full;
 output empty;
@@ -68,7 +68,7 @@ output prog_full;
 
 // synthesis translate_off
 
-  FIFO_GENERATOR_V8_2 #(
+  FIFO_GENERATOR_V8_4 #(
     .C_ADD_NGC_CONSTRAINT(0),
     .C_APPLICATION_TYPE_AXIS(0),
     .C_APPLICATION_TYPE_RACH(0),
@@ -96,7 +96,7 @@ output prog_full;
     .C_COUNT_TYPE(0),
     .C_DATA_COUNT_WIDTH(5),
     .C_DEFAULT_VALUE("BlankString"),
-    .C_DIN_WIDTH(72),
+    .C_DIN_WIDTH(200),
     .C_DIN_WIDTH_AXIS(1),
     .C_DIN_WIDTH_RACH(32),
     .C_DIN_WIDTH_RDCH(64),
@@ -104,7 +104,7 @@ output prog_full;
     .C_DIN_WIDTH_WDCH(64),
     .C_DIN_WIDTH_WRCH(2),
     .C_DOUT_RST_VAL("0"),
-    .C_DOUT_WIDTH(72),
+    .C_DOUT_WIDTH(200),
     .C_ENABLE_RLOCS(0),
     .C_ENABLE_RST_SYNC(1),
     .C_ERROR_INJECTION_TYPE(0),
@@ -193,14 +193,14 @@ output prog_full;
     .C_PROG_EMPTY_TYPE_WACH(5),
     .C_PROG_EMPTY_TYPE_WDCH(5),
     .C_PROG_EMPTY_TYPE_WRCH(5),
-    .C_PROG_FULL_THRESH_ASSERT_VAL(18),
+    .C_PROG_FULL_THRESH_ASSERT_VAL(16),
     .C_PROG_FULL_THRESH_ASSERT_VAL_AXIS(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_RACH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_RDCH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_WACH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_WDCH(1023),
     .C_PROG_FULL_THRESH_ASSERT_VAL_WRCH(1023),
-    .C_PROG_FULL_THRESH_NEGATE_VAL(17),
+    .C_PROG_FULL_THRESH_NEGATE_VAL(15),
     .C_PROG_FULL_TYPE(1),
     .C_PROG_FULL_TYPE_AXIS(5),
     .C_PROG_FULL_TYPE_RACH(5),
@@ -220,6 +220,7 @@ output prog_full;
     .C_REG_SLICE_MODE_WACH(0),
     .C_REG_SLICE_MODE_WDCH(0),
     .C_REG_SLICE_MODE_WRCH(0),
+    .C_SYNCHRONIZER_STAGE(2),
     .C_UNDERFLOW_LOW(0),
     .C_USE_COMMON_OVERFLOW(0),
     .C_USE_COMMON_UNDERFLOW(0),

@@ -46,10 +46,16 @@ module nf10_sram_fifo
 ///////////////////////////////////////////////////////////////////////////////
 // Parameter Definitions
 ///////////////////////////////////////////////////////////////////////////////
+  parameter integer C_S_AXIS_DATA_WIDTH = 256,
+  parameter integer C_M_AXIS_DATA_WIDTH = 256,
+  parameter integer C_S_AXIS_TUSER_WIDTH = 128,
+  parameter integer C_M_AXIS_TUSER_WIDTH = 128,
+  parameter integer MASTERBANK_PIN_WIDTH = 3,
   // Width of AXI data bus in bytes
-  parameter integer TDATA_WIDTH        = 8,
+  parameter integer TDATA_WIDTH        = C_M_AXIS_DATA_WIDTH/8,
+  parameter integer CROPPED_TDATA_WIDTH        = (((C_M_AXIS_DATA_WIDTH/8) > 24) ? 24 : (C_M_AXIS_DATA_WIDTH/8)),
   // Width of TUSER in bits
-  parameter integer TUSER_WIDTH        = 128,
+  parameter integer TUSER_WIDTH        = C_M_AXIS_TUSER_WIDTH,
   parameter integer NUM_QUEUES         = 4,
   parameter integer QUEUE_ID_WIDTH     = 2,
   parameter integer NUM_MEM_CHIPS      = 3,
@@ -61,12 +67,8 @@ module nf10_sram_fifo
   parameter integer MEM_BW_WIDTH       = 4,
   parameter integer TID_WIDTH          = 4, 
   parameter integer TDEST_WIDTH        = 4,
-  parameter integer NUM_MEMORY_CHIPS   = 3,
-  parameter integer C_S_AXIS_DATA_WIDTH = TDATA_WIDTH*8,
-  parameter integer C_M_AXIS_DATA_WIDTH = TDATA_WIDTH*8,
-  parameter integer C_S_AXIS_TUSER_WIDTH = TUSER_WIDTH,
-  parameter integer C_M_AXIS_TUSER_WIDTH = TUSER_WIDTH,
-  parameter integer MASTERBANK_PIN_WIDTH = 3
+  parameter integer NUM_MEMORY_CHIPS   = 3
+
 )
 (
     input                           aclk,
@@ -270,15 +272,15 @@ module nf10_sram_fifo
     wire [(NUM_QUEUES-1):0] rempty_in;
     wire [(NUM_QUEUES-1):0] r_almost_empty_in;
     wire [(NUM_QUEUES-1):0] dout_valid_in;
-    wire [((NUM_QUEUES*(TDATA_WIDTH*8+1))-1):0] dout_in;
+    wire [((NUM_QUEUES*(CROPPED_TDATA_WIDTH*8+1))-1):0] dout_in;
     wire [(NUM_QUEUES-1):0] din_valid_out;
-    wire [((NUM_QUEUES*(TDATA_WIDTH*8+1))-1):0] din_out;
+    wire [((NUM_QUEUES*(CROPPED_TDATA_WIDTH*8+1))-1):0] din_out;
     wire [(NUM_QUEUES-1):0] w_almost_full_out;
     wire [(NUM_QUEUES-1):0] wfull_out;
     wire [(NUM_QUEUES-1):0] winc_out;
 
-    wire [((TDATA_WIDTH*8+TUSER_WIDTH+1)-1):0] mem_din;
-    wire [((TDATA_WIDTH*8+TUSER_WIDTH+1)-1):0] mem_dout;
+    wire [((CROPPED_TDATA_WIDTH*8+1)-1):0] mem_din;
+    wire [((CROPPED_TDATA_WIDTH*8+1)-1):0] mem_dout;
 
     wire mem_dout_valid;
     wire mem_din_valid;
@@ -324,6 +326,7 @@ module nf10_sram_fifo
     for(i=0;i<NUM_QUEUES;i=i+1)
     begin : aximasterslave
         AxiToFifo #(.TDATA_WIDTH(TDATA_WIDTH),
+                    .CROPPED_TDATA_WIDTH(CROPPED_TDATA_WIDTH),
                     .TUSER_WIDTH(TUSER_WIDTH),
                     .TID_WIDTH(TID_WIDTH), 
                     .TDEST_WIDTH(TDEST_WIDTH), 
@@ -345,7 +348,7 @@ module nf10_sram_fifo
                           .rempty(rempty_in[i]),
                           .r_almost_empty(r_almost_empty_in[i]),
                           .dout_valid(dout_valid_in[i]),
-                          .dout(dout_in[((i+1)*(8*TDATA_WIDTH+1)-1):(i*(8*TDATA_WIDTH+1))]), 
+                          .dout(dout_in[((i+1)*(8*CROPPED_TDATA_WIDTH+1)-1):(i*(8*CROPPED_TDATA_WIDTH+1))]), 
                           .cal_done(&cal_done),
                           .output_inc(output_inc[i]),
                           .input_fifo_cnt(input_fifo_cnt[(32*i+31):(32*i)])
@@ -353,6 +356,7 @@ module nf10_sram_fifo
 
 
         FifoToAxi #(.TDATA_WIDTH(TDATA_WIDTH),
+                    .CROPPED_TDATA_WIDTH(CROPPED_TDATA_WIDTH),
                     .TUSER_WIDTH(TUSER_WIDTH),
                     .TID_WIDTH(TID_WIDTH), 
                     .TDEST_WIDTH(TDEST_WIDTH), 
@@ -372,7 +376,7 @@ module nf10_sram_fifo
                           .memclk(memclk),
                           .memreset(memreset),
                           .din_valid(din_valid_out[i]),
-                          .din(din_out[(((i+1)*(8*TDATA_WIDTH+1))-1):(i*(8*TDATA_WIDTH+1))]),
+                          .din(din_out[(((i+1)*(8*CROPPED_TDATA_WIDTH+1))-1):(i*(8*CROPPED_TDATA_WIDTH+1))]),
                           .w_almost_full(w_almost_full_out[i]),
                           .wfull(wfull_out[i]), 
                           .cal_done(&cal_done),
@@ -383,7 +387,7 @@ module nf10_sram_fifo
     end
     endgenerate
 
-    AxiFifoArbiter #(.TDATA_WIDTH(TDATA_WIDTH),
+    AxiFifoArbiter #(.TDATA_WIDTH(CROPPED_TDATA_WIDTH),
                      .TUSER_WIDTH(TUSER_WIDTH),
                      .NUM_QUEUES(NUM_QUEUES), 
                      .QUEUE_ID_WIDTH(QUEUE_ID_WIDTH)) 
@@ -404,7 +408,7 @@ module nf10_sram_fifo
                           .dout_valid(mem_dout_valid)
                        );
 
-    FifoMem       #(.TDATA_WIDTH(TDATA_WIDTH),
+    FifoMem       #(.TDATA_WIDTH(CROPPED_TDATA_WIDTH),
                     .TUSER_WIDTH(TUSER_WIDTH),
                     .NUM_QUEUES(NUM_QUEUES), 
                     .QUEUE_ID_WIDTH(QUEUE_ID_WIDTH),
@@ -452,7 +456,7 @@ module nf10_sram_fifo
                 .ADDR_WIDTH(MEM_ADDR_WIDTH),
                 .BURST_LENGTH(4),
                 .BW_WIDTH(MEM_BW_WIDTH),
-                .CLK_PERIOD(5000),
+                .CLK_PERIOD(4000),
                 //.CLK_FREQ(160),
                 .CLK_WIDTH(MEM_CLK_WIDTH),
                 .CQ_WIDTH(MEM_CQ_WIDTH),
@@ -607,7 +611,7 @@ module nf10_sram_fifo
     );
 
 
-    FifoAxiArbiter #(.TDATA_WIDTH(TDATA_WIDTH),
+    FifoAxiArbiter #(.TDATA_WIDTH(CROPPED_TDATA_WIDTH),
                      .TUSER_WIDTH(TUSER_WIDTH),
                      .NUM_QUEUES(NUM_QUEUES), 
                      .QUEUE_ID_WIDTH(QUEUE_ID_WIDTH)) 

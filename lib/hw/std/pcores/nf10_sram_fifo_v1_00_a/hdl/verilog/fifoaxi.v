@@ -51,6 +51,7 @@ module FifoToAxi
   parameter integer TID_WIDTH          = 4, 
                     // Width of AXI data bus in bytes
   parameter integer TDATA_WIDTH        = 32,
+  parameter integer CROPPED_TDATA_WIDTH = 24,
                     // Width of TUSER in bits
   parameter integer TUSER_WIDTH        = 64,
 
@@ -63,10 +64,10 @@ module FifoToAxi
     input                            reset,
     output reg                       tvalid,
     input                            tready,
-    output [((8*TDATA_WIDTH) - 1):0] tdata,
+    output reg [((8*TDATA_WIDTH) - 1):0] tdata,
     output reg [(TDATA_WIDTH-1):0]       tstrb,
     output reg [(TDATA_WIDTH-1):0]       tkeep,
-    output                           tlast,
+    output reg                       tlast,
     output reg [(TID_WIDTH-1):0]     tid,
     output reg [(TDEST_WIDTH-1):0]   tdest,
     output [(TUSER_WIDTH-1):0]       tuser,
@@ -85,6 +86,7 @@ wire rempty, r_almost_empty;
 reg winc;
 wire rvalid;
 reg [31:0] next_output_fifo_cnt;
+reg reassembly_dout_valid;
 
 always @(posedge clk)
 begin
@@ -108,7 +110,7 @@ begin
     tkeep = {(TDATA_WIDTH){1'b1}};
     next_output_fifo_cnt = output_fifo_cnt;
 
-    if(~rempty)
+    if(reassembly_dout_valid)
     begin
         tvalid = 1'b1;
         if(tready)
@@ -128,7 +130,54 @@ end
 
 assign tuser = 0;
 
-async_fifo fifo(reset, memclk, clk, din, din_valid, rinc, {tdata,tlast}, wfull, ,rempty,r_almost_empty,rvalid, w_almost_full);
+wire [(8*CROPPED_TDATA_WIDTH+3):0] fifo_data;
+reg [(8*CROPPED_TDATA_WIDTH+3):0] prev_fifo_data;
+wire [1:0] packing_state;
+
+always @(posedge clk)
+begin
+    if(reset)
+    begin
+        prev_fifo_data <= {(8*CROPPED_TDATA_WIDTH+4){1'b0}};
+    end
+    else
+    begin
+        if(rinc  || (~rempty && (fifo_data[3:2] == 2'b0)))
+            prev_fifo_data <= fifo_data;
+        else
+            prev_fifo_data <= prev_fifo_data;
+    end
+end
+
+always @(*)
+begin
+    reassembly_dout_valid = prev_fifo_data[0] && ~rempty && (fifo_data[3:2] != 2'b0);
+    case(fifo_data[3:2])
+        default:
+        begin
+            tdata = 0;
+            tlast = 0;
+        end
+        1: 
+        begin
+            tdata = {fifo_data[67:4], prev_fifo_data[195:4]};
+            tlast = prev_fifo_data[1]; 
+        end 
+	2:
+        begin
+            tdata = {fifo_data[131:4], prev_fifo_data[195:68]};
+            tlast = prev_fifo_data[1]; 
+        end
+	3: 
+        begin
+            tdata = {fifo_data[195:4], prev_fifo_data[195:132]};
+            tlast = prev_fifo_data[1];
+        end
+    endcase	
+end
+
+
+async_fifo fifo(reset, memclk, clk, din, din_valid, rinc || (~rempty && (fifo_data[3:2] == 2'b0)), fifo_data, wfull, ,rempty,r_almost_empty,rvalid, w_almost_full);
 
 
 endmodule

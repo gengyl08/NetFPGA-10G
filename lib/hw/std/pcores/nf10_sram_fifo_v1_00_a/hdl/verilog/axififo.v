@@ -51,6 +51,8 @@ module AxiToFifo
   parameter integer TID_WIDTH          = 4, 
                     // Width of AXI data bus in bytes
   parameter integer TDATA_WIDTH        = 32,
+  parameter integer CROPPED_TDATA_WIDTH = 24,
+
                     // Width of TUSER in bits
   parameter integer TUSER_WIDTH        = 128,
 
@@ -92,6 +94,8 @@ reg [(QUEUE_ID_WIDTH-1):0]        latched_queue_id;
 reg [(QUEUE_ID_WIDTH-1):0]        next_latched_queue_id;
 reg [(MEM_ADDR_WIDTH-1):0]        mem_usage;
 reg [(MEM_ADDR_WIDTH-1):0]        next_mem_usage;
+reg [(MEM_ADDR_WIDTH-1):0]        prev_mem_usage;
+
 reg mem_full;
 reg next_packet_start;
 reg packet_start;
@@ -106,12 +110,14 @@ begin
     if(reset)
     begin
         mem_usage <= QUEUE_SIZE-1;
+        prev_mem_usage <= QUEUE_SIZE-1;
         packet_start <= 1'b1;
         allow_packet <= 1'b0;
     end
     else
     begin 
         mem_usage <= next_mem_usage;
+        prev_mem_usage <= mem_usage;
         packet_start <= next_packet_start;  
         allow_packet <= next_allow_packet; 
     end
@@ -139,6 +145,7 @@ begin
         //dout_valid <= next_dout_valid;
     end
 end
+reg [1:0] packing_state;
 
 always @(*)
 begin
@@ -149,7 +156,7 @@ begin
     next_input_fifo_cnt = input_fifo_cnt;
     next_allow_packet = allow_packet;
 
-    if(~wfull && cal_done)
+    if(~w_almost_full && cal_done && (packing_state != 2'd3))
     begin
         tready = 1'b1;
         if(tvalid)
@@ -166,7 +173,7 @@ begin
             if(packet_start)
             begin
                 // Round up by 1 for safety (thus the > rather than >=)
-                if(mem_usage > (tuser[15:MEM_WORD_BYTES_LOG2]))
+                if(prev_mem_usage > (tuser[15:MEM_WORD_BYTES_LOG2]))
                 begin
                     winc = 1'b1;
                     next_allow_packet = 1'b1;
@@ -193,8 +200,78 @@ begin
 end*/
 
 //small_async_fifo #(.DSIZE(8*TDATA_WIDTH + TUSER_WIDTH + 1),.ASIZE(5),.ALMOST_FULL_SIZE(30),.ALMOST_EMPTY_SIZE(1)) fifo(wfull,w_almost_full,{tdata, tuser, tlast},winc,clk,~reset,dout,rempty,r_almost_empty,rinc,memclk,~memreset);
+//
 
-async_fifo fifo(reset, clk, memclk, {tdata, tlast}, winc, rinc, dout, wfull, w_almost_full,rempty,r_almost_empty,dout_valid);
+// tdata0[191:0]
+// tdata1[128:0], tdata0[255:192]
+// tdata2[63:0], tdata1[255:129]
+// tdata2[255:64]
+// if tlast send last chunk of tdata with nothing else UNLESS there's
+// something on the next cycle
+// include 2-bit packet type ID for reassembly
+
+reg [195:0] next_fifo_data;
+reg [195:0] fifo_data;
+reg [(8*TDATA_WIDTH-1):0] prev_tdata;
+reg [1:0] next_packing_state;
+reg prev_tlast;
+reg winc_fifo, next_winc_fifo;
+
+always @(posedge clk)
+begin
+    if(reset)
+    begin
+        prev_tdata <= {(8*TDATA_WIDTH){1'b0}};
+        packing_state <= 2'b0;
+        prev_tlast <= 1'b0;
+	fifo_data <= 0;
+	winc_fifo <= 0;
+    end
+    else
+    begin
+        if(winc)
+        begin
+            prev_tdata <= tdata;
+            prev_tlast <= tlast;
+        end
+        else
+        begin
+            prev_tdata <= prev_tdata;
+            prev_tlast <= prev_tlast;
+        end
+        packing_state <= next_packing_state;
+	fifo_data <= next_fifo_data;
+	winc_fifo <= next_winc_fifo;
+    end
+end
+
+
+always @(*)
+begin
+    case(packing_state)
+        0: next_fifo_data = {tdata[191:0], packing_state, tlast, winc /*formerly 1'b1*/};
+	1: next_fifo_data = {tdata[127:0], prev_tdata[255:192], packing_state, tlast, winc};
+	2: next_fifo_data = {tdata[63:0], prev_tdata[255:128], packing_state, tlast, winc};
+	3: next_fifo_data = {prev_tdata[255:64], packing_state, 1'b0, winc};
+    endcase
+    
+    next_winc_fifo = 1'b0;	
+
+    if(winc || (packing_state == 2'd3))
+    begin
+        next_packing_state = packing_state + 2'b1;
+        next_winc_fifo = 1'b1;
+    end
+    else if(prev_tlast && ((packing_state == 2'd1) || (packing_state == 2'd2)))
+    begin
+	next_packing_state = 2'd0;
+        next_winc_fifo = 1'b1;
+    end
+    else
+        next_packing_state = packing_state;
+end
+
+async_fifo fifo(reset, clk, memclk, fifo_data, winc_fifo, rinc, dout, wfull, w_almost_full,rempty,r_almost_empty,dout_valid);
 
 
 endmodule

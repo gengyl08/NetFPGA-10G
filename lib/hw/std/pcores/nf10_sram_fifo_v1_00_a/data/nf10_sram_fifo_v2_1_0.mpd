@@ -28,10 +28,10 @@ BUS_INTERFACE BUS=s_axis_3, BUS_STD=AXIS, BUS_TYPE=TARGET
 
 ## Parameters
 PARAMETER C_S_AXIS_PROTOCOL = GENERIC, DT = string, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = s_axis_3:s_axis_2:s_axis_1:s_axis_0
-PARAMETER C_S_AXIS_tdata_WIDTH = 64, DT = integer, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = s_axis_3:s_axis_2:s_axis_1:s_axis_0
+PARAMETER C_S_AXIS_DATA_WIDTH = 256, DT = integer, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = s_axis_3:s_axis_2:s_axis_1:s_axis_0
 PARAMETER C_S_AXIS_TUSER_WIDTH = 128, DT = integer, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = s_axis_3:s_axis_2:s_axis_1:s_axis_0
 PARAMETER C_M_AXIS_PROTOCOL = GENERIC, DT = string, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = m_axis_3:m_axis_2:m_axis_1:m_axis_0
-PARAMETER C_M_AXIS_tdata_WIDTH = 64, DT = integer, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = m_axis_3:m_axis_2:m_axis_1:m_axis_0
+PARAMETER C_M_AXIS_DATA_WIDTH = 256, DT = integer, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = m_axis_3:m_axis_2:m_axis_1:m_axis_0
 PARAMETER C_M_AXIS_TUSER_WIDTH = 128, DT = integer, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, BUS = m_axis_3:m_axis_2:m_axis_1:m_axis_0
 
 ## Peripheral ports
@@ -87,52 +87,56 @@ PORT masterbank_sel_pin = "", DIR = I, ASSIGNMENT = REQUIRE,  IO_IF = memory_0, 
 PORT aresetn = "", DIR=I, ASSIGNMENT = REQUIRE, DIR = I, SIGIS = RST
 
 PORT s_axis_0_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=O, BUS=s_axis_0
-PORT s_axis_0_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[63:0], BUS=s_axis_0
+PORT s_axis_0_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[255:0], BUS=s_axis_0
 PORT s_axis_0_tuser = TUSER, ASSIGNMENT = REQUIRE, DIR=I, VEC=[127:0], BUS=s_axis_0
 PORT s_axis_0_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_0
 PORT s_axis_0_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_0
+PORT s_axis_0_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=I, VEC=[31:0], BUS=s_axis_0
 PORT m_axis_0_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_0
-PORT m_axis_0_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[63:0], BUS=m_axis_0
+PORT m_axis_0_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[255:0], BUS=m_axis_0
 PORT m_axis_0_tuser = TUSER, ASSIGNMENT = REQUIRE, DIR=O, VEC=[127:0], BUS=m_axis_0
 PORT m_axis_0_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_0
 PORT m_axis_0_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=I, BUS=m_axis_0
-PORT m_axis_0_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[7:0], BUS=m_axis_0
+PORT m_axis_0_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[31:0], BUS=m_axis_0
 
 PORT s_axis_1_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=O, BUS=s_axis_1
-PORT s_axis_1_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[63:0], BUS=s_axis_1
+PORT s_axis_1_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[255:0], BUS=s_axis_1
 PORT s_axis_1_tuser = TUSER, ASSIGNMENT = REQUIRE, DIR=I, VEC=[127:0], BUS=s_axis_1
 PORT s_axis_1_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_1
 PORT s_axis_1_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_1
+PORT s_axis_1_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=I, VEC=[31:0], BUS=s_axis_1
 PORT m_axis_1_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_1
-PORT m_axis_1_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[63:0], BUS=m_axis_1
+PORT m_axis_1_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[255:0], BUS=m_axis_1
 PORT m_axis_1_tuser = TUSER, ASSIGNMENT = REQUIRE, DIR=O, VEC=[127:0], BUS=m_axis_1
 PORT m_axis_1_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_1
 PORT m_axis_1_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=I, BUS=m_axis_1
-PORT m_axis_1_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[7:0], BUS=m_axis_1
+PORT m_axis_1_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[31:0], BUS=m_axis_1
 
 PORT s_axis_2_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=O, BUS=s_axis_2
-PORT s_axis_2_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[63:0], BUS=s_axis_2
+PORT s_axis_2_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[255:0], BUS=s_axis_2
 PORT s_axis_2_tuser = TUSER, ASSIGNMENT = REQUIRE, DIR=I, VEC=[127:0], BUS=s_axis_2
 PORT s_axis_2_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_2
 PORT s_axis_2_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_2
+PORT s_axis_2_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=I, VEC=[31:0], BUS=s_axis_2
 PORT m_axis_2_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_2
-PORT m_axis_2_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[63:0], BUS=m_axis_2
+PORT m_axis_2_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[255:0], BUS=m_axis_2
 PORT m_axis_2_tuser = TUSER, ASSIGNMENT = REQUIRE, DIR=O, VEC=[127:0], BUS=m_axis_2
 PORT m_axis_2_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_2
 PORT m_axis_2_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=I, BUS=m_axis_2
-PORT m_axis_2_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[7:0], BUS=m_axis_2
+PORT m_axis_2_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[31:0], BUS=m_axis_2
 
 PORT s_axis_3_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=O, BUS=s_axis_3
-PORT s_axis_3_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[63:0], BUS=s_axis_3
+PORT s_axis_3_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=I, VEC=[255:0], BUS=s_axis_3
 PORT s_axis_3_tuser = TUSER, ASSIGNMENT = REQUIRE, DIR=I, VEC=[127:0], BUS=s_axis_3
 PORT s_axis_3_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_3
 PORT s_axis_3_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=I, BUS=s_axis_3
+PORT s_axis_3_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=I, VEC=[31:0], BUS=s_axis_3
 PORT m_axis_3_tvalid = TVALID, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_3
-PORT m_axis_3_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[63:0], BUS=m_axis_3
+PORT m_axis_3_tdata = TDATA, ASSIGNMENT = REQUIRE, DIR=O, VEC=[255:0], BUS=m_axis_3
 PORT m_axis_3_tuser = TUSER, ASSIGNMENT = REQUIRE, DIR=O, VEC=[127:0], BUS=m_axis_3
 PORT m_axis_3_tlast = TLAST, ASSIGNMENT = REQUIRE, DIR=O, BUS=m_axis_3
 PORT m_axis_3_tready = TREADY, ASSIGNMENT = REQUIRE, DIR=I, BUS=m_axis_3
-PORT m_axis_3_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[7:0], BUS=m_axis_3
+PORT m_axis_3_tstrb = TSTRB, ASSIGNMENT = REQUIRE, DIR=O, VEC=[31:0], BUS=m_axis_3
 
 
 
