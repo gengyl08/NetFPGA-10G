@@ -82,7 +82,7 @@ module AxiToFifo
     output                          rempty,
     output                          r_almost_empty,
     output                          dout_valid,
-    output [((8*TDATA_WIDTH+1)-1):0]  dout,
+    output [((8*CROPPED_TDATA_WIDTH+4)-1):0]  dout,
     input                           cal_done,
     input                           output_inc,
     output reg [31:0] input_fifo_cnt

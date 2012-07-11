@@ -74,7 +74,7 @@ module FifoToAxi
     input                            memclk,
     input                            memreset,
     input                            din_valid,
-    input [((8*TDATA_WIDTH+1)-1):0]    din,
+    input [((8*TDATA_WIDTH+4)-1):0]    din,
     output                           w_almost_full,
     output                           wfull,
     input                            cal_done,

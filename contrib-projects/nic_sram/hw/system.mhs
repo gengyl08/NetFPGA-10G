@@ -324,6 +324,7 @@ BEGIN nf10_10g_interface
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
  PARAMETER C_S_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE M_AXIS = nf10_10g_interface_1_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_sram_fifo_0_m_axis_1
  PORT dclk = control_clk
  PORT xaui_tx_l3_n = nf10_10g_interface_1_xaui_tx_l3_n
  PORT xaui_tx_l1_n = nf10_10g_interface_1_xaui_tx_l1_n
@@ -488,7 +489,7 @@ BEGIN nf10_bram_output_queues
  BUS_INTERFACE M_AXIS_2 = nf10_bram_output_queues_0_M_AXIS_2
  BUS_INTERFACE M_AXIS_3 = nf10_bram_output_queues_0_M_AXIS_3
  BUS_INTERFACE M_AXIS_4 = nf10_bram_output_queues_0_M_AXIS_4
- BUS_INTERFACE S_AXIS = nf10_sram_fifo_0_m_axis_1
+ BUS_INTERFACE S_AXIS = nf10_nic_output_port_lookup_0_M_AXIS
  PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
 END
@@ -499,6 +500,7 @@ BEGIN nf10_nic_output_port_lookup
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
  PARAMETER C_S_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE S_AXIS = nf10_input_arbiter_0_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_nic_output_port_lookup_0_M_AXIS
  PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
 END
@@ -629,6 +631,8 @@ BEGIN nf10_axis_converter
  PARAMETER C_M_AXIS_DATA_WIDTH = 64
  BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_4
  BUS_INTERFACE M_AXIS = nf10_axis_converter_dma_slave_M_AXIS
+ PORT axi_aclk = core_clk
+ PORT axi_resetn = Peripheral_aresetn
 END
 
 BEGIN nf10_axis_converter

@@ -66,14 +66,14 @@ module FifoMem
     input  [(QUEUE_ID_WIDTH-1):0]   read_queue_id,
     output reg [(QUEUE_ID_WIDTH-1):0]  read_data_queue_id,
     input                          read_data_ready,
-    output reg [((8*TDATA_WIDTH+1)-1):0]  read_data,
+    output reg [((8*TDATA_WIDTH+4)-1):0]  read_data,
     output                         read_data_valid,
     output reg [(NUM_QUEUES-1):0]  read_empty,
     output reg                     read_burst_state,
 
 
     input [(QUEUE_ID_WIDTH-1):0]   write_queue_id,
-    input [((8*TDATA_WIDTH+1)-1):0]  write_data,
+    input [((8*TDATA_WIDTH+4)-1):0]  write_data,
     input                          write_data_valid,
     output reg [(NUM_QUEUES-1):0]  write_full,
     output reg                     next_write_burst_state,
@@ -235,12 +235,12 @@ begin
     dout_ready = 1'b0;
     next_dout_addr = {(MEM_ADDR_WIDTH){1'b0}};
     next_din_addr = {(MEM_ADDR_WIDTH){1'b0}};
-    read_data = din_merged[((8*TDATA_WIDTH+1)-1):0];
-    read_data_queue_id = din_merged[((8*TDATA_WIDTH+1+QUEUE_ID_WIDTH)-1):(8*TDATA_WIDTH+1)];
-    next_dout[((8*TDATA_WIDTH+1)-1):0] = write_data;
-    next_dout[((8*TDATA_WIDTH+1+QUEUE_ID_WIDTH)-1):(8*TDATA_WIDTH+1)] = write_queue_id;
-    next_dout[8*TDATA_WIDTH+1+QUEUE_ID_WIDTH] = write_data_valid;
-    read_mem_word_valid = din_merged[8*TDATA_WIDTH+1+QUEUE_ID_WIDTH];
+    read_data = din_merged[((8*TDATA_WIDTH+4)-1):0];
+    read_data_queue_id = din_merged[((8*TDATA_WIDTH+4+QUEUE_ID_WIDTH)-1):(8*TDATA_WIDTH+4)];
+    next_dout[((8*TDATA_WIDTH+4)-1):0] = write_data;
+    next_dout[((8*TDATA_WIDTH+4+QUEUE_ID_WIDTH)-1):(8*TDATA_WIDTH+4)] = write_queue_id;
+    next_dout[8*TDATA_WIDTH+4+QUEUE_ID_WIDTH] = write_data_valid;
+    read_mem_word_valid = din_merged[8*TDATA_WIDTH+4+QUEUE_ID_WIDTH];
 
     next_read_data_valid = 1'b0;
     
