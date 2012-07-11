@@ -9,7 +9,7 @@
  *        stdio.h, stdlib.h, string.h ctype.h
  *
  *  Project:
- *        configuration
+ *        flash_configuration
  *
  *  Author:
  *        Muhammad Shahbaz
@@ -38,15 +38,13 @@
  *
  */
 
-#include <netlink/netlink.h>
-#include "nf10_reg_lib.h"
-#include "nf10_flash_lib.h"
+#include "reg_lib.h"
+#include "emc_flash_lib.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
-
 
 int main (int argc, char **argv)
 {
@@ -92,7 +90,7 @@ int main (int argc, char **argv)
 		if (bit_file != NULL)
 		{
 			if (flash_id != NULL)
-				Flash_Prog(bit_file, *flash_id);
+				prog_flash((int)NULL, bit_file, *flash_id);
 			else
 				fprintf (stderr, "Target flash not specified.\nUse -f <flash id> option e.g. -f b.\r\n", optopt);
 		}
@@ -100,7 +98,8 @@ int main (int argc, char **argv)
 		// Reconfig FPGA from flash B (active low)
 		if (init_fpga == 1)
 		{
-			nf10_reg_wr(CFG_BASE_ADDR, 0x0);
+			reg_wr((int)NULL, CFG_BASE_ADDR, 0x0);
+			//printf ("%x", nf10_reg_rd(dev, CFG_BASE_ADDR));
 			printf ("FPGA re-initialized with flash 'b' image.\r\n");
 		}
 
