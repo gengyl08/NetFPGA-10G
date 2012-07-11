@@ -3,7 +3,7 @@
  *  NetFPGA-10G http://www.netfpga.org
  *
  *  File:
- *        nf10_flash_lib.h
+ *        emc_flash_lib.h
  *
  *  Project:
  *        flash_configuration
@@ -35,8 +35,12 @@
  *
  */
 
-#ifndef _FLASH_LIB_H_
-#define _FLASH_LIB_H_
+#ifndef _EMC_FLASH_LIB_H_
+#define _EMC_FLASH_LIB_H_
+
+#include "xparameters.h"
+
+#define XFL_ELEC_SIG		0x49
 
 #define	XFL_CONFIG_BASE_ADDR_A 	0x00000000
 #define	XFL_CONFIG_BASE_ADDR_B 	0x00800000
@@ -61,26 +65,26 @@ enum {
 };
 
 enum {
-	XFL_BASE_ADDR = 0x80000000,
-	CFG_BASE_ADDR = 0x40000000,
+	XFL_BASE_ADDR = XPAR_AXI_EMC_0_S_AXI_MEM0_BASEADDR,
+	CFG_BASE_ADDR = XPAR_AXI_CFG_FPGA_0_BASEADDR,
 };
 
 /*************************************************************
   Function prototypes
  *************************************************************/
-void Flash_Prog(char* bin_file, char flash_id);
-void Flash_Wr_Binfile_B(int dev, unsigned int base_addr, FILE* file);
-void Unlock_Single_Block(int dev, unsigned int addr);
-unsigned int Erase_Single_Block(int dev, unsigned int addr);
-void Lock_Single_Block(int dev, unsigned int addr);
-unsigned int Wr_Data_B(int dev, unsigned int addr, char data);
-unsigned int Rd_Elec_Sig(int dev, unsigned int addr);
-void Clr_Status_Reg(int dev, unsigned int addr);
-void Set_Read_Array_Mode(int dev, unsigned int addr);
-unsigned int Flash_Wt_Rdy(int dev, unsigned int addr);
-char Rd_Cmd(int dev, unsigned int addr, char cmd_code);
-void Wr_Cmd(int dev, unsigned int addr, char cmd_code);
-void Wr_Byte(int dev, unsigned int addr, char data);
-char Rd_Byte(int dev, unsigned int addr);
+void prog_flash(int dev, char* bin_file, char flash_id);
+void flash_wr_binfile_B(int dev, unsigned int base_addr, FILE* file);
+void unlock_single_block(int dev, unsigned int addr);
+unsigned int erase_single_block(int dev, unsigned int addr);
+void lock_single_block(int dev, unsigned int addr);
+unsigned int wr_data_B(int dev, unsigned int addr, char data);
+unsigned int rd_elec_sig(int dev, unsigned int addr);
+void clr_status_reg(int dev, unsigned int addr);
+void set_read_array_mode(int dev, unsigned int addr);
+unsigned int flash_wt_rdy(int dev, unsigned int addr);
+char rd_cmd(int dev, unsigned int addr, char cmd_code);
+void wr_cmd(int dev, unsigned int addr, char cmd_code);
+void wr_byte(int dev, unsigned int addr, char data);
+char rd_byte(int dev, unsigned int addr);
 
 #endif

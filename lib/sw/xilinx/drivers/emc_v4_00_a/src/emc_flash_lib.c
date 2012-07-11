@@ -3,7 +3,7 @@
  *  NetFPGA-10G http://www.netfpga.org
  *
  *  File:
- *        nf10_flash_lib.c
+ *        emc_flash_lib.c
  *
  *  Project:
  *        flash_configuration
@@ -35,8 +35,8 @@
  *
  */
 
-#include "nf10_reg_lib.h"
-#include "nf10_flash_lib.h"
+#include "reg_lib.h"
+#include "emc_flash_lib.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -45,19 +45,15 @@
   Function body
  *************************************************************/
 
-void Flash_Prog(char* bin_file, char flash_id)
+void prog_flash(int dev, char* bin_file, char flash_id)
 {
-        int dev;
 	FILE *file;
 	unsigned int addr;
 	unsigned int base_addr;
 	unsigned int elec_sig = 0;
 	int i;
 
-
-        //Open dev_file
-        dev = nf10_dev_open();
-	//Open bin_file
+	// Open bin_file
 	file = fopen(bin_file, "rb");
 	if (!file)
 	{
@@ -65,7 +61,7 @@ void Flash_Prog(char* bin_file, char flash_id)
 		return;
 	}
 
-	//Select flash
+	// Select flash
 	if (flash_id == 'a' || flash_id == 'A')
 		base_addr = XFL_CONFIG_BASE_ADDR_A;
 	else if (flash_id == 'b' || flash_id == 'B')
@@ -76,20 +72,20 @@ void Flash_Prog(char* bin_file, char flash_id)
 		return;
 	}
 
-	Clr_Status_Reg(dev, base_addr);
+	clr_status_reg(dev, base_addr);
 
 	printf("Flash image: %s\r\n", bin_file);
 
-	elec_sig = Rd_Elec_Sig(dev, base_addr);
+	elec_sig = rd_elec_sig(dev, base_addr);
 	printf("Manufacturer ID: %x\r\n", elec_sig);
 
-	if (elec_sig != 0x49)
+	if (elec_sig != XFL_ELEC_SIG)
 	{
 		fprintf(stderr, "Invalid electronic signature! Please verify that the CPLD is configured properly.\r\n");
 		return;
 	}
 
-	Clr_Status_Reg(dev, base_addr);
+	clr_status_reg(dev, base_addr);
 
 	printf("Programming flash '%c'.\r\n", flash_id);
 	printf("[", flash_id);
@@ -98,34 +94,32 @@ void Flash_Prog(char* bin_file, char flash_id)
 	{
 		addr = base_addr + (XFL_CONFIG_BLOCK_SIZE * i);
 		printf("."); fflush(stdout);
-		Unlock_Single_Block(dev, addr);
-		Erase_Single_Block(dev, addr);
+		unlock_single_block(dev, addr);
+		erase_single_block(dev, addr);
 	}
 
-	Clr_Status_Reg(dev, base_addr);
+	clr_status_reg(dev, base_addr);
 
-	Flash_Wr_Binfile_B(dev, base_addr, file);
+	flash_wr_binfile_B(dev, base_addr, file);
 
 	printf("]\r\n", flash_id);
 	
-        //Close bin_file
+        // Close bin_file
         fclose(file);
-        //Close dev_file
-        close(dev);
 }
 
-void Flash_Wr_Binfile_B(int dev, unsigned int base_addr, FILE* file)
+void flash_wr_binfile_B(int dev, unsigned int base_addr, FILE* file)
 {
 	char *buffer;
 	unsigned long fileLen;
 	int i;
 
-	//Get file length
+	// Get file length
 	fseek(file, 0, SEEK_END);
 	fileLen=ftell(file);
 	fseek(file, 0, SEEK_SET);
 
-	//Allocate memory
+	// Allocate memory
 	buffer=(char *)malloc(fileLen+1);
 	if (!buffer)
 	{
@@ -134,13 +128,13 @@ void Flash_Wr_Binfile_B(int dev, unsigned int base_addr, FILE* file)
 		return;
 	}
 
-	//Read file contents into buffer
+	// Read file contents into buffer
 	fread(buffer, fileLen, 1, file);
 
 	// Program Flash
 	for (i = 0; i < fileLen; i++)
 	{
-		if (Wr_Data_B(dev, (base_addr + i), buffer[i]) != 0)
+		if (wr_data_B(dev, (base_addr + i), buffer[i]) != 0)
 		{
 			printf("Writing flash image failed!\r\n");
 			return;
@@ -155,105 +149,105 @@ void Flash_Wr_Binfile_B(int dev, unsigned int base_addr, FILE* file)
 	free(buffer);
 }
 
-void Unlock_Single_Block(int dev, unsigned int addr)
+void unlock_single_block(int dev, unsigned int addr)
 {
 	char status;
 
 	do
 	{
-		Wr_Cmd(dev, addr, XFL_CMD_BLOCK_LOCK_SETUP);
-		Wr_Cmd(dev, addr, XFL_CMD_CONFIRM);
-		status = Rd_Cmd(dev, addr + 2, XFL_CMD_READ_ELEC_SIG);
+		wr_cmd(dev, addr, XFL_CMD_BLOCK_LOCK_SETUP);
+		wr_cmd(dev, addr, XFL_CMD_CONFIRM);
+		status = rd_cmd(dev, addr + 2, XFL_CMD_READ_ELEC_SIG);
 	}
 	while (status == 1);
 }
 
-unsigned int Erase_Single_Block(int dev, unsigned int addr)
+unsigned int erase_single_block(int dev, unsigned int addr)
 {
-	Wr_Cmd(dev, addr, XFL_CMD_BLOCK_ERASE_SETUP);
-	Wr_Cmd(dev, addr, XFL_CMD_CONFIRM);
+	wr_cmd(dev, addr, XFL_CMD_BLOCK_ERASE_SETUP);
+	wr_cmd(dev, addr, XFL_CMD_CONFIRM);
 
-	return Flash_Wt_Rdy(dev, addr);
+	return flash_wt_rdy(dev, addr);
 }
 
-void Lock_Single_Block(int dev, unsigned int addr)
+void lock_single_block(int dev, unsigned int addr)
 {
 	char status;
 
 	do
 	{
-		Wr_Cmd(dev, addr, XFL_CMD_BLOCK_LOCK_SETUP);
-		Wr_Cmd(dev, addr, XFL_CMD_BLOCK_LOCK_CONFIRM);
-		status = Rd_Cmd(dev, addr + 2, XFL_CMD_READ_ELEC_SIG);
+		wr_cmd(dev, addr, XFL_CMD_BLOCK_LOCK_SETUP);
+		wr_cmd(dev, addr, XFL_CMD_BLOCK_LOCK_CONFIRM);
+		status = rd_cmd(dev, addr + 2, XFL_CMD_READ_ELEC_SIG);
 	}
 	while (status == 0);
 }
 
-unsigned int Wr_Data_B(int dev, unsigned int addr, char data)
+unsigned int wr_data_B(int dev, unsigned int addr, char data)
 {
-	Wr_Cmd(dev, addr, XFL_CMD_PROGRAM_SETUP);
-	Wr_Byte(dev, addr, data);
+	wr_cmd(dev, addr, XFL_CMD_PROGRAM_SETUP);
+	wr_byte(dev, addr, data);
 
-	return Flash_Wt_Rdy(dev, addr);
+	return flash_wt_rdy(dev, addr);
 }
 
-unsigned int Rd_Elec_Sig(int dev, unsigned int addr)
+unsigned int rd_elec_sig(int dev, unsigned int addr)
 {
-	return Rd_Cmd(dev, addr, XFL_CMD_READ_ELEC_SIG);
+	return rd_cmd(dev, addr, XFL_CMD_READ_ELEC_SIG);
 }
 
-void Clr_Status_Reg(int dev, unsigned int addr)
+void clr_status_reg(int dev, unsigned int addr)
 {
 	char status;
 
-	Wr_Cmd(dev, addr, XFL_CMD_CLEAR_STATUS_REG);
+	wr_cmd(dev, addr, XFL_CMD_CLEAR_STATUS_REG);
 
 	do
 	{
-		status = Rd_Cmd(dev, addr, XFL_CMD_READ_STATUS_REG);
+		status = rd_cmd(dev, addr, XFL_CMD_READ_STATUS_REG);
 	}
 	while ((status & (char)XFL_STATUS_READY) != (char)XFL_STATUS_READY);
 }
 
-void Set_Read_Array_Mode(int dev, unsigned int addr)
+void set_read_array_mode(int dev, unsigned int addr)
 {
-	Wr_Cmd(dev, addr, XFL_CMD_READ_ARRAY);
+	wr_cmd(dev, addr, XFL_CMD_READ_ARRAY);
 }
 
-unsigned int Flash_Wt_Rdy(int dev, unsigned int addr)
+unsigned int flash_wt_rdy(int dev, unsigned int addr)
 {
 	char status;
 
 	// Query the device until its status indicates that it is ready
 	do
 	{
-		status = Rd_Cmd(dev, addr, XFL_CMD_READ_STATUS_REG);
+		status = rd_cmd(dev, addr, XFL_CMD_READ_STATUS_REG);
 	}
 	while (status != (char)XFL_STATUS_READY);
 
 	return 0;
 }
 
-char Rd_Cmd(int dev, unsigned int addr, char cmd_code)
+char rd_cmd(int dev, unsigned int addr, char cmd_code)
 {
-	Wr_Cmd(dev, addr, cmd_code);
-	return Rd_Byte(dev, addr);
+	wr_cmd(dev, addr, cmd_code);
+	return rd_byte(dev, addr);
 }
 
-void Wr_Cmd(int dev, unsigned int addr, char cmd_code)
+void wr_cmd(int dev, unsigned int addr, char cmd_code)
 {
-	Wr_Byte(dev, addr, cmd_code);
+	wr_byte(dev, addr, cmd_code);
 }
 
-void Wr_Byte(int dev, unsigned int addr, char data)
+void wr_byte(int dev, unsigned int addr, char data)
 {
-	nf10_reg_wr(dev, XFL_BASE_ADDR + (addr << 2), data & 0x000000FF);
+	reg_wr(dev, XFL_BASE_ADDR + (addr << 2), data & 0x000000FF);
 }
 
-char Rd_Byte(int dev, unsigned int addr)
+char rd_byte(int dev, unsigned int addr)
 {
 	unsigned int val;
-	val = nf10_reg_rd(dev, XFL_BASE_ADDR + (addr << 2));
+	val = reg_rd(dev, XFL_BASE_ADDR + (addr << 2));
 
     	return (char)(val & 0x000000FF);
 }
