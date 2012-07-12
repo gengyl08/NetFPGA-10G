@@ -42,3 +42,8 @@ To build the project, visit the following wiki and get information about it.
 https://github.com/NetFPGA/NetFPGA-10G-live/wiki/Projects
 
 and select the correspondent project.
+
+Note: OpenFlow Switch has a slightly different synthesis flow from other projects.
+Please make sure you read through the description on 
+
+https://github.com/NetFPGA/NetFPGA-10G-live/wiki/NetFPGA-10G-OpenFlow-Switch
