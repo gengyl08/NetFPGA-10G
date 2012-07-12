@@ -1,13 +1,9 @@
-SRC		= src
-BUILD		= build
-BIN		= bin
-ROOT		:= $(shell pwd)
-DATE		:= $(shell date +%Y%m%d_%H%M)
 
-all:
-	cp -r $(SRC)/ $(BUILD)/$(DATE)
-	$(MAKE) -C $(BUILD)/$(DATE)
-	cp $(BUILD)/$(DATE)/nf10_configure $(BIN)/
+all:	nf10_configure
+
+nf10_configure:
+	gcc -lnl -lnl-genl -lnf10reg nf10_configure.c ../include/libsrc/emc_v4_00_a/src/emc_flash_lib.c reg_lib.c -I . -I ../include/libsrc/emc_v4_00_a/src -I ../include -o nf10_configure
 
 clean:
-	rm -rf $(BUILD)/* $(BIN)/*
+	rm -rf nf10_configure
+

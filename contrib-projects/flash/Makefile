@@ -41,11 +41,13 @@
 
 SYSTEM = system
 HW = hw
+SW = sw/embedded/
 
 all:
-	$(MAKE) -C $(HW) init_bram
+	$(MAKE) -C $(HW) init_bram exporttosdk
 	mkdir -p bitfiles
 	cp $(HW)/implementation/download.bit bitfiles/
 
 clean:
 	$(MAKE) -C $(HW) clean
+	$(MAKE) -C $(SW) clean

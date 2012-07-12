@@ -45,8 +45,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
-#include <fcntl.h>
-#include <sys/ioctl.h>
 
 int main (int argc, char **argv)
 {
@@ -55,20 +53,11 @@ int main (int argc, char **argv)
 	int init_fpga = 0;
 	int c;
 	int index;
-	int dev = -1;
 
 	opterr = 0;
 
 	if (argc > 1)
 	{
-
-		// Open device handle
-		dev = open("/dev/nf10", O_RDWR);
-    		if(dev < 0){
-        		perror("/dev/nf10");
-        		return 0;
-    		}
-
 		while ((c = getopt (argc, argv, "b:f:i")) != -1)
 		{
 			switch (c)
@@ -101,7 +90,7 @@ int main (int argc, char **argv)
 		if (bit_file != NULL)
 		{
 			if (flash_id != NULL)
-				prog_flash(dev, bit_file, *flash_id);
+				prog_flash((int)NULL, bit_file, *flash_id);
 			else
 				fprintf (stderr, "Target flash not specified.\nUse -f <flash id> option e.g. -f b.\r\n", optopt);
 		}
@@ -109,16 +98,13 @@ int main (int argc, char **argv)
 		// Reconfig FPGA from flash B (active low)
 		if (init_fpga == 1)
 		{
-			reg_wr(dev, CFG_BASE_ADDR, 0x0);
+			reg_wr((int)NULL, CFG_BASE_ADDR, 0x0);
 			//printf ("%x", nf10_reg_rd(dev, CFG_BASE_ADDR));
 			printf ("FPGA re-initialized with flash 'b' image.\r\n");
 		}
 
 	       	for (index = optind; index < argc; index++)
 			printf ("Non-option argument %s\n", argv[index]);
-
-		// Close device handle
-		close(dev);
 	}
 	else
 	{
