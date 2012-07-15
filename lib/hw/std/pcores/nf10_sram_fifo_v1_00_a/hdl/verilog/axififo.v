@@ -82,7 +82,7 @@ module AxiToFifo
     output                          rempty,
     output                          r_almost_empty,
     output                          dout_valid,
-    output [((8*CROPPED_TDATA_WIDTH+4)-1):0]  dout,
+    output [((8*CROPPED_TDATA_WIDTH+9)-1):0]  dout,
     input                           cal_done,
     input                           output_inc,
     output reg [31:0] input_fifo_cnt
@@ -210,12 +210,20 @@ end*/
 // something on the next cycle
 // include 2-bit packet type ID for reassembly
 
-reg [195:0] next_fifo_data;
-reg [195:0] fifo_data;
+reg [200:0] next_fifo_data;
+reg [200:0] fifo_data;
 reg [(8*TDATA_WIDTH-1):0] prev_tdata;
 reg [1:0] next_packing_state;
 reg prev_tlast;
 reg winc_fifo, next_winc_fifo;
+wire [4:0] tstrb_count;
+reg [4:0] prev_tstrb_count;
+
+assign tstrb_count[4] = tstrb[16];
+assign tstrb_count[3] = (tstrb[8] && ~tstrb[16]) || tstrb[24];
+assign tstrb_count[2] = (tstrb[4] && ~tstrb[8]) || (tstrb[12] && ~tstrb[16]) || (tstrb[20] && ~tstrb[24]) || (tstrb[28]);
+assign tstrb_count[1] = (^{tstrb[2],tstrb[4],tstrb[6],tstrb[8],tstrb[10],tstrb[12],tstrb[14],tstrb[16],tstrb[18],tstrb[20],tstrb[22],tstrb[24],tstrb[26],tstrb[28],tstrb[30]});
+assign tstrb_count[0] = ~(^tstrb);
 
 always @(posedge clk)
 begin
@@ -226,6 +234,7 @@ begin
         prev_tlast <= 1'b0;
 	fifo_data <= 0;
 	winc_fifo <= 0;
+        prev_tstrb_count <= 0;
     end
     else
     begin
@@ -233,11 +242,13 @@ begin
         begin
             prev_tdata <= tdata;
             prev_tlast <= tlast;
+            prev_tstrb_count <= tstrb_count;
         end
         else
         begin
             prev_tdata <= prev_tdata;
             prev_tlast <= prev_tlast;
+            prev_tstrb_count <= prev_tstrb_count;
         end
         packing_state <= next_packing_state;
 	fifo_data <= next_fifo_data;
@@ -249,10 +260,10 @@ end
 always @(*)
 begin
     case(packing_state)
-        0: next_fifo_data = {tdata[191:0], packing_state, tlast, winc /*formerly 1'b1*/};
-	1: next_fifo_data = {tdata[127:0], prev_tdata[255:192], packing_state, tlast, winc};
-	2: next_fifo_data = {tdata[63:0], prev_tdata[255:128], packing_state, tlast, winc};
-	3: next_fifo_data = {prev_tdata[255:64], packing_state, 1'b0, winc};
+        0: next_fifo_data = {tdata[191:0], prev_tstrb_count, packing_state, tlast, winc /*formerly 1'b1*/};
+	1: next_fifo_data = {tdata[127:0], prev_tdata[255:192], prev_tstrb_count, packing_state, tlast, winc};
+	2: next_fifo_data = {tdata[63:0], prev_tdata[255:128], prev_tstrb_count, packing_state, tlast, winc};
+	3: next_fifo_data = {prev_tdata[255:64], prev_tstrb_count, packing_state, 1'b0, winc};
     endcase
     
     next_winc_fifo = 1'b0;	

@@ -55,10 +55,10 @@ module async_fifo(
 input rst;
 input wr_clk;
 input rd_clk;
-input [199 : 0] din;
+input [200 : 0] din;
 input wr_en;
 input rd_en;
-output [199 : 0] dout;
+output [200 : 0] dout;
 output full;
 output almost_full;
 output empty;
@@ -96,7 +96,7 @@ output prog_full;
     .C_COUNT_TYPE(0),
     .C_DATA_COUNT_WIDTH(5),
     .C_DEFAULT_VALUE("BlankString"),
-    .C_DIN_WIDTH(200),
+    .C_DIN_WIDTH(201),
     .C_DIN_WIDTH_AXIS(1),
     .C_DIN_WIDTH_RACH(32),
     .C_DIN_WIDTH_RDCH(64),
@@ -104,7 +104,7 @@ output prog_full;
     .C_DIN_WIDTH_WDCH(64),
     .C_DIN_WIDTH_WRCH(2),
     .C_DOUT_RST_VAL("0"),
-    .C_DOUT_WIDTH(200),
+    .C_DOUT_WIDTH(201),
     .C_ENABLE_RLOCS(0),
     .C_ENABLE_RST_SYNC(1),
     .C_ERROR_INJECTION_TYPE(0),

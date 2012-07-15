@@ -62,11 +62,11 @@ module FifoAxiArbiter
     input [NUM_QUEUES-1:0]          full,
     input                           read_burst,
     input                           din_valid,
-    input  [((8*TDATA_WIDTH+4)-1):0]  din,
+    input  [((8*TDATA_WIDTH+9)-1):0]  din,
     input [QUEUE_ID_WIDTH-1:0]          din_queue_id,
     input  [NUM_QUEUES-1:0]         mem_queue_empty,
     output reg [QUEUE_ID_WIDTH-1:0] queue_id,
-    output reg [((NUM_QUEUES*(8*TDATA_WIDTH+4))-1):0]  dout,
+    output reg [((NUM_QUEUES*(8*TDATA_WIDTH+9))-1):0]  dout,
     output reg [NUM_QUEUES-1:0]     dout_valid
 );
 
@@ -76,7 +76,7 @@ module FifoAxiArbiter
     reg [NUM_QUEUES-1:0] inc;
     wire [NUM_QUEUES-1:0] queues_ready;
     wire [NUM_QUEUES-1:0] queue_in_use;
-    reg [(((8*TDATA_WIDTH+4))-1):0] prev_din;
+    reg [(((8*TDATA_WIDTH+9))-1):0] prev_din;
     reg [NUM_QUEUES-1:0] next_dout_valid;
     reg [QUEUE_ID_WIDTH-1:0] prev_din_queue_id;
 
@@ -87,7 +87,7 @@ module FifoAxiArbiter
             queue_id <= {2'b00, 2'b00};
             prev_mem_queue_empty <= {(NUM_QUEUES){1'b1}};
             prev_inc <= {(NUM_QUEUES){1'b0}};
-            prev_din <= {((8*TDATA_WIDTH+4)){1'b0}};
+            prev_din <= {((8*TDATA_WIDTH+9)){1'b0}};
             dout_valid <= {(NUM_QUEUES){1'b0}};
             prev_din_queue_id <= {(QUEUE_ID_WIDTH){1'b0}};
         end
@@ -109,7 +109,7 @@ module FifoAxiArbiter
         inc = 4'b0;
         burst_inc = 4'b0;
         next_dout_valid = 4'b0;
-        dout = {(NUM_QUEUES*(8*TDATA_WIDTH+4)){1'b0}};
+        dout = {(NUM_QUEUES*(8*TDATA_WIDTH+9)){1'b0}};
         //next_inc = 4'b0;
         next_queue_id = queue_id;
 	
@@ -188,13 +188,13 @@ module FifoAxiArbiter
         
         case(prev_din_queue_id)
             0:
-                dout[((8*TDATA_WIDTH+4)*(1)-1):((8*TDATA_WIDTH+4)*0)] = prev_din;
+                dout[((8*TDATA_WIDTH+9)*(1)-1):((8*TDATA_WIDTH+9)*0)] = prev_din;
             1:
-                dout[((8*TDATA_WIDTH+4)*(2)-1):((8*TDATA_WIDTH+4)*1)] = prev_din;
+                dout[((8*TDATA_WIDTH+9)*(2)-1):((8*TDATA_WIDTH+9)*1)] = prev_din;
             2:
-                dout[((8*TDATA_WIDTH+4)*(3)-1):((8*TDATA_WIDTH+4)*2)] = prev_din;
+                dout[((8*TDATA_WIDTH+9)*(3)-1):((8*TDATA_WIDTH+9)*2)] = prev_din;
             3:
-                dout[((8*TDATA_WIDTH+4)*(4)-1):((8*TDATA_WIDTH+4)*3)] = prev_din;
+                dout[((8*TDATA_WIDTH+9)*(4)-1):((8*TDATA_WIDTH+9)*3)] = prev_din;
         endcase
         
     end

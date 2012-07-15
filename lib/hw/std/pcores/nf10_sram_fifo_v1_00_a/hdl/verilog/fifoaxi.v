@@ -65,7 +65,7 @@ module FifoToAxi
     output reg                       tvalid,
     input                            tready,
     output reg [((8*TDATA_WIDTH) - 1):0] tdata,
-    output reg [(TDATA_WIDTH-1):0]       tstrb,
+    output wire [(TDATA_WIDTH-1):0]       tstrb,
     output reg [(TDATA_WIDTH-1):0]       tkeep,
     output reg                       tlast,
     output reg [(TID_WIDTH-1):0]     tid,
@@ -74,7 +74,7 @@ module FifoToAxi
     input                            memclk,
     input                            memreset,
     input                            din_valid,
-    input [((8*TDATA_WIDTH+4)-1):0]    din,
+    input [((8*TDATA_WIDTH+9)-1):0]    din,
     output                           w_almost_full,
     output                           wfull,
     input                            cal_done,
@@ -106,7 +106,7 @@ begin
     tid = {(TID_WIDTH){1'b0}};
     tdest = {(TDEST_WIDTH){1'b0}};
     rinc = 1'b0;
-    tstrb = {(TDATA_WIDTH){1'b1}};
+    //tstrb = {(TDATA_WIDTH){1'b1}};
     tkeep = {(TDATA_WIDTH){1'b1}};
     next_output_fifo_cnt = output_fifo_cnt;
 
@@ -130,15 +130,17 @@ end
 
 assign tuser = 0;
 
-wire [(8*CROPPED_TDATA_WIDTH+3):0] fifo_data;
-reg [(8*CROPPED_TDATA_WIDTH+3):0] prev_fifo_data;
-wire [1:0] packing_state;
+wire [(8*CROPPED_TDATA_WIDTH+9-1):0] fifo_data;
+reg [(8*CROPPED_TDATA_WIDTH+9-1):0] prev_fifo_data;
+wire [1:0] packing_state = fifo_data[3:2];
+wire [4:0] tstrb_count = fifo_data[8:4];
+wire [TDATA_WIDTH-1:0] tstrb_onehot;
 
 always @(posedge clk)
 begin
     if(reset)
     begin
-        prev_fifo_data <= {(8*CROPPED_TDATA_WIDTH+4){1'b0}};
+        prev_fifo_data <= {(8*CROPPED_TDATA_WIDTH+9){1'b0}};
     end
     else
     begin
@@ -149,10 +151,14 @@ begin
     end
 end
 
+assign tstrb_onehot = (1<<tstrb_count);
+assign tstrb = tstrb_onehot | (tstrb>>1);
+
 always @(*)
 begin
-    reassembly_dout_valid = prev_fifo_data[0] && ~rempty && (fifo_data[3:2] != 2'b0);
-    case(fifo_data[3:2])
+    reassembly_dout_valid = prev_fifo_data[0] && ~rempty && (packing_state != 2'b0);
+    
+    case(packing_state)
         default:
         begin
             tdata = 0;
@@ -160,17 +166,17 @@ begin
         end
         1: 
         begin
-            tdata = {fifo_data[67:4], prev_fifo_data[195:4]};
+            tdata = {fifo_data[72:9], prev_fifo_data[200:9]};
             tlast = prev_fifo_data[1]; 
         end 
 	2:
         begin
-            tdata = {fifo_data[131:4], prev_fifo_data[195:68]};
+            tdata = {fifo_data[136:9], prev_fifo_data[200:73]};
             tlast = prev_fifo_data[1]; 
         end
 	3: 
         begin
-            tdata = {fifo_data[195:4], prev_fifo_data[195:132]};
+            tdata = {fifo_data[200:9], prev_fifo_data[200:137]};
             tlast = prev_fifo_data[1];
         end
     endcase	

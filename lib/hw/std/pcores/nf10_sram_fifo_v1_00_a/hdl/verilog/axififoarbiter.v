@@ -63,16 +63,16 @@ module AxiFifoArbiter
     input  [NUM_QUEUES-1:0]         empty,
     input                           write_burst,
     input  [NUM_QUEUES-1:0]         din_valid,
-    input  [(NUM_QUEUES*(8*TDATA_WIDTH+4)-1):0]  din,
+    input  [(NUM_QUEUES*(8*TDATA_WIDTH+9)-1):0]  din,
     input [NUM_QUEUES-1:0]         mem_queue_full,
     output reg [QUEUE_ID_WIDTH-1:0] queue_id,
-    output reg [((8*TDATA_WIDTH+4)-1):0]  dout,
+    output reg [((8*TDATA_WIDTH+9)-1):0]  dout,
     output reg                      dout_valid
 );
 
     reg [QUEUE_ID_WIDTH-1:0] next_queue_id_1;
     reg [QUEUE_ID_WIDTH-1:0] next_queue_id_2;
-    reg [((8*TDATA_WIDTH+4)-1):0] next_dout;
+    reg [((8*TDATA_WIDTH+9)-1):0] next_dout;
     reg next_dout_valid;
     //reg [NUM_QUEUES-1:0] prev_empty;
     reg [NUM_QUEUES-1:0] prev_inc;
@@ -84,7 +84,7 @@ module AxiFifoArbiter
             //prev_queue_id <= {(QUEUE_ID_WIDTH){1'b0}};
             //prev_empty <= {(NUM_QUEUES){1'b1}};
             prev_inc <= {(NUM_QUEUES){1'b0}};
-            dout <= {(8*TDATA_WIDTH+4){1'b0}};
+            dout <= {(8*TDATA_WIDTH+9){1'b0}};
             dout_valid <= 1'b0;
         end
         else
@@ -184,13 +184,13 @@ if(next_queue_id_1 == 2'd3)
         
         case(next_queue_id_1)
             0:
-                next_dout = din[((8*TDATA_WIDTH+4)*(1)-1):((8*TDATA_WIDTH+4)*0)];
+                next_dout = din[((8*TDATA_WIDTH+9)*(1)-1):((8*TDATA_WIDTH+9)*0)];
             1:
-                next_dout = din[((8*TDATA_WIDTH+4)*(2)-1):((8*TDATA_WIDTH+4)*1)];
+                next_dout = din[((8*TDATA_WIDTH+9)*(2)-1):((8*TDATA_WIDTH+9)*1)];
             2:
-                next_dout = din[((8*TDATA_WIDTH+4)*(3)-1):((8*TDATA_WIDTH+4)*2)];
+                next_dout = din[((8*TDATA_WIDTH+9)*(3)-1):((8*TDATA_WIDTH+9)*2)];
             3:
-                next_dout = din[((8*TDATA_WIDTH+4)*(4)-1):((8*TDATA_WIDTH+4)*3)];
+                next_dout = din[((8*TDATA_WIDTH+9)*(4)-1):((8*TDATA_WIDTH+9)*3)];
         endcase
         
     end

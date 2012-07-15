@@ -200,6 +200,8 @@ module nf10_sram_fifo
     assign {s_axis_3_tready, s_axis_2_tready, s_axis_1_tready, s_axis_0_tready} = tready_in;
     wire [((8*TDATA_WIDTH*NUM_QUEUES) - 1):0] tdata_in = {s_axis_3_tdata, s_axis_2_tdata, s_axis_1_tdata, s_axis_0_tdata};
     wire [(NUM_QUEUES-1):0]        tlast_in = {s_axis_3_tlast, s_axis_2_tlast, s_axis_1_tlast, s_axis_0_tlast};
+    wire [((TDATA_WIDTH*NUM_QUEUES) - 1):0] tstrb_in = {s_axis_3_tstrb, s_axis_2_tstrb, s_axis_1_tstrb, s_axis_0_tstrb};
+
     wire [(TID_WIDTH*NUM_QUEUES-1):0]         tid_in;
     wire [(TDEST_WIDTH*NUM_QUEUES-1):0]       tdest_in;
     wire [(TUSER_WIDTH*NUM_QUEUES-1):0]       tuser_in = {s_axis_3_tuser, s_axis_2_tuser, s_axis_1_tuser, s_axis_0_tuser};
@@ -211,8 +213,8 @@ module nf10_sram_fifo
     assign {m_axis_3_tdata, m_axis_2_tdata, m_axis_1_tdata, m_axis_0_tdata} = tdata_out;
     wire [(NUM_QUEUES-1):0]                   tlast_out;
     assign {m_axis_3_tlast, m_axis_2_tlast, m_axis_1_tlast, m_axis_0_tlast} = tlast_out;
-    //wire [((TDATA_WIDTH*NUM_QUEUES) - 1):0] tstrb_out;
-    assign {m_axis_3_tstrb, m_axis_2_tstrb, m_axis_1_tstrb, m_axis_0_tstrb} = {(TDATA_WIDTH*NUM_QUEUES){1'b1}}; //tstrb_out;
+    wire [((TDATA_WIDTH*NUM_QUEUES) - 1):0] tstrb_out;
+    assign {m_axis_3_tstrb, m_axis_2_tstrb, m_axis_1_tstrb, m_axis_0_tstrb} = tstrb_out;
     wire [(TID_WIDTH*NUM_QUEUES-1):0]         tid_out;
     wire [(TDEST_WIDTH*NUM_QUEUES-1):0]       tdest_out;
     wire [(TUSER_WIDTH*NUM_QUEUES-1):0]       tuser_out;
@@ -272,15 +274,15 @@ module nf10_sram_fifo
     wire [(NUM_QUEUES-1):0] rempty_in;
     wire [(NUM_QUEUES-1):0] r_almost_empty_in;
     wire [(NUM_QUEUES-1):0] dout_valid_in;
-    wire [((NUM_QUEUES*(CROPPED_TDATA_WIDTH*8+4))-1):0] dout_in;
+    wire [((NUM_QUEUES*(CROPPED_TDATA_WIDTH*8+9))-1):0] dout_in;
     wire [(NUM_QUEUES-1):0] din_valid_out;
-    wire [((NUM_QUEUES*(CROPPED_TDATA_WIDTH*8+4))-1):0] din_out;
+    wire [((NUM_QUEUES*(CROPPED_TDATA_WIDTH*8+9))-1):0] din_out;
     wire [(NUM_QUEUES-1):0] w_almost_full_out;
     wire [(NUM_QUEUES-1):0] wfull_out;
     wire [(NUM_QUEUES-1):0] winc_out;
 
-    wire [((CROPPED_TDATA_WIDTH*8+4)-1):0] mem_din;
-    wire [((CROPPED_TDATA_WIDTH*8+4)-1):0] mem_dout;
+    wire [((CROPPED_TDATA_WIDTH*8+9)-1):0] mem_din;
+    wire [((CROPPED_TDATA_WIDTH*8+9)-1):0] mem_dout;
 
     wire mem_dout_valid;
     wire mem_din_valid;
@@ -338,6 +340,7 @@ module nf10_sram_fifo
                           .tvalid(tvalid_in[i]),
                           .tready(tready_in[i]),
                           .tdata(tdata_in[((i+1)*TDATA_WIDTH*8-1):(i*TDATA_WIDTH*8)]),
+                          .tstrb(tstrb_in[((i+1)*TDATA_WIDTH-1):(i*TDATA_WIDTH)]),
                           .tlast(tlast_in[i]),
                           .tid(tid_in[((i+1)*TID_WIDTH-1):(i*TID_WIDTH)]),
                           .tdest(tdest_in[((i+1)*TDEST_WIDTH-1):(i*TDEST_WIDTH)]),
@@ -348,7 +351,7 @@ module nf10_sram_fifo
                           .rempty(rempty_in[i]),
                           .r_almost_empty(r_almost_empty_in[i]),
                           .dout_valid(dout_valid_in[i]),
-                          .dout(dout_in[((i+1)*(8*CROPPED_TDATA_WIDTH+4)-1):(i*(8*CROPPED_TDATA_WIDTH+4))]), 
+                          .dout(dout_in[((i+1)*(8*CROPPED_TDATA_WIDTH+9)-1):(i*(8*CROPPED_TDATA_WIDTH+9))]), 
                           .cal_done(&cal_done),
                           .output_inc(output_inc[i]),
                           .input_fifo_cnt(input_fifo_cnt[(32*i+31):(32*i)])
@@ -368,7 +371,7 @@ module nf10_sram_fifo
                           .tvalid(tvalid_out[i]),
                           .tready(tready_out[i]),
                           .tdata(tdata_out[((i+1)*TDATA_WIDTH*8-1):(i*TDATA_WIDTH*8)]),
-                          //.tstrb(tstrb_out[((i+1)*TDATA_WIDTH-1):(i*TDATA_WIDTH)]),
+                          .tstrb(tstrb_out[((i+1)*TDATA_WIDTH-1):(i*TDATA_WIDTH)]),
                           .tlast(tlast_out[i]),
                           .tid(tid_out[((i+1)*TID_WIDTH-1):(i*TID_WIDTH)]),
                           .tdest(tdest_out[((i+1)*TDEST_WIDTH-1):(i*TDEST_WIDTH)]),
@@ -376,7 +379,7 @@ module nf10_sram_fifo
                           .memclk(memclk),
                           .memreset(memreset),
                           .din_valid(din_valid_out[i]),
-                          .din(din_out[(((i+1)*(8*CROPPED_TDATA_WIDTH+4))-1):(i*(8*CROPPED_TDATA_WIDTH+4))]),
+                          .din(din_out[(((i+1)*(8*CROPPED_TDATA_WIDTH+9))-1):(i*(8*CROPPED_TDATA_WIDTH+9))]),
                           .w_almost_full(w_almost_full_out[i]),
                           .wfull(wfull_out[i]), 
                           .cal_done(&cal_done),
