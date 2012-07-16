@@ -41,7 +41,7 @@
 
 COREGEN_DIR:= coregen
 
-all: hdl/verilog/async_fifo.v
+install: hdl/verilog/async_fifo.v
 
 hdl/verilog/async_fifo.v: xco/async_fifo.xco
 	@mkdir -p $(COREGEN_DIR);
