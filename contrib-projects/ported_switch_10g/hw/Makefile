@@ -129,7 +129,6 @@ exporttosdk: $(SYSTEM_HW_HANDOFF_DEP)
 	@cp -rf $(SDK_EXPORT_DIR)/../libs/microblaze_0/include/* $(SDK_EXPORT_DIR)/../../../host/include/
 	@cp -rf $(SDK_EXPORT_DIR)/../libs/microblaze_0/libsrc $(SDK_EXPORT_DIR)/../../../host/include/
 	@rm -rf $(SDK_EXPORT_DIR)/../empty_application
-	@rm -rf $(SDK_EXPORT_DIR)/../hw/*
 	@rm -rf $(SDK_EXPORT_DIR)/../libs
 
 netlist: $(POSTSYN_NETLIST)
