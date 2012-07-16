@@ -137,12 +137,10 @@ begin
     if(memreset)
     begin
         rinc_prev <= 1'b0;
-        //dout_valid <= 1'b0;
     end
     else
     begin
         rinc_prev <= rinc;
-        //dout_valid <= next_dout_valid;
     end
 end
 reg [1:0] packing_state;
@@ -191,16 +189,6 @@ begin
     else
         next_mem_usage = mem_usage;
 end
-
-/*always @(*)
-begin
-  dout_valid = 1'b0;
-  if(rinc)
-    dout_valid = 1'b1;    
-end*/
-
-//small_async_fifo #(.DSIZE(8*TDATA_WIDTH + TUSER_WIDTH + 1),.ASIZE(5),.ALMOST_FULL_SIZE(30),.ALMOST_EMPTY_SIZE(1)) fifo(wfull,w_almost_full,{tdata, tuser, tlast},winc,clk,~reset,dout,rempty,r_almost_empty,rinc,memclk,~memreset);
-//
 
 // tdata0[191:0]
 // tdata1[128:0], tdata0[255:192]

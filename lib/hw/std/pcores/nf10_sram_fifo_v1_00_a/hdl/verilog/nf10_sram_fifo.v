@@ -313,15 +313,9 @@ module nf10_sram_fifo
 
     wire [127:0] input_fifo_cnt;
     wire [127:0] output_fifo_cnt;
-    wire [31:0] before_mem_cnt;
-    wire [31:0] after_mem_cnt;
     wire [NUM_QUEUES-1:0] output_inc;
     assign mem_dbg = 0;
-    //assign mem_dbg = {mem_queue_id_write, mem_queue_id_read, mem_wfull, mem_rempty};//{after_mem_cnt, before_mem_cnt};
-    assign fifo_dbg = {output_fifo_cnt[31:0], input_fifo_cnt[31:0]};
-   // assign debug_mem_controller_dout = mem_controller_din;
-   // assign debug_mem_controller_dout_addr = mem_controller_din_addr;
-   // assign debug_mem_controller_dout_ready = mem_controller_din_ready;
+    assign fifo_dbg = 0;//{output_fifo_cnt[31:0], input_fifo_cnt[31:0]};
     assign debug_calibration = cal_done;
     genvar i;
     generate
@@ -442,11 +436,8 @@ module nf10_sram_fifo
                           .din_valid(mem_controller_din_valid),
                           .din_addr(mem_controller_din_addr),
                           .din_ready(mem_controller_din_ready),
-                          .debug(/*mem_dbg*/),
                           .sram_write_full(|mem_controller_write_ready),
-                          .sram_read_full(|mem_controller_read_ready),
-                          .before_mem_cnt(before_mem_cnt),
-                          .after_mem_cnt(after_mem_cnt)
+                          .sram_read_full(|mem_controller_read_ready)
                           );
 
     localparam IODELAY_GRP = "IODELAY_MIG";
@@ -506,39 +497,24 @@ module nf10_sram_fifo
                 .qdr_d(qdr_d[((MEM_WIDTH)*(i+1)-1):((MEM_WIDTH)*i)]),
                 .qdr_r_n(qdr_r_n[i]),
                 .cal_done(),//next_cal_done[i]),
-   /*.dbg_init_count_done    (mem_dbg[0+19*i]),
-   .dbg_q_cq_init_delay_done  (mem_dbg[1+19*i]),
-   .dbg_q_cq_n_init_delay_done  (),
-   .dbg_q_cq_init_delay_done_tap_count  (mem_dbg[7+19*i:2+19*i]),
-   .dbg_q_cq_n_init_delay_done_tap_count  (),
-   .dbg_cq_cal_done        (mem_dbg[8+19*i]),
-   .dbg_cq_n_cal_done      (),
-   .dbg_cq_cal_tap_count   (mem_dbg[14+19*i:9+19*i]),
-   .dbg_cq_n_cal_tap_count  (),
-   .dbg_we_cal_done_cq     (mem_dbg[15+19*i]),
-   .dbg_we_cal_done_cq_n   (),
-   .dbg_cq_q_data_valid    (mem_dbg[16+19*i]),
-   .dbg_cq_n_q_data_valid  (),
-   .dbg_cal_done           (mem_dbg[17+19*i]),
-   .dbg_data_valid         (mem_dbg[18+19*i]),*/
-   .dbg_idel_up_all        (1'b0),
-   .dbg_idel_down_all      (1'b0),
-   .dbg_idel_up_q_cq       (1'b0),
-   .dbg_idel_down_q_cq     (1'b0),
-   .dbg_idel_up_q_cq_n     (1'b0),
-   .dbg_idel_down_q_cq_n   (1'b0),
-   .dbg_idel_up_cq         (1'b0),
-   .dbg_idel_down_cq       (1'b0),
-   .dbg_idel_up_cq_n       (1'b0),
-   .dbg_idel_down_cq_n     (1'b0),
-   .dbg_sel_idel_q_cq      ({MEM_CQ_WIDTH{1'b0}}),
-   .dbg_sel_all_idel_q_cq  (1'b0),
-   .dbg_sel_idel_q_cq_n    ({MEM_CQ_WIDTH{1'b0}}),
-   .dbg_sel_all_idel_q_cq_n  (1'b0),
-   .dbg_sel_idel_cq        ({MEM_CQ_WIDTH{1'b0}}),
-   .dbg_sel_all_idel_cq    (1'b0),
-   .dbg_sel_idel_cq_n      ({MEM_CQ_WIDTH{1'b0}}),
-   .dbg_sel_all_idel_cq_n  (1'b0)
+                .dbg_idel_up_all        (1'b0),
+                .dbg_idel_down_all      (1'b0),
+                .dbg_idel_up_q_cq       (1'b0),
+                .dbg_idel_down_q_cq     (1'b0),
+                .dbg_idel_up_q_cq_n     (1'b0),
+                .dbg_idel_down_q_cq_n   (1'b0),
+                .dbg_idel_up_cq         (1'b0),
+                .dbg_idel_down_cq       (1'b0),
+                .dbg_idel_up_cq_n       (1'b0),
+                .dbg_idel_down_cq_n     (1'b0),
+                .dbg_sel_idel_q_cq      ({MEM_CQ_WIDTH{1'b0}}),
+                .dbg_sel_all_idel_q_cq  (1'b0),
+                .dbg_sel_idel_q_cq_n    ({MEM_CQ_WIDTH{1'b0}}),
+                .dbg_sel_all_idel_q_cq_n  (1'b0),
+                .dbg_sel_idel_cq        ({MEM_CQ_WIDTH{1'b0}}),
+                .dbg_sel_all_idel_cq    (1'b0),
+                .dbg_sel_idel_cq_n      ({MEM_CQ_WIDTH{1'b0}}),
+                .dbg_sel_all_idel_cq_n  (1'b0)
 
 );
     end

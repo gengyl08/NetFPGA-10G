@@ -86,10 +86,7 @@ module FifoMem
     input  [(MEM_WIDTH*NUM_MEM_INPUTS-1):0]       din,
     input  [(NUM_MEM_CHIPS-1):0]                  din_valid,
     output reg [(MEM_ADDR_WIDTH-1):0]  din_addr,
-    output reg                         din_ready,
-    output [59:0] debug,
-    output reg [31:0] before_mem_cnt,
-    output reg [31:0] after_mem_cnt
+    output reg                         din_ready
 );
 
 reg [(MEM_ADDR_WIDTH-3):0] next_num_used[(NUM_QUEUES-1):0];
@@ -138,16 +135,9 @@ begin
         dout <= {(MEM_WIDTH*NUM_MEM_INPUTS){1'b0}};
         dout_addr <= {(MEM_ADDR_WIDTH){1'b0}};
         dout_burst_ready <= 1'b0;
-        //read_empty <= {(NUM_QUEUES){1'b1}};
-        //write_full <= {(NUM_QUEUES){1'b0}};
+        write_full <= {(NUM_QUEUES){1'b0}};
         din_addr <= {(MEM_ADDR_WIDTH){1'b0}};
         din_ready <= 1'b0;
-        before_mem_cnt <= 32'b0;
-        after_mem_cnt <= 32'b0;
-
-        before_mem_cnt_inc <= 1'b0;
-        after_mem_cnt_inc <= 1'b0;
-
     end
     else
     begin
@@ -157,14 +147,9 @@ begin
         dout <= next_dout;
         dout_addr <= next_dout_addr;
         dout_burst_ready <= next_dout_burst_ready;
-        //read_empty <= next_read_empty;
-        //write_full <= next_write_full;
         din_addr <= next_din_addr;
         din_ready <= next_din_ready;
-        before_mem_cnt <= next_before_mem_cnt;
-        after_mem_cnt <= next_after_mem_cnt;
-        before_mem_cnt_inc <= next_before_mem_cnt_inc;
-        after_mem_cnt_inc <= next_after_mem_cnt_inc;
+        write_full <= next_write_full;
     end
 end
 
@@ -223,11 +208,11 @@ endgenerate
 
 assign din_merged_valid = ((|din_merged_empty) == 0);
 
-assign read_data_valid = din_merged_valid && read_mem_word_valid;//din_ready & read_data_valid_internal;
+assign read_data_valid = din_merged_valid && read_mem_word_valid;
 
 reg rw_same_queue;
 
-always @(din or din_merged or read_queue_id or write_queue_id or read_addr[0] or read_addr[1] or read_addr[2] or read_addr[3] or write_addr[0] or write_addr[1] or write_addr[2] or write_addr[3] or num_used[0] or  num_used[1] or num_used[2] or num_used[3] or read_burst_state or write_burst_state or read_data_valid or write_data_valid or write_data or dout_ready or dout_burst_ready or sram_read_full or sram_write_full or read_data_ready or after_mem_cnt or before_mem_cnt or before_mem_cnt_inc or after_mem_cnt_inc)
+always @(din or din_merged or read_queue_id or write_queue_id or read_addr[0] or read_addr[1] or read_addr[2] or read_addr[3] or write_addr[0] or write_addr[1] or write_addr[2] or write_addr[3] or num_used[0] or  num_used[1] or num_used[2] or num_used[3] or read_burst_state or write_burst_state or read_data_valid or write_data_valid or write_data or dout_ready or dout_burst_ready or sram_read_full or sram_write_full or read_data_ready)
 begin
     next_read_burst_state = BURST_STATE_OFF;
     next_write_burst_state = BURST_STATE_OFF;
@@ -249,10 +234,8 @@ begin
     next_num_used[2] = num_used[2];
     next_num_used[3] = num_used[3];
     
-    //if((MAX - num_used[write_queue_id]) > tuser[write_queue_id][SIZE_END:SIZE_START]) allow write;   
-
-      // TODO: SRAM read and write full signals
-      // 1 queue should not saturate though
+    // TODO: SRAM read and write full signals
+    // only seems to matter before calibration completes
     if(read_data_ready && (read_burst_state == 0) /*&& ~read_empty*/)
     begin
         if(read_queue_id == 2'd0)
@@ -462,28 +445,8 @@ begin
 
     next_dout_burst_ready = /*~write_burst_state &&*/ dout_ready;
 
-    if(after_mem_cnt_inc)
-       next_after_mem_cnt = after_mem_cnt + 1;
-    else
-       next_after_mem_cnt = after_mem_cnt;
-
-    next_after_mem_cnt_inc = 1'b0;
-    // TODO: test counter without read_mem_word_valid required
-    if(din_merged_valid)
-        next_after_mem_cnt_inc = 1'b1;
-    
-    next_before_mem_cnt_inc = 1'b0;
-    if(dout_ready)
-        next_before_mem_cnt_inc = 1'b1;
-
-    if(before_mem_cnt_inc)
-        next_before_mem_cnt = before_mem_cnt + 1;
-    else
-        next_before_mem_cnt = before_mem_cnt;
-
 end
 
-//assign debug = {write_burst_state, read_burst_state, num_used[0], write_addr[0], read_addr[0]};
 
 generate
     for(i=0;i<NUM_QUEUES;i=i+1)
@@ -491,8 +454,7 @@ generate
         always @(num_used[i])
         begin
             read_empty[i] = num_used[i]==0;
-            // TODO: fix full logic later
-            write_full[i] = (num_used[i])>=((QUEUE_SIZE)-5);
+            next_write_full[i] = (num_used[i])>=((QUEUE_SIZE)-5);
         end
     end
 endgenerate

@@ -96,17 +96,12 @@ begin
         output_fifo_cnt <= next_output_fifo_cnt;
 end
 
-//TODO: make FSM to cause data to be written AFTER tvalid transition...depends on how FIFO works
-// if fifo "keeps" top value set then we'll be fine.
-
 always @(*)
 begin
     tvalid = 1'b0;
-    //tlast = 1'b0;
     tid = {(TID_WIDTH){1'b0}};
     tdest = {(TDEST_WIDTH){1'b0}};
     rinc = 1'b0;
-    //tstrb = {(TDATA_WIDTH){1'b1}};
     tkeep = {(TDATA_WIDTH){1'b1}};
     next_output_fifo_cnt = output_fifo_cnt;
 
@@ -115,16 +110,9 @@ begin
         tvalid = 1'b1;
         if(tready)
         begin
-            //tvalid = 1'b1;
             rinc = 1'b1;
             next_output_fifo_cnt = output_fifo_cnt + 1;
         end
-        //tdata = din;
-        // We're on a new packet boundary - set tuser bits for source queue
-        /*if(r_almost_empty)
-        begin
-            tlast = 1'b1;
-        end*/
     end
 end
 
