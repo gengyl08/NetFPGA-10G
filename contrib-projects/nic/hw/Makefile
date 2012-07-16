@@ -126,6 +126,9 @@ exporttosdk: $(SYSTEM_HW_HANDOFF_DEP)
 	@mkdir -p $(SDK_EXPORT_DIR)/../../../host/include/
 	@cp -rf $(SDK_EXPORT_DIR)/../libs/microblaze_0/include/* $(SDK_EXPORT_DIR)/../../../host/include/
 	@cp -rf $(SDK_EXPORT_DIR)/../libs/microblaze_0/libsrc $(SDK_EXPORT_DIR)/../../../host/include/
+	rm -rf $(SDK_EXPORT_DIR)/../empty_application
+	rm -rf $(SDK_EXPORT_DIR)/../hw/*
+	rm -rf $(SDK_EXPORT_DIR)/../libs
 
 netlist: $(POSTSYN_NETLIST)
 
@@ -151,7 +154,7 @@ behavioral_model: $(BEHAVIORAL_SIM_SCRIPT)
 
 structural_model: $(STRUCTURAL_SIM_SCRIPT)
 
-clean: hwclean simclean
+clean: hwclean regsclean simclean
 	rm -f _impact.cmd
 	rm -rf __xps
 	rm -rf blockdiagram
@@ -181,6 +184,10 @@ bitsclean:
 	rm -f implementation/$(SYSTEM)_map.ncd
 	rm -f implementation/download.bit
 	rm -f __xps/$(SYSTEM)_routed
+
+## Shahbaz: to clean register system generated files
+regsclean:
+	rm -rf $(SDK_EXPORT_DIR)/../../../host/include/
 
 simclean:
 	rm -rf simulation

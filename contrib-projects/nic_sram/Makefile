@@ -6,10 +6,10 @@
 #        Makefile
 #
 #  Project:
-#        nic
+#        nic_sram
 #
 #  Author:
-#        Mario Flajslik
+#        Sam D'Amico
 #
 #  Description:
 #        make all : Make BRAM initialized bitfile to bitfiles/
