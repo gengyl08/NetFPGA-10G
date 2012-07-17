@@ -41,10 +41,11 @@
 
 SYSTEM = system
 HW = hw
-SW = sw/embedded/
+SW = sw/host/nf10_configure
 
 all:
 	$(MAKE) -C $(HW) init_bram exporttosdk
+	$(MAKE) -C $(SW)
 	mkdir -p bitfiles
 	cp $(HW)/implementation/download.bit bitfiles/
 
