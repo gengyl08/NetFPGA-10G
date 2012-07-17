@@ -66,8 +66,8 @@ Program map
 #-fp <design>.mfp;       # Floorplan file
 -xe n;
 -ol high;
--cm speed;
--t 4;
+#-cm speed;
+-t 7;
 -register_duplication on;
 -logic_opt on;
 -timing;
