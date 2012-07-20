@@ -5,7 +5,6 @@
 ##############################################################################
 lib nf10_sram_fifo_v1_00_a controller/qdrii_chipscope.v verilog
 lib nf10_sram_fifo_v1_00_a controller/qdrii_idelay_ctrl.v verilog
-lib nf10_sram_fifo_v1_00_a controller/qdrii_infrastructure.v verilog
 lib nf10_sram_fifo_v1_00_a controller/qdrii_phy_addr_io.v verilog
 lib nf10_sram_fifo_v1_00_a controller/qdrii_phy_bw_io.v verilog
 lib nf10_sram_fifo_v1_00_a controller/qdrii_phy_clk_io.v verilog
@@ -29,6 +28,8 @@ lib nf10_sram_fifo_v1_00_a controller/qdrii_top_wrdata_bw_fifo.v verilog
 lib nf10_sram_fifo_v1_00_a controller/qdrii_top_wrdata_fifo.v verilog
 lib nf10_sram_fifo_v1_00_a controller/qdrii_top_wr_data_interface.v verilog
 lib nf10_sram_fifo_v1_00_a controller/qdrii_top_wr_interface.v verilog
+# Modified infrastructure
+lib nf10_sram_fifo_v1_00_a qdrii_infrastructure.v verilog
 lib nf10_sram_fifo_v1_00_a small_async_fifo.v verilog
 lib nf10_sram_fifo_v1_00_a axififo.v verilog
 lib nf10_sram_fifo_v1_00_a fifoaxi.v verilog

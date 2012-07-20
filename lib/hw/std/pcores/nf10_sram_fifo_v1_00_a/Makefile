@@ -10,6 +10,7 @@
 #
 #  Author:
 #        Sam D'Amico
+#        James Hongyi Zeng
 #
 #  Description:
 #        make install : Copy Xilinx files into NetFPGA-10G library
@@ -41,7 +42,7 @@
 
 COREGEN_DIR:= coregen
 
-install: hdl/verilog/async_fifo.v
+install: hdl/verilog/async_fifo.v hdl/verilog/controller/qdrii_top.v
 
 hdl/verilog/async_fifo.v: xco/async_fifo.xco
 	@mkdir -p $(COREGEN_DIR);
@@ -53,7 +54,17 @@ hdl/verilog/async_fifo.v: xco/async_fifo.xco
 	@echo "//Xilinx FIFO core installed.";
 	@echo "/////////////////////////////////////////";
 	@rm -rf $(COREGEN_DIR);
+	
+hdl/verilog/controller/qdrii_top.v: xco/mig.xco xco/mig.prj
+	@mkdir -p $(COREGEN_DIR);
+	@cd $(COREGEN_DIR) && coregen -b ../xco/mig.xco
+	@cp -r $(COREGEN_DIR)/controller/user_design/rtl hdl/verilog/controller
+	@echo "/////////////////////////////////////////";
+	@echo "//Xilinx memory controller core installed.";
+	@echo "/////////////////////////////////////////";
+	@rm -rf $(COREGEN_DIR);
 
 clean:
 	rm -f hdl/verilog/async_fifo.v
 	rm -f netlist/async_fifo.ngc
+	rm -rf hdl/verilog/controller/
