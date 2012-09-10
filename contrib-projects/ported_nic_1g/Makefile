@@ -6,10 +6,10 @@
 #        Makefile
 #
 #  Project:
-#        reference_nic_1g
+#        ported_nic_1g
 #
 #  Author:
-#        James Hongyi Zeng
+#        Gianni Anitchi, Muhammad Shahbaz
 #
 #  Description:
 #        make all : Make BRAM initialized bitfile to bitfiles/
