@@ -1,0 +1,315 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10.ucf
+#
+#  Project:
+#        simple_10g_switch
+#
+#  Author:
+#        Xilinx, Michaela Blott
+#
+#  Description:
+#        UCF
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+NET Peripheral_aresetn TIG;
+
+NET RESET             LOC = AL24  |  IOSTANDARD=LVCMOS33  | PULLUP | TIG;
+NET RS232_Uart_1_sin  LOC = BB23  |  IOSTANDARD=LVCMOS33;
+NET RS232_Uart_1_sout LOC = BB21  |  IOSTANDARD=LVCMOS33;
+NET CLK               LOC = AN25  |  IOSTANDARD=LVCMOS33;
+
+NET MDC               LOC = AK23   | IOSTANDARD = LVCMOS33;
+NET MDIO              LOC = AL20   | IOSTANDARD = LVCMOS33;
+NET PHY_RST_N         LOC = AR20   | IOSTANDARD = LVCMOS33  | PULLUP;       # external pullup
+
+#
+# additional constraints
+#
+
+NET CLK TNM_NET = sys_clk_pin;
+TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100 MHz;
+
+# Timing Ignore constraint on all signals that cross from core_clk domain to nf10_oped_0_aclk_oped domain
+NET "core_clk" TNM_NET = "CORE_CLK";
+NET "control_clk" TNM_NET = "CTRL_CLK";
+NET "nf10_oped_0_aclk_oped" TNM_NET = "OPED_CLK";
+TIMESPEC "TS_OPED_TIG_0" = FROM "CORE_CLK" TO "OPED_CLK" TIG;
+TIMESPEC "TS_OPED_TIG_1" = FROM "OPED_CLK" TO "CORE_CLK" TIG;
+TIMESPEC "TS_OPED_TIG_2" = FROM "CTRL_CLK" TO "OPED_CLK" TIG;
+TIMESPEC "TS_OPED_TIG_3" = FROM "OPED_CLK" TO "CTRL_CLK" TIG;
+
+# GTX PLACEMENT #########################################################
+# XAUI 0
+INST nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y6;
+INST nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y7;
+# XAUI 1
+INST nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y8;
+INST nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y9;
+# XAUI 2
+INST nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y10;
+INST nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y11;
+# XAUI 3
+INST nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/NO_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X0Y11;
+INST nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/NO_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X0Y10;
+
+# refclk for Port A
+NET "refclk_A_p"  LOC = "M4" ;
+NET "refclk_A_n"  LOC = "M3" ;
+
+# refclk for Port B
+NET "refclk_B_p"  LOC = "C4" ;
+NET "refclk_B_n"  LOC = "C3" ;
+
+# refclk for Port C
+NET "refclk_C_p"  LOC = "D16" ;
+NET "refclk_C_n"  LOC = "C16" ;
+
+# refclk for XAUI D
+NET "refclk_D_p"  LOC = "D27" ;
+NET "refclk_D_n"  LOC = "C27" ;
+
+
+# TIMING ###################################################################
+NET "nf10_10g_interface_0/nf10_10g_interface_0/clk156" TNM_NET="clk156_top";
+NET "nf10_10g_interface_1/nf10_10g_interface_1/clk156" TNM_NET="clk156_top";
+NET "nf10_10g_interface_2/nf10_10g_interface_2/clk156" TNM_NET="clk156_top";
+NET "nf10_10g_interface_3/nf10_10g_interface_3/clk156" TNM_NET="clk156_top";
+TIMESPEC "TS_clk156_top" = PERIOD "clk156_top" 156.25 MHz HIGH 50 %;
+
+NET nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+NET nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+NET nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+NET nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+TIMESPEC TS_clk156_rec = PERIOD clk156_rec 156.25MHz;
+
+################################################################################
+# 10GE MAC INTERFACES
+################################################################################
+#######################################################
+# Ten Gigabit Ethernet MAC core constraints           #
+#######################################################
+
+# False paths on an internal counter load
+# MAC 0
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac0_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac0_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac0_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac0_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac0_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac0_xgmac_ifg_false_paths_dst_1";
+NET  "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac0_xgmac_ifg_false_paths_thru_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac0_xgmac_ifg_false_paths_thru_2";
+TIMESPEC "TS_mac0_xgmac_ifg_false_paths_thru_1" = FROM "mac0_xgmac_ifg_false_paths_src_1" THRU "mac0_xgmac_ifg_false_paths_thru_1" THRU "mac0_xgmac_ifg_false_paths_thru_2" TO "mac0_xgmac_ifg_false_paths_dst_1" TIG;
+
+# MAC 1
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac1_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac1_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac1_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac1_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac1_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac1_xgmac_ifg_false_paths_dst_1";
+NET  "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac1_xgmac_ifg_false_paths_thru_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac1_xgmac_ifg_false_paths_thru_2";
+TIMESPEC "TS_mac1_xgmac_ifg_false_paths_thru_1" = FROM "mac1_xgmac_ifg_false_paths_src_1" THRU "mac1_xgmac_ifg_false_paths_thru_1" THRU "mac1_xgmac_ifg_false_paths_thru_2" TO "mac1_xgmac_ifg_false_paths_dst_1" TIG;
+
+# MAC 2
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac2_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac2_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac2_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac2_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac2_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac2_xgmac_ifg_false_paths_dst_1";
+NET  "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac2_xgmac_ifg_false_paths_thru_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac2_xgmac_ifg_false_paths_thru_2";
+TIMESPEC "TS_mac2_xgmac_ifg_false_paths_thru_1" = FROM "mac2_xgmac_ifg_false_paths_src_1" THRU "mac2_xgmac_ifg_false_paths_thru_1" THRU "mac2_xgmac_ifg_false_paths_thru_2" TO "mac2_xgmac_ifg_false_paths_dst_1" TIG;
+
+# MAC 3
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac3_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac3_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac3_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac3_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac3_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac3_xgmac_ifg_false_paths_dst_1";
+NET  "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac3_xgmac_ifg_false_paths_thru_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac3_xgmac_ifg_false_paths_thru_2";
+TIMESPEC "TS_mac3_xgmac_ifg_false_paths_thru_1" = FROM "mac3_xgmac_ifg_false_paths_src_1" THRU "mac3_xgmac_ifg_false_paths_thru_1" THRU "mac3_xgmac_ifg_false_paths_thru_2" TO "mac3_xgmac_ifg_false_paths_dst_1" TIG;
+
+#######################################################
+# Flow control clock crossing timing constraint
+# MAC 0
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac0_flow_grp";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac0_flow_grp";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac0_flow_grp";
+TIMESPEC "TS_mac0_flow" = FROM "mac0_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
+
+# MAC 1
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac1_flow_grp";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac1_flow_grp";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac1_flow_grp";
+TIMESPEC "TS_mac1_flow" = FROM "mac1_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
+
+# MAC 2
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac2_flow_grp";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac2_flow_grp";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac2_flow_grp";
+TIMESPEC "TS_mac2_flow" = FROM "mac2_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
+
+# MAC 3
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac3_flow_grp";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac3_flow_grp";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac3_flow_grp";
+TIMESPEC "TS_mac3_flow" = FROM "mac3_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
+
+############################################################
+# Reset path constraints                                   #
+#  These constraints add a measure of protection against   #
+#  metastability and skew in the reset nets.               #
+############################################################
+
+#NET "*xgmac/BU2/U0/G_RX_RESET.sync_rx_reset_i/reset_out*" MAXDELAY = 5000 ps;
+#NET "*xgmac/BU2/U0/G_TX_RESET.sync_tx_reset_i/reset_out*" MAXDELAY = 5000 ps;
+#NET "*xgmac/BU2/U0/G_TX_RESET.sync_flow_ctrl_tx_reset_i/reset_out*" MAXDELAY = 5000 ps;
+#NET "*xgmac/BU2/U0/G_RX_RESET.sync_flow_ctrl_rx_reset_i/reset_out*" MAXDELAY = 5000 ps;
+
+NET "*xgmac/BU2/U0/G_RX_RESET.sync_rx_reset_i/reset_out*" TIG;
+NET "*xgmac/BU2/U0/G_TX_RESET.sync_tx_reset_i/reset_out*" TIG;
+NET "*xgmac/BU2/U0/G_TX_RESET.sync_flow_ctrl_tx_reset_i/reset_out*" TIG;
+NET "*xgmac/BU2/U0/G_RX_RESET.sync_flow_ctrl_rx_reset_i/reset_out*" TIG;
+
+###############################################################################
+# Timing Constraints
+###############################################################################
+
+
+
+# Timing Constraints...
+NET "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_clk_O" PERIOD = 10ns;
+NET "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/gt_refclk_out[0]" TNM_NET = "PCI0CLK";
+TIMESPEC "TS_PCI0CLK"  = PERIOD "PCI0CLK" 100.00 MHz HIGH 50 % ;
+
+###############################################################################
+# Pinout and Related I/O Constraints
+###############################################################################
+
+#
+# SYS reset (input) signal.  The nf10_oped_0_PCIE_RSTN_pin signal should be
+# obtained from the PCI Express interface if possible.  For
+# slot based form factors, a system reset signal is usually
+# present on the connector.  For cable based form factors, a
+# system reset signal may not be available.  In this case, the
+# system reset signal must be generated locally by some form of
+# supervisory circuit.  You may change the IOSTANDARD and LOC
+# to suit your requirements and VCCO voltage banking rules.
+#
+
+#NET  "nf10_oped_0_PCIE_RSTN_pin"     LOC = "AL24" | IOSTANDARD = LVCMOS25 | PULLUP | NODELAY ;
+
+
+#
+# SYS clock 250 MHz (input) signal. The nf10_oped_0_PCIE_CLKP_pin and nf10_oped_0_PCIE_CLKN_pin
+# signals are the PCI Express reference clock. Virtex-5 GTX
+# Transceiver architecture requires the use of a dedicated clock
+# resources (FPGA input pins) associated with each GTX Transceiver Tile.
+# To use these pins an IBUFDS primitive (refclk_ibuf) is
+# instantiated in user's design.
+# Please refer to the Virtex-5 GTX Transceiver User Guide
+# (UG198) for guidelines regarding clock resource selection.
+#
+
+
+INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_clk"  DIFF_TERM = "TRUE";
+NET  "nf10_oped_0_PCIE_CLKP_pin"       LOC = "AT4"  ;
+NET  "nf10_oped_0_PCIE_CLKN_pin"       LOC = "AT3"  ;
+
+
+#
+# Transceiver instance placement.  This constraint selects the
+# transceivers to be used, which also dictates the pinout for the
+# transmit and receive differential pairs.  Please refer to the
+# Virtex-5 GTX Transceiver User Guide (UG198) for more
+# information.
+#
+# PCIe Lanes 0, 1
+INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[0].GT_i" LOC = GTX_DUAL_X1Y5;
+
+# PCIe Lanes 2, 3
+INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[2].GT_i" LOC = GTX_DUAL_X1Y4;
+
+# PCIe Lanes 4, 5
+INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[4].GT_i" LOC = GTX_DUAL_X1Y3;
+
+# PCIe Lanes 6, 7
+INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[6].GT_i" LOC = GTX_DUAL_X1Y2;
+
+# GTX_DUAL_X1Y6
+# GTX_DUAL_X1Y7
+# GTX_DUAL_X1Y8
+# GTX_DUAL_X1Y9
+# GTX_DUAL_X1Y10
+# GTX_DUAL_X1Y11
+
+###############################################################################
+# Physical Constraints
+###############################################################################
+
+#
+# BlockRAM placement
+
+# These need to be adjacent to the PCIe Hard EP as they operate at 250 MHz...
+INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_retry/generate_sdp.ram_sdp_inst"      LOC = RAMB36_X5Y20 ;
+INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y19 ;
+INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y18 ;
+INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y17 ;
+INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y16 ;
+INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk_if/ll_bridge/rx_bridge/fifo_inst/oq_fifo/Mram_regBank"        LOC = RAMB36_X5Y15 ;
+
+# Place DP0 buffers at bottom of column X2...
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_3/Mram_RAM1"  LOC = RAMB36_X2Y7 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_3/Mram_RAM2"  LOC = RAMB36_X2Y6 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_2/Mram_RAM1"  LOC = RAMB36_X2Y5 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_2/Mram_RAM2"  LOC = RAMB36_X2Y4 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_1/Mram_RAM1"  LOC = RAMB36_X2Y3 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_1/Mram_RAM2"  LOC = RAMB36_X2Y2 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory/Mram_RAM1"    LOC = RAMB36_X2Y1 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory/Mram_RAM2"    LOC = RAMB36_X2Y0 ;
+
+# Place W2 Buffers just over DP0
+INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM4" LOC = RAMB36_X2Y11 ;
+INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM3" LOC = RAMB36_X2Y10 ;
+INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM2" LOC = RAMB36_X2Y9  ;
+INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM1" LOC = RAMB36_X2Y8  ;
+
+# Place DP1 buffers at bottom of column X3...
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_3/Mram_RAM1"  LOC = RAMB36_X3Y7 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_3/Mram_RAM2"  LOC = RAMB36_X3Y6 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_2/Mram_RAM1"  LOC = RAMB36_X3Y5 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_2/Mram_RAM2"  LOC = RAMB36_X3Y4 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_1/Mram_RAM1"  LOC = RAMB36_X3Y3 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_1/Mram_RAM2"  LOC = RAMB36_X3Y2 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory/Mram_RAM1"    LOC = RAMB36_X3Y1 ;
+INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory/Mram_RAM2"    LOC = RAMB36_X3Y0 ;
