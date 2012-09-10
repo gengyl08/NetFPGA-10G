@@ -1,0 +1,80 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_shell_v2_1_0.mpd
+#
+#  Library:
+#        hw/std/pcores/nf10_shell_v1_00_a
+#
+#  Author:
+#        Michaela Blott
+#
+#  Description:
+#        Microprocessor Peripheral Description File
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+BEGIN nf10_shell
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION HDL = MIXED
+OPTION USAGE_LEVEL = BASE_USER
+OPTION STYLE = HDL
+OPTION RUN_NGCBUILD = TRUE
+OPTION IMP_NETLIST = TRUE
+OPTION IP_GROUP = NetFPGA-10G Output Port Lookups
+OPTION DESC = Reference Shell
+OPTION LONG_DESC = Reference Shell
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXIS, BUS_STD = AXIS, BUS_TYPE = INITIATOR
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_M_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (8,32,64,256), BUS = M_AXIS:S_AXIS
+PARAMETER C_S_AXIS_DATA_WIDTH = 64, DT = INTEGER, RANGE = (8,32,64,256), BUS = M_AXIS:S_AXIS
+PARAMETER C_M_AXIS_TUSER_WIDTH = 128, DT = INTEGER, RANGE = (128), BUS = M_AXIS:S_AXIS
+PARAMETER C_S_AXIS_TUSER_WIDTH = 128, DT = INTEGER, RANGE = (128), BUS = M_AXIS:S_AXIS
+
+## Ports
+PORT axi_aclk = "", DIR = I, SIGIS = CLK, BUS = M_AXIS:S_AXIS
+PORT axi_resetn = "", DIR = I, SIGIS = RST
+
+PORT m_axis_tdata = TDATA, DIR = O, VEC = [C_M_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT m_axis_tstrb = TSTRB, DIR = O, VEC = [(C_M_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT m_axis_tuser = TUSER, DIR = O, VEC = [C_M_AXIS_TUSER_WIDTH-1:0], BUS = M_AXIS, ENDIAN = LITTLE
+PORT m_axis_tvalid = TVALID, DIR = O, BUS = M_AXIS
+PORT m_axis_tready = TREADY, DIR = I, BUS = M_AXIS
+PORT m_axis_tlast = TLAST, DIR = O, BUS = M_AXIS
+
+PORT s_axis_tdata = TDATA, DIR = I, VEC = [C_S_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tstrb = TSTRB, DIR = I, VEC = [(C_S_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tuser = TUSER, DIR = I, VEC = [C_S_AXIS_TUSER_WIDTH-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tvalid = TVALID, DIR = I, BUS = S_AXIS
+PORT s_axis_tready = TREADY, DIR = O, BUS = S_AXIS
+PORT s_axis_tlast = TLAST, DIR = I, BUS = S_AXIS
+
+end

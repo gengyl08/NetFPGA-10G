@@ -1,0 +1,5 @@
+vhdl work "WideSRL16.vhd"
+vhdl work "slice.vhd"
+vhdl work "nf10_switch.vhd"
+verilog work "../verilog/nf10_switch_tb.v"
+
