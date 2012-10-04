@@ -1,0 +1,35 @@
+--- Developer: Muhammad Shahbaz ---
+
+Steps to simulate and implement nf10_rldram_xapp852:
+
+1. Download XAPP852 from Xilinx website - http://www.xilinx.com/support/documentation/application_notes/xapp852.pdf
+
+2. Copy verilog and Chipscope folders from the freshly download XAPP852 to nf10_rldram_xapp852/ (folder containing this README file)
+
+3. Change directory to nf10_rldram_xapp852/ folder and apply the patch (nf10_rldram.patch)
+
+> patch -d verilog/ < nf10_rldram.patch
+
+4. For simulation -
+
+	a. Download rldram2 memory model (http://www.micron.com/~/media/Documents/Products/Sim%20Model/DRAM/DRAM/4085576Mb_rldram2.zip); copy rldram2.v and rldram2_parameters.v into the nf10_rldram_xapp852/sim folder
+	b. run isim_run.bat under the sim/ folder
+	
+	> sh ./isim_run.bat
+
+5. For implementation run the following under the run/ folder (Note: current clock speed - 250MHz)
+
+> xtclsh run4rld_A run_process
+
+to implemet bitstream for RLDRAM A or 
+
+> xtclsh run4rld_B run_process
+
+for RLDRAM B
+
+6. If the DEBUG flag is enabled in the nf10_rldram_xapp852/nf10_defs.v file the status signals can then be monitored using the chipsope. Use the run.cdc file under the run folder to view these signals. The status code for PASS_FAIL bus are -
+
+RESET_CODE   = 3'b001;
+PASS_CODE    = 3'b010; - you should see this code for happiness :-)
+ERROR_CODE   = 3'b100;
+INVALID_CODE = 3'b111;

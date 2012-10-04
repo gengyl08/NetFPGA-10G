@@ -1,0 +1,81 @@
+-- *******************************************************************************
+-- *
+-- *  NetFPGA-10G http://www.netfpga.org
+-- *
+-- *  File:
+-- *        nf10_rldram
+-- *
+-- *  Library:
+-- *        
+-- *
+-- *  Module:
+-- *        
+-- *
+-- *  Author:
+-- *        Muhammad Shahbaz
+-- *
+-- *  Description:
+-- *        
+-- *
+-- *  Copyright notice:
+-- *        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+-- *                                 Junior University
+-- *
+-- *  Licence:
+-- *        This file is part of the NetFPGA 10G development base package.
+-- *
+-- *        This file is free code: you can redistribute it and/or modify it under
+-- *        the terms of the GNU Lesser General Public License version 2.1 as
+-- *        published by the Free Software Foundation.
+-- *
+-- *        This package is distributed in the hope that it will be useful, but
+-- *        WITHOUT ANY WARRANTY; without even the implied warranty of
+-- *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-- *        Lesser General Public License for more details.
+-- *
+-- *        You should have received a copy of the GNU Lesser General Public
+-- *        License along with the NetFPGA source package.  If not, see
+-- *        http://www.gnu.org/licenses/.
+-- *
+-- *        This module was developed by SRI International and the University of
+-- *        Cambridge Computer Laboratory under DARPA/AFRL contract (FA8750-11-C-0249)
+-- *        ("MRC2"), as part of the DARPA MRC research programme.
+-- *
+-- */
+
+verilog  work  ../verilog/backend_rom.v -i ../
+verilog  work  ../verilog/bcd6.v -i ../
+verilog  work  ../verilog/cmp_rd_data.v -i ../ 
+verilog  work  ../verilog/rld_clk_module.v -i ../ 
+verilog  work  ../verilog/rld_conf.v -i ../ 
+verilog  work  ../verilog/rld_controller.v -i ../ 
+verilog  work  ../verilog/rld_controller_iobs.v -i ../ 
+verilog  work  ../verilog/rld_ctl.v -i ../ 
+verilog  work  ../verilog/rld_data_path.v -i ../ 
+verilog  work  ../verilog/rld_data_path_iobs.v -i ../
+verilog  work  ../verilog/rld_data_write.v -i ../ 
+verilog  work  ../verilog/rld_dly_cal_sm.v -i ../ 
+verilog  work  ../verilog/rld_infrastructure_iobs.v -i ../ 
+verilog  work  ../verilog/rld_infrastructure_top.v -i ../ 
+verilog  work  ../verilog/rld_iobs.v -i ../ 
+verilog  work  ../verilog/rld_main.v -i ../ 
+verilog  work  ../verilog/rld_mem_interface_top.v -i ../ 
+verilog  work  ../verilog/rld_phy_calib.v -i ../ 
+verilog  work  ../verilog/rld_rst.v -i ../ 
+verilog  work  ../verilog/rld_seven_seg.v -i ../ 
+verilog  work  ../verilog/rld_tap_logic.v -i ../ 
+verilog  work  ../verilog/rld_top.v -i ../ 
+verilog  work  ../verilog/rld_user_interface.v -i ../ 
+verilog  work  ../verilog/rld_v4_dm_iob.v -i ../ 
+verilog  work  ../verilog/rld_v4_dq_iob.v -i ../ 
+verilog  work  ../verilog/rld_v4_qk_iob.v -i ../ 
+verilog  work  ../verilog/rld_v4_qvld_iob.v -i ../ 
+verilog  work  ../verilog/rld_v5_dm_iob.v -i ../ 
+verilog  work  ../verilog/rld_v5_dq_iob.v -i ../ 
+verilog  work  ../verilog/rld_v5_qk_iob.v -i ../ 
+verilog  work  ../verilog/test_bench.v -i ../
+verilog  work  ../nf10_rld_if.v -i ../
+verilog  work  $XILINX/verilog/src/glbl.v
+verilog  work  ./rldram2.v -d sg25 -d x36 -i ./
+verilog  work  ./ext_test_bench.v -i ../
+
