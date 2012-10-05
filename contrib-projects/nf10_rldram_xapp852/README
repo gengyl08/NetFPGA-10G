@@ -12,7 +12,7 @@ Steps to simulate and implement nf10_rldram_xapp852:
 
 4. For simulation -
 
-	a. Download rldram2 memory model (http://www.micron.com/~/media/Documents/Products/Sim%20Model/DRAM/DRAM/4085576Mb_rldram2.zip); copy rldram2.v and rldram2_parameters.v into the nf10_rldram_xapp852/sim folder
+	a. Download rldram2 memory model (http://www.micron.com/~/media/Documents/Products/Sim%20Model/DRAM/DRAM/4085576Mb_rldram2.zip); copy rldram2.v and rldram2_parameters.vh into the nf10_rldram_xapp852/sim folder
 	b. run isim_run.bat under the sim/ folder
 	
 	> sh ./isim_run.bat
