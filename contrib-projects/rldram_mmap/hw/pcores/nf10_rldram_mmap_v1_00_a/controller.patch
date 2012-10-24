@@ -1,0 +1,752 @@
+diff -u controller/cmp_rd_data.v controller_orig/cmp_rd_data.v
+--- controller/cmp_rd_data.v	2008-03-14 15:28:12.000000000 +0000
++++ controller_orig/cmp_rd_data.v	2012-10-15 01:25:50.000000000 +0100
+@@ -60,6 +60,8 @@
+ //
+ //*****************************************************************************
+ 
++`include "rld_defs.vh"
++
+ `timescale 1ns/100ps
+ 
+ module  cmp_rd_data  (
+@@ -181,8 +183,13 @@
+ assign APP_COMPARE_DATA_MSB = APP_COMPARE_DATA[2*RL_DQ_WIDTH-1:RL_DQ_WIDTH];
+ always @ (posedge CLK) begin
+     for (i_msb = 0; i_msb < NUM_OF_BYTES; i_msb = i_msb + 1) begin
++`ifndef NF10
+         msb_cmp[i_msb] <= &(~(read_data_MSB[(i_msb+1)*DEV_BYTE_WIDTH-1 -:DEV_BYTE_WIDTH] ^ 
+                               APP_COMPARE_DATA_MSB[(i_msb+1)*DEV_BYTE_WIDTH-1 -:DEV_BYTE_WIDTH]));
++`else
++		msb_cmp[i_msb] <= &(~(read_data_MSB[(i_msb+1)*DEV_BYTE_WIDTH-2 -:(DEV_BYTE_WIDTH-1)] ^ 
++                              APP_COMPARE_DATA_MSB[(i_msb+1)*DEV_BYTE_WIDTH-2 -:(DEV_BYTE_WIDTH-1)]));
++`endif
+     end
+ end
+ 
+@@ -221,8 +228,13 @@
+ integer i_lsb;
+ always @ (posedge CLK) begin
+     for (i_lsb = 0; i_lsb < NUM_OF_BYTES; i_lsb = i_lsb + 1) begin
++`ifndef NF10
+         lsb_cmp[i_lsb] <= &(~(read_data[(i_lsb+1)*DEV_BYTE_WIDTH-1 -:DEV_BYTE_WIDTH] ^ 
+                               APP_COMPARE_DATA[(i_lsb+1)*DEV_BYTE_WIDTH-1 -:DEV_BYTE_WIDTH]));
++`else
++		lsb_cmp[i_lsb] <= &(~(read_data[(i_lsb+1)*DEV_BYTE_WIDTH-2 -:(DEV_BYTE_WIDTH-1)] ^ 
++                              APP_COMPARE_DATA[(i_lsb+1)*DEV_BYTE_WIDTH-2 -:(DEV_BYTE_WIDTH-1)]));
++`endif
+     end
+ end
+ 
+diff -u controller/rld_clk_module.v controller_orig/rld_clk_module.v
+--- controller/rld_clk_module.v	2007-08-24 17:21:06.000000000 +0100
++++ controller_orig/rld_clk_module.v	2012-10-15 01:25:42.000000000 +0100
+@@ -58,14 +58,20 @@
+ //
+ //*****************************************************************************
+ 
++`include "rld_defs.vh"
++
+ `timescale 1ns/100ps
+ 
+ module  rld_clk_module  (   
+    sysClk_p,   // differential system clock input
++`ifndef NF10
+    sysClk_n,
++`endif
+ 
+    refClk_p,   // differential reference clock input
++`ifndef NF10
+    refClk_n,
++`endif
+    
+    clk33,
+    sysReset,
+@@ -91,9 +97,13 @@
+ // end of parameter definitions
+ 
+    input    sysClk_p;
++`ifndef NF10
+    input    sysClk_n;
++`endif
+    input    refClk_p;
++`ifndef NF10
+    input    refClk_n;       
++`endif
+    input    sysReset;
+    input    clk33;
+    
+@@ -120,17 +130,25 @@
+    // -----------------------------------------------------------------------------
+    // sysClk differential input buffer 
+    // -----------------------------------------------------------------------------
++`ifndef NF10
+    IBUFGDS  sysClk0  (
+       .I  ( sysClk_p ),  // differential input pins
+       .IB ( sysClk_n ),
+       .O  ( sysClk )     // system clock, differential clock output
+    );
++`else
++   assign sysClk = sysClk_p;
++`endif
+ 
++`ifndef NF10
+    IBUFGDS  refClk0  (
+       .I  ( refClk_p ),  // differential input pins
+       .IB ( refClk_n ),
+       .O  ( clk200 )     // reference clock, differential clock output
+    );
++`else
++   assign clk200 = refClk_p;
++`endif
+ 
+ // -----------------------------------------------------------------------------
+ //slow clock for Demo 
+diff -u controller/rld_controller_iobs.v controller_orig/rld_controller_iobs.v
+--- controller/rld_controller_iobs.v	2008-03-14 15:28:02.000000000 +0000
++++ controller_orig/rld_controller_iobs.v	2012-10-15 01:25:28.000000000 +0100
+@@ -60,6 +60,8 @@
+ //   Rev 1.1 - Added IOB=TRUE to more of the control signals
+ //*****************************************************************************
+ 
++`include "rld_defs.vh"
++
+ `timescale 1ns/100ps
+ 
+ module  rld_controller_iobs  (
+@@ -208,16 +210,26 @@
+       end
+ 
+       else if ( DEVICE_ARCH == 2'b01 )  begin : ba_virtex5_insts
++`ifndef NF10
+          always @( posedge clk )
++`else
++         always @( posedge clk180 )
++`endif
+          begin : Ba_fd
+             ctlBa    <= ctl_Ba;
+             ctlBa_d1 <= ctlBa;
+             TEST_BA  <= ctlBa_d1;  // TEST probe for RC_BA[2:0] output signals
+          end
+-
++		 
++`ifndef NF10
+          always @( posedge clk180 )
+          begin : Ba_phy_fd
+             if ( rstHard_180 )
++`else
++         always @( posedge clk90 )
++         begin : Ba_phy_fd
++            if ( rstHard_90 )
++`endif
+                phy_ba <= {DEV_BA_WIDTH{1'b0}};
+             else
+                phy_ba <= ctlBa_d1;
+@@ -274,15 +286,25 @@
+       end
+      
+       else if ( DEVICE_ARCH == 2'b01 )  begin : ad_virtex5_insts
++`ifndef NF10
+          always @( posedge clk )
++`else
++         always @( posedge clk180 )
++`endif
+          begin : Ad_fd
+             ctlAd    <= ctl_Ad;
+             ctlAd_d1 <= ctlAd;
+          end
+ 
++`ifndef NF10
+          always @( posedge clk180 )
+          begin : Ad_phy_fd
+             if ( rstHard_180 )
++`else
++         always @( posedge clk90 )
++         begin : Ad_phy_fd
++            if ( rstHard_90 )
++`endif
+                phy_a <= {DEV_AD_WIDTH{1'b0}};
+             else
+                phy_a <= ctlAd_d1;
+@@ -341,14 +363,22 @@
+       end
+ 
+       else if ( DEVICE_ARCH == 2'b01 )  begin : cs_virtex5_insts
++`ifndef NF10
+          always @( posedge clk )
++`else
++         always @( posedge clk180 )
++`endif
+          begin : Cmd3_fd
+             ctlCmd[3]    <= ctl_Cmd[3];
+             ctlCmd_d1[3] <= ctlCmd[3];
+             TEST_CS_N    <= ctlCmd_d1[3];  // TEST probe for RC_CS_N output signal
+          end  
+ 
++`ifndef NF10
+          always @( posedge clk180 or posedge sync_sysReset )  // D-flop, async preset
++`else
++         always @( posedge clk90 or posedge sync_sysReset )  // D-flop, async preset
++`endif
+          begin : Cs_phy_fd
+             if ( sync_sysReset )
+                phy_cs_n <= {NUM_OF_DEVS{1'b1}};
+@@ -412,14 +442,22 @@
+       end
+ 
+       else if ( DEVICE_ARCH == 2'b01 )  begin : we_virtex5_insts
++`ifndef NF10
+          always @( posedge clk )
++`else
++         always @( posedge clk180 )
++`endif
+          begin : We_fd
+             ctlCmd[1]    <= ctl_Cmd[1];
+             ctlCmd_d1[1] <= ctlCmd[1];
+             TEST_WE_N    <= ctlCmd_d1[1];  // TEST probe for RC_WE_N output signal
+          end
+ 
++`ifndef NF10
+          always @( posedge clk180 or posedge sync_sysReset )  // D-flop, async preset
++`else
++         always @( posedge clk90 or posedge sync_sysReset )  // D-flop, async preset
++`endif
+          begin : We_phy_fd
+             if ( sync_sysReset )
+                phy_we_n <= 1'b1;
+@@ -465,14 +503,22 @@
+       end
+ 
+       else if ( DEVICE_ARCH == 2'b01 )  begin : ref_virtex5_insts
++`ifndef NF10
+          always @( posedge clk )
++`else
++         always @( posedge clk180 )
++`endif
+          begin : Ref_fd
+             ctlCmd[0]    <= ctl_Cmd[0];
+             ctlCmd_d1[0] <= ctlCmd[0];
+             TEST_REF_N   <= ctlCmd_d1[0];  // TEST probe for RC_REF_N output signal
+          end
+ 
++`ifndef NF10
+          always @( posedge clk180 or posedge sync_sysReset )  // D-flop, async preset
++`else
++         always @( posedge clk90 or posedge sync_sysReset )  // D-flop, async preset
++`endif
+          begin : Ref_phy_fd
+             if ( sync_sysReset )
+                phy_ref_n <= 1'b1;
+diff -u controller/rld_data_path_iobs.v controller_orig/rld_data_path_iobs.v
+--- controller/rld_data_path_iobs.v	2007-08-24 17:21:06.000000000 +0100
++++ controller_orig/rld_data_path_iobs.v	2012-10-15 01:25:04.000000000 +0100
+@@ -57,6 +57,8 @@
+ //
+ //*****************************************************************************
+ 
++`include "rld_defs.vh"
++
+ `timescale 1ns/100ps
+ 
+ module  rld_data_path_iobs  (
+@@ -250,6 +252,9 @@
+ 
+       else if ( DEVICE_ARCH == 2'b01 )  begin : dq_virtex5_insts
+          for ( i_dq = 0; i_dq < RL_DQ_WIDTH; i_dq = i_dq + 1)  begin: dq_bit_insts
++`ifdef NF10
++			if (i_dq % DEV_BYTE_WIDTH != 8)
++`endif
+             rld_v5_dq_iob  dq  (
+                .clk270          ( clk270 ),
+                .bufio_clk       ( qk_bufio[(i_dq/QK_DATA_WIDTH)] ),
+Only in controller_orig/: rld_defs.vh
+diff -u controller/rld_dly_cal_sm.v controller_orig/rld_dly_cal_sm.v
+--- controller/rld_dly_cal_sm.v	2007-08-24 17:21:06.000000000 +0100
++++ controller_orig/rld_dly_cal_sm.v	2012-10-15 01:27:24.000000000 +0100
+@@ -64,6 +64,8 @@
+ //             attribute
+ //*****************************************************************************
+ 
++`include "rld_defs.vh"
++
+ `timescale 1ns/100ps
+ 
+ module  rld_dly_cal_sm  (
+@@ -272,12 +274,41 @@
+    // -----------------------------------------------------------------------------
+    // Concatenate read data { QK_DATA_WIDTH-bit RISE : QK_DATA_WIDTH-bit FALL } before comparing with patterns
+    // -----------------------------------------------------------------------------
++`ifndef NF10
+    assign rd_data = {rd_data_rise, rd_data_fall};  // read data
+    
+    //Concatonate the Data for checking
+    assign first_check_data  = { {QK_DATA_WIDTH/9{data1}}, {QK_DATA_WIDTH/9{data2}} };
+    assign second_check_data = { {QK_DATA_WIDTH/9{data3}}, {QK_DATA_WIDTH/9{data4}} };
+-                           
++`else
++   wire [2*QK_DATA_WIDTH-1:0] rd_data_orig, first_check_data_orig, second_check_data_orig;
++   
++   assign rd_data_orig = {rd_data_rise, rd_data_fall};  // read data
++   
++   //Concatonate the Data for checking
++   assign first_check_data_orig  = { {QK_DATA_WIDTH/9{data1}}, {QK_DATA_WIDTH/9{data2}} };
++   assign second_check_data_orig = { {QK_DATA_WIDTH/9{data3}}, {QK_DATA_WIDTH/9{data4}} };
++   
++   //Don't care bit 9. Only last 8 bit considered
++   assign rd_data = {1'b0, rd_data_orig[34-:8],
++		     1'b0, rd_data_orig[25-:8],
++		     1'b0, rd_data_orig[16-:8],
++		     1'b0, rd_data_orig[ 7-:8]
++		    };
++
++   assign first_check_data = {1'b0, first_check_data_orig[34-:8],
++		     	      1'b0, first_check_data_orig[25-:8],
++		     	      1'b0, first_check_data_orig[16-:8],
++		     	      1'b0, first_check_data_orig[ 7-:8]
++		    	     };
++
++   assign second_check_data = {1'b0, second_check_data_orig[34-:8],
++		     	       1'b0, second_check_data_orig[25-:8],
++		     	       1'b0, second_check_data_orig[16-:8],
++		     	       1'b0, second_check_data_orig[ 7-:8]
++		    	      };
++`endif
++
+    // -----------------------------------------------------------------------------
+    // Test Signals used for debugging
+    // -----------------------------------------------------------------------------
+diff -u controller/rld_infrastructure_top.v controller_orig/rld_infrastructure_top.v
+--- controller/rld_infrastructure_top.v	2007-08-24 17:21:06.000000000 +0100
++++ controller_orig/rld_infrastructure_top.v	2012-10-15 01:27:14.000000000 +0100
+@@ -57,13 +57,19 @@
+ //
+ //*****************************************************************************
+ 
++`include "rld_defs.vh"
++
+ `timescale 1ns/100ps
+ 
+ module  rld_infrastructure_top  (
+    sysClk_p,
++`ifndef NF10
+    sysClk_n,
++`endif
+    refClk_p,
++`ifndef NF10
+    refClk_n,
++`endif
+    sysReset,  // system reset input, acive low, asynchronous
+ 
+    confMReg,
+@@ -111,9 +117,13 @@
+ // end of parameter definitions
+ 
+    input                     sysClk_p;
++`ifndef NF10
+    input                     sysClk_n;
++`endif
+    input                     refClk_p;
++`ifndef NF10
+    input                     refClk_n;
++`endif
+    input                     sysReset; 
+    input                     clk33;
+ 
+@@ -173,9 +183,13 @@
+    )
+    clk_module0  (
+       .sysClk_p  ( sysClk_p ),   // differential system clock input
++`ifndef NF10
+       .sysClk_n  ( sysClk_n ),
++`endif
+       .refClk_p  ( refClk_p ),   // differential reference clock input
++`ifndef NF10
+       .refClk_n  ( refClk_n ),
++`endif
+       .clk33     ( clk33 ),
+       .sysReset  ( ~sysReset ),
+       .clk       ( clk ),        // Global clock to all modules, output from DCM
+diff -u controller/rld_main.v controller_orig/rld_main.v
+--- controller/rld_main.v	2007-08-24 17:21:06.000000000 +0100
++++ controller_orig/rld_main.v	2012-10-15 01:27:04.000000000 +0100
+@@ -75,8 +75,18 @@
+ //
+ //*****************************************************************************
+ 
++`include "rld_defs.vh"
++
+ `timescale 1ns/100ps
+ 
++`ifdef EN_TESTBENCH
++	`define i_signal wire
++	`define o_signal wire
++`else
++	`define i_signal input
++	`define o_signal output
++`endif
++
+ module  rld_main  (
+    clk,
+    clk90,
+@@ -116,7 +126,35 @@
+    rld2_dm,   
+    rld2_dq,
+    rld2_qvld,
++   
++   // Application interface signals
++`ifndef EN_TESTBENCH
++   rldReadData,
++   rldReadDataValid,
++   apAddr,
++   apWriteData,
++   apWriteDM,
++   apRdfRdEn,
++   apWriteDValid,
++   apConfRdD,
++   apValid,
++   rlWdfFull,
++   rlWdfEmpty,
++   rlafFull,
++   rlafEmpty,
++   rlRdfEmpty,
++   rlWdfWrCount,
++   rlWdfWordCount,  
++   rlafWrCount,     
++   rlafWordCount,   
++
++   apConfA,
++   apConfWrD,
++   apConfRd,
++   apConfWr,
+ 
++   issueCalibration,
++`endif
+    // chipscope debug ports
+    cs_io
+ );
+@@ -219,31 +257,31 @@
+    wire  [RL_DQ_WIDTH-1:0]     rld2_dq;
+    wire  [NUM_OF_DEVS-1:0]     rld2_qvld;
+ 
+-   wire  [(2*RL_DQ_WIDTH)-1:0] rldReadData;
+-   wire                        rldReadDataValid;
+-   wire  [APP_AD_WIDTH-1:0]    apAddr;
+-   wire  [(2*RL_DQ_WIDTH)-1:0] apWriteData;
+-   wire  [(2*NUM_OF_DEVS)-1:0] apWriteDM;
+-   wire                        apRdfRdEn;
+-   wire                        apWriteDValid;
+-   wire  [7:0]                 apConfRdD;
+-   wire                        apValid;
+-   wire                        rlWdfFull;
+-   wire                        rlWdfEmpty;
+-   wire                        rlafFull;
+-   wire                        rlafEmpty;
+-   wire                        rlRdfEmpty;
+-   wire  [12:0]                rlWdfWrCount;    // write data FIFO write count
+-   wire  [12:0]                rlWdfWordCount;  // write data FIFO word count
+-   wire  [12:0]                rlafWrCount;     // command/address FIFO write count
+-   wire  [12:0]                rlafWordCount;   // command/address FIFO word count
+-
+-   wire  [3:0]                 apConfA;
+-   wire  [7:0]                 apConfWrD;
+-   wire                        apConfRd;
+-   wire                        apConfWr;
++   `o_signal  [(2*RL_DQ_WIDTH)-1:0] rldReadData;
++   `o_signal                        rldReadDataValid;
++   `i_signal  [APP_AD_WIDTH-1:0]    apAddr;
++   `i_signal  [(2*RL_DQ_WIDTH)-1:0] apWriteData;
++   `i_signal  [(2*NUM_OF_DEVS)-1:0] apWriteDM;
++   `i_signal                        apRdfRdEn;
++   `i_signal                        apWriteDValid;
++   `o_signal  [7:0]                 apConfRdD;
++   `i_signal                        apValid;
++   `o_signal                        rlWdfFull;
++   `o_signal                        rlWdfEmpty;
++   `o_signal                        rlafFull;
++   `o_signal                        rlafEmpty;
++   `o_signal                        rlRdfEmpty;
++   `o_signal  [12:0]                rlWdfWrCount;    // write data FIFO write count
++   `o_signal  [12:0]                rlWdfWordCount;  // write data FIFO word count
++   `o_signal  [12:0]                rlafWrCount;     // command/address FIFO write count
++   `o_signal  [12:0]                rlafWordCount;   // command/address FIFO word count
++
++   `i_signal  [3:0]                 apConfA;
++   `i_signal  [7:0]                 apConfWrD;
++   `i_signal                        apConfRd;
++   `i_signal                        apConfWr;
+ 
+-   wire                        issueCalibration;  // user command to restart the calibration
++   `i_signal                        issueCalibration;  // user command to restart the calibration
+ 
+ 
+    // -----------------------------------------------------------------------------
+@@ -336,7 +374,7 @@
+       .cs_io            ( cs_io )
+    );
+ 
+-
++`ifdef EN_TESTBENCH
+    // -----------------------------------------------------------------------------
+    // User Application: synthesizable testbench
+    // -----------------------------------------------------------------------------
+@@ -403,5 +441,8 @@
+ 
+       .cs_io              ( cs_io )
+    );
++`else
++   assign issueMRS = 1'b0;
++`endif
+ 
+ endmodule
+diff -u controller/rld_mem_interface_top.v controller_orig/rld_mem_interface_top.v
+--- controller/rld_mem_interface_top.v	2007-08-24 17:21:06.000000000 +0100
++++ controller_orig/rld_mem_interface_top.v	2012-10-15 01:26:58.000000000 +0100
+@@ -62,13 +62,19 @@
+ //             config 3, Memory DLL enabled by default. 
+ //*****************************************************************************
+ 
++`include "rld_defs.vh"
++
+ `timescale 1ns/100ps
+ 
+ module  rld_mem_interface_top  (
+    refClk_p,
++`ifndef NF10
+    refClk_n,
++`endif
+    sysClk_p,
++`ifndef NF10
+    sysClk_n,
++`endif
+    sysReset,
+    dip,
+    clk33,
+@@ -92,6 +98,37 @@
+    RLD2_DM,
+    RLD2_DQ,
+    RLD2_QVLD
++   
++   // Application interface signals
++`ifndef EN_TESTBENCH
++   ,
++   rldReadData,
++   rldReadDataValid,
++   apAddr,
++   apWriteData,
++   apWriteDM,
++   apRdfRdEn,
++   apWriteDValid,
++   apConfRdD,
++   apValid,
++   rlWdfFull,
++   rlWdfEmpty,
++   rlafFull,
++   rlafEmpty,
++   rlRdfEmpty,
++   rlWdfWrCount,
++   rlWdfWordCount,  
++   rlafWrCount,     
++   rlafWordCount,   
++
++   apConfA,
++   apConfWrD,
++   apConfRd,
++   apConfWr,
++   
++   Init_Done,
++   issueCalibration
++`endif
+ 
+    // PASS_FAIL
+ );
+@@ -127,9 +164,13 @@
+ 
+    // System signals and debug
+    input            refClk_p;
++`ifndef NF10
+    input            refClk_n;
++`endif
+    input            sysClk_p;
++`ifndef NF10
+    input            sysClk_n;
++`endif
+    input            sysReset;
+    input            dip;
+    input            clk33;
+@@ -154,6 +195,34 @@
+    inout  [RL_DQ_WIDTH-1:0]    RLD2_DQ;
+    input  [NUM_OF_DEVS-1:0]    RLD2_QVLD;
+ 
++`ifndef EN_TESTBENCH
++   output  [(2*RL_DQ_WIDTH)-1:0] rldReadData;
++   output                        rldReadDataValid;
++   input  [APP_AD_WIDTH-1:0]     apAddr;
++   input  [(2*RL_DQ_WIDTH)-1:0]  apWriteData;
++   input  [(2*NUM_OF_DEVS)-1:0]  apWriteDM;
++   input                         apRdfRdEn;
++   input                         apWriteDValid;
++   output  [7:0]                 apConfRdD;
++   input                         apValid;
++   output                        rlWdfFull;
++   output                        rlWdfEmpty;
++   output                        rlafFull;
++   output                        rlafEmpty;
++   output                        rlRdfEmpty;
++   output  [12:0]                rlWdfWrCount;    
++   output  [12:0]                rlWdfWordCount;  
++   output  [12:0]                rlafWrCount;     
++   output  [12:0]                rlafWordCount;   
++
++   input  [3:0]                  apConfA;
++   input  [7:0]                  apConfWrD;
++   input                         apConfRd;
++   input                         apConfWr;
++
++   output                        Init_Done;
++   input                         issueCalibration;
++`endif
+    // output [2:0]     PASS_FAIL;
+ 
+    // wires 
+@@ -210,9 +279,13 @@
+    )
+    infrastructure_top0  (
+       .sysClk_p          ( sysClk_p ),
++`ifndef NF10
+       .sysClk_n          ( sysClk_n ),
++`endif
+       .refClk_p          ( refClk_p ),
++`ifndef NF10
+       .refClk_n          ( refClk_n ),
++`endif
+       .sysReset          ( sysReset ),     // system reset input, acive low, asynchronous
+       .clk33             ( clk33 ),
+ 
+@@ -305,11 +378,41 @@
+       .rld2_dm           ( RLD2_DM ),
+       .rld2_dq           ( RLD2_DQ ),
+       .rld2_qvld         ( RLD2_QVLD ),
++	  
++`ifndef EN_TESTBENCH
++	  // application interface signals
++      .apRdfRdEn         ( apRdfRdEn ),
++      .rldReadData       ( rldReadData ),
++      .rldReadDataValid  ( rldReadDataValid ),
++   
++      .apAddr            ( apAddr ),
++      .apValid           ( apValid ),
++      .apWriteDM         ( apWriteDM ),
++      .apWriteData       ( apWriteData ),
++      .apWriteDValid     ( apWriteDValid ),
++      .apConfA           ( apConfA ),
++      .apConfWrD         ( apConfWrD ),
++      .apConfWr          ( apConfWr ),
++      .apConfRdD         ( apConfRdD ),
+    
++      .apConfRd          ( apConfRd ),
++      .rlWdfEmpty        ( rlWdfEmpty ),
++      .rlWdfFull         ( rlWdfFull ),
++      .rlRdfEmpty        ( rlRdfEmpty ),
++      .rlafEmpty         ( rlafEmpty ),
++      .rlafFull          ( rlafFull ),
++      .rlWdfWrCount      ( rlWdfWrCount ), 
++      .rlWdfWordCount    ( rlWdfWordCount ),
++      .rlafWrCount       ( rlafWrCount ),   
++      .rlafWordCount     ( rlafWordCount ), 
++	  
++	  .issueCalibration  ( issueCalibration ),
++`endif
++
+       .cs_io             ( cs_io )
+    );
+ 
+-
++`ifdef EN_TESTBENCH
+    // -----------------------------------------------------------------------------
+    // rld_seven_seg
+    //   - module used to control ML561 LEDs
+@@ -335,7 +438,8 @@
+    // -----------------------------------------------------------------------------
+    // Chipscope module instantiations
+    // -----------------------------------------------------------------------------
+-   /*icon  i_icon  (
++`ifdef DEBUG
++   icon  i_icon  (
+       .control0  ( cs_control0 )
+    );
+ 
+@@ -344,18 +448,23 @@
+       .clk     ( cs_clk0 ),
+       .data    ( cs_data0 ),
+       .trig0   ( cs_trig0 )
+-   ); */
++   );
+ 
+    assign cs_clk0  = clk;
+    //assign cs_clk0  = ~clk90; //use clk270 for checking phy signals
+-   assign cs_data0 = { cs_io[255:0] };
++   // assign cs_data0 = { cs_io[255:0] };
+    
++   assign cs_data0 = { 251'b0, PASS_FAIL[2:0], calibration_done, Init_Done };
+ 
+-   assign cs_trig0 = { 10'b0,
+-                       PASS_FAIL[2],    //Error Signal
+-                       cs_io[111:100],  // f_cs, data cal SM for debug
+-                       cs_io[95:93]     // ref[2], we[1], cs[0]
+-                      };
++   // assign cs_trig0 = { 10'b0,
++                       // PASS_FAIL[2],    //Error Signal
++                       // cs_io[111:100],  // f_cs, data cal SM for debug
++                       // cs_io[95:93]     // ref[2], we[1], cs[0]
++                      // };
++					  
++   assign cs_trig0 = {11'b0, PASS_FAIL[2:0], calibration_done, Init_Done };
++`endif
++`endif 
+ 
+ endmodule
+ 
+diff -u controller/rld_v4_qvld_iob.v controller_orig/rld_v4_qvld_iob.v
+--- controller/rld_v4_qvld_iob.v	2007-08-24 17:21:06.000000000 +0100
++++ controller_orig/rld_v4_qvld_iob.v	2012-10-15 01:26:20.000000000 +0100
+@@ -59,6 +59,8 @@
+ //
+ //*****************************************************************************
+ 
++`include "rld_defs.vh"
++
+ `timescale 1ns/100ps
+ 
+ module  rld_qvld_iob  #(
+@@ -193,7 +195,9 @@
+       .DLYINC    ( dlyinc ),
+       .DLYRST    ( dlyrst ),
+       .OCLK      ( clk270 ),     // high speed clock for memory apps, drive the serial-to-parallel converter
++`ifndef NF10
+       .REV       ( gnd ),
++`endif
+       .SHIFTIN1  ( ),
+       .SHIFTIN2  ( ),
+       .SR        ( reset )
+diff -u controller/rld_v5_dq_iob.v controller_orig/rld_v5_dq_iob.v
+--- controller/rld_v5_dq_iob.v	2007-08-24 17:21:06.000000000 +0100
++++ controller_orig/rld_v5_dq_iob.v	2012-10-15 01:26:10.000000000 +0100
+@@ -59,6 +59,8 @@
+ //
+ //*****************************************************************************
+ 
++`include "rld_defs.vh"
++
+ `timescale 1ns/100ps
+ 
+ module  rld_v5_dq_iob  #(
+@@ -167,7 +169,9 @@
+       .DLYINC    ( dlyinc ),
+       .DLYRST    ( dlyrst ),
+       .OCLK      ( clk270 ),     // high speed clock for memory apps, drive the serial-to-parallel converter
++`ifndef NF10
+       .REV       ( gnd ),
++`endif
+       .SHIFTIN1  ( ),
+       .SHIFTIN2  ( ),
+       .SR        ( reset )

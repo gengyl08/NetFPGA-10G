@@ -1,0 +1,414 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10.ucf
+#
+#  Project:
+#        rldram_mmap
+#
+#  Author:
+#        Muhammad Shahbaz
+#
+#  Description:
+#        UCF
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#    
+#        This module was developed by SRI International and the University of
+#        Cambridge Computer Laboratory under DARPA/AFRL contract (FA8750-11-C-0249)
+#        ("MRC2"), as part of the DARPA MRC research programme.
+#
+
+NET Peripheral_aresetn TIG;
+
+NET RESET             LOC = AL24  |  IOSTANDARD=LVCMOS33  | PULLUP | TIG;
+NET RS232_Uart_1_sin  LOC = BB23  |  IOSTANDARD=LVCMOS33;
+NET RS232_Uart_1_sout LOC = BB21  |  IOSTANDARD=LVCMOS33;
+NET CLK_N             LOC = AM26;
+NET CLK_P             LOC = AL26;
+
+#
+# additional constraints
+#
+
+NET CLK TNM_NET = sys_clk_pin;
+TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100 MHz;
+
+# Timing Ignore constraint on all signals that cross clk domains
+NET "core_clk" TNM_NET = "CORE_CLK";
+NET "control_clk" TNM_NET = "CTRL_CLK";
+NET "dma_0/dma_0/trn_clk_c" TNM_NET = "PCIE_CLK";
+TIMESPEC "TS_CLK_TIG_0" = FROM "CORE_CLK" TO "PCIE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_1" = FROM "PCIE_CLK" TO "CORE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_2" = FROM "CTRL_CLK" TO "PCIE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_3" = FROM "PCIE_CLK" TO "CTRL_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_4" = FROM "CTRL_CLK" TO "CORE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_5" = FROM "CORE_CLK" TO "CTRL_CLK" TIG;
+
+############################################################################
+#DCI_CASCADING
+CONFIG DCI_CASCADE = "23 27 13 25 29";
+CONFIG DCI_CASCADE = "24 28 30 26 14";
+CONFIG DCI_CASCADE = "5 7";
+
+############################################################################
+# PCIE SECTION
+###########################################################################
+# Timing Constraints ######################################################
+
+NET "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/gt_refclk_out[0]" TNM_NET = "MGTCLK" ;
+TIMESPEC "TS_MGTCLK"  = PERIOD "MGTCLK" 100.00 MHz HIGH 50 % ;
+
+# Pinout and Related I/O Constraints ##########################################
+NET  "pcie_clk_p"      LOC = AT4;
+NET  "pcie_clk_n"      LOC = AT3;
+INST "dma_0/dma_0/pcie_clk_ibuf"  DIFF_TERM = "TRUE";
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[0].GT_i" LOC = GTX_DUAL_X1Y5;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[2].GT_i" LOC = GTX_DUAL_X1Y4;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[4].GT_i" LOC = GTX_DUAL_X1Y3;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[6].GT_i" LOC = GTX_DUAL_X1Y2;
+
+# BlockRAM placement...
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_retry/generate_sdp.ram_sdp_inst"      LOC = RAMB36_X5Y20 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y19 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y18 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y17 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y16 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk_if/ll_bridge/rx_bridge/fifo_inst/oq_fifo/Mram_regBank"        LOC = RAMB36_X5Y15 ;
+
+# BRAM placement
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_dne/genblk10.genblk1.genblk2.genblk3.u_ram_lo/genblk1.u_bram/mem_mem_0_0" LOC = RAMB36_X3Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_dne/genblk10.genblk1.genblk2.genblk3.u_ram_lo/genblk1.u_bram/mem_mem_0_0" LOC = RAMB36_X5Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_cfg/u_x_cfg_fifo_0/afifo/fifo_mem/genblk1.u_fifo_bram/mem_mem_0_0/RAMB36SDP_EXP" LOC = RAMB36_X3Y20;
+
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[3].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y21;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[2].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[1].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y23;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[0].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y24;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[3].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y21;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[2].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[1].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y23;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[0].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y24;
+
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X4Y23;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X5Y25;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_1/RAMB36_EXP" LOC = RAMB36_X4Y24;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_1/RAMB36_EXP" LOC = RAMB36_X5Y26;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_2/RAMB36_EXP" LOC = RAMB36_X4Y25;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_2/RAMB36_EXP" LOC = RAMB36_X5Y27;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_3/RAMB36_EXP" LOC = RAMB36_X4Y26;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_3/RAMB36_EXP" LOC = RAMB36_X5Y28;
+
+############################################################################
+# RLDRAM SECTION
+###########################################################################
+# PINOUT ###################################################################
+NET "nf10_rldram_mmap_A_RLD2_A_pin[0]" LOC = AJ36;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[1]" LOC = AG37;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[2]" LOC = AG36;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[3]" LOC = AG31;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[4]" LOC = AG32;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[5]" LOC = AC33;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[6]" LOC = AB33;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[7]" LOC = AG33;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[8]" LOC = AG34;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[9]" LOC = AD37;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[10]" LOC = AF31;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[11]" LOC = AF32;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[12]" LOC = AE35;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[13]" LOC = AD35;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[14]" LOC = AL36;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[15]" LOC = AL37;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[16]" LOC = AC30;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[17]" LOC = AC31;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[18]" LOC = AN38;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[19]" LOC = AM38;
+NET "nf10_rldram_mmap_A_RLD2_BA_pin[0]" LOC = AF35;
+NET "nf10_rldram_mmap_A_RLD2_BA_pin[1]" LOC = AF36;
+NET "nf10_rldram_mmap_A_RLD2_BA_pin[2]" LOC = AH36;
+NET "nf10_rldram_mmap_A_RLD2_WE_N_pin" LOC = AC34;
+NET "nf10_rldram_mmap_A_RLD2_REF_N_pin" LOC = AC35;
+NET "nf10_rldram_mmap_A_RLD2_CS_N_pin[0]" LOC = AK37;
+NET "nf10_rldram_mmap_A_RLD2_CK_N_pin[0]" LOC = AE34;
+NET "nf10_rldram_mmap_A_RLD2_CK_P_pin[0]" LOC = AF34;
+NET "nf10_rldram_mmap_A_RLD2_CK_N_pin[1]" LOC = AE37;
+NET "nf10_rldram_mmap_A_RLD2_CK_P_pin[1]" LOC = AF37;
+NET "nf10_rldram_mmap_A_RLD2_DK_P_pin[0]" LOC = AD31;
+NET "nf10_rldram_mmap_A_RLD2_DK_N_pin[0]" LOC = AD30;
+NET "nf10_rldram_mmap_A_RLD2_DK_P_pin[1]" LOC = AD32;
+NET "nf10_rldram_mmap_A_RLD2_DK_N_pin[1]" LOC = AD33;
+NET "nf10_rldram_mmap_A_RLD2_DK_P_pin[2]" LOC = AH38;
+NET "nf10_rldram_mmap_A_RLD2_DK_N_pin[2]" LOC = AG38;
+NET "nf10_rldram_mmap_A_RLD2_DK_P_pin[3]" LOC = AE33;
+NET "nf10_rldram_mmap_A_RLD2_DK_N_pin[3]" LOC = AE32;
+NET "nf10_rldram_mmap_A_RLD2_QVLD_pin[0]" LOC = AP30;
+NET "nf10_rldram_mmap_A_RLD2_QVLD_pin[1]" LOC = AJ35;
+NET "nf10_rldram_mmap_A_RLD2_DQ[0]" LOC = AH29;
+NET "nf10_rldram_mmap_A_RLD2_DQ[1]" LOC = AH30;
+NET "nf10_rldram_mmap_A_RLD2_QK_N_pin[0]" LOC = AR29;
+NET "nf10_rldram_mmap_A_RLD2_QK_P_pin[0]" LOC = AR28;
+NET "nf10_rldram_mmap_A_RLD2_QK_N_pin[1]" LOC = AU33;
+NET "nf10_rldram_mmap_A_RLD2_QK_P_pin[1]" LOC = AU32;
+NET "nf10_rldram_mmap_A_RLD2_CS_N_pin[1]" LOC = AR30;
+NET "nf10_rldram_mmap_A_RLD2_DQ[2]" LOC = AT32;
+NET "nf10_rldram_mmap_A_RLD2_DQ[3]" LOC = AR32;
+NET "nf10_rldram_mmap_A_RLD2_DQ[4]" LOC = AT29;
+NET "nf10_rldram_mmap_A_RLD2_DQ[5]" LOC = AN30;
+NET "nf10_rldram_mmap_A_RLD2_DQ[6]" LOC = AM29;
+NET "nf10_rldram_mmap_A_RLD2_DQ[7]" LOC = AV30;
+NET "nf10_rldram_mmap_A_RLD2_DQ[8]" LOC = AU29;
+NET "nf10_rldram_mmap_A_RLD2_DQ[9]" LOC = AL30;
+NET "nf10_rldram_mmap_A_RLD2_DQ[10]" LOC = AL29;
+NET "nf10_rldram_mmap_A_RLD2_DQ[11]" LOC = AU31;
+NET "nf10_rldram_mmap_A_RLD2_DQ[12]" LOC = AV31;
+NET "nf10_rldram_mmap_A_RLD2_DQ[13]" LOC = AT31;
+NET "nf10_rldram_mmap_A_RLD2_DQ[14]" LOC = AT30;
+NET "nf10_rldram_mmap_A_RLD2_DQ[15]" LOC = AP28;
+NET "nf10_rldram_mmap_A_RLD2_DQ[16]" LOC = AN28;
+NET "nf10_rldram_mmap_A_RLD2_DQ[17]" LOC = AJ30;
+NET "nf10_rldram_mmap_A_RLD2_DQ[18]" LOC = AH31;
+NET "nf10_rldram_mmap_A_RLD2_DQ[19]" LOC = AT25;
+NET "nf10_rldram_mmap_A_RLD2_DQ[20]" LOC = AT26;
+NET "nf10_rldram_mmap_A_RLD2_DQ[21]" LOC = AK29;
+NET "nf10_rldram_mmap_A_RLD2_DQ[22]" LOC = AV25;
+NET "nf10_rldram_mmap_A_RLD2_DQ[23]" LOC = AV26;
+NET "nf10_rldram_mmap_A_RLD2_DQ[24]" LOC = AT34;
+NET "nf10_rldram_mmap_A_RLD2_DQ[25]" LOC = AU34;
+NET "nf10_rldram_mmap_A_RLD2_DQ[26]" LOC = AT27;
+NET "nf10_rldram_mmap_A_RLD2_DQ[27]" LOC = AU27;
+NET "nf10_rldram_mmap_A_RLD2_DQ[28]" LOC = AR33;
+NET "nf10_rldram_mmap_A_RLD2_DQ[29]" LOC = AR34;
+NET "nf10_rldram_mmap_A_RLD2_DQ[30]" LOC = AN29;
+NET "nf10_rldram_mmap_A_RLD2_DQ[31]" LOC = AM28;
+NET "nf10_rldram_mmap_A_RLD2_DQ[32]" LOC = AK34;
+NET "nf10_rldram_mmap_A_RLD2_DQ[33]" LOC = AJ33;
+NET "nf10_rldram_mmap_A_RLD2_QK_N_pin[2]" LOC = AH33;
+NET "nf10_rldram_mmap_A_RLD2_QK_P_pin[2]" LOC = AH34;
+NET "nf10_rldram_mmap_A_RLD2_QK_N_pin[3]" LOC = AP33;
+NET "nf10_rldram_mmap_A_RLD2_QK_P_pin[3]" LOC = AP32;
+NET "nf10_rldram_mmap_A_RLD2_DQ[34]" LOC = AK33;
+NET "nf10_rldram_mmap_A_RLD2_DQ[35]" LOC = AK32;
+NET "nf10_rldram_mmap_A_RLD2_DQ[36]" LOC = AP37;
+NET "nf10_rldram_mmap_A_RLD2_DQ[37]" LOC = AP31;
+NET "nf10_rldram_mmap_A_RLD2_DQ[38]" LOC = AN31;
+NET "nf10_rldram_mmap_A_RLD2_DQ[39]" LOC = AN35;
+NET "nf10_rldram_mmap_A_RLD2_DQ[40]" LOC = AN36;
+NET "nf10_rldram_mmap_A_RLD2_DQ[41]" LOC = AM32;
+NET "nf10_rldram_mmap_A_RLD2_DQ[42]" LOC = AM31;
+NET "nf10_rldram_mmap_A_RLD2_DQ[43]" LOC = AM36;
+NET "nf10_rldram_mmap_A_RLD2_DQ[44]" LOC = AL35;
+NET "nf10_rldram_mmap_A_RLD2_DQ[45]" LOC = AL32;
+NET "nf10_rldram_mmap_A_RLD2_DQ[46]" LOC = AL31;
+NET "nf10_rldram_mmap_A_RLD2_DQ[47]" LOC = AU37;
+NET "nf10_rldram_mmap_A_RLD2_DQ[48]" LOC = AT36;
+NET "nf10_rldram_mmap_A_RLD2_DQ[49]" LOC = AU36;
+NET "nf10_rldram_mmap_A_RLD2_DQ[50]" LOC = AV36;
+NET "nf10_rldram_mmap_A_RLD2_DQ[51]" LOC = AJ32;
+NET "nf10_rldram_mmap_A_RLD2_DQ[52]" LOC = AJ31;
+NET "nf10_rldram_mmap_A_RLD2_DQ[53]" LOC = AR35;
+NET "nf10_rldram_mmap_A_RLD2_DQ[54]" LOC = AR37;
+NET "nf10_rldram_mmap_A_RLD2_DQ[55]" LOC = AT37;
+NET "nf10_rldram_mmap_A_RLD2_DQ[56]" LOC = AN34;
+NET "nf10_rldram_mmap_A_RLD2_DQ[57]" LOC = AM34;
+NET "nf10_rldram_mmap_A_RLD2_DQ[58]" LOC = AP35;
+NET "nf10_rldram_mmap_A_RLD2_DQ[59]" LOC = AP36;
+NET "nf10_rldram_mmap_A_RLD2_DQ[60]" LOC = AM33;
+NET "nf10_rldram_mmap_A_RLD2_DQ[61]" LOC = AN33;
+NET "nf10_rldram_mmap_A_RLD2_DQ[62]" LOC = AK35;
+NET "nf10_rldram_mmap_A_RLD2_DQ[63]" LOC = AL34;
+
+NET "nf10_rldram_mmap_B_RLD2_A_pin[0]" LOC = AM5;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[1]" LOC = AM7;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[2]" LOC = AM6;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[3]" LOC = AD6;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[4]" LOC = AD7;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[5]" LOC = AG11;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[6]" LOC = AF11;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[7]" LOC = AF7;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[8]" LOC = AE8;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[9]" LOC = AH11;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[10]" LOC = AF6;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[11]" LOC = AF5;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[12]" LOC = AL9;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[13]" LOC = AK9;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[14]" LOC = AH5;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[15]" LOC = AG6;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[16]" LOC = AG9;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[17]" LOC = AF10;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[18]" LOC = AH6;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[19]" LOC = AG7;
+NET "nf10_rldram_mmap_B_RLD2_BA_pin[0]" LOC = AE10;
+NET "nf10_rldram_mmap_B_RLD2_BA_pin[1]" LOC = AD10;
+NET "nf10_rldram_mmap_B_RLD2_BA_pin[2]" LOC = AN5;
+NET "nf10_rldram_mmap_B_RLD2_WE_N_pin" LOC = AF12;
+NET "nf10_rldram_mmap_B_RLD2_REF_N_pin" LOC = AG12;
+NET "nf10_rldram_mmap_B_RLD2_CS_N_pin[0]" LOC = AK7;
+NET "nf10_rldram_mmap_B_RLD2_CK_N_pin[0]" LOC = AH8;
+NET "nf10_rldram_mmap_B_RLD2_CK_P_pin[0]" LOC = AG8;
+NET "nf10_rldram_mmap_B_RLD2_CK_N_pin[1]" LOC = AL7;
+NET "nf10_rldram_mmap_B_RLD2_CK_P_pin[1]" LOC = AK8;
+NET "nf10_rldram_mmap_B_RLD2_DK_P_pin[0]" LOC = AF9;
+NET "nf10_rldram_mmap_B_RLD2_DK_N_pin[0]" LOC = AE9;
+NET "nf10_rldram_mmap_B_RLD2_DK_P_pin[1]" LOC = AP5;
+NET "nf10_rldram_mmap_B_RLD2_DK_N_pin[1]" LOC = AP6;
+NET "nf10_rldram_mmap_B_RLD2_DK_P_pin[2]" LOC = AH9;
+NET "nf10_rldram_mmap_B_RLD2_DK_N_pin[2]" LOC = AJ8;
+NET "nf10_rldram_mmap_B_RLD2_DK_P_pin[3]" LOC = AJ6;
+NET "nf10_rldram_mmap_B_RLD2_DK_N_pin[3]" LOC = AJ7;
+NET "nf10_rldram_mmap_B_RLD2_QVLD_pin[0]" LOC = AT14;
+NET "nf10_rldram_mmap_B_RLD2_QVLD_pin[1]" LOC = AT10;
+NET "nf10_rldram_mmap_B_RLD2_DQ[0]" LOC = AR18;
+NET "nf10_rldram_mmap_B_RLD2_DQ[1]" LOC = AR19;
+NET "nf10_rldram_mmap_B_RLD2_QK_N_pin[0]" LOC = AN15;
+NET "nf10_rldram_mmap_B_RLD2_QK_P_pin[0]" LOC = AN14;
+NET "nf10_rldram_mmap_B_RLD2_QK_N_pin[1]" LOC = AP17;
+NET "nf10_rldram_mmap_B_RLD2_QK_P_pin[1]" LOC = AN16;
+NET "nf10_rldram_mmap_B_RLD2_CS_N_pin[1]" LOC = AU13;
+NET "nf10_rldram_mmap_B_RLD2_DQ[2]" LOC = AU16;
+NET "nf10_rldram_mmap_B_RLD2_DQ[3]" LOC = AT16;
+NET "nf10_rldram_mmap_B_RLD2_DQ[4]" LOC = AP15;
+NET "nf10_rldram_mmap_B_RLD2_DQ[5]" LOC = AP16;
+NET "nf10_rldram_mmap_B_RLD2_DQ[6]" LOC = AR15;
+NET "nf10_rldram_mmap_B_RLD2_DQ[7]" LOC = AL14;
+NET "nf10_rldram_mmap_B_RLD2_DQ[8]"  LOC = AM14;
+NET "nf10_rldram_mmap_B_RLD2_DQ[9]"  LOC = AT15;
+NET "nf10_rldram_mmap_B_RLD2_DQ[10]" LOC = AU14;
+NET "nf10_rldram_mmap_B_RLD2_DQ[11]" LOC = AV13;
+NET "nf10_rldram_mmap_B_RLD2_DQ[12]" LOC = AU12;
+NET "nf10_rldram_mmap_B_RLD2_DQ[13]" LOC = AL15;
+NET "nf10_rldram_mmap_B_RLD2_DQ[14]" LOC = AK15;
+NET "nf10_rldram_mmap_B_RLD2_DQ[15]" LOC = AH15;
+NET "nf10_rldram_mmap_B_RLD2_DQ[16]" LOC = AJ15;
+NET "nf10_rldram_mmap_B_RLD2_DQ[17]" LOC = AP18;
+NET "nf10_rldram_mmap_B_RLD2_DQ[18]" LOC = AN18;
+NET "nf10_rldram_mmap_B_RLD2_DQ[19]" LOC = AG13;
+NET "nf10_rldram_mmap_B_RLD2_DQ[20]" LOC = AH14;
+NET "nf10_rldram_mmap_B_RLD2_DQ[21]" LOC = AL16;
+NET "nf10_rldram_mmap_B_RLD2_DQ[22]" LOC = AJ13;
+NET "nf10_rldram_mmap_B_RLD2_DQ[23]" LOC = AH13;
+NET "nf10_rldram_mmap_B_RLD2_DQ[24]" LOC = AU17;
+NET "nf10_rldram_mmap_B_RLD2_DQ[25]" LOC = AU18;
+NET "nf10_rldram_mmap_B_RLD2_DQ[26]" LOC = AK14;
+NET "nf10_rldram_mmap_B_RLD2_DQ[27]" LOC = AK13;
+NET "nf10_rldram_mmap_B_RLD2_DQ[28]" LOC = AR17;
+NET "nf10_rldram_mmap_B_RLD2_DQ[29]" LOC = AT17;
+NET "nf10_rldram_mmap_B_RLD2_DQ[30]" LOC = AR13;
+NET "nf10_rldram_mmap_B_RLD2_DQ[31]" LOC = AT12;
+NET "nf10_rldram_mmap_B_RLD2_DQ[32]" LOC = AR9;
+NET "nf10_rldram_mmap_B_RLD2_DQ[33]" LOC = AR8;
+NET "nf10_rldram_mmap_B_RLD2_QK_N_pin[2]" LOC = AL12;
+NET "nf10_rldram_mmap_B_RLD2_QK_P_pin[2]" LOC = AM12;
+NET "nf10_rldram_mmap_B_RLD2_QK_N_pin[3]" LOC = AV7;
+NET "nf10_rldram_mmap_B_RLD2_QK_P_pin[3]" LOC = AU8;
+NET "nf10_rldram_mmap_B_RLD2_DQ[34]" LOC = AT6;
+NET "nf10_rldram_mmap_B_RLD2_DQ[35]" LOC = AU6;
+NET "nf10_rldram_mmap_B_RLD2_DQ[36]" LOC = AU11;
+NET "nf10_rldram_mmap_B_RLD2_DQ[37]" LOC = AN8;
+NET "nf10_rldram_mmap_B_RLD2_DQ[38]" LOC = AP8;
+NET "nf10_rldram_mmap_B_RLD2_DQ[39]" LOC = AR12;
+NET "nf10_rldram_mmap_B_RLD2_DQ[40]" LOC = AP13;
+NET "nf10_rldram_mmap_B_RLD2_DQ[41]" LOC = AM8;
+NET "nf10_rldram_mmap_B_RLD2_DQ[42]" LOC = AM9;
+NET "nf10_rldram_mmap_B_RLD2_DQ[43]" LOC = AN13;
+NET "nf10_rldram_mmap_B_RLD2_DQ[44]" LOC = AM13;
+NET "nf10_rldram_mmap_B_RLD2_DQ[45]" LOC = AP7;
+NET "nf10_rldram_mmap_B_RLD2_DQ[46]" LOC = AR6;
+NET "nf10_rldram_mmap_B_RLD2_DQ[47]" LOC = AT9;
+NET "nf10_rldram_mmap_B_RLD2_DQ[48]" LOC = AR10;
+NET "nf10_rldram_mmap_B_RLD2_DQ[49]" LOC = AK10;
+NET "nf10_rldram_mmap_B_RLD2_DQ[50]" LOC = AL10;
+NET "nf10_rldram_mmap_B_RLD2_DQ[51]" LOC = AN11;
+NET "nf10_rldram_mmap_B_RLD2_DQ[52]" LOC = AP10;
+NET "nf10_rldram_mmap_B_RLD2_DQ[53]" LOC = AJ10;
+NET "nf10_rldram_mmap_B_RLD2_DQ[54]" LOC = AP12;
+NET "nf10_rldram_mmap_B_RLD2_DQ[55]" LOC = AP11;
+NET "nf10_rldram_mmap_B_RLD2_DQ[56]" LOC = AN10;
+NET "nf10_rldram_mmap_B_RLD2_DQ[57]" LOC = AN9;
+NET "nf10_rldram_mmap_B_RLD2_DQ[58]" LOC = AL11;
+NET "nf10_rldram_mmap_B_RLD2_DQ[59]" LOC = AM11;
+NET "nf10_rldram_mmap_B_RLD2_DQ[60]" LOC = AT7;
+NET "nf10_rldram_mmap_B_RLD2_DQ[61]" LOC = AR7;
+NET "nf10_rldram_mmap_B_RLD2_DQ[62]" LOC = AK12;
+NET "nf10_rldram_mmap_B_RLD2_DQ[63]" LOC = AJ12;
+
+# IO STANDARDS ##############################################################
+NET "nf10_rldram_mmap_A_RLD2_DQ[*]" IOSTANDARD = HSTL_II_DCI_18;
+NET "nf10_rldram_mmap_A_RLD2_QK_P_pin[*]" IOSTANDARD = DIFF_HSTL_II_DCI_18;
+NET "nf10_rldram_mmap_A_RLD2_QK_N_pin[*]" IOSTANDARD = DIFF_HSTL_II_DCI_18;
+NET "nf10_rldram_mmap_A_RLD2_A_pin[*]" IOSTANDARD = HSTL_II_18;
+NET "nf10_rldram_mmap_A_RLD2_BA_pin[*]" IOSTANDARD = HSTL_II_18;
+NET "nf10_rldram_mmap_A_RLD2_WE_N_pin" IOSTANDARD = HSTL_II_18;
+NET "nf10_rldram_mmap_A_RLD2_REF_N_pin" IOSTANDARD = HSTL_II_18;
+NET "nf10_rldram_mmap_A_RLD2_CS_N_pin[*]" IOSTANDARD = HSTL_II_18;
+NET "nf10_rldram_mmap_A_RLD2_QVLD_pin[*]" IOSTANDARD = HSTL_II_DCI_18;
+NET "nf10_rldram_mmap_A_RLD2_DK_P_pin[*]" IOSTANDARD = DIFF_HSTL_II_18;
+NET "nf10_rldram_mmap_A_RLD2_DK_N_pin[*]" IOSTANDARD = DIFF_HSTL_II_18;
+NET "nf10_rldram_mmap_A_RLD2_CK_P_pin[*]" IOSTANDARD = DIFF_HSTL_II_18;
+NET "nf10_rldram_mmap_A_RLD2_CK_N_pin[*]" IOSTANDARD = DIFF_HSTL_II_18;
+
+NET "nf10_rldram_mmap_B_RLD2_DQ[*]" IOSTANDARD = HSTL_II_DCI_18;
+NET "nf10_rldram_mmap_B_RLD2_QK_P_pin[*]" IOSTANDARD = DIFF_HSTL_II_DCI_18;
+NET "nf10_rldram_mmap_B_RLD2_QK_N_pin[*]" IOSTANDARD = DIFF_HSTL_II_DCI_18;
+NET "nf10_rldram_mmap_B_RLD2_A_pin[*]" IOSTANDARD = HSTL_II_18;
+NET "nf10_rldram_mmap_B_RLD2_BA_pin[*]" IOSTANDARD = HSTL_II_18;
+NET "nf10_rldram_mmap_B_RLD2_WE_N_pin" IOSTANDARD = HSTL_II_18;
+NET "nf10_rldram_mmap_B_RLD2_REF_N_pin" IOSTANDARD = HSTL_II_18;
+NET "nf10_rldram_mmap_B_RLD2_CS_N_pin[*]" IOSTANDARD = HSTL_II_18;
+NET "nf10_rldram_mmap_B_RLD2_QVLD_pin[*]" IOSTANDARD = HSTL_II_DCI_18;
+NET "nf10_rldram_mmap_B_RLD2_DK_P_pin[*]" IOSTANDARD = DIFF_HSTL_II_18;
+NET "nf10_rldram_mmap_B_RLD2_DK_N_pin[*]" IOSTANDARD = DIFF_HSTL_II_18;
+NET "nf10_rldram_mmap_B_RLD2_CK_P_pin[*]" IOSTANDARD = DIFF_HSTL_II_18;
+NET "nf10_rldram_mmap_B_RLD2_CK_N_pin[*]" IOSTANDARD = DIFF_HSTL_II_18;
+
+# TIMING ##############################################################
+
+INST "*nf10_rldram_mmap_A*/main0/top0/data_path0/data_write0/wr_data*" TNM = "TNM_WRDATA";
+INST "*nf10_rldram_mmap_A*/main0/top0/iobs0/data_path_iobs0/dq_virtex5_insts.dq_bit_insts*.dq/dq_oddr*" TNM = "TNM_ODDRDQ";
+TIMESPEC TS_WRFIFO_ODDRDQ = FROM "TNM_WRDATA" TO "TNM_ODDRDQ" 5 ns ;
+
+INST "*nf10_rldram_mmap_A*/main0/top0/data_path0/data_write0/data_mask*" TNM = "TNM_WR_DM";
+INST "*nf10_rldram_mmap_A*/main0/top0/iobs0/data_path_iobs0/dm_virtex5_insts.dm_bit_insts*.dm/dm_oddr" TNM = "TNM_ODDRDM";
+TIMESPEC TS_WRFIFO_ODDRDM = FROM "TNM_WR_DM" TO "TNM_ODDRDM" 5 ns ;
+
+INST "*nf10_rldram_mmap_A*/main0/top0/iobs0/data_path_iobs0/*dq_bit_insts*.dq/dq_iserdes*" TNM = "TNM_RDDATA";
+INST "*nf10_rldram_mmap_A*/main0/top0/data_path0/*rd_data_rise_r1*" TNM = "TNM_RDDATA_LATCH";
+TIMESPEC TS_READ1 = FROM "TNM_RDDATA" TO "TNM_RDDATA_LATCH" 5 ns ;
+
+INST "*nf10_rldram_mmap_B*/main0/top0/data_path0/data_write0/wr_data*" TNM = "TNM_WRDATA";
+INST "*nf10_rldram_mmap_B*/main0/top0/iobs0/data_path_iobs0/dq_virtex5_insts.dq_bit_insts*.dq/dq_oddr*" TNM = "TNM_ODDRDQ";
+TIMESPEC TS_WRFIFO_ODDRDQ = FROM "TNM_WRDATA" TO "TNM_ODDRDQ" 5 ns ;
+
+INST "*nf10_rldram_mmap_B*/main0/top0/data_path0/data_write0/data_mask*" TNM = "TNM_WR_DM";
+INST "*nf10_rldram_mmap_B*/main0/top0/iobs0/data_path_iobs0/dm_virtex5_insts.dm_bit_insts*.dm/dm_oddr" TNM = "TNM_ODDRDM";
+TIMESPEC TS_WRFIFO_ODDRDM = FROM "TNM_WR_DM" TO "TNM_ODDRDM" 5 ns ;
+
+INST "*nf10_rldram_mmap_B*/main0/top0/iobs0/data_path_iobs0/*dq_bit_insts*.dq/dq_iserdes*" TNM = "TNM_RDDATA";
+INST "*nf10_rldram_mmap_B*/main0/top0/data_path0/*rd_data_rise_r1*" TNM = "TNM_RDDATA_LATCH";
+TIMESPEC TS_READ1 = FROM "TNM_RDDATA" TO "TNM_RDDATA_LATCH" 5 ns ;
+
+# IDELAYCTRLS ##############################################################
+INST "*nf10_rldram_mmap_A*/main0/top0/data_path0/taplogic0/idelayctrl0" LOC = IDELAYCTRL_X0Y1;
+INST "*nf10_rldram_mmap_A*/main0/top0/data_path0/taplogic0/idelayctrl1" LOC = IDELAYCTRL_X0Y2;
+
+INST "*nf10_rldram_mmap_B*/main0/top0/data_path0/taplogic0/idelayctrl0" LOC = IDELAYCTRL_X2Y1;
+INST "*nf10_rldram_mmap_B*/main0/top0/data_path0/taplogic0/idelayctrl1" LOC = IDELAYCTRL_X2Y2;

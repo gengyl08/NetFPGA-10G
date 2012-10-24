@@ -1,0 +1,131 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_rldram_mmap_v2_1_0.mpd
+#
+#  Library:
+#        hw/std/pcores/nf10_rldram_mmap_v1_00_a
+#
+#  Author:
+#        Muhammad Shahbaz
+#
+#  Description:
+#        Microprocessor Peripheral Description File
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#        This module was developed by SRI International and the University of
+#        Cambridge Computer Laboratory under DARPA/AFRL contract (FA8750-11-C-0249)
+#        ("MRC2"), as part of the DARPA MRC research programme.
+#
+#
+
+BEGIN nf10_rldram_mmap
+
+## Peripheral Options
+OPTION HDL = MIXED
+OPTION IMP_NETLIST = TRUE
+OPTION IPTYPE = PERIPHERAL
+OPTION RUN_NGCBUILD = TRUE
+OPTION USAGE_LEVEL = BASE_USER
+OPTION STYLE = HDL
+OPTION DESC = NetFPGA-10G RLDRAM-II Memory
+OPTION LONG_DESC = NetFPGA-10G RLDRAM-II Memory
+OPTION IP_GROUP = Memory and Memory Controller:MICROBLAZE
+
+## IO Interfaces
+IO_INTERFACE IO_IF = memory_0
+
+## Bus Interfaces
+BUS_INTERFACE BUS = S_AXI, BUS_STD = AXI, BUS_TYPE = SLAVE
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_S_AXI_ID_WIDTH = 4, DT = INTEGER, BUS = S_AXI, RANGE = (1:16), ASSIGNMENT = UPDATE, EXT_ASSIGNMENT = SKIP
+PARAMETER C_S_AXI_ADDR_WIDTH = 32, DT = INTEGER, BUS = S_AXI, ASSIGNMENT = CONSTANT
+PARAMETER C_S_AXI_DATA_WIDTH = 128, DT = INTEGER, BUS = S_AXI, RANGE = (32, 64, 128, 256), ASSIGNMENT = CONSTANT
+PARAMETER C_S_AXI_SUPPORTS_NARROW_BURST = 1, DT = INTEGER, RANGE = (0:1), BUS = S_AXI, ASSIGNMENT = OPTIONAL_UPDATE, EXT_NOVALUE = Auto
+PARAMETER C_S_AXI_REG_EN0 = 0x00000, DT = STD_LOGIC_VECTOR, BUS = S_AXI, EXT_ASSIGNMENT = SKIP
+PARAMETER C_S_AXI_REG_EN1 = 0x00000, DT = STD_LOGIC_VECTOR, BUS = S_AXI, EXT_ASSIGNMENT = SKIP
+PARAMETER C_S_AXI_BASEADDR = 0xFFFFFFFF, BUS = S_AXI, ADDRESS = BASE, PAIR = C_S_AXI_HIGHADDR, DT = STD_LOGIC_VECTOR, ADDR_TYPE = MEMORY, CACHEABLE = TRUE, MIN_SIZE = 0x1000
+PARAMETER C_S_AXI_HIGHADDR = 0x00000000, BUS = S_AXI, ADDRESS = HIGH, PAIR = C_S_AXI_BASEADDR, DT = STD_LOGIC_VECTOR, ADDR_TYPE = MEMORY, CACHEABLE = TRUE, MIN_SIZE = 0x1000
+PARAMETER C_S_AXI_PROTOCOL = AXI4, DT = STRING, ASSIGNMENT = CONSTANT, TYPE = NON_HDL, BUS = S_AXI
+PARAMETER C_INTERCONNECT_S_AXI_READ_ACCEPTANCE = 4, DT = INTEGER, RANGE = (1,2,4,8,16,32), BUS = S_AXI, ASSIGNMENT = OPTIONAL, TYPE = NON_HDL
+PARAMETER C_INTERCONNECT_S_AXI_WRITE_ACCEPTANCE = 4, DT = INTEGER, RANGE = (1,2,4,8,16,32), BUS = S_AXI, ASSIGNMENT = OPTIONAL, TYPE = NON_HDL
+
+## Ports
+PORT aclk = "", DIR = I, SIGIS = CLK, BUS = S_AXI, ASSIGNMENT = REQUIRE
+PORT aresetn = ARESETN, DIR = I, SIGIS = RST, BUS = S_AXI
+PORT s_axi_awid = AWID, DIR = I, VEC = [(C_S_AXI_ID_WIDTH-1):0], BUS = S_AXI
+PORT s_axi_awaddr = AWADDR, DIR = I, VEC = [(C_S_AXI_ADDR_WIDTH-1):0], BUS = S_AXI
+PORT s_axi_awlen = AWLEN, DIR = I, VEC = [7:0], BUS = S_AXI
+PORT s_axi_awsize = AWSIZE, DIR = I, VEC = [2:0], BUS = S_AXI
+PORT s_axi_awburst = AWBURST, DIR = I, VEC = [1:0], BUS = S_AXI
+PORT s_axi_awlock = AWLOCK, DIR = I, VEC = [0:0], BUS = S_AXI
+PORT s_axi_awcache = AWCACHE, DIR = I, VEC = [3:0], BUS = S_AXI
+PORT s_axi_awprot = AWPROT, DIR = I, VEC = [2:0], BUS = S_AXI
+PORT s_axi_awqos = AWQOS, DIR = I, VEC = [3:0], BUS = S_AXI
+PORT s_axi_awvalid = AWVALID, DIR = I, BUS = S_AXI
+PORT s_axi_awready = AWREADY, DIR = O, BUS = S_AXI
+PORT s_axi_wdata = WDATA, DIR = I, VEC = [(C_S_AXI_DATA_WIDTH-1):0], BUS = S_AXI
+PORT s_axi_wstrb = WSTRB, DIR = I, VEC = [((C_S_AXI_DATA_WIDTH/8)-1):0], BUS = S_AXI
+PORT s_axi_wlast = WLAST, DIR = I, BUS = S_AXI
+PORT s_axi_wvalid = WVALID, DIR = I, BUS = S_AXI
+PORT s_axi_wready = WREADY, DIR = O, BUS = S_AXI
+PORT s_axi_bid = BID, DIR = O, VEC = [(C_S_AXI_ID_WIDTH-1):0], BUS = S_AXI
+PORT s_axi_bresp = BRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT s_axi_bvalid = BVALID, DIR = O, BUS = S_AXI
+PORT s_axi_bready = BREADY, DIR = I, BUS = S_AXI
+PORT s_axi_arid = ARID, DIR = I, VEC = [(C_S_AXI_ID_WIDTH-1):0], BUS = S_AXI
+PORT s_axi_araddr = ARADDR, DIR = I, VEC = [(C_S_AXI_ADDR_WIDTH-1):0], BUS = S_AXI
+PORT s_axi_arlen = ARLEN, DIR = I, VEC = [7:0], BUS = S_AXI
+PORT s_axi_arsize = ARSIZE, DIR = I, VEC = [2:0], BUS = S_AXI
+PORT s_axi_arburst = ARBURST, DIR = I, VEC = [1:0], BUS = S_AXI
+PORT s_axi_arlock = ARLOCK, DIR = I, VEC = [0:0], BUS = S_AXI
+PORT s_axi_arcache = ARCACHE, DIR = I, VEC = [3:0], BUS = S_AXI
+PORT s_axi_arprot = ARPROT, DIR = I, VEC = [2:0], BUS = S_AXI
+PORT s_axi_arqos = ARQOS, DIR = I, VEC = [3:0], BUS = S_AXI
+PORT s_axi_arvalid = ARVALID, DIR = I, BUS = S_AXI
+PORT s_axi_arready = ARREADY, DIR = O, BUS = S_AXI
+PORT s_axi_rid = RID, DIR = O, VEC = [(C_S_AXI_ID_WIDTH-1):0], BUS = S_AXI
+PORT s_axi_rdata = RDATA, DIR = O, VEC = [(C_S_AXI_DATA_WIDTH-1):0], BUS = S_AXI
+PORT s_axi_rresp = RRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT s_axi_rlast = RLAST, DIR = O, BUS = S_AXI
+PORT s_axi_rvalid = RVALID, DIR = O, BUS = S_AXI
+PORT s_axi_rready = RREADY, DIR = I, BUS = S_AXI
+
+PORT RLD2_CK_P = "", DIR = O, IO_IF = memory_0, VEC = [1:0]
+PORT RLD2_CK_N = "", DIR = O, IO_IF = memory_0, VEC = [1:0]
+PORT RLD2_DK_P = "", DIR = O, IO_IF = memory_0, VEC = [3:0]
+PORT RLD2_DK_N = "", DIR = O, IO_IF = memory_0, VEC = [3:0]
+PORT RLD2_QK_P = "", DIR = I, IO_IF = memory_0, VEC = [3:0]
+PORT RLD2_QK_N = "", DIR = I, IO_IF = memory_0, VEC = [3:0]
+PORT RLD2_A = "", DIR = O, IO_IF = memory_0, VEC = [19:0]
+PORT RLD2_BA = "", DIR = O, IO_IF = memory_0, VEC = [2:0]
+PORT RLD2_CS_N = "", DIR = O, IO_IF = memory_0, VEC = [1:0]
+PORT RLD2_WE_N = "", IO_IF = memory_0, DIR = O
+PORT RLD2_REF_N = "", IO_IF = memory_0, DIR = O
+PORT RLD2_DM = "", DIR = O, IO_IF = memory_0, VEC = [1:0]
+PORT RLD2_DQ = "", DIR = IO, THREE_STATE = FALSE, IO_IF = memory_0, VEC = [63:0]
+PORT RLD2_QVLD = "", DIR = I, IO_IF = memory_0, VEC = [1:0]
+
+END
