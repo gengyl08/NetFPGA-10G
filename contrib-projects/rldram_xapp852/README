@@ -1,6 +1,6 @@
 --- Developer: Muhammad Shahbaz ---
 
-Steps to simulate and implement nf10_rldram_xapp852:
+Steps to simulate and implement rldram_xapp852:
 
 1. Download XAPP852 from Xilinx website - http://www.xilinx.com/support/documentation/application_notes/xapp852.pdf
 
