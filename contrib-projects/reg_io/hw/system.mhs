@@ -1,0 +1,221 @@
+
+ PARAMETER VERSION = 2.1.0
+
+
+ PORT RESET = RESET, DIR = I, SIGIS = RST, RST_POLARITY = 0
+ PORT RS232_Uart_1_sout = RS232_Uart_1_sout, DIR = O
+ PORT RS232_Uart_1_sin = RS232_Uart_1_sin, DIR = I
+ PORT CLK = CLK, DIR = I, SIGIS = CLK
+ PORT pcie_clk_p = pcie_top_0_pcie_clk_p, DIR = I
+ PORT pcie_top_0_pci_exp_0_txp_pin = pcie_top_0_pci_exp_0_txp, DIR = O
+ PORT pcie_clk_n = pcie_top_0_pcie_clk_n, DIR = I
+ PORT pcie_top_0_pci_exp_0_rxp_pin = pcie_top_0_pci_exp_0_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_0_rxn_pin = pcie_top_0_pci_exp_0_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_1_txp_pin = pcie_top_0_pci_exp_1_txp, DIR = O
+ PORT pcie_top_0_pci_exp_1_txn_pin = pcie_top_0_pci_exp_1_txn, DIR = O
+ PORT pcie_top_0_pci_exp_1_rxp_pin = pcie_top_0_pci_exp_1_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_1_rxn_pin = pcie_top_0_pci_exp_1_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_4_txp_pin = pcie_top_0_pci_exp_4_txp, DIR = O
+ PORT pcie_top_0_pci_exp_2_txp_pin = pcie_top_0_pci_exp_2_txp, DIR = O
+ PORT pcie_top_0_pci_exp_2_txn_pin = pcie_top_0_pci_exp_2_txn, DIR = O
+ PORT pcie_top_0_pci_exp_2_rxp_pin = pcie_top_0_pci_exp_2_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_2_rxn_pin = pcie_top_0_pci_exp_2_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_3_txp_pin = pcie_top_0_pci_exp_3_txp, DIR = O
+ PORT pcie_top_0_pci_exp_3_txn_pin = pcie_top_0_pci_exp_3_txn, DIR = O
+ PORT pcie_top_0_pci_exp_3_rxp_pin = pcie_top_0_pci_exp_3_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_3_rxn_pin = pcie_top_0_pci_exp_3_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_4_txn_pin = pcie_top_0_pci_exp_4_txn, DIR = O
+ PORT pcie_top_0_pci_exp_4_rxp_pin = pcie_top_0_pci_exp_4_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_4_rxn_pin = pcie_top_0_pci_exp_4_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_5_txp_pin = pcie_top_0_pci_exp_5_txp, DIR = O
+ PORT pcie_top_0_pci_exp_5_txn_pin = pcie_top_0_pci_exp_5_txn, DIR = O
+ PORT pcie_top_0_pci_exp_5_rxp_pin = pcie_top_0_pci_exp_5_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_5_rxn_pin = pcie_top_0_pci_exp_5_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_6_txp_pin = pcie_top_0_pci_exp_6_txp, DIR = O
+ PORT pcie_top_0_pci_exp_6_txn_pin = pcie_top_0_pci_exp_6_txn, DIR = O
+ PORT pcie_top_0_pci_exp_6_rxp_pin = pcie_top_0_pci_exp_6_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_6_rxn_pin = pcie_top_0_pci_exp_6_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_7_txn_pin = pcie_top_0_pci_exp_7_txn, DIR = O
+ PORT pcie_top_0_pci_exp_7_txp_pin = pcie_top_0_pci_exp_7_txp, DIR = O
+ PORT pcie_top_0_pci_exp_7_rxn_pin = pcie_top_0_pci_exp_7_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_7_rxp_pin = pcie_top_0_pci_exp_7_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_0_txn_pin = pcie_top_0_pci_exp_0_txn, DIR = O
+
+
+BEGIN nf10_reg_io
+ PARAMETER INSTANCE = nf10_reg_io_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_BAR0_BASEADDR = 0x78220000
+ PARAMETER C_BAR0_HIGHADDR = 0x7822ffff
+ PARAMETER C_BAR1_BASEADDR = 0x78200000
+ PARAMETER C_BAR1_HIGHADDR = 0x7820ffff
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT S_AXI_ACLK = control_clk
+END
+
+BEGIN axi_interconnect
+ PARAMETER INSTANCE = axi_interconnect_0
+ PARAMETER HW_VER = 1.02.a
+ PARAMETER C_INTERCONNECT_CONNECTIVITY_MODE = 0
+ PORT INTERCONNECT_ARESETN = connectnetwork_0_reset_reset_0_Reset_2_adhoc
+ PORT interconnect_aclk = control_clk
+END
+
+BEGIN microblaze
+ PARAMETER INSTANCE = microblaze_0
+ PARAMETER HW_VER = 8.00.b
+ PARAMETER C_INTERCONNECT = 2
+ PARAMETER C_USE_BARREL = 1
+ PARAMETER C_USE_FPU = 0
+ PARAMETER C_DEBUG_ENABLED = 0
+ PARAMETER C_ICACHE_BASEADDR = 0X00000000
+ PARAMETER C_ICACHE_HIGHADDR = 0X3FFFFFFF
+ PARAMETER C_USE_ICACHE = 0
+ PARAMETER C_ICACHE_ALWAYS_USED = 0
+ PARAMETER C_DCACHE_BASEADDR = 0X00000000
+ PARAMETER C_DCACHE_HIGHADDR = 0X3FFFFFFF
+ PARAMETER C_USE_DCACHE = 0
+ PARAMETER C_DCACHE_ALWAYS_USED = 0
+ PARAMETER C_INTERCONNECT_M_AXI_DC_AW_REGISTER = 0
+ PARAMETER C_INTERCONNECT_M_AXI_DC_W_REGISTER = 0
+ PARAMETER C_USE_HW_MUL = 0
+ BUS_INTERFACE M_AXI_DP = axi_interconnect_0
+ BUS_INTERFACE DLMB = microblaze_0_dlmb
+ BUS_INTERFACE ILMB = microblaze_0_ilmb
+ PORT MB_RESET = microblaze_0_Reset_reset_0_Reset_0_adhoc
+ PORT CLK = control_clk
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = microblaze_0_ilmb
+ PARAMETER HW_VER = 1.00.a
+ PORT SYS_RST = sys_bus_reset
+ PORT LMB_CLK = control_clk
+END
+
+BEGIN lmb_v10
+ PARAMETER INSTANCE = microblaze_0_dlmb
+ PARAMETER HW_VER = 1.00.a
+ PORT SYS_RST = sys_bus_reset
+ PORT LMB_CLK = control_clk
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_i_bram_ctrl
+ PARAMETER HW_VER = 2.10.b
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x00003fff
+ BUS_INTERFACE SLMB = microblaze_0_ilmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_i_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN lmb_bram_if_cntlr
+ PARAMETER INSTANCE = microblaze_0_d_bram_ctrl
+ PARAMETER HW_VER = 2.10.b
+ PARAMETER C_BASEADDR = 0x00000000
+ PARAMETER C_HIGHADDR = 0x00003fff
+ BUS_INTERFACE SLMB = microblaze_0_dlmb
+ BUS_INTERFACE BRAM_PORT = microblaze_0_d_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN bram_block
+ PARAMETER INSTANCE = microblaze_0_bram_block
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE PORTA = microblaze_0_i_bram_ctrl_2_microblaze_0_bram_block
+ BUS_INTERFACE PORTB = microblaze_0_d_bram_ctrl_2_microblaze_0_bram_block
+END
+
+BEGIN proc_sys_reset
+ PARAMETER INSTANCE = reset_0
+ PARAMETER HW_VER = 3.00.a
+ PARAMETER C_EXT_RESET_HIGH = 0
+ PORT Ext_Reset_In = RESET
+ PORT MB_Reset = microblaze_0_Reset_reset_0_Reset_0_adhoc
+ PORT Slowest_sync_clk = control_clk
+ PORT Interconnect_aresetn = connectnetwork_0_reset_reset_0_Reset_2_adhoc
+ PORT BUS_STRUCT_RESET = sys_bus_reset
+ PORT Dcm_locked = dcm_locked
+ PORT Peripheral_aresetn = Peripheral_aresetn
+END
+
+BEGIN axi_uartlite
+ PARAMETER INSTANCE = RS232_Uart_1
+ PARAMETER HW_VER = 1.01.a
+ PARAMETER C_BAUDRATE = 9600
+ PARAMETER C_DATA_BITS = 8
+ PARAMETER C_USE_PARITY = 0
+ PARAMETER C_ODD_PARITY = 1
+ PARAMETER C_BASEADDR = 0x40600000
+ PARAMETER C_HIGHADDR = 0x4060ffff
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT TX = RS232_Uart_1_sout
+ PORT RX = RS232_Uart_1_sin
+ PORT S_AXI_ACLK = control_clk
+END
+
+BEGIN clock_generator
+ PARAMETER INSTANCE = clock_generator_0
+ PARAMETER HW_VER = 4.01.a
+ PARAMETER C_CLKIN_FREQ = 100000000
+ PARAMETER C_CLKOUT0_FREQ = 100000000
+ PARAMETER C_CLKOUT0_GROUP = NONE
+ PARAMETER C_CLKOUT1_FREQ = 160000000
+ PARAMETER C_CLKOUT1_GROUP = NONE
+ PARAMETER C_EXT_RESET_HIGH = 0
+ PORT CLKIN = CLK
+ PORT CLKOUT0 = control_clk
+ PORT RST = RESET
+ PORT LOCKED = dcm_locked
+ PORT CLKOUT1 = core_clk
+END
+
+BEGIN dma
+ PARAMETER INSTANCE = dma_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_BASEADDR = 0x7d400000
+ PARAMETER C_HIGHADDR = 0x7d40ffff
+ BUS_INTERFACE M_AXI = axi_interconnect_0
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ BUS_INTERFACE M_AXIS = dma_0_M_AXIS
+ BUS_INTERFACE S_AXIS = dma_0_M_AXIS
+ PORT reset_n = Peripheral_aresetn
+ PORT M_AXIS_ACLK = core_clk
+ PORT S_AXIS_ACLK = core_clk
+ PORT M_AXI_LITE_ACLK = control_clk
+ PORT S_AXI_ACLK = control_clk
+ PORT pcie_clk_p = pcie_top_0_pcie_clk_p
+ PORT pci_exp_0_txp = pcie_top_0_pci_exp_0_txp
+ PORT pcie_clk_n = pcie_top_0_pcie_clk_n
+ PORT pci_exp_0_rxp = pcie_top_0_pci_exp_0_rxp
+ PORT pci_exp_0_rxn = pcie_top_0_pci_exp_0_rxn
+ PORT pci_exp_1_txp = pcie_top_0_pci_exp_1_txp
+ PORT pci_exp_1_txn = pcie_top_0_pci_exp_1_txn
+ PORT pci_exp_1_rxp = pcie_top_0_pci_exp_1_rxp
+ PORT pci_exp_1_rxn = pcie_top_0_pci_exp_1_rxn
+ PORT pci_exp_4_txp = pcie_top_0_pci_exp_4_txp
+ PORT pci_exp_2_txp = pcie_top_0_pci_exp_2_txp
+ PORT pci_exp_2_txn = pcie_top_0_pci_exp_2_txn
+ PORT pci_exp_2_rxp = pcie_top_0_pci_exp_2_rxp
+ PORT pci_exp_2_rxn = pcie_top_0_pci_exp_2_rxn
+ PORT pci_exp_3_txp = pcie_top_0_pci_exp_3_txp
+ PORT pci_exp_3_txn = pcie_top_0_pci_exp_3_txn
+ PORT pci_exp_3_rxp = pcie_top_0_pci_exp_3_rxp
+ PORT pci_exp_3_rxn = pcie_top_0_pci_exp_3_rxn
+ PORT pci_exp_4_txn = pcie_top_0_pci_exp_4_txn
+ PORT pci_exp_4_rxp = pcie_top_0_pci_exp_4_rxp
+ PORT pci_exp_4_rxn = pcie_top_0_pci_exp_4_rxn
+ PORT pci_exp_5_txp = pcie_top_0_pci_exp_5_txp
+ PORT pci_exp_5_txn = pcie_top_0_pci_exp_5_txn
+ PORT pci_exp_5_rxp = pcie_top_0_pci_exp_5_rxp
+ PORT pci_exp_5_rxn = pcie_top_0_pci_exp_5_rxn
+ PORT pci_exp_6_txp = pcie_top_0_pci_exp_6_txp
+ PORT pci_exp_6_txn = pcie_top_0_pci_exp_6_txn
+ PORT pci_exp_6_rxp = pcie_top_0_pci_exp_6_rxp
+ PORT pci_exp_6_rxn = pcie_top_0_pci_exp_6_rxn
+ PORT pci_exp_7_txn = pcie_top_0_pci_exp_7_txn
+ PORT pci_exp_7_txp = pcie_top_0_pci_exp_7_txp
+ PORT pci_exp_7_rxn = pcie_top_0_pci_exp_7_rxn
+ PORT pci_exp_7_rxp = pcie_top_0_pci_exp_7_rxp
+ PORT pci_exp_0_txn = pcie_top_0_pci_exp_0_txn
+END
+
