@@ -154,10 +154,10 @@ module nf10_reg_io
     .IP2Bus_RdAck        ( IP2Bus_RdAck   ),
     .IP2Bus_Error        ( IP2Bus_Error   )
   );
-  
+
   always @ (posedge Bus2IP_Clk) begin
-    case (Bus2IP_CS)
-	        2'b00: IP2Bus_Data <= l_IP2Bus_Data[0]; 
+    case (l_IP2Bus_RdAck)
+	        2'b01: IP2Bus_Data <= l_IP2Bus_Data[0]; 
 	        2'b10: IP2Bus_Data <= l_IP2Bus_Data[1];
 	  default: IP2Bus_Data <= {C_S_AXI_DATA_WIDTH{1'b0}};
 	endcase
