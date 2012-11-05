@@ -12,11 +12,15 @@ Steps to implement reg_io:
 
 > insmod nf10.ko
 
-4. Build the 'wraxi' and 'rdaxi' located under the contrib-projects/nic/sw/host/apps directory
+4. Run the nf10_reg_io utility under the contrib-projects/reg_io/sw/host/nf10_reg_io directory. This will perform simple registers and table read(s)/write(s).
+
+> ./nf10_reg_io
+
+5. IOs can also be performed using the 'wraxi' and 'rdaxi' utilities. Build the 'wraxi' and 'rdaxi' located under the contrib-projects/nic/sw/host/apps directory
 
 > make
 
-5. Read and write Registers/Table -
+6. Read and write Registers/Table -
 
 Memory Map
 
