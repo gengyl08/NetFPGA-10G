@@ -1,0 +1,46 @@
+------------------------------------------------------------------------
+--
+--  NETFPGA-10G www.netfpga.org
+--
+--  Module:
+--          nf10_switch_output_port_lookup_v1_10_a.prj
+--
+--  Description:
+--          Gianni Anitchi, Muhammad Shahbaz - project file to list the files necessary to compile the
+--                                             nf10_switch_output_port_lookup_v1_10_a module
+--
+--
+--  Revision history:
+--
+--
+--  Known issues:
+--          None
+--
+--
+--  Library: library dependencies
+--
+------------------------------------------------------------------------
+
+vhdl work "vhdl/nf10_switch_output_port_lookup.vhd"
+verilog work "verilog/register_manager.v"
+verilog work "verilog/output_port_lookup.v"
+verilog work "verilog/small_fifo.v"
+verilog work "verilog/fallthrough_small_fifo_v2.v"
+verilog work "verilog/nf10_switch_output_port_lookup_tb.v"
+verilog work "verilog/mac_cam_lut.v"
+verilog work "verilog/ethernet_parser.v"
+verilog work "verilog/cam.v"
+verilog work "../../../../std/pcores/nf10_bram_output_queues_v1_00_a/hdl/verilog/fallthrough_small_fifo_v2.v"
+verilog work "../../../../std/pcores/nf10_bram_output_queues_v1_00_a/hdl/verilog/small_fifo_v3.v"
+verilog work "../../../../std/pcores/nf10_bram_output_queues_v1_00_a/hdl/verilog/nf10_bram_output_queues.v"
+verilog work "../../../../std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/fallthrough_small_fifo_v2.v"
+verilog work "../../../../std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/small_fifo_v3.v"
+verilog work "../../../../std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/nf10_input_arbiter.v"
+vhdl    proc_common_v3_00_a "../../../..//xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/proc_common_pkg.vhd"
+vhdl    proc_common_v3_00_a "../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/family_support.vhd"
+vhdl    proc_common_v3_00_a "../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/ipif_pkg.vhd"
+vhdl    proc_common_v3_00_a "../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pselect_f.vhd"
+vhdl    proc_common_v3_00_a "../../../../xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/counter_f.vhd"
+vhdl    axi_lite_ipif_v1_01_a "${XILINX_EDK}/hw/XilinxProcessorIPLib/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/slave_attachment.vhd"
+vhdl    axi_lite_ipif_v1_01_a "${XILINX_EDK}/hw/XilinxProcessorIPLib/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/address_decoder.vhd"
+vhdl    axi_lite_ipif_v1_01_a "${XILINX_EDK}/hw/XilinxProcessorIPLib/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/axi_lite_ipif.vhd"
