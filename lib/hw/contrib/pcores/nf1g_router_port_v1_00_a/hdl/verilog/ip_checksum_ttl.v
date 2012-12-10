@@ -11,6 +11,7 @@
 `timescale 1ns/100ps
 
 `include "defines.vh"
+`uselib lib=nf10_proc_common_v1_00_a
 
 module ip_checksum_ttl
   #(parameter DATA_WIDTH = 64)

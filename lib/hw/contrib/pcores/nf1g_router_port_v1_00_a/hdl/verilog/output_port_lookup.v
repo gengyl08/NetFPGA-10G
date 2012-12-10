@@ -31,6 +31,7 @@
 `timescale 1ns/1ps
 
 `include "defines.vh"
+`uselib lib=nf10_proc_common_v1_00_a
 
   module output_port_lookup
     #(parameter DATA_WIDTH = 64,

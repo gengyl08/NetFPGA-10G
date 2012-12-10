@@ -9,6 +9,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 `include "defines.vh"
+`uselib lib=nf10_proc_common_v1_00_a
 
   module op_lut_hdr_parser
     #(parameter DATA_WIDTH = 64,

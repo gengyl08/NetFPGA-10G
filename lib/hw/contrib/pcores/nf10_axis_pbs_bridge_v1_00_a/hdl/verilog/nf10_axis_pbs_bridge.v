@@ -39,6 +39,8 @@
  *
  */
 
+`uselib lib=nf10_axis_converter_v1_00_a
+
 module nf10_axis_pbs_bridge
 #(
         parameter       C_S_AXIS_TDATA_WIDTH = 256,

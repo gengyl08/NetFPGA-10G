@@ -39,6 +39,8 @@
  *
  */
 
+`uselib lib=nf10_proc_common_v1_00_a
+
 module pbs_axis_bridge
 #(
     parameter C_AXIS_DATA_WIDTH = 64,

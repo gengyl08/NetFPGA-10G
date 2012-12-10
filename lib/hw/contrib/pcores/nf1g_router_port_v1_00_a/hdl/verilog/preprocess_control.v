@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 `include "defines.vh"
+`uselib lib=nf10_proc_common_v1_00_a
 
   module preprocess_control
     #(parameter DATA_WIDTH = 64,
