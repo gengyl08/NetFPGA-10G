@@ -89,6 +89,21 @@
  PORT nf10_oped_0_PCIE_TXP_pin = nf10_oped_0_PCIE_TXP, DIR = O, VEC = [7:0]
 
 
+BEGIN nf10_switch_output_port_lookup
+ PARAMETER INSTANCE = nf10_switch_output_port_lookup_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_INTERCONNECT_S_AXI_IS_ACLK_ASYNC = 1
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
+ PARAMETER C_BASEADDR = 0x74800000
+ PARAMETER C_HIGHADDR = 0x7480ffff
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ BUS_INTERFACE S_AXIS = nf10_input_arbiter_0_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_switch_output_port_lookup_0_M_AXIS
+ PORT S_AXI_ACLK = core_clk
+ PORT S_AXI_ARESETN = Peripheral_aresetn
+END
+
 BEGIN axi_interconnect
  PARAMETER INSTANCE = axi_interconnect_0
  PARAMETER HW_VER = 1.02.a
@@ -442,20 +457,5 @@ BEGIN nf10_axi_sim_transactor
  BUS_INTERFACE M_AXI = axi_interconnect_0
  PORT M_AXI_ARESETN = Peripheral_aresetn
  PORT M_AXI_ACLK = control_clk
-END
-
-BEGIN nf10_switch_output_port_lookup
- PARAMETER INSTANCE = nf10_switch_output_port_lookup_0
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_INTERCONNECT_S_AXI_IS_ACLK_ASYNC = 1
- PARAMETER C_M_AXIS_DATA_WIDTH = 256
- PARAMETER C_S_AXIS_DATA_WIDTH = 256
- PARAMETER C_BASEADDR = 0x74800000
- PARAMETER C_HIGHADDR = 0x7480ffff
- BUS_INTERFACE S_AXI = axi_interconnect_0
- BUS_INTERFACE S_AXIS = nf10_input_arbiter_0_M_AXIS
- BUS_INTERFACE M_AXIS = nf10_switch_output_port_lookup_0_M_AXIS
- PORT S_AXI_ACLK = core_clk
- PORT S_AXI_RESETN = Peripheral_aresetn
 END
 
