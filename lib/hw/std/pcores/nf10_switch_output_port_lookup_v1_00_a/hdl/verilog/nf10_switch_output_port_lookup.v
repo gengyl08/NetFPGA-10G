@@ -51,6 +51,7 @@ module nf10_switch_output_port_lookup
   parameter C_DPHASE_TIMEOUT      = 0,
   parameter C_BASEADDR            = 32'hFFFFFFFF,
   parameter C_HIGHADDR            = 32'h00000000,
+  parameter C_S_AXI_ACLK_FREQ_HZ  = 100,
   parameter C_M_AXIS_DATA_WIDTH	  = 256,
   parameter C_S_AXIS_DATA_WIDTH	  = 256,
   parameter C_M_AXIS_TUSER_WIDTH  = 128,
@@ -108,14 +109,14 @@ module nf10_switch_output_port_lookup
   wire                                            Bus2IP_Clk;
   wire                                            Bus2IP_Resetn;
   wire     [C_S_AXI_ADDR_WIDTH-1 : 0]             Bus2IP_Addr;
-  wire                                            Bus2IP_CS;
+  wire     [0:0]                                  Bus2IP_CS;
   wire                                            Bus2IP_RNW;
   wire     [C_S_AXI_DATA_WIDTH-1 : 0]             Bus2IP_Data;
   wire     [C_S_AXI_DATA_WIDTH/8-1 : 0]           Bus2IP_BE;
-  reg      [C_S_AXI_DATA_WIDTH-1 : 0]             IP2Bus_Data;
-  reg                                             IP2Bus_RdAck;
-  reg                                             IP2Bus_WrAck;
-  reg                                             IP2Bus_Error;
+  wire     [C_S_AXI_DATA_WIDTH-1 : 0]             IP2Bus_Data;
+  wire                                            IP2Bus_RdAck;
+  wire                                            IP2Bus_WrAck;
+  wire                                            IP2Bus_Error;
   
   wire     [NUM_RW_REGS*C_S_AXI_DATA_WIDTH-1 : 0] rw_regs;
   wire     [NUM_RO_REGS*C_S_AXI_DATA_WIDTH-1 : 0] ro_regs;
@@ -177,14 +178,13 @@ module nf10_switch_output_port_lookup
     .C_S_AXI_DATA_WIDTH (C_S_AXI_DATA_WIDTH),          
     .C_S_AXI_ADDR_WIDTH (C_S_AXI_ADDR_WIDTH),   
     .NUM_RW_REGS        (NUM_RW_REGS),
-    .NUM_WO_REGS        (0),
     .NUM_RO_REGS        (NUM_RO_REGS)
   ) ipif_regs_inst
   (   
     .Bus2IP_Clk     ( Bus2IP_Clk     ),
     .Bus2IP_Resetn  ( Bus2IP_Resetn  ), 
     .Bus2IP_Addr    ( Bus2IP_Addr    ),
-    .Bus2IP_CS      ( Bus2IP_CS      ),
+    .Bus2IP_CS      ( Bus2IP_CS[0]   ),
     .Bus2IP_RNW     ( Bus2IP_RNW     ),
     .Bus2IP_Data    ( Bus2IP_Data    ),
     .Bus2IP_BE      ( Bus2IP_BE      ),
