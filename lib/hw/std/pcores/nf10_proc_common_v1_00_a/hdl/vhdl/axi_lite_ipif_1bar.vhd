@@ -89,7 +89,7 @@ entity axi_lite_ipif_1bar is
     Bus2IP_Addr                    : out std_logic_vector((C_S_AXI_ADDR_WIDTH-1) downto 0);
     Bus2IP_RNW                     : out std_logic;
     Bus2IP_BE                      : out std_logic_vector(((C_S_AXI_DATA_WIDTH/8)-1) downto 0);
-    Bus2IP_CS                      : out std_logic_vector;
+    Bus2IP_CS                      : out std_logic_vector(0 downto 0);
     Bus2IP_Data                    : out std_logic_vector((C_S_AXI_DATA_WIDTH-1) downto 0);
     IP2Bus_Data                    : in  std_logic_vector((C_S_AXI_DATA_WIDTH-1) downto 0);
     IP2Bus_WrAck                   : in  std_logic;
