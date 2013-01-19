@@ -1,0 +1,64 @@
+--- Developer: Muhammad Shahbaz ---
+
+Steps to implement reg_io:
+
+1. Run the project makefile to implement and generate bitstream and then program the FPGA
+
+2. Reboot the system
+
+3. Build and load the driver under the contrib-projects/nic/sw/host/drivers
+
+> make
+
+> insmod nf10.ko
+
+4. Run the nf10_reg_io utility under the contrib-projects/reg_io/sw/host/nf10_reg_io directory. This will perform simple registers and table read(s)/write(s).
+
+> ./nf10_reg_io
+
+5. IOs can also be performed using the 'wraxi' and 'rdaxi' utilities. Build the 'wraxi' and 'rdaxi' located under the contrib-projects/nic/sw/host/apps directory
+
+> make
+
+6. Read and write Registers/Table -
+
+Memory Map
+
+bar0 base address = 0x78220000
+
+bar0 + 0x00 ->[WO]-> Register 0  
+bar0 + 0x04 ->[WO]-> Register 1  
+bar0 + 0x08 -<[RW]-> Register 2  
+bar0 + 0x0C -<[RW]-> Register 3  
+bar0 + 0x10 -<[RO]-- Register 2  
+bar0 + 0x14 -<[RO]-- Register 3  
+bar0 + 0x18 -<[RO]-- Register 0  
+bar0 + 0x1C -<[RO]-- Register 1
+
+> ./wraxi 78220000 12345678
+> ./rdaxi 78220000
+
+The table consists of x4 Rows and x4 Cols.
+
+bar1 base address = 0x78200000
+
+bar1 + 0x00 -<[RW]-> Cell[Current Row Index][0]  
+bar1 + 0x04 -<[RW]-> Cell[Current Row Index][1]
+bar1 + 0x08 -<[RW]-> Cell[Current Row Index][2]
+bar1 + 0x0C -<[RW]-> Cell[Current Row Index][3]
+bar1 + 0x10 -<[RW]-> Current Row Index - to write to
+bar1 + 0x14 -<[RW]-> Current Row Index - to read from
+
+> ./wraxi 78200000 12340001 # Write 1st column in the Current Row
+> ./wraxi 78200004 12340002 # Write 2nd column in the Current Row
+> ./wraxi 78200008 12340003 # Write 3rd column in the Current Row
+> ./wraxi 7820000C 12340004 # Write 4th column in the Current Row
+> ./wraxi 78200010 2        # Write Current Row at index 2 in the table
+
+> ./wraxi 78200014 2        # Read Current Row at index 2 from the table
+> ./rdaxi 78200000          # Read 1st column in the Current Row
+> ./rdaxi 78200004          # Read 2nd column in the Current Row
+> ./rdaxi 78200008          # Read 3rd column in the Current Row
+> ./rdaxi 7820000C          # Read 4th column in the Current Row
+
+etc.

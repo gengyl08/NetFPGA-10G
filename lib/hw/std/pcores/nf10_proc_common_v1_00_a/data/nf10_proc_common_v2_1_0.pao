@@ -36,6 +36,13 @@
 #
 #
 
+lib proc_common_v3_00_a all vhdl
+lib axi_lite_ipif_v1_01_a all vhdl
 lib nf10_proc_common_v1_00_a fallthrough_small_fifo_v2 verilog
 lib nf10_proc_common_v1_00_a small_async_fifo verilog
 lib nf10_proc_common_v1_00_a small_fifo_v3 verilog
+lib nf10_proc_common_v1_00_a ipif_regs verilog
+lib nf10_proc_common_v1_00_a ipif_table_regs verilog
+lib nf10_proc_common_v1_00_a axi_lite_ipif_1bar vhdl
+lib nf10_proc_common_v1_00_a axi_lite_ipif_2bars vhdl
+lib nf10_proc_common_v1_00_a axi_lite_ipif_3bars vhdl

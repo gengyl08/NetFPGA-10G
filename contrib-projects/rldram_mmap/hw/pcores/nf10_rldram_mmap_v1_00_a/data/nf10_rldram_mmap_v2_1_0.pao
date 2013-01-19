@@ -1,0 +1,104 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_rldram_mmap_v2_1_0.pao
+#
+#  Library:
+#        hw/std/pcores/nf10_rldram_mmap_v1_00_a
+#
+#  Author:
+#        Muhammad Shahbaz
+#
+#  Description:
+#        Peripheral Analyze Order File
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#        This module was developed by SRI International and the University of
+#        Cambridge Computer Laboratory under DARPA/AFRL contract (FA8750-11-C-0249)
+#        ("MRC2"), as part of the DARPA MRC research programme.
+#
+#
+
+lib nf10_proc_common_v1_00_a all
+lib nf10_rldram_mmap_v1_00_a nf10_rldram_mmap.v verilog
+lib nf10_rldram_mmap_v1_00_a rd_mdfy_wr__no_burst_128bit.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/backend_rom.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/bcd6.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/cmp_rd_data.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_clk_module.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_conf.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_controller.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_controller_iobs.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_ctl.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_data_path.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_data_path_iobs.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_data_write.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_dly_cal_sm.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_infrastructure_iobs.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_infrastructure_top.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_iobs.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_main.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_mem_interface_top.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_phy_calib.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_rst.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_seven_seg.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_tap_logic.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_top.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_user_interface.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_v4_dm_iob.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_v4_dq_iob.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_v4_qk_iob.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_v4_qvld_iob.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_v5_dm_iob.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_v5_dq_iob.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/rld_v5_qk_iob.v verilog
+lib nf10_rldram_mmap_v1_00_a controller/test_bench.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_carry_latch_or.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_carry_and.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_comparator_sel_static.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_comparator_sel.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_comparator.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_command_fifo.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_carry_or.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_carry_latch_and.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_axic_register_slice.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_wrap_cmd.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_incr_cmd.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_w_upsizer.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_r_upsizer.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_a_upsizer.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_axi_register_slice.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_wr_cmd_fsm.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_simple_fifo.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_cmd_translator.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_cmd_fsm.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/ddr_axi_upsizer.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_w_channel.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_r_channel.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_cmd_arbiter.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_b_channel.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_aw_channel.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc_ar_channel.v verilog
+lib nf10_rldram_mmap_v1_00_a axi/axi_mc.v verilog
+

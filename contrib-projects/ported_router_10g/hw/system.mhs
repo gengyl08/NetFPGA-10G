@@ -411,7 +411,7 @@ BEGIN nf10_bram_output_queues
  BUS_INTERFACE M_AXIS_2 = nf10_bram_output_queues_0_M_AXIS_2
  BUS_INTERFACE M_AXIS_3 = nf10_bram_output_queues_0_M_AXIS_3
  BUS_INTERFACE M_AXIS_4 = nf10_bram_output_queues_0_M_AXIS_4
- BUS_INTERFACE S_AXIS = nf10_switch_output_port_lookup_0_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_axis_pbs_bridge_0_M_AXIS
  PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
 END
@@ -444,18 +444,37 @@ BEGIN nf10_axi_sim_transactor
  PORT M_AXI_ACLK = control_clk
 END
 
-BEGIN nf10_switch_output_port_lookup
- PARAMETER INSTANCE = nf10_switch_output_port_lookup_0
- PARAMETER HW_VER = 1.10.a
- PARAMETER C_INTERCONNECT_S_AXI_IS_ACLK_ASYNC = 1
- PARAMETER C_M_AXIS_DATA_WIDTH = 256
- PARAMETER C_S_AXIS_DATA_WIDTH = 256
- PARAMETER C_BASEADDR = 0x74800000
- PARAMETER C_HIGHADDR = 0x7480ffff
+BEGIN nf10_axilite_rbs_bridge
+ PARAMETER INSTANCE = nf10_axilite_rbs_bridge_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_BASEADDR = 0x76600000
+ PARAMETER C_HIGHADDR = 0x7660ffff
  BUS_INTERFACE S_AXI = axi_interconnect_0
- BUS_INTERFACE S_AXIS = nf10_input_arbiter_0_M_AXIS
- BUS_INTERFACE M_AXIS = nf10_switch_output_port_lookup_0_M_AXIS
+ BUS_INTERFACE S_RBS = nf1g_router_port_0_M_RBS
+ BUS_INTERFACE M_RBS = nf10_axilite_rbs_bridge_0_M_RBS
  PORT S_AXI_ACLK = core_clk
- PORT S_AXI_RESETN = Peripheral_aresetn
+END
+
+BEGIN nf10_axis_pbs_bridge
+ PARAMETER INSTANCE = nf10_axis_pbs_bridge_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_S_AXIS_TDATA_WIDTH = 256
+ PARAMETER C_M_AXIS_TDATA_WIDTH = 256
+ BUS_INTERFACE S_AXIS = nf10_input_arbiter_0_M_AXIS
+ BUS_INTERFACE M_AXIS = nf10_axis_pbs_bridge_0_M_AXIS
+ BUS_INTERFACE M_PBS = nf10_axis_pbs_bridge_0_M_PBS
+ BUS_INTERFACE S_PBS = nf1g_router_port_0_M_PBS
+ PORT ARESETN = Peripheral_aresetn
+ PORT ACLK = core_clk
+END
+
+BEGIN nf1g_router_port
+ PARAMETER INSTANCE = nf1g_router_port_0
+ PARAMETER HW_VER = 1.00.a
+ BUS_INTERFACE M_RBS = nf1g_router_port_0_M_RBS
+ BUS_INTERFACE S_RBS = nf10_axilite_rbs_bridge_0_M_RBS
+ BUS_INTERFACE S_PBS = nf10_axis_pbs_bridge_0_M_PBS
+ BUS_INTERFACE M_PBS = nf1g_router_port_0_M_PBS
+ PORT CLK = core_clk
 END
 

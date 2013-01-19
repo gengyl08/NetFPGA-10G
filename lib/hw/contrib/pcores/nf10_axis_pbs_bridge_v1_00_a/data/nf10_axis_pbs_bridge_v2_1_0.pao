@@ -36,8 +36,9 @@
 #
 #
 
-lib nf10_axis_converter_v1_00_a all
 lib nf10_proc_common_v1_00_a all
-lib nf10_axis_pbs_bridge_v1_00_a nf10_axis_pbs_bridge verilog
+lib nf10_axis_converter_v1_00_a all
 lib nf10_axis_pbs_bridge_v1_00_a axis_pbs_bridge verilog
 lib nf10_axis_pbs_bridge_v1_00_a pbs_axis_bridge verilog
+lib nf10_axis_pbs_bridge_v1_00_a nf10_axis_pbs_bridge verilog
+

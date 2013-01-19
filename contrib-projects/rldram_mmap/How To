@@ -1,0 +1,33 @@
+--- Developer: Muhammad Shahbaz ---
+
+Steps to implement rldram_mmap:
+
+1. Download XAPP852 from Xilinx website - http://www.xilinx.com/support/documentation/application_notes/xapp852.pdf
+
+2. Extract the contents of XAPP825.zip under the hw/pcores/nf10_rldram_mmap_v1_00_a
+
+3. In the hw/pcores/nf10_rldram_mmap_v1_00_a folder run 'make' - this will create, copy and patch neccessary Xilinx files for the rldram core
+
+4. Run the project makefile to implement and generate bitstream and then program the FPGA
+
+5. Reboot the system
+
+6. Build and load the driver under the contrib-projects/nic/sw/host/drivers
+
+> make
+
+> insmod nf10.ko
+
+7. Build the 'wraxi' and 'rdaxi' located under the contrib-projects/nic/sw/host/apps directory
+
+> make
+
+8. Read and write RLDRAM A & B -
+
+Base address of RLDRAM A = 0x80000000
+Base address of RLDRAM B = 0x84000000
+
+> ./wraxi 80000000 12345678
+> ./rdaxi 80000000
+
+etc.

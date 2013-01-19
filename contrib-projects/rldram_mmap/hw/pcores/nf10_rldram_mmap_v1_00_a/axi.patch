@@ -1,0 +1,289 @@
+Only in axi_orig/: axi_ctrl_addr_decode.v
+Only in axi_orig/: axi_ctrl_read.v
+Only in axi_orig/: axi_ctrl_reg.v
+Only in axi_orig/: axi_ctrl_reg_bank.v
+Only in axi_orig/: axi_ctrl_top.v
+Only in axi_orig/: axi_ctrl_write.v
+diff -u axi/axi_mc.v axi_orig/axi_mc.v
+--- axi/axi_mc.v	2012-10-24 20:46:37.892876300 +0100
++++ axi_orig/axi_mc.v	2012-10-22 14:01:14.000000000 +0100
+@@ -93,26 +93,26 @@
+ // Parameter Definitions
+ ///////////////////////////////////////////////////////////////////////////////
+                     // FPGA Family. Current version: virtex6.
+-  parameter         C_FAMILY                        = "virtex6", 
++  parameter         C_FAMILY                        = "virtex5", 
+                     // Width of all master and slave ID signals.
+                     // Range: >= 1.
+   parameter integer C_S_AXI_ID_WIDTH                = 4, 
+                     // Width of S_AXI_AWADDR, S_AXI_ARADDR, M_AXI_AWADDR and 
+                     // M_AXI_ARADDR for all SI/MI slots.
+                     // Range: 32.
+-  parameter integer C_S_AXI_ADDR_WIDTH              = 30, 
++  parameter integer C_S_AXI_ADDR_WIDTH              = 32, 
+                     // Width of WDATA and RDATA on SI slot.
+                     // Must be <= C_MC_DATA_WIDTH
+                     // Range: 32, 64, 128, 256.
+-  parameter integer C_S_AXI_DATA_WIDTH              = 32, 
++  parameter integer C_S_AXI_DATA_WIDTH              = 128, 
+                     // Memory controller address width, range 28-32
+-  parameter integer C_MC_ADDR_WIDTH                 = 30, 
++  parameter integer C_MC_ADDR_WIDTH                 = 23, 
+                     // Width of wr_data and rd_data.
+                     // Range: 32, 64, 128, 256.
+-  parameter integer C_MC_DATA_WIDTH                 = 32,
++  parameter integer C_MC_DATA_WIDTH                 = 128,
+                     // Memory controller burst mode,
+                     // values "8", "4" & "OTF"
+-  parameter         C_MC_BURST_MODE      = "8",
++  parameter         C_MC_BURST_MODE      = "4",
+                     // Number of memory clocks per fabric clock
+                     // = 2 for DDR2 or low frequency designs
+                     // = 4 for DDR3 or high frequency designs 
+@@ -129,10 +129,6 @@
+                     // C_S_AXI_REG_EN0[09] =  W CHANNEL UPSIZER REGISTER SLICE
+                     // C_S_AXI_REG_EN0[10] = AR CHANNEL UPSIZER REGISTER SLICE
+                     // C_S_AXI_REG_EN0[11] =  R CHANNEL UPSIZER REGISTER SLICE
+-  parameter         C_RD_WR_ARB_ALGORITHM            = "RD_PRI_REG",
+-                    // Indicates the Arbitration
+-                    // Allowed values - "TDM", "ROUND_ROBIN",
+-                    // "RD_PRI_REG", "RD_PRI_REG_STARVE_LIMIT"
+   parameter         C_S_AXI_REG_EN0                 = 20'h00000, 
+                     // Instatiates register slices after the upsizer.
+                     // The type of register is specified for each channel
+@@ -159,7 +155,13 @@
+                     //   7 => ADDRESS   = Optimized for address channel
+                     //                                     A  A
+                     //                                    RRBWW 
+-  parameter         C_S_AXI_REG_EN1                 = 20'h00000
++  parameter         C_S_AXI_REG_EN1                 = 20'h00000,
++  parameter         C_RD_WR_ARB_ALGORITHM            = "RD_PRI_REG",
++                    // Indicates the Arbitration
++                    // Allowed values - "TDM", "ROUND_ROBIN",
++                    // "RD_PRI_REG", "RD_PRI_REG_STARVE_LIMIT"
++  parameter         C_ECC                           = "OFF"
++                    // Output RMW if ECC is on.
+ )
+ (
+ ///////////////////////////////////////////////////////////////////////////////
+@@ -231,7 +233,8 @@
+                                               
+   input  wire                               mc_app_rd_valid   , 
+   input  wire [C_MC_DATA_WIDTH-1:0]         mc_app_rd_data    ,
+-  input  wire                               mc_app_rd_end    
++  input  wire                               mc_app_rd_end     ,
++  input  wire [2*C_MC_nCK_PER_CLK-1:0]      mc_app_ecc_multiple_err
+ );
+ 
+ ////////////////////////////////////////////////////////////////////////////////
+@@ -848,7 +851,8 @@
+   .C_DATA_WIDTH                     ( C_MC_DATA_WIDTH    ),
+   .C_AXSIZE                         ( P_AXSIZE           ),
+   .C_MC_nCK_PER_CLK                 ( C_MC_nCK_PER_CLK   ),
+-  .C_MC_BURST_LEN                   ( C_MC_BURST_LEN     )
++  .C_MC_BURST_LEN                   ( C_MC_BURST_LEN     ),
++  .C_ECC                            ( C_ECC              )
+ )
+ axi_mc_aw_channel_0
+ (
+@@ -1004,6 +1008,7 @@
+   .mc_app_rd_valid                  ( mc_app_rd_valid ) ,
+   .mc_app_rd_data                   ( mc_app_rd_data  ) ,
+   .mc_app_rd_last                   ( mc_app_rd_end   ) ,
++  .mc_app_ecc_multiple_err          ( |mc_app_ecc_multiple_err ) ,
+   .r_push                           ( r_push          ) ,
+   .r_full                           ( r_full          ) ,
+   .r_arid                           ( r_arid          ) ,
+diff -u axi/axi_mc_aw_channel.v axi_orig/axi_mc_aw_channel.v
+--- axi/axi_mc_aw_channel.v	2012-10-24 20:46:37.894876500 +0100
++++ axi_orig/axi_mc_aw_channel.v	2012-10-10 23:26:46.000000000 +0100
+@@ -78,7 +78,8 @@
+   parameter integer C_MC_nCK_PER_CLK             = 2, 
+                     // Static value of axsize
+                     // Range: 2-4
+-  parameter integer C_AXSIZE            = 2
++  parameter integer C_AXSIZE            = 2,
++  parameter         C_ECC               = "OFF"
+ 
+ )
+ (
+@@ -135,6 +136,7 @@
+ localparam integer                  C_REG_SLICE_DEPTH          = 0;
+ localparam                          P_CMD_WRITE                = 3'b000;
+ localparam                          P_CMD_READ                 = 3'b001;
++localparam                          P_CMD_WRITE_BYTES          = 3'b011;
+ localparam                          P_AXBURST_FIXED            = 2'b00;
+ localparam                          P_AXBURST_INCR             = 2'b01;
+ localparam                          P_AXBURST_WRAP             = 2'b10;
+@@ -214,10 +216,9 @@
+   .last_tran    ( write_last     )
+ );
+ 
+-assign cmd_instr = P_CMD_WRITE;
++assign cmd_instr = (C_ECC == "ON") ? P_CMD_WRITE_BYTES : P_CMD_WRITE;
+ assign b_awid = awid_r;
+ assign b_awlen = awlen_r;
+-   
+ 
+ assign wdata_complete = w_complete; 
+    
+diff -u axi/axi_mc_cmd_arbiter.v axi_orig/axi_mc_cmd_arbiter.v
+--- axi/axi_mc_cmd_arbiter.v	2012-10-24 20:46:37.892876300 +0100
++++ axi_orig/axi_mc_cmd_arbiter.v	2012-10-10 23:26:46.000000000 +0100
+@@ -233,9 +233,9 @@
+       if (reset) begin
+         rnw_i <= 1'b1;
+       end else if (~mc_app_full) begin
+-	if (mc_app_en & (mc_app_cmd==rd_cmd_instr) & (rd_cmd_en | rd_cmd_hold))
++        if (mc_app_en & (mc_app_cmd==rd_cmd_instr) & (rd_cmd_en | rd_cmd_hold))
+            rnw_i <= 1'b1;
+-	else if (mc_app_en & (mc_app_cmd==wr_cmd_instr) & (wr_cmd_en | wr_cmd_hold))
++        else if (mc_app_en & (mc_app_cmd==wr_cmd_instr) & (wr_cmd_en | wr_cmd_hold))
+            rnw_i <= 1'b0;
+         else
+            rnw_i <= ((rd_cmd_en | rd_cmd_hold) & ~(wr_cmd_hold))? 1'b1:
+diff -u axi/axi_mc_r_channel.v axi_orig/axi_mc_r_channel.v
+--- axi/axi_mc_r_channel.v	2012-10-24 20:46:37.893876400 +0100
++++ axi_orig/axi_mc_r_channel.v	2012-10-10 23:26:46.000000000 +0100
+@@ -79,6 +79,10 @@
+   parameter integer C_MC_BURST_LEN              = 1,
+                     // axi addr width 
+   parameter integer C_AXI_ADDR_WIDTH            = 32,
++                    // Number of memory clocks per fabric clock
++                    // = 2 for DDR2 or low frequency designs
++                    // = 4 for DDR3 or high frequency designs 
++  parameter         C_MC_nCK_PER_CLK            = 2,
+                     // memory controller burst mode,
+                     // values "8", "4" & "OTF"
+   parameter         C_MC_BURST_MODE             = "8" 
+@@ -100,6 +104,7 @@
+   input  wire [C_DATA_WIDTH-1:0]              mc_app_rd_data   , 
+   input  wire                                 mc_app_rd_valid  , 
+   input  wire                                 mc_app_rd_last   , 
++  input  wire                                 mc_app_ecc_multiple_err ,
+ 
+   // Connections to/from axi_mc_ar_channel module
+   input  wire                                 r_push           ,
+@@ -143,7 +148,7 @@
+ reg  [C_ID_WIDTH+3-1:0]    trans_buf_out_r;
+ wire                       tr_empty;
+ wire                       tr_rden;
+-reg [1:0] 		   state;
++reg [1:0]                  state;
+ wire [C_ID_WIDTH-1:0]      rid_i;
+ wire                       assert_rlast;
+ wire                       ignore_begin;
+@@ -152,6 +157,7 @@
+ wire                       load_stage2;
+ wire                       load_stage1_from_stage2;
+ reg  [C_DATA_WIDTH-1:0]    mc_app_rd_data_r;
++reg                        mc_app_ecc_multiple_err_r;
+ reg                        mc_app_rd_valid_r;
+ reg                        mc_app_rd_last_r ;
+ 
+@@ -192,7 +198,7 @@
+   TWO  = 2'b01;
+ 
+ 
+-assign rresp  = P_OKAY;
++assign rresp  = (rd_data_fifo_out[C_DATA_WIDTH] === 1) ? P_SLVERR : P_OKAY;
+ assign rid    = rid_i;
+ assign rdata  = rd_data_fifo_out[C_DATA_WIDTH-1:0];
+ assign rlast  = assert_rlast & ((~fifo_rd_last & ignore_end) 
+@@ -229,6 +235,7 @@
+ // Register output of mc if timing is poor.
+ always @(posedge clk) begin
+   mc_app_rd_data_r <= mc_app_rd_data;
++  mc_app_ecc_multiple_err_r <= mc_app_ecc_multiple_err;
+   mc_app_rd_valid_r <= mc_app_rd_valid;
+   mc_app_rd_last_r <= mc_app_rd_last;
+ end
+@@ -265,7 +272,7 @@
+   .empty   ( rd_empty         ) 
+ );
+ 
+-assign rd_data_fifo_in = {mc_app_rd_last, mc_app_rd_data};
++assign rd_data_fifo_in = {mc_app_ecc_multiple_err, mc_app_rd_data};
+ 
+ 
+ axi_mc_simple_fifo #(
+diff -u axi/axi_mc_wr_cmd_fsm.v axi_orig/axi_mc_wr_cmd_fsm.v
+--- axi/axi_mc_wr_cmd_fsm.v	2012-10-24 20:46:37.893876400 +0100
++++ axi_orig/axi_mc_wr_cmd_fsm.v	2012-10-10 23:26:46.000000000 +0100
+@@ -258,7 +258,6 @@
+           else 
+             next_state = state;
+ 
+-
+           default:
+             next_state = SM_IDLE;
+       endcase
+diff -u axi/ddr_a_upsizer.v axi_orig/ddr_a_upsizer.v
+--- axi/ddr_a_upsizer.v	2012-10-24 20:46:37.893876400 +0100
++++ axi_orig/ddr_a_upsizer.v	2012-10-10 23:26:46.000000000 +0100
+@@ -82,7 +82,7 @@
+                        // Clock output data.
+                        // Range: 0, 1
+    parameter integer C_AXI_SUPPORTS_USER_SIGNALS      = 0,
+-                       // 1 = Propagate all USER signals, 0 = Dont propagate.
++                       // 1 = Propagate all USER signals, 0 = Don’t propagate.
+    parameter integer C_AXI_AUSER_WIDTH                = 1,
+                        // Width of AWUSER/ARUSER signals. 
+                        // Range: >= 1.
+diff -u axi/ddr_axi_upsizer.v axi_orig/ddr_axi_upsizer.v
+--- axi/ddr_axi_upsizer.v	2012-10-24 20:46:37.893876400 +0100
++++ axi_orig/ddr_axi_upsizer.v	2012-10-10 23:26:46.000000000 +0100
+@@ -103,7 +103,7 @@
+                        // 1 = Fully-registered (needed only when upsizer propagates bursts at 1:1 width ratio)
+                        // 7 = Light-weight (safe when upsizer always packs at 1:n width ratio, as in interconnect)
+    parameter integer C_AXI_SUPPORTS_USER_SIGNALS      = 0,
+-                       // 1 = Propagate all USER signals, 0 = Dont propagate.
++                       // 1 = Propagate all USER signals, 0 = Don’t propagate.
+    parameter integer C_AXI_AWUSER_WIDTH               = 1,
+                        // Width of AWUSER signals. 
+                        // Range: >= 1.
+diff -u axi/ddr_axic_register_slice.v axi_orig/ddr_axic_register_slice.v
+--- axi/ddr_axic_register_slice.v	2012-10-24 20:46:37.893876400 +0100
++++ axi_orig/ddr_axic_register_slice.v	2012-10-22 20:45:00.000000000 +0100
+@@ -90,6 +90,11 @@
+    );
+ 
+   (* use_clock_enable = "yes" *)
++  
++  localparam [1:0] 
++    ZERO = 2'b10,
++    ONE  = 2'b11,
++    TWO  = 2'b01;
+ 
+   generate
+   ////////////////////////////////////////////////////////////////////
+@@ -113,10 +118,10 @@
+     else if ((C_REG_CONFIG == 32'h00000001) || (C_REG_CONFIG == 32'h00000008))
+     begin
+       reg [1:0] state;
+-      localparam [1:0] 
+-        ZERO = 2'b10,
+-        ONE  = 2'b11,
+-        TWO  = 2'b01;
++      // localparam [1:0] 
++        // ZERO = 2'b10,
++        // ONE  = 2'b11,
++        // TWO  = 2'b01;
+       
+       reg [C_DATA_WIDTH-1:0] storage_data1;
+       reg [C_DATA_WIDTH-1:0] storage_data2;
+@@ -349,10 +354,10 @@
+     begin
+       reg [1:0] state;
+       reg [1:0] next_state;
+-      localparam [1:0] 
+-        ZERO = 2'b00,
+-        ONE  = 2'b01,
+-        TWO  = 2'b11;
++      // localparam [1:0] 
++        // ZERO = 2'b00,
++        // ONE  = 2'b01,
++        // TWO  = 2'b11;
+ 
+       reg [C_DATA_WIDTH-1:0] storage_data1;
+       reg [C_DATA_WIDTH-1:0] storage_data2;
