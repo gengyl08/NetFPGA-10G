@@ -1,5 +1,3 @@
---- Developer: Muhammad Shahbaz ---
-
 Steps to implement rldram_mmap:
 
 1. Download XAPP852 from Xilinx website - http://www.xilinx.com/support/documentation/application_notes/xapp852.pdf
@@ -31,3 +29,5 @@ Base address of RLDRAM B = 0x84000000
 > ./rdaxi 80000000
 
 etc.
+
+--- Developer: Muhammad Shahbaz ---
