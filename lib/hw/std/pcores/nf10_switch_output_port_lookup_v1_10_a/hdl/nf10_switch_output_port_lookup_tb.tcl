@@ -6,7 +6,7 @@
 #        nf10_switch_output_port_lookup_tb.tcl
 #
 #  Library:
-#        hw/contrib/pcores/nf10_switch_output_port_lookup_v1_00_a
+#        hw/contrib/pcores/nf10_switch_output_port_lookup_v1_10_a
 #
 #  Module:
 #        nf10_switch_output_port_lookup.tcl
@@ -39,7 +39,7 @@
 #
 #
 
-run 4335 ns
+run 4320 ns
 if {[test /testbench/opl/m_axis_tlast 1] & [test /testbench/opl/m_axis_tvalid 1] & [test /testbench/opl/m_axis_tdata(255:0) 1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f -radix hex] & [test /testbench/opl/m_axis_tuser(127:0) 0000000000000000000000000001aaaa -radix hex] } {
   run 5 ns
   if {[test /testbench/opl/m_axis_tlast 1] &[test /testbench/opl/m_axis_tvalid 0] } {

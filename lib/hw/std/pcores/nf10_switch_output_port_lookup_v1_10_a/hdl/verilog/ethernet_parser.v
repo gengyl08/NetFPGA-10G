@@ -6,7 +6,7 @@
  *        ethernet_parser.v
  *
  *  Library:
- *        /hw/contrib/pcores/nf10_switch_output_port_lookup_v1_10_a
+ *        /hw/std/pcores/nf10_switch_output_port_lookup_v1_10_a
  *
  *  Module:
  *        ethernet_parser
@@ -75,34 +75,28 @@
    reg [NUM_STATES-1:0]                state;
    reg [NUM_STATES-1:0]                state_next;
 
-   reg [47:0]                          dst_mac_next;
-   reg [47:0]                          src_mac_next;
-   reg                                 eth_done_next;
-   reg [NUM_QUEUES-1:0]                src_port_next;
-
 
    // ------------ Logic ----------------
 
    always @(*) begin
-      dst_mac_next     = dst_mac;
-      src_mac_next     = src_mac;
-      eth_done_next    = eth_done;
-      src_port_next    = src_port;
+      src_mac      = 0;
+      dst_mac      = 0;
+      eth_done     = 0;
+      src_port     = 0;
       state_next       = state;
       case(state)
         /* read the input source header and get the first word */
         READ_MAC_ADDRESSES: begin
            if(valid) begin
-              src_port_next = tuser[SRC_PORT_POS+7:SRC_PORT_POS];
-              dst_mac_next  = tdata[47:0];
-              src_mac_next  = tdata[95:48];
-	      eth_done_next = 1;
+              src_port = tuser[SRC_PORT_POS+7:SRC_PORT_POS];
+              dst_mac  = tdata[47:0];
+              src_mac  = tdata[95:48];
+	      eth_done = 1;
               state_next    = WAIT_EOP;
            end
         end // case: READ_WORD_1
 
         WAIT_EOP: begin
-	      eth_done_next = 0;
            if(valid && tlast)
               state_next      = READ_MAC_ADDRESSES;
         end
@@ -112,18 +106,10 @@
 
    always @(posedge clk) begin
       if(reset) begin
-         src_mac      <= 0;
-         dst_mac      <= 0;
-         eth_done     <= 0;
          state        <= READ_MAC_ADDRESSES;
-         src_port     <= 0;
       end
       else begin
-         src_mac      <= src_mac_next;
-         dst_mac      <= dst_mac_next;
-         eth_done     <= eth_done_next;
          state        <= state_next;
-         src_port     <= src_port_next;
       end // else: !if(reset)
    end // always @ (posedge clk)
 

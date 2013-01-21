@@ -6,7 +6,7 @@
 --        nf10_switch_output_port_lookup.vhd
 --
 --  Library:
---        contrib/pisa/pcores/nf10_switch_output_port_lookup
+--        std/pcores/nf10_switch_output_port_lookup_v1_10_a
 --
 --  Module:
 --        nf10_switch_output_port_lookup

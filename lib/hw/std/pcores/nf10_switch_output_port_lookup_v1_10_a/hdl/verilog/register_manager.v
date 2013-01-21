@@ -6,7 +6,7 @@
  *        register_manager.v
  *
  *  Library:
- *        contrib/pisa/pcores/nf10_switch_output_port_lookup_v1_10_a
+ *        hw/std/pcores/nf10_switch_output_port_lookup_v1_10_a
  *
  *  Module:
  *        register_manager

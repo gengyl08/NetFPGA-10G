@@ -6,7 +6,7 @@
  *        nf10_switch_output_port_lookup_tb.v
  *
  *  Library:
- *        hw/contrib/pcores/nf10_switch_output_port_lookup_v1_00_a
+ *        hw/std/pcores/nf10_switch_output_port_lookup_v1_10_a
  *
  *  Module:
  *        testbench
@@ -60,11 +60,18 @@ module testbench();
     wire [255:0] header_word_0 = 256'hBBBBBBBBBBBBAAAAAAAAAAAA; // Destination MAC
     wire [255:0] header_word_1 = 256'hAAAAAAAAAAAABBBBBBBBBBBB; // Source MAC + EtherType
 
+    wire [255:0] header_word_01 = 256'hAAAAAAAAAAAABBBBBBBBBBBB; // Destination MAC
+    wire [255:0] header_word_11 = 256'hBBBBBBBBBBBBAAAAAAAAAAAAA; // Source MAC + EtherType
+
     localparam WAIT_CAM_INIT = 0;
     localparam HEADER_0 = 1;
     localparam HEADER_1 = 2;
     localparam PAYLOAD  = 3;
     localparam DEAD     = 4;
+    localparam HEADER_01 = 5;
+    localparam HEADER_11 = 6;
+    localparam PAYLOAD1  = 7;
+    localparam DEAD1  = 8;
 
     localparam WAIT = 5;
     localparam REQUEST_READ = 6;
@@ -170,7 +177,57 @@ module testbench();
             end
 
             DEAD: begin
+		counter_next = counter + 1'b1;
+                tlast[random] = 1'b0;
+                tvalid_0 = 0;
+                tvalid_1 = 0;
+                tvalid_2 = 0;
+                tvalid_3 = 0;
+                tvalid_4 = 0;
+                if(counter[7]==1'b1) begin
+                   counter_next = 8'b0;
+                   random = 0;
+                   state_next = HEADER_01;
+      		end
+            end
 
+
+            HEADER_01: begin
+                tdata[random] = header_word_01;
+                if(tready[random]) begin
+                    state_next = HEADER_11;
+                end
+               if (random == 0)
+                 tvalid_0 = 1;
+               else if (random == 1)
+                 tvalid_1 = 1;
+               else if (random == 2)
+                 tvalid_2 = 1;
+               else if (random == 3)
+                 tvalid_3 = 1;
+               else if (random == 4)
+                 tvalid_4 = 1;
+            end
+
+            HEADER_11: begin
+                tdata[random] = header_word_11;
+                if(tready[random]) begin
+                    state_next = PAYLOAD1;
+                end
+            end
+            PAYLOAD1: begin
+                tdata[random] = {32{counter}};
+                if(tready[random]) begin
+                    counter_next = counter + 1'b1;
+                    if(counter == 8'h1F) begin
+                        state_next = DEAD1;
+                        counter_next = 8'b0;
+                        tlast[random] = 1'b1;
+                    end
+                end
+            end
+
+            DEAD1: begin
                 counter_next = counter + 1'b1;
                 tlast[random] = 1'b0;
          	tvalid_0 = 0;

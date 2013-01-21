@@ -6,7 +6,7 @@
  *        output_port_lookup.v
  *
  *  Library:
- *        hw/contrib/pcores/nf10_switch_output_port_lookup_v1_10_a
+ *        hw/std/pcores/nf10_switch_output_port_lookup_v1_10_a
  *
  *  Module:
  *        output_port_lookup
@@ -96,33 +96,15 @@ module output_port_lookup
 
    //---------------------- Wires and regs----------------------------
 
-   wire [47:0]                  dst_mac_in;
-   wire [47:0]                  src_mac_in;
-   wire [NUM_OUTPUT_QUEUES-1:0] src_port_in;
-   wire                         eth_done_in;
-
-   wire [47:0]                  dst_mac;
+   wire [47:0]			dst_mac;
    wire [47:0]                  src_mac;
    wire [NUM_OUTPUT_QUEUES-1:0] src_port;
    wire                         eth_done;
-
-   reg [47:0]                   dst_mac_reg;
-   reg [47:0]                   src_mac_reg;
-   reg [NUM_OUTPUT_QUEUES-1:0]  src_port_reg;
-   reg                          eth_done_reg;
-
-
 
    wire [NUM_OUTPUT_QUEUES-1:0] dst_ports;
    wire [NUM_OUTPUT_QUEUES-1:0] dst_ports_latched;
 
    wire                         lookup_done;
-
-   wire [NUM_OUTPUT_QUEUES-1:0] dst_ports_fifo;
-   wire				lookup_done_fifo;
-   reg [NUM_OUTPUT_QUEUES-1:0]  dst_ports_reg;
-   reg                          lookup_done_reg;
-
    reg				send_packet;
    wire                         in_fifo_rd_en;
 
@@ -137,12 +119,6 @@ module output_port_lookup
 
    reg [NUM_STATES-1:0]         state, state_next;
 
-   assign dst_mac_in = dst_mac_reg;
-   assign src_mac_in = src_mac_reg;
-   assign src_port_in = src_port_reg;
-   assign eth_done_in = eth_done_reg;
-   assign dst_ports_fifo = dst_ports_reg;
-   assign lookup_done_fifo = lookup_done_reg;
 
    //------------------------- Modules-------------------------------
    ethernet_parser
@@ -166,10 +142,10 @@ module output_port_lookup
        .DEFAULT_MISS_OUTPUT_PORTS(DEFAULT_MISS_OUTPUT_PORTS))
    mac_cam_lut
      // --- lookup and learn port
-     (.dst_mac (dst_mac_in),
-      .src_mac (src_mac_in),
-      .src_port (src_port_in),
-      .lookup_req (eth_done_in),
+     (.dst_mac (dst_mac),
+      .src_mac (src_mac),
+      .src_port (src_port),
+      .lookup_req (eth_done),
       .dst_ports (dst_ports),
       
       .lookup_done (lookup_done),         // pulses high on lookup done
@@ -198,8 +174,8 @@ module output_port_lookup
 
    fallthrough_small_fifo #(.WIDTH(NUM_OUTPUT_QUEUES), .MAX_DEPTH_BITS(2))
       dst_port_fifo
-        (.din (dst_ports_fifo),     // Data in
-         .wr_en (lookup_done_fifo),             // Write enable
+        (.din (dst_ports),     // Data in
+         .wr_en (lookup_done),             // Write enable
          .rd_en (dst_port_rd),       // Read the next word
          .dout (dst_ports_latched),
          .full (),
@@ -246,21 +222,9 @@ module output_port_lookup
    always @(posedge axi_aclk) begin
       if(~axi_resetn) begin
          state <= WAIT_TILL_DONE_DECODE;
-         dst_mac_reg <= 0;
-         src_mac_reg <= 0;
-         src_port_reg <= 0;
-         eth_done_reg <= 0;
-         lookup_done_reg <= 0;
-         dst_ports_reg <= 0;
       end
       else begin
          state <= state_next;
-         dst_mac_reg <= dst_mac;
-         src_mac_reg <= src_mac;
-         src_port_reg <= src_port;
-         eth_done_reg <= eth_done;
-         dst_ports_reg <= dst_ports;
-         lookup_done_reg <= lookup_done;
       end
    end
 

@@ -6,7 +6,7 @@
 #        nf10_switch_output_port_lookup_tb.sh
 #
 #  Library:
-#        hw/contrib/pcores/nf10_switch_output_port_lookup_v1_00_a
+#        hw/std/pcores/nf10_switch_output_port_lookup_v1_10_a
 #
 #  Module:
 #        nf10_switch_output_port_lookup_tb.sh

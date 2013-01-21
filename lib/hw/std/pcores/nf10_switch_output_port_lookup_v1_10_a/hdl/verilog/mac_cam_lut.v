@@ -6,7 +6,7 @@
  *        mac_cam_lut.v
  *
  *  Library:
- *        /hw/contrib/pcores/nf10_switch_output_port_lookup_v1_10_a
+ *        /hw/std/pcores/nf10_switch_output_port_lookup_v1_10_a
  *
  *  Module:
  *        mac_cam_lut
@@ -80,37 +80,43 @@ module mac_cam_lut
    localparam RESET            = 1;
    localparam IDLE             = 2;
    localparam LATCH_DST_LOOKUP = 4;
-   localparam CHECK_SRC_MATCH  = 8;
-   localparam UPDATE_ENTRY     = 16;
-   localparam ADD_ENTRY        = 32;
 
    //---------------------- Wires and regs----------------------------
 
    wire [NUM_OUTPUT_QUEUES-1:0]          rd_oq;            // data read from the LUT at rd_addr
-   wire                                  rd_wr_protect;    // wr_protect bit read
    wire [47:0]				 rd_mac;
 
    wire                                  cam_busy;
    wire                                  cam_match;
    wire [LUT_DEPTH_BITS-1:0]             cam_match_addr;
-   reg  [LUT_DEPTH_BITS-1:0]             cam_match_addr_d1;
    reg  [47:0]                           cam_cmp_din;
     
    reg  [47:0]                           cam_din, cam_din_next;
    reg                                   cam_we, cam_we_next;
    reg  [LUT_DEPTH_BITS-1:0]             cam_wr_addr, cam_wr_addr_next;
 
+   wire                                  cam_busy_learn;
+   wire                                  cam_match_learn;
+   wire [LUT_DEPTH_BITS-1:0]             cam_match_addr_learn;
+   reg  [LUT_DEPTH_BITS-1:0]             cam_match_addr_learn_d1;
+   reg  [47:0]                           cam_cmp_din_learn;
+
+   reg  [47:0]                           cam_din_learn, cam_din_learn_next;
+   reg                                   cam_we_learn, cam_we_learn_next;
+   reg  [LUT_DEPTH_BITS-1:0]             cam_wr_addr_learn, cam_wr_addr_learn_next;
+
+
    reg  [NUM_OUTPUT_QUEUES-1:0]          src_port_latched;
    reg  [47:0]                           src_mac_latched;
    reg                                   latch_src;
 
-   reg  [5:0]                            lookup_state, lookup_state_next;
+   reg  [2:0]                            lookup_state, lookup_state_next;
 
    reg [LUT_DEPTH_BITS-1:0]              lut_rd_addr, lut_wr_addr, lut_wr_addr_next;
    reg                                   lut_wr_en, lut_wr_en_next;
-   reg [NUM_OUTPUT_QUEUES+48:0]          lut_wr_data, lut_wr_data_next;
-   reg [NUM_OUTPUT_QUEUES+48:0]          lut_rd_data;
-   reg [NUM_OUTPUT_QUEUES+48:0]          lut[LUT_DEPTH-1:0];
+   reg [NUM_OUTPUT_QUEUES+47:0]          lut_wr_data, lut_wr_data_next;
+   reg [NUM_OUTPUT_QUEUES+47:0]          lut_rd_data;
+   reg [NUM_OUTPUT_QUEUES+47:0]          lut[LUT_DEPTH-1:0];
 
    reg                                   reset_count_inc;
    reg [LUT_DEPTH_BITS:0]                reset_count;
@@ -119,10 +125,12 @@ module mac_cam_lut
    reg    				 lut_hit_next;
    reg					 lookup_done_next;
 
+   reg [LUT_DEPTH_BITS-1:0]		 pointer_add_cam, pointer_add_cam_next;
+
 
    //------------------------- Modules-------------------------------
 
-   // 1 cycle read latency, 16 cycles write latency
+   // 1 cycle read latency, 2 cycles write latency, width=48, depth=16
    cam mac_cam
      (  
       (* box_type = "user_black_box" *)
@@ -137,12 +145,25 @@ module mac_cam_lut
       .WE                               (cam_we),
       .WR_ADDR                          (cam_wr_addr[LUT_DEPTH_BITS-1:0]));
 
+   cam mac_cam_learn
+     (
+      (* box_type = "user_black_box" *)
+      .BUSY                             (cam_busy_learn),
+      .MATCH                            (cam_match_learn),
+      .MATCH_ADDR                       (cam_match_addr_learn[LUT_DEPTH_BITS-1:0]),
+      .CLK                              (clk),
+      .CMP_DIN                          (cam_cmp_din_learn),
+      .DIN                              (cam_din_learn[47:0]),
+      .WE                               (cam_we_learn),
+      .WR_ADDR                          (cam_wr_addr_learn[LUT_DEPTH_BITS-1:0]));
+
+
+
    //------------------------- Logic --------------------------------
 
 
    /* assign lut outputs */
    assign rd_oq = lut_rd_data[NUM_OUTPUT_QUEUES+47:48];
-   assign rd_wr_protect = lut_rd_data[NUM_OUTPUT_QUEUES+48];
    assign rd_mac = lut_rd_data[47:0];
 
    /* if we get a miss then set the dst port to the default ports
@@ -150,49 +171,64 @@ module mac_cam_lut
    assign dst_ports = (lut_miss) ? (DEFAULT_MISS_OUTPUT_PORTS & ~src_port)
                                            : (rd_oq & ~src_port);
 
-   assign entry_needs_update = ((rd_oq!=src_port) && !rd_wr_protect);
 
  
    always @(*) begin
-      cam_wr_addr_next = cam_match_addr;
+      cam_wr_addr_next = pointer_add_cam;
       cam_din_next     = src_mac_latched;
       cam_we_next      = 0;
       cam_cmp_din      = 0;
+    
+      cam_wr_addr_learn_next = pointer_add_cam;
+      cam_din_learn_next     = src_mac_latched;
+      cam_we_learn_next      = 0;
+      cam_cmp_din_learn      = 0;
+
       lut_rd_addr      = cam_match_addr;
       lut_wr_en_next   = 1'b0;
-      lut_wr_data_next = {1'b0, src_port_latched, src_mac_latched};
-      lut_wr_addr_next = cam_match_addr;
+      lut_wr_data_next = {src_port_latched, src_mac_latched};      
+      lut_wr_addr_next = cam_match_addr_learn;
+
       reset_count_inc  = 0;
       latch_src        = 0;
-      lookup_done_next = 0;
-      lut_miss_next    = 0;
-      lut_hit_next     = 0;
+      lookup_done_next      = 0;
+      lut_miss_next	       = 0;
+      lut_hit_next	       = 0;
+      pointer_add_cam_next = pointer_add_cam;
 
       lookup_state_next = lookup_state;
 
       case(lookup_state)
         /* write to all locations */
         RESET: begin
-           if( !cam_we && !cam_busy && reset_count < LUT_DEPTH-1) begin
+           if( !cam_we_learn && !cam_busy_learn && !cam_we && !cam_busy && reset_count < LUT_DEPTH-1) begin
               cam_wr_addr_next = reset_count;
               cam_we_next = 1;
               cam_din_next = 0;
+
+	      cam_wr_addr_learn_next = reset_count;
+              cam_we_learn_next = 1;
+              cam_din_learn_next = 0;
+	
               reset_count_inc = 1;
               lut_wr_addr_next = reset_count;
               lut_wr_data_next = 0;
               lut_wr_en_next = 1;
            end
            // write the broadcast
-           else if( !cam_we && !cam_busy && reset_count == LUT_DEPTH-1) begin
+           else if( !cam_we_learn && !cam_busy_learn && !cam_we && !cam_busy && reset_count == LUT_DEPTH-1) begin
               cam_wr_addr_next = reset_count;
               cam_we_next = 1;
               cam_din_next = ~48'h0;
-              // -- just debug -- cam_din_next = 48'haaaaaaaaaaaa;
+
+              cam_wr_addr_learn_next = reset_count;
+              cam_we_learn_next = 1;
+              cam_din_learn_next = ~48'h0;
+
               reset_count_inc = 1;
               // write the broadcast address
               lut_wr_addr_next = reset_count;
-              lut_wr_data_next = {1'b1, DEFAULT_MISS_OUTPUT_PORTS, ~48'h0};
-              // -- just debug-- lut_wr_data_next = {1'b1, 8'hff, 48'haaaaaaaaaaaa};
+              lut_wr_data_next = {DEFAULT_MISS_OUTPUT_PORTS, ~48'h0};
 	      lut_wr_en_next = 1;
            end
            else if(!cam_we && !cam_busy) begin
@@ -202,6 +238,7 @@ module mac_cam_lut
 
         IDLE: begin
            cam_cmp_din = dst_mac;
+	   cam_cmp_din_learn = src_mac;
            if(lookup_req) begin
               lookup_state_next = LATCH_DST_LOOKUP;
               latch_src = 1;
@@ -215,47 +252,24 @@ module mac_cam_lut
 		lut_miss_next = 1;
 	    else
 		lut_hit_next = 1;
-           /* if the cam is not busy, then see if the source mac is in the table */
-           cam_cmp_din = src_mac_latched;
-           if(!cam_busy) begin
-              lookup_state_next = CHECK_SRC_MATCH;
-           end
-           else begin
-              lookup_state_next = IDLE;
-           end
+
+	    if(cam_match_learn)
+	    	lut_wr_en_next = 1;
+	    else begin
+		if(!cam_busy && !cam_busy_learn) begin
+			lut_wr_addr_next = pointer_add_cam;
+                	lut_wr_en_next = 1;
+                	cam_we_next = 1;
+			cam_we_learn_next = 1;
+                	if(pointer_add_cam==LUT_DEPTH-2)
+                        	pointer_add_cam_next = 0;
+                	else
+                        	pointer_add_cam_next = pointer_add_cam + 1;
+            	end
+	    end
+            lookup_state_next = IDLE;
+          
         end // case: LATCH_DST_LOOKUP
-        
-	CHECK_SRC_MATCH: begin
-           /* look for an empty address in case we need it */
-           cam_cmp_din = 0;
-           /* if we have a match then wait for lut output */
-           if(cam_match) begin
-              lookup_state_next = UPDATE_ENTRY;
-           end
-           /* otherwise we need to add the entry */
-           else begin
-              lookup_state_next = ADD_ENTRY;
-           end
-        end // case: CHECK_SRC_MATCH
-
-        UPDATE_ENTRY: begin
-           if(entry_needs_update) begin
-              lut_wr_addr_next = cam_match_addr_d1;
-              lut_wr_en_next = 1;
-           end
-           lookup_state_next = IDLE;
-        end
-
-        ADD_ENTRY: begin
-           /* if we found an empty spot */
-           if(cam_match) begin
-              lut_wr_addr_next = cam_match_addr;
-              lut_wr_en_next = 1;
-              cam_wr_addr_next = cam_match_addr;
-              cam_we_next = 1;
-           end
-           lookup_state_next = IDLE;
-        end
 
         default: begin end
       endcase // case(lookup_state)
@@ -270,14 +284,20 @@ module mac_cam_lut
          lookup_done       <= 0;
          lut_miss          <= 0;
          lut_hit	   <= 0;
-         cam_match_addr_d1 <= 0;
 
          cam_wr_addr       <= 0;
          cam_din           <= 0;
          cam_we            <= 0;
+
+         cam_wr_addr_learn       <= 0;
+         cam_din_learn           <= 0;
+         cam_we_learn            <= 0;
+
          lut_wr_en         <= 0;
          lut_wr_data       <= 0;
          lut_wr_addr       <= 0;
+
+         pointer_add_cam   <= 0;
 
          lookup_state      <= RESET;
       end
@@ -289,16 +309,21 @@ module mac_cam_lut
          lut_miss          <= lut_miss_next;
          lut_hit	   <= lut_hit_next;
 
+         pointer_add_cam   <= pointer_add_cam_next;
+
          lut_rd_data       <= lut[lut_rd_addr];
          if(lut_wr_en) begin
             lut[lut_wr_addr] <= lut_wr_data;
          end
 
-         cam_match_addr_d1 <= cam_match_addr;
-
          cam_wr_addr       <= cam_wr_addr_next;
          cam_din           <= cam_din_next;
          cam_we            <= cam_we_next;
+
+         cam_wr_addr_learn       <= cam_wr_addr_learn_next;
+         cam_din_learn           <= cam_din_learn_next;
+         cam_we_learn            <= cam_we_learn_next;
+
          lut_wr_en         <= lut_wr_en_next;
          lut_wr_data       <= lut_wr_data_next;
          lut_wr_addr       <= lut_wr_addr_next;
@@ -306,14 +331,6 @@ module mac_cam_lut
          lookup_state      <= lookup_state_next;
       end
    end
-
-   // synthesis translate_off
-   always @(posedge clk) begin
-      if(lookup_state==LATCH_DST_LOOKUP && cam_busy && src_mac_latched == dst_mac) begin
-         $display("%t %m WARNING: requested lookup for addr %012x while CAM is busy writing it. Returning broadcast.", $time, dst_mac);
-      end
-   end
-   // synthesis translate_on
 
 endmodule // mac_lut
 
