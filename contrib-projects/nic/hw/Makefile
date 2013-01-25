@@ -9,7 +9,7 @@
 #        nic
 #
 #  Author:
-#        Mario Flajslik
+#        Sam D'Amico, Gianni Antichi
 #
 #  Description:
 #        This file is based on the standard Xilinx XPS Makefile
@@ -128,7 +128,7 @@ exporttosdk: $(SYSTEM_HW_HANDOFF_DEP)
 	@cp -rf $(SDK_EXPORT_DIR)/../libs/microblaze_0/libsrc $(SDK_EXPORT_DIR)/../../../host/include/
 	@rm -rf $(SDK_EXPORT_DIR)/../empty_application
 	@rm -rf $(SDK_EXPORT_DIR)/../libs
-
+	
 netlist: $(POSTSYN_NETLIST)
 
 download: $(DOWNLOAD_BIT) dummy
@@ -321,7 +321,7 @@ axi_model: __xps/simgen.opt $(BRAMINIT_ELF_SIM_FILES)
 	@echo "*********************************************"
 	@echo "Creating AXI simulation models..."
 	@echo "*********************************************"
-	nf10_sim_autosubst.py -i $(MHSFILE) -o $(AXISIM_MHS)
+	nf10_sim_autosubst_dma.py -i $(MHSFILE) -o $(AXISIM_MHS)
 	simgen $(SIMGEN_OPTIONS) -m behavioral $(AXISIM_MHS)
 
 sim: axi_model
