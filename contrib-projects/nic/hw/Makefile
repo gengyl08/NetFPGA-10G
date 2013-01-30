@@ -9,7 +9,7 @@
 #        nic
 #
 #  Author:
-#        Sam D'Amico, Gianni Antichi
+#        Sam D'Amico
 #
 #  Description:
 #        This file is based on the standard Xilinx XPS Makefile
@@ -321,7 +321,7 @@ axi_model: __xps/simgen.opt $(BRAMINIT_ELF_SIM_FILES)
 	@echo "*********************************************"
 	@echo "Creating AXI simulation models..."
 	@echo "*********************************************"
-	nf10_sim_autosubst_dma.py -i $(MHSFILE) -o $(AXISIM_MHS)
+	nf10_sim_autosubst.py -i $(MHSFILE) -o $(AXISIM_MHS)
 	simgen $(SIMGEN_OPTIONS) -m behavioral $(AXISIM_MHS)
 
 sim: axi_model

@@ -8,7 +8,7 @@
 #        nf10_sim_autosubst.py
 #
 #  Author:
-#        David J. Miller
+#        David J. Miller, Gianni Antichi
 #
 #  Description:
 #        Automatically substitute specific pcores with instances of the AXI
@@ -48,10 +48,11 @@ import sys
 DEFAULT_TARGETS = [ 'nf10_10g_interface',
                     'nf10_1g_interface',
                     'nf10_oped',
+		    'dma',
                     ]
 
-clk_re    = re.compile( '\w*aclk', re.IGNORECASE )
-rst_re    = re.compile( '\w*(?:axi_|a)reset_?n', re.IGNORECASE )
+clk_re    = re.compile( '(s_axis_|axi_)aclk', re.IGNORECASE )
+rst_re    = re.compile( '\w*(?:axi_|a|\w*)reset_?n', re.IGNORECASE )
 m_axis_re = re.compile( 'M_AXIS\w*' )
 s_axis_re = re.compile( 'S_AXIS\w*' )
 
