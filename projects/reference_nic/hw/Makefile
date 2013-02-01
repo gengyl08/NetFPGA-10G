@@ -6,7 +6,7 @@
 #        Makefile
 #
 #  Project:
-#        nic
+#        reference_nic
 #
 #  Author:
 #        Sam D'Amico
