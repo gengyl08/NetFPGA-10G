@@ -47,7 +47,7 @@ all:
 	$(MAKE) -C $(HW) exporttosdk
 	$(MAKE) -C $(SW)
 	mkdir -p bitfiles
-	cp $(SW)/result/download.bit bitfiles/
+	cp $(SW)/result/reference_nic.bit bitfiles/
 
 clean:
 	$(MAKE) -C $(HW) clean
