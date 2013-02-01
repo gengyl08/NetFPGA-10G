@@ -87,7 +87,7 @@ for i in range(4):
     # replace source port
     for pkt in pkts:
         pkt.tuser_sport = 1 << (i*2) # physical ports are even-numbered
-    with open( os.path.join( script_dir, 'nf10_10g_interface_%d_stim.axi' % i ), 'w' ) as f:
+    with open( os.path.join( script_dir, 'nf10_1g_interface_%d_stim.axi' % i ), 'w' ) as f:
         axitools.axis_dump( pkts, f, 256, 1e-9 )
-    with open( os.path.join( script_dir, 'nf10_10g_interface_%d_expected.axi' % i ), 'w' ) as f:
+    with open( os.path.join( script_dir, 'nf10_1g_interface_%d_expected.axi' % i ), 'w' ) as f:
         axitools.axis_dump( pkts[0:2], f, 256, 1e-9 )
