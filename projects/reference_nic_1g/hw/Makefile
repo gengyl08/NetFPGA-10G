@@ -6,10 +6,10 @@
 #        Makefile
 #
 #  Project:
-#        reference_nic_1g
+#        nic
 #
 #  Author:
-#        James Hongyi Zeng
+#        Sam D'Amico
 #
 #  Description:
 #        This file is based on the standard Xilinx XPS Makefile
@@ -77,11 +77,9 @@ AXISIM_MHS = $(patsubst %.mhs, %_axisim.mhs, $(MHSFILE))
 AXISIM_CMD = $(patsubst %_system, %_system_axisim, $(SIM_CMD))
 
 
-NF10_NGC_FILES := implementation/nf10_oped_0_wrapper.ngc \
-				  implementation/axi_interconnect_0_wrapper.ngc
+NF10_NGC_FILES := implementation/axi_interconnect_0_wrapper.ngc
 
-NF10_SCR_FILES := nf10/nf10_oped_0_wrapper_xst.scr \
-				  nf10/axi_interconnect_0_wrapper_xst.scr
+NF10_SCR_FILES := nf10/axi_interconnect_0_wrapper_xst.scr
 
 #################################################################
 # PHONY TARGETS
@@ -130,7 +128,7 @@ exporttosdk: $(SYSTEM_HW_HANDOFF_DEP)
 	@cp -rf $(SDK_EXPORT_DIR)/../libs/microblaze_0/libsrc $(SDK_EXPORT_DIR)/../../../host/include/
 	@rm -rf $(SDK_EXPORT_DIR)/../empty_application
 	@rm -rf $(SDK_EXPORT_DIR)/../libs
-
+	
 netlist: $(POSTSYN_NETLIST)
 
 download: $(DOWNLOAD_BIT) dummy
@@ -323,7 +321,7 @@ axi_model: __xps/simgen.opt $(BRAMINIT_ELF_SIM_FILES)
 	@echo "*********************************************"
 	@echo "Creating AXI simulation models..."
 	@echo "*********************************************"
-	nf10_sim_autosubst.py -i $(MHSFILE) -o $(AXISIM_MHS) -c nf10_oped=core_clk
+	nf10_sim_autosubst.py -i $(MHSFILE) -o $(AXISIM_MHS)
 	simgen $(SIMGEN_OPTIONS) -m behavioral $(AXISIM_MHS)
 
 sim: axi_model

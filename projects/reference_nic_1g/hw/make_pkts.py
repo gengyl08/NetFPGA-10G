@@ -8,13 +8,13 @@
 #        make_pkts.py
 #
 #  Project:
-#        reference_nic_1g
+#        nic
 #
 #  Module:
 #        mkpkts_example.py
 #
 #  Author:
-#        James Hongyi Zeng
+#        James Hongyi Zeng, Gianni Antichi
 #
 #  Description:
 #        An example of how to use scapy to build packets.  The packet in
@@ -73,21 +73,21 @@ for i in range(8):
            TCP()/
            'Hello, NetFPGA-10G!')
     pkt.time        = i*(1e-8)
-    # Set source network interface for oped stream
+    # Set source network interface for DMA stream
     pkt.tuser_sport = 1 << (i%4*2 + 1) # PCI ports are odd-numbered
     pkts.append(pkt)
 
 # PCI interface
-with open( os.path.join( script_dir, 'nf10_oped_0_stim.axi' ), 'w' ) as f:
-    axitools.axis_dump( pkts, f, 64, 1e-9 )
-with open( os.path.join( script_dir, 'nf10_oped_0_expected.axi' ), 'w' ) as f:
-    axitools.axis_dump( pkts*4, f, 64, 1e-9 )
-# 1g interfaces
+with open( os.path.join( script_dir, 'dma_0_stim.axi' ), 'w' ) as f:
+    axitools.axis_dump( pkts, f, 256, 1e-9 )
+with open( os.path.join( script_dir, 'dma_0_expected.axi' ), 'w' ) as f:
+    axitools.axis_dump( pkts*4, f, 256, 1e-9 )
+# 10g interfaces
 for i in range(4):
     # replace source port
     for pkt in pkts:
         pkt.tuser_sport = 1 << (i*2) # physical ports are even-numbered
-    with open( os.path.join( script_dir, 'nf10_1g_interface_%d_%d_stim.axi' % (i/2,i%2) ), 'w' ) as f:
-        axitools.axis_dump( pkts, f, 64, 1e-9 )
-    with open( os.path.join( script_dir, 'nf10_1g_interface_%d_%d_expected.axi' % (i/2,i%2) ), 'w' ) as f:
-        axitools.axis_dump( pkts[0:2], f, 64, 1e-9 )
+    with open( os.path.join( script_dir, 'nf10_10g_interface_%d_stim.axi' % i ), 'w' ) as f:
+        axitools.axis_dump( pkts, f, 256, 1e-9 )
+    with open( os.path.join( script_dir, 'nf10_10g_interface_%d_expected.axi' % i ), 'w' ) as f:
+        axitools.axis_dump( pkts[0:2], f, 256, 1e-9 )

@@ -8,13 +8,13 @@
 #        make_pkts.py
 #
 #  Project:
-#        reference_nic
+#        nic
 #
 #  Module:
 #        mkpkts_example.py
 #
 #  Author:
-#        James Hongyi Zeng
+#        James Hongyi Zeng, Gianni Antichi
 #
 #  Description:
 #        An example of how to use scapy to build packets.  The packet in
@@ -73,14 +73,14 @@ for i in range(8):
            TCP()/
            'Hello, NetFPGA-10G!')
     pkt.time        = i*(1e-8)
-    # Set source network interface for oped stream
+    # Set source network interface for DMA stream
     pkt.tuser_sport = 1 << (i%4*2 + 1) # PCI ports are odd-numbered
     pkts.append(pkt)
 
 # PCI interface
-with open( os.path.join( script_dir, 'nf10_oped_0_stim.axi' ), 'w' ) as f:
+with open( os.path.join( script_dir, 'dma_0_stim.axi' ), 'w' ) as f:
     axitools.axis_dump( pkts, f, 256, 1e-9 )
-with open( os.path.join( script_dir, 'nf10_oped_0_expected.axi' ), 'w' ) as f:
+with open( os.path.join( script_dir, 'dma_0_expected.axi' ), 'w' ) as f:
     axitools.axis_dump( pkts*4, f, 256, 1e-9 )
 # 10g interfaces
 for i in range(4):

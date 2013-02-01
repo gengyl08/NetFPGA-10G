@@ -6,7 +6,7 @@
  *        system_axisim_tb.v
  *
  *  Project:
- *        reference_nic_1g
+ *        reference_nic
  *
  *  Module:
  *        system_axisim_tb
