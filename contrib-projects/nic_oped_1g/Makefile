@@ -43,11 +43,12 @@ SYSTEM = system
 HW = hw
 SW = sw/embedded/
 
+
 all:
 	$(MAKE) -C $(HW) exporttosdk
 	$(MAKE) -C $(SW)
 	mkdir -p bitfiles
-	cp $(SW)/result/download.bit bitfiles/
+	cp $(SW)/result/download.bit bitfiles/reference_nic_1g.bit
 
 clean:
 	$(MAKE) -C $(HW) clean
