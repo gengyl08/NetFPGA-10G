@@ -6,10 +6,10 @@
 #        nf10.ucf
 #
 #  Project:
-#        nic
+#        reference_nic_1g
 #
 #  Author:
-#        Mario Flajslik
+#        Mario Flajslik, Adam Covington
 #
 #  Description:
 #        UCF
@@ -66,18 +66,15 @@ TIMESPEC "TS_CLK_TIG_4" = FROM "CTRL_CLK" TO "CORE_CLK" TIG;
 TIMESPEC "TS_CLK_TIG_5" = FROM "CORE_CLK" TO "CTRL_CLK" TIG;
 
 # GTX PLACEMENT #########################################################
-# XAUI 0
-INST nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y6;
-INST nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y7;
-# XAUI 1
-INST nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y8;
-INST nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y9;
-# XAUI 2
-INST nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y10;
-INST nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y11;
-# XAUI 3
-INST nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/NO_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X0Y11;
-INST nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/NO_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X0Y10;
+INST nf10_1g_interface_0/nf10_1g_interface_0/gmac/mac_block/GTX_DUAL_1000X_inst_0/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X1Y6";
+INST nf10_1g_interface_0/nf10_1g_interface_0/gmac/mac_block/GTX_DUAL_1000X_inst_1/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X1Y8";
+INST nf10_1g_interface_1/nf10_1g_interface_1/gmac/mac_block/GTX_DUAL_1000X_inst_0/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X1Y10";
+INST nf10_1g_interface_1/nf10_1g_interface_1/gmac/mac_block/GTX_DUAL_1000X_inst_1/GTX_1000X/tile0_rocketio_wrapper_gtx_i/gtx_dual_i LOC = "GTX_DUAL_X0Y11";
+
+INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_0/gtx_dual_i LOC = "GTX_DUAL_X1Y7";
+INST nf10_1g_interface_0/nf10_1g_interface_0/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X1Y9";
+INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_0/gtx_dual_i LOC = "GTX_DUAL_X1Y11";
+INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X0Y10";
 
 # refclk for Port A
 NET "refclk_A_p"  LOC = "M4" ;
@@ -95,97 +92,13 @@ NET "refclk_C_n"  LOC = "C16" ;
 NET "refclk_D_p"  LOC = "D27" ;
 NET "refclk_D_n"  LOC = "C27" ;
 
+# EMAC0 Clocking
+# 125MHz clock input from BUFG
+ NET nf10_1g_interface_0/nf10_1g_interface_0/gmac/clk125_o TNM_NET          = "clk_gtx_sfp_0";
+ TIMESPEC "TS_v5_emac_v1_6_gtx_clk_sfp_0"         = PERIOD "clk_gtx_sfp_0" 125MHz HIGH 50 %;
 
-# TIMING ###################################################################
-NET "nf10_10g_interface_0/nf10_10g_interface_0/clk156" TNM_NET="clk156_top";
-NET "nf10_10g_interface_1/nf10_10g_interface_1/clk156" TNM_NET="clk156_top";
-NET "nf10_10g_interface_2/nf10_10g_interface_2/clk156" TNM_NET="clk156_top";
-NET "nf10_10g_interface_3/nf10_10g_interface_3/clk156" TNM_NET="clk156_top";
-TIMESPEC "TS_clk156_top" = PERIOD "clk156_top" 156.25 MHz HIGH 50 %;
-
-NET nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
-NET nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
-NET nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
-NET nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
-TIMESPEC TS_clk156_rec = PERIOD clk156_rec 156.25MHz;
-
-################################################################################
-# 10GE MAC INTERFACES
-################################################################################
-#######################################################
-# Ten Gigabit Ethernet MAC core constraints           #
-#######################################################
-
-# False paths on an internal counter load
-# MAC 0
-INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac0_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac0_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac0_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac0_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac0_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac0_xgmac_ifg_false_paths_dst_1";
-NET  "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac0_xgmac_ifg_false_paths_thru_1";
-INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac0_xgmac_ifg_false_paths_thru_2";
-TIMESPEC "TS_mac0_xgmac_ifg_false_paths_thru_1" = FROM "mac0_xgmac_ifg_false_paths_src_1" THRU "mac0_xgmac_ifg_false_paths_thru_1" THRU "mac0_xgmac_ifg_false_paths_thru_2" TO "mac0_xgmac_ifg_false_paths_dst_1" TIG;
-
-# MAC 1
-INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac1_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac1_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac1_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac1_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac1_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac1_xgmac_ifg_false_paths_dst_1";
-NET  "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac1_xgmac_ifg_false_paths_thru_1";
-INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac1_xgmac_ifg_false_paths_thru_2";
-TIMESPEC "TS_mac1_xgmac_ifg_false_paths_thru_1" = FROM "mac1_xgmac_ifg_false_paths_src_1" THRU "mac1_xgmac_ifg_false_paths_thru_1" THRU "mac1_xgmac_ifg_false_paths_thru_2" TO "mac1_xgmac_ifg_false_paths_dst_1" TIG;
-
-# MAC 2
-INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac2_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac2_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac2_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac2_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac2_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac2_xgmac_ifg_false_paths_dst_1";
-NET  "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac2_xgmac_ifg_false_paths_thru_1";
-INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac2_xgmac_ifg_false_paths_thru_2";
-TIMESPEC "TS_mac2_xgmac_ifg_false_paths_thru_1" = FROM "mac2_xgmac_ifg_false_paths_src_1" THRU "mac2_xgmac_ifg_false_paths_thru_1" THRU "mac2_xgmac_ifg_false_paths_thru_2" TO "mac2_xgmac_ifg_false_paths_dst_1" TIG;
-
-# MAC 3
-INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac3_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac3_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac3_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac3_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac3_xgmac_ifg_false_paths_src_1";
-INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac3_xgmac_ifg_false_paths_dst_1";
-NET  "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac3_xgmac_ifg_false_paths_thru_1";
-INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac3_xgmac_ifg_false_paths_thru_2";
-TIMESPEC "TS_mac3_xgmac_ifg_false_paths_thru_1" = FROM "mac3_xgmac_ifg_false_paths_src_1" THRU "mac3_xgmac_ifg_false_paths_thru_1" THRU "mac3_xgmac_ifg_false_paths_thru_2" TO "mac3_xgmac_ifg_false_paths_dst_1" TIG;
-
-#######################################################
-# Flow control clock crossing timing constraint
-# MAC 0
-INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac0_flow_grp";
-INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac0_flow_grp";
-INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac0_flow_grp";
-TIMESPEC "TS_mac0_flow" = FROM "mac0_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
-
-# MAC 1
-INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac1_flow_grp";
-INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac1_flow_grp";
-INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac1_flow_grp";
-TIMESPEC "TS_mac1_flow" = FROM "mac1_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
-
-# MAC 2
-INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac2_flow_grp";
-INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac2_flow_grp";
-INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac2_flow_grp";
-TIMESPEC "TS_mac2_flow" = FROM "mac2_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
-
-# MAC 3
-INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac3_flow_grp";
-INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac3_flow_grp";
-INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac3_flow_grp";
-TIMESPEC "TS_mac3_flow" = FROM "mac3_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
+ NET nf10_1g_interface_1/nf10_1g_interface_1/gmac/clk125_o TNM_NET          = "clk_gtx_sfp_1";
+ TIMESPEC "TS_v5_emac_v1_6_gtx_clk_sfp_1"         = PERIOD "clk_gtx_sfp_1" 125MHz HIGH 50 %;
 
 ############################################################
 # Reset path constraints                                   #
