@@ -47,7 +47,7 @@ all:
 	$(MAKE) -C $(HW) exporttosdk
 	$(MAKE) -C $(SW)
 	mkdir -p bitfiles
-	cp $(SW)/result/download.bit bitfiles/refernce_switch_lite.bit
+	cp $(SW)/result/download.bit bitfiles/reference_switch_lite.bit
 
 clean:
 	$(MAKE) -C $(HW) clean
