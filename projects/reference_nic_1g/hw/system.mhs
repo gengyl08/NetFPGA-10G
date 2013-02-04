@@ -22,6 +22,22 @@
  PORT nf10_1g_interface_1_RXP_0_pin = nf10_1g_interface_1_RXP_0, DIR = I
  PORT nf10_1g_interface_1_RXN_0_pin = nf10_1g_interface_1_RXN_0, DIR = I
  PORT nf10_1g_interface_1_TXN_1_pin = nf10_1g_interface_1_TXN_1, DIR = O
+ PORT nf10_1g_interface_1_TXP_0_dummy_pin = nf10_1g_interface_1_TXP_0_dummy, DIR = O
+ PORT nf10_1g_interface_1_TXP_1_dummy_pin = nf10_1g_interface_1_TXP_1_dummy, DIR = O
+ PORT nf10_1g_interface_1_TXN_0_dummy_pin = nf10_1g_interface_1_TXN_0_dummy, DIR = O
+ PORT nf10_1g_interface_1_RXP_0_dummy_pin = nf10_1g_interface_1_RXP_0_dummy, DIR = I
+ PORT nf10_1g_interface_1_RXN_0_dummy_pin = nf10_1g_interface_1_RXN_0_dummy, DIR = I
+ PORT nf10_1g_interface_1_RXP_1_dummy_pin = nf10_1g_interface_1_RXP_1_dummy, DIR = I
+ PORT nf10_1g_interface_1_RXN_1_dummy_pin = nf10_1g_interface_1_RXN_1_dummy, DIR = I
+ PORT nf10_1g_interface_1_TXN_1_dummy_pin = nf10_1g_interface_1_TXN_1_dummy, DIR = O
+ PORT nf10_1g_interface_0_TXN_0_dummy_pin = nf10_1g_interface_0_TXN_0_dummy, DIR = O
+ PORT nf10_1g_interface_0_TXP_1_dummy_pin = nf10_1g_interface_0_TXP_1_dummy, DIR = O
+ PORT nf10_1g_interface_0_TXN_1_dummy_pin = nf10_1g_interface_0_TXN_1_dummy, DIR = O
+ PORT nf10_1g_interface_0_RXP_0_dummy_pin = nf10_1g_interface_0_RXP_0_dummy, DIR = I
+ PORT nf10_1g_interface_0_RXN_0_dummy_pin = nf10_1g_interface_0_RXN_0_dummy, DIR = I
+ PORT nf10_1g_interface_0_RXP_1_dummy_pin = nf10_1g_interface_0_RXP_1_dummy, DIR = I
+ PORT nf10_1g_interface_0_RXN_1_dummy_pin = nf10_1g_interface_0_RXN_1_dummy, DIR = I
+ PORT nf10_1g_interface_0_TXP_0_dummy_pin = nf10_1g_interface_0_TXP_0_dummy, DIR = O
  PORT refclk_A_p = DIFF_INPUT_BUF_0_DIFF_INPUT_P, DIR = I
  PORT refclk_A_n = DIFF_INPUT_BUF_0_DIFF_INPUT_N, DIR = I
  PORT refclk_B_p = DIFF_INPUT_BUF_1_DIFF_INPUT_P, DIR = I
