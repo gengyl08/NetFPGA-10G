@@ -333,10 +333,10 @@ BEGIN nf10_input_arbiter
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
  PARAMETER C_S_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE M_AXIS = nf10_input_arbiter_0_M_AXIS
- BUS_INTERFACE S_AXIS_0 = nf10_1g_interface_0_M_AXIS
- BUS_INTERFACE S_AXIS_1 = nf10_1g_interface_1_M_AXIS
- BUS_INTERFACE S_AXIS_2 = nf10_1g_interface_2_M_AXIS
- BUS_INTERFACE S_AXIS_3 = nf10_1g_interface_3_M_AXIS
+ BUS_INTERFACE S_AXIS_0 = nf10_1g_interface_0_M_AXIS_0
+ BUS_INTERFACE S_AXIS_1 = nf10_1g_interface_0_M_AXIS_1
+ BUS_INTERFACE S_AXIS_2 = nf10_1g_interface_1_M_AXIS_0
+ BUS_INTERFACE S_AXIS_3 = nf10_1g_interface_1_M_AXIS_1
  BUS_INTERFACE S_AXIS_4 = dma_0_M_AXIS
  PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
