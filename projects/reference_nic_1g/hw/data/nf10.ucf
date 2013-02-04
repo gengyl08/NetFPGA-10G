@@ -77,20 +77,20 @@ INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_0/gtx_dual_i LOC = "GTX_D
 INST nf10_1g_interface_1/nf10_1g_interface_1/dummy_gtx_1/gtx_dual_i LOC = "GTX_DUAL_X0Y10";
 
 # refclk for Port A
-NET "refclk_A_p"  LOC = "M4" ;
-NET "refclk_A_n"  LOC = "M3" ;
+NET "refclk_A_p"  LOC = "V4" ;
+NET "refclk_A_n"  LOC = "V3" ;
 
 # refclk for Port B
-NET "refclk_B_p"  LOC = "C4" ;
-NET "refclk_B_n"  LOC = "C3" ;
+NET "refclk_B_p"  LOC = "F4" ;
+NET "refclk_B_n"  LOC = "F3" ;
 
 # refclk for Port C
-NET "refclk_C_p"  LOC = "D16" ;
-NET "refclk_C_n"  LOC = "C16" ;
+NET "refclk_C_p"  LOC = "D10" ;
+NET "refclk_C_n"  LOC = "C10" ;
 
-# refclk for XAUI D
-NET "refclk_D_p"  LOC = "D27" ;
-NET "refclk_D_n"  LOC = "C27" ;
+# refclk for Port D
+NET "refclk_D_p"  LOC = "D33" ;
+NET "refclk_D_n"  LOC = "C33" ;
 
 # EMAC0 Clocking
 # 125MHz clock input from BUFG
@@ -99,22 +99,6 @@ NET "refclk_D_n"  LOC = "C27" ;
 
  NET nf10_1g_interface_1/nf10_1g_interface_1/gmac/clk125_o TNM_NET          = "clk_gtx_sfp_1";
  TIMESPEC "TS_v5_emac_v1_6_gtx_clk_sfp_1"         = PERIOD "clk_gtx_sfp_1" 125MHz HIGH 50 %;
-
-############################################################
-# Reset path constraints                                   #
-#  These constraints add a measure of protection against   #
-#  metastability and skew in the reset nets.               #
-############################################################
-
-#NET "*xgmac/BU2/U0/G_RX_RESET.sync_rx_reset_i/reset_out*" MAXDELAY = 5000 ps;
-#NET "*xgmac/BU2/U0/G_TX_RESET.sync_tx_reset_i/reset_out*" MAXDELAY = 5000 ps;
-#NET "*xgmac/BU2/U0/G_TX_RESET.sync_flow_ctrl_tx_reset_i/reset_out*" MAXDELAY = 5000 ps;
-#NET "*xgmac/BU2/U0/G_RX_RESET.sync_flow_ctrl_rx_reset_i/reset_out*" MAXDELAY = 5000 ps;
-
-NET "*xgmac/BU2/U0/G_RX_RESET.sync_rx_reset_i/reset_out*" TIG;
-NET "*xgmac/BU2/U0/G_TX_RESET.sync_tx_reset_i/reset_out*" TIG;
-NET "*xgmac/BU2/U0/G_TX_RESET.sync_flow_ctrl_tx_reset_i/reset_out*" TIG;
-NET "*xgmac/BU2/U0/G_RX_RESET.sync_flow_ctrl_rx_reset_i/reset_out*" TIG;
 
 ###############################################################################
 # Timing Constraints
