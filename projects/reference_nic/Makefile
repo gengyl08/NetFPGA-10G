@@ -6,10 +6,10 @@
 #        Makefile
 #
 #  Project:
-#        reference_nic
+#        nic
 #
 #  Author:
-#        James Hongyi Zeng
+#        Mario Flajslik
 #
 #  Description:
 #        make all : Make BRAM initialized bitfile to bitfiles/
@@ -47,7 +47,7 @@ all:
 	$(MAKE) -C $(HW) exporttosdk
 	$(MAKE) -C $(SW)
 	mkdir -p bitfiles
-	cp $(SW)/result/download.bit bitfiles/
+	cp $(SW)/result/download.bit bitfiles/reference_nic.bit
 
 clean:
 	$(MAKE) -C $(HW) clean

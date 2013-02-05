@@ -6,10 +6,10 @@
 #        README
 #
 #  Project:
-#        reference_nic_1g
+#        nic
 #
 #  Author:
-#        James Hongyi Zeng
+#        Mario Flajslik
 #
 #  Copyright notice:
 #        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
@@ -45,7 +45,7 @@ The bitfile locates in implementation/. You need to
 export it to your Xilinx SDK project in order to download the Microblaze
 program to BRAM.
 
-For SDK instructions , please checkout /sw/embedded directory
+For SDK instructions , please checkout /sw/embedded directory.
 
 For simulation, just run "make sim". Please follow Xilinx iSim
 documentation for more details.

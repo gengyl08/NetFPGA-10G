@@ -6,10 +6,10 @@
 #        nf10.ucf
 #
 #  Project:
-#        reference_switch
+#        reference_switch_lite
 #
 #  Author:
-#        Muhammad Shahbaz
+#        Muhammad Shahbaz, Adam Covington
 #
 #  Description:
 #        UCF
@@ -54,18 +54,16 @@ NET PHY_RST_N         LOC = AR20   | IOSTANDARD = LVCMOS33  | PULLUP;       # ex
 NET CLK TNM_NET = sys_clk_pin;
 TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100 MHz;
 
-# Timing Ignore constraint on all signals that cross from core_clk domain to nf10_oped_0_aclk_oped domain
+# Timing Ignore constraint on all signals that cross clk domains
 NET "core_clk" TNM_NET = "CORE_CLK";
 NET "control_clk" TNM_NET = "CTRL_CLK";
-NET "nf10_oped_0_aclk_oped" TNM_NET = "OPED_CLK";
-TIMESPEC "TS_OPED_TIG_0" = FROM "CORE_CLK" TO "OPED_CLK" TIG;
-TIMESPEC "TS_OPED_TIG_1" = FROM "OPED_CLK" TO "CORE_CLK" TIG;
-TIMESPEC "TS_OPED_TIG_2" = FROM "CTRL_CLK" TO "OPED_CLK" TIG;
-TIMESPEC "TS_OPED_TIG_3" = FROM "OPED_CLK" TO "CTRL_CLK" TIG;
-# Timing Ignore constraint on all signals that cross from core_clk domain to ctrl_clk domain
-TIMESPEC "TS_BRDG_TIG_0" = FROM "CORE_CLK" TO "CTRL_CLK" TIG;
-TIMESPEC "TS_BRDG_TIG_1" = FROM "CTRL_CLK" TO "CORE_CLK" TIG;
-
+NET "dma_0/dma_0/trn_clk_c" TNM_NET = "PCIE_CLK";
+TIMESPEC "TS_CLK_TIG_0" = FROM "CORE_CLK" TO "PCIE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_1" = FROM "PCIE_CLK" TO "CORE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_2" = FROM "CTRL_CLK" TO "PCIE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_3" = FROM "PCIE_CLK" TO "CTRL_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_4" = FROM "CTRL_CLK" TO "CORE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_5" = FROM "CORE_CLK" TO "CTRL_CLK" TIG;
 
 # GTX PLACEMENT #########################################################
 # XAUI 0
@@ -209,111 +207,49 @@ NET "*xgmac/BU2/U0/G_RX_RESET.sync_flow_ctrl_rx_reset_i/reset_out*" TIG;
 # Timing Constraints
 ###############################################################################
 
-
-
-# Timing Constraints...
-NET "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_clk_O" PERIOD = 10ns;
-NET "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/gt_refclk_out[0]" TNM_NET = "PCI0CLK";
-TIMESPEC "TS_PCI0CLK"  = PERIOD "PCI0CLK" 100.00 MHz HIGH 50 % ;
+NET "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/gt_refclk_out[0]" TNM_NET = "MGTCLK" ;
+TIMESPEC "TS_MGTCLK"  = PERIOD "MGTCLK" 100.00 MHz HIGH 50 % ;
 
 ###############################################################################
 # Pinout and Related I/O Constraints
 ###############################################################################
 
-#
-# SYS reset (input) signal.  The nf10_oped_0_PCIE_RSTN_pin signal should be
-# obtained from the PCI Express interface if possible.  For
-# slot based form factors, a system reset signal is usually
-# present on the connector.  For cable based form factors, a
-# system reset signal may not be available.  In this case, the
-# system reset signal must be generated locally by some form of
-# supervisory circuit.  You may change the IOSTANDARD and LOC
-# to suit your requirements and VCCO voltage banking rules.
-#
+# PCIE #####################################################################
+NET  "pcie_clk_p"      LOC = AT4;
+NET  "pcie_clk_n"      LOC = AT3;
+INST "dma_0/dma_0/pcie_clk_ibuf"  DIFF_TERM = "TRUE";
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[0].GT_i" LOC = GTX_DUAL_X1Y5;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[2].GT_i" LOC = GTX_DUAL_X1Y4;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[4].GT_i" LOC = GTX_DUAL_X1Y3;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[6].GT_i" LOC = GTX_DUAL_X1Y2;
 
-#NET  "nf10_oped_0_PCIE_RSTN_pin"     LOC = "AL24" | IOSTANDARD = LVCMOS25 | PULLUP | NODELAY ;
+# BlockRAM placement...
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_retry/generate_sdp.ram_sdp_inst"      LOC = RAMB36_X5Y20 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y19 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y18 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y17 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y16 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk_if/ll_bridge/rx_bridge/fifo_inst/oq_fifo/Mram_regBank"        LOC = RAMB36_X5Y15 ;
 
+# BRAM placement
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_dne/genblk10.genblk1.genblk2.genblk3.u_ram_lo/genblk1.u_bram/mem_mem_0_0" LOC = RAMB36_X3Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_dne/genblk10.genblk1.genblk2.genblk3.u_ram_lo/genblk1.u_bram/mem_mem_0_0" LOC = RAMB36_X5Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_cfg/u_x_cfg_fifo_0/afifo/fifo_mem/genblk1.u_fifo_bram/mem_mem_0_0/RAMB36SDP_EXP" LOC = RAMB36_X3Y20;
 
-#
-# SYS clock 250 MHz (input) signal. The nf10_oped_0_PCIE_CLKP_pin and nf10_oped_0_PCIE_CLKN_pin
-# signals are the PCI Express reference clock. Virtex-5 GTX
-# Transceiver architecture requires the use of a dedicated clock
-# resources (FPGA input pins) associated with each GTX Transceiver Tile.
-# To use these pins an IBUFDS primitive (refclk_ibuf) is
-# instantiated in user's design.
-# Please refer to the Virtex-5 GTX Transceiver User Guide
-# (UG198) for guidelines regarding clock resource selection.
-#
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[3].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y21;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[2].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[1].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y23;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[0].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y24;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[3].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y21;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[2].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[1].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y23;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[0].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y24;
 
-
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_clk"  DIFF_TERM = "TRUE";
-NET  "nf10_oped_0_PCIE_CLKP_pin"       LOC = "AT4"  ;
-NET  "nf10_oped_0_PCIE_CLKN_pin"       LOC = "AT3"  ;
-
-
-#
-# Transceiver instance placement.  This constraint selects the
-# transceivers to be used, which also dictates the pinout for the
-# transmit and receive differential pairs.  Please refer to the
-# Virtex-5 GTX Transceiver User Guide (UG198) for more
-# information.
-#
-# PCIe Lanes 0, 1
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[0].GT_i" LOC = GTX_DUAL_X1Y5;
-
-# PCIe Lanes 2, 3
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[2].GT_i" LOC = GTX_DUAL_X1Y4;
-
-# PCIe Lanes 4, 5
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[4].GT_i" LOC = GTX_DUAL_X1Y3;
-
-# PCIe Lanes 6, 7
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[6].GT_i" LOC = GTX_DUAL_X1Y2;
-
-# GTX_DUAL_X1Y6
-# GTX_DUAL_X1Y7
-# GTX_DUAL_X1Y8
-# GTX_DUAL_X1Y9
-# GTX_DUAL_X1Y10
-# GTX_DUAL_X1Y11
-
-###############################################################################
-# Physical Constraints
-###############################################################################
-
-#
-# BlockRAM placement
-
-# These need to be adjacent to the PCIe Hard EP as they operate at 250 MHz...
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_retry/generate_sdp.ram_sdp_inst"      LOC = RAMB36_X5Y20 ;
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y19 ;
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y18 ;
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y17 ;
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y16 ;
-INST "nf10_oped_0/nf10_oped_0/oped/pciw_pci0_pcie_ep/ep/pcie_ep0/pcie_blk_if/ll_bridge/rx_bridge/fifo_inst/oq_fifo/Mram_regBank"        LOC = RAMB36_X5Y15 ;
-
-# Place DP0 buffers at bottom of column X2...
-INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_3/Mram_RAM1"  LOC = RAMB36_X2Y7 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_3/Mram_RAM2"  LOC = RAMB36_X2Y6 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_2/Mram_RAM1"  LOC = RAMB36_X2Y5 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_2/Mram_RAM2"  LOC = RAMB36_X2Y4 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_1/Mram_RAM1"  LOC = RAMB36_X2Y3 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory_1/Mram_RAM2"  LOC = RAMB36_X2Y2 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory/Mram_RAM1"    LOC = RAMB36_X2Y1 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp0_bram_memory/Mram_RAM2"    LOC = RAMB36_X2Y0 ;
-
-# Place W2 Buffers just over DP0
-INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM4" LOC = RAMB36_X2Y11 ;
-INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM3" LOC = RAMB36_X2Y10 ;
-INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM2" LOC = RAMB36_X2Y9  ;
-INST "nf10_oped_0/nf10_oped_0/oped/appW2/respF_memory/Mram_RAM1" LOC = RAMB36_X2Y8  ;
-
-# Place DP1 buffers at bottom of column X3...
-INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_3/Mram_RAM1"  LOC = RAMB36_X3Y7 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_3/Mram_RAM2"  LOC = RAMB36_X3Y6 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_2/Mram_RAM1"  LOC = RAMB36_X3Y5 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_2/Mram_RAM2"  LOC = RAMB36_X3Y4 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_1/Mram_RAM1"  LOC = RAMB36_X3Y3 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory_1/Mram_RAM2"  LOC = RAMB36_X3Y2 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory/Mram_RAM1"    LOC = RAMB36_X3Y1 ;
-INST "nf10_oped_0/nf10_oped_0/oped/dp1_bram_memory/Mram_RAM2"    LOC = RAMB36_X3Y0 ;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X4Y23;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X5Y25;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_1/RAMB36_EXP" LOC = RAMB36_X4Y24;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_1/RAMB36_EXP" LOC = RAMB36_X5Y26;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_2/RAMB36_EXP" LOC = RAMB36_X4Y25;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_2/RAMB36_EXP" LOC = RAMB36_X5Y27;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_3/RAMB36_EXP" LOC = RAMB36_X4Y26;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_3/RAMB36_EXP" LOC = RAMB36_X5Y28;

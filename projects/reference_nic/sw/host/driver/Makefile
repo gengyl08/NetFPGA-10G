@@ -1,44 +1,50 @@
-SRC			= src
-BUILD		= build
-BIN			= bin
-ROOT		:= $(shell pwd)
-DATE		:= $(shell date +%Y%m%d_%H%M)
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        Makefile
+#
+#  Project:
+#        nic
+#
+#  Author:
+#        Mario Flajslik
+#
+#  Description:
+#        make : Make the nic host driver. Load the driver with "insmod nf10.ko"
+#
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
 
-# NOTE: Do not enable both GHOST and LOOPB at the same time.
-DRIVER_DEBUG    = n
-DRIVER_GHOST	= n
-DRIVER_LOOPB	= n
-export DRIVER_DEBUG
-export DRIVER_GHOST
-export DRIVER_LOOPB
+obj-m += nf10.o
+nf10-objs += nf10driver.o
+nf10-objs += nf10iface.o
+nf10-objs += nf10fops.o
+nf10-objs += nf10priv.o
 
 all:
-	cp -r $(SRC)/ $(BUILD)/$(DATE)
-	$(MAKE) -C $(BUILD)/$(DATE)
-	cp $(BUILD)/$(DATE)/nf10_eth_driver.ko $(BIN)/
-	cp $(BUILD)/$(DATE)/driver_ctrl $(BIN)/
-	cp $(BUILD)/$(DATE)/libnf10reg.so.1.0 $(BIN)/
-
-nf10_eth_driver:
-	cp -r $(SRC)/ $(BUILD)/$(DATE)
-	$(MAKE) nf10_eth_driver -C $(BUILD)/$(DATE)
-	cp $(BUILD)/$(DATE)/nf10_eth_driver.ko $(BIN)/
-
-driver_ctrl:
-	cp -r $(SRC)/ $(BUILD)/$(DATE)
-	$(MAKE) driver_ctrl -C $(BUILD)/$(DATE)
-	cp $(BUILD)/$(DATE)/driver_ctrl $(BIN)/
-
-nf10_reg_lib:
-	cp -r $(SRC)/ $(BUILD)/$(DATE)
-	$(MAKE) nf10_reg_lib -C $(BUILD)/$(DATE)
-	cp $(BUILD)/$(DATE)/libnf10reg.so.1.0 $(BIN)/
-	
-install_nf10_reg_lib:
-	cp $(BIN)/libnf10reg.so.1.0 /usr/local/lib
-	ln -sf /usr/local/lib/libnf10reg.so.1.0 /usr/local/lib/libnf10reg.so
-	ln -sf /usr/local/lib/libnf10reg.so.1.0 /usr/local/lib/libnf10reg.so.1
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
 
 clean:
-	rm -rf $(BUILD)/* $(BIN)/*
-
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean

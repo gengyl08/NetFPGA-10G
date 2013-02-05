@@ -6,7 +6,7 @@
 #        Makefile
 #
 #  Project:
-#        reference_switch
+#        reference_switch_lite
 #
 #  Author:
 #        Muahammad Shahbaz, Gianni Anitchi
@@ -47,7 +47,7 @@ all:
 	$(MAKE) -C $(HW) exporttosdk
 	$(MAKE) -C $(SW)
 	mkdir -p bitfiles
-	cp $(SW)/result/download.bit bitfiles/
+	cp $(SW)/result/download.bit bitfiles/reference_switch_lite.bit
 
 clean:
 	$(MAKE) -C $(HW) clean
