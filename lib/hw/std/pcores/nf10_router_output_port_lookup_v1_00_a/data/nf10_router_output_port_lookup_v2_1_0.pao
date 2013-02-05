@@ -1,0 +1,53 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10_router_output_port_lookup_v2_1_0.pao
+#
+#  Library:
+#        hw/contrib/pcores/nf10_router_output_port_lookup_v1_00_a
+#
+#  Author:
+#        Muhammad Shahbaz, Gianni Antichi
+#
+#  Description:
+#        Microprocessor Peripheral Analysis Order File
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+lib proc_common_v3_00_a  all
+lib axi_lite_ipif_v1_01_a  all
+lib nf10_proc_common_v1_00_a  all
+lib nf10_router_output_port_lookup_v1_00_a cam verilog
+lib nf10_router_output_port_lookup_v1_00_a tcam verilog
+lib nf10_router_output_port_lookup_v1_00_a dest_ip_filter verilog
+lib nf10_router_output_port_lookup_v1_00_a eth_parser verilog
+lib nf10_router_output_port_lookup_v1_00_a ip_arp verilog
+lib nf10_router_output_port_lookup_v1_00_a ip_checksum_ttl verilog
+lib nf10_router_output_port_lookup_v1_00_a ip_lpm verilog
+lib nf10_router_output_port_lookup_v1_00_a op_lut_hdr_parser verilog
+lib nf10_router_output_port_lookup_v1_00_a op_lut_process_sm verilog
+lib nf10_router_output_port_lookup_v1_00_a output_port_lookup verilog
+lib nf10_router_output_port_lookup_v1_00_a preprocess_control verilog
+lib nf10_router_output_port_lookup_v1_00_a unencoded_cam_lut_sm verilog
+lib nf10_router_output_port_lookup_v1_00_a nf10_router_output_port_lookup verilog
