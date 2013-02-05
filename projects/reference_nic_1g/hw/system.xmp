@@ -2,6 +2,7 @@
 XmpVersion: 13.4
 VerMgmt: 13.4
 IntStyle: default
+Flow: ise
 ModuleSearchPath: ../../../lib/hw
 MHS File: system.mhs
 Architecture: virtex5
@@ -19,9 +20,10 @@ InsertNoPads: 0
 WarnForEAArch: 1
 HdlLang: Verilog
 SimModel: BEHAVIORAL
+ExternalMemSim: 0
 UserMakeFile: Makefile
 UcfFile: data/nf10.ucf
-EnableParTimingError: 1
+EnableParTimingError: 0
 ShowLicenseDialog: 1
 Processor: microblaze_0
 ElfImp: 

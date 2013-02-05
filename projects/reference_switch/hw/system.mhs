@@ -81,14 +81,41 @@
  PORT MDC = nf10_mdio_0_PHY_MDC, DIR = O
  PORT MDIO = nf10_mdio_0_PHY_MDIO, DIR = IO
  PORT PHY_RST_N = nf10_mdio_0_PHY_rst_n, DIR = O, RST_POLARITY = 1
- PORT nf10_oped_0_PCIE_CLKP_pin = nf10_oped_0_PCIE_CLKP, DIR = I, SIGIS = CLK
- PORT nf10_oped_0_PCIE_CLKN_pin = nf10_oped_0_PCIE_CLKN, DIR = I, SIGIS = CLK
- PORT nf10_oped_0_PCIE_RXN_pin = nf10_oped_0_PCIE_RXN, DIR = I, VEC = [7:0]
- PORT nf10_oped_0_PCIE_RXP_pin = nf10_oped_0_PCIE_RXP, DIR = I, VEC = [7:0]
- PORT nf10_oped_0_PCIE_TXN_pin = nf10_oped_0_PCIE_TXN, DIR = O, VEC = [7:0]
- PORT nf10_oped_0_PCIE_TXP_pin = nf10_oped_0_PCIE_TXP, DIR = O, VEC = [7:0]
-
-
+ PORT pcie_clk_p = pcie_top_0_pcie_clk_p, DIR = I
+ PORT pcie_top_0_pci_exp_0_txp_pin = pcie_top_0_pci_exp_0_txp, DIR = O
+ PORT pcie_clk_n = pcie_top_0_pcie_clk_n, DIR = I
+ PORT pcie_top_0_pci_exp_0_rxp_pin = pcie_top_0_pci_exp_0_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_0_rxn_pin = pcie_top_0_pci_exp_0_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_1_txp_pin = pcie_top_0_pci_exp_1_txp, DIR = O
+ PORT pcie_top_0_pci_exp_1_txn_pin = pcie_top_0_pci_exp_1_txn, DIR = O
+ PORT pcie_top_0_pci_exp_1_rxp_pin = pcie_top_0_pci_exp_1_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_1_rxn_pin = pcie_top_0_pci_exp_1_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_4_txp_pin = pcie_top_0_pci_exp_4_txp, DIR = O
+ PORT pcie_top_0_pci_exp_2_txp_pin = pcie_top_0_pci_exp_2_txp, DIR = O
+ PORT pcie_top_0_pci_exp_2_txn_pin = pcie_top_0_pci_exp_2_txn, DIR = O
+ PORT pcie_top_0_pci_exp_2_rxp_pin = pcie_top_0_pci_exp_2_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_2_rxn_pin = pcie_top_0_pci_exp_2_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_3_txp_pin = pcie_top_0_pci_exp_3_txp, DIR = O
+ PORT pcie_top_0_pci_exp_3_txn_pin = pcie_top_0_pci_exp_3_txn, DIR = O
+ PORT pcie_top_0_pci_exp_3_rxp_pin = pcie_top_0_pci_exp_3_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_3_rxn_pin = pcie_top_0_pci_exp_3_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_4_txn_pin = pcie_top_0_pci_exp_4_txn, DIR = O
+ PORT pcie_top_0_pci_exp_4_rxp_pin = pcie_top_0_pci_exp_4_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_4_rxn_pin = pcie_top_0_pci_exp_4_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_5_txp_pin = pcie_top_0_pci_exp_5_txp, DIR = O
+ PORT pcie_top_0_pci_exp_5_txn_pin = pcie_top_0_pci_exp_5_txn, DIR = O
+ PORT pcie_top_0_pci_exp_5_rxp_pin = pcie_top_0_pci_exp_5_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_5_rxn_pin = pcie_top_0_pci_exp_5_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_6_txp_pin = pcie_top_0_pci_exp_6_txp, DIR = O
+ PORT pcie_top_0_pci_exp_6_txn_pin = pcie_top_0_pci_exp_6_txn, DIR = O
+ PORT pcie_top_0_pci_exp_6_rxp_pin = pcie_top_0_pci_exp_6_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_6_rxn_pin = pcie_top_0_pci_exp_6_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_7_txn_pin = pcie_top_0_pci_exp_7_txn, DIR = O
+ PORT pcie_top_0_pci_exp_7_txp_pin = pcie_top_0_pci_exp_7_txp, DIR = O
+ PORT pcie_top_0_pci_exp_7_rxn_pin = pcie_top_0_pci_exp_7_rxn, DIR = I
+ PORT pcie_top_0_pci_exp_7_rxp_pin = pcie_top_0_pci_exp_7_rxp, DIR = I
+ PORT pcie_top_0_pci_exp_0_txn_pin = pcie_top_0_pci_exp_0_txn, DIR = O
+ 
 BEGIN axi_interconnect
  PARAMETER INSTANCE = axi_interconnect_0
  PARAMETER HW_VER = 1.02.a
@@ -395,7 +422,7 @@ BEGIN nf10_input_arbiter
  BUS_INTERFACE S_AXIS_1 = nf10_10g_interface_1_M_AXIS
  BUS_INTERFACE S_AXIS_2 = nf10_10g_interface_2_M_AXIS
  BUS_INTERFACE S_AXIS_3 = nf10_10g_interface_3_M_AXIS
- BUS_INTERFACE S_AXIS_4 = nf10_oped_0_M_AXIS
+ BUS_INTERFACE S_AXIS_4 = dma_0_M_AXIS
  BUS_INTERFACE M_AXIS = nf10_input_arbiter_0_M_AXIS
  PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
@@ -416,24 +443,56 @@ BEGIN nf10_bram_output_queues
  PORT axi_resetn = Peripheral_aresetn
 END
 
-BEGIN nf10_oped
- PARAMETER INSTANCE = nf10_oped_0
+BEGIN dma
+ PARAMETER INSTANCE = dma_0
  PARAMETER HW_VER = 1.10.a
+ PARAMETER C_BASEADDR = 0x7d400000
+ PARAMETER C_HIGHADDR = 0x7d40ffff
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
  PARAMETER C_S_AXIS_DATA_WIDTH = 256
- BUS_INTERFACE M_AXIS = nf10_oped_0_M_AXIS
- BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_4
  BUS_INTERFACE M_AXI = axi_interconnect_0
- PORT ACLK = core_clk
- PORT ARESETN = Peripheral_aresetn
- PORT ACLK_OPED = nf10_oped_0_aclk_oped
- PORT PCIE_RSTN = net_vcc
- PORT PCIE_CLKP = nf10_oped_0_PCIE_CLKP
- PORT PCIE_CLKN = nf10_oped_0_PCIE_CLKN
- PORT PCIE_RXN = nf10_oped_0_PCIE_RXN
- PORT PCIE_RXP = nf10_oped_0_PCIE_RXP
- PORT PCIE_TXN = nf10_oped_0_PCIE_TXN
- PORT PCIE_TXP = nf10_oped_0_PCIE_TXP
+ BUS_INTERFACE M_AXIS = dma_0_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_4
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT reset_n = Peripheral_aresetn
+ PORT M_AXIS_ACLK = core_clk
+ PORT S_AXIS_ACLK = core_clk
+ PORT M_AXI_LITE_ACLK = control_clk
+ PORT S_AXI_ACLK = control_clk
+ PORT pcie_clk_p = pcie_top_0_pcie_clk_p
+ PORT pci_exp_0_txp = pcie_top_0_pci_exp_0_txp
+ PORT pcie_clk_n = pcie_top_0_pcie_clk_n
+ PORT pci_exp_0_rxp = pcie_top_0_pci_exp_0_rxp
+ PORT pci_exp_0_rxn = pcie_top_0_pci_exp_0_rxn
+ PORT pci_exp_1_txp = pcie_top_0_pci_exp_1_txp
+ PORT pci_exp_1_txn = pcie_top_0_pci_exp_1_txn
+ PORT pci_exp_1_rxp = pcie_top_0_pci_exp_1_rxp
+ PORT pci_exp_1_rxn = pcie_top_0_pci_exp_1_rxn
+ PORT pci_exp_4_txp = pcie_top_0_pci_exp_4_txp
+ PORT pci_exp_2_txp = pcie_top_0_pci_exp_2_txp
+ PORT pci_exp_2_txn = pcie_top_0_pci_exp_2_txn
+ PORT pci_exp_2_rxp = pcie_top_0_pci_exp_2_rxp
+ PORT pci_exp_2_rxn = pcie_top_0_pci_exp_2_rxn
+ PORT pci_exp_3_txp = pcie_top_0_pci_exp_3_txp
+ PORT pci_exp_3_txn = pcie_top_0_pci_exp_3_txn
+ PORT pci_exp_3_rxp = pcie_top_0_pci_exp_3_rxp
+ PORT pci_exp_3_rxn = pcie_top_0_pci_exp_3_rxn
+ PORT pci_exp_4_txn = pcie_top_0_pci_exp_4_txn
+ PORT pci_exp_4_rxp = pcie_top_0_pci_exp_4_rxp
+ PORT pci_exp_4_rxn = pcie_top_0_pci_exp_4_rxn
+ PORT pci_exp_5_txp = pcie_top_0_pci_exp_5_txp
+ PORT pci_exp_5_txn = pcie_top_0_pci_exp_5_txn
+ PORT pci_exp_5_rxp = pcie_top_0_pci_exp_5_rxp
+ PORT pci_exp_5_rxn = pcie_top_0_pci_exp_5_rxn
+ PORT pci_exp_6_txp = pcie_top_0_pci_exp_6_txp
+ PORT pci_exp_6_txn = pcie_top_0_pci_exp_6_txn
+ PORT pci_exp_6_rxp = pcie_top_0_pci_exp_6_rxp
+ PORT pci_exp_6_rxn = pcie_top_0_pci_exp_6_rxn
+ PORT pci_exp_7_txn = pcie_top_0_pci_exp_7_txn
+ PORT pci_exp_7_txp = pcie_top_0_pci_exp_7_txp
+ PORT pci_exp_7_rxn = pcie_top_0_pci_exp_7_rxn
+ PORT pci_exp_7_rxp = pcie_top_0_pci_exp_7_rxp
+ PORT pci_exp_0_txn = pcie_top_0_pci_exp_0_txn
 END
 
 BEGIN nf10_axi_sim_transactor
