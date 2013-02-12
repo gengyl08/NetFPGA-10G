@@ -1,0 +1,3 @@
+Project reference_nic and project reference_nic_1g share the same driver. Please use the driver located at
+
+projects/reference_nic/sw/host/driver.
