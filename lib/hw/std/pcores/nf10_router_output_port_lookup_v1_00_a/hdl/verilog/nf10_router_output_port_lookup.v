@@ -6,7 +6,7 @@
  *        nf10_router_output_port_lookup.v
  *
  *  Library:
- *        contrib/pcores/nf10_router_output_port_lookup_v1_00_a
+ *        std/pcores/nf10_router_output_port_lookup_v1_00_a
  *
  *  Module:
  *        nf10_router_output_port_lookup
