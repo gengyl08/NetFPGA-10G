@@ -6,7 +6,7 @@
  *        output_port_lookup.v
  *
  *  Library:
- *        std/pcores/nf10_router_output_port_lookup_v1_00_a
+ *        hw/contrib/pcores/nf10_router_output_port_lookup_v1_10_a
  *
  *  Module:
  *        output_port_lookup
@@ -467,7 +467,7 @@ module output_port_lookup
          .out_tlast 	                (m_axis_tlast),
          .out_tdata                     (m_axis_tdata),
          .out_tuser                     (m_axis_tuser),     // new checksum assuming decremented TTL
-         .out_tready                    (s_axis_tready),
+         .out_tready                    (m_axis_tready),
 	 .out_tstrb			(m_axis_tstrb),
 
          // --- interface to registers
