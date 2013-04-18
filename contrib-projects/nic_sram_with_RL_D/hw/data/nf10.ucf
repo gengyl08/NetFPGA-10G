@@ -1,0 +1,710 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        nf10.ucf
+#
+#  Project:
+#        nic_sram
+#
+#  Author:
+#        Sam D'Amico
+#
+#  Description:
+#        UCF
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+NET Peripheral_aresetn TIG;
+
+NET RESET             LOC = AL24  |  IOSTANDARD=LVCMOS33  | PULLUP | TIG;
+NET RS232_Uart_1_sin  LOC = BB23  |  IOSTANDARD=LVCMOS33;
+NET RS232_Uart_1_sout LOC = BB21  |  IOSTANDARD=LVCMOS33;
+NET CLK               LOC = AN25  |  IOSTANDARD=LVCMOS33;
+
+NET MDC               LOC = AK23   | IOSTANDARD = LVCMOS33;
+NET MDIO              LOC = AL20   | IOSTANDARD = LVCMOS33;
+NET PHY_RST_N         LOC = AR20   | IOSTANDARD = LVCMOS33  | PULLUP;       # external pullup
+
+#
+# additional constraints
+#
+
+NET CLK TNM_NET = sys_clk_pin;
+TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100 MHz;
+
+# Timing Ignore constraint on all signals that cross clk domains
+NET "core_clk" TNM_NET = "CORE_CLK";
+NET "control_clk" TNM_NET = "CTRL_CLK";
+NET "dma_0/dma_0/trn_clk_c" TNM_NET = "PCIE_CLK";
+NET "mem_clk" TNM_NET = "MEM_CLK";
+
+TIMESPEC "TS_CLK_TIG_0" = FROM "CORE_CLK" TO "PCIE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_1" = FROM "PCIE_CLK" TO "CORE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_2" = FROM "CTRL_CLK" TO "PCIE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_3" = FROM "PCIE_CLK" TO "CTRL_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_4" = FROM "CTRL_CLK" TO "CORE_CLK" TIG;
+TIMESPEC "TS_CLK_TIG_5" = FROM "CORE_CLK" TO "CTRL_CLK" TIG;
+TIMESPEC "TS_MEM_TIG_0"=FROM "CORE_CLK" TO "MEM_CLK" TIG;
+TIMESPEC "TS_MEM_TIG_1"=FROM "MEM_CLK" TO "CORE_CLK" TIG;
+
+# GTX PLACEMENT #########################################################
+# XAUI 0
+INST nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y6;
+INST nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y7;
+# XAUI 1
+INST nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y8;
+INST nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y9;
+# XAUI 2
+INST nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y10;
+INST nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/USE_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X1Y11;
+# XAUI 3
+INST nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile0_rocketio_wrapper_i/NO_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X0Y11;
+INST nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile1_rocketio_wrapper_i/NO_REVERSE_LANES.gtx_dual_i LOC=GTX_DUAL_X0Y10;
+
+# refclk for Port A
+NET "refclk_A_p"  LOC = "M4" ;
+NET "refclk_A_n"  LOC = "M3" ;
+
+# refclk for Port B
+NET "refclk_B_p"  LOC = "C4" ;
+NET "refclk_B_n"  LOC = "C3" ;
+
+# refclk for Port C
+NET "refclk_C_p"  LOC = "D16" ;
+NET "refclk_C_n"  LOC = "C16" ;
+
+# refclk for XAUI D
+NET "refclk_D_p"  LOC = "D27" ;
+NET "refclk_D_n"  LOC = "C27" ;
+
+
+# TIMING ###################################################################
+NET "nf10_10g_interface_0/nf10_10g_interface_0/clk156" TNM_NET="clk156_top";
+NET "nf10_10g_interface_1/nf10_10g_interface_1/clk156" TNM_NET="clk156_top";
+NET "nf10_10g_interface_2/nf10_10g_interface_2/clk156" TNM_NET="clk156_top";
+NET "nf10_10g_interface_3/nf10_10g_interface_3/clk156" TNM_NET="clk156_top";
+TIMESPEC "TS_clk156_top" = PERIOD "clk156_top" 156.25 MHz HIGH 50 %;
+
+NET nf10_10g_interface_0/nf10_10g_interface_0/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+NET nf10_10g_interface_1/nf10_10g_interface_1/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+NET nf10_10g_interface_2/nf10_10g_interface_2/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+NET nf10_10g_interface_3/nf10_10g_interface_3/xaui_block/rocketio_wrapper_i/tile1_rxrecclk0_i TNM_NET=clk156_rec;
+TIMESPEC TS_clk156_rec = PERIOD clk156_rec 156.25MHz;
+
+################################################################################
+# 10GE MAC INTERFACES
+################################################################################
+#######################################################
+# Ten Gigabit Ethernet MAC core constraints           #
+#######################################################
+
+# False paths on an internal counter load
+# MAC 0
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac0_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac0_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac0_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac0_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac0_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac0_xgmac_ifg_false_paths_dst_1";
+NET  "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac0_xgmac_ifg_false_paths_thru_1";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac0_xgmac_ifg_false_paths_thru_2";
+TIMESPEC "TS_mac0_xgmac_ifg_false_paths_thru_1" = FROM "mac0_xgmac_ifg_false_paths_src_1" THRU "mac0_xgmac_ifg_false_paths_thru_1" THRU "mac0_xgmac_ifg_false_paths_thru_2" TO "mac0_xgmac_ifg_false_paths_dst_1" TIG;
+
+# MAC 1
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac1_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac1_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac1_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac1_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac1_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac1_xgmac_ifg_false_paths_dst_1";
+NET  "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac1_xgmac_ifg_false_paths_thru_1";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac1_xgmac_ifg_false_paths_thru_2";
+TIMESPEC "TS_mac1_xgmac_ifg_false_paths_thru_1" = FROM "mac1_xgmac_ifg_false_paths_src_1" THRU "mac1_xgmac_ifg_false_paths_thru_1" THRU "mac1_xgmac_ifg_false_paths_thru_2" TO "mac1_xgmac_ifg_false_paths_dst_1" TIG;
+
+# MAC 2
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac2_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac2_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac2_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac2_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac2_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac2_xgmac_ifg_false_paths_dst_1";
+NET  "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac2_xgmac_ifg_false_paths_thru_1";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac2_xgmac_ifg_false_paths_thru_2";
+TIMESPEC "TS_mac2_xgmac_ifg_false_paths_thru_1" = FROM "mac2_xgmac_ifg_false_paths_src_1" THRU "mac2_xgmac_ifg_false_paths_thru_1" THRU "mac2_xgmac_ifg_false_paths_thru_2" TO "mac2_xgmac_ifg_false_paths_dst_1" TIG;
+
+# MAC 3
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/data_avail_in_reg_*" TNM = "mac3_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/pause_amber_reg" TNM = "mac3_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/tx/mux_control_state_*" TNM = "mac3_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/state_*" TNM = "mac3_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/eof_during_pad" TNM = "mac3_xgmac_ifg_false_paths_src_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/count_*" TNM = "mac3_xgmac_ifg_false_paths_dst_1";
+NET  "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_count_init<*>" TPTHRU = "mac3_xgmac_ifg_false_paths_thru_1";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_TX.txgen/tx_controller_inst/ifg_control_inst/ifg_counter/Mcount_count_cy<?>" TPTHRU = "mac3_xgmac_ifg_false_paths_thru_2";
+TIMESPEC "TS_mac3_xgmac_ifg_false_paths_thru_1" = FROM "mac3_xgmac_ifg_false_paths_src_1" THRU "mac3_xgmac_ifg_false_paths_thru_1" THRU "mac3_xgmac_ifg_false_paths_thru_2" TO "mac3_xgmac_ifg_false_paths_dst_1" TIG;
+
+#######################################################
+# Flow control clock crossing timing constraint
+# MAC 0
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac0_flow_grp";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac0_flow_grp";
+INST "nf10_10g_interface_0/nf10_10g_interface_0/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac0_flow_grp";
+TIMESPEC "TS_mac0_flow" = FROM "mac0_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
+
+# MAC 1
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac1_flow_grp";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac1_flow_grp";
+INST "nf10_10g_interface_1/nf10_10g_interface_1/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac1_flow_grp";
+TIMESPEC "TS_mac1_flow" = FROM "mac1_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
+
+# MAC 2
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac2_flow_grp";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac2_flow_grp";
+INST "nf10_10g_interface_2/nf10_10g_interface_2/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac2_flow_grp";
+TIMESPEC "TS_mac2_flow" = FROM "mac2_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
+
+# MAC 3
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/good_frame_to_tx" TNM = "mac3_flow_grp";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_value_to_tx_*" TNM = "mac3_flow_grp";
+INST "nf10_10g_interface_3/nf10_10g_interface_3/xgmac/BU2/U0/G_FLOWCONTROL.flwctrl/G_RX.pause/rx_pause_control_i/pause_req_to_tx" TNM = "mac3_flow_grp";
+TIMESPEC "TS_mac3_flow" = FROM "mac3_flow_grp" TO "clk156_top" 6400 ps DATAPATHONLY;
+
+############################################################################
+# Part 4: SRAM
+############################################################################
+
+#INST nf10_sram_fifo_0/nf10_sram_fifo_0/u_qdrii_idelay_ctrl/U_IDELAYCTRL LOC = "IDELAYCTRL_X0Y10";
+
+############################################################################
+#DCI_CASCADING
+CONFIG DCI_CASCADE = "23 27 13 25 29";
+CONFIG DCI_CASCADE = "24 28 30 26 14";
+CONFIG DCI_CASCADE = "5 7";
+
+########################################################################
+# QDRII INTERFACE
+########################################################################
+#change to HSTL II for d,q,cq,msel
+NET "qdr_d_0[*]"          IOSTANDARD = HSTL_II_18;
+NET "qdr_q_0[*]"          IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_sa_0[*]"         IOSTANDARD = HSTL_II_18;
+NET "qdr_w_n_0"            IOSTANDARD = HSTL_II_18;
+NET "qdr_r_n_0"            IOSTANDARD = HSTL_II_18;
+NET "qdr_dll_off_n_0"      IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_0[0]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_0[1]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_0[2]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_0[3]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_cq_0"          IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_cq_n_0"        IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_k_0"           IOSTANDARD = HSTL_II_18;
+NET "qdr_k_n_0"         IOSTANDARD = HSTL_II_18;
+NET "qdr_c_0"           IOSTANDARD = HSTL_II_18;
+NET "qdr_c_n_0"         IOSTANDARD = HSTL_II_18;
+NET "qdr_d_1[*]"           IOSTANDARD = HSTL_II_18;
+NET "qdr_q_1[*]"           IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_sa_1[*]"          IOSTANDARD = HSTL_II_18;
+NET "qdr_w_n_1"            IOSTANDARD = HSTL_II_18;
+NET "qdr_r_n_1"            IOSTANDARD = HSTL_II_18;
+NET "qdr_dll_off_n_1"      IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_1[0]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_1[1]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_1[2]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_1[3]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_cq_1"          IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_cq_n_1"        IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_k_1"           IOSTANDARD = HSTL_II_18;
+NET "qdr_k_n_1"         IOSTANDARD = HSTL_II_18;
+NET "qdr_c_1"           IOSTANDARD = HSTL_II_18;
+NET "qdr_c_n_1"         IOSTANDARD = HSTL_II_18;
+NET "qdr_d_2[*]"           IOSTANDARD = HSTL_II_18;
+NET "qdr_q_2[*]"           IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_sa_2[*]"          IOSTANDARD = HSTL_II_18;
+NET "qdr_w_n_2"            IOSTANDARD = HSTL_II_18;
+NET "qdr_r_n_2"            IOSTANDARD = HSTL_II_18;
+NET "qdr_dll_off_n_2"      IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_2[0]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_2[1]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_2[2]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_2[3]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_cq_2"          IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_cq_n_2"        IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_k_2"           IOSTANDARD = HSTL_II_18;
+NET "qdr_k_n_2"         IOSTANDARD = HSTL_II_18;
+NET "qdr_c_2"           IOSTANDARD = HSTL_II_18;
+NET "qdr_c_n_2"         IOSTANDARD = HSTL_II_18;
+NET "masterbank_sel_pin[0]" IOSTANDARD = HSTL_II_DCI_18;
+NET "masterbank_sel_pin[1]" IOSTANDARD = HSTL_II_DCI_18;
+NET "masterbank_sel_pin[2]" IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_cq_n_0" S;
+NET "masterbank_sel_pin[*]" S;
+NET "qdr_cq_n_1" S;
+NET "masterbank_sel_pin[*]" S;
+NET "qdr_cq_n_2" S;
+NET "masterbank_sel_pin[*]" S;
+
+############################################################################
+# PINOUT
+NET  "qdr_d_0[0]"                               LOC = "Y29" ;          #Bank 11
+NET  "qdr_d_0[1]"                               LOC = "Y30" ;          #Bank 11
+NET  "qdr_d_0[2]"                               LOC = "W31" ;          #Bank 11
+NET  "qdr_d_0[3]"                               LOC = "W30" ;          #Bank 11
+NET  "qdr_d_0[4]"                               LOC = "AA31" ;         #Bank 11
+NET  "qdr_d_0[5]"                               LOC = "AA30" ;         #Bank 11
+NET  "qdr_d_0[6]"                               LOC = "Y35" ;          #Bank 11
+NET  "qdr_d_0[7]"                               LOC = "AA35" ;         #Bank 11
+NET  "qdr_d_0[8]"                               LOC = "U33" ;          #Bank 11
+NET  "qdr_d_0[9]"                               LOC = "AB36" ;         #Bank 11
+NET  "qdr_d_0[10]"                              LOC = "AC36" ;         #Bank 11
+NET  "qdr_d_0[11]"                              LOC = "V33" ;          #Bank 11
+NET  "qdr_d_0[12]"                              LOC = "U32" ;          #Bank 11
+NET  "qdr_d_0[13]"                              LOC = "AA34" ;         #Bank 11
+NET  "qdr_d_0[14]"                              LOC = "AB34" ;         #Bank 11
+NET  "qdr_d_0[15]"                              LOC = "V31" ;          #Bank 11
+NET  "qdr_d_0[16]"                              LOC = "U31" ;          #Bank 11
+NET  "qdr_d_0[17]"                              LOC = "AB31" ;         #Bank 11
+NET  "qdr_d_0[18]"                              LOC = "AB32" ;         #Bank 11
+NET  "qdr_d_0[19]"                              LOC = "W36" ;          #Bank 11
+NET  "qdr_d_0[20]"                              LOC = "W35" ;          #Bank 11
+NET  "qdr_d_0[21]"                              LOC = "Y37" ;          #Bank 11
+NET  "qdr_d_0[22]"                              LOC = "AA37" ;         #Bank 11
+NET  "qdr_d_0[23]"                              LOC = "V36" ;          #Bank 11
+NET  "qdr_d_0[24]"                              LOC = "W37" ;          #Bank 11
+NET  "qdr_d_0[25]"                              LOC = "AA36" ;         #Bank 11
+NET  "qdr_d_0[26]"                              LOC = "W32" ;          #Bank 11
+NET  "qdr_d_0[27]"                              LOC = "W33" ;          #Bank 11
+NET  "qdr_d_0[28]"                              LOC = "AA32" ;         #Bank 11
+NET  "qdr_d_0[29]"                              LOC = "Y32" ;          #Bank 11
+NET  "qdr_d_0[30]"                              LOC = "V34" ;          #Bank 11
+NET  "qdr_d_0[31]"                              LOC = "V35" ;          #Bank 11Select Pin
+NET  "qdr_d_0[32]"                              LOC = "Y34" ;          #Bank 11
+NET  "qdr_d_0[33]"                              LOC = "Y33" ;          #Bank 11
+NET  "qdr_d_0[34]"                              LOC = "T37" ;          #Bank 11
+NET  "qdr_d_0[35]"                              LOC = "U37" ;          #Bank 11
+NET  "qdr_q_0[0]"                               LOC = "K30" ;          #Bank 27
+NET  "qdr_q_0[1]"                               LOC = "L30" ;          #Bank 27
+NET  "qdr_q_0[2]"                               LOC = "H30" ;          #Bank 27
+NET  "qdr_q_0[3]"                               LOC = "J30" ;          #Bank 27
+NET  "qdr_q_0[4]"                               LOC = "L32" ;          #Bank 27
+NET  "qdr_q_0[5]"                               LOC = "M33" ;          #Bank 27
+NET  "qdr_q_0[6]"                               LOC = "F31" ;          #Bank 27
+NET  "qdr_q_0[7]"                               LOC = "G31" ;          #Bank 27
+NET  "qdr_q_0[8]"                               LOC = "M32" ;          #Bank 27
+NET  "qdr_q_0[9]"                               LOC = "M31" ;          #Bank 27
+NET  "qdr_q_0[10]"                              LOC = "F30" ;          #Bank 27
+NET  "qdr_q_0[11]"                              LOC = "N30" ;          #Bank 27
+NET  "qdr_q_0[12]"                              LOC = "N31" ;          #Bank 27
+NET  "qdr_q_0[13]"                              LOC = "F29" ;          #Bank 27
+NET  "qdr_q_0[14]"                              LOC = "E29" ;          #Bank 27
+NET  "qdr_q_0[15]"                              LOC = "P32" ;          #Bank 27
+NET  "qdr_q_0[16]"                              LOC = "P31" ;          #Bank 27
+NET  "qdr_q_0[17]"                              LOC = "H29" ;          #Bank 27
+NET  "qdr_q_0[18]"                              LOC = "G29" ;          #Bank 27
+NET  "qdr_q_0[19]"                              LOC = "R30" ;          #Bank 27
+NET  "qdr_q_0[20]"                              LOC = "P30" ;          #Bank 27
+NET  "qdr_q_0[21]"                              LOC = "H33" ;          #Bank 27
+NET  "qdr_q_0[22]"                              LOC = "J32" ;          #Bank 27
+NET  "qdr_q_0[23]"                              LOC = "G36" ;          #Bank 27
+NET  "qdr_q_0[24]"                              LOC = "F35" ;          #Bank 27
+NET  "qdr_q_0[25]"                              LOC = "G34" ;          #Bank 27
+NET  "qdr_q_0[26]"                              LOC = "F34" ;          #Bank 27
+NET  "qdr_q_0[27]"                              LOC = "E36" ;          #Bank 27
+NET  "qdr_q_0[28]"                              LOC = "F32" ;          #Bank 27
+NET  "qdr_q_0[29]"                              LOC = "G32" ;          #Bank 27
+NET  "qdr_q_0[30]"                              LOC = "F37" ;          #Bank 27
+NET  "qdr_q_0[31]"                              LOC = "E37" ;          #Bank 27
+NET  "qdr_q_0[32]"                              LOC = "J31" ;          #Bank 27
+NET  "qdr_q_0[33]"                              LOC = "H31" ;          #Bank 27
+NET  "qdr_q_0[34]"                              LOC = "K32" ;          #Bank 27
+NET  "qdr_cq_0"                              LOC = "L31" ;          #Bank 27
+NET  "qdr_q_0[35]"                              LOC = "L29" ;          #Bank 27
+NET  "qdr_cq_n_0"                            LOC = "K29" ;          #Bank 27
+NET  "qdr_sa_0[0]"                              LOC = "H34" ;          #Bank 23
+NET  "qdr_sa_0[1]"                              LOC = "J33" ;          #Bank 23
+NET  "qdr_sa_0[2]"                              LOC = "M36" ;          #Bank 23
+NET  "qdr_sa_0[3]"                              LOC = "N36" ;          #Bank 23
+NET  "qdr_sa_0[4]"                              LOC = "N33" ;          #Bank 23
+NET  "qdr_sa_0[5]"                              LOC = "P33" ;          #Bank 23
+NET  "qdr_sa_0[6]"                              LOC = "R32" ;          #Bank 23
+NET  "qdr_sa_0[7]"                              LOC = "R33" ;          #Bank 23
+NET  "qdr_sa_0[8]"                              LOC = "N34" ;          #Bank 23
+NET  "qdr_sa_0[9]"                              LOC = "J35" ;          #Bank 23
+NET  "qdr_sa_0[10]"                             LOC = "J36" ;          #Bank 23
+NET  "qdr_sa_0[11]"                             LOC = "L37" ;          #Bank 23
+NET  "qdr_sa_0[12]"                             LOC = "M37" ;          #Bank 23
+NET  "qdr_sa_0[13]"                             LOC = "K38" ;          #Bank 23
+NET  "qdr_sa_0[14]"                             LOC = "K37" ;          #Bank 23
+NET  "qdr_sa_0[15]"                             LOC = "T32" ;          #Bank 23
+NET  "qdr_sa_0[16]"                             LOC = "T31" ;          #Bank 23
+NET  "qdr_sa_0[17]"                             LOC = "K35" ;          #Bank 23
+NET  "qdr_sa_0[18]"                             LOC = "L34" ;          #Bank 23
+NET  "qdr_bw_n_0[0]"                            LOC = "P37" ;          #Bank 23
+NET  "qdr_w_n_0"                                LOC = "P38" ;          #Bank 23
+NET  "qdr_bw_n_0[1]"                            LOC = "R38" ;          #Bank 23
+NET  "qdr_r_n_0"                                LOC = "G37" ;          #Bank 23
+NET  "qdr_bw_n_0[2]"                            LOC = "P36" ;          #Bank 23
+NET  "masterbank_sel_pin[0]"                     LOC = "R35" ;          #Bank 23
+NET  "qdr_k_n_0"                             LOC = "K33" ;          #Bank 23
+NET  "qdr_k_0"                               LOC = "K34" ;          #Bank 23
+NET  "qdr_c_n_0"                             LOC = "N35" ;          #Bank 23
+NET  "qdr_c_0"                               LOC = "P35" ;          #Bank 23
+NET  "qdr_bw_n_0[3]"                            LOC = "J38" ;          #Bank 23
+NET  "qdr_dll_off_n_0"                          LOC = "J37" ;          #Bank 23 #HWIRED ON BOARD
+NET  "qdr_d_1[0]"                               LOC = "P5" ;           #Bank 12
+NET  "qdr_d_1[1]"                               LOC = "R5" ;           #Bank 12
+NET  "qdr_d_1[2]"                               LOC = "AA10" ;         #Bank 12
+NET  "qdr_d_1[3]"                               LOC = "AA11" ;         #Bank 12
+NET  "qdr_d_1[4]"                               LOC = "T7" ;           #Bank 12
+NET  "qdr_d_1[5]"                               LOC = "U7" ;           #Bank 12
+NET  "qdr_d_1[6]"                               LOC = "W10" ;          #Bank 12
+NET  "qdr_d_1[7]"                               LOC = "W11" ;          #Bank 12
+NET  "qdr_d_1[8]"                               LOC = "AC9" ;          #Bank 12
+NET  "qdr_d_1[9]"                               LOC = "V9" ;           #Bank 12
+NET  "qdr_d_1[10]"                              LOC = "V8" ;           #Bank 12
+NET  "qdr_d_1[11]"                              LOC = "AC10" ;         #Bank 12
+NET  "qdr_d_1[12]"                              LOC = "AD11" ;         #Bank 12
+NET  "qdr_d_1[13]"                              LOC = "P7" ;           #Bank 12
+NET  "qdr_d_1[14]"                              LOC = "R7" ;           #Bank 12
+NET  "qdr_d_1[15]"                              LOC = "AB11" ;         #Bank 12
+NET  "qdr_d_1[16]"                              LOC = "AC11" ;         #Bank 12
+NET  "qdr_d_1[17]"                              LOC = "N6" ;           #Bank 12
+NET  "qdr_d_1[18]"                              LOC = "P6" ;           #Bank 12
+NET  "qdr_d_1[19]"                              LOC = "Y8" ;           #Bank 12
+NET  "qdr_d_1[20]"                              LOC = "Y7" ;           #Bank 12
+NET  "qdr_d_1[21]"                              LOC = "T5" ;           #Bank 12
+NET  "qdr_d_1[22]"                              LOC = "T6" ;           #Bank 12
+NET  "qdr_d_1[23]"                              LOC = "Y10" ;          #Bank 12
+NET  "qdr_d_1[24]"                              LOC = "AA9" ;          #Bank 12
+NET  "qdr_d_1[25]"                              LOC = "V6" ;           #Bank 12
+NET  "qdr_d_1[26]"                              LOC = "AA6" ;          #Bank 12
+NET  "qdr_d_1[27]"                              LOC = "AA7" ;          #Bank 12
+NET  "qdr_d_1[28]"                              LOC = "Y9" ;           #Bank 12
+NET  "qdr_d_1[29]"                              LOC = "W8" ;           #Bank 12
+NET  "qdr_d_1[30]"                              LOC = "AC6" ;          #Bank 12
+NET  "qdr_d_1[31]"                              LOC = "AB6" ;          #Bank 12
+NET  "qdr_d_1[32]"                              LOC = "W6" ;           #Bank 12
+NET  "qdr_d_1[33]"                              LOC = "W7" ;           #Bank 12
+NET  "qdr_d_1[34]"                              LOC = "AB7" ;          #Bank 12
+NET  "qdr_d_1[35]"                              LOC = "AB8" ;          #Bank 12
+NET  "qdr_q_1[0]"                               LOC = "F9" ;           #Bank 28
+NET  "qdr_q_1[1]"                               LOC = "F10" ;          #Bank 28
+NET  "qdr_q_1[2]"                               LOC = "L11" ;          #Bank 28
+NET  "qdr_q_1[3]"                               LOC = "L10" ;          #Bank 28
+NET  "qdr_q_1[4]"                               LOC = "F12" ;          #Bank 28
+NET  "qdr_q_1[5]"                               LOC = "G12" ;          #Bank 28
+NET  "qdr_q_1[6]"                               LOC = "M13" ;          #Bank 28
+NET  "qdr_q_1[7]"                               LOC = "N13" ;          #Bank 28
+NET  "qdr_q_1[8]"                               LOC = "G13" ;          #Bank 28
+NET  "qdr_q_1[9]"                               LOC = "H13" ;          #Bank 28
+NET  "qdr_q_1[10]"                              LOC = "M11" ;          #Bank 28
+NET  "qdr_q_1[11]"                              LOC = "F14" ;          #Bank 28
+NET  "qdr_q_1[12]"                              LOC = "E14" ;          #Bank 28
+NET  "qdr_q_1[13]"                              LOC = "N11" ;          #Bank 28
+NET  "qdr_q_1[14]"                              LOC = "P11" ;          #Bank 28
+NET  "qdr_q_1[15]"                              LOC = "G14" ;          #Bank 28
+NET  "qdr_q_1[16]"                              LOC = "F15" ;          #Bank 28
+NET  "qdr_q_1[17]"                              LOC = "R12" ;          #Bank 28
+NET  "qdr_q_1[18]"                              LOC = "P12" ;          #Bank 28
+NET  "qdr_q_1[19]"                              LOC = "H15" ;          #Bank 28
+NET  "qdr_q_1[20]"                              LOC = "H14" ;          #Bank 28
+NET  "qdr_q_1[21]"                              LOC = "H10" ;          #Bank 28
+NET  "qdr_q_1[22]"                              LOC = "J11" ;          #Bank 28
+NET  "qdr_q_1[23]"                              LOC = "F11" ;          #Bank 28
+NET  "qdr_q_1[24]"                              LOC = "G11" ;          #Bank 28
+NET  "qdr_q_1[25]"                              LOC = "H9" ;           #Bank 28
+NET  "qdr_q_1[26]"                              LOC = "G9" ;           #Bank 28
+NET  "qdr_q_1[27]"                              LOC = "E12" ;          #Bank 28
+NET  "qdr_q_1[28]"                              LOC = "K10" ;          #Bank 28
+NET  "qdr_q_1[29]"                              LOC = "J10" ;          #Bank 28
+NET  "qdr_q_1[30]"                              LOC = "J13" ;          #Bank 28
+NET  "qdr_q_1[31]"                              LOC = "K14" ;          #Bank 28
+NET  "qdr_q_1[32]"                              LOC = "K12" ;          #Bank 28
+NET  "qdr_q_1[33]"                              LOC = "K13" ;          #Bank 28
+NET  "qdr_q_1[34]"                              LOC = "J12" ;          #Bank 28
+NET  "qdr_cq_1"                              LOC = "H11" ;          #Bank 28
+NET  "qdr_q_1[35]"                              LOC = "M12" ;          #Bank 28
+NET  "qdr_cq_n_1"                            LOC = "L12" ;          #Bank 28
+NET  "qdr_sa_1[0]"                              LOC = "U12" ;          #Bank 24
+NET  "qdr_sa_1[1]"                              LOC = "V11" ;          #Bank 24
+NET  "qdr_sa_1[2]"                              LOC = "R10" ;          #Bank 24
+NET  "qdr_sa_1[3]"                              LOC = "P10" ;          #Bank 24
+NET  "qdr_sa_1[4]"                              LOC = "P8" ;           #Bank 24
+NET  "qdr_sa_1[5]"                              LOC = "R9" ;           #Bank 24
+NET  "qdr_sa_1[6]"                              LOC = "T10" ;          #Bank 24
+NET  "qdr_sa_1[7]"                              LOC = "T11" ;          #Bank 24
+NET  "qdr_sa_1[8]"                              LOC = "J6" ;           #Bank 24
+NET  "qdr_sa_1[9]"                              LOC = "N8" ;           #Bank 24
+NET  "qdr_sa_1[10]"                             LOC = "M8" ;           #Bank 24
+NET  "qdr_sa_1[11]"                             LOC = "M9" ;           #Bank 24
+NET  "qdr_sa_1[12]"                             LOC = "N9" ;           #Bank 24
+NET  "qdr_sa_1[13]"                             LOC = "M6" ;           #Bank 24
+NET  "qdr_sa_1[14]"                             LOC = "M7" ;           #Bank 24
+NET  "qdr_sa_1[15]"                             LOC = "K8" ;           #Bank 24
+NET  "qdr_sa_1[16]"                             LOC = "J7" ;           #Bank 24
+NET  "qdr_sa_1[17]"                             LOC = "L7" ;           #Bank 24
+NET  "qdr_sa_1[18]"                             LOC = "K7" ;           #Bank 24
+NET  "qdr_bw_n_1[0]"                            LOC = "G8" ;           #Bank 24
+NET  "qdr_w_n_1"                                LOC = "G7" ;           #Bank 24
+NET  "qdr_bw_n_1[1]"                            LOC = "U11" ;          #Bank 24
+NET  "qdr_r_n_1"                                LOC = "V10" ;          #Bank 24
+NET  "qdr_bw_n_1[2]"                            LOC = "E8" ;           #Bank 24
+NET  "qdr_k_n_1"                             LOC = "L6" ;           #Bank 24
+NET  "qdr_k_1"                               LOC = "F6" ;           #Bank 24
+NET  "qdr_c_n_1"                             LOC = "G6" ;           #Bank 24
+NET  "qdr_c_1"                               LOC = "U8" ;           #Bank 24
+NET  "qdr_bw_n_1[3]"                            LOC = "U9" ;           #Bank 24
+NET  "qdr_dll_off_n_1"                          LOC = "H5" ;           #Bank 24 #HWIRED ON BOARD
+NET  "masterbank_sel_pin[1]"                     LOC = "R8" ;           #Bank 24
+NET  "qdr_d_2[0]"                               LOC = "M19" ;          #Bank 3
+NET  "qdr_d_2[1]"                               LOC = "L19" ;          #Bank 3
+NET  "qdr_d_2[2]"                               LOC = "M24" ;          #Bank 3
+NET  "qdr_d_2[3]"                               LOC = "N24" ;          #Bank 3
+NET  "qdr_d_2[4]"                               LOC = "J16" ;          #Bank 3
+NET  "qdr_d_2[5]"                               LOC = "J15" ;          #Bank 3
+NET  "qdr_d_2[6]"                               LOC = "L25" ;          #Bank 3
+NET  "qdr_d_2[7]"                               LOC = "M26" ;          #Bank 3
+NET  "qdr_d_2[8]"                               LOC = "K15" ;          #Bank 3
+NET  "qdr_d_2[9]"                               LOC = "L15" ;          #Bank 3
+NET  "qdr_d_2[10]"                              LOC = "L27" ;          #Bank 3
+NET  "qdr_d_2[11]"                              LOC = "L26" ;          #Bank 3
+NET  "qdr_d_2[12]"                              LOC = "M18" ;          #Bank 3
+NET  "qdr_d_2[13]"                              LOC = "M17" ;          #Bank 3
+NET  "qdr_d_2[14]"                              LOC = "K28" ;          #Bank 3
+NET  "qdr_d_2[15]"                              LOC = "K27" ;          #Bank 3
+NET  "qdr_d_2[16]"                              LOC = "L17" ;          #Bank 3
+NET  "qdr_d_2[17]"                              LOC = "L16" ;          #Bank 3
+NET  "qdr_d_2[18]"                              LOC = "M27" ;          #Bank 3
+NET  "qdr_d_2[19]"                              LOC = "M28" ;          #Bank 3
+NET  "qdr_d_2[20]"                              LOC = "P25" ;          #Bank 1
+NET  "qdr_d_2[21]"                              LOC = "P26" ;          #Bank 1
+NET  "qdr_d_2[22]"                              LOC = "P18" ;          #Bank 1
+NET  "qdr_d_2[23]"                              LOC = "N19" ;          #Bank 1
+NET  "qdr_d_2[24]"                              LOC = "N25" ;          #Bank 1
+NET  "qdr_d_2[25]"                              LOC = "N26" ;          #Bank 1
+NET  "qdr_d_2[26]"                              LOC = "P17" ;          #Bank 1
+NET  "qdr_d_2[27]"                              LOC = "N18" ;          #Bank 1
+NET  "qdr_d_2[28]"                              LOC = "N28" ;          #Bank 1
+NET  "qdr_d_2[29]"                              LOC = "M14" ;          #Bank 1
+NET  "qdr_d_2[30]"                              LOC = "L14" ;          #Bank 1
+NET  "qdr_d_2[31]"                              LOC = "N29" ;          #Bank 1
+NET  "qdr_d_2[32]"                              LOC = "M29" ;          #Bank 1
+NET  "qdr_d_2[33]"                              LOC = "N16" ;          #Bank 1
+NET  "qdr_d_2[34]"                              LOC = "M16" ;          #Bank 1
+NET  "qdr_d_2[35]"                              LOC = "R27" ;          #Bank 1
+NET  "qdr_q_2[0]"                               LOC = "J21" ;          #Bank 7
+NET  "qdr_q_2[1]"                               LOC = "J22" ;          #Bank 7
+NET  "qdr_q_2[2]"                               LOC = "H21" ;          #Bank 7
+NET  "qdr_q_2[3]"                               LOC = "J20" ;          #Bank 7
+NET  "qdr_q_2[4]"                               LOC = "A22" ;          #Bank 7
+NET  "qdr_q_2[5]"                               LOC = "B21" ;          #Bank 7
+NET  "qdr_q_2[6]"                               LOC = "C20" ;          #Bank 7
+NET  "qdr_q_2[7]"                               LOC = "D20" ;          #Bank 7
+NET  "qdr_q_2[8]"                               LOC = "F24" ;          #Bank 7
+NET  "qdr_q_2[9]"                               LOC = "G23" ;          #Bank 7
+NET  "qdr_q_2[10]"                              LOC = "A20" ;          #Bank 7
+NET  "qdr_q_2[11]"                              LOC = "N23" ;          #Bank 7
+NET  "qdr_q_2[12]"                              LOC = "M23" ;          #Bank 7
+NET  "qdr_q_2[13]"                              LOC = "K20" ;          #Bank 7
+NET  "qdr_q_2[14]"                              LOC = "L20" ;          #Bank 7
+NET  "qdr_q_2[15]"                              LOC = "E23" ;          #Bank 7
+NET  "qdr_q_2[16]"                              LOC = "E24" ;          #Bank 7
+NET  "qdr_q_2[17]"                              LOC = "P22" ;          #Bank 7
+NET  "qdr_q_2[18]"                              LOC = "P21" ;          #Bank 7
+NET  "qdr_q_2[19]"                              LOC = "E25" ;          #Bank 7
+NET  "qdr_q_2[20]"                              LOC = "F25" ;          #Bank 7
+NET  "qdr_q_2[21]"                              LOC = "M21" ;          #Bank 7
+NET  "qdr_q_2[22]"                              LOC = "N21" ;          #Bank 7
+NET  "qdr_q_2[23]"                              LOC = "L22" ;          #Bank 7
+NET  "qdr_q_2[24]"                              LOC = "M22" ;          #Bank 7
+NET  "qdr_q_2[25]"                              LOC = "E22" ;          #Bank 7
+NET  "qdr_q_2[26]"                              LOC = "D23" ;          #Bank 7
+NET  "qdr_q_2[27]"                              LOC = "D22" ;          #Bank 7
+NET  "qdr_q_2[28]"                              LOC = "G22" ;          #Bank 7
+NET  "qdr_q_2[29]"                              LOC = "F22" ;          #Bank 7
+NET  "qdr_q_2[30]"                              LOC = "D21" ;          #Bank 7
+NET  "qdr_q_2[31]"                              LOC = "C21" ;          #Bank 7
+NET  "qdr_q_2[32]"                              LOC = "L21" ;          #Bank 7
+NET  "qdr_q_2[33]"                              LOC = "K22" ;          #Bank 7
+NET  "qdr_q_2[34]"                              LOC = "B23" ;          #Bank 7
+NET  "qdr_cq_2"                              LOC = "B22" ;          #Bank 7
+NET  "qdr_q_2[35]"                              LOC = "G21" ;          #Bank 7
+NET  "qdr_cq_n_2"                            LOC = "F21" ;          #Bank 7
+NET  "qdr_sa_2[0]"                              LOC = "J23" ;          #Bank 5
+NET  "qdr_sa_2[1]"                              LOC = "K23" ;          #Bank 5
+NET  "qdr_sa_2[2]"                              LOC = "K19" ;          #Bank 5
+NET  "qdr_sa_2[3]"                              LOC = "K18" ;          #Bank 5
+NET  "qdr_sa_2[4]"                              LOC = "J25" ;          #Bank 5
+NET  "qdr_sa_2[5]"                              LOC = "K25" ;          #Bank 5
+NET  "qdr_sa_2[6]"                              LOC = "F27" ;          #Bank 5
+NET  "qdr_sa_2[7]"                              LOC = "G27" ;          #Bank 5
+NET  "qdr_sa_2[8]"                              LOC = "E19" ;          #Bank 5
+NET  "qdr_sa_2[9]"                              LOC = "H26" ;          #Bank 5
+NET  "qdr_sa_2[10]"                             LOC = "J26" ;          #Bank 5
+NET  "qdr_sa_2[11]"                             LOC = "F16" ;          #Bank 5
+NET  "qdr_sa_2[12]"                             LOC = "F17" ;          #Bank 5
+NET  "qdr_sa_2[13]"                             LOC = "G28" ;          #Bank 5
+NET  "qdr_sa_2[14]"                             LOC = "H28" ;          #Bank 5
+NET  "qdr_sa_2[15]"                             LOC = "G16" ;          #Bank 5
+NET  "qdr_sa_2[16]"                             LOC = "H16" ;          #Bank 5
+NET  "qdr_sa_2[17]"                             LOC = "J27" ;          #Bank 5
+NET  "qdr_sa_2[18]"                             LOC = "J28" ;          #Bank 5
+NET  "qdr_bw_n_2[0]"                            LOC = "F20" ;          #Bank 5
+NET  "qdr_w_n_2"                                LOC = "E20" ;          #Bank 5
+NET  "qdr_bw_n_2[1]"                            LOC = "L24" ;          #Bank 5
+NET  "qdr_r_n_2"                                LOC = "K24" ;          #Bank 5
+NET  "qdr_bw_n_2[2]"                            LOC = "H19" ;          #Bank 5
+NET  "qdr_k_n_2"                             LOC = "H23" ;          #Bank 5
+NET  "qdr_k_2"                               LOC = "G19" ;          #Bank 5
+NET  "qdr_c_n_2"                             LOC = "F19" ;          #Bank 5
+NET  "qdr_c_2"                               LOC = "H25" ;          #Bank 5
+NET  "qdr_bw_n_2[3]"                            LOC = "G24" ;          #Bank 5
+NET  "qdr_dll_off_n_2"                          LOC = "G17" ;          #Bank 5 #HWIRED ON BOARD
+NET  "masterbank_sel_pin[2]"                     LOC = "F26" ;          #Bank 5
+
+NET "qdr_d_0[*]"          IOSTANDARD = HSTL_II_18;
+NET "qdr_q_0[*]"          IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_sa_0[*]"         IOSTANDARD = HSTL_II_18;
+NET "qdr_w_n_0"            IOSTANDARD = HSTL_II_18;
+NET "qdr_r_n_0"            IOSTANDARD = HSTL_II_18;
+NET "qdr_dll_off_n_0"      IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_0[0]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_0[1]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_0[2]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_0[3]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_cq_0"          IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_cq_n_0"        IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_k_0"           IOSTANDARD = HSTL_II_18;
+NET "qdr_k_n_0"         IOSTANDARD = HSTL_II_18;
+NET "qdr_c_0"           IOSTANDARD = HSTL_II_18;
+NET "qdr_c_n_0"         IOSTANDARD = HSTL_II_18;
+NET "qdr_d_1[*]"           IOSTANDARD = HSTL_II_18;
+NET "qdr_q_1[*]"           IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_sa_1[*]"          IOSTANDARD = HSTL_II_18;
+NET "qdr_w_n_1"            IOSTANDARD = HSTL_II_18;
+NET "qdr_r_n_1"            IOSTANDARD = HSTL_II_18;
+NET "qdr_dll_off_n_1"      IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_1[0]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_1[1]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_1[2]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_1[3]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_cq_1"          IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_cq_n_1"        IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_k_1"           IOSTANDARD = HSTL_II_18;
+NET "qdr_k_n_1"         IOSTANDARD = HSTL_II_18;
+NET "qdr_c_1"           IOSTANDARD = HSTL_II_18;
+NET "qdr_c_n_1"         IOSTANDARD = HSTL_II_18;
+NET "qdr_d_2[*]"           IOSTANDARD = HSTL_II_18;
+NET "qdr_q_2[*]"           IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_sa_2[*]"          IOSTANDARD = HSTL_II_18;
+NET "qdr_w_n_2"            IOSTANDARD = HSTL_II_18;
+NET "qdr_r_n_2"            IOSTANDARD = HSTL_II_18;
+NET "qdr_dll_off_n_2"      IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_2[0]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_2[1]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_2[2]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_bw_n_2[3]"        IOSTANDARD = HSTL_II_18;
+NET "qdr_cq_2"          IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_cq_n_2"        IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_k_2"           IOSTANDARD = HSTL_II_18;
+NET "qdr_k_n_2"         IOSTANDARD = HSTL_II_18;
+NET "qdr_c_2"           IOSTANDARD = HSTL_II_18;
+NET "qdr_c_n_2"         IOSTANDARD = HSTL_II_18;
+NET "masterbank_sel_pin[0]" IOSTANDARD = HSTL_II_DCI_18;
+NET "masterbank_sel_pin[1]" IOSTANDARD = HSTL_II_DCI_18;
+NET "masterbank_sel_pin[2]" IOSTANDARD = HSTL_II_DCI_18;
+NET "qdr_cq_n_0" S;
+NET "masterbank_sel_pin[*]" S;
+NET "qdr_cq_n_1" S;
+NET "masterbank_sel_pin[*]" S;
+NET "qdr_cq_n_2" S;
+NET "masterbank_sel_pin[*]" S;
+
+############################################################
+# Reset path constraints                                   #
+#  These constraints add a measure of protection against   #
+#  metastability and skew in the reset nets.               #
+############################################################
+
+#NET "*xgmac/BU2/U0/G_RX_RESET.sync_rx_reset_i/reset_out*" MAXDELAY = 5000 ps;
+#NET "*xgmac/BU2/U0/G_TX_RESET.sync_tx_reset_i/reset_out*" MAXDELAY = 5000 ps;
+#NET "*xgmac/BU2/U0/G_TX_RESET.sync_flow_ctrl_tx_reset_i/reset_out*" MAXDELAY = 5000 ps;
+#NET "*xgmac/BU2/U0/G_RX_RESET.sync_flow_ctrl_rx_reset_i/reset_out*" MAXDELAY = 5000 ps;
+
+NET "*xgmac/BU2/U0/G_RX_RESET.sync_rx_reset_i/reset_out*" TIG;
+NET "*xgmac/BU2/U0/G_TX_RESET.sync_tx_reset_i/reset_out*" TIG;
+NET "*xgmac/BU2/U0/G_TX_RESET.sync_flow_ctrl_tx_reset_i/reset_out*" TIG;
+NET "*xgmac/BU2/U0/G_RX_RESET.sync_flow_ctrl_rx_reset_i/reset_out*" TIG;
+
+###############################################################################
+# Timing Constraints
+###############################################################################
+
+NET "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/gt_refclk_out[0]" TNM_NET = "MGTCLK" ;
+TIMESPEC "TS_MGTCLK"  = PERIOD "MGTCLK" 100.00 MHz HIGH 50 % ;
+
+###############################################################################
+# Pinout and Related I/O Constraints
+###############################################################################
+
+# PCIE #####################################################################
+NET  "pcie_clk_p"      LOC = AT4;
+NET  "pcie_clk_n"      LOC = AT3;
+INST "dma_0/dma_0/pcie_clk_ibuf"  DIFF_TERM = "TRUE";
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[0].GT_i" LOC = GTX_DUAL_X1Y5;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[2].GT_i" LOC = GTX_DUAL_X1Y4;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[4].GT_i" LOC = GTX_DUAL_X1Y3;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/SIO/.pcie_gt_wrapper_i/GTD[6].GT_i" LOC = GTX_DUAL_X1Y2;
+
+# BlockRAM placement...
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_retry/generate_sdp.ram_sdp_inst"      LOC = RAMB36_X5Y20 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y19 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[1].ram_tdp2_inst" LOC = RAMB36_X5Y18 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_tx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y17 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk/pcie_mim_wrapper_i/bram_tl_rx/generate_tdp2[0].ram_tdp2_inst" LOC = RAMB36_X5Y16 ;
+INST "dma_0/dma_0/ep/pcie_ep0/pcie_blk_if/ll_bridge/rx_bridge/fifo_inst/oq_fifo/Mram_regBank"        LOC = RAMB36_X5Y15 ;
+
+
+# BRAM placement
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_dne/genblk10.genblk1.genblk2.genblk3.u_ram_lo/genblk1.u_bram/mem_mem_0_0" LOC = RAMB36_X3Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_dne/genblk10.genblk1.genblk2.genblk3.u_ram_lo/genblk1.u_bram/mem_mem_0_0" LOC = RAMB36_X5Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_cfg/u_x_cfg_fifo_0/afifo/fifo_mem/genblk1.u_fifo_bram/mem_mem_0_0/RAMB36SDP_EXP" LOC = RAMB36_X3Y20;
+
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[3].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y21;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[2].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[1].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y23;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.low_mems[0].genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X2Y24;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[3].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y21;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[2].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y22;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[1].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y23;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_tx_pkt/genblk10.high_mems[0].genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X1Y24;
+
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X4Y23;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_0/RAMB36_EXP" LOC = RAMB36_X5Y25;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_1/RAMB36_EXP" LOC = RAMB36_X4Y24;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_1/RAMB36_EXP" LOC = RAMB36_X5Y26;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_2/RAMB36_EXP" LOC = RAMB36_X4Y25;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_2/RAMB36_EXP" LOC = RAMB36_X5Y27;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk4.u_ram_hi/genblk1.u_bram/mem_mem_0_3/RAMB36_EXP" LOC = RAMB36_X4Y26;
+INST "dma_0/dma_0/u_dma/u_iface/u_mem_rx_pkt/genblk10.genblk1.u_ram_lo/genblk1.u_bram/mem_mem_0_3/RAMB36_EXP" LOC = RAMB36_X5Y28;

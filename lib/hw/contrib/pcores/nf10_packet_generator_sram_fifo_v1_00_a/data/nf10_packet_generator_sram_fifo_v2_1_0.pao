@@ -1,0 +1,43 @@
+##############################################################################
+## Filename:          /home/sdamico/netfpga-10g-dev/projects/axi_sram/hw/edk_user_repository/MyProcessorIPLib/pcores/nf10_sram_fifo_v1_00_a/data/nf10_sram_fifo_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Wed Jan 11 20:04:02 2012 (by Create and Import Peripheral Wizard)
+##############################################################################
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_chipscope.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_idelay_ctrl.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_addr_io.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_bw_io.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_clk_io.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_cq_io.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_d_io.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_dly_cal_sm.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_en.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_init_sm.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_q_io.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_read.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_v5_q_io.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_phy_write.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_top_ctrl_sm.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_top_phy.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_top_rd_addr_interface.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_top_rd_interface.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_top_user_interface.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_top.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_top_wr_addr_interface.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_top_wrdata_bw_fifo.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_top_wrdata_fifo.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_top_wr_data_interface.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a controller/qdrii_top_wr_interface.v verilog
+# Modified infrastructure
+lib nf10_packet_generator_sram_fifo_v1_00_a qdrii_infrastructure.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a small_async_fifo.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a axififo.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a fifoaxi.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a axififoarbiter.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a fifoaxiarbiter.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a fifomem.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a nf10_packet_generator_sram_fifo.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a async_fifo.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a small_fifo_v3.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a fallthrough_small_fifo_v2.v verilog
+lib nf10_packet_generator_sram_fifo_v1_00_a sram_regs.v verilog

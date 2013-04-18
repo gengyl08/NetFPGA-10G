@@ -1,0 +1,1430 @@
+Makefile:45: system_incl.make: No such file or directory
+
+Xilinx Platform Studio
+Xilinx EDK 13.4 Build EDK_O.87xd
+Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
+
+XPS% Loading xmp file system.xmp
+Copied /cad_64/xilinx/ise13.4/ISE_DS/EDK/data/xflow/bitgen_virtex5.ut to etc
+directory
+Copied file
+/cad_64/xilinx/ise13.4/ISE_DS/EDK/data/xflow/fast_runtime_virtex5.opt to etc
+directory
+
+XPS% cp -f /cad_64/xilinx/ise13.4/ISE_DS/EDK/sw/lib/microblaze/mb_bootloop_le.elf bootloops/microblaze_0.elf
+*********************************************
+Creating AXI simulation models...
+*********************************************
+nf10_sim_autosubst.py -i system.mhs -o  system_axisim.mhs
+Replacing pcore dma (instance dma_0):
+	inferred clock net: core_clk
+	inferred reset net: Peripheral_aresetn
+	nf10_axis_sim_record instance(s) on AXI Stream master net(s):
+		nf10_bram_output_queues_0_M_AXIS_4 (../../dma_0_log.axi)
+	nf10_axis_sim_stim instance(s) on AXI Stream slave net(s):
+		dma_0_M_AXIS (../../dma_0_stim.axi)
+
+Replacing pcore nf10_10g_interface (instance nf10_10g_interface_3):
+	inferred clock net: core_clk
+	inferred reset net: Peripheral_aresetn
+	nf10_axis_sim_record instance(s) on AXI Stream master net(s):
+		nf10_bram_output_queues_0_M_AXIS_3 (../../nf10_10g_interface_3_log.axi)
+	nf10_axis_sim_stim instance(s) on AXI Stream slave net(s):
+		nf10_10g_interface_3_M_AXIS (../../nf10_10g_interface_3_stim.axi)
+
+Replacing pcore nf10_10g_interface (instance nf10_10g_interface_2):
+	inferred clock net: core_clk
+	inferred reset net: Peripheral_aresetn
+	nf10_axis_sim_record instance(s) on AXI Stream master net(s):
+		nf10_bram_output_queues_0_M_AXIS_2 (../../nf10_10g_interface_2_log.axi)
+	nf10_axis_sim_stim instance(s) on AXI Stream slave net(s):
+		nf10_10g_interface_2_M_AXIS (../../nf10_10g_interface_2_stim.axi)
+
+Replacing pcore nf10_10g_interface (instance nf10_10g_interface_1):
+	inferred clock net: core_clk
+	inferred reset net: Peripheral_aresetn
+	nf10_axis_sim_record instance(s) on AXI Stream master net(s):
+		nf10_bram_output_queues_0_M_AXIS_1 (../../nf10_10g_interface_1_log.axi)
+	nf10_axis_sim_stim instance(s) on AXI Stream slave net(s):
+		nf10_10g_interface_1_M_AXIS (../../nf10_10g_interface_1_stim.axi)
+
+Replacing pcore nf10_10g_interface (instance nf10_10g_interface_0):
+	inferred clock net: core_clk
+	inferred reset net: Peripheral_aresetn
+	nf10_axis_sim_record instance(s) on AXI Stream master net(s):
+		nf10_bram_output_queues_0_M_AXIS_0 (../../nf10_10g_interface_0_log.axi)
+	nf10_axis_sim_stim instance(s) on AXI Stream slave net(s):
+		nf10_10g_interface_0_M_AXIS (../../nf10_10g_interface_0_stim.axi)
+
+simgen -p xc5vtx240tff1759-2 -lang verilog -intstyle default -lp /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/  -pe microblaze_0 bootloops/microblaze_0.elf -msg __xps/ise/xmsgprops.lst -s isim -tb -m behavioral  system_axisim.mhs
+
+Release 13.4 - Simulation Model Generator Xilinx EDK 13.4 Build EDK_O.87xd
+ (lin64)
+Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
+
+Command Line: simgen -p xc5vtx240tff1759-2 -lang verilog -intstyle default -lp
+/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/ -pe microblaze_0
+bootloops/microblaze_0.elf -msg __xps/ise/xmsgprops.lst -s isim -tb -m
+behavioral system_axisim.mhs 
+
+MHS file              : /.../projects/reference_nic/hw/system_axisim.mhs
+Language (-lang)      : Verilog 
+Flow (-flow)      : ISE 
+Simulation Model (-m) : Behavioral
+Simulator (-s)        : ISE Simulator (ISIM)
+Part (-p) [ family ]  : xc5vtx240tff1759-2 [ virtex5 ]
+External memory simulation (-external_mem_sim) : FALSE 
+
+Output directory (-od):
+/home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/
+
+Library Path (-lp): /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/
+
+
+Simulation Model Generator started ...
+
+Reading MHS file ...
+lp : /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/
+
+Reading MPD definitions ...
+
+Overriding IP level properties ...
+
+INTERNAL ERROR: C_FAMILY value virtex5 not supported by axi_interconnect.
+All data-path FIFOs (if any) are implemented as LUT RAM.
+INFO:EDK - IPNAME: microblaze, INSTANCE:microblaze_0 - tcl is overriding
+   PARAMETER C_ENDIANNESS value to 1 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 182 
+INFO:EDK - IPNAME: microblaze, INSTANCE:microblaze_0 - tcl is overriding
+   PARAMETER C_ICACHE_USE_FSL value to 0 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 320 
+INFO:EDK - IPNAME: microblaze, INSTANCE:microblaze_0 - tcl is overriding
+   PARAMETER C_DCACHE_USE_FSL value to 0 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 343 
+
+Computing clock values...
+INFO:EDK - Frequency for Top-Level Input Clock 'CLK' is not specified. Clock
+   DRCs will not be performed for IPs connected to that clock port, unless they
+   are connected through the clock generator IP. 
+
+
+Performing IP level DRCs on properties...
+
+Running DRC Tcl procedures for OPTION IPLEVEL_DRC_PROC...
+Address Map for Processor microblaze_0
+  (0000000000-0x00003fff) microblaze_0_d_bram_ctrl	microblaze_0_dlmb
+  (0000000000-0x00003fff) microblaze_0_i_bram_ctrl	microblaze_0_ilmb
+  (0x40600000-0x4060ffff) RS232_Uart_1	axi_interconnect_0
+  (0x41a20000-0x41a2ffff) axi_timebase_wdt_0	axi_interconnect_0
+  (0x7a000000-0x7a00ffff) nf10_mdio_0	axi_interconnect_0
+INFO:EDK - IPNAME: lmb_v10, INSTANCE:microblaze_0_ilmb - tool is overriding
+   PARAMETER C_LMB_NUM_SLAVES value to 1 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/lmb_v10_v1_00
+   _a/data/lmb_v10_v2_1_0.mpd line 70 
+INFO:EDK - IPNAME: lmb_v10, INSTANCE:microblaze_0_dlmb - tool is overriding
+   PARAMETER C_LMB_NUM_SLAVES value to 1 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/lmb_v10_v1_00
+   _a/data/lmb_v10_v2_1_0.mpd line 70 
+INFO:EDK - IPNAME: bram_block, INSTANCE:microblaze_0_bram_block - tool is
+   overriding PARAMETER C_MEMSIZE value to 0x4000 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/bram_block_v1
+   _00_a/data/bram_block_v2_1_0.mpd line 67 
+
+Checking platform address map ...
+
+Checking platform configuration ...
+IPNAME: axi_interconnect, INSTANCE: axi_interconnect_0 - 2 master(s) : 3
+slave(s) 
+IPNAME: lmb_v10, INSTANCE: microblaze_0_ilmb - 1 master(s) : 1 slave(s) 
+IPNAME: lmb_v10, INSTANCE: microblaze_0_dlmb - 1 master(s) : 1 slave(s) 
+
+Checking port drivers...
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_tx_l0_p_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_tx_l0_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 9 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_tx_l0_n_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_tx_l0_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 10 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_tx_l1_p_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_tx_l1_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 11 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_tx_l1_n_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_tx_l1_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 12 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_tx_l2_p_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_tx_l2_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 13 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_tx_l3_n_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_tx_l3_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 14 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_tx_l2_n_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_tx_l2_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 15 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_tx_l3_p_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_tx_l3_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 16 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_tx_l3_n_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_tx_l3_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 25 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_tx_l1_n_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_tx_l1_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 26 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_tx_l3_p_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_tx_l3_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 27 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_tx_l0_p_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_tx_l0_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 28 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_tx_l0_n_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_tx_l0_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 29 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_tx_l1_p_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_tx_l1_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 30 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_tx_l2_n_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_tx_l2_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 31 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_tx_l2_p_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_tx_l2_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 40 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_tx_l3_p_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_tx_l3_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 41 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_tx_l3_n_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_tx_l3_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 42 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_tx_l0_p_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_tx_l0_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 43 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_tx_l0_n_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_tx_l0_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 44 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_tx_l1_p_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_tx_l1_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 45 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_tx_l2_p_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_tx_l2_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 46 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_tx_l2_n_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_tx_l2_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 47 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_tx_l1_n_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_tx_l1_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 56 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_tx_l3_p_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_tx_l3_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 57 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_tx_l3_n_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_tx_l3_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 58 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_tx_l0_p_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_tx_l0_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 59 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_tx_l0_n_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_tx_l0_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 60 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_tx_l1_p_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_tx_l1_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 61 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_tx_l2_p_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_tx_l2_p - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 62 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_tx_l2_n_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_tx_l2_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 63 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_tx_l1_n_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_tx_l1_n - No driver found. Port will be driven to
+   GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 72 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_0_txp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_0_txp - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 85 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_1_txp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_1_txp - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 89 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_1_txn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_1_txn - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 90 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_4_txp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_4_txp - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 93 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_2_txp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_2_txp - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 94 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_2_txn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_2_txn - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 95 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_3_txp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_3_txp - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 98 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_3_txn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_3_txn - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 99 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_4_txn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_4_txn - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 102 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_5_txp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_5_txp - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 105 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_5_txn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_5_txn - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 106 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_6_txp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_6_txp - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 109 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_6_txn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_6_txn - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 110 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_7_txn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_7_txn - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 113 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_7_txp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_7_txp - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 114 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_0_txn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_0_txn - No driver found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 117 
+WARNING:EDK - PORT: EXT_BRK, CONNECTOR: Ext_BRK - No driver found. Port will be
+   driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 378 
+WARNING:EDK - PORT: EXT_NM_BRK, CONNECTOR: Ext_NM_BRK - No driver found. Port
+   will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 379 
+WARNING:EDK - PORT: IWAIT, CONNECTOR: microblaze_0_ilmb_LMB_Wait - No driver
+   found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 385 
+WARNING:EDK - PORT: ICE, CONNECTOR: microblaze_0_ilmb_LMB_CE - No driver found.
+   Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 386 
+WARNING:EDK - PORT: IUE, CONNECTOR: microblaze_0_ilmb_LMB_UE - No driver found.
+   Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 387 
+WARNING:EDK - PORT: DWAIT, CONNECTOR: microblaze_0_dlmb_LMB_Wait - No driver
+   found. Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 423 
+WARNING:EDK - PORT: DCE, CONNECTOR: microblaze_0_dlmb_LMB_CE - No driver found.
+   Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 424 
+WARNING:EDK - PORT: DUE, CONNECTOR: microblaze_0_dlmb_LMB_UE - No driver found.
+   Port will be driven to GND -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 425 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_rx_l0_n_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_rx_l0_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 17 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_rx_l1_p_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_rx_l1_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 18 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_rx_l1_n_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_rx_l1_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 19 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_rx_l2_p_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_rx_l2_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 20 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_rx_l2_n_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_rx_l2_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 21 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_rx_l3_p_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_rx_l3_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 22 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_rx_l3_n_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_rx_l3_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 23 
+WARNING:EDK - PORT: nf10_10g_interface_0_xaui_rx_l0_p_pin, CONNECTOR:
+   nf10_10g_interface_0_xaui_rx_l0_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 24 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_rx_l0_p_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_rx_l0_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 32 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_rx_l0_n_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_rx_l0_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 33 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_rx_l1_p_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_rx_l1_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 34 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_rx_l1_n_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_rx_l1_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 35 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_rx_l2_p_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_rx_l2_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 36 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_rx_l2_n_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_rx_l2_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 37 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_rx_l3_p_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_rx_l3_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 38 
+WARNING:EDK - PORT: nf10_10g_interface_1_xaui_rx_l3_n_pin, CONNECTOR:
+   nf10_10g_interface_1_xaui_rx_l3_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 39 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_rx_l0_p_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_rx_l0_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 48 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_rx_l0_n_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_rx_l0_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 49 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_rx_l1_p_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_rx_l1_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 50 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_rx_l1_n_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_rx_l1_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 51 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_rx_l2_p_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_rx_l2_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 52 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_rx_l2_n_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_rx_l2_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 53 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_rx_l3_p_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_rx_l3_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 54 
+WARNING:EDK - PORT: nf10_10g_interface_2_xaui_rx_l3_n_pin, CONNECTOR:
+   nf10_10g_interface_2_xaui_rx_l3_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 55 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_rx_l0_p_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_rx_l0_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 64 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_rx_l0_n_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_rx_l0_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 65 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_rx_l1_p_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_rx_l1_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 66 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_rx_l1_n_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_rx_l1_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 67 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_rx_l2_p_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_rx_l2_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 68 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_rx_l2_n_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_rx_l2_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 69 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_rx_l3_p_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_rx_l3_p - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 70 
+WARNING:EDK - PORT: nf10_10g_interface_3_xaui_rx_l3_n_pin, CONNECTOR:
+   nf10_10g_interface_3_xaui_rx_l3_n - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 71 
+WARNING:EDK - PORT: pcie_clk_p, CONNECTOR: pcie_top_0_pcie_clk_p - floating
+   connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 84 
+WARNING:EDK - PORT: pcie_clk_n, CONNECTOR: pcie_top_0_pcie_clk_n - floating
+   connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 86 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_0_rxp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_0_rxp - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 87 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_0_rxn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_0_rxn - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 88 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_1_rxp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_1_rxp - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 91 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_1_rxn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_1_rxn - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 92 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_2_rxp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_2_rxp - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 96 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_2_rxn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_2_rxn - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 97 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_3_rxp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_3_rxp - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 100 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_3_rxn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_3_rxn - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 101 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_4_rxp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_4_rxp - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 103 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_4_rxn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_4_rxn - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 104 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_5_rxp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_5_rxp - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 107 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_5_rxn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_5_rxn - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 108 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_6_rxp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_6_rxp - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 111 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_6_rxn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_6_rxn - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 112 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_7_rxn_pin, CONNECTOR:
+   pcie_top_0_pci_exp_7_rxn - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 115 
+WARNING:EDK - PORT: pcie_top_0_pci_exp_7_rxp_pin, CONNECTOR:
+   pcie_top_0_pci_exp_7_rxp - floating connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 116 
+WARNING:EDK - PORT: SINGLE_ENDED_INPUT, CONNECTOR: refclk_A - floating
+   connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 452 
+WARNING:EDK - PORT: SINGLE_ENDED_INPUT, CONNECTOR: refclk_B - floating
+   connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 460 
+WARNING:EDK - PORT: SINGLE_ENDED_INPUT, CONNECTOR: refclk_C - floating
+   connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 468 
+WARNING:EDK - PORT: SINGLE_ENDED_INPUT, CONNECTOR: refclk_D - floating
+   connection -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_a
+   xisim.mhs line 474 
+
+Performing Clock DRCs...
+
+Performing Reset DRCs...
+
+Overriding system level properties...
+
+INFO: Setting C_RANGE_CHECK = ON for axi_interconnect axi_interconnect_0.
+INFO:EDK - IPNAME: axi_interconnect, INSTANCE:axi_interconnect_0 - tcl is
+   overriding PARAMETER C_RANGE_CHECK value to 1 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconn
+   ect_v1_02_a/data/axi_interconnect_v2_1_0.mpd line 137 
+INFO:EDK - IPNAME: microblaze, INSTANCE:microblaze_0 - tcl is overriding
+   PARAMETER C_D_AXI value to 1 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 215 
+INFO:EDK - IPNAME: microblaze, INSTANCE:microblaze_0 - tcl is overriding
+   PARAMETER C_ADDR_TAG_BITS value to 0 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 318 
+INFO:EDK - IPNAME: microblaze, INSTANCE:microblaze_0 - tcl is overriding
+   PARAMETER C_DCACHE_ADDR_TAG value to 0 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 341 
+INFO:EDK - IPNAME: lmb_bram_if_cntlr, INSTANCE:microblaze_0_i_bram_ctrl - tcl is
+   overriding PARAMETER C_MASK value to 0x40000000 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/lmb_bram_if_c
+   ntlr_v2_10_b/data/lmb_bram_if_cntlr_v2_1_0.mpd line 75 
+INFO:EDK - IPNAME: lmb_bram_if_cntlr, INSTANCE:microblaze_0_d_bram_ctrl - tcl is
+   overriding PARAMETER C_MASK value to 0x40000000 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/lmb_bram_if_c
+   ntlr_v2_10_b/data/lmb_bram_if_cntlr_v2_1_0.mpd line 75 
+
+Running system level update procedures...
+
+Running UPDATE Tcl procedures for OPTION SYSLEVEL_UPDATE_PROC...
+
+Running system level DRCs...
+
+Performing System level DRCs on properties...
+
+Running DRC Tcl procedures for OPTION SYSLEVEL_DRC_PROC...
+Port present in nf10_mdio_0
+
+Running UPDATE Tcl procedures for OPTION SIMGEN_SYSLEVEL_UPDATE_PROC...
+
+Elaborating instances ...
+IPNAME:bram_block INSTANCE:microblaze_0_bram_block -
+/home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_axis
+im.mhs line 185 - elaborating IP
+IPNAME:clock_generator INSTANCE:clock_generator_0 -
+/home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/system_axis
+im.mhs line 220 - elaborating IP
+ClkGen elaborate status: PASSED
+----------------------------------------
+
+Generating simulation files ...
+
+Writing HDL for elaborated instances ...
+
+Inserting wrapper level ...
+
+Constructing platform-level signal connectivity ...
+
+Writing HDL ...
+
+Writing BMM ...
+
+Writing memory initialization files ...
+
+Generating Memory Initialization Files ...
+
+Overriding IP level properties ...
+
+INTERNAL ERROR: C_FAMILY value virtex5 not supported by axi_interconnect.
+All data-path FIFOs (if any) are implemented as LUT RAM.
+INFO:EDK - IPNAME: microblaze, INSTANCE:microblaze_0 - tcl is overriding
+   PARAMETER C_ENDIANNESS value to 1 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 182 
+INFO:EDK - IPNAME: microblaze, INSTANCE:microblaze_0 - tcl is overriding
+   PARAMETER C_ICACHE_USE_FSL value to 0 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 320 
+INFO:EDK - IPNAME: microblaze, INSTANCE:microblaze_0 - tcl is overriding
+   PARAMETER C_DCACHE_USE_FSL value to 0 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8
+   _00_b/data/microblaze_v2_1_0.mpd line 343 
+
+Computing clock values...
+INFO:EDK - Frequency for Top-Level Input Clock 'CLK' is not specified. Clock
+   DRCs will not be performed for IPs connected to that clock port, unless they
+   are connected through the clock generator IP. 
+
+Address Map for Processor microblaze_0
+  (0000000000-0x00003fff) microblaze_0_d_bram_ctrl	microblaze_0_dlmb
+  (0000000000-0x00003fff) microblaze_0_i_bram_ctrl	microblaze_0_ilmb
+  (0x40600000-0x4060ffff) RS232_Uart_1	axi_interconnect_0
+  (0x41a20000-0x41a2ffff) axi_timebase_wdt_0	axi_interconnect_0
+  (0x7a000000-0x7a00ffff) nf10_mdio_0	axi_interconnect_0
+INFO:EDK - IPNAME: lmb_v10, INSTANCE:microblaze_0_ilmb - tool is overriding
+   PARAMETER C_LMB_NUM_SLAVES value to 1 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/lmb_v10_v1_00
+   _a/data/lmb_v10_v2_1_0.mpd line 70 
+INFO:EDK - IPNAME: lmb_v10, INSTANCE:microblaze_0_dlmb - tool is overriding
+   PARAMETER C_LMB_NUM_SLAVES value to 1 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/lmb_v10_v1_00
+   _a/data/lmb_v10_v2_1_0.mpd line 70 
+INFO:EDK - IPNAME: bram_block, INSTANCE:microblaze_0_bram_block - tool is
+   overriding PARAMETER C_MEMSIZE value to 0x4000 -
+   /home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/bram_block_v1
+   _00_a/data/bram_block_v2_1_0.mpd line 67 
+
+Checking platform address map ...
+Running Data2Mem with the following command:
+data2mem -bm system_axisim_sim.bmm  -bd
+/home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/bootloops/m
+icroblaze_0.elf tag microblaze_0  -bx
+/home/gengyl08/GianniFork/NetFPGA-10G-live/projects/reference_nic/hw/simulation/
+behavioral -u   -p xc5vtx240tff1759-2 
+
+Generating simulator compile script ...
+
+Generating simulator helper scripts ...
+Simulation Model Generator done!
+
+./make_pkts.py
+cp nf10/system_axisim_tb.v simulation/behavioral
+cd simulation/behavioral && sh system_axisim_fuse.sh
+Running: /cad_64/xilinx/ise13.4/ISE_DS/ISE/bin/lin64/unwrapped/fuse -incremental work.system_axisim_tb work.glbl -prj system_axisim.prj -L xilinxcorelib_ver -L secureip -L unisims_ver -o isim_system_axisim 
+ISim O.87xd (signature 0x8ddf5b5d)
+Number of CPUs detected in this system: 8
+Turning on mult-threading, number of parallel sub-compilation jobs: 16 
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/axi_upsizer.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/a_upsizer.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/w_upsizer.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/r_upsizer.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/a_downsizer.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/axi_downsizer.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/b_downsizer.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/r_downsizer.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/w_downsizer.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/axi_register_slice.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/axic_register_slice.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/axi_data_fifo.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/axic_fifo.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/fifo_gen.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/axic_srl_fifo.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/axic_reg_srl_fifo.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/ndeep_srl.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/comparator_mask_static.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/comparator_mask.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/comparator_sel_mask_static.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/comparator_sel_mask.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/comparator_sel_static.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/comparator_sel.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/comparator_static.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/comparator.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/carry_and.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/carry_latch_and.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/carry_or.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/carry_latch_or.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/carry.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/mux.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/mux_enc.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/command_fifo.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/crossbar.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/crossbar_sasd.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/data_fifo_bank.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/converter_bank.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/axi3_conv.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/a_axi3_conv.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/w_axi3_conv.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/r_axi3_conv.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/register_slice_bank.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/protocol_conv_bank.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/axi_interconnect.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/addr_arbiter.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/addr_arbiter_sasd.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/splitter.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/decerr_slave.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/si_transactor.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/wdata_router.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/wdata_mux.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/addr_decoder.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/nto1_mux.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/arbiter_resp.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/clock_conv.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/clock_sync_accel.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/clock_sync_decel.v" into library axi_interconnect_v1_02_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_interconnect_v1_02_a/hdl/verilog/axilite_conv.v" into library axi_interconnect_v1_02_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/microblaze_types_pkg.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/microblaze_types_pkg_body.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/microblaze_isa_be_pkg.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/mux_bus.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/parity.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/comparator.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/carry_and.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/carry_or.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/carry_equal.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/carry_compare.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/carry_compare_mask.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/carry_compare_const.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/find_first_bit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/mux4_8.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/mux4.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/gen_srlfifo.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/alu_bit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/alu.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/msr_reg_bit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/msr_reg.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/msr_reg_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/dsp_module.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/mul_unit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/div_unit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/div_unit_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/operand_select_bit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/operand_select.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/operand_select_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/pc_bit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/pc_module.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/pc_module_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/prefetch_buffer.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/prefetch_buffer_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/register_file_bit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/register_file.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/register_file_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/shift_logic_bit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/shift_logic.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/shift_logic_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/zero_detect.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/zero_detect_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/barrel_shifter.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/barrel_shifter_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/wb_mux_bit_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/wb_mux_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/data_read_steering.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/byte_doublet_handle.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/byte_doublet_handle_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/data_flow_logic_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/fsl_module.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/streaming_axi.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/exception_registers.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/exception_registers_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/fpu_addsub.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/fpu_div.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/fpu_mul.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/fpu_conv.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/fpu_sqrt.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/fpu.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/pvr.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/result_mux_bit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/result_mux.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/data_flow.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/data_flow_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/jump_logic_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/decode.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/decode_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/address_hit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/address_data_hit.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/debug.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/iplb_interface.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/dplb_interface.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/daxi_interface.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/iaxi_interface.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/ram_module.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/victim_cache.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/stream_cache.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/cache_interface.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/icache.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/dcache.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/dcache_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/cache_valid_bit_detect.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/cachehit_detect.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/dcache_wb.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/instr_mux.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/read_data_mux_gti.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/interrupt_mode_converter.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/mmu_types_pkg.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/mmu_tlb.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/mmu_utlb_ram.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/mmu_utlb.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/mmu.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/microblaze_v8_00_b/hdl/vhdl/microblaze.vhd" into library microblaze_v8_00_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/lmb_v10_v1_00_a/hdl/vhdl/lmb_v10.vhd" into library lmb_v10_v1_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/lmb_bram_if_cntlr_v2_10_b/hdl/vhdl/pselect_mask.vhd" into library lmb_bram_if_cntlr_v2_10_b
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/lmb_bram_if_cntlr_v2_10_b/hdl/vhdl/lmb_bram_if_cntlr.vhd" into library lmb_bram_if_cntlr_v2_10_b
+Analyzing Verilog file "elaborate/microblaze_0_bram_block_elaborate_v1_00_a/hdl/verilog/microblaze_0_bram_block_elaborate.v" into library microblaze_0_bram_block_elaborate_v1_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_sys_reset_v3_00_a/hdl/vhdl/upcnt_n.vhd" into library proc_sys_reset_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_sys_reset_v3_00_a/hdl/vhdl/lpf.vhd" into library proc_sys_reset_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_sys_reset_v3_00_a/hdl/vhdl/sequence.vhd" into library proc_sys_reset_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_sys_reset_v3_00_a/hdl/vhdl/proc_sys_reset.vhd" into library proc_sys_reset_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/family.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/family_support.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/coregen_comp_defs.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/common_types_pkg.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/proc_common_pkg.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/conv_funs_pkg.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/ipif_pkg.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/async_fifo_fg.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/sync_fifo_fg.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/basic_sfifo_fg.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/blk_mem_gen_wrapper.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/addsub.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/counter_bit.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/counter.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/direct_path_cntr.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/direct_path_cntr_ai.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/down_counter.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/eval_timer.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/inferred_lut4.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/ipif_steer.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/ipif_steer128.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/ipif_mirror128.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/ld_arith_reg.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/ld_arith_reg2.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/mux_onehot.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/or_bits.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/or_muxcy.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/or_gate.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/or_gate128.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pf_adder_bit.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pf_adder.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pf_counter_bit.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pf_counter.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pf_counter_top.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pf_occ_counter.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pf_occ_counter_top.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pf_dpram_select.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pselect.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pselect_mask.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/srl16_fifo.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/srl_fifo.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/srl_fifo2.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/srl_fifo3.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/srl_fifo_rbu.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/valid_be.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/or_with_enable_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/muxf_struct_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/cntr_incr_decr_addn_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/dynshreg_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/dynshreg_i_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/mux_onehot_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/srl_fifo_rbu_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/srl_fifo_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/compare_vectors_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/pselect_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/counter_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/or_muxcy_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/or_gate_f.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/proc_common_v3_00_a/hdl/vhdl/soft_reset.vhd" into library proc_common_v3_00_a
+Parsing VHDL file "/cad_64/xilinx/ise13.4/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/address_decoder.vhd" into library axi_lite_ipif_v1_01_a
+Parsing VHDL file "/cad_64/xilinx/ise13.4/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/slave_attachment.vhd" into library axi_lite_ipif_v1_01_a
+Parsing VHDL file "/cad_64/xilinx/ise13.4/ISE_DS/EDK/hw/XilinxProcessorIPLib/pcores/axi_lite_ipif_v1_01_a/hdl/vhdl/axi_lite_ipif.vhd" into library axi_lite_ipif_v1_01_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_uartlite_v1_01_a/hdl/vhdl/baudrate.vhd" into library axi_uartlite_v1_01_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_uartlite_v1_01_a/hdl/vhdl/uartlite_rx.vhd" into library axi_uartlite_v1_01_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_uartlite_v1_01_a/hdl/vhdl/uartlite_tx.vhd" into library axi_uartlite_v1_01_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_uartlite_v1_01_a/hdl/vhdl/uartlite_core.vhd" into library axi_uartlite_v1_01_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_uartlite_v1_01_a/hdl/vhdl/axi_uartlite.vhd" into library axi_uartlite_v1_01_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/clock_generator_v4_01_a/hdl/vhdl/dcm_module.vhd" into library clock_generator_v4_01_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/clock_generator_v4_01_a/hdl/vhdl/pll_module.vhd" into library clock_generator_v4_01_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/clock_generator_v4_01_a/hdl/vhdl/mmcm_module.vhd" into library clock_generator_v4_01_a
+Parsing VHDL file "elaborate/clock_generator_0_v4_01_a/hdl/vhdl/clock_generator.vhd" into library clock_generator_0_v4_01_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_axis_sim_pkg_v1_00_a/simhdl/vhdl/nf10_axis_sim_pkg.vhd" into library nf10_axis_sim_pkg_v1_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_axis_sim_stim_v1_00_a/simhdl/vhdl/nf10_axis_sim_stim.vhd" into library nf10_axis_sim_stim_v1_00_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_axis_sim_record_v1_00_a/simhdl/verilog/nf10_axis_sim_record.v" into library nf10_axis_sim_record_v1_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/diff_input_buf_v1_00_a/hdl/vhdl/diff_input_buf.vhd" into library diff_input_buf_v1_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_mdio_v1_00_a/hdl/vhdl/mdio_if.vhd" into library nf10_mdio_v1_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_mdio_v1_00_a/hdl/vhdl/axi_interface.vhd" into library nf10_mdio_v1_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_mdio_v1_00_a/hdl/vhdl/mdio_ipif.vhd" into library nf10_mdio_v1_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_mdio_v1_00_a/hdl/vhdl/nf10_mdio.vhd" into library nf10_mdio_v1_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_timebase_wdt_v1_01_a/hdl/vhdl/timebase_wdt_core.vhd" into library axi_timebase_wdt_v1_01_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/xilinx/pcores/axi_timebase_wdt_v1_01_a/hdl/vhdl/axi_timebase_wdt.vhd" into library axi_timebase_wdt_v1_01_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/nf10_input_arbiter.v" into library nf10_input_arbiter_v1_00_a
+WARNING:HDLCompiler:693 - "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/nf10_input_arbiter.v" Line 115: Parameter declaration becomes local in nf10_input_arbiter with formal parameter declaration list
+WARNING:HDLCompiler:693 - "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/nf10_input_arbiter.v" Line 117: Parameter declaration becomes local in nf10_input_arbiter with formal parameter declaration list
+WARNING:HDLCompiler:693 - "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/nf10_input_arbiter.v" Line 118: Parameter declaration becomes local in nf10_input_arbiter with formal parameter declaration list
+WARNING:HDLCompiler:693 - "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/nf10_input_arbiter.v" Line 119: Parameter declaration becomes local in nf10_input_arbiter with formal parameter declaration list
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/small_fifo_v3.v" into library nf10_input_arbiter_v1_00_a
+WARNING:HDLCompiler:693 - "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/small_fifo_v3.v" Line 38: Parameter declaration becomes local in small_fifo with formal parameter declaration list
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/fallthrough_small_fifo_v2.v" into library nf10_input_arbiter_v1_00_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_bram_output_queues_v1_00_a/hdl/verilog/nf10_bram_output_queues.v" into library nf10_bram_output_queues_v1_00_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_bram_output_queues_v1_00_a/hdl/verilog/small_fifo_v3.v" into library nf10_bram_output_queues_v1_00_a
+WARNING:HDLCompiler:693 - "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_bram_output_queues_v1_00_a/hdl/verilog/small_fifo_v3.v" Line 38: Parameter declaration becomes local in small_fifo with formal parameter declaration list
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_bram_output_queues_v1_00_a/hdl/verilog/fallthrough_small_fifo_v2.v" into library nf10_bram_output_queues_v1_00_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_nic_output_port_lookup_v1_00_a/hdl/verilog/nf10_nic_output_port_lookup.v" into library nf10_nic_output_port_lookup_v1_00_a
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_nic_output_port_lookup_v1_00_a/hdl/verilog/small_fifo_v3.v" into library nf10_nic_output_port_lookup_v1_00_a
+WARNING:HDLCompiler:693 - "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_nic_output_port_lookup_v1_00_a/hdl/verilog/small_fifo_v3.v" Line 38: Parameter declaration becomes local in small_fifo with formal parameter declaration list
+Analyzing Verilog file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_nic_output_port_lookup_v1_00_a/hdl/verilog/fallthrough_small_fifo_v2.v" into library nf10_nic_output_port_lookup_v1_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_axi_sim_transactor_v1_00_a/simhdl/vhdl/transactor_fifos.vhd" into library nf10_axi_sim_transactor_v1_00_a
+Parsing VHDL file "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_axi_sim_transactor_v1_00_a/simhdl/vhdl/nf10_axi_sim_transactor.vhd" into library nf10_axi_sim_transactor_v1_00_a
+Analyzing Verilog file "axi_interconnect_0_wrapper.v" into library work
+      Resolving module axi_interconnect
+      Resolving module register_slice_bank
+      Resolving module protocol_conv_bank
+      Resolving module converter_bank
+      Resolving module data_fifo_bank
+      Resolving module crossbar
+      Resolving module crossbar_sasd
+      Resolving module axi_register_slice
+      Resolving module axilite_conv
+      Resolving module axi3_conv
+      Resolving module axi_upsizer
+      Resolving module clock_conv
+      Resolving module axi_downsizer
+      Resolving module axi_data_fifo
+      Resolving module si_transactor
+      Resolving module splitter
+      Resolving module wdata_router
+      Resolving module addr_decoder
+      Resolving module wdata_mux
+      Resolving module axic_srl_fifo
+      Resolving module addr_arbiter
+      Resolving module decerr_slave
+      Resolving module addr_arbiter_sasd
+      Resolving module mux_enc
+      Resolving module axic_register_slice
+      Resolving module a_axi3_conv
+      Resolving module w_axi3_conv
+      Resolving module b_downsizer
+      Resolving module r_axi3_conv
+      Resolving module a_upsizer
+      Resolving module w_upsizer
+      Resolving module r_upsizer
+      Resolving module fifo_gen
+      Resolving module clock_sync_accel
+      Resolving module clock_sync_decel
+      Resolving module a_downsizer
+      Resolving module w_downsizer
+      Resolving module r_downsizer
+      Resolving module axic_fifo
+      Resolving module arbiter_resp
+      Resolving module axic_reg_srl_fifo
+      Resolving module comparator_static
+      Resolving module ndeep_srl
+      Resolving module carry_and
+Parsing VHDL file "microblaze_0_wrapper.vhd" into library work
+Parsing VHDL file "microblaze_0_ilmb_wrapper.vhd" into library work
+Parsing VHDL file "microblaze_0_dlmb_wrapper.vhd" into library work
+Parsing VHDL file "microblaze_0_i_bram_ctrl_wrapper.vhd" into library work
+Parsing VHDL file "microblaze_0_d_bram_ctrl_wrapper.vhd" into library work
+Analyzing Verilog file "microblaze_0_bram_block_wrapper.v" into library work
+      Resolving module microblaze_0_bram_block_elaborate
+Parsing VHDL file "reset_0_wrapper.vhd" into library work
+Parsing VHDL file "rs232_uart_1_wrapper.vhd" into library work
+Parsing VHDL file "clock_generator_0_wrapper.vhd" into library work
+Parsing VHDL file "stim_nf10_10g_interface_0_m_axis_wrapper.vhd" into library work
+Analyzing Verilog file "record_nf10_bram_output_queues_0_m_axis_0_wrapper.v" into library work
+      Resolving module nf10_axis_sim_record
+Parsing VHDL file "stim_nf10_10g_interface_1_m_axis_wrapper.vhd" into library work
+Analyzing Verilog file "record_nf10_bram_output_queues_0_m_axis_1_wrapper.v" into library work
+      Resolving module nf10_axis_sim_record
+Parsing VHDL file "stim_nf10_10g_interface_2_m_axis_wrapper.vhd" into library work
+Analyzing Verilog file "record_nf10_bram_output_queues_0_m_axis_2_wrapper.v" into library work
+      Resolving module nf10_axis_sim_record
+Parsing VHDL file "stim_nf10_10g_interface_3_m_axis_wrapper.vhd" into library work
+Analyzing Verilog file "record_nf10_bram_output_queues_0_m_axis_3_wrapper.v" into library work
+      Resolving module nf10_axis_sim_record
+Parsing VHDL file "diff_input_buf_0_wrapper.vhd" into library work
+Parsing VHDL file "diff_input_buf_1_wrapper.vhd" into library work
+Parsing VHDL file "diff_input_buf_2_wrapper.vhd" into library work
+Parsing VHDL file "diff_input_buf_3_wrapper.vhd" into library work
+Parsing VHDL file "nf10_mdio_0_wrapper.vhd" into library work
+Parsing VHDL file "axi_timebase_wdt_0_wrapper.vhd" into library work
+Analyzing Verilog file "nf10_input_arbiter_0_wrapper.v" into library work
+      Resolving module nf10_input_arbiter
+      Resolving module fallthrough_small_fifo
+      Resolving module small_fifo
+Analyzing Verilog file "nf10_bram_output_queues_0_wrapper.v" into library work
+      Resolving module nf10_bram_output_queues
+      Resolving module fallthrough_small_fifo
+      Resolving module small_fifo
+Analyzing Verilog file "nf10_nic_output_port_lookup_0_wrapper.v" into library work
+      Resolving module nf10_nic_output_port_lookup
+      Resolving module fallthrough_small_fifo
+      Resolving module small_fifo
+Parsing VHDL file "nf10_axi_sim_transactor_0_wrapper.vhd" into library work
+Parsing VHDL file "stim_dma_0_m_axis_wrapper.vhd" into library work
+Analyzing Verilog file "record_nf10_bram_output_queues_0_m_axis_4_wrapper.v" into library work
+      Resolving module nf10_axis_sim_record
+Analyzing Verilog file "system_axisim.v" into library work
+Analyzing Verilog file "system_axisim_tb.v" into library work
+Analyzing Verilog file "/cad_64/xilinx/ise13.4/ISE_DS/ISE/verilog/src/glbl.v" into library work
+Starting static elaboration
+WARNING:HDLCompiler:1016 - "system_axisim_tb.v" Line 81: Port nf10_10g_interface_0_xaui_tx_l0_p_pin is not connected to this instance
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 921: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 936: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 940: Element index 2 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 944: Element index 3 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 956: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 960: Element index 2 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 964: Element index 3 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 968: Element index 4 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 972: Element index 5 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 976: Element index 6 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 980: Element index 7 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1024: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1035: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1036: Element index 2 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1037: Element index 3 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1044: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1045: Element index 2 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1046: Element index 3 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1047: Element index 4 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1048: Element index 5 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1049: Element index 6 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1050: Element index 7 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1090: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1101: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1102: Element index 2 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1103: Element index 3 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1109: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1110: Element index 2 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1111: Element index 3 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1112: Element index 4 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1113: Element index 5 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1114: Element index 6 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1115: Element index 7 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1183: Element index 15 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1184: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1204: Element index 15 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1205: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1210: Element index 23 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1211: Element index 2 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1216: Element index 31 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1217: Element index 3 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1232: Element index 15 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1233: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1238: Element index 23 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1239: Element index 2 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1244: Element index 31 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1245: Element index 3 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1250: Element index 39 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1251: Element index 4 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1256: Element index 47 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1257: Element index 5 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1262: Element index 55 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1263: Element index 6 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1268: Element index 63 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1269: Element index 7 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1343: Element index 15 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1344: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1364: Element index 15 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1365: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1370: Element index 23 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1371: Element index 2 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1376: Element index 31 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1377: Element index 3 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1392: Element index 15 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1393: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1398: Element index 23 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1399: Element index 2 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1404: Element index 31 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1405: Element index 3 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1410: Element index 39 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1411: Element index 4 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1416: Element index 47 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1417: Element index 5 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1422: Element index 55 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1423: Element index 6 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1428: Element index 63 into mem is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 1429: Element index 7 into memp is out of bounds
+WARNING:HDLCompiler:1330 - "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_input_arbiter_v1_00_a/hdl/verilog/nf10_input_arbiter.v" Line 103: Function log2 has no return value assignment
+WARNING:HDLCompiler:1330 - "/home/gengyl08/GianniFork/NetFPGA-10G-live/lib/hw/std/pcores/nf10_bram_output_queues_v1_00_a/hdl/verilog/nf10_bram_output_queues.v" Line 103: Function log2 has no return value assignment
+Completed static elaboration
+Fuse Memory Usage: 196860 KB
+Fuse CPU Usage: 8940 ms
+Compiling module axic_register_slice(C_FAMILY="rt...
+Compiling module axic_register_slice(C_FAMILY="rt...
+Compiling module axic_register_slice(C_FAMILY="rt...
+Compiling module axic_register_slice(C_FAMILY="rt...
+Compiling module axi_register_slice(C_FAMILY="rtl...
+Compiling module register_slice_bank(C_FAMILY="rt...
+Compiling module register_slice_bank(C_FAMILY="rt...
+Compiling module axilite_conv(C_FAMILY="rtl",C_AX...
+Compiling module protocol_conv_bank(C_FAMILY="rtl...
+Compiling module clock_conv(C_FAMILY="rtl",C_AXI_...
+Compiling module converter_bank(C_FAMILY="rtl",C_...
+Compiling module converter_bank(C_FAMILY="rtl",C_...
+Compiling module axi_data_fifo(C_FAMILY="rtl",C_A...
+Compiling module data_fifo_bank(C_FAMILY="rtl",C_...
+Compiling module data_fifo_bank(C_FAMILY="rtl",C_...
+Compiling module mux_enc(C_FAMILY="rtl",C_RATIO=2...
+Compiling module addr_arbiter_sasd(C_FAMILY="rtl"...
+Compiling module carry_and(C_FAMILY="rtl")
+Compiling module comparator_static(C_FAMILY="rtl"...
+Compiling module comparator_static(C_FAMILY="rtl"...
+Compiling module comparator_static(C_FAMILY="rtl"...
+Compiling module addr_decoder(C_FAMILY="rtl",C_NU...
+Compiling module splitter(C_NUM_M=3)
+Compiling module splitter
+Compiling module mux_enc(C_FAMILY="rtl",C_RATIO=4...
+Compiling module mux_enc(C_FAMILY="rtl",C_RATIO=2...
+Compiling module mux_enc(C_FAMILY="rtl",C_RATIO=2...
+Compiling module mux_enc(C_FAMILY="rtl",C_RATIO=4...
+Compiling module axic_register_slice(C_FAMILY="rt...
+Compiling module mux_enc(C_FAMILY="rtl",C_RATIO=4...
+Compiling module decerr_slave(C_AXI_DATA_WIDTH=32...
+Compiling module crossbar_sasd(C_MAX_NUM_SLOTS=16...
+Compiling module axi_interconnect(C_NUM_SLAVE_SLO...
+Compiling module axi_interconnect_0_wrapper
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 833: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 848: Element index 1 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 852: Element index 2 into memp is out of bounds
+WARNING:HDLCompiler:1007 - "/build/xfndry10/O.87xd/rtf/verilog/src/unisims/ARAMB36_INTERNAL.v" Line 856: Element index 3 into memp is out of bounds
+Compiling module ARAMB36_INTERNAL(DOA_REG=0,DOB_R...
+Compiling module RAMB36(INIT_FILE="microblaze_0_b...
+Compiling module ARAMB36_INTERNAL(DOA_REG=0,DOB_R...
+Compiling module RAMB36(INIT_FILE="microblaze_0_b...
+Compiling module ARAMB36_INTERNAL(DOA_REG=0,DOB_R...
+Compiling module RAMB36(INIT_FILE="microblaze_0_b...
+Compiling module ARAMB36_INTERNAL(DOA_REG=0,DOB_R...
+Compiling module RAMB36(INIT_FILE="microblaze_0_b...
+Compiling module microblaze_0_bram_block_elaborat...
+Compiling module microblaze_0_bram_block_wrapper
+Compiling module nf10_axis_sim_record(output_file...
+Compiling module record_nf10_bram_output_queues_0...
+Compiling module nf10_axis_sim_record(output_file...
+Compiling module record_nf10_bram_output_queues_0...
+Compiling module nf10_axis_sim_record(output_file...
+Compiling module record_nf10_bram_output_queues_0...
+Compiling module nf10_axis_sim_record(output_file...
+Compiling module record_nf10_bram_output_queues_0...
+Compiling module small_fifo(WIDTH=417,MAX_DEPTH_B...
+Compiling module fallthrough_small_fifo(WIDTH=417...
+Compiling module nf10_input_arbiter_default
+Compiling module nf10_input_arbiter_0_wrapper
+Compiling module small_fifo(WIDTH=289,MAX_DEPTH_B...
+Compiling module fallthrough_small_fifo(WIDTH=289...
+Compiling module small_fifo(WIDTH=128,MAX_DEPTH_B...
+Compiling module fallthrough_small_fifo(WIDTH=128...
+Compiling module nf10_bram_output_queues_default
+Compiling module nf10_bram_output_queues_0_wrappe...
+Compiling module small_fifo(WIDTH=417,MAX_DEPTH_B...
+Compiling module fallthrough_small_fifo(WIDTH=417...
+Compiling module nf10_nic_output_port_lookup
+Compiling module nf10_nic_output_port_lookup_0_wr...
+Compiling module nf10_axis_sim_record(output_file...
+Compiling module record_nf10_bram_output_queues_0...
+Compiling module IOBUF
+Compiling module system_axisim
+Compiling module system_axisim_tb
+Compiling module glbl
+Compiling package standard
+Compiling package std_logic_1164
+Compiling package vcomponents
+Compiling package numeric_std
+Compiling package microblaze_types
+Compiling package microblaze_isa
+Compiling package mmu_types
+Compiling architecture imp of entity interrupt_mode_converter [\interrupt_mode_converter(false,...]
+Compiling package textio
+Compiling package vital_timing
+Compiling package vital_primitives
+Compiling package vpkg
+Compiling architecture muxcy_l_v of entity MUXCY_L [muxcy_l_default]
+Compiling architecture xorcy_v of entity XORCY [xorcy_default]
+Compiling architecture muxf7_v of entity MUXF7 [muxf7_default]
+Compiling architecture fdr_v of entity FDR [\FDR('0')\]
+Compiling architecture imp of entity PC_Module_gti [\PC_Module_gti(virtex5,true,0,fa...]
+Compiling architecture lut6_v of entity LUT6 [\LUT6("0000000000000000000000000...]
+Compiling architecture fds_v of entity FDS [\FDS('1')\]
+Compiling architecture imp of entity PreFetch_Buffer_gti [\PreFetch_Buffer_gti(true,virtex...]
+Compiling architecture imp of entity carry_and [\carry_and(virtex5)\]
+Compiling architecture imp of entity jump_logic [\jump_logic(virtex5)\]
+Compiling architecture fdre_v of entity FDRE [\FDRE('0')\]
+Compiling architecture imp of entity carry_or [\carry_or(virtex5)\]
+Compiling architecture imp of entity Decode_gti [\Decode_gti(virtex5,true,0,false...]
+Compiling architecture ram32m_v of entity RAM32M [\RAM32M("00000000000000000000000...]
+Compiling architecture imp of entity Register_File_gti [\Register_File_gti(virtex5,"micr...]
+Compiling architecture imp of entity Operand_Select_gti [\Operand_Select_gti(true,virtex5...]
+Compiling architecture lut6_2_v of entity LUT6_2 [\LUT6_2("01100000011110101010011...]
+Compiling architecture imp of entity ALU_Bit [\ALU_Bit(virtex5,true,false)\]
+Compiling architecture lut4_v of entity LUT4 [\LUT4("1111101000001010")(0,15)\]
+Compiling architecture mult_and_v of entity MULT_AND [mult_and_default]
+Compiling architecture imp of entity ALU_Bit [\ALU_Bit(virtex5,true,true)\]
+Compiling architecture imp of entity ALU [\ALU(0,true,virtex5)\]
+Compiling architecture imp of entity carry_equal [\carry_equal(virtex5,8)\]
+Compiling architecture imp of entity Shift_Logic_Module_gti [\Shift_Logic_Module_gti(true,tru...]
+Compiling architecture imp of entity mul_unit [\mul_unit(virtex5,false,false)\]
+Compiling architecture imp of entity Barrel_Shifter_gti [\Barrel_Shifter_gti(virtex5,true...]
+Compiling architecture imp of entity WB_Mux_Bit [\WB_Mux_Bit(virtex5,6,2)\]
+Compiling architecture imp of entity WB_Mux [\WB_Mux(virtex5,false,false,fals...]
+Compiling architecture imp of entity Zero_Detect_gti [\Zero_Detect_gti(virtex5)\]
+Compiling architecture imp of entity Byte_Doublet_Handle_gti [\Byte_Doublet_Handle_gti(virtex5...]
+Compiling architecture imp of entity Data_Flow_Logic [\Data_Flow_Logic(virtex5,0,16)\]
+Compiling architecture msr_reg of entity msr_reg_gti [\msr_reg_gti(virtex5,('0','0','0...]
+Compiling architecture imp of entity mux_bus [\mux_bus(virtex5,true,32)\]
+Compiling architecture lut3_v of entity LUT3 [\LUT3("00000000")(0,7)\]
+Compiling architecture fde_v of entity FDE [\FDE('0')\]
+Compiling architecture imp of entity exception_registers_gti [\exception_registers_gti(virtex5...]
+Compiling architecture imp of entity Fpu [\Fpu(virtex5,0,0)\]
+Compiling architecture imp of entity PVR [\PVR(0,('0','0','0','1','0','0',...]
+Compiling architecture imp of entity Data_Flow_gti [\Data_Flow_gti(32,virtex5,true,0...]
+Compiling architecture imp of entity read_data_mux [\read_data_mux(true,true,false)\]
+Compiling architecture imp of entity DAXI_interface [\DAXI_interface(1,32,32,false,fa...]
+Compiling architecture imp of entity instr_mux [\instr_mux(virtex5,true,false,fa...]
+Compiling architecture imp of entity MMU [\MMU(virtex5,true,0,0,4,2,true,t...]
+Compiling architecture imp of entity MicroBlaze [\MicroBlaze(0,100000000,0,0,1,"v...]
+Compiling architecture structure of entity microblaze_0_wrapper [microblaze_0_wrapper_default]
+Compiling architecture srl16_v of entity SRL16 [\SRL16("1111111111111111")(0,15)...]
+Compiling architecture imp of entity lmb_v10 [\lmb_v10(1,32,32,1)\]
+Compiling architecture structure of entity microblaze_0_ilmb_wrapper [microblaze_0_ilmb_wrapper_defaul...]
+Compiling architecture structure of entity microblaze_0_dlmb_wrapper [microblaze_0_dlmb_wrapper_defaul...]
+Compiling package std_logic_arith
+Compiling package std_logic_unsigned
+Compiling architecture imp of entity pselect_mask [\pselect_mask(32,('0','0','0','0...]
+Compiling architecture imp of entity lmb_bram_if_cntlr [\lmb_bram_if_cntlr(('0','0','0',...]
+Compiling architecture structure of entity microblaze_0_i_bram_ctrl_wrapper [microblaze_0_i_bram_ctrl_wrapper...]
+Compiling architecture structure of entity microblaze_0_d_bram_ctrl_wrapper [microblaze_0_d_bram_ctrl_wrapper...]
+Compiling architecture imp of entity upcnt_n [\upcnt_n(4)\]
+Compiling architecture imp of entity lpf [\lpf(4,4,'0','1')\]
+Compiling architecture imp of entity upcnt_n [\upcnt_n(6)\]
+Compiling architecture imp of entity sequence [sequence_default]
+Compiling architecture imp of entity proc_sys_reset [\proc_sys_reset(4,4,'0','1',1,1,...]
+Compiling architecture structure of entity reset_0_wrapper [reset_0_wrapper_default]
+Compiling package proc_common_pkg
+Compiling package ipif_pkg
+Compiling package attributes
+Compiling package std_logic_misc
+Compiling package family_support
+Compiling architecture rtl of entity baudrate [\baudrate(651)\]
+Compiling architecture behavioral of entity dynshreg_i_f [\dynshreg_i_f(16,1,"0","virtex5"...]
+Compiling architecture imp of entity cntr_incr_decr_addn_f [\cntr_incr_decr_addn_f(5,"virtex...]
+Compiling architecture behavioral of entity dynshreg_f [\dynshreg_f(16,8,"virtex5")(1,7)...]
+Compiling architecture imp of entity srl_fifo_rbu_f [\srl_fifo_rbu_f(8,16,"virtex5")(...]
+Compiling architecture imp of entity srl_fifo_f [\srl_fifo_f(8,16,"virtex5")(1,7)...]
+Compiling architecture rtl of entity uartlite_rx [\uartlite_rx("virtex5",8,0,1)(1,...]
+Compiling architecture behavioral of entity dynshreg_i_f [\dynshreg_i_f(16,1,"100000000000...]
+Compiling architecture rtl of entity uartlite_tx [\uartlite_tx("virtex5",8,0,1)(1,...]
+Compiling architecture rtl of entity uartlite_core [\uartlite_core("virtex5",1000000...]
+Compiling architecture imp of entity pselect_f [\pselect_f(2,2,('0','0'),"nofami...]
+Compiling architecture imp of entity pselect_f [\pselect_f(2,2,('0','1'),"nofami...]
+Compiling architecture imp of entity pselect_f [\pselect_f(2,2,('1','0'),"nofami...]
+Compiling architecture imp of entity pselect_f [\pselect_f(2,2,('1','1'),"nofami...]
+Compiling architecture imp of entity address_decoder [\address_decoder(4,('0','0','0',...]
+Compiling architecture imp of entity slave_attachment [\slave_attachment((('0','0','0',...]
+Compiling architecture imp of entity axi_lite_ipif [\axi_lite_ipif(32,32,('0','0','0...]
+Compiling architecture rtl of entity axi_uartlite [\axi_uartlite("virtex5",10000000...]
+Compiling architecture structure of entity rs232_uart_1_wrapper [rs232_uart_1_wrapper_default]
+Compiling architecture pll_adv_v of entity PLL_ADV [\PLL_ADV("OPTIMIZED","CLKFBOUT",...]
+Compiling architecture struct of entity pll_module [\pll_module("OPTIMIZED",8,0.0,10...]
+Compiling architecture bufg_v of entity BUFG [bufg_default]
+Compiling architecture structure of entity clock_generator [\clock_generator("virtex5","5vtx...]
+Compiling architecture structure of entity clock_generator_0_wrapper [clock_generator_0_wrapper_defaul...]
+Compiling package std_logic_textio
+Compiling package nf10_axis_sim_pkg
+Compiling architecture rtl of entity nf10_axis_sim_stim [\nf10_axis_sim_stim(256,128,"../...]
+Compiling architecture structure of entity stim_nf10_10g_interface_0_m_axis_wrapper [stim_nf10_10g_interface_0_m_axis...]
+Compiling architecture rtl of entity nf10_axis_sim_stim [\nf10_axis_sim_stim(256,128,"../...]
+Compiling architecture structure of entity stim_nf10_10g_interface_1_m_axis_wrapper [stim_nf10_10g_interface_1_m_axis...]
+Compiling architecture rtl of entity nf10_axis_sim_stim [\nf10_axis_sim_stim(256,128,"../...]
+Compiling architecture structure of entity stim_nf10_10g_interface_2_m_axis_wrapper [stim_nf10_10g_interface_2_m_axis...]
+Compiling architecture rtl of entity nf10_axis_sim_stim [\nf10_axis_sim_stim(256,128,"../...]
+Compiling architecture structure of entity stim_nf10_10g_interface_3_m_axis_wrapper [stim_nf10_10g_interface_3_m_axis...]
+Compiling architecture ibufds_v of entity IBUFDS [\IBUFDS("DONT_CARE",false,"0",tr...]
+Compiling architecture behavioral of entity DIFF_INPUT_BUF [diff_input_buf_default]
+Compiling architecture structure of entity diff_input_buf_0_wrapper [diff_input_buf_0_wrapper_default]
+Compiling architecture structure of entity diff_input_buf_1_wrapper [diff_input_buf_1_wrapper_default]
+Compiling architecture structure of entity diff_input_buf_2_wrapper [diff_input_buf_2_wrapper_default]
+Compiling architecture structure of entity diff_input_buf_3_wrapper [diff_input_buf_3_wrapper_default]
+Compiling package family
+Compiling architecture imp of entity mdio_if [mdio_if_default]
+Compiling architecture imp of entity mdio_ipif [\mdio_ipif("virtex5",('0','1','1...]
+Compiling architecture rtl of entity axi_interface [\axi_interface("virtex5","AXI4",...]
+Compiling architecture imp of entity nf10_mdio [\nf10_mdio("virtex5",('0','1','1...]
+Compiling architecture structure of entity nf10_mdio_0_wrapper [nf10_mdio_0_wrapper_default]
+Compiling architecture imp of entity timebase_wdt_core [\timebase_wdt_core("virtex5",30,...]
+Compiling architecture imp of entity address_decoder [\address_decoder(4,('0','0','0',...]
+Compiling architecture imp of entity slave_attachment [\slave_attachment((('0','0','0',...]
+Compiling architecture imp of entity axi_lite_ipif [\axi_lite_ipif(32,32,('0','0','0...]
+Compiling architecture imp of entity axi_timebase_wdt [\axi_timebase_wdt("virtex5",30,1...]
+Compiling architecture structure of entity axi_timebase_wdt_0_wrapper [axi_timebase_wdt_0_wrapper_defau...]
+Compiling architecture imp of entity cntr_incr_decr_addn_f [\cntr_incr_decr_addn_f(5,"nofami...]
+Compiling architecture behavioral of entity dynshreg_f [\dynshreg_f(16,64,"nofamily")(1,...]
+Compiling architecture imp of entity srl_fifo_rbu_f [\srl_fifo_rbu_f(64,16,"nofamily"...]
+Compiling architecture imp of entity srl_fifo_f [\srl_fifo_f(64,16,"nofamily")(1,...]
+Compiling architecture behavioral of entity dynshreg_f [\dynshreg_f(16,32,"nofamily")(1,...]
+Compiling architecture imp of entity srl_fifo_rbu_f [\srl_fifo_rbu_f(32,16,"nofamily"...]
+Compiling architecture imp of entity srl_fifo_f [\srl_fifo_f(32,16,"nofamily")(1,...]
+Compiling architecture behavioral of entity dynshreg_f [\dynshreg_f(16,36,"nofamily")(1,...]
+Compiling architecture imp of entity srl_fifo_rbu_f [\srl_fifo_rbu_f(36,16,"nofamily"...]
+Compiling architecture imp of entity srl_fifo_f [\srl_fifo_f(36,16,"nofamily")(1,...]
+Compiling architecture rtl of entity transactor_fifos [transactor_fifos_default]
+Compiling architecture rtl of entity nf10_axi_sim_transactor [\nf10_axi_sim_transactor("../../...]
+Compiling architecture structure of entity nf10_axi_sim_transactor_0_wrapper [nf10_axi_sim_transactor_0_wrappe...]
+Compiling architecture rtl of entity nf10_axis_sim_stim [\nf10_axis_sim_stim(256,128,"../...]
+Compiling architecture structure of entity stim_dma_0_m_axis_wrapper [stim_dma_0_m_axis_wrapper_defaul...]
+Time Resolution for simulation is 100fs.
+Waiting for 20 sub-compilation(s) to finish...
+Compiled 299 VHDL Units
+Compiled 72 Verilog Units
+Built simulation executable isim_system_axisim
+Fuse Memory Usage: 1359500 KB
+Fuse CPU Usage: 15470 ms
+GCC CPU Usage: 80280 ms
+cd simulation/behavioral && xterm -e  ./isim_system_axisim -tclbatch ../../nf10/noninteractive_sim.tcl
+xterm: cannot load font '-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1'
+nf10_sim_reconcile_axi_logs.py
+Reconciliation of nf10_10g_interface_3_log.axi with nf10_10g_interface_3_expected.axi
+	PASS (2 packets expected, 2 packets received)
+
+Reconciliation of dma_0_log.axi with dma_0_expected.axi
+	PASS (32 packets expected, 32 packets received)
+
+Reconciliation of nf10_10g_interface_2_log.axi with nf10_10g_interface_2_expected.axi
+	PASS (2 packets expected, 2 packets received)
+
+Reconciliation of nf10_10g_interface_0_log.axi with nf10_10g_interface_0_expected.axi
+	PASS (2 packets expected, 2 packets received)
+
+Reconciliation of nf10_10g_interface_1_log.axi with nf10_10g_interface_1_expected.axi
+	PASS (2 packets expected, 2 packets received)
+

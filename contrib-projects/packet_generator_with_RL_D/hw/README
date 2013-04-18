@@ -1,0 +1,51 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        README
+#
+#  Project:
+#        nic
+#
+#  Author:
+#        Mario Flajslik
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+"How to build the hardware?" You may ask. To rebuilt the project from
+source, follow the simple 2 steps.
+
+1. Open system.xmp using Xilinx Platform Studio
+2. Click Hardware - Generate bitstream
+
+That's it!
+
+The bitfile locates in implementation/. You need to
+export it to your Xilinx SDK project in order to download the Microblaze
+program to BRAM.
+
+For SDK instructions , please checkout /sw/embedded directory.
+
+For simulation, just run "make sim". Please follow Xilinx iSim
+documentation for more details.

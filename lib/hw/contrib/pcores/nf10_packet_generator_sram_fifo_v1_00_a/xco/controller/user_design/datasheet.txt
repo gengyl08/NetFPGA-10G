@@ -1,0 +1,183 @@
+
+
+CORE Generator Options:
+   Target Device              : xc5vtx240t-ff1759
+   Speed Grade                : -2
+   HDL                        : verilog
+   Synthesis Tool             : ISE
+
+MIG Output Options:
+   Module Name                   : controller
+   No of Controllers             : 3
+   Selected Compatible Device(s) : --
+   Hardware Test Bench           : disabled
+
+FPGA Options:
+   PLL                      : enabled
+   Debug Signals            : Disable
+   Clock Type               : Differential
+
+Extended FPGA Options:
+   DCI for Data and Read Clocks : enabled
+   DCI Cascade                  : enabled
+
+Reserve Pins:
+   --
+    
+   /*******************************************************/
+   /*                  Controller 0                       */
+   /*******************************************************/
+   Controller Options :
+      Memory                 : QDRII_SRAM
+      Design Clock Frequency : 5000 ps (200.00 MHz)
+      Memory Type            : Components
+      Memory Part            : CY7C1515V18-250BZC
+      Equivalent Part(s)     : --
+      Data Width             : 36
+
+   FPGA Options:
+      IODELAY Performance Mode       : HIGH
+
+   Selected Banks and Pins usage : 
+       Data Read     :bank 11(38) -> Number of pins used : 0 
+                      bank 13(38) -> Number of pins used : 0 
+                      bank 23(38) -> Number of pins used : 0 
+                      bank 25(38) -> Number of pins used : 0 
+                      bank 27(38) -> Number of pins used : 38 
+                      bank 29(38) -> Number of pins used : 0 
+                      
+       Address/Control:bank 11(38) -> Number of pins used : 22 
+                      bank 13(38) -> Number of pins used : 0 
+                      bank 23(38) -> Number of pins used : 0 
+                      bank 25(38) -> Number of pins used : 0 
+                      bank 27(38) -> Number of pins used : 0 
+                      bank 29(38) -> Number of pins used : 0 
+                      
+       System Control:bank 11(38) -> Number of pins used : 2 
+                      bank 13(38) -> Number of pins used : 0 
+                      bank 23(38) -> Number of pins used : 0 
+                      bank 25(38) -> Number of pins used : 0 
+                      bank 27(38) -> Number of pins used : 0 
+                      bank 29(38) -> Number of pins used : 0 
+                      
+       Data Write    :bank 11(38) -> Number of pins used : 9 
+                      bank 13(38) -> Number of pins used : 0 
+                      bank 23(38) -> Number of pins used : 35 
+                      bank 25(38) -> Number of pins used : 0 
+                      bank 27(38) -> Number of pins used : 0 
+                      bank 29(38) -> Number of pins used : 0 
+                      
+       System Clock  :bank 3(19) -> Number of pins used : 4 
+                      bank 4(19) -> Number of pins used : 0 
+                      
+       Master Banks  :bank 23(38) -> Number of pins used : 1 
+                      
+       Total IOs used :    111
+
+
+   /*******************************************************/
+   /*                  Controller 1                       */
+   /*******************************************************/
+   Controller Options :
+      Memory                 : QDRII_SRAM
+      Design Clock Frequency : 5000 ps (200.00 MHz)
+      Memory Type            : Components
+      Memory Part            : CY7C1515V18-250BZC
+      Equivalent Part(s)     : --
+      Data Width             : 36
+
+   FPGA Options:
+      IODELAY Performance Mode       : HIGH
+
+   Selected Banks and Pins usage : 
+       Data Read     :bank 11(38) -> Number of pins used : 0 
+                      bank 13(38) -> Number of pins used : 38 
+                      bank 23(38) -> Number of pins used : 0 
+                      bank 25(38) -> Number of pins used : 0 
+                      bank 27(38) -> Number of pins used : 0 
+                      bank 29(38) -> Number of pins used : 0 
+                      
+       Address/Control:bank 11(38) -> Number of pins used : 0 
+                      bank 13(38) -> Number of pins used : 0 
+                      bank 23(38) -> Number of pins used : 0 
+                      bank 25(38) -> Number of pins used : 0 
+                      bank 27(38) -> Number of pins used : 0 
+                      bank 29(38) -> Number of pins used : 22 
+                      
+       System Control:bank 11(38) -> Number of pins used : 0 
+                      bank 13(38) -> Number of pins used : 0 
+                      bank 23(38) -> Number of pins used : 0 
+                      bank 25(38) -> Number of pins used : 0 
+                      bank 27(38) -> Number of pins used : 0 
+                      bank 29(38) -> Number of pins used : 1 
+                      
+       Data Write    :bank 11(38) -> Number of pins used : 4 
+                      bank 13(38) -> Number of pins used : 0 
+                      bank 23(38) -> Number of pins used : 0 
+                      bank 25(38) -> Number of pins used : 38 
+                      bank 27(38) -> Number of pins used : 0 
+                      bank 29(38) -> Number of pins used : 2 
+                      
+       System Clock  :bank 3(19) -> Number of pins used : 0 
+                      bank 4(19) -> Number of pins used : 0 
+                      
+       
+       Total IOs used :    105
+
+
+   /*******************************************************/
+   /*                  Controller 2                       */
+   /*******************************************************/
+   Controller Options :
+      Memory                 : QDRII_SRAM
+      Design Clock Frequency : 5000 ps (200.00 MHz)
+      Memory Type            : Components
+      Memory Part            : CY7C1515V18-250BZC
+      Equivalent Part(s)     : --
+      Data Width             : 36
+
+   FPGA Options:
+      IODELAY Performance Mode       : HIGH
+
+   Selected Banks and Pins usage : 
+       Data Read     :bank 11(38) -> Number of pins used : 0 
+                      bank 13(38) -> Number of pins used : 0 
+                      bank 23(38) -> Number of pins used : 0 
+                      bank 24(38) -> Number of pins used : 38 
+                      bank 25(38) -> Number of pins used : 0 
+                      bank 28(38) -> Number of pins used : 0 
+                      bank 29(38) -> Number of pins used : 0 
+                      
+       Address/Control:bank 11(38) -> Number of pins used : 0 
+                      bank 13(38) -> Number of pins used : 0 
+                      bank 23(38) -> Number of pins used : 0 
+                      bank 24(38) -> Number of pins used : 0 
+                      bank 25(38) -> Number of pins used : 0 
+                      bank 28(38) -> Number of pins used : 16 
+                      bank 29(38) -> Number of pins used : 6 
+                      bank 7(38) -> Number of pins used : 0 
+                      
+       System Control:bank 11(38) -> Number of pins used : 0 
+                      bank 13(38) -> Number of pins used : 0 
+                      bank 23(38) -> Number of pins used : 0 
+                      bank 24(38) -> Number of pins used : 0 
+                      bank 25(38) -> Number of pins used : 0 
+                      bank 28(38) -> Number of pins used : 1 
+                      bank 29(38) -> Number of pins used : 0 
+                      bank 7(38) -> Number of pins used : 0 
+                      
+       Data Write    :bank 11(38) -> Number of pins used : 0 
+                      bank 13(38) -> Number of pins used : 0 
+                      bank 23(38) -> Number of pins used : 0 
+                      bank 25(38) -> Number of pins used : 0 
+                      bank 28(38) -> Number of pins used : 0 
+                      bank 29(38) -> Number of pins used : 6 
+                      bank 7(38) -> Number of pins used : 38 
+                      
+       System Clock  :bank 3(19) -> Number of pins used : 0 
+                      bank 4(19) -> Number of pins used : 0 
+                      
+       Master Banks  :bank 28(38) -> Number of pins used : 1 
+                      
+       Total IOs used :    106
+

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Project NoOfControllers="3" >
+    <PLL>1</PLL>
+    <ModuleName>sram_controller</ModuleName>
+    <dci_inouts_inputs>1</dci_inouts_inputs>
+    <Debug_En>Disable</Debug_En>
+    <TargetFPGA>xc5vtx240t-ff1759/-2</TargetFPGA>
+    <Version>3.6.1</Version>
+    <SystemClock>Differential</SystemClock>
+    <PinSelectionFlag>FALSE</PinSelectionFlag>
+    <Controller number="0" >
+        <MemoryDevice>QDRII_SRAM/Components/CY7C1515V18-250BZC</MemoryDevice>
+        <TimePeriod>5000</TimePeriod>
+        <DataWidth>36</DataWidth>
+        <CustomPart>FALSE</CustomPart>
+        <NewPartName/>
+        <AddressWidth>19</AddressWidth>
+        <MasterBanks>23</MasterBanks>
+        <cascaded_dci>1</cascaded_dci>
+        <TimingParameters>
+            <Parameters tdh="350" tjit="200" tis="500" tds="350" tih="500" tac="300" />
+        </TimingParameters>
+        <IODelayHighPerformanceMode>HIGH</IODelayHighPerformanceMode>
+        <BankSelection>
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="11" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="13" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="23" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="25" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="27" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="29" Address="1" wasso="38" />
+            <Bank Data_Read="0" Control="0" SysClk="1" Data_Write="0" name="3" Address="0" wasso="19" />
+            <Bank Data_Read="0" Control="0" SysClk="1" Data_Write="0" name="4" Address="0" wasso="19" />
+        </BankSelection>
+    </Controller>
+    <Controller number="1" >
+        <MemoryDevice>QDRII_SRAM/Components/CY7C1515V18-250BZC</MemoryDevice>
+        <TimePeriod>5000</TimePeriod>
+        <DataWidth>36</DataWidth>
+        <CustomPart>FALSE</CustomPart>
+        <NewPartName/>
+        <AddressWidth>19</AddressWidth>
+        <cascaded_dci>1</cascaded_dci>
+        <TimingParameters>
+            <Parameters tdh="350" tjit="200" tis="500" tds="350" tih="500" tac="300" />
+        </TimingParameters>
+        <IODelayHighPerformanceMode>HIGH</IODelayHighPerformanceMode>
+        <BankSelection>
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="11" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="13" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="23" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="25" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="27" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="29" Address="1" wasso="38" />
+            <Bank Data_Read="0" Control="0" SysClk="1" Data_Write="0" name="3" Address="0" wasso="19" />
+            <Bank Data_Read="0" Control="0" SysClk="1" Data_Write="0" name="4" Address="0" wasso="19" />
+        </BankSelection>
+    </Controller>
+    <Controller number="2" >
+        <MemoryDevice>QDRII_SRAM/Components/CY7C1515V18-250BZC</MemoryDevice>
+        <TimePeriod>5000</TimePeriod>
+        <DataWidth>36</DataWidth>
+        <CustomPart>FALSE</CustomPart>
+        <NewPartName/>
+        <AddressWidth>19</AddressWidth>
+        <MasterBanks>28</MasterBanks>
+        <cascaded_dci>1</cascaded_dci>
+        <TimingParameters>
+            <Parameters tdh="350" tjit="200" tis="500" tds="350" tih="500" tac="300" />
+        </TimingParameters>
+        <IODelayHighPerformanceMode>HIGH</IODelayHighPerformanceMode>
+        <BankSelection>
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="11" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="13" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="23" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="0" name="24" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="25" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="28" Address="1" wasso="38" />
+            <Bank Data_Read="1" Control="1" SysClk="0" Data_Write="1" name="29" Address="1" wasso="38" />
+            <Bank Data_Read="0" Control="0" SysClk="1" Data_Write="0" name="3" Address="0" wasso="19" />
+            <Bank Data_Read="0" Control="0" SysClk="1" Data_Write="0" name="4" Address="0" wasso="19" />
+            <Bank Data_Read="0" Control="1" SysClk="0" Data_Write="1" name="7" Address="1" wasso="38" />
+        </BankSelection>
+    </Controller>
+</Project>

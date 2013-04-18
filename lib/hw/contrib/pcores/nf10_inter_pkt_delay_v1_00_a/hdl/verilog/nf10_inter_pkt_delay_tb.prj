@@ -1,0 +1,6 @@
+verilog work "delay_regs.v"
+verilog work "fallthrough_small_fifo_v2.v"
+verilog work "nf10_inter_pkt_delay.v"
+verilog work "small_fifo_v3.v"
+verilog work "nf10_inter_pkt_delay_tb.v"
+

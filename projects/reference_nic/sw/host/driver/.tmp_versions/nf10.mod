@@ -1,0 +1,2 @@
+/hpn/home/gcoving/tree/marios_dma/NetFPGA-10G-live/projects/reference_nic/sw/host/driver/nf10.ko
+/hpn/home/gcoving/tree/marios_dma/NetFPGA-10G-live/projects/reference_nic/sw/host/driver/nf10driver.o /hpn/home/gcoving/tree/marios_dma/NetFPGA-10G-live/projects/reference_nic/sw/host/driver/nf10iface.o /hpn/home/gcoving/tree/marios_dma/NetFPGA-10G-live/projects/reference_nic/sw/host/driver/nf10fops.o /hpn/home/gcoving/tree/marios_dma/NetFPGA-10G-live/projects/reference_nic/sw/host/driver/nf10priv.o
