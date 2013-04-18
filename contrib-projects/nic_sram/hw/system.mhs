@@ -474,7 +474,7 @@ BEGIN nf10_input_arbiter
  BUS_INTERFACE S_AXIS_1 = nf10_10g_interface_1_M_AXIS
  BUS_INTERFACE S_AXIS_2 = nf10_10g_interface_2_M_AXIS
  BUS_INTERFACE S_AXIS_3 = nf10_10g_interface_3_M_AXIS
- BUS_INTERFACE S_AXIS_4 = nf10_axis_converter_dma_master_M_AXIS
+ BUS_INTERFACE S_AXIS_4 = dma_0_M_AXIS
  PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
 END
@@ -515,13 +515,15 @@ END
 
 BEGIN dma
  PARAMETER INSTANCE = dma_0
- PARAMETER HW_VER = 1.00.a
+ PARAMETER HW_VER = 1.10.a
  PARAMETER C_BASEADDR = 0x7d400000
  PARAMETER C_HIGHADDR = 0x7d40ffff
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE M_AXI = axi_interconnect_0
  BUS_INTERFACE M_AXIS = dma_0_M_AXIS
  BUS_INTERFACE S_AXI = axi_interconnect_0
- BUS_INTERFACE S_AXIS = nf10_axis_converter_dma_slave_M_AXIS
+ BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_4
  PORT reset_n = Peripheral_aresetn
  PORT M_AXIS_ACLK = core_clk
  PORT S_AXIS_ACLK = core_clk
@@ -623,26 +625,3 @@ BEGIN nf10_sram_fifo
  PORT fifo_dbg = nf10_sram_fifo_0_fifo_dbg
  PORT mem_dbg = nf10_sram_fifo_0_mem_dbg
 END
-
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_dma_slave
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_S_AXIS_DATA_WIDTH = 256
- PARAMETER C_M_AXIS_DATA_WIDTH = 64
- BUS_INTERFACE S_AXIS = nf10_bram_output_queues_0_M_AXIS_4
- BUS_INTERFACE M_AXIS = nf10_axis_converter_dma_slave_M_AXIS
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
-END
-
-BEGIN nf10_axis_converter
- PARAMETER INSTANCE = nf10_axis_converter_dma_master
- PARAMETER HW_VER = 1.00.a
- PARAMETER C_S_AXIS_DATA_WIDTH = 64
- PARAMETER C_M_AXIS_DATA_WIDTH = 256
- BUS_INTERFACE S_AXIS = dma_0_M_AXIS
- BUS_INTERFACE M_AXIS = nf10_axis_converter_dma_master_M_AXIS
- PORT axi_aclk = core_clk
- PORT axi_resetn = Peripheral_aresetn
-END
-

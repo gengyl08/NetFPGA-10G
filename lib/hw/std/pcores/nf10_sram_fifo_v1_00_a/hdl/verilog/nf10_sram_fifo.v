@@ -565,6 +565,7 @@ module nf10_sram_fifo
 
     qdrii_infrastructure #
     (
+     .RST_ACT_LOW (1)
     )
     u_qdrii_infrastructure
     (
