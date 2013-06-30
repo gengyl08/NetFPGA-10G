@@ -84,6 +84,9 @@ def axis_dump( packets, f, bus_width, period, tuser_width = 128 ):
         if last_ts is not None:
             if (int(packet.time * 1e9)-last_ts) > 0 :
                 f.write( '+ %d\n' % (int(packet.time * 1e9)-last_ts) )
+        else:
+            if int(packet.time * 1e9) > 0 :
+                f.write( '@ %d\n' % int(packet.time * 1e9) )
         last_ts = int(packet.time * 1e9)
 
         # Set up TUSER
@@ -211,6 +214,6 @@ def axis_load( f, period ):
                 pkt_data = []
                 tuser    = []
                 if len(pkts[-1]) != pkts[-1].tuser_len:
-                    print '%s: %d: #%d: warning: meta length (%d) disagrees with actual length (%d)' % (f.name, lno, len(pkts), meta_len, len(pkts[-1]))
+                    print '%s: %d: #%d: warning: meta length (%d) disagrees with actual length (%d)' % (f.name, lno, len(pkts), pkts[-1].tuser_len, len(pkts[-1]))
             time += period
     return pkts

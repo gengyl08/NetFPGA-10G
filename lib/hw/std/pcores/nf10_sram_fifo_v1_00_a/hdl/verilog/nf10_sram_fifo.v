@@ -302,9 +302,10 @@ module nf10_sram_fifo
     
     wire memclk_180;
     wire memreset, memreset_180, memreset_270, memreset_200;
-    wire [NUM_MEM_CHIPS-1:0] next_cal_done;
-    reg [NUM_MEM_CHIPS-1:0] cal_done_interm;
-    reg [NUM_MEM_CHIPS-1:0] cal_done;
+//    wire [NUM_MEM_CHIPS-1:0] next_cal_done;
+//    reg [NUM_MEM_CHIPS-1:0] cal_done_interm;
+//    reg [NUM_MEM_CHIPS-1:0] cal_done;
+    wire [NUM_MEM_CHIPS-1:0] cal_done;
 
     wire read_burst, write_burst;
 
@@ -316,7 +317,7 @@ module nf10_sram_fifo
     wire [NUM_QUEUES-1:0] output_inc;
     assign mem_dbg = 0;
     assign fifo_dbg = 0;//{output_fifo_cnt[31:0], input_fifo_cnt[31:0]};
-    assign debug_calibration = cal_done;
+//    assign debug_calibration = cal_done;
     genvar i;
     generate
     for(i=0;i<NUM_QUEUES;i=i+1)
@@ -459,7 +460,8 @@ module nf10_sram_fifo
                 .HIGH_PERFORMANCE_MODE("TRUE"),
                 .IODELAY_GRP(IODELAY_GRP),
                 .MEMORY_WIDTH(36),
-                .SIM_ONLY(0)) 
+                //Set to 1 in simulation!
+                .SIM_ONLY(1)) 
                qdrii_controller
                (
                 .clk0(memclk),
@@ -496,7 +498,7 @@ module nf10_sram_fifo
                 .qdr_w_n(qdr_w_n[i]),
                 .qdr_d(qdr_d[((MEM_WIDTH)*(i+1)-1):((MEM_WIDTH)*i)]),
                 .qdr_r_n(qdr_r_n[i]),
-                .cal_done(),//next_cal_done[i]),
+                .cal_done(cal_done[i]),//next_cal_done[i]),
                 .dbg_idel_up_all        (1'b0),
                 .dbg_idel_down_all      (1'b0),
                 .dbg_idel_up_q_cq       (1'b0),
@@ -519,7 +521,7 @@ module nf10_sram_fifo
 );
     end
     endgenerate 
-
+/*
     // TODO: re-add cal done - don't overuse with fanout - only use to get out
     // of an initial state
     always @(posedge memclk)
@@ -545,7 +547,7 @@ module nf10_sram_fifo
             cal_done <= 3'b111;//cal_done_interm;
         end
     end
-
+*/
 (* KEEP = "TRUE" *) wire [MASTERBANK_PIN_WIDTH-1:0] masterbank_sel_pin_out/*synthesis syn_keep = 1 */;
 
   genvar dpw_i;

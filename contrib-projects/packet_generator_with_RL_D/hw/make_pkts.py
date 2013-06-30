@@ -67,12 +67,12 @@ from scapy.layers.all import Ether, IP, TCP
 
 pkts=[]
 # A simple TCP/IP packet embedded in an Ethernet II frame
-for i in range(8):
+for i in range(40):
     pkt = (Ether(src='11:22:33:44:55:66', dst='77:88:99:aa:bb:cc')/
            IP(src='192.168.1.1', dst='192.168.1.2')/
            TCP()/
            'Hello, NetFPGA-10G!')
-    pkt.time        = i*(1e-8)
+    pkt.time        = (2000+i)*(1e-8)
     # Set source network interface for DMA stream
     pkt.tuser_sport = 1 << (i%4*2 + 1) # PCI ports are odd-numbered
     pkts.append(pkt)

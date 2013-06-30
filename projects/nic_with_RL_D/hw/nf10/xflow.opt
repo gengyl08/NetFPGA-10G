@@ -62,16 +62,16 @@ Program map
 -mt 4;                   # James: Use 4 cores if possible
 -o <design>_map.ncd;     # Output Mapped ncd file
 -w;			 # Overwrite output files.
--pr b;                   # Pack internal FF/latches into IOBs
+#-pr b;                   # Pack internal FF/latches into IOBs
 #-fp <design>.mfp;       # Floorplan file
 -xe n;
 -ol high;
 #-cm speed;
--t 7;
+#-t 7;
 -register_duplication on;
--logic_opt on;
--timing;
--detail;
+#-logic_opt on;
+#-timing;
+#-detail;
 <inputdir><design>.ngd;  # Input NGD file
 <inputdir><design>.pcf;  # Physical constraints file
 END Program map

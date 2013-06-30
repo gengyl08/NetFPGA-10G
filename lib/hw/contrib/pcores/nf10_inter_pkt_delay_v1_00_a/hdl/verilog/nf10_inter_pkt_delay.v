@@ -121,7 +121,9 @@ module nf10_inter_pkt_delay
    wire [31:0] delay_length_reg;
    reg [63:0] pkt_leave_time, pkt_leave_time_next;
    reg pkt_leave_time_ready, pkt_leave_time_ready_next;
-   wire timecount_add_delay_length;
+   wire [63:0] timecount_add_delay_length;
+   assign timecount_add_delay_length = timecount + delay_length;
+   wire [63:0] timestamp_add_delay_length;
    assign timestamp_add_delay_length = timestamp + delay_length;
 
    // ------------ Modules ----------------
@@ -211,7 +213,6 @@ module nf10_inter_pkt_delay
 
          if(delay_use_reg) begin
             delay_length = delay_length_reg;
-            pkt_leave_time_next = timestamp_add_delay_length;
 
             m_axis_tlast = tlast_fifo_dout;
             m_axis_tuser = tuser_fifo_dout;
@@ -225,7 +226,7 @@ module nf10_inter_pkt_delay
                      m_axis_tvalid = 1;
                      if(m_axis_tready) begin
                         fifo_rd_en = 1;
-                        timestamp_next = timecount;
+                        pkt_leave_time_next = timecount_add_delay_length;
                         if(!m_axis_tlast) begin
                            state_next = IN_PACKET;
                         end
@@ -277,13 +278,22 @@ module nf10_inter_pkt_delay
                      pkt_leave_time_ready_next = 1;
                   end
 
-                  if(tvalid_buffer && (timecount >= pkt_leave_time)) begin
+                  if(tvalid_buffer && pkt_leave_time_ready && (timecount >= pkt_leave_time)) begin
                      if(tlast_buffer || !fifo_empty) begin
 
                         m_axis_tvalid = 1;
                         if(m_axis_tready) begin
                            timestamp_next = timecount;
-                           if(!m_axis_tlast) begin
+                           if(m_axis_tlast) begin
+                              if(tlast_buffer && !fifo_empty) begin
+                                 pkt_leave_time_next = timecount_add_delay_length;
+                                 pkt_leave_time_ready_next = 1;
+                              end
+                              else begin
+                                 pkt_leave_time_ready_next = 0;
+                              end
+                           end
+                           else begin
                               state_next = IN_PACKET;
                               pkt_leave_time_ready_next = 0;
                            end

@@ -1,2 +1,2 @@
-run 10 us
+run 20 us
 quit

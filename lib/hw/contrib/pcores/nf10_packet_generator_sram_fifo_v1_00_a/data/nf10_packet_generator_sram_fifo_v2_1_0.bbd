@@ -1,2 +1,2 @@
 FILES
-async_fifo.ngc
+counter_fifo.ngc, async_fifo_32.ngc

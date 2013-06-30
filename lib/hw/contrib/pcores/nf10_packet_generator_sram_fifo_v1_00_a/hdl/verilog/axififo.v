@@ -270,7 +270,7 @@ begin
         next_packing_state = packing_state;
 end
 
-async_fifo fifo(reset, clk, memclk, fifo_data, winc_fifo, rinc, dout, wfull, w_almost_full,rempty,r_almost_empty,dout_valid);
+async_fifo_32 fifo(reset, clk, memclk, fifo_data, winc_fifo, rinc, dout, wfull, w_almost_full, fifo_overflow, rempty,r_almost_empty,dout_valid);
 
 
 endmodule

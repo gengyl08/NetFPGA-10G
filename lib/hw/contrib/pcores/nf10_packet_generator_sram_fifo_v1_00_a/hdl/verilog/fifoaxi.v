@@ -79,21 +79,55 @@ module FifoToAxi
     output                           wfull,
     input                            cal_done,
     output reg                       rinc,
-    output reg [31:0] output_fifo_cnt
+    output reg [31:0] output_fifo_cnt,
+    //Assert when read from SRAM
+    input                            sram_read
 );
 
-wire rempty, r_almost_empty;
+wire fifo_overflow;
+wire rempty;
 reg winc;
-wire rvalid;
 reg [31:0] next_output_fifo_cnt;
 reg reassembly_dout_valid;
 
+reg [4:0] buffer_size;
+wire [4:0] buffer_size_plus_2 = buffer_size + 2;
+wire [4:0] buffer_size_minus_1 = buffer_size - 1;
+wire counter_fifo_almost_full;
+assign w_almost_full = counter_fifo_almost_full;
+
+assign tuser = 0;
+
+wire [(8*CROPPED_TDATA_WIDTH+9-1):0] fifo_data;
+reg [(8*CROPPED_TDATA_WIDTH+9-1):0] prev_fifo_data;
+wire [1:0] packing_state = fifo_data[3:2];
+wire [4:0] tstrb_count = fifo_data[8:4];
+wire [TDATA_WIDTH-1:0] tstrb_onehot;
+
 always @(posedge clk)
 begin
-    if(reset)
+    if(reset) begin
         output_fifo_cnt <= 32'b0;
-    else
+        buffer_size <= 0;
+    end
+    else begin
         output_fifo_cnt <= next_output_fifo_cnt;
+        if(rinc || (~rempty && (fifo_data[3:2] == 2'b0))) begin
+            buffer_size <= buffer_size_minus_1;
+        end
+    end
+end
+
+always @(posedge memclk)
+begin
+    if(memreset) begin
+        buffer_size <= 0;
+    end
+    else begin
+        if(sram_read) begin
+            buffer_size <= buffer_size_plus_2;
+        end
+    end
 end
 
 always @(*)
@@ -116,13 +150,6 @@ begin
     end
 end
 
-assign tuser = 0;
-
-wire [(8*CROPPED_TDATA_WIDTH+9-1):0] fifo_data;
-reg [(8*CROPPED_TDATA_WIDTH+9-1):0] prev_fifo_data;
-wire [1:0] packing_state = fifo_data[3:2];
-wire [4:0] tstrb_count = fifo_data[8:4];
-wire [TDATA_WIDTH-1:0] tstrb_onehot;
 
 always @(posedge clk)
 begin
@@ -171,7 +198,7 @@ begin
 end
 
 
-async_fifo fifo(reset, memclk, clk, din, din_valid, rinc || (~rempty && (fifo_data[3:2] == 2'b0)), fifo_data, wfull, ,rempty,r_almost_empty,rvalid, w_almost_full);
-
+async_fifo_32 fifo(reset, memclk, clk, din, din_valid, rinc || (~rempty && (fifo_data[3:2] == 2'b0)), fifo_data, wfull, fifo_almost_full, fifo_overflow, rempty, fifo_almost_empty, fifo_valid);
+counter_fifo counterFIFO(reset, memclk, clk, 2'b11, sram_read, rinc || (~rempty && (fifo_data[3:2] == 2'b0)), counter_fifo_out, counter_fifo_full, counter_fifo_almost_full, counter_fifo_empty);
 
 endmodule

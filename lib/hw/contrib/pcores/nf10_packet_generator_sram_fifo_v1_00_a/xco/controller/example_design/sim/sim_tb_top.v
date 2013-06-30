@@ -78,7 +78,7 @@ module sim_tb_top();
                                // # of Byte Write Control bits.
    localparam F0_QDRII_DLL_FREQ_MODE  = "HIGH";       
                                // DCM's DLL Frequency mode.
-   localparam F0_QDRII_CLK_PERIOD     = 5000;       
+   localparam F0_QDRII_CLK_PERIOD     = 4762;       
                                // Core\Memory clock period (in ps).
    localparam CLK_TYPE                = "DIFFERENTIAL";       
                                // # = "DIFFERENTIAL " -> Differential input clocks,
@@ -268,6 +268,9 @@ module sim_tb_top();
    reg  [C2_QDRII_CQ_WIDTH-1:0]       c2_qdr_cq_n_fpga;
    wire [C2_QDRII_CQ_WIDTH-1:0]       c2_qdr_cq_n_sram;
    wire [MASTERBANK_PIN_WIDTH-1:0]    masterbank_sel_pin;
+
+   wire TDO;
+   reg TCK, TMS, TDI, ZQ;
 
 
 
@@ -473,6 +476,74 @@ always @( c2_qdr_w_n_fpga or c2_qdr_r_n_fpga or c2_qdr_dll_off_n_fpga or c2_qdr_
 //                              Memory Model
 // =============================================================================
 
+cyqdr2_b4 mem0 (
+   .TCK(TCK),
+   .TMS(TMS),
+   .TDI(TDI),
+   .TDO(TDO),
+   .D(c0_qdr_d_sram),
+   .Q(c0_qdr_q_sram),
+   .A(c0_qdr_sa_sram),
+   .K(c0_qdr_k_sram),
+   .Kb(c0_qdr_k_n_sram),
+   .C(c0_qdr_c),
+   .Cb(c0_qdr_c_n),
+   .RPSb(c0_qdr_r_n_sram),
+   .WPSb(c0_qdr_w_n_sram),
+   .BWS0b(c0_qdr_bw_n_sram[0]),
+   .BWS1b(c0_qdr_bw_n_sram[1]),
+   .BWS2b(c0_qdr_bw_n_sram[2]),
+   .BWS3b(c0_qdr_bw_n_sram[3]),
+   .CQ(c0_qdr_cq_sram),
+   .CQb(c0_qdr_cq_n_sram),
+   .ZQ(ZQ),
+   .DOFF(c0_qdr_dll_off_n_sram));
+
+cyqdr2_b4 mem1 (
+   .TCK(TCK),
+   .TMS(TMS),
+   .TDI(TDI),
+   .TDO(TDO),
+   .D(c1_qdr_d_sram),
+   .Q(c1_qdr_q_sram),
+   .A(c1_qdr_sa_sram),
+   .K(c1_qdr_k_sram),
+   .Kb(c1_qdr_k_n_sram),
+   .C(c1_qdr_c),
+   .Cb(c1_qdr_c_n),
+   .RPSb(c1_qdr_r_n_sram),
+   .WPSb(c1_qdr_w_n_sram),
+   .BWS0b(c1_qdr_bw_n_sram[0]),
+   .BWS1b(c1_qdr_bw_n_sram[1]),
+   .BWS2b(c1_qdr_bw_n_sram[2]),
+   .BWS3b(c1_qdr_bw_n_sram[3]),
+   .CQ(c1_qdr_cq_sram),
+   .CQb(c1_qdr_cq_n_sram),
+   .ZQ(ZQ),
+   .DOFF(c1_qdr_dll_off_n_sram));
+
+cyqdr2_b4 mem2 (
+   .TCK(TCK),
+   .TMS(TMS),
+   .TDI(TDI),
+   .TDO(TDO),
+   .D(c2_qdr_d_sram),
+   .Q(c2_qdr_q_sram),
+   .A(c2_qdr_sa_sram),
+   .K(c2_qdr_k_sram),
+   .Kb(c2_qdr_k_n_sram),
+   .C(c2_qdr_c),
+   .Cb(c2_qdr_c_n),
+   .RPSb(c2_qdr_r_n_sram),
+   .WPSb(c2_qdr_w_n_sram),
+   .BWS0b(c2_qdr_bw_n_sram[0]),
+   .BWS1b(c2_qdr_bw_n_sram[1]),
+   .BWS2b(c2_qdr_bw_n_sram[2]),
+   .BWS3b(c2_qdr_bw_n_sram[3]),
+   .CQ(c2_qdr_cq_sram),
+   .CQb(c2_qdr_cq_n_sram),
+   .ZQ(ZQ),
+   .DOFF(c2_qdr_dll_off_n_sram));
 
 
 endmodule

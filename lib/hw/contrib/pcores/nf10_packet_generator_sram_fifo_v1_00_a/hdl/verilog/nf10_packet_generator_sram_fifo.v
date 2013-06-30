@@ -410,8 +410,9 @@ module nf10_packet_generator_sram_fifo
                           .wfull(wfull_out[i]), 
                           .cal_done(&cal_done),
                           .rinc(output_inc[i]),
-                          .output_fifo_cnt(output_fifo_cnt[(32*i+31):(32*i)])
-
+                          .output_fifo_cnt(output_fifo_cnt[(32*i+31):(32*i)]),
+                          // Assert when read from SRAM
+                          .sram_read(mem_controller_din_ready && (mem_queue_id_read == i))
                           );
     end
     endgenerate
@@ -507,7 +508,8 @@ module nf10_packet_generator_sram_fifo
                 .HIGH_PERFORMANCE_MODE("TRUE"),
                 .IODELAY_GRP(IODELAY_GRP),
                 .MEMORY_WIDTH(36),
-                .SIM_ONLY(0)) 
+                //Set to 1 in simulation!!
+                .SIM_ONLY(0))
                qdrii_controller
                (
                 .clk0(memclk),
@@ -613,6 +615,7 @@ module nf10_packet_generator_sram_fifo
 
     qdrii_infrastructure #
     (
+     .RST_ACT_LOW (1)
     )
     u_qdrii_infrastructure
     (
@@ -661,6 +664,7 @@ module nf10_packet_generator_sram_fifo
 
    sram_regs
       #(
+        .DATA_WIDTH(32)
        )
       sram_regs
          (

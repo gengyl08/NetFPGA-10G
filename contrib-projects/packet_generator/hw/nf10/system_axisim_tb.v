@@ -116,6 +116,9 @@ module system_axisim_tb
   wire qdr_k_n_2;
   wire qdr_c_2;
   wire qdr_k_2;
+  reg  TCK, TMS, TDI, ZQ;
+  wire TDO;
+  integer k;
 
   system_axisim
     dut (
@@ -180,6 +183,10 @@ module system_axisim_tb
 
   cyqdr2_b4
     mem0 (
+      .TCK(TCK),
+      .TMS(TMS),
+      .TDI(TDI),
+      .TDO(TDO),
       .D(qdr_d_0),
       .Q(qdr_q_0),
       .A(qdr_sa_0),
@@ -188,18 +195,23 @@ module system_axisim_tb
       .C(qdr_c_0),
       .Cb(qdr_c_n_0),
       .RPSb(qdr_r_n_0),
-      .WPSb(qdr_r_n_0),
+      .WPSb(qdr_w_n_0),
       .BWS0b(qdr_bw_n_0[0]),
       .BWS1b(qdr_bw_n_0[1]),
       .BWS2b(qdr_bw_n_0[2]),
       .BWS3b(qdr_bw_n_0[3]),
       .CQ(qdr_cq_0),
       .CQb(qdr_cq_n_0),
+      .ZQ(ZQ),
       .DOFF(qdr_dll_off_n_0)
     );
 
   cyqdr2_b4
     mem1 (
+      .TCK(TCK),
+      .TMS(TMS),
+      .TDI(TDI),
+      .TDO(TDO),
       .D(qdr_d_1),
       .Q(qdr_q_1),
       .A(qdr_sa_1),
@@ -208,18 +220,23 @@ module system_axisim_tb
       .C(qdr_c_1),
       .Cb(qdr_c_n_1),
       .RPSb(qdr_r_n_1),
-      .WPSb(qdr_r_n_1),
+      .WPSb(qdr_w_n_1),
       .BWS0b(qdr_bw_n_1[0]),
       .BWS1b(qdr_bw_n_1[1]),
       .BWS2b(qdr_bw_n_1[2]),
       .BWS3b(qdr_bw_n_1[3]),
       .CQ(qdr_cq_1),
       .CQb(qdr_cq_n_1),
+      .ZQ(ZQ),
       .DOFF(qdr_dll_off_n_1)
     );
 
   cyqdr2_b4
     mem2 (
+      .TCK(TCK),
+      .TMS(TMS),
+      .TDI(TDI),
+      .TDO(TDO),
       .D(qdr_d_2),
       .Q(qdr_q_2),
       .A(qdr_sa_2),
@@ -228,13 +245,14 @@ module system_axisim_tb
       .C(qdr_c_2),
       .Cb(qdr_c_n_2),
       .RPSb(qdr_r_n_2),
-      .WPSb(qdr_r_n_2),
+      .WPSb(qdr_w_n_2),
       .BWS0b(qdr_bw_n_2[0]),
       .BWS1b(qdr_bw_n_2[1]),
       .BWS2b(qdr_bw_n_2[2]),
       .BWS3b(qdr_bw_n_2[3]),
       .CQ(qdr_cq_2),
       .CQb(qdr_cq_n_2),
+      .ZQ(ZQ),
       .DOFF(qdr_dll_off_n_2)
     );
 

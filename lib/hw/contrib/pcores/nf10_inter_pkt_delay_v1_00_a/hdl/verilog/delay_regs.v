@@ -178,6 +178,11 @@ module delay_regs
          delay_enable <= 0;
          delay_mux <= 0;
          host_reset <= 0;
+//         delay_length <= 5;
+//         delay_enable <= 1;
+//         delay_mux <= 0;
+//         host_reset <= 0;
+
 
       end
       else begin
@@ -191,6 +196,11 @@ module delay_regs
          delay_enable <= delay_enable_next;
          delay_mux <= delay_mux_next;
          host_reset <= host_reset_next;
+//         delay_length <= 5;
+//         delay_enable <= 1;
+//         delay_mux <= 0;
+//         host_reset <= 0;
+
 
       end
    end

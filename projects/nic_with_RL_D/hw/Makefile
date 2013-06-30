@@ -228,12 +228,16 @@ $(POSTSYN_NETLIST): $(WRAPPER_NGC_FILES) $(NF10_NGC_FILES)
 	cd synthesis; xst -ifn "system_xst.scr"
 
 #James: Use multi-core map and par. Parameters in nf10/xflow.opt
+#Yilong: Use SmartXplorer
 __xps/$(SYSTEM)_routed: $(FPGA_IMP_DEPENDENCY)
 	@echo "*********************************************"
 	@echo "Running Xilinx Implementation tools.."
 	@echo "*********************************************"
 	@cp -f $(UCF_FILE) implementation/$(SYSTEM).ucf
 	@cp -f nf10/xflow.opt implementation/xflow.opt
+	#@cp -f nf10/hosts implementation/hosts
+	#@cp -f nf10/smartxplorer.strat implementation/smartxplorer.strat
+	#@cp -f nf10/fpga.flw implementation/fpga.flw
 	xflow -wd implementation -p $(DEVICE) -implement xflow.opt $(SYSTEM).ngc
 	touch __xps/$(SYSTEM)_routed
 

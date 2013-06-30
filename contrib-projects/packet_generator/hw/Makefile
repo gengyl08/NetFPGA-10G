@@ -228,12 +228,16 @@ $(POSTSYN_NETLIST): $(WRAPPER_NGC_FILES) $(NF10_NGC_FILES)
 	cd synthesis; xst -ifn "system_xst.scr"
 
 #James: Use multi-core map and par. Parameters in nf10/xflow.opt
+#Yilong: Add smartXplorer
 __xps/$(SYSTEM)_routed: $(FPGA_IMP_DEPENDENCY)
 	@echo "*********************************************"
 	@echo "Running Xilinx Implementation tools.."
 	@echo "*********************************************"
 	@cp -f $(UCF_FILE) implementation/$(SYSTEM).ucf
 	@cp -f nf10/xflow.opt implementation/xflow.opt
+	#@cp -f nf10/smartxplorer/xflow.opt implementation/xflow.opt
+	#@cp -f nf10/smartxplorer/hosts implementation/hosts
+	#@cp -f nf10/smartxplorer/fpga.flw implementation/fpga.flw
 	xflow -wd implementation -p $(DEVICE) -implement xflow.opt $(SYSTEM).ngc
 	touch __xps/$(SYSTEM)_routed
 
@@ -324,12 +328,12 @@ axi_model: __xps/simgen.opt $(BRAMINIT_ELF_SIM_FILES)
 	nf10_sim_autosubst.py -i $(MHSFILE) -o $(AXISIM_MHS)
 	simgen $(SIMGEN_OPTIONS) -m behavioral $(AXISIM_MHS)
 	cd simulation/behavioral && sed -i '/nosort/ i\
-verilog work "cyqdr2_b4.v"' system_axisim.prj
+verilog work "CY7C1515KV18.v"' system_axisim.prj
 
 sim: axi_model
 	./make_pkts.py
 	cp nf10/system_axisim_tb.v simulation/behavioral
-	cp nf10/cyqdr2_b4.v simulation/behavioral
+	cp nf10/CY7C1515KV18.v simulation/behavioral
 	cd simulation/behavioral && $(AXISIM_FUSE)
 	cd simulation/behavioral && $(AXISIM_CMD) -tclbatch ../../nf10/noninteractive_sim.tcl
 	nf10_sim_reconcile_axi_logs.py
@@ -337,7 +341,7 @@ sim: axi_model
 simgui: axi_model
 	./make_pkts.py
 	cp nf10/system_axisim_tb.v simulation/behavioral
-	cp nf10/cyqdr2_b4.v simulation/behavioral
+	cp nf10/CY7C1515KV18.v simulation/behavioral
 	cd simulation/behavioral && $(AXISIM_FUSE)
 	cd simulation/behavioral && $(AXISIM_CMD) -gui -tclbatch system_axisim_setup.tcl
 	nf10_sim_reconcile_axi_logs.py

@@ -126,8 +126,8 @@ reg next_dout_burst_ready;
 
 reg [18:0] base_addr [3:0];
 reg [18:0] bound_addr [3:0];
-reg [31:0] replay_times;
-reg [31:0] next_replay_times;
+reg [31:0] replay_times [3:0];
+reg [31:0] next_replay_times [3:0];
 
 wire [18:0] base_addr_input [3:0];
 wire [18:0] bound_addr_input [3:0];
@@ -162,7 +162,10 @@ begin
         dout_burst_ready <= 1'b0;
         din_addr <= {(MEM_ADDR_WIDTH){1'b0}};
         din_ready <= 1'b0;
-        replay_times <= replay_times_input;
+        replay_times[0] <= replay_times_input;
+        replay_times[1] <= replay_times_input;
+        replay_times[2] <= replay_times_input;
+        replay_times[3] <= replay_times_input;
     end
     else
     begin
@@ -175,11 +178,17 @@ begin
         din_ready <= next_din_ready;
         if (!replay_begin)
         begin
-            replay_times <= replay_times_input;
+            replay_times[0] <= replay_times_input;
+            replay_times[1] <= replay_times_input;
+            replay_times[2] <= replay_times_input;
+            replay_times[3] <= replay_times_input;
         end
         else
         begin
-            replay_times <= next_replay_times;
+            replay_times[0] <= next_replay_times[0];
+            replay_times[1] <= next_replay_times[1];
+            replay_times[2] <= next_replay_times[2];
+            replay_times[3] <= next_replay_times[3];
         end
     end
 end
@@ -229,10 +238,10 @@ assign read_data_queue_id = din_merged[((8*TDATA_WIDTH+9+QUEUE_ID_WIDTH)-1):(8*T
 assign next_dout[((8*TDATA_WIDTH+9)-1):0] = write_data;
 assign next_dout[((8*TDATA_WIDTH+9+QUEUE_ID_WIDTH)-1):(8*TDATA_WIDTH+9)] = write_queue_id;
 assign next_dout[8*TDATA_WIDTH+9+QUEUE_ID_WIDTH] = write_data_valid;
-assign read_empty[0] = (read_addr[0] == write_addr[0]);
-assign read_empty[1] = (read_addr[1] == write_addr[1]);
-assign read_empty[2] = (read_addr[2] == write_addr[2]);
-assign read_empty[3] = (read_addr[3] == write_addr[3]);
+assign read_empty[0] = (read_addr[0] == write_addr[0]) || (replay_times[0] == 0);
+assign read_empty[1] = (read_addr[1] == write_addr[1]) || (replay_times[1] == 0);
+assign read_empty[2] = (read_addr[2] == write_addr[2]) || (replay_times[2] == 0);
+assign read_empty[3] = (read_addr[3] == write_addr[3]) || (replay_times[3] == 0);
 assign write_full[0] = (write_addr[0] == bound_addr[0]);
 assign write_full[1] = (write_addr[1] == bound_addr[1]);
 assign write_full[2] = (write_addr[2] == bound_addr[2]);
@@ -243,7 +252,7 @@ assign tail_addr[2] = write_addr[2];
 assign tail_addr[3] = write_addr[3];
 
 always @(read_addr[0],read_addr[1],read_addr[2],read_addr[3],write_addr[0],write_addr[1],write_addr[2],write_addr[3],
-         replay_times,read_data_ready,read_burst_state,replay_begin,replay_times,base_addr[0],base_addr[1],base_addr[2],
+         replay_times[0],replay_times[1],replay_times[2],replay_times[3],read_data_ready,read_burst_state,replay_begin,base_addr[0],base_addr[1],base_addr[2],
          base_addr[3],write_data_valid,write_burst_state,write_full) begin
 
     next_read_burst_state = BURST_STATE_OFF;
@@ -260,9 +269,12 @@ always @(read_addr[0],read_addr[1],read_addr[2],read_addr[3],write_addr[0],write
     next_write_addr[1] = write_addr[1];
     next_write_addr[2] = write_addr[2];
     next_write_addr[3] = write_addr[3];    
-    next_replay_times = replay_times;
+    next_replay_times[0] = replay_times[0];
+    next_replay_times[1] = replay_times[1];
+    next_replay_times[2] = replay_times[2];
+    next_replay_times[3] = replay_times[3];
     
-    if(read_data_ready && (read_burst_state == 0) && replay_begin && replay_times != 0)
+    if(read_data_ready && (read_burst_state == 0) && replay_begin && replay_times[read_queue_id] != 0)
     begin
         next_din_addr = read_addr[read_queue_id];
         next_din_ready = 1'b1;             
@@ -270,7 +282,7 @@ always @(read_addr[0],read_addr[1],read_addr[2],read_addr[3],write_addr[0],write
         if (next_read_addr[read_queue_id] == write_addr[read_queue_id])
         begin
             next_read_addr[read_queue_id] = base_addr[read_queue_id];
-            next_replay_times = replay_times - 1;
+            next_replay_times[read_queue_id] = replay_times[read_queue_id] - 1;
         end
         next_read_burst_state = BURST_STATE_HALFWAY; 
     end

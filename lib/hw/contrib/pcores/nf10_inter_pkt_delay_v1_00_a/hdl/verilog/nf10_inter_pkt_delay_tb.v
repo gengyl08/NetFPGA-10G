@@ -79,7 +79,7 @@ module testbench();
             HEADER_0: begin
                 tdata = data_0;
                 tstrb = strb_0;
-                tlast = 1;
+                tlast = 0;
                 if(tready) begin
                     state_next = HEADER_1;
                 end
@@ -99,7 +99,7 @@ module testbench();
             HEADER_2: begin
                 tdata = data_0;
                 tstrb = strb_0;
-                tlast = 1;
+                tlast = 0;
                 if(tready) begin
                     state_next = HEADER_3;
                 end
