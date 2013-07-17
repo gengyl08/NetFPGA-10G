@@ -46,22 +46,24 @@ module sram_regs
     parameter ADDR_WIDTH=32
     )
    (
+    input memclk,
+    input memreset,
 
-    output reg [18:0] base_addr_0,
-    output reg [18:0] base_addr_1,
-    output reg [18:0] base_addr_2,
-    output reg [18:0] base_addr_3,
-    output reg [18:0] bound_addr_0,
-    output reg [18:0] bound_addr_1,
-    output reg [18:0] bound_addr_2,
-    output reg [18:0] bound_addr_3,
+    output reg [18:0] base_addr_out_0,
+    output reg [18:0] base_addr_out_1,
+    output reg [18:0] base_addr_out_2,
+    output reg [18:0] base_addr_out_3,
+    output reg [18:0] bound_addr_out_0,
+    output reg [18:0] bound_addr_out_1,
+    output reg [18:0] bound_addr_out_2,
+    output reg [18:0] bound_addr_out_3,
     input [18:0] tail_addr_0,
     input [18:0] tail_addr_1,
     input [18:0] tail_addr_2,
     input [18:0] tail_addr_3,
-    output reg [31:0] replay_times, 
-    output reg replay_begin,
-    output reg host_reset,
+    output reg [31:0] replay_times_out, 
+    output reg replay_begin_out,
+    output reg host_reset_out,
 
     input                        ACLK,
     input                        ARESETN,
@@ -123,6 +125,29 @@ module sram_regs
    reg [ADDR_WIDTH-1:0]          read_addr, read_addr_next;
    reg [ADDR_WIDTH-1:0]          write_addr, write_addr_next;
    reg [1:0]                     BRESP_next;
+
+   reg [18:0] base_addr_0;
+   reg [18:0] base_addr_1;
+   reg [18:0] base_addr_2;
+   reg [18:0] base_addr_3;
+   reg [18:0] bound_addr_0;
+   reg [18:0] bound_addr_1;
+   reg [18:0] bound_addr_2;
+   reg [18:0] bound_addr_3;
+   reg [31:0] replay_times; 
+   reg replay_begin;
+   reg host_reset;
+
+   reg dirty, dirty_next;
+   wire fifo_wr_en;
+   wire fifo_rd_en;
+   wire [185:0] fifo_din;
+   wire [185:0] fifo_dout;
+   wire fifo_full;
+   wire fifo_empty;
+   assign fifo_din = {base_addr_0, base_addr_1, base_addr_2, base_addr_3, bound_addr_0, bound_addr_1, bound_addr_2, bound_addr_3, replay_times, replay_begin, host_reset};
+   assign fifo_rd_en = ~fifo_empty;
+   assign fifo_wr_en = dirty & (~fifo_full);
 
    reg [18:0] base_addr_next_0;
    reg [18:0] base_addr_next_1;
@@ -253,6 +278,14 @@ module sram_regs
       replay_begin_next = replay_begin;
       host_reset_next = host_reset;
 
+      if(~fifo_full) begin
+         dirty_next = 0;
+      end
+      else begin
+         dirty_next = dirty;
+      end
+
+
       case(write_state)
         WRITE_IDLE: begin
            write_addr_next = AWADDR;
@@ -267,50 +300,61 @@ module sram_regs
               if(write_addr[7:0] == BASE_ADDR_0) begin
                  base_addr_next_0 = WDATA[18:0];
                  BRESP_next = AXI_RESP_OK;
+                 dirty_next = 1;
               end
               else if(write_addr[7:0] == BASE_ADDR_1) begin
                  base_addr_next_1 = WDATA[18:0];
                  BRESP_next = AXI_RESP_OK;
+                 dirty_next = 1;
               end
               else if(write_addr[7:0] == BASE_ADDR_2) begin
                  base_addr_next_2 = WDATA[18:0];
                  BRESP_next = AXI_RESP_OK;
+                 dirty_next = 1;
               end
               else if(write_addr[7:0] == BASE_ADDR_3) begin
                  base_addr_next_3 = WDATA[18:0];
                  BRESP_next = AXI_RESP_OK;
+                 dirty_next = 1;
               end
 
               else if(write_addr[7:0] == BOUND_ADDR_0) begin
                  base_addr_next_0 = WDATA[18:0];
                  BRESP_next = AXI_RESP_OK;
+                 dirty_next = 1;
               end
               else if(write_addr[7:0] == BOUND_ADDR_1) begin
                  base_addr_next_1 = WDATA[18:0];
                  BRESP_next = AXI_RESP_OK;
+                 dirty_next = 1;
               end
               else if(write_addr[7:0] == BOUND_ADDR_2) begin
                  base_addr_next_2 = WDATA[18:0];
                  BRESP_next = AXI_RESP_OK;
+                 dirty_next = 1;
               end
               else if(write_addr[7:0] == BOUND_ADDR_3) begin
                  base_addr_next_3 = WDATA[18:0];
                  BRESP_next = AXI_RESP_OK;
+                 dirty_next = 1;
               end
 
               else if(write_addr[7:0] == REPLAY_TIMES) begin
                  replay_times_next = WDATA;
                  BRESP_next = AXI_RESP_OK;
+                 dirty_next = 1;
               end
               
               else if(write_addr[7:0] == REPLAY_BEGIN) begin
                  replay_begin_next = WDATA[0];
                  BRESP_next = AXI_RESP_OK;
+                 dirty_next = 1;
               end
 
               else if(write_addr[7:0] == HOST_RESET) begin
                  host_reset_next = WDATA[0];
                  BRESP_next = AXI_RESP_OK;
+                 dirty_next = 1;
               end
 
               else begin
@@ -351,6 +395,8 @@ module sram_regs
          replay_begin <= 0;
          host_reset <= 0;
 
+         dirty <= 0;
+
       end
       else begin
          write_state <= write_state_next;
@@ -371,7 +417,45 @@ module sram_regs
          replay_begin <= replay_begin_next;
          host_reset <= host_reset_next;
 
+         dirty <= dirty_next;
+
       end
    end
+
+   always @(posedge memclk) begin
+
+      if(memreset) begin
+         base_addr_out_0 <= {2'd00, 17'b0};
+         base_addr_out_1 <= {2'd01, 17'b0};
+         base_addr_out_2 <= {2'd02, 17'b0};
+         base_addr_out_3 <= {2'd03, 17'b0};
+
+         bound_addr_out_0 <= {2'd01, 17'b0};
+         bound_addr_out_1 <= {2'd02, 17'b0};
+         bound_addr_out_2 <= {2'd03, 17'b0};
+         bound_addr_out_3 <= {2'd00, 17'b0};
+
+         replay_times_out <= 0;
+         replay_begin_out <= 0;
+         host_reset_out <= 0;
+      end
+      else begin
+         if(!fifo_empty) begin
+            {base_addr_out_0,
+             base_addr_out_1,
+             base_addr_out_2,
+             base_addr_out_3,
+             bound_addr_out_0,
+             bound_addr_out_1,
+             bound_addr_out_2,
+             bound_addr_out_3,
+             replay_times_out,
+             replay_begin_out,
+             host_reset_out} <= fifo_dout;
+         end
+      end
+   end
+
+reg2fpga_fifo fifo(~ARESETN, ACLK, memclk, fifo_din, fifo_wr_en, fifo_rd_en, fifo_dout, fifo_full, fifo_empty);
 
 endmodule

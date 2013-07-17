@@ -61,6 +61,7 @@ module FifoMem
   parameter integer QUEUE_SIZE         = MEM_NUM_WORDS/4
 )
 (
+    input                          control_clk,
     input                          clk,
     input                          reset,
     input  [(QUEUE_ID_WIDTH-1):0]   read_queue_id,
@@ -101,10 +102,10 @@ module FifoMem
     input [18:0] bound_addr_input_1,
     input [18:0] bound_addr_input_2,
     input [18:0] bound_addr_input_3,
-    output [18:0] tail_addr_0,
-    output [18:0] tail_addr_1,
-    output [18:0] tail_addr_2,
-    output [18:0] tail_addr_3,
+    output reg [18:0] tail_addr_out_0,
+    output reg [18:0] tail_addr_out_1,
+    output reg [18:0] tail_addr_out_2,
+    output reg [18:0] tail_addr_out_3,
     input [31:0] replay_times_input,
     input replay_begin
 );
@@ -131,7 +132,7 @@ reg [31:0] next_replay_times [3:0];
 
 wire [18:0] base_addr_input [3:0];
 wire [18:0] bound_addr_input [3:0];
-wire [18:0] tail_addr [3:0];
+
 
 assign base_addr_input[0] = base_addr_input_0;
 assign base_addr_input[1] = base_addr_input_1;
@@ -141,10 +142,17 @@ assign bound_addr_input[0] = bound_addr_input_0;
 assign bound_addr_input[1] = bound_addr_input_1;
 assign bound_addr_input[2] = bound_addr_input_2;
 assign bound_addr_input[3] = bound_addr_input_3;
-assign tail_addr_0 = tail_addr[0];
-assign tail_addr_1 = tail_addr[1];
-assign tail_addr_2 = tail_addr[2];
-assign tail_addr_3 = tail_addr[3];
+
+reg dirty, dirty_next;
+wire [71:0] fifo_din;
+wire fifo_wr_en;
+wire fifo_rd_en;
+wire [71:0] fifo_dout;
+wire fifo_full;
+wire fifo_empty;
+assign fifo_rd_en = ~fifo_empty;
+assign fifo_wr_en = dirty & (~fifo_full);
+assign fifo_din = {write_addr[0], write_addr[1], write_addr[2], write_addr[3]};
 
 localparam BURST_STATE_OFF = 1'b0;
 localparam BURST_STATE_HALFWAY = 1'b1;
@@ -166,6 +174,7 @@ begin
         replay_times[1] <= replay_times_input;
         replay_times[2] <= replay_times_input;
         replay_times[3] <= replay_times_input;
+        dirty <= 1;
     end
     else
     begin
@@ -176,6 +185,7 @@ begin
         dout_burst_ready <= next_dout_burst_ready;
         din_addr <= next_din_addr;
         din_ready <= next_din_ready;
+        dirty <= dirty_next;
         if (!replay_begin)
         begin
             replay_times[0] <= replay_times_input;
@@ -246,10 +256,6 @@ assign write_full[0] = (write_addr[0] == bound_addr[0]);
 assign write_full[1] = (write_addr[1] == bound_addr[1]);
 assign write_full[2] = (write_addr[2] == bound_addr[2]);
 assign write_full[3] = (write_addr[3] == bound_addr[3]);
-assign tail_addr[0] = write_addr[0];
-assign tail_addr[1] = write_addr[1];
-assign tail_addr[2] = write_addr[2];
-assign tail_addr[3] = write_addr[3];
 
 always @(read_addr[0],read_addr[1],read_addr[2],read_addr[3],write_addr[0],write_addr[1],write_addr[2],write_addr[3],
          replay_times[0],replay_times[1],replay_times[2],replay_times[3],read_data_ready,read_burst_state,replay_begin,base_addr[0],base_addr[1],base_addr[2],
@@ -273,6 +279,13 @@ always @(read_addr[0],read_addr[1],read_addr[2],read_addr[3],write_addr[0],write
     next_replay_times[1] = replay_times[1];
     next_replay_times[2] = replay_times[2];
     next_replay_times[3] = replay_times[3];
+
+    if(~fifo_full) begin
+       dirty_next = 0;
+    end
+    else begin
+       dirty_next = dirty;
+    end
     
     if(read_data_ready && (read_burst_state == 0) && replay_begin && replay_times[read_queue_id] != 0)
     begin
@@ -296,9 +309,18 @@ always @(read_addr[0],read_addr[1],read_addr[2],read_addr[3],write_addr[0],write
             next_dout_burst_ready = 1'b1;
             next_write_addr[write_queue_id] = write_addr[write_queue_id] + 1;
             next_write_burst_state = BURST_STATE_HALFWAY;
+            dirty_next = 1;
         end
     end
 
 end
+
+always @(posedge control_clk) begin
+    if(!fifo_empty) begin
+       {tail_addr_out_0, tail_addr_out_1, tail_addr_out_2, tail_addr_out_3} <= fifo_dout;
+    end
+end
+
+fpga2reg_fifo fifo(reset, clk, control_clk, fifo_din, fifo_wr_en, fifo_rd_en, fifo_dout, fifo_full, fifo_empty);
 
 endmodule

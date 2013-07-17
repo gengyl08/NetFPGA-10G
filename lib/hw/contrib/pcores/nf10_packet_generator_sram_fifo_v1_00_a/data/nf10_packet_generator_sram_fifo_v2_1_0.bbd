@@ -1,2 +1,2 @@
 FILES
-counter_fifo.ngc, async_fifo_32.ngc
+counter_fifo.ngc, async_fifo_32.ngc, fpga2reg_fifo.ngc, reg2fpga_fifo.ngc
