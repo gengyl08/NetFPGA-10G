@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE doc SYSTEM "../../ipdialog.dtd" [
+        <!ENTITY C_M_AXIS_DATA_WIDTH '
+        <widget id="C_M_AXIS_DATA_WIDTH">
+                        <key>C_M_AXIS_DATA_WIDTH</key>
+                <label>Master Stream Data Width</label>
+        </widget>
+        '>
+        <!ENTITY C_M_AXIS_TUSER_WIDTH '
+        <widget id="C_M_AXIS_TUSER_WIDTH">
+                        <key>C_M_AXIS_TUSER_WIDTH</key>
+                <label>TUSER Data Width</label>
+        </widget>
+        '>
+]>
+
+<doc>
+        <view id="System">
+                <display>System</display>
+                <group id="axi">
+                        <display>AXI</display>
+                        <item>&C_M_AXIS_DATA_WIDTH;</item>
+                        <item>&C_M_AXIS_TUSER_WIDTH;</item>
+                </group>
+	</view>
+</doc>
