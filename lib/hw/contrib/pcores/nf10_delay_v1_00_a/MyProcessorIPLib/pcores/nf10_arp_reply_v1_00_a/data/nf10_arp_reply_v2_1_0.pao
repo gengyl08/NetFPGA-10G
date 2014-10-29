@@ -1,0 +1,10 @@
+##############################################################################
+## Filename:          /home/gengyl08/codeBase/NetFPGA-10G-live/lib/hw/std/pcores/nf10_arp_reply_v1_00_a/MyProcessorIPLib/pcores/nf10_arp_reply_v1_00_a/data/nf10_arp_reply_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Wed Oct 10 22:09:08 2012 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib nf10_arp_reply_v1_00_a nf10_arp_reply verilog
+lib nf10_arp_reply_v1_00_a small_fifo_v3 verilog
+lib nf10_arp_reply_v1_00_a fallthrough_small_fifo_v2 verilog
+lib nf10_arp_reply_v1_00_a mac_addr_lookup verilog

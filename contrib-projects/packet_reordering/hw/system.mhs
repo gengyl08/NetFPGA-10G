@@ -620,7 +620,7 @@ BEGIN nf10_rate_limiter
  PORT axi_resetn = Peripheral_aresetn
 END
 
-BEGIN nf10_inter_pkt_delay
+BEGIN nf10_delay
  PARAMETER INSTANCE = nf10_delay_0
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
@@ -635,7 +635,7 @@ BEGIN nf10_inter_pkt_delay
  PORT axi_resetn = Peripheral_aresetn
 END
 
-BEGIN nf10_inter_pkt_delay
+BEGIN nf10_delay
  PARAMETER INSTANCE = nf10_delay_1
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
@@ -650,7 +650,7 @@ BEGIN nf10_inter_pkt_delay
  PORT axi_resetn = Peripheral_aresetn
 END
 
-BEGIN nf10_inter_pkt_delay
+BEGIN nf10_delay
  PARAMETER INSTANCE = nf10_delay_2
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
@@ -665,7 +665,7 @@ BEGIN nf10_inter_pkt_delay
  PORT axi_resetn = Peripheral_aresetn
 END
 
-BEGIN nf10_inter_pkt_delay
+BEGIN nf10_delay
  PARAMETER INSTANCE = nf10_delay_3
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
@@ -680,7 +680,7 @@ BEGIN nf10_inter_pkt_delay
  PORT axi_resetn = Peripheral_aresetn
 END
 
-BEGIN nf10_inter_pkt_delay
+BEGIN nf10_delay
  PARAMETER INSTANCE = nf10_delay_4
  PARAMETER HW_VER = 1.00.a
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
