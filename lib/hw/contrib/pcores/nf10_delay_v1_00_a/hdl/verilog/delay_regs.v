@@ -97,10 +97,7 @@ module delay_regs
       BVALID = 1'b0;  
       BRESP_next = BRESP;
 
-      delay_enable_next = delay_enable;
-      delay_mux_next = delay_mux;
       delay_length_next = delay_length;
-      host_reset_next = host_reset;
 
       case(write_state)
         WRITE_IDLE: begin
