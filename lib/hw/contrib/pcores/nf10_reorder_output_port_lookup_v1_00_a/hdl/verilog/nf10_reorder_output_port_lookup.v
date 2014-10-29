@@ -131,16 +131,16 @@ module nf10_reorder_output_port_lookup
 	      end // Default: Send to MAC 0
 	      else begin
 		        case(m_axis_tuser[SRC_PORT_POS+:8])
-                8'b00000001:
+                8'b00000001: begin
                     m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = 8'b00000100;
                 end
-                8'b00000100:
+                8'b00000100: begin
                     m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = 8'b00000001;
                 end
-                8'b00010000:
+                8'b00010000: begin
                     m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = 8'b01000000;
                 end
-                8'b01000000:
+                8'b01000000: begin
                     m_axis_tuser[DST_PORT_POS+7:DST_PORT_POS] = 8'b00010000;
                 end
             endcase
