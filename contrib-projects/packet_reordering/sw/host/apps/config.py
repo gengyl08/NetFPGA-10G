@@ -177,7 +177,7 @@ if __name__=="__main__":
         # add rate limiter for that interface
         rateLimiters.update({i : RateLimiter(i)})
         # add delay module for that interface
-        delays.update({i : OSNTDelay(i)})
+        delays.update({i : Delay(i)})
 
     # configure rate limiters
     for iface, rl in rateLimiters.iteritems():
