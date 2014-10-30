@@ -125,7 +125,7 @@ long nf10fops_ioctl (struct file *f, unsigned int cmd, unsigned long arg){
         }
 
         // write reg
-        *(((uint64_t*)card->cfg_addr) + 128) = (uint64_t)arg;
+        *(((uint64_t*)card->cfg_addr) + 128) = *((uint64_t *)arg);
         
         break;
     case NF10_IOCTL_CMD_READ_REG:
