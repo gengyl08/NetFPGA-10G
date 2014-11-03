@@ -95,12 +95,11 @@ module nf10_delay
 
    // ------------ Internal Params --------
    localparam MODULE_HEADER      = 0;
-   localparam IN_DELAY       = 1;
-   localparam IN_PACKET      = 2;
+   localparam IN_PACKET      = 1;
 
    //------------- Wires -----------------
-   reg [1:0] state;
-   reg [1:0] state_next;
+   reg state;
+   reg state_next;
 
    wire fifo_nearly_full;
    wire fifo_empty;
@@ -108,7 +107,8 @@ module nf10_delay
    assign s_axis_tready = ~fifo_nearly_full;
 
    wire [31:0] delay_length;
-   reg [31:0] time_count, time_count_next;
+
+   reg [63:0] timestamp;
 
    // ------------ Modules ----------------
 
@@ -158,34 +158,15 @@ module nf10_delay
 
    always @(*) begin
       state_next = state;
-      time_count_next = time_count;
       m_axis_tvalid = 0;
 
       case(state)
          MODULE_HEADER: begin
            if(~fifo_empty) begin
-              time_count_next = delay_length;
-              state_next = IN_DELAY;
+              if(timestamp > m_axis_tuser[127:64] + delay_length) begin
+                 state_next = IN_PACKET;
+              end
            end
-         end
-
-         IN_DELAY: begin
-            if(time_count == 0) begin
-               if(~fifo_empty) begin
-                  m_axis_tvalid = 1;
-                  if(m_axis_tready) begin
-                     if(m_axis_tlast) begin
-                        state_next = MODULE_HEADER;
-                     end
-                     else begin
-                        state_next = IN_PACKET;
-                     end
-                  end
-               end
-            end
-            else begin
-               time_count_next = time_count - 1;
-            end
          end
 
          IN_PACKET: begin
@@ -204,11 +185,11 @@ module nf10_delay
    always @(posedge axi_aclk) begin
       if(~axi_resetn) begin
          state <= MODULE_HEADER;
-         time_count <= 0;
+         timestamp <= 0;
       end
       else begin
          state <= state_next;
-         time_count <= time_count_next;
+         timestamp <= timestamp + 1;
       end
    end
 

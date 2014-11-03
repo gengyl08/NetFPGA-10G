@@ -47,7 +47,9 @@ module nf10_bram_reorder_output_queues
     parameter C_S_AXIS_DATA_WIDTH=256,
     parameter C_M_AXIS_TUSER_WIDTH=128,
     parameter C_S_AXIS_TUSER_WIDTH=128,
-    parameter NUM_QUEUES=5
+    parameter NUM_QUEUES=5,
+    parameter C_BASEADDR=32'hffffffff,
+    parameter C_HIGHADDR=32'h0
 )
 (
     // Part 1: System side signals
@@ -97,7 +99,28 @@ module nf10_bram_reorder_output_queues
     output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_tuser_4,
     output  m_axis_tvalid_4,
     input m_axis_tready_4,
-    output  m_axis_tlast_4
+    output  m_axis_tlast_4,
+
+    // axi lite control/status interface
+    input          S_AXI_ACLK,
+    input          S_AXI_ARESETN,
+    input [31:0]   S_AXI_AWADDR,
+    input          S_AXI_AWVALID,
+    output         S_AXI_AWREADY,
+    input [31:0]   S_AXI_WDATA,
+    input [3:0]    S_AXI_WSTRB,
+    input          S_AXI_WVALID,
+    output         S_AXI_WREADY,
+    output [1:0]   S_AXI_BRESP,
+    output         S_AXI_BVALID,
+    input          S_AXI_BREADY,
+    input [31:0]   S_AXI_ARADDR,
+    input          S_AXI_ARVALID,
+    output         S_AXI_ARREADY,
+    output [31:0]  S_AXI_RDATA,
+    output [1:0]   S_AXI_RRESP,
+    output         S_AXI_RVALID,
+    input          S_AXI_RREADY
 );
 
    function integer log2;
@@ -171,6 +194,18 @@ module nf10_bram_reorder_output_queues
 
    reg								   first_word, first_word_next;
 
+   reg [63:0] timestamp;
+
+   // output_queues_regs
+
+   wire [31:0] queues_num;
+   wire        reset_drop_counts;
+   reg [31:0] drop_count_0, drop_count_0_next;
+   reg [31:0] drop_count_1, drop_count_1_next;
+   reg [31:0] drop_count_2, drop_count_2_next;
+   reg [31:0] drop_count_3, drop_count_3_next;
+   reg [31:0] drop_count_4, drop_count_4_next;
+
    // ------------ Modules -------------
 
    fallthrough_small_fifo
@@ -225,7 +260,7 @@ module nf10_bram_reorder_output_queues
 	 	 .prog_full                      (),
          .empty                          (metadata_empty[i]),
          // Inputs
-         .din                            (fifo_in_tuser),
+         .din                            ({timestamp, fifo_in_tuser[63:0]}),
          .wr_en                          (metadata_wr_en[i]),
          .rd_en                          (metadata_rd_en[i]),
          .reset                          (~axi_resetn),
@@ -260,6 +295,37 @@ module nf10_bram_reorder_output_queues
    end
    endgenerate
 
+   output_queues_regs
+      output_queues_regs_0
+         (
+          .queues_qum(queues_num),
+          .reset_drop_counts(reset_drop_counts),
+          .drop_count_0(drop_count[0]),
+          .drop_count_1(drop_count[1]),
+          .drop_count_2(drop_count[2]),
+          .drop_count_3(drop_count[3]),
+          .drop_count_4(drop_count[4]),
+          .ACLK(S_AXI_ACLK),
+          .ARESETN(S_AXI_ARESETN),
+          .AWADDR(S_AXI_AWADDR),
+          .AWVALID(S_AXI_AWVALID),
+          .AWREADY(S_AXI_AWREADY),
+          .WDATA(S_AXI_WDATA),
+          .WSTRB(S_AXI_WSTRB),
+          .WVALID(S_AXI_WVALID),
+          .WREADY(S_AXI_WREADY),
+          .BRESP(S_AXI_BRESP),
+          .BVALID(S_AXI_BVALID),
+          .BREADY(S_AXI_BREADY),
+          .ARADDR(S_AXI_ARADDR),
+          .ARVALID(S_AXI_ARVALID),
+          .ARREADY(S_AXI_ARREADY),
+          .RDATA(S_AXI_RDATA),
+          .RRESP(S_AXI_RRESP),
+          .RVALID(S_AXI_RVALID),
+          .RREADY(S_AXI_RREADY)
+         );
+
    always @(*) begin
       state_next     = state;
       cur_queue_next = cur_queue;
@@ -267,6 +333,12 @@ module nf10_bram_reorder_output_queues
       metadata_wr_en = 0;
       fifo_in_rd_en  = 0;
       first_word_next = first_word;
+
+      drop_count_0_next = drop_count_0;
+      drop_count_1_next = drop_count_1;
+      drop_count_2_next = drop_count_2;
+      drop_count_3_next = drop_count_3;
+      drop_count_4_next = drop_count_4;
 
       case(state)
 
@@ -279,6 +351,23 @@ module nf10_bram_reorder_output_queues
               end
               else begin
               	  state_next = DROP;
+                  case(cur_queue)
+                     5'b00001: begin
+                        drop_count_0_next = drop_count_0 + 1;
+                     end
+                     5'b00010: begin
+                        drop_count_1_next = drop_count_1 + 1;
+                     end
+                     5'b00100: begin
+                        drop_count_2_next = drop_count_2 + 1;
+                     end
+                     5'b01000: begin
+                        drop_count_3_next = drop_count_3 + 1;
+                     end
+                     5'b10000: begin
+                        drop_count_4_next = drop_count_4 + 1;
+                     end
+                  endcase
               end
            end
         end
@@ -296,6 +385,9 @@ module nf10_bram_reorder_output_queues
                     if(|(cur_queue & 5'b10000)) begin
                         cur_queue_next = 5'b00001;
                     end
+                    else if(|((cur_queue >> queues_num) & 5'b00001)) begin
+                        cur_queue_next = 5'b00001;
+                    end
                     else begin
                         cur_queue_next = (cur_queue << 1);
                     end
@@ -309,6 +401,9 @@ module nf10_bram_reorder_output_queues
                 fifo_in_rd_en = 1;
 		            if (fifo_in_tlast) begin
                     if(|(cur_queue & 5'b10000)) begin
+                        cur_queue_next = 5'b00001;
+                    end
+                    else if(|((cur_queue >> queues_num) & 5'b00001)) begin
                         cur_queue_next = 5'b00001;
                     end
                     else begin
@@ -329,11 +424,36 @@ module nf10_bram_reorder_output_queues
          state <= IDLE;
          cur_queue <= 1;
          first_word <= 0;
+
+         timestamp <= 0;
+
+         drop_count_0 <= 0;
+         drop_count_1 <= 0;
+         drop_count_2 <= 0;
+         drop_count_3 <= 0;
+         drop_count_4 <= 0;
       end
       else begin
          state <= state_next;
          cur_queue <= cur_queue_next;
          first_word <= first_word_next;
+
+         timestamp <= timestamp + 1;
+
+         if(reset_drop_counts) begin
+            drop_count_0 <= 0;
+            drop_count_1 <= 0;
+            drop_count_2 <= 0;
+            drop_count_3 <= 0;
+            drop_count_4 <= 0;
+         end
+         else begin
+            drop_count_0 <= drop_count_0_next;
+            drop_count_1 <= drop_count_1_next;
+            drop_count_2 <= drop_count_2_next;
+            drop_count_3 <= drop_count_3_next;
+            drop_count_4 <= drop_count_4_next;
+         end
       end
 
       nearly_full <= nearly_full_fifo;

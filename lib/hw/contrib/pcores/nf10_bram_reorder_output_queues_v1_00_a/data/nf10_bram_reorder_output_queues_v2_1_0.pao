@@ -39,3 +39,4 @@
 lib nf10_bram_reorder_output_queues_v1_00_a nf10_bram_reorder_output_queues.v verilog
 lib nf10_bram_reorder_output_queues_v1_00_a small_fifo_v3.v verilog
 lib nf10_bram_reorder_output_queues_v1_00_a fallthrough_small_fifo_v2.v verilog
+lib nf10_bram_reorder_output_queues_v1_00_a output_queues_regs.v verilog
