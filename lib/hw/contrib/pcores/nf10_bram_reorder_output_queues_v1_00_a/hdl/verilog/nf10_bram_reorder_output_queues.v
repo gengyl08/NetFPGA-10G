@@ -298,7 +298,7 @@ module nf10_bram_reorder_output_queues
    output_queues_regs
       output_queues_regs_0
          (
-          .queues_qum(queues_num),
+          .queues_num(queues_num),
           .reset_drop_counts(reset_drop_counts),
           .drop_count_0(drop_count_0),
           .drop_count_1(drop_count_1),
