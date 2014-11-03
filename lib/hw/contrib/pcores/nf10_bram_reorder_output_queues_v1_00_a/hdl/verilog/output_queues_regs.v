@@ -89,23 +89,23 @@ module output_queues_regs
            if(read_addr[7:0] == QUEUES_NUM) begin
               RDATA = queues_num;
            end
-           if(read_addr[7:0] == RESET_DROP_COUNTS) begin
+           else if(read_addr[7:0] == RESET_DROP_COUNTS) begin
               RDATA[0] = reset_drop_counts;
               RDATA[31:1] = 0;
            end
-           if(read_addr[7:0] == DROP_COUNT_0) begin
+           else if(read_addr[7:0] == DROP_COUNT_0) begin
               RDATA = drop_count_0;
            end
-           if(read_addr[7:0] == DROP_COUNT_1) begin
+           else if(read_addr[7:0] == DROP_COUNT_1) begin
               RDATA = drop_count_1;
            end
-           if(read_addr[7:0] == DROP_COUNT_2) begin
+           else if(read_addr[7:0] == DROP_COUNT_2) begin
               RDATA = drop_count_2;
            end
-           if(read_addr[7:0] == DROP_COUNT_3) begin
+           else if(read_addr[7:0] == DROP_COUNT_3) begin
               RDATA = drop_count_3;
            end
-           if(read_addr[7:0] == DROP_COUNT_4) begin
+           else if(read_addr[7:0] == DROP_COUNT_4) begin
               RDATA = drop_count_4;
            end
 
@@ -147,7 +147,7 @@ module output_queues_regs
                  queues_num_next = WDATA;
                  BRESP_next = AXI_RESP_OK;
               end
-              if(write_addr[7:0] == RESET_DROP_COUNTS) begin
+              else if(write_addr[7:0] == RESET_DROP_COUNTS) begin
                  reset_drop_counts_next = WDATA[0];
                  BRESP_next = AXI_RESP_OK;
               end
