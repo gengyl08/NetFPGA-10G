@@ -37,18 +37,76 @@ from math import ceil
 
 DATAPATH_FREQUENCY = 160000000
 
+REORDER_OUTPUT_QUEUES_BASE_ADDR = "0x74400000"
+
 DELAY_BASE_ADDR = {0 : "0x79c80000",
                    1 : "0x79c60000",
                    2 : "0x79c40000",
                    3 : "0x79c20000",
                    4 : "0x79c00000"}
 
+"""
 RATE_LIMITER_BASE_ADDR = {0 : "0x77e80000",
                           1 : "0x77e60000",
                           2 : "0x77e40000",
                           3 : "0x77e20000",
                           4 : "0x77e00000"}
+"""
+class ReorderOutputQueues:
 
+    def __init__(self):
+        self.module_base_addr = REORDER_OUTPUT_QUEUES_BASE_ADDR
+        self.queues_num_reg_offset = "0x00"
+        self.reset_drop_counts_reg_offset = "0x01"
+        self.drop_counts_reg_offset = ["0x10", "0x11", "0x12", "0x13", "0x14"]
+
+        self.queues_num = 0
+        self.reset_drop_counts = False
+        self.drop_counts = [0, 0, 0, 0, 0]
+
+        self.get_queues_num()
+        self.get_reset_drop_counts()
+        self.get_drop_counts()
+
+    def get_queues_num(self):
+        queues_num = rdaxi(self.reg_addr(self.queues_num_reg_offset))
+        self.queues_num = int(queues_num, 16)
+
+    def set_queues_num(self, queues_num):
+        wraxi(self.reg_addr(self.queues_num_reg_offset), hex(queues_num))
+        self.get_queues_num()
+
+    def get_reset_drop_counts(self):
+        value = rdaxi(self.reg_addr(self.reset_drop_counts_reg_offset))
+        value = int(value, 16)
+        if value == 0:
+            self.reset_drop_counts = False;
+        else:
+            self.reset_drop_counts = True;
+
+    def set_reset_drop_counts(self, reset):
+        if reset:
+            value = 1
+        else:
+            value = 0
+        wraxi(self.reg_addr(self.reset_drop_counts_reg_offset), hex(value))
+        self.get_reset_drop_counts()
+
+    def get_drop_counts(self):
+        for i in range(5):
+            drop_count = rdaxi(self.reg_addr(self.drop_counts_reg_offset[i]))
+            drop_counts[i] = int(drop_count, 16)
+
+    def reg_addr(self, offset):
+        return add_hex(self.module_base_addr, offset)
+
+    def print_status(self):
+        print "Queue Num Max: " + str(self.queues_num)
+        print "Reset Drop Counts: " + str(self.reset_drop_counts)
+        for i in range(5):
+            print "Queue " + str(i) + " Drop Count: " + str(self.drop_counts[i])
+
+"""
 class RateLimiter:
 
     def __init__(self, queue):
@@ -134,6 +192,8 @@ class RateLimiter:
 
     def print_status(self):
         print 'queue: '+str(self.queue)+' rate: '+str(self.rate)+' enable: '+str(self.enable)+' reset: '+str(self.reset)
+"""
+
 
 class Delay:
 
@@ -168,23 +228,29 @@ class Delay:
 
 
 if __name__=="__main__":
-    print "begin"
-    rateLimiters = {}
+    #print "begin"
+    #rateLimiters = {}
     delays = {}
 
+    reorderOutputQueues = ReorderOutputQueues()
+    
     # instantiate rate limiters and delay modules for 4 interfaces
     for i in range(5):
         # add rate limiter for that interface
-        rateLimiters.update({i : RateLimiter(i)})
+        #rateLimiters.update({i : RateLimiter(i)})
         # add delay module for that interface
         delays.update({i : Delay(i)})
 
+    """
     # configure rate limiters
     for iface, rl in rateLimiters.iteritems():
         rl.set_rate(0)
         rl.set_enable(False)
         rl.print_status()
-        
+    """
+
+    reorderOutputQueues.print_status()
+
     # configure delay modules
     for iface, d in delays.iteritems():
         d.set_delay(0)
