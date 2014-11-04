@@ -80,9 +80,9 @@ class ReorderOutputQueues:
         value = rdaxi(self.reg_addr(self.reset_drop_counts_reg_offset))
         value = int(value, 16)
         if value == 0:
-            self.reset_drop_counts = False;
+            self.reset_drop_counts = False
         else:
-            self.reset_drop_counts = True;
+            self.reset_drop_counts = True
 
     def set_reset_drop_counts(self, reset):
         if reset:
@@ -91,11 +91,12 @@ class ReorderOutputQueues:
             value = 0
         wraxi(self.reg_addr(self.reset_drop_counts_reg_offset), hex(value))
         self.get_reset_drop_counts()
+        self.get_drop_counts()
 
     def get_drop_counts(self):
         for i in range(5):
             drop_count = rdaxi(self.reg_addr(self.drop_counts_reg_offset[i]))
-            drop_counts[i] = int(drop_count, 16)
+            self.drop_counts[i] = int(drop_count, 16)
 
     def reg_addr(self, offset):
         return add_hex(self.module_base_addr, offset)
@@ -216,7 +217,7 @@ class Delay:
 
     # delay is an interger value in nano second
     def set_delay(self, delay):
-        wraxi(self.reg_addr(self.delay_reg_offset), hex(delay*DATAPATH_FREQUENCY/1000000000))
+        wraxi(self.reg_addr(self.delay_reg_offset), hex(delay))
         self.get_delay()
 
     def reg_addr(self, offset):
