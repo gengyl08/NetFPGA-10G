@@ -96,19 +96,24 @@ module nf10_delay
    // ------------ Internal Params --------
    localparam MODULE_HEADER      = 0;
    localparam IN_PACKET      = 1;
+   localparam DROP           = 2;
 
    //------------- Wires -----------------
-   reg state;
-   reg state_next;
+   reg [1:0] state;
+   reg [1:0] state_next;
 
    wire fifo_nearly_full;
    wire fifo_empty;
+   reg rd_en;
 
    assign s_axis_tready = ~fifo_nearly_full;
 
    wire [31:0] delay_length;
+   wire [31:0] drop_loop;
+   wire [31:0] drop_count;
 
    reg [63:0] timestamp;
+   reg [31:0] drop_counter, drop_counter_next;
 
    // ------------ Modules ----------------
 
@@ -125,7 +130,7 @@ module nf10_delay
          // Inputs
          .din                            ({s_axis_tlast, s_axis_tuser, s_axis_tstrb, s_axis_tdata}),
          .wr_en                          (s_axis_tvalid & s_axis_tready),
-         .rd_en                          (m_axis_tvalid & m_axis_tready),
+         .rd_en                          (rd_en),
          .reset                          (~axi_resetn),
          .clk                            (axi_aclk));
 
@@ -133,6 +138,8 @@ module nf10_delay
       delay_regs_0
          (
           .delay_length(delay_length),
+          .drop_loop(drop_loop),
+          .drop_count(drop_count),
           .ACLK(S_AXI_ACLK),
           .ARESETN(S_AXI_ARESETN),
           .AWADDR(S_AXI_AWADDR),
@@ -157,14 +164,28 @@ module nf10_delay
    // ------------- Logic ---------------
 
    always @(*) begin
+      drop_counter_next = drop_counter;
       state_next = state;
+      rd_en = 0;
       m_axis_tvalid = 0;
 
       case(state)
          MODULE_HEADER: begin
            if(~fifo_empty) begin
               if(timestamp > m_axis_tuser[127:64] + delay_length) begin
-                 state_next = IN_PACKET;
+                 if(drop_counter < drop_count) begin
+                    state_next = DROP;
+                 end
+                 else begin
+                    state_next = IN_PACKET;
+                 end
+
+                 if(drop_counter == 0) begin
+                    drop_counter_next = drop_loop;
+                 end
+                 else begin
+                    drop_counter_next = drop_counter - 1;
+                 end
               end
            end
          end
@@ -172,7 +193,19 @@ module nf10_delay
          IN_PACKET: begin
             if(~fifo_empty) begin
                m_axis_tvalid = 1;
-               if(m_axis_tready & m_axis_tlast) begin
+               if(m_axis_tready) begin
+                  rd_en = 1;
+                  if(m_axis_tlast) begin
+                     state_next = MODULE_HEADER;
+                  end
+               end
+            end
+         end
+
+         DROP: begin
+            if(~fifo_empty) begin
+               rd_en = 1;
+               if(m_axis_tlast) begin
                   state_next = MODULE_HEADER;
                end
             end
@@ -186,10 +219,12 @@ module nf10_delay
       if(~axi_resetn) begin
          state <= MODULE_HEADER;
          timestamp <= 0;
+         drop_counter <= 0;
       end
       else begin
          state <= state_next;
          timestamp <= timestamp + 1;
+         drop_counter <= drop_counter_next;
       end
    end
 

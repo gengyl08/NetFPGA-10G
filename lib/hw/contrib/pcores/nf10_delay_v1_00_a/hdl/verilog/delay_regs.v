@@ -6,6 +6,8 @@ module delay_regs
     )
    (
     output reg [31:0] delay_length,
+    output reg [31:0] drop_loop,
+    output reg [31:0] drop_count,
 
     input                        ACLK,
     input                        ARESETN,
@@ -44,6 +46,9 @@ module delay_regs
    localparam READ_RESPONSE = 1;
 
    localparam DELAY_LENGTH = 8'h00;
+   localparam DROP_LOOP = 8'h01;
+   localparam DROP_COUNT = 8'h02;
+
 
    reg [1:0]                     write_state, write_state_next;
    reg [1:0]                     read_state, read_state_next;
@@ -52,6 +57,8 @@ module delay_regs
    reg [1:0]                     BRESP_next;
 
    reg [31:0]                    delay_length_next;
+   reg [31:0]                    drop_loop_next;
+   reg [31:0]                    drop_count_next;
    
    always @(*) begin
       read_state_next = read_state;   
@@ -77,6 +84,14 @@ module delay_regs
               RDATA = delay_length;
            end
 
+           else if (read_addr[7:0] == DROP_LOOP) begin
+              RDATA = drop_loop;
+           end
+
+           else if (read_addr[7:0] == DROP_COUNT) begin
+              RDATA = drop_count;
+           end
+
            else begin
               RRESP = AXI_RESP_SLVERR;
            end
@@ -98,6 +113,8 @@ module delay_regs
       BRESP_next = BRESP;
 
       delay_length_next = delay_length;
+      drop_loop_next = drop_loop;
+      drop_count_next = drop_count;
 
       case(write_state)
         WRITE_IDLE: begin
@@ -114,6 +131,17 @@ module delay_regs
                  delay_length_next = WDATA;
                  BRESP_next = AXI_RESP_OK;
               end
+
+              else if (write_addr[7:0] == DROP_LOOP) begin
+                 drop_loop_next = WDATA;
+                 BRESP_next = AXI_RESP_OK;
+              end
+
+              else if (write_addr[7:0] == DROP_COUNT) begin
+                 drop_count_next = WDATA;
+                 BRESP_next = AXI_RESP_OK;
+              end
+
               else begin
                  BRESP_next = AXI_RESP_SLVERR;
               end
@@ -139,6 +167,8 @@ module delay_regs
          BRESP <= AXI_RESP_OK;
 
          delay_length <= 0;
+         drop_loop <= 0;
+         drop_count <= 0;
       end
       else begin
          write_state <= write_state_next;
@@ -148,6 +178,8 @@ module delay_regs
          BRESP <= BRESP_next;
 
          delay_length <= delay_length_next;
+         drop_loop <= drop_loop_next;
+         drop_count <= drop_count_next;
 
       end
    end
