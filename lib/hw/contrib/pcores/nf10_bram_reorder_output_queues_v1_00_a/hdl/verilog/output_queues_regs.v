@@ -63,10 +63,10 @@ module output_queues_regs
    localparam DROP_COUNT_3 = 8'h13;
    localparam DROP_COUNT_4 = 8'h14;
    localparam SPLIT_RATIO_0 = 8'h20;
-   localparam SPLIT_RATIO_0 = 8'h21;
-   localparam SPLIT_RATIO_0 = 8'h22;
-   localparam SPLIT_RATIO_0 = 8'h23;
-   localparam SPLIT_RATIO_0 = 8'h24;
+   localparam SPLIT_RATIO_1 = 8'h21;
+   localparam SPLIT_RATIO_2 = 8'h22;
+   localparam SPLIT_RATIO_3 = 8'h23;
+   localparam SPLIT_RATIO_4 = 8'h24;
 
    reg [1:0]                     write_state, write_state_next;
    reg [1:0]                     read_state, read_state_next;
