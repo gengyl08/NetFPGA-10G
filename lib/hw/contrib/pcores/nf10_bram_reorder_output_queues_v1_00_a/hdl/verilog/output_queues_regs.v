@@ -13,6 +13,12 @@ module output_queues_regs
     input [31:0] drop_count_3,
     input [31:0] drop_count_4,
 
+    output reg [31:0] split_ratio_0,
+    output reg [31:0] split_ratio_1,
+    output reg [31:0] split_ratio_2,
+    output reg [31:0] split_ratio_3,
+    output reg [31:0] split_ratio_4,
+
     input                        ACLK,
     input                        ARESETN,
     
@@ -56,6 +62,11 @@ module output_queues_regs
    localparam DROP_COUNT_2 = 8'h12;
    localparam DROP_COUNT_3 = 8'h13;
    localparam DROP_COUNT_4 = 8'h14;
+   localparam SPLIT_RATIO_0 = 8'h20;
+   localparam SPLIT_RATIO_0 = 8'h21;
+   localparam SPLIT_RATIO_0 = 8'h22;
+   localparam SPLIT_RATIO_0 = 8'h23;
+   localparam SPLIT_RATIO_0 = 8'h24;
 
    reg [1:0]                     write_state, write_state_next;
    reg [1:0]                     read_state, read_state_next;
@@ -65,6 +76,11 @@ module output_queues_regs
 
    reg [31:0]                    queues_num_next;
    reg                           reset_drop_counts_next;
+   reg [31:0]                    split_ratio_0_next;
+   reg [31:0]                    split_ratio_1_next;
+   reg [31:0]                    split_ratio_2_next;
+   reg [31:0]                    split_ratio_3_next;
+   reg [31:0]                    split_ratio_4_next;
 
    always @(*) begin
       read_state_next = read_state;   
@@ -109,6 +125,22 @@ module output_queues_regs
               RDATA = drop_count_4;
            end
 
+           else if(read_addr[7:0] == SPLIT_RATIO_0) begin
+              RDATA = split_ratio_0;
+           end
+           else if(read_addr[7:0] == SPLIT_RATIO_1) begin
+              RDATA = split_ratio_1;
+           end
+           else if(read_addr[7:0] == SPLIT_RATIO_2) begin
+              RDATA = split_ratio_2;
+           end
+           else if(read_addr[7:0] == SPLIT_RATIO_3) begin
+              RDATA = split_ratio_3;
+           end
+           else if(read_addr[7:0] == SPLIT_RATIO_4) begin
+              RDATA = split_ratio_4;
+           end
+
            else begin
               RRESP = AXI_RESP_SLVERR;
            end
@@ -131,6 +163,11 @@ module output_queues_regs
 
       queues_num_next = queues_num;
       reset_drop_counts_next = reset_drop_counts;
+      split_ratio_0_next = split_ratio_0;
+      split_ratio_1_next = split_ratio_1;
+      split_ratio_2_next = split_ratio_2;
+      split_ratio_3_next = split_ratio_3;
+      split_ratio_4_next = split_ratio_4;
 
       case(write_state)
         WRITE_IDLE: begin
@@ -151,6 +188,28 @@ module output_queues_regs
                  reset_drop_counts_next = WDATA[0];
                  BRESP_next = AXI_RESP_OK;
               end
+
+              else if(write_addr[7:0] == SPLIT_RATIO_0) begin
+                 split_ratio_0_next = WDATA;
+                 BRESP_next = AXI_RESP_OK;
+              end
+              else if(write_addr[7:0] == SPLIT_RATIO_1) begin
+                 split_ratio_1_next = WDATA;
+                 BRESP_next = AXI_RESP_OK;
+              end
+              else if(write_addr[7:0] == SPLIT_RATIO_2) begin
+                 split_ratio_2_next = WDATA;
+                 BRESP_next = AXI_RESP_OK;
+              end
+              else if(write_addr[7:0] == SPLIT_RATIO_3) begin
+                 split_ratio_3_next = WDATA;
+                 BRESP_next = AXI_RESP_OK;
+              end
+              else if(write_addr[7:0] == SPLIT_RATIO_4) begin
+                 split_ratio_4_next = WDATA;
+                 BRESP_next = AXI_RESP_OK;
+              end
+
               else begin
                  BRESP_next = AXI_RESP_SLVERR;
               end
@@ -177,6 +236,12 @@ module output_queues_regs
 
          queues_num <= 0;
          reset_drop_counts <= 0;
+
+         split_ratio_0 <= 0;
+         split_ratio_1 <= 0;
+         split_ratio_2 <= 0;
+         split_ratio_3 <= 0;
+         split_ratio_4 <= 0;
       end
       else begin
          write_state <= write_state_next;
@@ -187,6 +252,12 @@ module output_queues_regs
 
          queues_num <= queues_num_next;
          reset_drop_counts <= reset_drop_counts_next;
+
+         split_ratio_0 <= split_ratio_0_next;
+         split_ratio_1 <= split_ratio_1_next;
+         split_ratio_2 <= split_ratio_2_next;
+         split_ratio_3 <= split_ratio_3_next;
+         split_ratio_4 <= split_ratio_4_next;
 
       end
    end

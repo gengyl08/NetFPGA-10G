@@ -206,6 +206,14 @@ module nf10_bram_reorder_output_queues
    reg [31:0] drop_count_3, drop_count_3_next;
    reg [31:0] drop_count_4, drop_count_4_next;
 
+   wire [31:0] split_ratio_0;
+   wire [31:0] split_ratio_1;
+   wire [31:0] split_ratio_2;
+   wire [31:0] split_ratio_3;
+   wire [31:0] split_ratio_4;
+   reg [31:0] split_ratio;
+   reg [31:0] split_count, split_count_next;
+
    // ------------ Modules -------------
 
    fallthrough_small_fifo
@@ -305,6 +313,11 @@ module nf10_bram_reorder_output_queues
           .drop_count_2(drop_count_2),
           .drop_count_3(drop_count_3),
           .drop_count_4(drop_count_4),
+          .split_ratio_0(split_ratio_0),
+          .split_ratio_1(split_ratio_1),
+          .split_ratio_2(split_ratio_2),
+          .split_ratio_3(split_ratio_3),
+          .split_ratio_4(split_ratio_4),
           .ACLK(S_AXI_ACLK),
           .ARESETN(S_AXI_ARESETN),
           .AWADDR(S_AXI_AWADDR),
@@ -334,11 +347,31 @@ module nf10_bram_reorder_output_queues
       fifo_in_rd_en  = 0;
       first_word_next = first_word;
 
+      split_count_next = split_count;
+
       drop_count_0_next = drop_count_0;
       drop_count_1_next = drop_count_1;
       drop_count_2_next = drop_count_2;
       drop_count_3_next = drop_count_3;
       drop_count_4_next = drop_count_4;
+
+      case(cur_queue)
+         5'b00001: begin
+            split_ratio = split_ratio_0;
+         end
+         5'b00010: begin
+            split_ratio = split_ratio_1;
+         end
+         5'b00100: begin
+            split_ratio = split_ratio_2;
+         end
+         5'b01000: begin
+            split_ratio = split_ratio_3;
+         end
+         5'b10000: begin
+            split_ratio = split_ratio_4;
+         end
+      endcase
 
       case(state)
 
@@ -382,16 +415,23 @@ module nf10_bram_reorder_output_queues
 					          metadata_wr_en = cur_queue;
 				        end
 				        if(fifo_in_tlast) begin
-                    if(|(cur_queue & 5'b10000)) begin
+                  if(split_count >= split_ratio) begin
+                     split_count_next = 0;
+                     if(|(cur_queue & 5'b10000)) begin
                         cur_queue_next = 5'b00001;
-                    end
-                    else if(|((cur_queue >> queues_num) & 5'b00001)) begin
+                     end
+                     else if(|((cur_queue >> queues_num) & 5'b00001)) begin
                         cur_queue_next = 5'b00001;
-                    end
-                    else begin
+                     end
+                     else begin
                         cur_queue_next = (cur_queue << 1);
-                    end
-					          state_next = IDLE;
+                     end
+                  end
+                  else begin
+                     split_count_next = split_count + 1;
+                  end
+
+					        state_next = IDLE;
 				        end
             end
         end // case: WR_PKT
@@ -400,16 +440,22 @@ module nf10_bram_reorder_output_queues
             if(!fifo_in_empty) begin
                 fifo_in_rd_en = 1;
 		            if (fifo_in_tlast) begin
-                    if(|(cur_queue & 5'b10000)) begin
-                        cur_queue_next = 5'b00001;
-                    end
-                    else if(|((cur_queue >> queues_num) & 5'b00001)) begin
-                        cur_queue_next = 5'b00001;
-                    end
-                    else begin
-                        cur_queue_next = (cur_queue << 1);
-                    end
-           	        state_next = IDLE;
+                   if(split_count >= split_ratio) begin
+                      split_count_next = 0;
+                      if(|(cur_queue & 5'b10000)) begin
+                         cur_queue_next = 5'b00001;
+                      end
+                      else if(|((cur_queue >> queues_num) & 5'b00001)) begin
+                         cur_queue_next = 5'b00001;
+                      end
+                      else begin
+                         cur_queue_next = (cur_queue << 1);
+                      end
+                   end
+                   else begin
+                      split_count_next = split_count + 1;
+                   end
+           	       state_next = IDLE;
 		            end
             end
         end
@@ -432,6 +478,8 @@ module nf10_bram_reorder_output_queues
          drop_count_2 <= 0;
          drop_count_3 <= 0;
          drop_count_4 <= 0;
+
+         split_count <= 0;
       end
       else begin
          state <= state_next;
@@ -454,6 +502,8 @@ module nf10_bram_reorder_output_queues
             drop_count_3 <= drop_count_3_next;
             drop_count_4 <= drop_count_4_next;
          end
+
+         split_count <= split_count_next;
       end
 
       nearly_full <= nearly_full_fifo;
@@ -489,7 +539,7 @@ module nf10_bram_reorder_output_queues
    assign m_axis_tvalid_3	 = ~empty[3];
    assign rd_en[3]			 = m_axis_tready_3 & ~empty[3];
 
-  assign m_axis_tdata_4  = fifo_out_tdata[4];
+   assign m_axis_tdata_4  = fifo_out_tdata[4];
    assign m_axis_tstrb_4   = fifo_out_tstrb[4];
    assign m_axis_tuser_4   = fifo_out_tuser[4];
    assign m_axis_tlast_4   = fifo_out_tlast[4];
