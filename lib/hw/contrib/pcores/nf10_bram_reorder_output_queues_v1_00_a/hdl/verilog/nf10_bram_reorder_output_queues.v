@@ -343,8 +343,6 @@ module nf10_bram_reorder_output_queues
       fifo_in_rd_en  = 0;
       first_word_next = first_word;
 
-      split_count_next = split_count;
-
       drop_count_0_next = drop_count_0;
       drop_count_1_next = drop_count_1;
       drop_count_2_next = drop_count_2;
@@ -394,16 +392,16 @@ module nf10_bram_reorder_output_queues
 				        end
 				        if(fifo_in_tlast) begin
 
-                    if(lfsr <= split_ratio0) begin
+                    if(lfsr <= split_ratio_0) begin
                         cur_queue_next = 5'b00001;
                     end
-                    else if(lfsr <= split_ratio1) begin
+                    else if(lfsr <= split_ratio_1) begin
                         cur_queue_next = 5'b00010;
                     end
-                    else if(lfsr <= split_ratio2) begin
+                    else if(lfsr <= split_ratio_2) begin
                         cur_queue_next = 5'b00100;
                     end
-                    else if(lfsr <= split_ratio3) begin
+                    else if(lfsr <= split_ratio_3) begin
                         cur_queue_next = 5'b01000;
                     end
                     else begin
@@ -420,16 +418,16 @@ module nf10_bram_reorder_output_queues
                 fifo_in_rd_en = 1;
 		            if (fifo_in_tlast) begin
 
-                    if(lfsr <= split_ratio0) begin
+                    if(lfsr <= split_ratio_0) begin
                         cur_queue_next = 5'b00001;
                     end
-                    else if(lfsr <= split_ratio1) begin
+                    else if(lfsr <= split_ratio_1) begin
                         cur_queue_next = 5'b00010;
                     end
-                    else if(lfsr <= split_ratio2) begin
+                    else if(lfsr <= split_ratio_2) begin
                         cur_queue_next = 5'b00100;
                     end
-                    else if(lfsr <= split_ratio3) begin
+                    else if(lfsr <= split_ratio_3) begin
                         cur_queue_next = 5'b01000;
                     end
                     else begin
