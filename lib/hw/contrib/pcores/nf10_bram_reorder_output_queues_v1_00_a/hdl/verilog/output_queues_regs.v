@@ -5,7 +5,6 @@ module output_queues_regs
     parameter ADDR_WIDTH=32
     )
    (
-    output reg [31:0] queues_num,
     output reg reset_drop_counts,
     input [31:0] drop_count_0,
     input [31:0] drop_count_1,
@@ -17,7 +16,6 @@ module output_queues_regs
     output reg [31:0] split_ratio_1,
     output reg [31:0] split_ratio_2,
     output reg [31:0] split_ratio_3,
-    output reg [31:0] split_ratio_4,
 
     input                        ACLK,
     input                        ARESETN,
@@ -55,7 +53,6 @@ module output_queues_regs
    localparam READ_IDLE = 0;
    localparam READ_RESPONSE = 1;
 
-   localparam QUEUES_NUM = 8'h00;
    localparam RESET_DROP_COUNTS = 8'h01;
    localparam DROP_COUNT_0 = 8'h10;
    localparam DROP_COUNT_1 = 8'h11;
@@ -66,7 +63,6 @@ module output_queues_regs
    localparam SPLIT_RATIO_1 = 8'h21;
    localparam SPLIT_RATIO_2 = 8'h22;
    localparam SPLIT_RATIO_3 = 8'h23;
-   localparam SPLIT_RATIO_4 = 8'h24;
 
    reg [1:0]                     write_state, write_state_next;
    reg [1:0]                     read_state, read_state_next;
@@ -74,13 +70,11 @@ module output_queues_regs
    reg [ADDR_WIDTH-1:0]          write_addr, write_addr_next;
    reg [1:0]                     BRESP_next;
 
-   reg [31:0]                    queues_num_next;
    reg                           reset_drop_counts_next;
    reg [31:0]                    split_ratio_0_next;
    reg [31:0]                    split_ratio_1_next;
    reg [31:0]                    split_ratio_2_next;
    reg [31:0]                    split_ratio_3_next;
-   reg [31:0]                    split_ratio_4_next;
 
    always @(*) begin
       read_state_next = read_state;   
@@ -102,10 +96,7 @@ module output_queues_regs
            RVALID = 1'b1;
            ARREADY = 1'b0;
 
-           if(read_addr[7:0] == QUEUES_NUM) begin
-              RDATA = queues_num;
-           end
-           else if(read_addr[7:0] == RESET_DROP_COUNTS) begin
+           if(read_addr[7:0] == RESET_DROP_COUNTS) begin
               RDATA[0] = reset_drop_counts;
               RDATA[31:1] = 0;
            end
@@ -137,9 +128,6 @@ module output_queues_regs
            else if(read_addr[7:0] == SPLIT_RATIO_3) begin
               RDATA = split_ratio_3;
            end
-           else if(read_addr[7:0] == SPLIT_RATIO_4) begin
-              RDATA = split_ratio_4;
-           end
 
            else begin
               RRESP = AXI_RESP_SLVERR;
@@ -161,13 +149,11 @@ module output_queues_regs
       BVALID = 1'b0;  
       BRESP_next = BRESP;
 
-      queues_num_next = queues_num;
       reset_drop_counts_next = reset_drop_counts;
       split_ratio_0_next = split_ratio_0;
       split_ratio_1_next = split_ratio_1;
       split_ratio_2_next = split_ratio_2;
       split_ratio_3_next = split_ratio_3;
-      split_ratio_4_next = split_ratio_4;
 
       case(write_state)
         WRITE_IDLE: begin
@@ -180,11 +166,8 @@ module output_queues_regs
            AWREADY = 1'b0;
            WREADY = 1'b1;
            if(WVALID) begin
-              if(write_addr[7:0] == QUEUES_NUM) begin
-                 queues_num_next = WDATA;
-                 BRESP_next = AXI_RESP_OK;
-              end
-              else if(write_addr[7:0] == RESET_DROP_COUNTS) begin
+
+              if(write_addr[7:0] == RESET_DROP_COUNTS) begin
                  reset_drop_counts_next = WDATA[0];
                  BRESP_next = AXI_RESP_OK;
               end
@@ -203,10 +186,6 @@ module output_queues_regs
               end
               else if(write_addr[7:0] == SPLIT_RATIO_3) begin
                  split_ratio_3_next = WDATA;
-                 BRESP_next = AXI_RESP_OK;
-              end
-              else if(write_addr[7:0] == SPLIT_RATIO_4) begin
-                 split_ratio_4_next = WDATA;
                  BRESP_next = AXI_RESP_OK;
               end
 
@@ -234,14 +213,12 @@ module output_queues_regs
          write_addr <= 0;
          BRESP <= AXI_RESP_OK;
 
-         queues_num <= 0;
          reset_drop_counts <= 0;
 
-         split_ratio_0 <= 0;
-         split_ratio_1 <= 0;
-         split_ratio_2 <= 0;
-         split_ratio_3 <= 0;
-         split_ratio_4 <= 0;
+         split_ratio_0 <= 32'd858993460;
+         split_ratio_1 <= 32'd1717986919;
+         split_ratio_2 <= 32'd2576980378;
+         split_ratio_3 <= 32'd3435973837;
       end
       else begin
          write_state <= write_state_next;
@@ -250,14 +227,12 @@ module output_queues_regs
          write_addr <= write_addr_next;
          BRESP <= BRESP_next;
 
-         queues_num <= queues_num_next;
          reset_drop_counts <= reset_drop_counts_next;
 
          split_ratio_0 <= split_ratio_0_next;
          split_ratio_1 <= split_ratio_1_next;
          split_ratio_2 <= split_ratio_2_next;
          split_ratio_3 <= split_ratio_3_next;
-         split_ratio_4 <= split_ratio_4_next;
 
       end
    end
