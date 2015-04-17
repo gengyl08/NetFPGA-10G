@@ -323,13 +323,10 @@ axi_model: __xps/simgen.opt $(BRAMINIT_ELF_SIM_FILES)
 	@echo "*********************************************"
 	nf10_sim_autosubst.py -i $(MHSFILE) -o $(AXISIM_MHS)
 	simgen $(SIMGEN_OPTIONS) -m behavioral $(AXISIM_MHS)
-	cd simulation/behavioral && sed -i '/nosort/ i\
-verilog work "CY7C1515KV18.v"' system_axisim.prj
 
 sim: axi_model
 	./make_pkts.py
 	cp nf10/system_axisim_tb.v simulation/behavioral
-	cp nf10/CY7C1515KV18.v simulation/behavioral
 	cd simulation/behavioral && $(AXISIM_FUSE)
 	cd simulation/behavioral && $(AXISIM_CMD) -tclbatch ../../nf10/noninteractive_sim.tcl
 	nf10_sim_reconcile_axi_logs.py
@@ -337,7 +334,6 @@ sim: axi_model
 simgui: axi_model
 	./make_pkts.py
 	cp nf10/system_axisim_tb.v simulation/behavioral
-	cp nf10/CY7C1515KV18.v simulation/behavioral
 	cd simulation/behavioral && $(AXISIM_FUSE)
 	cd simulation/behavioral && $(AXISIM_CMD) -gui -tclbatch system_axisim_setup.tcl
 	nf10_sim_reconcile_axi_logs.py
