@@ -177,14 +177,14 @@ module pcap_replay_uengine
   
   genvar i;
 
-  wire [QDR_ADDR_WIDTH-3:0]                      q0_addr_low;
-  wire [QDR_ADDR_WIDTH-3:0]                      q0_addr_high;
-  wire [QDR_ADDR_WIDTH-3:0]                      q1_addr_low;
-  wire [QDR_ADDR_WIDTH-3:0]                      q1_addr_high;
-  wire [QDR_ADDR_WIDTH-3:0]                      q2_addr_low;
-  wire [QDR_ADDR_WIDTH-3:0]                      q2_addr_high;
-  wire [QDR_ADDR_WIDTH-3:0]                      q3_addr_low;
-  wire [QDR_ADDR_WIDTH-3:0]                      q3_addr_high;
+  wire [QDR_ADDR_WIDTH-3:0]                      q0_addr_head;
+  wire [QDR_ADDR_WIDTH-3:0]                      q0_addr_tail;
+  wire [QDR_ADDR_WIDTH-3:0]                      q1_addr_head;
+  wire [QDR_ADDR_WIDTH-3:0]                      q1_addr_tail;
+  wire [QDR_ADDR_WIDTH-3:0]                      q2_addr_head;
+  wire [QDR_ADDR_WIDTH-3:0]                      q2_addr_tail;
+  wire [QDR_ADDR_WIDTH-3:0]                      q3_addr_head;
+  wire [QDR_ADDR_WIDTH-3:0]                      q3_addr_tail;
 	
 	wire qdr_clk_180;
 	wire user_rst, user_rst_180, user_rst_200, user_rst_270;
@@ -319,14 +319,14 @@ module pcap_replay_uengine
 	    .mem_dwl								(user_dwl),
 	    .mem_dwh								(user_dwh),
 			                    		
-			.q0_addr_low						(q0_addr_low),
-			.q0_addr_high						(q0_addr_high),
-			.q1_addr_low					  (q1_addr_low),
-			.q1_addr_high						(q1_addr_high),
-			.q2_addr_low						(q2_addr_low),
-			.q2_addr_high						(q2_addr_high),
-			.q3_addr_low						(q3_addr_low),
-			.q3_addr_high						(q3_addr_high),
+			.q0_addr_head						(q0_addr_head),
+			.q0_addr_tail						(q0_addr_tail),
+			.q1_addr_head					  (q1_addr_head),
+			.q1_addr_tail						(q1_addr_tail),
+			.q2_addr_head						(q2_addr_head),
+			.q2_addr_tail						(q2_addr_tail),
+			.q3_addr_head						(q3_addr_head),
+			.q3_addr_tail						(q3_addr_tail),
 			
 			.cal_done								(&cal_done)
 	);
@@ -502,14 +502,14 @@ module pcap_replay_uengine
 	  .q3_fifo_full					(q3_fifo_rd_full),
 		.q3_fifo_prog_full		(q3_fifo_rd_prog_full),
 	                      	
-		.q0_addr_low			  	(q0_addr_low),
-		.q0_addr_high					(q0_addr_high),
-		.q1_addr_low			  	(q1_addr_low),
-		.q1_addr_high					(q1_addr_high),
-		.q2_addr_low			  	(q2_addr_low),
-		.q2_addr_high					(q2_addr_high),
-		.q3_addr_low			  	(q3_addr_low),
-		.q3_addr_high					(q3_addr_high),
+		.q0_addr_head           (q0_addr_head),
+    .q0_addr_tail           (q0_addr_tail),
+    .q1_addr_head           (q1_addr_head),
+    .q1_addr_tail           (q1_addr_tail),
+    .q2_addr_head           (q2_addr_head),
+    .q2_addr_tail           (q2_addr_tail),
+    .q3_addr_head           (q3_addr_head),
+    .q3_addr_tail           (q3_addr_tail),
 		                    	
 		.cal_done							(&cal_done)
 	);
