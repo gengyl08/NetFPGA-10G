@@ -130,7 +130,7 @@ module osnt_pcap_replay_uengine
   input                                           m_axis_tready_3,
   output                                          m_axis_tlast_3,
 
-  output     [C_M_AXIS_DATA_WIDTH-1:0]            m_axis_tdata_4
+  output     [C_M_AXIS_DATA_WIDTH-1:0]            m_axis_tdata_4,
   output     [((C_M_AXIS_DATA_WIDTH/8))-1:0]      m_axis_tstrb_4,
   output     [C_M_AXIS_TUSER_WIDTH-1:0]           m_axis_tuser_4,
   output                                          m_axis_tvalid_4,
