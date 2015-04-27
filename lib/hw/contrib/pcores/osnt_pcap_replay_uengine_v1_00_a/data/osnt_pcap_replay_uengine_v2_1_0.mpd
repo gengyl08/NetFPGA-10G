@@ -1,0 +1,241 @@
+################################################################################
+#
+#  NetFPGA-10G http://www.netfpga.org
+#
+#  File:
+#        osnt_pcap_replay_uengine_v2_1_0.mpd
+#
+#  Library:
+#        hw/osnt/pcores/osnt_pcap_replay_uengine_v1_00_a
+#
+#  Author:
+#        Muhammad Shahbaz
+#
+#  Description:
+#        Microprocessor Peripheral Description File
+#
+#  Copyright notice:
+#        Copyright (C) 2010, 2011 The Board of Trustees of The Leland Stanford
+#                                 Junior University
+#
+#  Licence:
+#        This file is part of the NetFPGA 10G development base package.
+#
+#        This file is free code: you can redistribute it and/or modify it under
+#        the terms of the GNU Lesser General Public License version 2.1 as
+#        published by the Free Software Foundation.
+#
+#        This package is distributed in the hope that it will be useful, but
+#        WITHOUT ANY WARRANTY; without even the implied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+#
+#        You should have received a copy of the GNU Lesser General Public
+#        License along with the NetFPGA source package.  If not, see
+#        http://www.gnu.org/licenses/.
+#
+#
+
+BEGIN osnt_pcap_replay_uengine
+
+## Peripheral Options
+OPTION IPTYPE = PERIPHERAL
+OPTION IMP_NETLIST = TRUE
+OPTION STYLE = MIX
+OPTION HDL = MIXED
+OPTION RUN_NGCBUILD = TRUE
+OPTION IP_GROUP = OSNT
+OPTION DESC = OSNT Pcap Replay uEngine
+OPTION LONG_DESC = OSNT Pcap Replay uEngine
+
+## IO Interfaces
+IO_INTERFACE IO_IF = QDR_0
+IO_INTERFACE IO_IF = QDR_1
+IO_INTERFACE IO_IF = QDR_2
+
+## Bus Interfaces
+BUS_INTERFACE BUS = M_AXIS_0, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (C_NUM_QUEUES > 0)
+BUS_INTERFACE BUS = M_AXIS_1, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (C_NUM_QUEUES > 1)
+BUS_INTERFACE BUS = M_AXIS_2, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (C_NUM_QUEUES > 2)
+BUS_INTERFACE BUS = M_AXIS_3, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (C_NUM_QUEUES > 3)
+BUS_INTERFACE BUS = M_AXIS_4, BUS_STD = AXIS, BUS_TYPE = INITIATOR, ISVALID = (C_NUM_QUEUES > 3)
+BUS_INTERFACE BUS = S_AXIS, BUS_STD = AXIS, BUS_TYPE = TARGET
+BUS_INTERFACE BUS = S_AXI, BUS_STD = AXI, BUS_TYPE = SLAVE
+
+## Generics for VHDL or Parameters for Verilog
+PARAMETER C_S_AXI_DATA_WIDTH = 32, BUS = S_AXI
+PARAMETER C_S_AXI_ADDR_WIDTH = 32, BUS = S_AXI
+PARAMETER C_BASEADDR = 0xffffffff, PAIR = C_HIGHADDR, ADDRESS = BASE, BUS = S_AXI
+PARAMETER C_HIGHADDR = 0x00000000, PAIR = C_BASEADDR, ADDRESS = HIGH, BUS = S_AXI
+PARAMETER C_S_AXI_ACLK_FREQ_HZ = 100000000, BUS = S_AXI
+PARAMETER C_S_AXI_PROTOCOL = AXI4LITE, TYPE = NON_HDL, ASSIGNMENT = CONSTANT, DT = STRING, BUS = S_AXI
+PARAMETER C_USE_WSTRB = 0, DT = INTEGER, RANGE = (0:1), BUS = S_AXI
+PARAMETER C_DPHASE_TIMEOUT = 8, DT = INTEGER, RANGE = (0:512), BUS = S_AXI
+PARAMETER C_M_AXIS_DATA_WIDTH = 256, BUS = M_AXIS_0:M_AXIS_1:M_AXIS_2:M_AXIS_3, ASSIGNMENT = CONSTANT
+PARAMETER C_M_AXIS_TUSER_WIDTH = 128, BUS = M_AXIS_0:M_AXIS_1:M_AXIS_2:M_AXIS_3, ASSIGNMENT = CONSTANT
+PARAMETER C_S_AXIS_DATA_WIDTH = 256, BUS = S_AXIS, ASSIGNMENT = CONSTANT
+PARAMETER C_S_AXIS_TUSER_WIDTH = 128, BUS = S_AXIS, ASSIGNMENT = CONSTANT
+PARAMETER C_NUM_QUEUES = 4, DT = INTEGER, RANGE = (1:4), ASSIGNMENT = CONSTANT
+PARAMETER DST_PORT_POS = 24, DT = INTEGER, ASSIGNMENT = CONSTANT
+PARAMETER QDR_NUM_CHIPS = 2, DT = INTEGER, RANGE = (1:3), ASSIGNMENT = CONSTANT
+PARAMETER QDR_DATA_WIDTH = 36, ASSIGNMENT = CONSTANT
+PARAMETER QDR_ADDR_WIDTH = 19, ASSIGNMENT = CONSTANT
+PARAMETER QDR_BW_WIDTH = 4, ASSIGNMENT = CONSTANT
+PARAMETER QDR_CQ_WIDTH = 1, ASSIGNMENT = CONSTANT
+PARAMETER QDR_CLK_WIDTH = 1, ASSIGNMENT = CONSTANT
+PARAMETER QDR_BURST_LENGTH = 4, DT = INTEGER, VALUES = (4=4), ASSIGNMENT = CONSTANT
+PARAMETER REPLAY_COUNT_WIDTH = 32, DT = INTEGER, ASSIGNMENT = CONSTANT
+
+## Registers offsets definitions
+PARAMETER RESET_OFFSET = 0x0, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+
+PARAMETER Q0_START_REPLAY_OFFSET = 0x4, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q1_START_REPLAY_OFFSET = 0x8, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q2_START_REPLAY_OFFSET = 0xC, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q3_START_REPLAY_OFFSET = 0x10, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+
+PARAMETER Q0_REPLAY_COUNT_OFFSET = 0x14, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q1_REPLAY_COUNT_OFFSET = 0x18, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q2_REPLAY_COUNT_OFFSET = 0x1C, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q3_REPLAY_COUNT_OFFSET = 0x20, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+
+PARAMETER Q0_ADDR_LOW_OFFSET = 0x24, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q0_ADDR_HIGH_OFFSET = 0x28, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q1_ADDR_LOW_OFFSET = 0x2C, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q1_ADDR_HIGH_OFFSET = 0x30, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q2_ADDR_LOW_OFFSET = 0x34, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q2_ADDR_HIGH_OFFSET = 0x38, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q3_ADDR_LOW_OFFSET = 0x3C, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q3_ADDR_HIGH_OFFSET = 0x40, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+
+PARAMETER Q0_ENABLE_OFFSET = 0x44, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q1_ENABLE_OFFSET = 0x48, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q2_ENABLE_OFFSET = 0x4C, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+PARAMETER Q3_ENABLE_OFFSET = 0x50, DT = std_logic_vector(31 downto 0), BUS = S_AXI, ASSIGNMENT = CONSTANT, TYPE = NON_HDL
+
+## Ports
+PORT dcm_locked = "", DIR = I
+
+# AXI Slave Interface
+PORT s_axi_aclk = "", DIR = I, SIGIS = CLK, BUS = M_AXIS_0:M_AXIS_1:M_AXIS_2:M_AXIS_3:S_AXIS:S_AXI
+PORT s_axi_aresetn = "", DIR = I, SIGIS = RST
+PORT s_axi_awaddr = AWADDR, DIR = I, VEC = [(C_S_AXI_ADDR_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI
+PORT s_axi_awvalid = AWVALID, DIR = I, BUS = S_AXI
+PORT s_axi_wdata = WDATA, DIR = I, VEC = [(C_S_AXI_DATA_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI
+PORT s_axi_wstrb = WSTRB, DIR = I, VEC = [((C_S_AXI_DATA_WIDTH/8)-1):0], ENDIAN = LITTLE, BUS = S_AXI
+PORT s_axi_wvalid = WVALID, DIR = I, BUS = S_AXI
+PORT s_axi_bready = BREADY, DIR = I, BUS = S_AXI
+PORT s_axi_araddr = ARADDR, DIR = I, VEC = [(C_S_AXI_ADDR_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI
+PORT s_axi_arvalid = ARVALID, DIR = I, BUS = S_AXI
+PORT s_axi_rready = RREADY, DIR = I, BUS = S_AXI
+PORT s_axi_arready = ARREADY, DIR = O, BUS = S_AXI
+PORT s_axi_rdata = RDATA, DIR = O, VEC = [(C_S_AXI_DATA_WIDTH-1):0], ENDIAN = LITTLE, BUS = S_AXI
+PORT s_axi_rresp = RRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT s_axi_rvalid = RVALID, DIR = O, BUS = S_AXI
+PORT s_axi_wready = WREADY, DIR = O, BUS = S_AXI
+PORT s_axi_bresp = BRESP, DIR = O, VEC = [1:0], BUS = S_AXI
+PORT s_axi_bvalid = BVALID, DIR = O, BUS = S_AXI
+PORT s_axi_awready = AWREADY, DIR = O, BUS = S_AXI
+
+# AXIS 0 Master Interface
+PORT m_axis_tdata_0 = TDATA, DIR = O, VEC = [C_M_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_0, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 0)
+PORT m_axis_tstrb_0 = TSTRB, DIR = O, VEC = [(C_M_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_0, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 0)
+PORT m_axis_tuser_0 = TUSER, DIR = O, VEC = [C_M_AXIS_TUSER_WIDTH-1:0], BUS = M_AXIS_0, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 0)
+PORT m_axis_tvalid_0 = TVALID, DIR = O, BUS = M_AXIS_0, ISVALID = (C_NUM_QUEUES > 0)
+PORT m_axis_tready_0 = TREADY, DIR = I, BUS = M_AXIS_0, ISVALID = (C_NUM_QUEUES > 0)
+PORT m_axis_tlast_0 = TLAST, DIR = O, BUS = M_AXIS_0, ISVALID = (C_NUM_QUEUES > 0)
+
+# AXIS 1 Master Interface
+PORT m_axis_tdata_1 = TDATA, DIR = O, VEC = [C_M_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_1, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 1)
+PORT m_axis_tstrb_1 = TSTRB, DIR = O, VEC = [(C_M_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_1, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 1)
+PORT m_axis_tuser_1 = TUSER, DIR = O, VEC = [C_M_AXIS_TUSER_WIDTH-1:0], BUS = M_AXIS_1, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 1)
+PORT m_axis_tvalid_1 = TVALID, DIR = O, BUS = M_AXIS_1, ISVALID = (C_NUM_QUEUES > 1)
+PORT m_axis_tready_1 = TREADY, DIR = I, BUS = M_AXIS_1, ISVALID = (C_NUM_QUEUES > 1)
+PORT m_axis_tlast_1 = TLAST, DIR = O, BUS = M_AXIS_1, ISVALID = (C_NUM_QUEUES > 1)
+
+# AXIS 2 Master Interface
+PORT m_axis_tdata_2 = TDATA, DIR = O, VEC = [C_M_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_2, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 2)
+PORT m_axis_tstrb_2 = TSTRB, DIR = O, VEC = [(C_M_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_2, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 2)
+PORT m_axis_tuser_2 = TUSER, DIR = O, VEC = [C_M_AXIS_TUSER_WIDTH-1:0], BUS = M_AXIS_2, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 2)
+PORT m_axis_tvalid_2 = TVALID, DIR = O, BUS = M_AXIS_2, ISVALID = (C_NUM_QUEUES > 2)
+PORT m_axis_tready_2 = TREADY, DIR = I, BUS = M_AXIS_2, ISVALID = (C_NUM_QUEUES > 2)
+PORT m_axis_tlast_2 = TLAST, DIR = O, BUS = M_AXIS_2, ISVALID = (C_NUM_QUEUES > 2)
+
+# AXIS 3 Master Interface
+PORT m_axis_tdata_3 = TDATA, DIR = O, VEC = [C_M_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_3, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 3)
+PORT m_axis_tstrb_3 = TSTRB, DIR = O, VEC = [(C_M_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_3, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 3)
+PORT m_axis_tuser_3 = TUSER, DIR = O, VEC = [C_M_AXIS_TUSER_WIDTH-1:0], BUS = M_AXIS_3, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 3)
+PORT m_axis_tvalid_3 = TVALID, DIR = O, BUS = M_AXIS_3, ISVALID = (C_NUM_QUEUES > 3)
+PORT m_axis_tready_3 = TREADY, DIR = I, BUS = M_AXIS_3, ISVALID = (C_NUM_QUEUES > 3)
+PORT m_axis_tlast_3 = TLAST, DIR = O, BUS = M_AXIS_3, ISVALID = (C_NUM_QUEUES > 3)
+
+# AXIS 4 Master Interface
+PORT m_axis_tdata_4 = TDATA, DIR = O, VEC = [C_M_AXIS_DATA_WIDTH-1:0], BUS = M_AXIS_3, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 3)
+PORT m_axis_tstrb_4 = TSTRB, DIR = O, VEC = [(C_M_AXIS_DATA_WIDTH/8)-1:0], BUS = M_AXIS_3, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 3)
+PORT m_axis_tuser_4 = TUSER, DIR = O, VEC = [C_M_AXIS_TUSER_WIDTH-1:0], BUS = M_AXIS_3, ENDIAN = LITTLE, ISVALID = (C_NUM_QUEUES > 3)
+PORT m_axis_tvalid_4 = TVALID, DIR = O, BUS = M_AXIS_3, ISVALID = (C_NUM_QUEUES > 3)
+PORT m_axis_tready_4 = TREADY, DIR = I, BUS = M_AXIS_3, ISVALID = (C_NUM_QUEUES > 3)
+PORT m_axis_tlast_4 = TLAST, DIR = O, BUS = M_AXIS_3, ISVALID = (C_NUM_QUEUES > 3)
+
+# AXI-Stream Slave Interface
+PORT s_axis_tdata = TDATA, DIR = I, VEC = [C_S_AXIS_DATA_WIDTH-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tstrb = TSTRB, DIR = I, VEC = [(C_S_AXIS_DATA_WIDTH/8)-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tuser = TUSER, DIR = I, VEC = [C_S_AXIS_TUSER_WIDTH-1:0], BUS = S_AXIS, ENDIAN = LITTLE
+PORT s_axis_tvalid = TVALID, DIR = I, BUS = S_AXIS
+PORT s_axis_tready = TREADY, DIR = O, BUS = S_AXIS
+PORT s_axis_tlast = TLAST, DIR = I, BUS = S_AXIS
+
+# QDR Clocks
+PORT qdr_clk = "", DIR = I, SIGIS = CLK
+PORT qdr_clk_200 = "", DIR = I, SIGIS = CLK
+PORT qdr_clk_270 = "", DIR = I, SIGIS = CLK
+
+# QDR 0 Interface
+PORT qdr_d_0 = "", DIR = O, IO_IF = QDR_0, VEC = [QDR_DATA_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_q_0 = "", DIR = I, IO_IF = QDR_0, VEC = [QDR_DATA_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_sa_0 = "", DIR = O, IO_IF = QDR_0, VEC = [QDR_ADDR_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_w_n_0 = "", DIR = O, IO_IF = QDR_0, ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_r_n_0 = "", DIR = O, IO_IF = QDR_0, ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_bw_n_0 = "", DIR = O, IO_IF = QDR_0, VEC = [QDR_BW_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_dll_off_n_0 = "", DIR = O, IO_IF = QDR_0, ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_cq_0 = "", DIR = I, IO_IF = QDR_0, VEC = [QDR_CQ_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_cq_n_0 = "", DIR = I, IO_IF = QDR_0, VEC = [QDR_CQ_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_c_n_0 = "", DIR = O, IO_IF = QDR_0, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_k_n_0 = "", DIR = O, IO_IF = QDR_0, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_c_0 = "", DIR = O, IO_IF = QDR_0, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_k_0 = "", DIR = O, IO_IF = QDR_0, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 0)
+PORT qdr_masterbank_sel_0 = "", DIR = I, IO_IF = QDR_0, ISVALID = (QDR_NUM_CHIPS > 0)
+
+# QDR 1 Interface
+PORT qdr_d_1 = "", DIR = O, IO_IF = QDR_1, VEC = [QDR_DATA_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_q_1 = "", DIR = I, IO_IF = QDR_1, VEC = [QDR_DATA_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_sa_1 = "", DIR = O, IO_IF = QDR_1, VEC = [QDR_ADDR_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_w_n_1 = "", DIR = O, IO_IF = QDR_1, ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_r_n_1 = "", DIR = O, IO_IF = QDR_1, ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_bw_n_1 = "", DIR = O, IO_IF = QDR_1, VEC = [QDR_BW_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_dll_off_n_1 = "", DIR = O, IO_IF = QDR_1, ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_cq_1 = "", DIR = I, IO_IF = QDR_1, VEC = [QDR_CQ_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_cq_n_1 = "", DIR = I, IO_IF = QDR_1, VEC = [QDR_CQ_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_c_n_1 = "", DIR = O, IO_IF = QDR_1, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_k_n_1 = "", DIR = O, IO_IF = QDR_1, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_c_1 = "", DIR = O, IO_IF = QDR_1, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_k_1 = "", DIR = O, IO_IF = QDR_1, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 1)
+PORT qdr_masterbank_sel_1 = "", DIR = I, IO_IF = QDR_1, ISVALID = (QDR_NUM_CHIPS > 1)
+
+# QDR 2 Interface
+PORT qdr_d_2 = "", DIR = O, IO_IF = QDR_2, VEC = [QDR_DATA_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_q_2 = "", DIR = I, IO_IF = QDR_2, VEC = [QDR_DATA_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_sa_2 = "", DIR = O, IO_IF = QDR_2, VEC = [QDR_ADDR_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_w_n_2 = "", DIR = O, IO_IF = QDR_2, ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_r_n_2 = "", DIR = O, IO_IF = QDR_2, ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_bw_n_2 = "", DIR = O, IO_IF = QDR_2, VEC = [QDR_BW_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_dll_off_n_2 = "", DIR = O, IO_IF = QDR_2, ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_cq_2 = "", DIR = I, IO_IF = QDR_2, VEC = [QDR_CQ_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_cq_n_2 = "", DIR = I, IO_IF = QDR_2, VEC = [QDR_CQ_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_c_n_2 = "", DIR = O, IO_IF = QDR_2, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_k_n_2 = "", DIR = O, IO_IF = QDR_2, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_c_2 = "", DIR = O, IO_IF = QDR_2, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_k_2 = "", DIR = O, IO_IF = QDR_2, VEC = [QDR_CLK_WIDTH-1:0], ISVALID = (QDR_NUM_CHIPS > 2)
+PORT qdr_masterbank_sel_2 = "", DIR = I, IO_IF = QDR_2, ISVALID = (QDR_NUM_CHIPS > 2)
+
+END
