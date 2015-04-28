@@ -1,0 +1,204 @@
+
+<smartXplorerReport>
+    <command>smartxplorer -p xc5vtx240tff1759-2 -host_list hosts -ucf system.ucf -batch_mode -best 1 -bo off -max_score 80000 -variability_passes 30 system.ngd
+    </command>
+    <programStatus>Done
+    </programStatus>
+    <programPID>1743
+    </programPID>
+    
+    <strategy name="MapRunTime">
+        <strategyData>map  -ol high -w ; par  -ol high 
+        </strategyData>
+        <xdsFile>mapruntime.xds
+        </xdsFile>
+        <host name="nf-build1.Stanford.EDU">
+            <hostData>Linux, x86_64, 8-processor, 12G RAM
+            </hostData>
+        </host>
+        <runIndex>run1
+        </runIndex>
+        <status>Stopped
+        </status>
+        <logFile>system_sx.log
+        </logFile>
+        <timingScore>0
+        </timingScore>
+        <WorstCaseSlack>0.385ns
+        </WorstCaseSlack>
+        <Luts>51,240 (34%)
+	</Luts>
+	<SliceRegisters>52,593 (35%)
+	</SliceRegisters>
+	<runTime>2h 11m 21s
+        </runTime>
+    </strategy>
+    <strategy name="MapLogicOpt">
+        <strategyData>map  -ol high -xe n -logic_opt on -t 2 -w ; par  -ol high -xe n 
+        </strategyData>
+        <xdsFile>maplogicopt.xds
+        </xdsFile>
+        <host name="nf-build1.Stanford.EDU">
+            <hostData>Linux, x86_64, 8-processor, 12G RAM
+            </hostData>
+        </host>
+        <runIndex>run2
+        </runIndex>
+        <status>Stopped
+        </status>
+        <logFile>system_sx.log
+        </logFile>
+        <timingScore>None
+        </timingScore>
+        <WorstCaseSlack>None
+        </WorstCaseSlack>
+        <Luts>None
+	</Luts>
+	<SliceRegisters>None
+	</SliceRegisters>
+	<runTime>2h 11m 29s
+        </runTime>
+    </strategy>
+    <strategy name="MapGlobOptIOReg">
+        <strategyData>map  -ol high -global_opt speed -pr b -w ; par  -ol high -xe n 
+        </strategyData>
+        <xdsFile>mapgloboptioreg.xds
+        </xdsFile>
+        <host name="nf-build1.Stanford.EDU">
+            <hostData>Linux, x86_64, 8-processor, 12G RAM
+            </hostData>
+        </host>
+        <runIndex>run3
+        </runIndex>
+        <status>Stopped
+        </status>
+        <logFile>system_sx.log
+        </logFile>
+        <timingScore>None
+        </timingScore>
+        <WorstCaseSlack>None
+        </WorstCaseSlack>
+        <Luts>43,710 (29%)
+	</Luts>
+	<SliceRegisters>50,655 (33%)
+	</SliceRegisters>
+	<runTime>2h 11m 35s
+        </runTime>
+    </strategy>
+    <strategy name="MapRegDup">
+        <strategyData>map  -ol high -xe n -register_duplication on -w ; par  -ol high -xe n 
+        </strategyData>
+        <xdsFile>mapregdup.xds
+        </xdsFile>
+        <host name="nf-build1.Stanford.EDU">
+            <hostData>Linux, x86_64, 8-processor, 12G RAM
+            </hostData>
+        </host>
+        <runIndex>run4
+        </runIndex>
+        <status>Done
+        </status>
+        <logFile>system_sx.log
+        </logFile>
+        <timingScore>0
+        </timingScore>
+        <WorstCaseSlack>0.057ns
+        </WorstCaseSlack>
+        <Luts>51,253 (34%)
+	</Luts>
+	<SliceRegisters>52,593 (35%)
+	</SliceRegisters>
+	<runTime>2h 11m 10s
+        </runTime>
+    </strategy>
+    <strategy name="MapExtraEffortIOReg">
+        <strategyData>map  -ol high -xe n -pr b -t 7 -w ; par  -ol high -xe n 
+        </strategyData>
+        <xdsFile>mapextraeffortioreg.xds
+        </xdsFile>
+        <host name="nf-build1.Stanford.EDU">
+            <hostData>Linux, x86_64, 8-processor, 12G RAM
+            </hostData>
+        </host>
+        <runIndex>run5
+        </runIndex>
+        <status>Stopped
+        </status>
+        <logFile>system_sx.log
+        </logFile>
+        <timingScore>None
+        </timingScore>
+        <WorstCaseSlack>None
+        </WorstCaseSlack>
+        <Luts>51,264 (34%)
+	</Luts>
+	<SliceRegisters>52,587 (35%)
+	</SliceRegisters>
+	<runTime>2h 11m 47s
+        </runTime>
+    </strategy>
+    <strategy name="MapLogOptRegDup">
+        <strategyData>map  -ol high -xe n -logic_opt on -register_duplication on -t 2 -w ; par  -ol high -xe n 
+        </strategyData>
+        <xdsFile>maplogoptregdup.xds
+        </xdsFile>
+        <host name="nf-build1.Stanford.EDU">
+            <hostData>Linux, x86_64, 8-processor, 12G RAM
+            </hostData>
+        </host>
+        <runIndex>run6
+        </runIndex>
+        <status>Done
+        </status>
+        <logFile>system_sx.log
+        </logFile>
+        <timingScore>0
+        </timingScore>
+        <WorstCaseSlack>0.076ns
+        </WorstCaseSlack>
+        <Luts>51,270 (34%)
+	</Luts>
+	<SliceRegisters>52,593 (35%)
+	</SliceRegisters>
+	<runTime>2h 11m 52s
+        </runTime>
+    </strategy>
+    <strategy name="MapExtraEffort2">
+        <strategyData>map  -ol high -xe n -t 3 -w ; par  -ol high 
+        </strategyData>
+        <xdsFile>mapextraeffort2.xds
+        </xdsFile>
+        <host name="nf-build1.Stanford.EDU">
+            <hostData>Linux, x86_64, 8-processor, 12G RAM
+            </hostData>
+        </host>
+        <runIndex>run7
+        </runIndex>
+        <status>Stopped
+        </status>
+        <logFile>system_sx.log
+        </logFile>
+        <timingScore>142728
+        </timingScore>
+        <WorstCaseSlack>None
+        </WorstCaseSlack>
+        <Luts>51,268 (34%)
+	</Luts>
+	<SliceRegisters>52,593 (35%)
+	</SliceRegisters>
+	<runTime>2h 11m 58s
+        </runTime>
+    </strategy>
+    <bestStrategy>MapRegDup
+    </bestStrategy>
+    <envVariables>
+        <env name="PATH"  value="/cad_64/xilinx/ise13.4/ISE_DS/common/bin/lin64:/cad_64/xilinx/ise13.4/ISE_DS/ISE/sysgen/bin:/cad_64/xilinx/ise13.4/ISE_DS/PlanAhead/bin:/cad_64/xilinx/ise13.4/ISE_DS/ISE/bin/lin64:/cad_64/xilinx/ise13.4/ISE_DS/ISE/sysgen/util:/cad_64/xilinx/ise13.4/ISE_DS/EDK/bin/lin64:/cad_64/xilinx/ise13.4/ISE_DS/EDK/gnu/microblaze/lin64/bin:/cad_64/xilinx/ise13.4/ISE_DS/EDK/gnu/powerpc-eabi/lin64/bin:/usr/lib64/ccache:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/gengyl08/.local/bin:/home/gengyl08/bin"/>
+        <env name="XILINX_EDK"  value="/cad_64/xilinx/ise13.4/ISE_DS/EDK"/>
+        <env name="LD_LIBRARY_PATH"  value="/cad_64/xilinx/ise13.4/ISE_DS/common/lib/lin64:/cad_64/xilinx/ise13.4/ISE_DS/ISE/sysgen/lib:/cad_64/xilinx/ise13.4/ISE_DS/ISE/lib/lin64:/cad_64/xilinx/ise13.4/ISE_DS/ISE/smartmodel/lin64/installed_lin64/lib:/cad_64/xilinx/ise13.4/ISE_DS/EDK/lib/lin64"/>
+        <env name="XILINX_PLANAHEAD"  value="/cad_64/xilinx/ise13.4/ISE_DS/PlanAhead"/>
+        <env name="XILINX_DSP"  value="/cad_64/xilinx/ise13.4/ISE_DS/ISE"/>
+        <env name="XILINXD_LICENSE_FILE"  value="2100@ee-matlab.stanford.edu:7193@cadlic0.stanford.edu"/>
+        <env name="XILINX"  value="/cad_64/xilinx/ise13.4/ISE_DS/ISE"/>
+        
+    </envVariables>
+</smartXplorerReport>

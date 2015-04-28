@@ -59,17 +59,18 @@ End Program ngdbuild
 # Type "map -h <arch>" for a detailed list of map command line options
 #
 Program map
--mt 4;                   # James: Use 4 cores if possible
+#-mt 4;                   # James: Use 4 cores if possible
 -o <design>_map.ncd;     # Output Mapped ncd file
 -w;			 # Overwrite output files.
+-p xc5vtx240tff1759-2;
 #-pr b;                   # Pack internal FF/latches into IOBs
 #-fp <design>.mfp;       # Floorplan file
 -xe n;
 -ol high;
 #-cm speed;
-#-t 7;
--register_duplication on;
-#-logic_opt on;
+-t 16;
+#-register_duplication on;
+-logic_opt on;
 #-timing;
 #-detail;
 <inputdir><design>.ngd;  # Input NGD file
@@ -96,7 +97,7 @@ END Program post_map_trce
 # Type "par -h" for a detailed list of par command line options
 #
 Program par
--mt 4;                       # James: Use 4 cores if possible
+#-mt 4;                       # James: Use 4 cores if possible
 -w;                 # Overwrite existing placed and routed ncd
 -ol high;              # Overall effort level
 -xe n;

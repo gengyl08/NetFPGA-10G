@@ -1,0 +1,33 @@
+----------------------------------------------------------------------
+FPGA SmartXplorer (tm) Version 13.4
+
+----------------------------------------------------------------------
+ Strategy : MapRegDup
+----------------------------------------------------------------------
+ Run index                           : run4
+ Map options                         : -ol high -xe n -register_duplication on -w 
+ Par options                         : -ol high -xe n 
+ Number of Luts                      : 51,253 (34%)
+ Number of Slice Registers           : 52,593 (35%)
+ Status                              : Done
+ Achieved Timing Score               : 0
+ Worst Case Slack                : 0.057ns
+
+ Current Best (Lowest) Timing Score  : 0
+ Current Best Strategy               : MapRegDup
+----------------------------------------------------------------------
+######################################################################
+ BestStrategy : MapRegDup
+######################################################################
+ Run index                           : run4
+ Map options                         : -ol high -xe n -register_duplication on -w 
+ Par options                         : -ol high -xe n 
+ Number of Luts                      : 51,253 (34%)
+ Number of Slice Registers           : 52,593 (35%)
+ Achieved Timing Score               : 0
+ Worst Case Slack                : 0.057ns
+
+######################################################################
+
+Total Real Time:7928.5(secs)
+SmartXplorer Done

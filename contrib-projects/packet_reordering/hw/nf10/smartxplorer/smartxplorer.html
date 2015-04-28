@@ -1,0 +1,1009 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- saved from url=(0014)about:SXplorer -->
+<html>
+<head>
+
+    <noscript>
+    <!--
+        We have the "refresh" meta-tag in case the user's browser does
+	not correctly support JavaScript or has JavaScript disabled.
+     <meta http-equiv="refresh" content="2">
+     -->
+
+     </noscript>
+
+     <script language="JavaScript">
+
+     var sURL = unescape(window.location.pathname);
+
+     function doLoad()
+     {
+         // the timeout value should be the same as in the "refresh" meta-tag
+         setTimeout( "refresh()", 31536000000);
+     }
+
+     function refresh()
+     {
+         //  This version of the refresh function will cause a new
+         //  entry in the visitor's history.  It is provided for
+         //  those browsers that only support JavaScript 1.0.
+         //
+         //window.location.href = sURL;
+         // CR 452967
+         window.location.reload( false );
+     }
+
+     </script>
+
+     <script language="JavaScript">
+     function sxtooltip_findPosX(obj) {
+       var curleft = 0;
+       if (obj.offsetParent) {
+           while (obj.offsetParent) {
+            curleft += obj.offsetLeft
+            obj = obj.offsetParent;
+           }
+       } else if (obj.x)
+           curleft += obj.x;
+       return curleft;
+     }
+
+
+     function sxtooltip_findPosY(obj) {
+         var curtop = 0;
+         if (obj.offsetParent) {
+            while (obj.offsetParent) {
+               curtop += obj.offsetTop
+               obj = obj.offsetParent;
+            }
+         } else if (obj.y)
+            curtop += obj.y;
+         return curtop;
+     }
+
+
+     function sxtooltip_show(tooltipId, parentId, x1, y1) {
+         // x1 and y1 are (left, down) offsets from the upper-left corner
+         // of the parent
+         var ie4 = document.all;
+         var tt = document.getElementById(tooltipId);
+
+         if ((tt.style.top == '' || tt.style.top == 0) ||
+             (tt.style.left == '' || tt.style.left == 0)) {
+
+             // need to offset widths for IE
+             ieWidthOffset = 0
+             iePosOffset = 0
+             if (ie4) {
+                 ieWidthOffset = 300
+                 iePosOffset = 20
+             }
+             tt.style.width = ieWidthOffset + tt.offsetWidth + 'px';
+             tt.style.height = tt.offsetHeight + 'px';
+
+             var parent = document.getElementById(parentId);
+
+             if (x1 < 0 ) x1 = 0;
+
+             var x = sxtooltip_findPosX(parent) + x1;
+             var y = sxtooltip_findPosY(parent) + y1;
+
+             tt.style.top = iePosOffset + y + 'px';
+             tt.style.left = iePosOffset + x + 'px';
+        }
+
+        tt.style.visibility = 'visible';
+     }
+
+     function sxtooltip_hide(id) {
+        tt = document.getElementById(id);
+        tt.style.visibility = 'hidden';
+     }
+     </script>
+
+
+</head>
+
+	<title>SmartXplorer Report</title>
+	<style type="text/css">
+		/***
+			The following is just an example of how to use the table.
+			You can override any class names to be used if you wish.
+		***/
+		table.toplevel {
+			font-family:Lucida Grande, Verdana;
+			font-size:0.8em;
+			width:60%;
+			border:1px solid #ccc;
+			border-collapse:collapse;
+			cursor:default;
+                        margin-left: 10px;
+                        margin-right: 10px;
+		}
+		table th{
+			padding:2px;
+			font-weight:600;
+                        background-color: cornflowerblue;
+                        background-color: #87cefa;
+		}
+		table td{
+			padding:2px;
+			font-weight:normal;
+		}
+		table thead td, table thead th {
+			background-repeat:no-repeat;
+			background-position:top right;
+		}
+		table tbody tr td{
+			padding:2px;
+			border-bottom:1px solid #ddd;
+		}
+		table tbody tr.alt td{
+			background: #e3edfa;
+		}
+		table tbody tr.selected td{
+			background: yellow;
+		}
+		table tbody tr:hover td{
+			background: #a6c2e7;
+			background: #FFFFCC;
+		}
+		table tbody tr.selected:hover td{
+			background:#ff9;
+		}
+                .defaultCellColor {
+                        background-color: lightsteelblue;
+                        background-color: #fcba7a;
+
+                }
+                .timingMetCellColor {
+                        background-color: #ccffcc;
+                }
+                .bestStrategyCellColor {
+                        background-color: #00FF00;
+                }
+                .alternateCellColor {
+                        background-color: #efeeee;
+                }
+
+
+                .sxtooltip {
+  		        visibility: hidden;
+                        position: absolute;
+                        background: beige;
+                        background: lightcyan;
+                        background: blanchedalmond;
+                        top: 0;
+                        left: 0;
+                        z-index: 2;
+                        font: normal 10pt sans-serif;
+                        padding: 3px;
+                        border: solid 1px;
+                }
+
+	</style>
+
+
+       <!--
+           Use the "onload" event to start the refresh process.
+        -->
+<body onload="doLoad()">
+
+	<h2><u>SmartXplorer Report </u></h2>
+
+	<br />
+
+	<div>
+        Release 13.4 SmartXplorer <br />Copyright(c) 1995-2010 <a href="http://www.xilinx.com"> Xilinx </a>, Inc. All rights reserved. <br /> <br />
+	<b> smartxplorer -p xc5vtx240tff1759-2 -host_list hosts -ucf system.ucf -batch_mode -best 1 -bo off -max_score 80000 -variability_passes 30 -rcmd ssh system.ngd <b/> <br />
+
+	<br />
+
+
+    <h3>Run Summary</h3>
+
+    <table id="t1" class="toplevel"
+        multiple="true" alternateRows="true" maxSortable="1"
+        cellpadding="0" cellspacing="0" border="1">
+    <thead>
+
+        <tr>
+            <th field="Strategy" dataType="String" align="left" valign="top">Strategy</th>
+            <th field="Host" dataType="String" valign="top">Host</th>
+            <th field="Output" dataType="String" align="left" valign="top">Output</th>
+            <th field="Status" dataType="String" align="left" valign="top">Status</th>
+            <th field="Current" dataType="Number" sort="asc" align="center" valign="top">Timing <br> Score</th>
+            <th field="Current" dataType="Number" sort="asc" align="center" valign="top">Worst Case <br> Slack</th>
+            <th field="Status" dataType="String" align="center" valign="top"> Luts</th>
+            <th field="Status" dataType="String" align="center" valign="top"> Slice <br> Registers</th>
+            
+            <th field="Run Time" dataType="Number" sort="asc" align="center" valign="top">Total <br> RunTime </th>
+
+        </tr>
+        <tr>  </tr>
+    </thead>
+
+    <tbody>
+         
+        <tr class="bestStrategyCellColor" >
+        <td id="strat20"><span
+        onmouseover="sxtooltip_show('stratTt20', 'strat20', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt20');">
+        MapLogicOptCT16
+        </span></td>
+        <div id="stratTt20" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 16 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host3"><span
+        onmouseover="sxtooltip_show('hostTt3', 'host3', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt3');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt3" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td><a href=run20/system_sx.log target=_blank>run20</a></td>
+        <td><b> Done <b/></td>
+        <td><a href=run20/system.twx.html target=_blank>0</a></td>
+        <td><a href=run20/system.twx.html target=_blank>0.034ns</a></td>
+        <td>44,952 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 51m 34s</td></tr>
+        <tr >
+        <td id="strat1"><span
+        onmouseover="sxtooltip_show('stratTt1', 'strat1', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt1');">
+        MapRunTime
+        </span></td>
+        <div id="stratTt1" class="sxtooltip">
+        map  -ol high -w ; par  -ol high 
+        </div>
+
+        
+        <td id="host0"><span
+        onmouseover="sxtooltip_show('hostTt0', 'host0', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt0');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt0" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td>run1</td>
+        <td>Deleted</td>
+        <td>29107</td>
+        <td>-1.875ns</td>
+        <td>44,930 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 42m 3s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat2"><span
+        onmouseover="sxtooltip_show('stratTt2', 'strat2', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt2');">
+        MapLogicOpt
+        </span></td>
+        <div id="stratTt2" class="sxtooltip">
+        map  -ol high -xe n -logic_opt on -t 2 -w ; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host1"><span
+        onmouseover="sxtooltip_show('hostTt1', 'host1', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt1');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt1" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td>run2</td>
+        <td>Deleted</td>
+        <td>12348</td>
+        <td>-0.576ns</td>
+        <td>44,954 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 53m 42s</td></tr>
+        <tr >
+        <td id="strat3"><span
+        onmouseover="sxtooltip_show('stratTt3', 'strat3', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt3');">
+        MapGlobOptIOReg
+        </span></td>
+        <div id="stratTt3" class="sxtooltip">
+        map  -ol high -global_opt speed -pr b -w ; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host2"><span
+        onmouseover="sxtooltip_show('hostTt2', 'host2', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt2');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt2" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td>run3</td>
+        <td>Deleted</td>
+        <td>685902</td>
+        <td>None</td>
+        <td>38,058 (25%)</td>
+        <td>52,204 (34%)</td>
+        
+        <td>1h 14m 41s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat4"><span
+        onmouseover="sxtooltip_show('stratTt4', 'strat4', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt4');">
+        MapRegDup
+        </span></td>
+        <div id="stratTt4" class="sxtooltip">
+        map  -ol high -xe n -register_duplication on -w ; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host3"><span
+        onmouseover="sxtooltip_show('hostTt3', 'host3', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt3');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt3" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td>run4</td>
+        <td>Deleted</td>
+        <td>24983</td>
+        <td>-1.262ns</td>
+        <td>44,986 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 54m 58s</td></tr>
+        <tr >
+        <td id="strat5"><span
+        onmouseover="sxtooltip_show('stratTt5', 'strat5', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt5');">
+        MapExtraEffortIOReg
+        </span></td>
+        <div id="stratTt5" class="sxtooltip">
+        map  -ol high -xe n -pr b -t 7 -w ; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host4"><span
+        onmouseover="sxtooltip_show('hostTt4', 'host4', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt4');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt4" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td>run5</td>
+        <td>Deleted</td>
+        <td>16266</td>
+        <td>-1.054ns</td>
+        <td>44,952 (30%)</td>
+        <td>54,901 (36%)</td>
+        
+        <td>0h 42m 39s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat6"><span
+        onmouseover="sxtooltip_show('stratTt6', 'strat6', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt6');">
+        MapLogOptRegDup
+        </span></td>
+        <div id="stratTt6" class="sxtooltip">
+        map  -ol high -xe n -logic_opt on -register_duplication on -t 2 -w ; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host5"><span
+        onmouseover="sxtooltip_show('hostTt5', 'host5', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt5');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt5" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td>run6</td>
+        <td>Deleted</td>
+        <td>16751</td>
+        <td>-0.728ns</td>
+        <td>45,020 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 44m 25s</td></tr>
+        <tr >
+        <td id="strat7"><span
+        onmouseover="sxtooltip_show('stratTt7', 'strat7', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt7');">
+        MapExtraEffort2
+        </span></td>
+        <div id="stratTt7" class="sxtooltip">
+        map  -ol high -xe n -t 3 -w ; par  -ol high 
+        </div>
+
+        
+        <td id="host6"><span
+        onmouseover="sxtooltip_show('hostTt6', 'host6', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt6');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt6" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td>run7</td>
+        <td>Deleted</td>
+        <td>13378</td>
+        <td>-0.654ns</td>
+        <td>44,955 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 36m 51s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat8"><span
+        onmouseover="sxtooltip_show('stratTt8', 'strat8', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt8');">
+        MapExtraEffort2CT4
+        </span></td>
+        <div id="stratTt8" class="sxtooltip">
+        map -ol high -xe n -t 4 -w; par  -ol high 
+        </div>
+
+        
+        <td id="host0"><span
+        onmouseover="sxtooltip_show('hostTt0', 'host0', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt0');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt0" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td>run8</td>
+        <td>Deleted</td>
+        <td>13371</td>
+        <td>-0.733ns</td>
+        <td>44,964 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 47m 4s</td></tr>
+        <tr >
+        <td id="strat9"><span
+        onmouseover="sxtooltip_show('stratTt9', 'strat9', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt9');">
+        MapExtraEffort2CT5
+        </span></td>
+        <div id="stratTt9" class="sxtooltip">
+        map -ol high -xe n -t 5 -w; par  -ol high 
+        </div>
+
+        
+        <td id="host4"><span
+        onmouseover="sxtooltip_show('hostTt4', 'host4', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt4');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt4" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td>run9</td>
+        <td>Deleted</td>
+        <td>303587</td>
+        <td>None</td>
+        <td>44,949 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 29m 18s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat10"><span
+        onmouseover="sxtooltip_show('stratTt10', 'strat10', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt10');">
+        MapLogicOptCT6
+        </span></td>
+        <div id="stratTt10" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 6 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host1"><span
+        onmouseover="sxtooltip_show('hostTt1', 'host1', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt1');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt1" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td>run10</td>
+        <td>Deleted</td>
+        <td>4200</td>
+        <td>-0.481ns</td>
+        <td>44,953 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 52m 40s</td></tr>
+        <tr >
+        <td id="strat11"><span
+        onmouseover="sxtooltip_show('stratTt11', 'strat11', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt11');">
+        MapLogicOptCT7
+        </span></td>
+        <div id="stratTt11" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 7 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host5"><span
+        onmouseover="sxtooltip_show('hostTt5', 'host5', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt5');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt5" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td>run11</td>
+        <td>Deleted</td>
+        <td>1002007</td>
+        <td>None</td>
+        <td>44,947 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 36m 11s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat12"><span
+        onmouseover="sxtooltip_show('stratTt12', 'strat12', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt12');">
+        MapLogicOptCT8
+        </span></td>
+        <div id="stratTt12" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 8 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host3"><span
+        onmouseover="sxtooltip_show('hostTt3', 'host3', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt3');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt3" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td>run12</td>
+        <td>Deleted</td>
+        <td>86275</td>
+        <td>None</td>
+        <td>44,969 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 38m 47s</td></tr>
+        <tr >
+        <td id="strat13"><span
+        onmouseover="sxtooltip_show('stratTt13', 'strat13', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt13');">
+        MapLogicOptCT9
+        </span></td>
+        <div id="stratTt13" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 9 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host6"><span
+        onmouseover="sxtooltip_show('hostTt6', 'host6', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt6');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt6" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td>run13</td>
+        <td>Deleted</td>
+        <td>367215</td>
+        <td>None</td>
+        <td>44,957 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 33m 29s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat14"><span
+        onmouseover="sxtooltip_show('stratTt14', 'strat14', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt14');">
+        MapLogicOptCT10
+        </span></td>
+        <div id="stratTt14" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 10 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host4"><span
+        onmouseover="sxtooltip_show('hostTt4', 'host4', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt4');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt4" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td>run14</td>
+        <td>Deleted</td>
+        <td>28355</td>
+        <td>-0.665ns</td>
+        <td>44,951 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>1h 7m 57s</td></tr>
+        <tr >
+        <td id="strat15"><span
+        onmouseover="sxtooltip_show('stratTt15', 'strat15', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt15');">
+        MapLogicOptCT11
+        </span></td>
+        <div id="stratTt15" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 11 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host2"><span
+        onmouseover="sxtooltip_show('hostTt2', 'host2', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt2');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt2" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td>run15</td>
+        <td>Deleted</td>
+        <td>110710</td>
+        <td>None</td>
+        <td>44,957 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 41m 2s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat16"><span
+        onmouseover="sxtooltip_show('stratTt16', 'strat16', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt16');">
+        MapLogicOptCT12
+        </span></td>
+        <div id="stratTt16" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 12 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host7"><span
+        onmouseover="sxtooltip_show('hostTt7', 'host7', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt7');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt7" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td>run16</td>
+        <td>Deleted</td>
+        <td>6906</td>
+        <td>-0.473ns</td>
+        <td>44,949 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>1h 8m 2s</td></tr>
+        <tr >
+        <td id="strat17"><span
+        onmouseover="sxtooltip_show('stratTt17', 'strat17', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt17');">
+        MapLogicOptCT13
+        </span></td>
+        <div id="stratTt17" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 13 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host6"><span
+        onmouseover="sxtooltip_show('hostTt6', 'host6', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt6');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt6" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td>run17</td>
+        <td>Deleted</td>
+        <td>289540</td>
+        <td>None</td>
+        <td>44,948 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 55m 46s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat18"><span
+        onmouseover="sxtooltip_show('stratTt18', 'strat18', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt18');">
+        MapLogicOptCT14
+        </span></td>
+        <div id="stratTt18" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 14 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host5"><span
+        onmouseover="sxtooltip_show('hostTt5', 'host5', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt5');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt5" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td><a href=run18/system_sx.log target=_blank>run18</a></td>
+        <td>Stopped</td>
+        <td>166824</td>
+        <td>None</td>
+        <td>44,952 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 55m 35s</td></tr>
+        <tr >
+        <td id="strat19"><span
+        onmouseover="sxtooltip_show('stratTt19', 'strat19', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt19');">
+        MapLogicOptCT15
+        </span></td>
+        <div id="stratTt19" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 15 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host0"><span
+        onmouseover="sxtooltip_show('hostTt0', 'host0', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt0');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt0" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td>run19</td>
+        <td>Deleted</td>
+        <td>497317</td>
+        <td>None</td>
+        <td>44,965 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 40m 50s</td></tr>
+        <tr >
+        <td id="strat21"><span
+        onmouseover="sxtooltip_show('stratTt21', 'strat21', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt21');">
+        MapLogicOptCT17
+        </span></td>
+        <div id="stratTt21" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 17 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host1"><span
+        onmouseover="sxtooltip_show('hostTt1', 'host1', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt1');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt1" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td><a href=run21/system_sx.log target=_blank>run21</a></td>
+        <td>Stopped</td>
+        <td>None</td>
+        <td>None</td>
+        <td>44,948 (30%)</td>
+        <td>54,907 (36%)</td>
+        
+        <td>0h 38m 57s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat22"><span
+        onmouseover="sxtooltip_show('stratTt22', 'strat22', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt22');">
+        MapLogicOptCT18
+        </span></td>
+        <div id="stratTt22" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 18 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host2"><span
+        onmouseover="sxtooltip_show('hostTt2', 'host2', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt2');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt2" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td><a href=run22/system_sx.log target=_blank>run22</a></td>
+        <td>Stopped</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        
+        <td>0h 30m 2s</td></tr>
+        <tr >
+        <td id="strat23"><span
+        onmouseover="sxtooltip_show('stratTt23', 'strat23', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt23');">
+        MapLogicOptCT19
+        </span></td>
+        <div id="stratTt23" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 19 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host0"><span
+        onmouseover="sxtooltip_show('hostTt0', 'host0', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt0');">
+        nf-build1.Stanford.EDU
+        </span></td>
+        <div id="hostTt0" class="sxtooltip">
+        Linux, x86_64, 8-processor, 12G RAM
+        </div> 
+        <td><a href=run23/system_sx.log target=_blank>run23</a></td>
+        <td>Stopped</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        
+        <td>0h 12m 48s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat24"><span
+        onmouseover="sxtooltip_show('stratTt24', 'strat24', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt24');">
+        MapLogicOptCT20
+        </span></td>
+        <div id="stratTt24" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 20 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host4"><span
+        onmouseover="sxtooltip_show('hostTt4', 'host4', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt4');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt4" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td><a href=run24/system_sx.log target=_blank>run24</a></td>
+        <td>Stopped</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        
+        <td>0h 3m 35s</td></tr>
+        <tr >
+        <td id="strat25"><span
+        onmouseover="sxtooltip_show('stratTt25', 'strat25', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt25');">
+        MapLogicOptCT21
+        </span></td>
+        <div id="stratTt25" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 21 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host7"><span
+        onmouseover="sxtooltip_show('hostTt7', 'host7', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt7');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt7" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td><a href=run25/system_sx.log target=_blank>run25</a></td>
+        <td>Stopped</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        
+        <td>0h 3m 17s</td></tr>
+        <tr class="defaultCellColor" >
+        <td id="strat26"><span
+        onmouseover="sxtooltip_show('stratTt26', 'strat26', 20, 20);"
+        onmouseout="sxtooltip_hide('stratTt26');">
+        MapLogicOptCT22
+        </span></td>
+        <div id="stratTt26" class="sxtooltip">
+        map -ol high -xe n -logic_opt on -t 22 -w; par  -ol high -xe n 
+        </div>
+
+        
+        <td id="host6"><span
+        onmouseover="sxtooltip_show('hostTt6', 'host6', 20, 20)"
+        onmouseout="sxtooltip_hide('hostTt6');">
+        nf3-test6.Stanford.EDU
+        </span></td>
+        <div id="hostTt6" class="sxtooltip">
+        Linux, x86_64, 8-processor, 8G RAM
+        </div> 
+        <td><a href=run26/system_sx.log target=_blank>run26</a></td>
+        <td>Stopped</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+        
+        <td>0h 1m 25s</td></tr>
+    </tbody>
+    </table>
+
+    <br />     <br />
+
+        <h3>Best Strategy: MapLogicOptCT16 (run20), Timing Score: 0, Runtime: 0h 51m 34s</h3>
+
+        <table id="t3" class="toplevel"
+                multiple="true" alternateRows="true" maxSortable="1"
+                cellpadding="0" cellspacing="0" border="1">
+        <thead>
+
+                <tr>
+                        <th field="Command Lines" dataType="String" align="left" valign="top">Command Lines</th>
+                </tr>
+                <tr>  </tr>
+        </thead>
+
+        <tbody>
+             
+        <tr >
+        <td> map system.ngd -ol high -xe n -logic_opt on -t 16 -w -p xc5vtx240tff1759-2 -o system_map.ncd /home/gengyl08/PacketReordering/NetFPGA-10G/contrib-projects/packet_reordering/hw/implementation/run20/system.pcf
+<br><br></td></tr>
+        <tr class="alternateCellColor" >
+        <td> par system_map.ncd -ol high -xe n -w system.ncd /home/gengyl08/PacketReordering/NetFPGA-10G/contrib-projects/packet_reordering/hw/implementation/run20/system.pcf
+<br><br></td></tr>
+        <tr >
+        <td> trce /home/gengyl08/PacketReordering/NetFPGA-10G/contrib-projects/packet_reordering/hw/implementation/run20/system.ncd /home/gengyl08/PacketReordering/NetFPGA-10G/contrib-projects/packet_reordering/hw/implementation/run20/system.pcf -xml /home/gengyl08/PacketReordering/NetFPGA-10G/contrib-projects/packet_reordering/hw/implementation/run20/system.twx -o /home/gengyl08/PacketReordering/NetFPGA-10G/contrib-projects/packet_reordering/hw/implementation/run20/system.twr
+<br><br></td></tr>
+        </tbody>
+        </table>
+
+        <br />  <br />
+
+	<h3>Environment Variables</h3>
+
+	<table id="t2" class="toplevel"
+		multiple="true" alternateRows="true" maxSortable="1"
+		cellpadding="0" cellspacing="0" border="1">
+	<thead>
+
+		<tr>
+			<th field="Name" dataType="String" align="left" valign="top">Name</th>
+			<th field="Value" dataType="String" valign="top">Value</th>
+		</tr>
+		<tr>  </tr>
+	</thead>
+
+	<tbody>
+	     
+        <tr >
+        <td>PATH</td>
+        <td>/cad_64/xilinx/ise13.4/ISE_DS/common/bin/lin64:/cad_64/xilinx/ise13.4/ISE_DS/ISE/sysgen/bin:/cad_64/xilinx/ise13.4/ISE_DS/PlanAhead/bin:/cad_64/xilinx/ise13.4/ISE_DS/ISE/bin/lin64:/cad_64/xilinx/ise13.4/ISE_DS/ISE/sysgen/util:/cad_64/xilinx/ise13.4/ISE_DS/EDK/bin/lin64:/cad_64/xilinx/ise13.4/ISE_DS/EDK/gnu/microblaze/lin64/bin:/cad_64/xilinx/ise13.4/ISE_DS/EDK/gnu/powerpc-eabi/lin64/bin:/cad/synopsys/cosmosScope/H-2012.12/ai_bin:/cad/synopsys/cosmosScope/H-2012.12/ai_bin:/usr/lib64/ccache:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/cad/synopsys/hspice/H-2013.03-SP2/hspice/bin:/cad/mathworks/matlab.r2012b/bin:/home/gengyl08/.local/bin:/home/gengyl08/bin:/cad/synopsys/hspice/H-2013.03-SP2/hspice/bin:/cad/mathworks/matlab.r2012b/bin</td></tr>
+        <tr class="alternateCellColor" >
+        <td>XILINX_EDK</td>
+        <td>/cad_64/xilinx/ise13.4/ISE_DS/EDK</td></tr>
+        <tr >
+        <td>LD_LIBRARY_PATH</td>
+        <td>/cad_64/xilinx/ise13.4/ISE_DS/common/lib/lin64:/cad_64/xilinx/ise13.4/ISE_DS/ISE/sysgen/lib:/cad_64/xilinx/ise13.4/ISE_DS/ISE/lib/lin64:/cad_64/xilinx/ise13.4/ISE_DS/ISE/smartmodel/lin64/installed_lin64/lib:/cad_64/xilinx/ise13.4/ISE_DS/EDK/lib/lin64</td></tr>
+        <tr class="alternateCellColor" >
+        <td>XILINX_PLANAHEAD</td>
+        <td>/cad_64/xilinx/ise13.4/ISE_DS/PlanAhead</td></tr>
+        <tr >
+        <td>XILINX_DSP</td>
+        <td>/cad_64/xilinx/ise13.4/ISE_DS/ISE</td></tr>
+        <tr class="alternateCellColor" >
+        <td>XILINXD_LICENSE_FILE</td>
+        <td>2100@ee-matlab.stanford.edu:7193@cadlic0.stanford.edu</td></tr>
+        <tr >
+        <td>XILINX</td>
+        <td>/cad_64/xilinx/ise13.4/ISE_DS/ISE</td></tr>
+	</tbody>
+	</table>
+
+	<br /> 	<br />
+
+
+</body>
+</html>
