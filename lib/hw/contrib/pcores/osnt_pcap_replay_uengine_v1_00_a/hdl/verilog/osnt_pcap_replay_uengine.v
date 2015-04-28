@@ -233,7 +233,11 @@ module osnt_pcap_replay_uengine
 	assign		axi_aclk  =  s_axi_aclk;
 	assign    axi_aresetn = s_axi_aresetn;
 
+  assign    m_axis_tdata_4 = 0;
+  assign    m_axis_tstrb_4 = 0;
+  assign    m_axis_tuser_4 = 0;
   assign    m_axis_tvalid_4 = 0;
+  assign    m_axis_tlast_4 = 0;
 
   // -- AXILITE Registers
   axi_lite_regs
