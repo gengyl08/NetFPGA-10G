@@ -12,7 +12,7 @@
  *        nf10_axis_converter
  *
  *  Author:
- *        James Hongyi Zeng
+ *        Yilong Geng
  *
  *  Description:
  *        Convert AXI4-Streams to different data width

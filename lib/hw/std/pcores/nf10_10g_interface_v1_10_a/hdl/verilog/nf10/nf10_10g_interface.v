@@ -314,7 +314,7 @@ module nf10_10g_interface
 	.s_axis_tuser(m_axis_tuser_internal)
    );
 
-    nf10_axis_converter
+    converter_256_64
     #(.C_M_AXIS_DATA_WIDTH(C_S_AXIS_DATA_WIDTH_INTERNAL),
       .C_S_AXIS_DATA_WIDTH(C_S_AXIS_DATA_WIDTH)
      ) converter_slave
