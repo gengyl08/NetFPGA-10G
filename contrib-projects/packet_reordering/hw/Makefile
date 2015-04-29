@@ -327,9 +327,9 @@ axi_model: __xps/simgen.opt $(BRAMINIT_ELF_SIM_FILES)
 	@echo "*********************************************"
 	nf10_sim_autosubst.py -i $(MHSFILE) -o $(AXISIM_MHS)
 	simgen $(SIMGEN_OPTIONS) -m behavioral $(AXISIM_MHS)
-	echo 'verilog work "CY7C1515KV18.v"' >> system_axisim.prj
 sim: axi_model
 	./make_pkts.py
+	echo 'verilog work "CY7C1515KV18.v"' >> simulation/behavioral/system_axisim.prj
 	cp nf10/system_axisim_tb.v simulation/behavioral
 	cp nf10/CY7C1515KV18.v simulation/behavioral
 	cd simulation/behavioral && $(AXISIM_FUSE)
@@ -338,6 +338,7 @@ sim: axi_model
 
 simgui: axi_model
 	./make_pkts.py
+	echo 'verilog work "CY7C1515KV18.v"' >> simulation/behavioral/system_axisim.prj
 	cp nf10/system_axisim_tb.v simulation/behavioral
 	cp nf10/CY7C1515KV18.v simulation/behavioral
 	cd simulation/behavioral && $(AXISIM_FUSE)

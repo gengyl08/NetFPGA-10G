@@ -236,7 +236,7 @@ module axis_to_fifo
   // --- Async QID FIFO
   xil_async_fifo #(.DIN_WIDTH(2*NUM_QUEUES_BITS), .DOUT_WIDTH(NUM_QUEUES_BITS))
     async_qid_fifo_inst
-      ( .din          ({fifo_din_qid_1, fifo_din_qid_0}),
+      ( .din          ({fifo_din_qid_0, fifo_din_qid_1}),
         .wr_en        (fifo_wr_en),
         .rd_en        (fifo_rd_en),
         .dout         (fifo_dout_qid),

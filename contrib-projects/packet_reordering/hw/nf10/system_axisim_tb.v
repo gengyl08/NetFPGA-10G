@@ -103,19 +103,6 @@ module system_axisim_tb
   wire qdr_k_n_1;
   wire qdr_c_1;
   wire qdr_k_1;
-  wire [35:0] qdr_d_2;
-  wire [35:0] qdr_q_2;
-  wire [18:0] qdr_sa_2;
-  wire qdr_w_n_2;
-  wire qdr_r_n_2;
-  wire [3:0] qdr_bw_n_2;
-  wire qdr_dll_off_n_2;
-  wire qdr_cq_2;
-  wire qdr_cq_n_2;
-  wire qdr_c_n_2;
-  wire qdr_k_n_2;
-  wire qdr_c_2;
-  wire qdr_k_2;
   reg  TCK, TMS, TDI, ZQ;
   wire TDO;
   integer k;
@@ -158,27 +145,13 @@ module system_axisim_tb
       .qdr_w_n_1(qdr_w_n_1),
       .qdr_r_n_1(qdr_r_n_1),
       .qdr_bw_n_1(qdr_bw_n_1),
-      .qdr_dll_off_n_1(),
+      .qdr_dll_off_n_1(qdr_dll_off_n_1),
       .qdr_cq_1(qdr_cq_1),
       .qdr_cq_n_1(qdr_cq_n_1),
       .qdr_c_n_1(qdr_c_n_1),
       .qdr_k_n_1(qdr_k_n_1),
       .qdr_c_1(qdr_c_1),
-      .qdr_k_1(qdr_k_1),
-
-      .qdr_d_2(qdr_d_2),
-      .qdr_q_2(qdr_q_2),
-      .qdr_sa_2(qdr_sa_2),
-      .qdr_w_n_2(qdr_w_n_2),
-      .qdr_r_n_2(qdr_r_n_2),
-      .qdr_bw_n_2(qdr_bw_n_2),
-      .qdr_dll_off_n_2(),
-      .qdr_cq_2(qdr_cq_2),
-      .qdr_cq_n_2(qdr_cq_n_2),
-      .qdr_c_n_2(qdr_c_n_2),
-      .qdr_k_n_2(qdr_k_n_2),
-      .qdr_c_2(qdr_c_2),
-      .qdr_k_2(qdr_k_2)
+      .qdr_k_1(qdr_k_1)
     );
 
   cyqdr2_b4
@@ -229,31 +202,6 @@ module system_axisim_tb
       .CQb(qdr_cq_n_1),
       .ZQ(ZQ),
       .DOFF(qdr_dll_off_n_1)
-    );
-
-  cyqdr2_b4
-    mem2 (
-      .TCK(TCK),
-      .TMS(TMS),
-      .TDI(TDI),
-      .TDO(TDO),
-      .D(qdr_d_2),
-      .Q(qdr_q_2),
-      .A(qdr_sa_2),
-      .K(qdr_k_2),
-      .Kb(qdr_k_n_2),
-      .C(qdr_c_2),
-      .Cb(qdr_c_n_2),
-      .RPSb(qdr_r_n_2),
-      .WPSb(qdr_w_n_2),
-      .BWS0b(qdr_bw_n_2[0]),
-      .BWS1b(qdr_bw_n_2[1]),
-      .BWS2b(qdr_bw_n_2[2]),
-      .BWS3b(qdr_bw_n_2[3]),
-      .CQ(qdr_cq_2),
-      .CQb(qdr_cq_n_2),
-      .ZQ(ZQ),
-      .DOFF(qdr_dll_off_n_2)
     );
 
   // START USER CODE (Do not remove this line)
