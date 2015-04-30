@@ -104,8 +104,9 @@ module fifo_to_mem
 
   // -- Internal Parameters
   localparam IDLE     = 0;
-  localparam WR_PKT   = 1;
-  localparam DROP     = 2;
+  localparam WR_PKT_1   = 1;
+  localparam WR_PKT_2   = 2;
+  localparam DROP     = 3;
 
   // -- Signals
 
@@ -146,7 +147,6 @@ module fifo_to_mem
   wire                 mem_full_q2;
   wire                 mem_full_q3;
   
-  reg                         mem_wr_n_r;
   reg                         mem_wr_n_c;
   
   // -- Assignments
@@ -218,7 +218,7 @@ module fifo_to_mem
             end
             2'd3: begin
               if(!mem_full_q3) begin
-                state_next = WR_PKT;
+                state_next = WR_PKT_1;
               end
               else begin
                 state_next = DROP;
@@ -228,16 +228,14 @@ module fifo_to_mem
         end
       end
 
-      WR_PKT: begin
+      WR_PKT_1: begin
         // The assumption here is that there are always even numbers of words
         // available in the input fifo
 
         if (!fifo_empty && !mem_wr_full && cal_done) begin
           fifo_rd_en = 1;
 
-          if (mem_wr_n_r) begin
-            mem_wr_n_c = 0;
-          end
+          mem_wr_n_c = 0;
 
           case (cur_queue)
             2'd0: begin
@@ -258,13 +256,41 @@ module fifo_to_mem
             end
           endcase
 
-          if (fifo_qid != cur_queue) begin
-            state_next = IDLE;
-          end
-
+          state_nxt = WR_PKT_2;
         end
 
       end
+
+      WR_PKT_2: begin
+
+        fifo_rd_en = 1;
+
+        case (cur_queue)
+          2'd0: begin
+            mem_ad_wr_r0_next = mem_ad_wr_r0_plus1;
+            mem_ad_wr_next = {2'b00, mem_ad_wr_r0[MEM_ADDR_WIDTH-2:1]};
+          end
+          2'd1: begin
+            mem_ad_wr_r1_next = mem_ad_wr_r1_plus1;
+            mem_ad_wr_next = {2'b01, mem_ad_wr_r1[MEM_ADDR_WIDTH-2:1]};
+          end
+          2'd2: begin
+            mem_ad_wr_r2_next = mem_ad_wr_r2_plus1;
+            mem_ad_wr_next = {2'b10, mem_ad_wr_r2[MEM_ADDR_WIDTH-2:1]};
+          end
+          2'd3: begin
+            mem_ad_wr_r3_next = mem_ad_wr_r3_plus1;
+            mem_ad_wr_next = {2'b11, mem_ad_wr_r3[MEM_ADDR_WIDTH-2:1]};
+          end
+        endcase
+
+        if (fifo_qid != cur_queue) begin
+          state_next = IDLE;
+        end
+        else begin
+          state_nxt = WR_PKT_1;
+        end
+    end
 
       DROP: begin
         if (!fifo_empty) begin
@@ -283,7 +309,6 @@ module fifo_to_mem
       state <= IDLE;
       cur_queue <= 0;
 
-      mem_wr_n_r    <= 1;
       mem_ad_w_n   <= 1;
       mem_d_w_n    <= 1;
       mem_dwl      <= 0;
@@ -316,7 +341,6 @@ module fifo_to_mem
       state <= state_next;
       cur_queue <= cur_queue_next;
 
-      mem_wr_n_r <= mem_wr_n_c;
       mem_ad_w_n <= mem_wr_n_c;
       mem_d_w_n  <= mem_wr_n_c;
       mem_dwl    <= fifo_data[FIFO_DATA_WIDTH/2-1:0];

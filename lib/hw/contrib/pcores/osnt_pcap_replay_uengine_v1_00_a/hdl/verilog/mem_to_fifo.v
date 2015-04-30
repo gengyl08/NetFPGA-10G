@@ -114,10 +114,10 @@ module mem_to_fifo
   endfunction
 
   // -- Internal Parameters
+  localparam QID_STATE_0 = 0;
+  localparam QID_STATE_1 = 1;
   
   // -- Signals  
-  wire                           enable;
-
   reg                            q0_fifo_wr_en_r0;
   reg [FIFO_DATA_WIDTH-1:0]      q0_fifo_data_r0;
   reg                            q0_fifo_wr_en_r1;
@@ -135,11 +135,8 @@ module mem_to_fifo
   reg                            q3_fifo_wr_en_r1;
   reg [FIFO_DATA_WIDTH-1:0]      q3_fifo_data_r1;
   
-  reg                           trigger;
-  reg [NUM_QUEUES_BITS:0]        cur_qid;
-
-  reg                           mem_r_n_next;
-  reg [MEM_ADDR_WIDTH-1:0]      mem_ad_rd_next;
+  reg [1:0]                     qid_state, qid_state_nxt;
+  reg [NUM_QUEUES_BITS:0]        cur_qid, cur_qid_nxt;
 
   reg [MEM_ADDR_WIDTH-3:0]      q0_addr_head_next;
   reg [MEM_ADDR_WIDTH-3:0]      q1_addr_head_next;
@@ -162,132 +159,136 @@ module mem_to_fifo
   // Note: the prog_full signal is asserted when there are ~16 locations left in the FIFO. This is based on the assumption that after seeing the prog_full the max number of read requests in flight would be no more than 14.
 
   // The code actually made the assumption that the qid fifo will never be full and mem_rd_full will never be asserted.
-
-  assign enable = cal_done && !fifo_full && !mem_rd_full;
                   
   assign oq0_enable = !q0_fifo_prog_full && (q0_addr_head != q0_addr_tail);
   assign oq1_enable = !q1_fifo_prog_full && (q1_addr_head != q1_addr_tail);
   assign oq2_enable = !q2_fifo_prog_full && (q2_addr_head != q2_addr_tail);
   assign oq3_enable = !q3_fifo_prog_full && (q3_addr_head != q3_addr_tail);
-  
+
   always @ * begin
-    mem_r_n_next = 1;
-    mem_ad_rd_next = 0;
+    cur_qid_nxt = cur_qid;
+    qid_state_nxt = qid_state;
+
+    mem_r_n = 1;
+    mem_ad_rd = 0;
+
+    fifo_din_qid = -1;
+    fifo_wr_en = 0;
 
     q0_addr_head_next = q0_addr_head;
     q1_addr_head_next = q1_addr_head;
     q2_addr_head_next = q2_addr_head;
     q3_addr_head_next = q3_addr_head;
 
-    fifo_din_qid = 0;
-    fifo_wr_en = 0;
-
-    if (enable) begin
-      case (cur_qid)
-        'd0: begin
-          if (mem_r_n) begin
-            mem_r_n_next = 0;
-            mem_ad_rd_next = {2'b00, q0_addr_head};
-            q0_addr_head_next = q0_addr_head + 1;
-          end
-
-          fifo_din_qid = 0;
-          fifo_wr_en = 1;
-        end
-        'd1: begin
-          if (mem_r_n) begin
-            mem_r_n_next = 0;
-            mem_ad_rd_next = {2'b01, q1_addr_head};
-            q1_addr_head_next = q1_addr_head + 1;
-          end
-
-          fifo_din_qid = 1;
-          fifo_wr_en = 1;
-        end
-        'd2: begin
-          if (mem_r_n) begin
-            mem_r_n_next = 0;
-            mem_ad_rd_next = {2'b10, q2_addr_head};
-            q2_addr_head_next = q2_addr_head + 1;
-          end
-
-          fifo_din_qid = 2;
-          fifo_wr_en = 1;
-        end
-        'd3: begin
-          if (mem_r_n) begin
-            mem_r_n_next = 0;
-            mem_ad_rd_next = {2'b11, q3_addr_head};
-            q3_addr_head_next = q3_addr_head + 1;
-          end
-
-          fifo_din_qid = 3;
-          fifo_wr_en = 1;
-        end
-      endcase
-    end
-
-
-  end
-
-
-
-  always @ (posedge clk) begin
-    if(rst) begin
-      trigger <= 0;
-      cur_qid <= -1;
-    end
-    else if (enable) begin
-      trigger <= trigger + 1;
-      
-      if (trigger) begin
+    case (qid_state)
+      QID_STATE_0: begin
         case (cur_qid)
           'd0: begin
-                   if (oq1_enable) cur_qid <= 1; 
-             else if (oq2_enable) cur_qid <= 2; 
-             else if (oq3_enable) cur_qid <= 3; 
-             else if (oq0_enable) cur_qid <= 0;
-             else                 cur_qid <= -1;
+                  if (oq1_enable) cur_qid_nxt = 1; 
+             else if (oq2_enable) cur_qid_nxt = 2; 
+             else if (oq3_enable) cur_qid_nxt = 3; 
+             else if (oq0_enable) cur_qid_nxt = 0;
+             else                 cur_qid_nxt = -1;
+
+             fifo_din_qid = 0;
+             fifo_wr_en = 1;
           end                               
           'd1: begin                        
-                  if (oq2_enable) cur_qid <= 2; 
-             else if (oq3_enable) cur_qid <= 3; 
-             else if (oq0_enable) cur_qid <= 0;
-             else if (oq1_enable) cur_qid <= 1;
-             else                 cur_qid <= -1;
+                  if (oq2_enable) cur_qid_nxt = 2; 
+             else if (oq3_enable) cur_qid_nxt = 3; 
+             else if (oq0_enable) cur_qid_nxt = 0;
+             else if (oq1_enable) cur_qid_nxt = 1;
+             else                 cur_qid_nxt = -1;
+
+             fifo_din_qid = 1;
+             fifo_wr_en = 1;
           end                               
           'd2: begin                        
-                   if (oq3_enable) cur_qid <= 3; 
-             else if (oq0_enable) cur_qid <= 0;
-             else if (oq1_enable) cur_qid <= 1; 
-             else if (oq2_enable) cur_qid <= 2;
-             else                 cur_qid <= -1;
+                  if (oq3_enable) cur_qid_nxt = 3;
+             else if (oq0_enable) cur_qid_nxt = 0;
+             else if (oq1_enable) cur_qid_nxt = 1; 
+             else if (oq2_enable) cur_qid_nxt = 2;
+             else                 cur_qid_nxt = -1;
+
+             fifo_din_qid = 2;
+             fifo_wr_en = 1;
           end                               
           'd3: begin                        
-                  if (oq0_enable) cur_qid <= 0;
-             else if (oq1_enable) cur_qid <= 1; 
-             else if (oq2_enable) cur_qid <= 2; 
-             else if (oq3_enable) cur_qid <= 3; 
-             else                 cur_qid <= -1;
+                  if (oq0_enable) cur_qid_nxt = 0;
+             else if (oq1_enable) cur_qid_nxt = 1; 
+             else if (oq2_enable) cur_qid_nxt = 2; 
+             else if (oq3_enable) cur_qid_nxt = 3; 
+             else                 cur_qid_nxt = -1;
+
+             fifo_din_qid = 3;
+             fifo_wr_en = 1;
           end
           default: begin                        
-                  if (oq0_enable) cur_qid <= 0;
-             else if (oq1_enable) cur_qid <= 1; 
-             else if (oq2_enable) cur_qid <= 2; 
-             else if (oq3_enable) cur_qid <= 3; 
-             else                 cur_qid <= -1;
+                  if (oq0_enable) cur_qid_nxt = 0;
+             else if (oq1_enable) cur_qid_nxt = 1; 
+             else if (oq2_enable) cur_qid_nxt = 2; 
+             else if (oq3_enable) cur_qid_nxt = 3; 
+             else                 cur_qid_nxt = -1;
           end
         endcase
+        qid_state_nxt = QID_STATE_1;
       end
-    end
+
+      QID_STATE_1: begin
+        if(cur_qid == -1) begin
+          qid_state_nxt = QID_STATE_0;
+        end
+        else begin
+          if(!fifo_full && !mem_rd_full) begin
+            case(cur_qid)
+              'd0: begin
+                mem_r_n = 0;
+                mem_ad_rd = {2'b00, q0_addr_head};
+                q0_addr_head_next = q0_addr_head + 1;
+
+                fifo_din_qid = 0;
+                fifo_wr_en = 1;
+              end
+              'd1: begin
+                mem_r_n = 0;
+                mem_ad_rd = {2'b01, q1_addr_head};
+                q1_addr_head_next = q1_addr_head + 1;
+
+                fifo_din_qid = 1;
+                fifo_wr_en = 1;
+              end
+              'd2: begin
+                mem_r_n = 0;
+                mem_ad_rd = {2'b10, q2_addr_head};
+                q2_addr_head_next = q2_addr_head + 1;
+
+                fifo_din_qid = 2;
+                fifo_wr_en = 1;
+              end
+              'd3: begin
+                mem_r_n = 0;
+                mem_ad_rd = {2'b11, q3_addr_head};
+                q3_addr_head_next = q3_addr_head + 1;
+
+                fifo_din_qid = 3;
+                fifo_wr_en = 1;
+              end
+            endcase
+            qid_state_nxt = QID_STATE_0;
+          end
+        end
+      end
+    endcase
+
   end
   
   // Address generation logic
   
   always @ (posedge clk) begin
-    if(rst) begin
-      mem_r_n   <= 1;
-      mem_ad_rd <= 0;
+    if(rst | ~cal_done) begin
+
+      cur_qid <= -1;
+      qid_state <= QID_STATE_0;
 
       q0_addr_head <= 0;
       q1_addr_head <= 0;
@@ -297,8 +298,8 @@ module mem_to_fifo
     end
     else begin
 
-      mem_r_n   <= mem_r_n_next;
-      mem_ad_rd <= mem_ad_rd_next;
+      cur_qid <= cur_qid_nxt;
+      qid_state <= qid_state_nxt;
 
       q0_addr_head <= q0_addr_head_next;
       q1_addr_head <= q1_addr_head_next;
@@ -308,8 +309,7 @@ module mem_to_fifo
   end
 
   // --- QID FIFO (Depth of 16 for worst case delay (i.e., 14 cycles) between the read request and qrl_valid)
-  // double the depth to make it safer
-  fallthrough_small_fifo #(.WIDTH(NUM_QUEUES_BITS), .MAX_DEPTH_BITS(5))
+  fallthrough_small_fifo #(.WIDTH(NUM_QUEUES_BITS), .MAX_DEPTH_BITS(4))
     qid_fifo_inst
       ( .din         (fifo_din_qid),
         .wr_en       (fifo_wr_en),
@@ -319,7 +319,7 @@ module mem_to_fifo
         .prog_full   (),
         .nearly_full (fifo_full),
         .empty       (fifo_empty),
-        .reset       (rst),
+        .reset       (rst | ~cal_done),
         .clk         (clk)
       );
   
