@@ -256,7 +256,7 @@ module fifo_to_mem
             end
           endcase
 
-          state_nxt = WR_PKT_2;
+          state_next = WR_PKT_2;
         end
 
       end
@@ -288,7 +288,7 @@ module fifo_to_mem
           state_next = IDLE;
         end
         else begin
-          state_nxt = WR_PKT_1;
+          state_next = WR_PKT_1;
         end
     end
 
