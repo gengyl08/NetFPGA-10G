@@ -111,6 +111,23 @@ module fifo_to_mem
 
   reg [2:0]            state, state_next;
   reg [1:0]            cur_queue, cur_queue_next;
+
+  wire [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_0;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_1;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_2;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_3;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_4;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_5;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_6;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_7;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_8;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_9;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_10;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_11;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_12;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_13;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_14;
+  reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_15;
   
   reg [MEM_ADDR_WIDTH-2:0]     mem_ad_wr_r0, mem_ad_wr_r0_next;
   reg [MEM_ADDR_WIDTH-2:0]     mem_ad_wr_r1, mem_ad_wr_r1_next;
@@ -142,13 +159,14 @@ module fifo_to_mem
   assign mem_ad_wr_r2_plus1 = mem_ad_wr_r2 + 1;
   assign mem_ad_wr_r3_plus1 = mem_ad_wr_r3 + 1;
 
-  assign q0_addr_tail = mem_ad_wr_r0[MEM_ADDR_WIDTH-2:1];
+  assign q0_addr_tail = q0_addr_tail_15;
+  assign q0_addr_tail_0 = mem_ad_wr_r0[MEM_ADDR_WIDTH-2:1];
   assign q1_addr_tail = mem_ad_wr_r1[MEM_ADDR_WIDTH-2:1];
   assign q2_addr_tail = mem_ad_wr_r2[MEM_ADDR_WIDTH-2:1];
   assign q3_addr_tail = mem_ad_wr_r3[MEM_ADDR_WIDTH-2:1];
 
   // always ensure there are at least 64 words left in the queue to contain the packet
-  assign mem_full_q0 = (q0_addr_tail - q0_addr_head) >= 17'h1ffc0;
+  assign mem_full_q0 = (q0_addr_tail_0 - q0_addr_head) >= 17'h1ffc0;
   assign mem_full_q1 = (q1_addr_tail - q1_addr_head) >= 17'h1ffc0;
   assign mem_full_q2 = (q2_addr_tail - q2_addr_head) >= 17'h1ffc0;
   assign mem_full_q3 = (q3_addr_tail - q3_addr_head) >= 17'h1ffc0;
@@ -277,6 +295,22 @@ module fifo_to_mem
       mem_ad_wr_r2 <= 0;
       mem_ad_wr_r3 <= 0;
 
+      q0_addr_tail_1 <= 0;
+      q0_addr_tail_2 <= 0;
+      q0_addr_tail_3 <= 0;
+      q0_addr_tail_4 <= 0;
+      q0_addr_tail_5 <= 0;
+      q0_addr_tail_6 <= 0;
+      q0_addr_tail_7 <= 0;
+      q0_addr_tail_8 <= 0;
+      q0_addr_tail_9 <= 0;
+      q0_addr_tail_10 <= 0;
+      q0_addr_tail_11 <= 0;
+      q0_addr_tail_12 <= 0;
+      q0_addr_tail_13 <= 0;
+      q0_addr_tail_14 <= 0;
+      q0_addr_tail_15 <= 0;
+
     end
     else begin
       state <= state_next;
@@ -294,6 +328,22 @@ module fifo_to_mem
       mem_ad_wr_r3 <= mem_ad_wr_r3_next;
       
       mem_ad_wr <= mem_ad_wr_next;
+
+      q0_addr_tail_1 <= q0_addr_tail_0;
+      q0_addr_tail_2 <= q0_addr_tail_1;
+      q0_addr_tail_3 <= q0_addr_tail_2;
+      q0_addr_tail_4 <= q0_addr_tail_3;
+      q0_addr_tail_5 <= q0_addr_tail_4;
+      q0_addr_tail_6 <= q0_addr_tail_5;
+      q0_addr_tail_7 <= q0_addr_tail_6;
+      q0_addr_tail_8 <= q0_addr_tail_7;
+      q0_addr_tail_9 <= q0_addr_tail_8;
+      q0_addr_tail_10 <= q0_addr_tail_9;
+      q0_addr_tail_11 <= q0_addr_tail_10;
+      q0_addr_tail_12 <= q0_addr_tail_11;
+      q0_addr_tail_13 <= q0_addr_tail_12;
+      q0_addr_tail_14 <= q0_addr_tail_13;
+      q0_addr_tail_15 <= q0_addr_tail_14;
     end
   end
   

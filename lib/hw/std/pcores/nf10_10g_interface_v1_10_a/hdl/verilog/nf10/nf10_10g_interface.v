@@ -286,9 +286,10 @@ module nf10_10g_interface
        .clk156(clk156)
     );
 
-    my_converter
+    nf10_axis_converter
     #(.C_M_AXIS_DATA_WIDTH(256),
       .C_S_AXIS_DATA_WIDTH(64),
+      .C_DEFAULT_VALUE_ENABLE(C_DEFAULT_VALUE_ENABLE),
       .C_DEFAULT_SRC_PORT(C_DEFAULT_SRC_PORT),
       .C_DEFAULT_DST_PORT(C_DEFAULT_DST_PORT)
      ) converter_master
@@ -314,7 +315,7 @@ module nf10_10g_interface
 	.s_axis_tuser(m_axis_tuser_internal)
    );
 
-    converter_256_64
+    nf10_axis_converter
     #(.C_M_AXIS_DATA_WIDTH(C_S_AXIS_DATA_WIDTH_INTERNAL),
       .C_S_AXIS_DATA_WIDTH(C_S_AXIS_DATA_WIDTH)
      ) converter_slave
