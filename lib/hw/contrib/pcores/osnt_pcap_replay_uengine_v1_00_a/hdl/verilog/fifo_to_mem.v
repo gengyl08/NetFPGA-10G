@@ -194,7 +194,7 @@ module fifo_to_mem
           case(fifo_qid)
             2'd0: begin
               if(!mem_full_q0) begin
-                state_next = WR_PKT;
+                state_next = WR_PKT_1;
               end
               else begin
                 state_next = DROP;
@@ -202,7 +202,7 @@ module fifo_to_mem
             end
             2'd1: begin
               if(!mem_full_q1) begin
-                state_next = WR_PKT;
+                state_next = WR_PKT_1;
               end
               else begin
                 state_next = DROP;
@@ -210,7 +210,7 @@ module fifo_to_mem
             end
             2'd2: begin
               if(!mem_full_q2) begin
-                state_next = WR_PKT;
+                state_next = WR_PKT_1;
               end
               else begin
                 state_next = DROP;
