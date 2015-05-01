@@ -201,7 +201,7 @@ module fifo_to_mem
 
     case(state)
       IDLE: begin
-        if (~rst) begin
+        //if (~rst) begin
           if(!fifo_empty) begin
             cur_queue_next = fifo_qid;
             case(fifo_qid)
@@ -239,7 +239,7 @@ module fifo_to_mem
               end
             endcase
           end
-        end
+        //end
       end
 
       // seperate fifo_rd_en from mem_full to improve timing
