@@ -106,14 +106,18 @@ module fifo_to_mem
   localparam IDLE     = 0;
   localparam WR_PKT_1   = 1;
   localparam WR_PKT_2   = 2;
-  localparam DROP     = 3;
+  localparam WR_PKT_3   = 3;
+  localparam DROP     = 4;
 
   // -- Signals
 
   reg [2:0]            state, state_next;
   reg [1:0]            cur_queue, cur_queue_next;
 
-  wire [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_0;
+  reg [FIFO_DATA_WIDTH-1:0]    fifo_data_r;
+  reg [NUM_QUEUES_BITS-1:0]    fifo_qid_r;
+
+  wire [MEM_ADDR_WIDTH-3:0]    q0_addr_tail_0;
   reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_1;
   reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_2;
   reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_3;
@@ -172,6 +176,13 @@ module fifo_to_mem
   assign mem_full_q3 = (q3_addr_tail - q3_addr_head) >= 17'h1ffc0;
 
   // -- Modules and Logic
+
+  always @(posedge clk) begin
+    if(fifo_rd_en) begin
+      fifo_data_r <= fifo_data;
+      fifo_qid_r <= fifo_qid;
+    end
+  end
   
   always @ * begin
   	state_next = state;
@@ -194,6 +205,7 @@ module fifo_to_mem
           case(fifo_qid)
             2'd0: begin
               if(!mem_full_q0) begin
+                fifo_rd_en = 1;
                 state_next = WR_PKT_1;
               end
               else begin
@@ -202,6 +214,7 @@ module fifo_to_mem
             end
             2'd1: begin
               if(!mem_full_q1) begin
+                fifo_rd_en = 1;
                 state_next = WR_PKT_1;
               end
               else begin
@@ -210,6 +223,7 @@ module fifo_to_mem
             end
             2'd2: begin
               if(!mem_full_q2) begin
+                fifo_rd_en = 1;
                 state_next = WR_PKT_1;
               end
               else begin
@@ -218,6 +232,7 @@ module fifo_to_mem
             end
             2'd3: begin
               if(!mem_full_q3) begin
+                fifo_rd_en = 1;
                 state_next = WR_PKT_1;
               end
               else begin
@@ -229,8 +244,6 @@ module fifo_to_mem
       end
 
       WR_PKT_1: begin
-        // The assumption here is that there are always even numbers of words
-        // available in the input fifo
 
         if (!fifo_empty && !mem_wr_full && cal_done) begin
           fifo_rd_en = 1;
@@ -263,8 +276,6 @@ module fifo_to_mem
 
       WR_PKT_2: begin
 
-        fifo_rd_en = 1;
-
         case (cur_queue)
           2'd0: begin
             mem_ad_wr_r0_next = mem_ad_wr_r0_plus1;
@@ -284,13 +295,26 @@ module fifo_to_mem
           end
         endcase
 
-        if (fifo_qid != cur_queue) begin
+        if (fifo_qid_r != cur_queue) begin
           state_next = IDLE;
         end
         else begin
+          if (!fifo_empty) begin
+            fifo_rd_en = 1;
+            state_next = WR_PKT_1;
+          end
+          else begin
+            state_next = WR_PKT_3;
+          end
+        end
+      end
+
+      WR_PKT_3: begin
+        if (!fifo_empty) begin
+          fifo_rd_en = 1;
           state_next = WR_PKT_1;
         end
-    end
+      end
 
       DROP: begin
         if (!fifo_empty) begin
@@ -343,8 +367,8 @@ module fifo_to_mem
 
       mem_ad_w_n <= mem_wr_n_c;
       mem_d_w_n  <= mem_wr_n_c;
-      mem_dwl    <= fifo_data[FIFO_DATA_WIDTH/2-1:0];
-      mem_dwh    <= fifo_data[FIFO_DATA_WIDTH-1:FIFO_DATA_WIDTH/2];
+      mem_dwl    <= fifo_data_r[FIFO_DATA_WIDTH/2-1:0];
+      mem_dwh    <= fifo_data_r[FIFO_DATA_WIDTH-1:FIFO_DATA_WIDTH/2];
       
       mem_ad_wr_r0 <= mem_ad_wr_r0_next;
       mem_ad_wr_r1 <= mem_ad_wr_r1_next;
