@@ -200,46 +200,48 @@ module fifo_to_mem
 
     case(state)
       IDLE: begin
-        if(!fifo_empty) begin
-          cur_queue_next = fifo_qid;
-          case(fifo_qid)
-            2'd0: begin
-              if(!mem_full_q0) begin
-                fifo_rd_en = 1;
-                state_next = WR_PKT_1;
+        if (~rst) begin
+          if(!fifo_empty) begin
+            cur_queue_next = fifo_qid;
+            case(fifo_qid)
+              2'd0: begin
+                if(!mem_full_q0) begin
+                  fifo_rd_en = 1;
+                  state_next = WR_PKT_1;
+                end
+                else begin
+                  state_next = DROP;
+                end
               end
-              else begin
-                state_next = DROP;
+              2'd1: begin
+                if(!mem_full_q1) begin
+                  fifo_rd_en = 1;
+                  state_next = WR_PKT_1;
+                end
+                else begin
+                  state_next = DROP;
+                end
               end
-            end
-            2'd1: begin
-              if(!mem_full_q1) begin
-                fifo_rd_en = 1;
-                state_next = WR_PKT_1;
+              2'd2: begin
+                if(!mem_full_q2) begin
+                  fifo_rd_en = 1;
+                  state_next = WR_PKT_1;
+                end
+                else begin
+                  state_next = DROP;
+                end
               end
-              else begin
-                state_next = DROP;
+              2'd3: begin
+                if(!mem_full_q3) begin
+                  fifo_rd_en = 1;
+                  state_next = WR_PKT_1;
+                end
+                else begin
+                  state_next = DROP;
+                end
               end
-            end
-            2'd2: begin
-              if(!mem_full_q2) begin
-                fifo_rd_en = 1;
-                state_next = WR_PKT_1;
-              end
-              else begin
-                state_next = DROP;
-              end
-            end
-            2'd3: begin
-              if(!mem_full_q3) begin
-                fifo_rd_en = 1;
-                state_next = WR_PKT_1;
-              end
-              else begin
-                state_next = DROP;
-              end
-            end
-          endcase
+            endcase
+          end
         end
       end
 
