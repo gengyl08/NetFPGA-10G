@@ -104,10 +104,11 @@ module fifo_to_mem
 
   // -- Internal Parameters
   localparam IDLE     = 0;
-  localparam WR_PKT_1   = 1;
-  localparam WR_PKT_2   = 2;
-  localparam WR_PKT_3   = 3;
-  localparam DROP     = 4;
+  localparam WR_PKT_0   = 1;
+  localparam WR_PKT_1   = 2;
+  localparam WR_PKT_2   = 3;
+  localparam WR_PKT_3   = 4;
+  localparam DROP     = 5;
 
   // -- Signals
 
@@ -206,8 +207,7 @@ module fifo_to_mem
             case(fifo_qid)
               2'd0: begin
                 if(!mem_full_q0) begin
-                  fifo_rd_en = 1;
-                  state_next = WR_PKT_1;
+                  state_next = WR_PKT_0;
                 end
                 else begin
                   state_next = DROP;
@@ -215,8 +215,7 @@ module fifo_to_mem
               end
               2'd1: begin
                 if(!mem_full_q1) begin
-                  fifo_rd_en = 1;
-                  state_next = WR_PKT_1;
+                  state_next = WR_PKT_0;
                 end
                 else begin
                   state_next = DROP;
@@ -224,8 +223,7 @@ module fifo_to_mem
               end
               2'd2: begin
                 if(!mem_full_q2) begin
-                  fifo_rd_en = 1;
-                  state_next = WR_PKT_1;
+                  state_next = WR_PKT_0;
                 end
                 else begin
                   state_next = DROP;
@@ -233,8 +231,7 @@ module fifo_to_mem
               end
               2'd3: begin
                 if(!mem_full_q3) begin
-                  fifo_rd_en = 1;
-                  state_next = WR_PKT_1;
+                  state_next = WR_PKT_0;
                 end
                 else begin
                   state_next = DROP;
@@ -243,6 +240,12 @@ module fifo_to_mem
             endcase
           end
         end
+      end
+
+      // seperate fifo_rd_en from mem_full to improve timing
+      WR_PKT_0: begin
+        fifo_rd_en = 1;
+        state_next = WR_PKT_1;
       end
 
       WR_PKT_1: begin
