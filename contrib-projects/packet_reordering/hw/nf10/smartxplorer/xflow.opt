@@ -67,6 +67,7 @@ Program smartxplorer
 -bo off;
 -max_score 80000;
 -variability_passes 30;
+-rcmd ssh;
 END Program smartxplorer
 
 
