@@ -67,22 +67,30 @@ from scapy.layers.all import Ether, IP, TCP
 
 pkts=[]
 # A simple TCP/IP packet embedded in an Ethernet II frame
-for i in range(8):
+for i in range(50):
     pkt = (Ether(src='11:22:33:44:55:66', dst='77:88:99:aa:bb:cc')/
            IP(src='192.168.1.1', dst='192.168.1.2')/
-           TCP()/
-           'Hello, NetFPGA-10G!')
-    pkt.time        = i*(1e-8)
+           TCP()/('X'*1460))
+    print len(pkt)
+    pkt.time        = 300*(1e-6)
     # Set source network interface for DMA stream
-    pkt.tuser_sport = 1 << (i%4*2 + 1) # PCI ports are odd-numbered
+    #pkt.tuser_sport = 1 << (i%4*2 + 1) # PCI ports are odd-numbered
     pkts.append(pkt)
 
 # PCI interface
+"""
 with open( os.path.join( script_dir, 'dma_0_stim.axi' ), 'w' ) as f:
     axitools.axis_dump( pkts, f, 256, 1e-9 )
 with open( os.path.join( script_dir, 'dma_0_expected.axi' ), 'w' ) as f:
     axitools.axis_dump( pkts*4, f, 256, 1e-9 )
+"""
+with open( os.path.join( script_dir, 'dma_0_stim.axi' ), 'w' ) as f:
+    axitools.axis_dump( [], f, 256, 1e-9 )
+with open( os.path.join( script_dir, 'dma_0_expected.axi' ), 'w' ) as f:
+    axitools.axis_dump( [], f, 256, 1e-9 )
+
 # 10g interfaces
+"""
 for i in range(4):
     # replace source port
     for pkt in pkts:
@@ -91,3 +99,18 @@ for i in range(4):
         axitools.axis_dump( pkts, f, 256, 1e-9 )
     with open( os.path.join( script_dir, 'nf10_10g_interface_%d_expected.axi' % i ), 'w' ) as f:
         axitools.axis_dump( pkts[0:2], f, 256, 1e-9 )
+"""
+for i in range(4):
+    # replace source port
+    with open( os.path.join( script_dir, 'nf10_10g_interface_%d_stim.axi' % i ), 'w' ) as f:
+        axitools.axis_dump( [], f, 256, 1e-9 )
+    with open( os.path.join( script_dir, 'nf10_10g_interface_%d_expected.axi' % i ), 'w' ) as f:
+        axitools.axis_dump( [], f, 256, 1e-9 )
+
+with open( os.path.join( script_dir, 'nf10_10g_interface_%d_stim.axi' % 1 ), 'w' ) as f:
+    axitools.axis_dump( pkts, f, 256, 1e-9 )
+with open( os.path.join( script_dir, 'nf10_10g_interface_%d_expected.axi' % 0 ), 'w' ) as f:
+    axitools.axis_dump( pkts, f, 256, 1e-9 )
+
+
+
