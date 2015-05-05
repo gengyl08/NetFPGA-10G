@@ -147,7 +147,8 @@ module axis_to_fifo
     ififo_rd_en = 0;
 
     fifo_din = ififo_tdata;
-    fifo_din_strb = ~ififo_tstrb;
+    //fifo_din_strb = ~ififo_tstrb;
+    fifo_din_strb = {(C_S_AXIS_DATA_WIDTH/8){1'b0}};
     fifo_din_qid_0 = fifo_din_qid_r;
     fifo_din_qid_1 = fifo_din_qid_r;
     fifo_wr_en = 0;
@@ -156,7 +157,7 @@ module axis_to_fifo
       WR_TUSER_BITS: begin // Assuming TDATA_WIDTH > TUSER_WIDTH
         if (!ififo_empty && !fifo_full) begin
           fifo_din = {{(C_S_AXIS_DATA_WIDTH-128){1'b0}}, timestamp, ififo_tuser[63:0]};
-          fifo_din_strb = {(C_S_AXIS_DATA_WIDTH/8){1'b0}};	
+          //fifo_din_strb = {(C_S_AXIS_DATA_WIDTH/8){1'b0}};	
 					fifo_wr_en = 1;
 
           if(lfsr <= split_ratio_0) begin

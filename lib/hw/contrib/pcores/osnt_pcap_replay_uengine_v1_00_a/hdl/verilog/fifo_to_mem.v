@@ -118,6 +118,8 @@ module fifo_to_mem
   reg [FIFO_DATA_WIDTH-1:0]    fifo_data_r;
   reg [NUM_QUEUES_BITS-1:0]    fifo_qid_r;
 
+  reg [MEM_DATA_WIDTH-1:0]    mem_dwl_next, mem_dwh_next;
+
   wire [MEM_ADDR_WIDTH-3:0]    q0_addr_tail_0;
   reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_1;
   reg [MEM_ADDR_WIDTH-3:0]     q0_addr_tail_2;
@@ -199,6 +201,9 @@ module fifo_to_mem
     fifo_rd_en = 0;
     mem_wr_n_c = 1;
 
+    mem_dwl_next = 0;
+    mem_dwh_next = 0;
+
     case(state)
       IDLE: begin
         //if (~rst) begin
@@ -251,7 +256,8 @@ module fifo_to_mem
       WR_PKT_1: begin
 
         if (!fifo_empty && !mem_wr_full && cal_done) begin
-          fifo_rd_en = 1;
+          mem_dwl_next = fifo_data_r[FIFO_DATA_WIDTH/2-1:0];
+          mem_dwh_next = fifo_data_r[FIFO_DATA_WIDTH-1:FIFO_DATA_WIDTH/2];
 
           mem_wr_n_c = 0;
 
@@ -280,6 +286,10 @@ module fifo_to_mem
       end
 
       WR_PKT_2: begin
+        fifo_rd_en = 1;
+
+        mem_dwl_next = fifo_data[FIFO_DATA_WIDTH/2-1:0];
+        mem_dwh_next = fifo_data[FIFO_DATA_WIDTH-1:FIFO_DATA_WIDTH/2];
 
         case (cur_queue)
           2'd0: begin
@@ -300,17 +310,11 @@ module fifo_to_mem
           end
         endcase
 
-        if (fifo_qid_r != cur_queue) begin
+        if (fifo_qid != cur_queue) begin
           state_next = IDLE;
         end
         else begin
-          if (!fifo_empty) begin
-            fifo_rd_en = 1;
-            state_next = WR_PKT_1;
-          end
-          else begin
-            state_next = WR_PKT_3;
-          end
+          state_next = WR_PKT_3;
         end
       end
 
@@ -372,8 +376,8 @@ module fifo_to_mem
 
       mem_ad_w_n <= mem_wr_n_c;
       mem_d_w_n  <= mem_wr_n_c;
-      mem_dwl    <= fifo_data_r[FIFO_DATA_WIDTH/2-1:0];
-      mem_dwh    <= fifo_data_r[FIFO_DATA_WIDTH-1:FIFO_DATA_WIDTH/2];
+      mem_dwl    <= mem_dwl_next;
+      mem_dwh    <= mem_dwh_next;
       
       mem_ad_wr_r0 <= mem_ad_wr_r0_next;
       mem_ad_wr_r1 <= mem_ad_wr_r1_next;
