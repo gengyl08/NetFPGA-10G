@@ -114,6 +114,10 @@ module axis_to_fifo
   reg   [NUM_QUEUES_BITS-1:0]               fifo_din_qid_1;
 	reg   [NUM_QUEUES_BITS-1:0]           		fifo_din_qid_r;
   wire                                      fifo_full;
+  wire                                      data_fifo_full;
+  wire                                      qid_fifo_full;
+  wire                                      data_fifo_empty;
+  wire                                      qid_fifo_empty;
 
   reg [63:0]                                timestamp;
   reg [31:0]                                lfsr;
@@ -124,6 +128,10 @@ module axis_to_fifo
   assign fifo_din_strb_c = ((ififo_tstrb+1)>>1);
 	
   assign s_axis_tready = !ififo_nearly_full;
+
+  assign fifo_full = data_fifo_full | qid_fifo_full;
+
+  assign fifo_empty = data_fifo_empty | qid_fifo_empty;
 
   // -- Modules and Logic
   fallthrough_small_fifo #(.WIDTH(C_S_AXIS_DATA_WIDTH+C_S_AXIS_TUSER_WIDTH+C_S_AXIS_DATA_WIDTH/8+1), .MAX_DEPTH_BITS(2))
@@ -227,8 +235,8 @@ module axis_to_fifo
         .wr_en        (fifo_wr_en),
         .rd_en        (fifo_rd_en),
         .dout         (fifo_dout),
-        .full         (fifo_full),
-        .empty        (fifo_empty),
+        .full         (data_fifo_full),
+        .empty        (data_fifo_empty),
         .rst          (!axi_aresetn),
         .wr_clk       (axi_aclk),
         .rd_clk       (fifo_clk)
@@ -241,8 +249,8 @@ module axis_to_fifo
         .wr_en        (fifo_wr_en),
         .rd_en        (fifo_rd_en),
         .dout         (fifo_dout_qid),
-        .full         (),
-        .empty        (),
+        .full         (qid_fifo_full),
+        .empty        (qid_fifo_empty),
         .rst          (!axi_aresetn),
         .wr_clk       (axi_aclk),
         .rd_clk       (fifo_clk)
