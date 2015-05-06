@@ -64,7 +64,7 @@ module mem_to_fifo
     input                              mem_rd_full,
     output reg [MEM_ADDR_WIDTH-1:0]   mem_ad_rd,
     
-    input [QDR_NUM_CHIPS-1:0]         mem_qr_valid,
+    input [1:0]         mem_qr_valid,
     input [MEM_DATA_WIDTH-1:0]        mem_qrl,
     input [MEM_DATA_WIDTH-1:0]        mem_qrh,
 
