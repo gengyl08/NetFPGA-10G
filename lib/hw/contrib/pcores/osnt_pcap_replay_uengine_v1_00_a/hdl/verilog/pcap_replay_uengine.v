@@ -65,6 +65,9 @@ module pcap_replay_uengine
 		parameter SIM_ONLY             = 0
 )
 (
+    output err0,
+    output err1,
+
     // Global Ports
     input                                           axi_aclk,
     input                                           axi_aresetn,
@@ -157,7 +160,7 @@ module pcap_replay_uengine
     output [(QDR_DATA_WIDTH)-1:0]              			qdr_d_2,
     output                                     			qdr_r_n_2,
     input 					                 								qdr_masterbank_sel_2
-);	
+);
 
   // -- Local Functions
   function integer log2;
@@ -271,6 +274,8 @@ module pcap_replay_uengine
   )                       		
      axis_to_fifo_inst    		
   (                       		
+    .err0(err0),
+    .err1(err1),
     .axi_aclk             		(axi_aclk),
     .axi_aresetn          		(axi_aresetn),
     .fifo_clk             		(qdr_clk),

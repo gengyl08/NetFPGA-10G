@@ -195,7 +195,7 @@ module osnt_pcap_replay_uengine
   // -- Internal Parameters
   localparam NUM_RW_REGS = 21;
   localparam NUM_WO_REGS = 0;
-  localparam NUM_RO_REGS = 0;
+  localparam NUM_RO_REGS = 1;
 
   // -- Signals
 	wire																						axi_aclk;
@@ -228,6 +228,8 @@ module osnt_pcap_replay_uengine
 	wire 																						q1_start_replay;
 	wire 																						q2_start_replay;
 	wire 																						q3_start_replay;
+
+  wire err0, err1;
 	
 	// -- Assignments
 	assign		axi_aclk  =  s_axi_aclk;
@@ -307,7 +309,7 @@ module osnt_pcap_replay_uengine
 													), 
 		.wo_regs         			(),
 		.wo_defaults     			({NUM_WO_REGS*C_S_AXI_DATA_WIDTH{1'b0}}),
-		.ro_regs         			()
+		.ro_regs         			({30'b0, err1, err0})
   );
   
 
@@ -360,6 +362,8 @@ module osnt_pcap_replay_uengine
    )
      pcap_replay_uengine_inst
    (
+    .err0(err0),
+    .err1(err1),
     // Global Ports
     .axi_aclk             ( axi_aclk ),
     .axi_aresetn          ( axi_aresetn ),
