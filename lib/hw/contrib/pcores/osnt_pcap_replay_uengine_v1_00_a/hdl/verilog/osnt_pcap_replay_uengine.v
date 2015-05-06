@@ -306,10 +306,10 @@ module osnt_pcap_replay_uengine
 													   
 														 {31'b0, 1'b0} // sw_rst
 													 }
-													), 
+													),
 		.wo_regs         			(),
 		.wo_defaults     			({NUM_WO_REGS*C_S_AXI_DATA_WIDTH{1'b0}}),
-		.ro_regs         			({30'b0, err1, err0})
+		.ro_regs         			()
   );
   
 

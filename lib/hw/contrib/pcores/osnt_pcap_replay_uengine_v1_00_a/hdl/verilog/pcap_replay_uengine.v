@@ -317,7 +317,7 @@ module pcap_replay_uengine
 		                      		
 	    .mem_ad_w_n							(user_ad_w_n),
 	    .mem_d_w_n							(user_d_w_n),
-			.mem_wr_full						(&user_wr_full),
+			.mem_wr_full						(|user_wr_full),
 	    .mem_ad_wr							(user_ad_wr),
 	    .mem_bwh_n							(user_bwh_n),
 	    .mem_bwl_n							(user_bwl_n),
@@ -481,9 +481,9 @@ module pcap_replay_uengine
 		.rst									(user_rst),
 	                      	
 	  .mem_r_n							(user_r_n),
-		.mem_rd_full					(&user_rd_full),
+		.mem_rd_full					(|user_rd_full),
 	  .mem_ad_rd						(user_ad_rd),
-		.mem_qr_valid					(&user_qr_valid),
+		.mem_qr_valid					(user_qr_valid),
 	  .mem_qrl							(user_qrl),
 	  .mem_qrh							(user_qrh),
 	                      	

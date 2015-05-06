@@ -64,7 +64,7 @@ module mem_to_fifo
     input                              mem_rd_full,
     output reg [MEM_ADDR_WIDTH-1:0]   mem_ad_rd,
     
-    input                              mem_qr_valid,
+    input [QDR_NUM_CHIPS-1:0]         mem_qr_valid,
     input [MEM_DATA_WIDTH-1:0]        mem_qrl,
     input [MEM_DATA_WIDTH-1:0]        mem_qrh,
 
@@ -147,8 +147,14 @@ module mem_to_fifo
   reg                           fifo_rd_en;
   reg  [NUM_QUEUES_BITS-1:0]     fifo_din_qid;
   wire [NUM_QUEUES_BITS-1:0]     fifo_dout_qid;
-  wire                          fifo_empty;
-  wire                          fifo_full;
+  wire                          fifo_empty_qid;
+  wire                          fifo_full_qid;
+  wire [71:0]                   fifo_dout_data_0;
+  wire                          fifo_empty_data_0;
+  wire                          fifo_full_data_0;
+  wire [71:0]                   fifo_dout_data_1;
+  wire                          fifo_empty_data_1;
+  wire                          fifo_full_data_1;
 
   // -- Assignments
   
@@ -239,7 +245,7 @@ module mem_to_fifo
           qid_state_nxt = QID_STATE_0;
         end
         else begin
-          if(!fifo_full && !mem_rd_full) begin
+          if(!fifo_full_qid && !mem_rd_full) begin
             case(cur_qid)
               'd0: begin
                 mem_r_n = 0;
@@ -317,15 +323,43 @@ module mem_to_fifo
         .dout        (fifo_dout_qid),
         .full        (),
         .prog_full   (),
-        .nearly_full (fifo_full),
-        .empty       (fifo_empty),
+        .nearly_full (fifo_full_qid),
+        .empty       (fifo_empty_qid),
+        .reset       (rst | ~cal_done),
+        .clk         (clk)
+      );
+
+  fallthrough_small_fifo #(.WIDTH(72), .MAX_DEPTH_BITS(4))
+    data_fifo_inst_0
+      ( .din         ({mem_qrh[35:0], mem_qrl[35:0]}),
+        .wr_en       (mem_qr_valid[0]),
+        .rd_en       (fifo_rd_en),
+        .dout        (fifo_dout_data_0),
+        .full        (),
+        .prog_full   (),
+        .nearly_full (fifo_full_data_0),
+        .empty       (fifo_empty_data_0),
+        .reset       (rst | ~cal_done),
+        .clk         (clk)
+      );
+
+  fallthrough_small_fifo #(.WIDTH(72), .MAX_DEPTH_BITS(4))
+    data_fifo_inst_1
+      ( .din         ({mem_qrh[71:36], mem_qrl[71:36]}),
+        .wr_en       (mem_qr_valid[1]),
+        .rd_en       (fifo_rd_en),
+        .dout        (fifo_dout_data_1),
+        .full        (),
+        .prog_full   (),
+        .nearly_full (fifo_full_data_1),
+        .empty       (fifo_empty_data_1),
         .reset       (rst | ~cal_done),
         .clk         (clk)
       );
   
   // --- Data logic
   always @ * begin
-    fifo_rd_en = mem_qr_valid;
+    fifo_rd_en = !fifo_empty_qid & !fifo_empty_data_0 & !fifo_empty_data_1;
     
     // Note: based on the assumptions that:
     // (1) We always have an entry for a given read data in the FIFO, so it will never be empty.
@@ -353,23 +387,23 @@ module mem_to_fifo
       q2_fifo_wr_en_r0 <= 0;
       q3_fifo_wr_en_r0 <= 0;
       
-      if (mem_qr_valid) begin
+      if (!fifo_empty_qid & !fifo_empty_data_0 & !fifo_empty_data_1) begin
         case (fifo_dout_qid) 
           'd0: begin
             q0_fifo_wr_en_r0 <= 1;
-            q0_fifo_data_r0  <= {mem_qrh, mem_qrl};
+            q0_fifo_data_r0  <= {fifo_dout_data_1[71:36], fifo_dout_data_0[71:36], fifo_dout_data_1[35:0], fifo_dout_data_0[35:0]};
           end
           'd1: begin
             q1_fifo_wr_en_r0 <= 1;
-            q1_fifo_data_r0  <= {mem_qrh, mem_qrl};
+            q1_fifo_data_r0  <= {fifo_dout_data_1[71:36], fifo_dout_data_0[71:36], fifo_dout_data_1[35:0], fifo_dout_data_0[35:0]};
           end
           'd2: begin
             q2_fifo_wr_en_r0 <= 1;
-            q2_fifo_data_r0  <= {mem_qrh, mem_qrl};
+            q2_fifo_data_r0  <= {fifo_dout_data_1[71:36], fifo_dout_data_0[71:36], fifo_dout_data_1[35:0], fifo_dout_data_0[35:0]};
           end
           'd3: begin
             q3_fifo_wr_en_r0 <= 1;
-            q3_fifo_data_r0  <= {mem_qrh, mem_qrl};
+            q3_fifo_data_r0  <= {fifo_dout_data_1[71:36], fifo_dout_data_0[71:36], fifo_dout_data_1[35:0], fifo_dout_data_0[35:0]};
           end
           default: begin
             q0_fifo_wr_en_r0 <= 0;
