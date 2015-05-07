@@ -43,18 +43,7 @@
 
 COREGEN_DIR:= coregen
 
-install: hdl/verilog/controller/qdrii_top.v hdl/verilog/fifo_generator_v8_4_4_to_2_fwft.v hdl/verilog/fifo_generator_v8_4_144_to_288_fwft.v hdl/verilog/fifo_generator_v8_4_9_to_9.v hdl/verilog/fifo_generator_v8_4_288_to_144_fwft.v hdl/verilog/fifo_generator_v8_4_96_to_96_fwft.v hdl/verilog/fifo_generator_v8_4_128_to_128_fwft.v
-
-hdl/verilog/fifo_generator_v8_4_96_to_96_fwft.v: xco/fifo_generator_v8_4_96_to_96_fwft.xco
-	@mkdir -p $(COREGEN_DIR);
-	@mkdir -p netlist;
-	@cd $(COREGEN_DIR) && coregen -b ../xco/fifo_generator_v8_4_96_to_96_fwft.xco
-	@cp $(COREGEN_DIR)/fifo_generator_v8_4_96_to_96_fwft.v hdl/verilog/
-	@cp $(COREGEN_DIR)/fifo_generator_v8_4_96_to_96_fwft.ngc netlist/
-	@echo "/////////////////////////////////////////";
-	@echo "//Xilinx FIFO core installed.";
-	@echo "/////////////////////////////////////////";
-	@rm -rf $(COREGEN_DIR);
+install: hdl/verilog/controller/qdrii_top.v hdl/verilog/fifo_generator_v8_4_4_to_2_fwft.v hdl/verilog/fifo_generator_v8_4_144_to_288_fwft.v hdl/verilog/fifo_generator_v8_4_9_to_9.v hdl/verilog/fifo_generator_v8_4_288_to_144_fwft.v hdl/verilog/fifo_generator_v8_4_128_to_128_fwft.v
 
 hdl/verilog/fifo_generator_v8_4_128_to_128_fwft.v: xco/fifo_generator_v8_4_128_to_128_fwft.xco
 	@mkdir -p $(COREGEN_DIR);
