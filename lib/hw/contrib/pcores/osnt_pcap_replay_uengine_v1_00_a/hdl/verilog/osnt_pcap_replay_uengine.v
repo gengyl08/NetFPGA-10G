@@ -213,7 +213,6 @@ module osnt_pcap_replay_uengine
   wire [31:0]                                     split_ratio_1;
   wire [31:0]                                     split_ratio_2;
 
-	
 	// -- Assignments
 	assign		axi_aclk  =  s_axi_aclk;
 	assign    axi_aresetn = s_axi_aresetn;
@@ -223,6 +222,10 @@ module osnt_pcap_replay_uengine
   assign    m_axis_tuser_4 = 0;
   assign    m_axis_tvalid_4 = 0;
   assign    m_axis_tlast_4 = 0;
+
+  always @ * begin
+    ro_regs = 32'hffffffff;
+  end
 
   // -- AXILITE Registers
   axi_lite_regs
