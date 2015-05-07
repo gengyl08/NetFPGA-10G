@@ -70,11 +70,11 @@
    output                                              IP2Bus_Error,
    
    // -- Register ports
-   output    [NUM_WO_REGS*C_S_AXI_DATA_WIDTH : 0]    	 wo_regs,
-   input     [NUM_WO_REGS*C_S_AXI_DATA_WIDTH : 0]      wo_defaults,
-   output    [NUM_RW_REGS*C_S_AXI_DATA_WIDTH : 0]      rw_regs,
-   input     [NUM_RW_REGS*C_S_AXI_DATA_WIDTH : 0]      rw_defaults,
-   input     [NUM_RO_REGS*C_S_AXI_DATA_WIDTH : 0]      ro_regs
+   output    [NUM_WO_REGS*C_S_AXI_DATA_WIDTH-1 : 0]    	 wo_regs,
+   input     [NUM_WO_REGS*C_S_AXI_DATA_WIDTH-1 : 0]      wo_defaults,
+   output    [NUM_RW_REGS*C_S_AXI_DATA_WIDTH-1 : 0]      rw_regs,
+   input     [NUM_RW_REGS*C_S_AXI_DATA_WIDTH-1 : 0]      rw_defaults,
+   input     [NUM_RO_REGS*C_S_AXI_DATA_WIDTH-1 : 0]      ro_regs
  );
 
     function integer log2;

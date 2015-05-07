@@ -230,7 +230,7 @@ module osnt_pcap_replay_uengine
 	wire 																						q3_start_replay;
 
   wire err0, err1;
-	
+	reg [31:0] ro_regs;	
 	// -- Assignments
 	assign		axi_aclk  =  s_axi_aclk;
 	assign    axi_aresetn = s_axi_aresetn;
@@ -240,6 +240,10 @@ module osnt_pcap_replay_uengine
   assign    m_axis_tuser_4 = 0;
   assign    m_axis_tvalid_4 = 0;
   assign    m_axis_tlast_4 = 0;
+
+  always @ * begin
+    ro_regs = 32'hffffffff;
+  end
 
   // -- AXILITE Registers
   axi_lite_regs
@@ -309,7 +313,7 @@ module osnt_pcap_replay_uengine
 													),
 		.wo_regs         			(),
 		.wo_defaults     			({NUM_WO_REGS*C_S_AXI_DATA_WIDTH{1'b0}}),
-		.ro_regs         			()
+		.ro_regs         			(ro_regs)
   );
   
 
