@@ -498,10 +498,10 @@ BEGIN nf10_input_arbiter
  PARAMETER C_M_AXIS_DATA_WIDTH = 256
  PARAMETER C_S_AXIS_DATA_WIDTH = 256
  BUS_INTERFACE M_AXIS = nf10_input_arbiter_1_M_AXIS
- BUS_INTERFACE S_AXIS_0 = nf10_pcap_replay_uengine_0_M_AXIS_0
- BUS_INTERFACE S_AXIS_1 = nf10_pcap_replay_uengine_0_M_AXIS_1
- BUS_INTERFACE S_AXIS_2 = nf10_pcap_replay_uengine_0_M_AXIS_2
- BUS_INTERFACE S_AXIS_3 = nf10_pcap_replay_uengine_0_M_AXIS_3
+ BUS_INTERFACE S_AXIS_0 = nf10_delay_0_M_AXIS
+ BUS_INTERFACE S_AXIS_1 = nf10_delay_1_M_AXIS
+ BUS_INTERFACE S_AXIS_2 = nf10_delay_2_M_AXIS
+ BUS_INTERFACE S_AXIS_3 = nf10_delay_3_M_AXIS
  BUS_INTERFACE S_AXIS_4 = nf10_pcap_replay_uengine_0_M_AXIS_4
  PORT axi_aclk = core_clk
  PORT axi_resetn = Peripheral_aresetn
@@ -613,5 +613,65 @@ BEGIN osnt_pcap_replay_uengine
  PORT qdr_clk = clock_generator_0_CLKOUT2
  PORT qdr_clk_200 = clock_generator_0_CLKOUT4
  PORT qdr_clk_270 = clock_generator_0_CLKOUT3
+END
+
+BEGIN nf10_delay
+ PARAMETER INSTANCE = nf10_delay_0
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
+ PARAMETER C_BASEADDR = 0x79c80000
+ PARAMETER C_HIGHADDR = 0x79c8ffff
+ BUS_INTERFACE S_AXIS = nf10_pcap_replay_uengine_0_M_AXIS_0
+ BUS_INTERFACE M_AXIS = nf10_delay_0_M_AXIS
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT S_AXI_ACLK = control_clk
+ PORT axi_aclk = core_clk
+ PORT axi_resetn = Peripheral_aresetn
+END
+
+BEGIN nf10_delay
+ PARAMETER INSTANCE = nf10_delay_1
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
+ PARAMETER C_BASEADDR = 0x79c80000
+ PARAMETER C_HIGHADDR = 0x79c8ffff
+ BUS_INTERFACE S_AXIS = nf10_pcap_replay_uengine_0_M_AXIS_1
+ BUS_INTERFACE M_AXIS = nf10_delay_1_M_AXIS
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT S_AXI_ACLK = control_clk
+ PORT axi_aclk = core_clk
+ PORT axi_resetn = Peripheral_aresetn
+END
+
+BEGIN nf10_delay
+ PARAMETER INSTANCE = nf10_delay_2
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
+ PARAMETER C_BASEADDR = 0x79c80000
+ PARAMETER C_HIGHADDR = 0x79c8ffff
+ BUS_INTERFACE S_AXIS = nf10_pcap_replay_uengine_0_M_AXIS_2
+ BUS_INTERFACE M_AXIS = nf10_delay_2_M_AXIS
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT S_AXI_ACLK = control_clk
+ PORT axi_aclk = core_clk
+ PORT axi_resetn = Peripheral_aresetn
+END
+
+BEGIN nf10_delay
+ PARAMETER INSTANCE = nf10_delay_3
+ PARAMETER HW_VER = 1.00.a
+ PARAMETER C_M_AXIS_DATA_WIDTH = 256
+ PARAMETER C_S_AXIS_DATA_WIDTH = 256
+ PARAMETER C_BASEADDR = 0x79c80000
+ PARAMETER C_HIGHADDR = 0x79c8ffff
+ BUS_INTERFACE S_AXIS = nf10_pcap_replay_uengine_0_M_AXIS_3
+ BUS_INTERFACE M_AXIS = nf10_delay_3_M_AXIS
+ BUS_INTERFACE S_AXI = axi_interconnect_0
+ PORT S_AXI_ACLK = control_clk
+ PORT axi_aclk = core_clk
+ PORT axi_resetn = Peripheral_aresetn
 END
 
