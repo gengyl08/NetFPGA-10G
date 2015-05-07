@@ -65,10 +65,10 @@ module pcap_replay_uengine
 		parameter SIM_ONLY             = 0
 )
 (
-    output      [31:0]                              drop_count_0,
-    output      [31:0]                              drop_count_1,
-    output      [31:0]                              drop_count_2,
-    output      [31:0]                              drop_count_3,
+    output reg     [31:0]                              drop_count_0,
+    output reg     [31:0]                              drop_count_1,
+    output reg     [31:0]                              drop_count_2,
+    output reg     [31:0]                              drop_count_3,
 
     input     [31:0]                                split_ratio_0,
     input     [31:0]                                split_ratio_1,
@@ -194,6 +194,11 @@ module pcap_replay_uengine
   wire [QDR_ADDR_WIDTH-3:0]                      q2_addr_tail;
   wire [QDR_ADDR_WIDTH-3:0]                      q3_addr_head;
   wire [QDR_ADDR_WIDTH-3:0]                      q3_addr_tail;
+
+  wire [31:0]                                    drop_count_0_sram;
+  wire [31:0]                                    drop_count_1_sram;
+  wire [31:0]                                    drop_count_2_sram;
+  wire [31:0]                                    drop_count_3_sram;
 	
 	wire qdr_clk_180;
 	wire user_rst, user_rst_180, user_rst_200, user_rst_270;
@@ -252,6 +257,10 @@ module pcap_replay_uengine
   wire [QDR_NUM_CHIPS-1:0]            			 								 			qdr_r_n;
 	                                                           			
 	wire [QDR_NUM_CHIPS-1:0] 									 								 			cal_done;
+
+  wire                                                            drop_count_fifo_full;
+  wire                                                            drop_count_fifo_empty;
+  wire [127:0]                                                    drop_count_fifo_dout;
 	
 	// -- Assignments
 
@@ -271,6 +280,26 @@ module pcap_replay_uengine
 
   // -- Modules and Logic
 
+  always @ (posedge axi_aclk) begin
+    if (!drop_count_fifo_empty) begin
+      {drop_count_3, drop_count_2, drop_count_1, drop_count_0} <= drop_count_fifo_dout;
+    end
+  end
+
+  fifo_generator_v8_4_128_to_128_fwft
+    drop_count_fifo
+  (
+    .rst                      (!axi_aresetn),
+    .wr_clk                   (qdr_clk),
+    .rd_clk                   (axi_aclk),
+    .din                      ({drop_count_3_sram, drop_count_2_sram, drop_count_1_sram, drop_count_0_sram}),
+    .wr_en                    (!drop_count_fifo_full),
+    .rd_en                    (!drop_count_fifo_empty),
+    .dout                     (drop_count_fifo_dout),
+    .full                     (drop_count_fifo_full),
+    .empty                    (drop_count_fifo_empty)
+  );
+
   axis_to_fifo #(
     .C_S_AXIS_DATA_WIDTH  		(C_S_AXIS_DATA_WIDTH),
     .C_S_AXIS_TUSER_WIDTH 		(C_S_AXIS_TUSER_WIDTH),
@@ -280,8 +309,6 @@ module pcap_replay_uengine
   )                       		
      axis_to_fifo_inst    		
   (                       		
-    .err0(err0),
-    .err1(err1),
     .axi_aclk             		(axi_aclk),
     .axi_aresetn          		(axi_aresetn),
     .fifo_clk             		(qdr_clk),
@@ -298,9 +325,9 @@ module pcap_replay_uengine
 		.fifo_dout_qid						(fifo_wr_qid),
     .fifo_empty           		(fifo_wr_empty),
 
-    .split_ratio_0            (32'hffffffff),
-    .split_ratio_1            (32'hffffffff),
-    .split_ratio_2            (32'hffffffff)
+    .split_ratio_0            (split_ratio_0),
+    .split_ratio_1            (split_ratio_1),
+    .split_ratio_2            (split_ratio_2)
   );
 
 	fifo_to_mem #(
@@ -313,6 +340,10 @@ module pcap_replay_uengine
 	)
 	  fifo_to_mem_inst
 	(
+      .drop_count_0           (drop_count_0_sram),
+      .drop_count_1           (drop_count_1_sram),
+      .drop_count_2           (drop_count_2_sram),
+      .drop_count_3           (drop_count_3_sram),
 	    .clk										(qdr_clk),
 			.rst										(user_rst),
                           		
