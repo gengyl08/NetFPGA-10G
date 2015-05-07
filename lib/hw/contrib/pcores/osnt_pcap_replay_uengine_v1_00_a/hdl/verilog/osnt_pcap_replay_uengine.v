@@ -223,10 +223,6 @@ module osnt_pcap_replay_uengine
   assign    m_axis_tvalid_4 = 0;
   assign    m_axis_tlast_4 = 0;
 
-  always @ * begin
-    ro_regs = 32'hffffffff;
-  end
-
   // -- AXILITE Registers
   axi_lite_regs
   #(
