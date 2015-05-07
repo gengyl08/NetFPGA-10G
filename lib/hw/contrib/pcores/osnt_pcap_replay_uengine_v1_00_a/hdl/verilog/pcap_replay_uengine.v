@@ -65,8 +65,14 @@ module pcap_replay_uengine
 		parameter SIM_ONLY             = 0
 )
 (
-    output err0,
-    output err1,
+    output      [31:0]                              drop_count_0,
+    output      [31:0]                              drop_count_1,
+    output      [31:0]                              drop_count_2,
+    output      [31:0]                              drop_count_3,
+
+    input     [31:0]                                split_ratio_0,
+    input     [31:0]                                split_ratio_1,
+    input     [31:0]                                split_ratio_2,
 
     // Global Ports
     input                                           axi_aclk,

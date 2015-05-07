@@ -193,43 +193,26 @@ module osnt_pcap_replay_uengine
 );
 
   // -- Internal Parameters
-  localparam NUM_RW_REGS = 21;
+  localparam NUM_RW_REGS = 3;
   localparam NUM_WO_REGS = 0;
-  localparam NUM_RO_REGS = 1;
+  localparam NUM_RO_REGS = 4;
 
   // -- Signals
 	wire																						axi_aclk;
 	wire																						axi_aresetn;
 	
   wire [NUM_RW_REGS*C_S_AXI_DATA_WIDTH-1:0]   		rw_regs;
+	wire [NUM_RO_REGS*C_S_AXI_DATA_WIDTH-1:0]       ro_regs;
 
-  wire                                            sw_rst;
-	
-	wire [QDR_ADDR_WIDTH-1:0]  											q0_addr_low;
-	wire [QDR_ADDR_WIDTH-1:0]  											q0_addr_high;
-	wire [QDR_ADDR_WIDTH-1:0]  											q1_addr_low;
-	wire [QDR_ADDR_WIDTH-1:0]  											q1_addr_high;
-	wire [QDR_ADDR_WIDTH-1:0]  											q2_addr_low;
-	wire [QDR_ADDR_WIDTH-1:0]  											q2_addr_high;
-	wire [QDR_ADDR_WIDTH-1:0]  											q3_addr_low;
-	wire [QDR_ADDR_WIDTH-1:0]  											q3_addr_high;
-	                                              	
-	wire 																						q0_enable;
-	wire 																						q1_enable;
-	wire 																						q2_enable;
-	wire 																						q3_enable;
-	                                              	
-	wire [REPLAY_COUNT_WIDTH-1:0]										q0_replay_count;
-	wire [REPLAY_COUNT_WIDTH-1:0]										q1_replay_count;
-	wire [REPLAY_COUNT_WIDTH-1:0]										q2_replay_count;
-	wire [REPLAY_COUNT_WIDTH-1:0]										q3_replay_count;
-	                                              	
-	wire 																						q0_start_replay;
-	wire 																						q1_start_replay;
-	wire 																						q2_start_replay;
-	wire 																						q3_start_replay;
+  wire [31:0]                                     drop_count_0;
+  wire [31:0]                                     drop_count_1;
+  wire [31:0]                                     drop_count_2;
+  wire [31:0]                                     drop_count_3;
 
-  wire err0, err1;
+  wire [31:0]                                     split_ratio_0;
+  wire [31:0]                                     split_ratio_1;
+  wire [31:0]                                     split_ratio_2;
+
 	
 	// -- Assignments
 	assign		axi_aclk  =  s_axi_aclk;
@@ -278,68 +261,25 @@ module osnt_pcap_replay_uengine
     .s_axi_awready   			(s_axi_awready),
                      			
     .rw_regs         			(rw_regs),
-		.rw_defaults     			((SIM_ONLY == 0) ? {NUM_RW_REGS*C_S_AXI_DATA_WIDTH{1'b0}} :
-													 {
-														 {31'b0, 1'b0}, // q3_enable
-														 {31'b0, 1'b0},
-														 {31'b0, 1'b0},
-														 {31'b0, 1'b1},
-														  
-														 {32'd64},
-													   {32'd48},
-														 {32'd48},
-														 {32'd32},
-														 {32'd32},
-														 {32'd16},
-														 {32'd16},
-														 {32'd0},
-														  
-														 {32'd10},
-														 {32'd10},
-														 {32'd10},
-														 {32'd10},
-														  
-														 {31'b0, 1'b0},
-														 {31'b0, 1'b0},
-														 {31'b0, 1'b0},
-														 {31'b0, 1'b0},
-													   
-														 {31'b0, 1'b0} // sw_rst
+		.rw_defaults     			({
+														 {32'hffffffff},
+														 {32'hffffffff},
+														 {32'hffffffff}
 													 }
 													),
 		.wo_regs         			(),
 		.wo_defaults     			({NUM_WO_REGS*C_S_AXI_DATA_WIDTH{1'b0}}),
-		.ro_regs         			()
+		.ro_regs         			(ro_regs)
   );
   
 
   // -- Register assignments
 
-  assign sw_rst          = rw_regs[(C_S_AXI_DATA_WIDTH*0)+1-1:(C_S_AXI_DATA_WIDTH*0)];
-	                         
-	assign q0_start_replay = rw_regs[(C_S_AXI_DATA_WIDTH*1)+1-1:(C_S_AXI_DATA_WIDTH*1)];
-	assign q1_start_replay = rw_regs[(C_S_AXI_DATA_WIDTH*2)+1-1:(C_S_AXI_DATA_WIDTH*2)];
-	assign q2_start_replay = rw_regs[(C_S_AXI_DATA_WIDTH*3)+1-1:(C_S_AXI_DATA_WIDTH*3)];
-	assign q3_start_replay = rw_regs[(C_S_AXI_DATA_WIDTH*4)+1-1:(C_S_AXI_DATA_WIDTH*4)];
-	                         
-  assign q0_replay_count = rw_regs[(C_S_AXI_DATA_WIDTH*5)+REPLAY_COUNT_WIDTH-1:(C_S_AXI_DATA_WIDTH*5)];
-	assign q1_replay_count = rw_regs[(C_S_AXI_DATA_WIDTH*6)+REPLAY_COUNT_WIDTH-1:(C_S_AXI_DATA_WIDTH*6)];
-	assign q2_replay_count = rw_regs[(C_S_AXI_DATA_WIDTH*7)+REPLAY_COUNT_WIDTH-1:(C_S_AXI_DATA_WIDTH*7)];
-	assign q3_replay_count = rw_regs[(C_S_AXI_DATA_WIDTH*8)+REPLAY_COUNT_WIDTH-1:(C_S_AXI_DATA_WIDTH*8)]; 
-	                         
-	assign q0_addr_low   	 = rw_regs[(C_S_AXI_DATA_WIDTH*9)+QDR_ADDR_WIDTH-1:(C_S_AXI_DATA_WIDTH*9)]; 
-	assign q0_addr_high  	 = rw_regs[(C_S_AXI_DATA_WIDTH*10)+QDR_ADDR_WIDTH-1:(C_S_AXI_DATA_WIDTH*10)]; 
-	assign q1_addr_low   	 = rw_regs[(C_S_AXI_DATA_WIDTH*11)+QDR_ADDR_WIDTH-1:(C_S_AXI_DATA_WIDTH*11)]; 
-	assign q1_addr_high  	 = rw_regs[(C_S_AXI_DATA_WIDTH*12)+QDR_ADDR_WIDTH-1:(C_S_AXI_DATA_WIDTH*12)]; 
-	assign q2_addr_low   	 = rw_regs[(C_S_AXI_DATA_WIDTH*13)+QDR_ADDR_WIDTH-1:(C_S_AXI_DATA_WIDTH*13)]; 
-	assign q2_addr_high  	 = rw_regs[(C_S_AXI_DATA_WIDTH*14)+QDR_ADDR_WIDTH-1:(C_S_AXI_DATA_WIDTH*14)]; 
-	assign q3_addr_low   	 = rw_regs[(C_S_AXI_DATA_WIDTH*15)+QDR_ADDR_WIDTH-1:(C_S_AXI_DATA_WIDTH*15)]; 
-	assign q3_addr_high  	 = rw_regs[(C_S_AXI_DATA_WIDTH*16)+QDR_ADDR_WIDTH-1:(C_S_AXI_DATA_WIDTH*16)]; 
-	                         
-	assign q0_enable			 = rw_regs[(C_S_AXI_DATA_WIDTH*17)+1-1:(C_S_AXI_DATA_WIDTH*17)];
-	assign q1_enable			 = rw_regs[(C_S_AXI_DATA_WIDTH*18)+1-1:(C_S_AXI_DATA_WIDTH*18)];
-	assign q2_enable			 = rw_regs[(C_S_AXI_DATA_WIDTH*19)+1-1:(C_S_AXI_DATA_WIDTH*19)];
-	assign q3_enable			 = rw_regs[(C_S_AXI_DATA_WIDTH*20)+1-1:(C_S_AXI_DATA_WIDTH*20)];
+  assign split_ratio_0 = rw_regs[(C_S_AXI_DATA_WIDTH*0)+32-1:(C_S_AXI_DATA_WIDTH*0)];                 
+	assign split_ratio_1 = rw_regs[(C_S_AXI_DATA_WIDTH*1)+32-1:(C_S_AXI_DATA_WIDTH*1)];
+	assign split_ratio_2 = rw_regs[(C_S_AXI_DATA_WIDTH*2)+32-1:(C_S_AXI_DATA_WIDTH*2)];
+
+  assign ro_regs = {drop_count_3, drop_count_2, drop_count_1, drop_count_0};
 
   // -- Pcap Replay uEngine
   pcap_replay_uengine #
@@ -362,8 +302,15 @@ module osnt_pcap_replay_uengine
    )
      pcap_replay_uengine_inst
    (
-    .err0(err0),
-    .err1(err1),
+    .drop_count_0         (drop_count_0),
+    .drop_count_1         (drop_count_1),
+    .drop_count_2         (drop_count_2),
+    .drop_count_3         (drop_count_3),
+
+    .split_ratio_0        (split_ratio_0),
+    .split_ratio_1        (split_ratio_1),
+    .split_ratio_2        (split_ratio_2),
+
     // Global Ports
     .axi_aclk             ( axi_aclk ),
     .axi_aresetn          ( axi_aresetn ),

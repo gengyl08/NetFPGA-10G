@@ -70,11 +70,11 @@
    output                                              IP2Bus_Error,
    
    // -- Register ports
-   output    [NUM_WO_REGS*C_S_AXI_DATA_WIDTH : 0]    	 wo_regs,
-   input     [NUM_WO_REGS*C_S_AXI_DATA_WIDTH : 0]      wo_defaults,
-   output    [NUM_RW_REGS*C_S_AXI_DATA_WIDTH : 0]      rw_regs,
-   input     [NUM_RW_REGS*C_S_AXI_DATA_WIDTH : 0]      rw_defaults,
-   input     [NUM_RO_REGS*C_S_AXI_DATA_WIDTH : 0]      ro_regs
+   output    [NUM_WO_REGS*C_S_AXI_DATA_WIDTH-1 : 0]    	 wo_regs,
+   input     [NUM_WO_REGS*C_S_AXI_DATA_WIDTH-1 : 0]      wo_defaults,
+   output    [NUM_RW_REGS*C_S_AXI_DATA_WIDTH-1 : 0]      rw_regs,
+   input     [NUM_RW_REGS*C_S_AXI_DATA_WIDTH-1 : 0]      rw_defaults,
+   input     [NUM_RO_REGS*C_S_AXI_DATA_WIDTH-1 : 0]      ro_regs
  );
 
     function integer log2;
@@ -112,8 +112,8 @@
 	 if (NUM_RW_REGS > 0)       
 	   for (i=0; i<NUM_RW_REGS; i=i+1) begin : RW
 	     assign rw_regs[C_S_AXI_DATA_WIDTH*(i+1)-1 : C_S_AXI_DATA_WIDTH*i] = reg_file_wr_port[NUM_WO_REGS+i];
-		   assign reg_file_rd_port[i] = reg_file_wr_port[NUM_WO_REGS+i];
-       assign reg_file_defaults[NUM_WO_REGS+i] = rw_defaults[C_S_AXI_DATA_WIDTH*(i+1)-1 : C_S_AXI_DATA_WIDTH*i];
+		  assign reg_file_rd_port[i] = reg_file_wr_port[NUM_WO_REGS+i];
+        assign reg_file_defaults[NUM_WO_REGS+i] = rw_defaults[C_S_AXI_DATA_WIDTH*(i+1)-1 : C_S_AXI_DATA_WIDTH*i];
 	   end
 
    // Unpacking Read Only registers

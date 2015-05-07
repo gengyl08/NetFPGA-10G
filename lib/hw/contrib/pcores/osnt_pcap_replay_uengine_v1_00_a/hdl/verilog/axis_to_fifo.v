@@ -50,9 +50,6 @@ module axis_to_fifo
 		parameter DST_PORT_POS         				= 24
 )
 (
-    output reg                            err0,
-    output reg                            err1,
-
     // Global Ports
     input                                 axi_aclk,
     input                                 axi_aresetn,
@@ -124,7 +121,6 @@ module axis_to_fifo
 
   reg [63:0]                                timestamp;
   reg [31:0]                                lfsr;
-  reg                                       err0_next, err1_next;
 	
 	// -- Assignments
   assign fifo_din_packed = {fifo_din_strb, fifo_din};
@@ -165,9 +161,6 @@ module axis_to_fifo
     fifo_din_qid_1 = fifo_din_qid_r;
     fifo_wr_en = 0;
 
-    err0_next = err0;
-    err1_next = err1;
-
     case (state)
       WR_TUSER_BITS: begin // Assuming TDATA_WIDTH > TUSER_WIDTH
         if (!ififo_empty && !fifo_full) begin
@@ -201,14 +194,7 @@ module axis_to_fifo
           fifo_wr_en = 1;
           ififo_rd_en = 1;
 
-          if (ififo_tstrb != 32'hffffffff) begin
-            err0_next = 0;
-          end
-
           if (ififo_tlast) begin
-            if (ififo_tstrb == 0) begin
-              err1_next = 0;
-            end
 
           	fifo_din_strb = fifo_din_strb_c[(C_S_AXIS_DATA_WIDTH/8)-1:0];
 
@@ -232,9 +218,6 @@ module axis_to_fifo
 
       timestamp <= 0;
       lfsr <= 32'hffffffff;
-
-      err0 <= 1;
-      err1 <= 1;
     end
     else begin
       state <= next_state;
@@ -243,9 +226,6 @@ module axis_to_fifo
       timestamp <= timestamp + 1;
       lfsr[30:0] <= lfsr[31:1];
       lfsr[31] <= lfsr[31] ^ lfsr[6] ^ lfsr[4] ^ lfsr[2] ^ lfsr[1] ^lfsr[0];
-
-      err0 <= err0_next;
-      err1 <= err1_next;
     end
   end
 
